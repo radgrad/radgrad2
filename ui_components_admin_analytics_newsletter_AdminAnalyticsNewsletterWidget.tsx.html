@@ -87,7 +87,7 @@
         <article>
             <pre class="prettyprint source linenums"><code>import React, { useState } from 'react';
 import { Segment, Header, Form, Button } from 'semantic-ui-react';
-import { AutoForm, TextField, LongTextField, BoolField, NumField } from 'uniforms-semantic';
+import { AutoForm, TextField, LongTextField, BoolField, NumField, ErrorsField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import Swal from 'sweetalert2';
@@ -167,20 +167,20 @@ const AdminAnalyticsNewsletterWidget: React.FC = () => {
         setSendToAll(value);
         break;
       default:
-      // do nothing
+                // do nothing
     }
   };
 
   /**
-   * Sets the Admin's message.
-   */
+     * Sets the Admin's message.
+     */
   const onClickPreviewSave = () => {
     setOnSubmitInputMessage(inputMessage);
   };
 
   /**
-   * Sends test emails to the admin and optionally the student(s).
-   */
+     * Sends test emails to the admin and optionally the student(s).
+     */
   const onClickSendStudentsToo = () => {
     if (onSubmitInputMessage.length !== 0 &amp;&amp; subjectLine.length !== 0) {
       setTestNewsletterWorking(true);
@@ -361,46 +361,47 @@ const AdminAnalyticsNewsletterWidget: React.FC = () => {
   };
 
   return (
-    &lt;Segment padded>
-      &lt;Header dividing as="h4">
-        NEWSLETTER OPTIONS
-      &lt;/Header>
-      &lt;AutoForm schema={formSchema} onChange={handleChange}>
-        &lt;TextField name="subjectLine" />
-        &lt;TextField name="bcc" />
-        &lt;Form.Group widths="equal">
-          &lt;LongTextField name="inputMessage" />
-          &lt;AdminAnalyticsNewsletterMessagePreviewWidget message={onSubmitInputMessage} />
-        &lt;/Form.Group>
-        &lt;Button color="green" basic onClick={onClickPreviewSave}>
-          Preview And Save
-        &lt;/Button>
-        &lt;Header as="h4" dividing>
-          SEND NEWSLETTER
-        &lt;/Header>
-        &lt;Segment>
-          &lt;TextField name="studentEmails" />
-          &lt;BoolField name="sendToStudentsToo" />
-          &lt;Button basic color="green" loading={testNewsletterWorking} onClick={onClickSendStudentsToo}>
-            Send To Admin
-          &lt;/Button>
+        &lt;Segment padded>
+            &lt;Header dividing as="h4">
+                NEWSLETTER OPTIONS
+            &lt;/Header>
+            &lt;AutoForm schema={formSchema} onChange={handleChange}>
+                &lt;TextField name="subjectLine"/>
+                &lt;TextField name="bcc"/>
+                &lt;Form.Group widths="equal">
+                    &lt;LongTextField name="inputMessage"/>
+                    &lt;AdminAnalyticsNewsletterMessagePreviewWidget message={onSubmitInputMessage}/>
+                &lt;/Form.Group>
+                &lt;Button color="green" basic onClick={onClickPreviewSave}>
+                    Preview And Save
+                &lt;/Button>
+                &lt;Header as="h4" dividing>
+                    SEND NEWSLETTER
+                &lt;/Header>
+                &lt;Segment>
+                    &lt;TextField name="studentEmails"/>
+                    &lt;BoolField name="sendToStudentsToo"/>
+                    &lt;Button basic color="green" loading={testNewsletterWorking} onClick={onClickSendStudentsToo}>
+                        Send To Admin
+                    &lt;/Button>
+                &lt;/Segment>
+                &lt;Segment>
+                    &lt;NumField name="level" placeholder="level"/>
+                    &lt;BoolField name="sendToLevels"/>
+                    &lt;Button disabled={!sendToLevels} loading={levelNewsletterWorking} onClick={onClickSendLevels}>
+                        Send To Students
+                    &lt;/Button>
+                &lt;/Segment>
+                &lt;Segment>
+                    &lt;Form.Field label="Generate To Send To All Users"/>
+                    &lt;BoolField name="sendToAll"/>
+                    &lt;Button disabled={!sendToAll} loading={allNewsletterWorking} onClick={onClickSendToAll}>
+                        Send To All
+                    &lt;/Button>
+                &lt;/Segment>
+                &lt;ErrorsField/>
+            &lt;/AutoForm>
         &lt;/Segment>
-        &lt;Segment>
-          &lt;NumField name="level" placeholder="level" />
-          &lt;BoolField name="sendToLevels" />
-          &lt;Button disabled={!sendToLevels} loading={levelNewsletterWorking} onClick={onClickSendLevels}>
-            Send To Students
-          &lt;/Button>
-        &lt;/Segment>
-        &lt;Segment>
-          &lt;Form.Field label="Generate To Send To All Users" />
-          &lt;BoolField name="sendToAll" />
-          &lt;Button disabled={!sendToAll} loading={allNewsletterWorking} onClick={onClickSendToAll}>
-            Send To All
-          &lt;/Button>
-        &lt;/Segment>
-      &lt;/AutoForm>
-    &lt;/Segment>
   );
 };
 

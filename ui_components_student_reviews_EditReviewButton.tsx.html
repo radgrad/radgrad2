@@ -90,7 +90,7 @@ import { Button, Grid, Modal } from 'semantic-ui-react';
 import SimpleSchema from 'simpl-schema';
 import Swal from 'sweetalert2';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
-import { AutoForm, LongTextField, SubmitField } from 'uniforms-semantic';
+import { AutoForm, ErrorsField, LongTextField, SubmitField } from 'uniforms-semantic';
 import { updateMethod } from '../../../../api/base/BaseCollection.methods';
 import { Reviews } from '../../../../api/review/ReviewCollection';
 import { Review, ReviewUpdate } from '../../../../typings/radgrad';
@@ -157,39 +157,41 @@ const EditReviewButton: React.FC&lt;EditReviewButtonProps> = ({ review }) => {
   });
   const reviewFormSchema = new SimpleSchema2Bridge(reviewSchema);
   return (&lt;Modal
-    onClose={() => setOpen(false)}
-    onOpen={() => setOpen(true)}
-    open={open}
-    trigger={&lt;Button basic color='green'>EDIT&lt;/Button>}
-    >
-      &lt;Modal.Header>{`Edit your review of ${itemName}`}&lt;/Modal.Header>
-      &lt;Modal.Content>
-        &lt;AutoForm model={review} schema={reviewFormSchema} onSubmit={handleSubmit}>
-          &lt;Grid>
-            &lt;Grid.Column width={6} verticalAlign='middle'>
-              Rate your overall satisfaction.
-            &lt;/Grid.Column>
-            &lt;Grid.Column width={10}>
-              &lt;RatingField name='rating' />
-            &lt;/Grid.Column>
-            &lt;Grid.Column width={6} verticalAlign='middle'>
-              Please provide three or four sentences discussing your experience. Please use language your parents
-              would
-              find appropriate :)
-            &lt;/Grid.Column>
-            &lt;Grid.Column width={10}>
-              &lt;LongTextField name='comments' />
-            &lt;/Grid.Column>
-            &lt;Grid.Column width={6}>
-              &lt;SubmitField />
-              &lt;Button color='red' onClick={() => setOpen(false)}>
-                Cancel
-              &lt;/Button>
-            &lt;/Grid.Column>
-          &lt;/Grid>
-        &lt;/AutoForm>
-      &lt;/Modal.Content>
-  &lt;/Modal>
+            onClose={() => setOpen(false)}
+            onOpen={() => setOpen(true)}
+            open={open}
+            trigger={&lt;Button basic color='green'>EDIT&lt;/Button>}
+        >
+            &lt;Modal.Header>{`Edit your review of ${itemName}`}&lt;/Modal.Header>
+            &lt;Modal.Content>
+                &lt;AutoForm model={review} schema={reviewFormSchema} onSubmit={handleSubmit}>
+                    &lt;Grid>
+                        &lt;Grid.Column width={6} verticalAlign='middle'>
+                            Rate your overall satisfaction.
+                        &lt;/Grid.Column>
+                        &lt;Grid.Column width={10}>
+                            &lt;RatingField name='rating'/>
+                        &lt;/Grid.Column>
+                        &lt;Grid.Column width={6} verticalAlign='middle'>
+                            Please provide three or four sentences discussing your experience. Please use language your
+                            parents
+                            would
+                            find appropriate :)
+                        &lt;/Grid.Column>
+                        &lt;Grid.Column width={10}>
+                            &lt;LongTextField name='comments'/>
+                        &lt;/Grid.Column>
+                        &lt;Grid.Column width={6}>
+                            &lt;SubmitField/>
+                            &lt;Button color='red' onClick={() => setOpen(false)}>
+                                Cancel
+                            &lt;/Button>
+                        &lt;/Grid.Column>
+                    &lt;/Grid>
+                    &lt;ErrorsField/>
+                &lt;/AutoForm>
+            &lt;/Modal.Content>
+        &lt;/Modal>
   );
 };
 
