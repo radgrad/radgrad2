@@ -98,11 +98,11 @@ const EditInterestButton: React.FC<EditInterestButtonProps> = ({ interest, inter
           </Form.Group>
           <LongTextField name="description" />
           <BoolField name="retired" />
-          <ErrorsField />
           <SubmitField />
           <Button color='red' onClick={() => setOpen(false)}>
             Cancel
           </Button>
+            <ErrorsField/>
         </AutoForm>
       </Modal.Content>
     </Modal>
