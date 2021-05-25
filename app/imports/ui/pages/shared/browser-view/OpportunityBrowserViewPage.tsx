@@ -1,10 +1,5 @@
 import React from 'react';
-// import { Grid, Card } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
-// import OpportunityBrowserView from '../../../components/shared/explorer/browser-view/OpportunityBrowserView';
-// import TeaserVideo from '../../../components/shared/TeaserVideo';
-// import { radgradVideos } from '../../../../api/radgrad/radgrad-videos';
-// import ExplorerSummerOpportunitiesWidget from '../../../components/shared/explorer/browser-view/ExplorerSummerOpportunitiesWidget';
 import { PAGEIDS } from '../../../utilities/PageIDs';
 import PageLayout from '../../PageLayout';
 import BrowserView from '../../../components/shared/explorer/browser-view/BrowserView';

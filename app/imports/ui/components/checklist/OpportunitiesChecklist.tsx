@@ -33,7 +33,7 @@ export class OpportunitiesChecklist extends Checklist {
       'There are new Opportunities. Please review them.';
 
     this.description[CHECKSTATE.IMPROVE] = `
-Specifying Opportunities helps you balance your curricular and extracurricular activities each semester. It also helps RadGrad provide you with useful recommendations.`;
+Adding Opportunities to your Degree Plan helps you balance your curricular and extracurricular activities each semester. It also helps RadGrad provide you with useful recommendations.`;
     this.updateState();
   }
 
@@ -77,7 +77,7 @@ Specifying Opportunities helps you balance your curricular and extracurricular a
       case CHECKSTATE.OK:
       case CHECKSTATE.IMPROVE:
         return (
-          <ActionsBox description='Use the Opportunity Explorer to find and add Opportunities to your profile. Use the Degree Planner to add Opportunities from your profile to your degree plan:'>
+          <ActionsBox description='First, use the Opportunity Explorer to find and add Opportunities to your profile, then use the Degree Planner to add them to your degree plan:'>
             <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.OPPORTUNITIES}`} label='Opportunity Explorer'/>
             <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`} label='Degree Planner'/>
           </ActionsBox>
