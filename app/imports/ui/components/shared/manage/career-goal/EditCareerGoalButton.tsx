@@ -81,11 +81,11 @@ const EditCareerGoalButton: React.FC<EditCareerGoalButtonProps> = ({ careerGoal,
           <MultiSelectField name="interests" />
           <BoolField name="retired" />
           <p />
-          <ErrorsField />
           <SubmitField />
           <Button color='red' onClick={() => setOpen(false)}>
             Cancel
           </Button>
+            <ErrorsField/>
         </AutoForm>
       </Modal.Content>
     </Modal>
