@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Header, Segment } from 'semantic-ui-react';
-import { AutoForm, TextField, NumField, LongTextField, SubmitField, BoolField } from 'uniforms-semantic';
+import { AutoForm, TextField, NumField, LongTextField, SubmitField, BoolField, ErrorsField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
@@ -65,29 +65,30 @@ const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses }) => 
   });
   const formSchema = new SimpleSchema2Bridge(schema);
   return (
-    <Segment padded>
-      <Header dividing>Add Course</Header>
-      {/* eslint-disable-next-line no-return-assign */}
-      <AutoForm schema={formSchema} onSubmit={handleAdd} ref={(ref) => formRef = ref} showInlineError>
-        <Form.Group widths="equal">
-          <TextField name="slug" placeholder="dept_111" />
-          <TextField name="name" placeholder="DEPT 111 Introduction to Science" />
-        </Form.Group>
-        <Form.Group widths="equal">
-          <TextField name="shortName" placeholder="DEPT 111 Introduction to Science" />
-          <NumField name="creditHours" />
-          <TextField name="num" placeholder="DEPT 111" />
-        </Form.Group>
-        <LongTextField name="description" />
-        <TextField name="syllabus" placeholder="https://dept.foo.edu/dept_111/syllabus.html" />
-        <Form.Group widths="equal">
-          <MultiSelectField name="interests" placeholder="Select Interest(s)" />
-          <MultiSelectField name="prerequisites" placeholder="Select Prerequisite(s)" />
-        </Form.Group>
-        <BoolField name="repeatable" />
-        <SubmitField className="mini basic green" value="Add" />
-      </AutoForm>
-    </Segment>
+        <Segment padded>
+            <Header dividing>Add Course</Header>
+            {/* eslint-disable-next-line no-return-assign */}
+            <AutoForm schema={formSchema} onSubmit={handleAdd} ref={(ref) => formRef = ref} showInlineError>
+                <Form.Group widths="equal">
+                    <TextField name="slug" placeholder="dept_111"/>
+                    <TextField name="name" placeholder="DEPT 111 Introduction to Science"/>
+                </Form.Group>
+                <Form.Group widths="equal">
+                    <TextField name="shortName" placeholder="DEPT 111 Introduction to Science"/>
+                    <NumField name="creditHours"/>
+                    <TextField name="num" placeholder="DEPT 111"/>
+                </Form.Group>
+                <LongTextField name="description"/>
+                <TextField name="syllabus" placeholder="https://dept.foo.edu/dept_111/syllabus.html"/>
+                <Form.Group widths="equal">
+                    <MultiSelectField name="interests" placeholder="Select Interest(s)"/>
+                    <MultiSelectField name="prerequisites" placeholder="Select Prerequisite(s)"/>
+                </Form.Group>
+                <BoolField name="repeatable"/>
+                <SubmitField className="mini basic green" value="Add"/>
+                <ErrorsField/>
+            </AutoForm>
+        </Segment>
   );
 };
 

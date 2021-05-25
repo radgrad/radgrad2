@@ -1,7 +1,16 @@
 import _ from 'lodash';
 import React, { useState } from 'react';
 import { Form, Header, Segment } from 'semantic-ui-react';
-import { AutoForm, TextField, SelectField, BoolField, LongTextField, NumField, SubmitField } from 'uniforms-semantic';
+import {
+  AutoForm,
+  TextField,
+  SelectField,
+  BoolField,
+  LongTextField,
+  NumField,
+  SubmitField,
+  ErrorsField,
+} from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
@@ -124,67 +133,69 @@ const AddUserForm: React.FC<AddUserProps> = ({ interests, academicTerms, careerG
   }
   const formSchema = new SimpleSchema2Bridge(schema);
   return (
-    <Segment padded>
-      <Header dividing>Add User</Header>
-      {/* eslint-disable-next-line no-return-assign */}
-      <AutoForm schema={formSchema} onSubmit={(doc) => handleAddUser(doc)} ref={(ref) => formRef = ref} showInlineError onChangeModel={handleModelChange}>
-        <Form.Group widths="equal">
-          <TextField name="username" placeholder="johndoe@foo.edu" />
-          <SelectField name="role" />
-        </Form.Group>
-        <Form.Group widths="equal">
-          <TextField name="firstName" placeholder="John" />
-          <TextField name="lastName" placeholder="Doe" />
-        </Form.Group>
-        <Header dividing as="h4">
-          Optional fields (all users)
-        </Header>
-        <Form.Group widths="equal">
-          <PictureField name="picture" />
-          <TextField name="website" />
-        </Form.Group>
-        <Form.Group widths="equal">
-          <MultiSelectField name="interests" />
-          <MultiSelectField name="careerGoals" />
-        </Form.Group>
-        <BoolField name="retired" />
-        {role === ROLE.STUDENT ? (
-          <div>
-            <Header dividing as="h4">
-              Student fields
-            </Header>
-            <Form.Group widths="equal">
-              <NumField name="level" />
-              <SelectField name="declaredAcademicTerm" />
-            </Form.Group>
-            <Form.Group widths="equal">
-              <BoolField name="sharePicture" />
-              <BoolField name="shareWebsite" />
-              <BoolField name="shareInterests" />
-              <BoolField name="shareCareerGoals" />
-              <BoolField name="shareOpportunities" />
-              <BoolField name="shareCourses" />
-              <BoolField name="shareLevel" />
-              <BoolField name="shareICE" />
-              <BoolField name="isAlumni" />
-            </Form.Group>
-          </div>
-        ) : (
-          ''
-        )}
-        {role === ROLE.FACULTY ? (
-          <div>
-            <Header dividing as="h4">
-              Faculty field
-            </Header>
-            <LongTextField name="aboutMe" />
-          </div>
-        ) : (
-          ''
-        )}
-        <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
-      </AutoForm>
-    </Segment>
+        <Segment padded>
+            <Header dividing>Add User</Header>
+            {/* eslint-disable-next-line no-return-assign */}
+            <AutoForm schema={formSchema} onSubmit={(doc) => handleAddUser(doc)} ref={(ref) => formRef = ref}
+                      showInlineError onChangeModel={handleModelChange}>
+                <Form.Group widths="equal">
+                    <TextField name="username" placeholder="johndoe@foo.edu"/>
+                    <SelectField name="role"/>
+                </Form.Group>
+                <Form.Group widths="equal">
+                    <TextField name="firstName" placeholder="John"/>
+                    <TextField name="lastName" placeholder="Doe"/>
+                </Form.Group>
+                <Header dividing as="h4">
+                    Optional fields (all users)
+                </Header>
+                <Form.Group widths="equal">
+                    <PictureField name="picture"/>
+                    <TextField name="website"/>
+                </Form.Group>
+                <Form.Group widths="equal">
+                    <MultiSelectField name="interests"/>
+                    <MultiSelectField name="careerGoals"/>
+                </Form.Group>
+                <BoolField name="retired"/>
+                {role === ROLE.STUDENT ? (
+                    <div>
+                        <Header dividing as="h4">
+                            Student fields
+                        </Header>
+                        <Form.Group widths="equal">
+                            <NumField name="level"/>
+                            <SelectField name="declaredAcademicTerm"/>
+                        </Form.Group>
+                        <Form.Group widths="equal">
+                            <BoolField name="sharePicture"/>
+                            <BoolField name="shareWebsite"/>
+                            <BoolField name="shareInterests"/>
+                            <BoolField name="shareCareerGoals"/>
+                            <BoolField name="shareOpportunities"/>
+                            <BoolField name="shareCourses"/>
+                            <BoolField name="shareLevel"/>
+                            <BoolField name="shareICE"/>
+                            <BoolField name="isAlumni"/>
+                        </Form.Group>
+                    </div>
+                ) : (
+                  ''
+                )}
+                {role === ROLE.FACULTY ? (
+                    <div>
+                        <Header dividing as="h4">
+                            Faculty field
+                        </Header>
+                        <LongTextField name="aboutMe"/>
+                    </div>
+                ) : (
+                  ''
+                )}
+                <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined}/>
+                <ErrorsField/>
+            </AutoForm>
+        </Segment>
   );
 };
 
