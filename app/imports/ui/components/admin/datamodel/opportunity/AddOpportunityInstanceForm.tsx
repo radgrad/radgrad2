@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React from 'react';
 import { Form, Header, Segment } from 'semantic-ui-react';
-import { AutoForm, SelectField, BoolField, SubmitField } from 'uniforms-semantic';
+import { AutoForm, SelectField, BoolField, SubmitField, ErrorsField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
@@ -97,6 +97,7 @@ const AddOpportunityInstanceForm: React.FC<AddOpportunityInstanceFormProps> = ({
           <BoolField name="retired" />
         </Form.Group>
         <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
+          <ErrorsField/>
       </AutoForm>
     </Segment>
   );
