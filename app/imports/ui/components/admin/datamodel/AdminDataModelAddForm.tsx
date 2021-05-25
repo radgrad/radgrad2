@@ -21,19 +21,20 @@ const AdminDataModelAddForm: React.FC<AdminDataModelAddFormProps> = ({ collectio
   };
 
   return (
-    <Segment padded>
-      <Header dividing>
-        Add
-        {collection.getType()}
-      </Header>
-      {/* eslint-disable-next-line no-param-reassign,no-return-assign */}
-      <AutoForm ref={(ref) => formRef = ref} onSubmit={handleAdd} schema={new SimpleSchema2Bridge(collection.getDefineSchema())} >
-        <AutoFields autoField={undefined} element={undefined} fields={undefined} omitFields={undefined} />
-        <p />
-        <SubmitField className="mini basic green" inputRef={undefined} disabled={false} value="Add" />
-          <ErrorsField/>
-      </AutoForm>
-    </Segment>
+        <Segment padded>
+            <Header dividing>
+                Add
+                {collection.getType()}
+            </Header>
+            {/* eslint-disable-next-line no-param-reassign,no-return-assign */}
+            <AutoForm ref={(ref) => formRef = ref} onSubmit={handleAdd}
+                      schema={new SimpleSchema2Bridge(collection.getDefineSchema())}>
+                <AutoFields autoField={undefined} element={undefined} fields={undefined} omitFields={undefined}/>
+                <p/>
+                <SubmitField className="mini basic green" inputRef={undefined} disabled={false} value="Add"/>
+                <ErrorsField/>
+            </AutoForm>
+        </Segment>
   );
 };
 
