@@ -18,7 +18,15 @@ interface UpdateCourseFormProps {
   itemTitleString: (item) => React.ReactNode;
 }
 
-const UpdateCourseForm: React.FC<UpdateCourseFormProps> = ({ collection, courses, interests, id, handleCancel, handleUpdate, itemTitleString }) => {
+const UpdateCourseForm: React.FC<UpdateCourseFormProps> = ({
+  collection,
+  courses,
+  interests,
+  id,
+  handleCancel,
+  handleUpdate,
+  itemTitleString,
+}) => {
   const model = id ? collection.findDoc(id) : undefined;
   model.interests = model.interestIDs.map(interestIdToName);
   model.prerequisiteNames = model.prerequisites.map(courseSlugToName);
@@ -50,36 +58,36 @@ const UpdateCourseForm: React.FC<UpdateCourseFormProps> = ({ collection, courses
   const formSchema = new SimpleSchema2Bridge(schema);
   // console.log(model, schema);
   return (
-    <Segment padded>
-      <Header dividing>
-        Update
-        {collection.getType()}:{itemTitleString(model)}
-      </Header>
-      <AutoForm schema={formSchema} onSubmit={handleUpdate} showInlineError model={model}>
-        <Form.Group widths="equal">
-          <TextField name="name" />
-          <TextField name="shortName" />
-        </Form.Group>
-        <Form.Group widths="equal">
-          <NumField name="creditHrs" />
-          <TextField name="num" />
-        </Form.Group>
-        <LongTextField name="description" />
-        <TextField name="syllabus" />
-        <Form.Group widths="equal">
-          <MultiSelectField name="interests" />
-          <MultiSelectField name="prerequisiteNames" />
-        </Form.Group>
-        <Form.Group widths="equal">
-          <BoolField name="repeatable" />
-          <BoolField name="retired" />
-        </Form.Group>
-        <p />
-        <SubmitField value="Update" disabled={false} className="mini basic green" />
-        <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
-      <ErrorsField/>
-      </AutoForm>
-    </Segment>
+        <Segment padded>
+            <Header dividing>
+                Update
+                {collection.getType()}:{itemTitleString(model)}
+            </Header>
+            <AutoForm schema={formSchema} onSubmit={handleUpdate} showInlineError model={model}>
+                <Form.Group widths="equal">
+                    <TextField name="name"/>
+                    <TextField name="shortName"/>
+                </Form.Group>
+                <Form.Group widths="equal">
+                    <NumField name="creditHrs"/>
+                    <TextField name="num"/>
+                </Form.Group>
+                <LongTextField name="description"/>
+                <TextField name="syllabus"/>
+                <Form.Group widths="equal">
+                    <MultiSelectField name="interests"/>
+                    <MultiSelectField name="prerequisiteNames"/>
+                </Form.Group>
+                <Form.Group widths="equal">
+                    <BoolField name="repeatable"/>
+                    <BoolField name="retired"/>
+                </Form.Group>
+                <p/>
+                <SubmitField value="Update" disabled={false} className="mini basic green"/>
+                <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
+                <ErrorsField/>
+            </AutoForm>
+        </Segment>
   );
 };
 
