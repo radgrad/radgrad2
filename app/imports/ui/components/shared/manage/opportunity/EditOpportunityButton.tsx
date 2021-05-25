@@ -166,11 +166,11 @@ const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({
             <NumField name="ice.e" />
           </Form.Group>
           <BoolField name="retired" />
-          <ErrorsField />
           <SubmitField />
           <Button color='red' onClick={() => setOpen(false)}>
             Cancel
           </Button>
+            <ErrorsField />
         </AutoForm>
       </Modal.Content>
     </Modal>
