@@ -17,21 +17,22 @@ const AddInterestTypeForm: React.FC = () => {
   };
 
   return (
-    <Segment padded>
-      <Header dividing>Add Interest Type</Header>
-      {/* eslint-disable-next-line no-return-assign */}
-      <AutoForm schema={new SimpleSchema2Bridge(InterestTypes.getDefineSchema())} onSubmit={handleAdd} ref={(ref) => formRef = ref}
-                showInlineError>
-        <Form.Group widths="equal">
-          <TextField name="slug" />
-          <TextField name="name" />
-        </Form.Group>
-        <LongTextField name="description" />
-        <BoolField name="retired" />
-        <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
-          <ErrorsField/>
-      </AutoForm>
-    </Segment>
+        <Segment padded>
+            <Header dividing>Add Interest Type</Header>
+            {/* eslint-disable-next-line no-return-assign */}
+            <AutoForm schema={new SimpleSchema2Bridge(InterestTypes.getDefineSchema())} onSubmit={handleAdd}
+                      ref={(ref) => formRef = ref}
+                      showInlineError>
+                <Form.Group widths="equal">
+                    <TextField name="slug"/>
+                    <TextField name="name"/>
+                </Form.Group>
+                <LongTextField name="description"/>
+                <BoolField name="retired"/>
+                <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined}/>
+                <ErrorsField/>
+            </AutoForm>
+        </Segment>
   );
 };
 
