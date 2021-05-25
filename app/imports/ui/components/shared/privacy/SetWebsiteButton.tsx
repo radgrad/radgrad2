@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, Modal } from 'semantic-ui-react';
 import SimpleSchema from 'simpl-schema';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
-import { AutoForm, SubmitField, TextField } from 'uniforms-semantic';
+import { AutoForm, ErrorsField, SubmitField, TextField } from 'uniforms-semantic';
 
 interface SetWebsiteButtonProps {
   website: string,
@@ -35,6 +35,7 @@ export const SetWebsiteButton: React.FC<SetWebsiteButtonProps> = ({ website, han
         <AutoForm schema={bridge} onSubmit={data => submit(data)} model={{ website }}>
           <TextField placeholder='https://mywebsite.com' name='website'/>
           <SubmitField value='Submit'/>
+            <ErrorsField/>
         </AutoForm>
       </Modal.Content>
     </Modal>
