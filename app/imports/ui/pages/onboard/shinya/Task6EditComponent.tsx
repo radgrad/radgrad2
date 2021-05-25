@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
-import Markdown from 'react-markdown';
 import SimpleSchema from 'simpl-schema';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
-import { AutoForm, LongTextField, SelectField, SubmitField } from 'uniforms-semantic';
+import { AutoForm, LongTextField, SubmitField } from 'uniforms-semantic';
 import Swal from 'sweetalert2';
 import { Interest } from '../../../../typings/radgrad';
 import { Interests } from '../../../../api/interest/InterestCollection';

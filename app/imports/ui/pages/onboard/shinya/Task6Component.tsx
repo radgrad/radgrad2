@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
-import Markdown from 'react-markdown';
 import SimpleSchema from 'simpl-schema';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { AutoForm, SelectField, SubmitField } from 'uniforms-semantic';
@@ -18,6 +17,7 @@ export interface Task6SegmentProps {
 }
 const Task6Component: React.FC<Task6SegmentProps> = ({ interests }) => {
   const Task6Header = <RadGradHeader title="TASK 6: EDIT THE DESCRIPTION" icon = "pencil"/>;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [ description, updateDescription ] = useState('');
   const sumbitData = (doc) => {
     const selectedInterest = interests.find(interest => doc.interest == interest.name);
