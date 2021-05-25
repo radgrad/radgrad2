@@ -4,7 +4,7 @@ import { Users } from '../../../../api/user/UserCollection';
 import { StudentProfile } from '../../../../typings/radgrad';
 import ProfileLabel from '../../shared/profile/ProfileLabel';
 
-interface StudentLevelsOthersWidgetProps {
+interface OtherStudentsAtLevelProps {
   students: StudentProfile[];
   profile: StudentProfile;
 }
@@ -22,7 +22,7 @@ const studentPicture = (student: StudentProfile) => student.picture;
 
 const fullName = (student: StudentProfile): string => Users.getFullName(student.userID);
 
-const StudentLevelsOthersWidget: React.FC<StudentLevelsOthersWidgetProps> = ({ students, profile }) => {
+const OtherStudentsAtLevel: React.FC<OtherStudentsAtLevelProps> = ({ students, profile }) => {
   const imageGroupStyle = { minHeight: '50%' };
   const studentLevelName = getStudentLevelName(profile);
   return (
@@ -49,4 +49,4 @@ const StudentLevelsOthersWidget: React.FC<StudentLevelsOthersWidgetProps> = ({ s
   );
 };
 
-export default StudentLevelsOthersWidget;
+export default OtherStudentsAtLevel;
