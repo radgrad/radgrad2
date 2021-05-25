@@ -1,5 +1,5 @@
 import React from 'react';
-import { AutoForm } from 'uniforms-semantic/';
+import { AutoForm, ErrorsField } from 'uniforms-semantic/';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { useStickyState } from '../../../../utilities/StickyState';
@@ -43,6 +43,7 @@ const Filter: React.FC<FilterProps> = ({ explorerType }) => {
     <div>
       <AutoForm schema={formSchema} model={model} onChange={handleChange}>
         <RadioField name="filterBy" label="Filter By:" inline />
+          <ErrorsField/>
       </AutoForm>
     </div>
   );
