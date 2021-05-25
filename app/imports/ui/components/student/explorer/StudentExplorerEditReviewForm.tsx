@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Accordion, Button, Confirm, Form, Icon, Message } from 'semantic-ui-react';
-import { AutoForm, LongTextField, SelectField, SubmitField } from 'uniforms-semantic/';
+import { AutoForm, ErrorsField, LongTextField, SelectField, SubmitField } from 'uniforms-semantic/';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { useRouteMatch } from 'react-router-dom';
@@ -227,6 +227,7 @@ const StudentExplorerEditReviewForm: React.FC<StudentExplorerEditReviewWidgetPro
               DELETE
             </Button>
             <Confirm open={confirmOpenState} onCancel={handleCancelDelete} onConfirm={handleConfirmDelete} header="Delete Review?" />
+          <ErrorsField/>
           </AutoForm>
         </div>
       </Accordion.Content>
