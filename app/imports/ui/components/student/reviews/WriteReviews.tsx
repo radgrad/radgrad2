@@ -4,7 +4,7 @@ import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
 import Swal from 'sweetalert2';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
-import { AutoForm, LongTextField, SelectField, SubmitField } from 'uniforms-semantic';
+import { AutoForm, ErrorsField, LongTextField, SelectField, SubmitField } from 'uniforms-semantic';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { defineMethod } from '../../../../api/base/BaseCollection.methods';
 import { Courses } from '../../../../api/course/CourseCollection';
@@ -127,6 +127,7 @@ const WriteReviews: React.FC<WriteReviewsProps> = ({ unreviewedCourses, unreview
       {/* eslint-disable-next-line no-return-assign */}
       <AutoForm ref={(ref) => choiceFormRef = ref} schema={choiceFormSchema} onChange={handleChoiceChange}>
         <SelectField name='courseOrOpportunityToReview' />
+          <ErrorsField/>
       </AutoForm>
       <Segment basic>
         {/* eslint-disable-next-line no-return-assign */}
@@ -157,6 +158,7 @@ const WriteReviews: React.FC<WriteReviewsProps> = ({ unreviewedCourses, unreview
               <SubmitField />
             </Grid.Column>
           </Grid>
+            <ErrorsField/>
         </AutoForm>
       </Segment>
     </div>
