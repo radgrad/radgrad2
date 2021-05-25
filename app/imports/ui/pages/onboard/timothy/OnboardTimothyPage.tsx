@@ -15,6 +15,7 @@ import { Interests } from '../../../../api/interest/InterestCollection';
 import { Courses } from '../../../../api/course/CourseCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
 import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
+import Task6EditDescription from './Task6EditDescription';
 import PageLayout from '../../PageLayout';
 import RadGradSegment from '../../../components/shared/RadGradSegment';
 import RadGradHeader from '../../../components/shared/RadGradHeader';
@@ -24,6 +25,7 @@ import InterestLabel from '../../../components/shared/label/InterestLabel';
 import CourseLabel from '../../../components/shared/label/CourseLabel';
 import OpportunityLabel from '../../../components/shared/label/OpportunityLabel';
 import UserLabel from '../../../components/shared/profile/UserLabel';
+import { Profile } from '../../../../typings/radgrad';
 
 
 const headerPaneTitle = "Timothy's Onboarding Sandbox";
@@ -33,6 +35,7 @@ const headerPaneImage = 'header-onboarding.png';
 interface OnBoardVar {
   user: string;
   urlName: string;
+  userProfile: Profile;
   TotalCareerGoals: [];
   TotalInterests: [],
   TotalCourses: [],
@@ -42,7 +45,7 @@ interface OnBoardVar {
   randomDescription: string;
 }
 
-const OnboardTimothyPage: React.FC<OnBoardVar> = ({ user, urlName, TotalCareerGoals, TotalInterests, TotalCourses, TotalOpportunities, TotalStudents, randomName, randomDescription }) => {
+const OnboardTimothyPage: React.FC<OnBoardVar> = ({ user, userProfile, urlName, TotalCareerGoals, TotalInterests, TotalCourses, TotalOpportunities, TotalStudents, randomName, randomDescription }) => {
   const interestNames = TotalInterests.map(docToName);
   const schema = new SimpleSchema({
     interest: {
@@ -60,12 +63,12 @@ const OnboardTimothyPage: React.FC<OnBoardVar> = ({ user, urlName, TotalCareerGo
   };
 
   const DisplayInterest = () => {
-    const selectDescription = _.map(Interests.find({  name: selectInterest  }).fetch(), 'description');
-    const description = selectDescription[0];
+    // const isAdmin = userProfile.role === ROLE.ADMIN;
+    const interestName = selectInterest;
+    const interestDesc = _.map(Interests.find({ name: interestName }).fetch(), 'description')[0];
     return (
     <div>
-      <h3 className='ui header' style={{ margin: '30px 0' }}> Description </h3>
-      <Markdown escapeHtml source={description} />
+      <Task6EditDescription interestDesc={interestDesc} interestName={interestName}/>
     </div>
     );
   };
@@ -143,12 +146,12 @@ const OnboardTimothyPage: React.FC<OnBoardVar> = ({ user, urlName, TotalCareerGo
         <PageLayout id={PAGEIDS.ONBOARD_SHINYA} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}
                     headerPaneImage={headerPaneImage}>
           <div style={style}>
-            <RadGradSegment header={<RadGradHeader title='TASK 5: SHOW ME  THE DESCRIPTION' icon='file alternate outline'/>}>
+            <RadGradSegment header={<RadGradHeader title='TASK 5: SHOW ME THE DESCRIPTION' icon='file alternate outline'/>}>
               <Header dividing>Add Career Goal</Header>
               {/* eslint-disable-next-line no-return-assign */}
               <AutoForm schema={formSchema} onSubmit={data => Submit(data)}>
                 <SelectField name="interest" placeholder="(Select interest)"/>
-                <SubmitField className="mini basic green" value='Submit'/>
+                <SubmitField className="mini basic green" value='Display Description'/>
               </AutoForm>
               <DisplayInterest/>
             </RadGradSegment>
@@ -198,6 +201,7 @@ const OnboardTimothyPage: React.FC<OnBoardVar> = ({ user, urlName, TotalCareerGo
 
 export default withTracker(() => {
   const user = Meteor.user() ? Meteor.user().username : '';
+  const userProfile = Users.getProfile(user);
   const { username } = useParams();
   const TotalCareerGoals = CareerGoals.findNonRetired();
   const TotalInterests = Interests.findNonRetired();
@@ -210,6 +214,7 @@ export default withTracker(() => {
   const urlName = Users.getProfile(username).username;
   return {
     user,
+    userProfile,
     urlName,
     TotalCareerGoals,
     TotalInterests,
