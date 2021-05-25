@@ -135,6 +135,7 @@ const AddOpportunityForm: React.FC<AddOpportunityFormProps> = ({ sponsors, inter
         <PictureField name="picture" />
         <ErrorsField />
         <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
+          <ErrorsField/>
       </AutoForm>
     </Segment>
   );
