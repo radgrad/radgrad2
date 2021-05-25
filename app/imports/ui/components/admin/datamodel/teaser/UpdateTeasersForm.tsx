@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Form, Header, Segment } from 'semantic-ui-react';
-import { AutoForm, TextField, SelectField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
+import { AutoForm, TextField, SelectField, LongTextField, BoolField, SubmitField, ErrorsField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { CareerGoal, Course, Interest, Opportunity } from '../../../../../typings/radgrad';
@@ -72,6 +72,7 @@ const UpdateTeaserForm: React.FC<UpdateTeaserFormProps> = ({ careerGoals, course
         <BoolField name="retired" />
         <SubmitField inputRef={undefined} value="Update" disabled={false} className="mini basic green" />
         <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
+          <ErrorsField/>
       </AutoForm>
     </Segment>
   );
