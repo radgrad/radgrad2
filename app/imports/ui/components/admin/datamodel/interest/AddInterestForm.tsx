@@ -36,20 +36,20 @@ const AddInterestForm: React.FC<AddInterestFormProps> = ({ interestTypes }) => {
   });
   const formSchema = new SimpleSchema2Bridge(schema);
   return (
-    <Segment padded>
-      <Header dividing>Add Interest</Header>
-      {/* eslint-disable-next-line no-return-assign */}
-      <AutoForm schema={formSchema} onSubmit={handleAdd} ref={(ref) => formRef = ref} showInlineError>
-        <Form.Group widths="equal">
-          <TextField name="name" placeholder="Rust Programming Language" />
-          <SelectField name="interestType" />
-        </Form.Group>
-        <LongTextField name="description" />
-        <BoolField name="retired" />
-        <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
-          <ErrorsField/>
-      </AutoForm>
-    </Segment>
+        <Segment padded>
+            <Header dividing>Add Interest</Header>
+            {/* eslint-disable-next-line no-return-assign */}
+            <AutoForm schema={formSchema} onSubmit={handleAdd} ref={(ref) => formRef = ref} showInlineError>
+                <Form.Group widths="equal">
+                    <TextField name="name" placeholder="Rust Programming Language"/>
+                    <SelectField name="interestType"/>
+                </Form.Group>
+                <LongTextField name="description"/>
+                <BoolField name="retired"/>
+                <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined}/>
+                <ErrorsField/>
+            </AutoForm>
+        </Segment>
   );
 };
 
