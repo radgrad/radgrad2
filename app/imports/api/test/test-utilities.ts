@@ -5,6 +5,7 @@ import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { RadGrad } from '../radgrad/RadGrad';
 import { Users } from '../user/UserCollection';
 import { removeAllEntities } from '../base/BaseUtilities';
+import {CallPromiseMixin} from "meteor/didericis:callpromise-mixin";
 
 /**
  * Sleeps for ms milliseconds.
@@ -66,29 +67,21 @@ export const defineTestFixtures = (fixtureNames) => {
   fixtureNames.forEach((fixtureName) => defineTestFixture(`${fixtureName}.fixture.json`));
 };
 
-// /**
-//  * A validated method that loads the passed fixture file.
-//  */
-// export const defineTestFixtureMethod = new ValidatedMethod({
-//   name: 'test.defineTestFixtureMethod',
-//   validate: null,
-//   run(fixtureName) {
-//     defineTestFixture(fixtureName);
-//     return true;
-//   },
-// });
-
 /**
  * A validated method that loads the passed list of fixture files in the order passed.
  * @memberOf api/test
  */
 export const defineTestFixturesMethod = new ValidatedMethod({
   name: 'test.defineTestFixturesMethod',
+  mixins: [CallPromiseMixin],
   validate: null,
   run(fixtureNames) {
-    removeAllEntities();
-    defineTestFixtures(fixtureNames);
-    return true;
+    if (Meteor.isServer) {
+      removeAllEntities();
+      defineTestFixtures(fixtureNames);
+      return true;
+    }
+    return null;
   },
 });
 

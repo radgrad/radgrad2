@@ -114,12 +114,15 @@ const processStudentStarJsonData = (advisor, student, jsonData) => {
  */
 export const starLoadDataMethod = new ValidatedMethod({
   name: 'StarProcessor.loadStarCsvData',
+  mixins: [CallPromiseMixin],
   validate: null,
   run(data) {
-    if (!this.userId) {
-      throw new Meteor.Error('unauthorized', 'You must be logged in to define Star data.');
+    if (Meteor.isServer) {
+      if (!this.userId) {
+        throw new Meteor.Error('unauthorized', 'You must be logged in to define Star data.');
+      }
+      processStudentStarCsvData(data.advisor, data.student, data.csvData);
     }
-    processStudentStarCsvData(data.advisor, data.student, data.csvData);
   },
 });
 
@@ -129,12 +132,15 @@ export const starLoadDataMethod = new ValidatedMethod({
  */
 export const starLoadJsonDataMethod = new ValidatedMethod({
   name: 'StarProcessor.loadStarJsonData',
+  mixins: [CallPromiseMixin],
   validate: null,
   run(data) {
-    if (!this.userId) {
-      throw new Meteor.Error('unauthorized', 'You must be logged in to define Star data.');
+    if (Meteor.isServer) {
+      if (!this.userId) {
+        throw new Meteor.Error('unauthorized', 'You must be logged in to define Star data.');
+      }
+      processStudentStarJsonData(data.advisor, data.student, data.jsonData);
     }
-    processStudentStarJsonData(data.advisor, data.student, data.jsonData);
   },
 });
 
@@ -149,7 +155,7 @@ const processBulkStarDefinitions = (advisor, definitions) => {
         updateNum += 1;
         processStudentStarDefinitions(advisor, student, definitions[student].courses);
         const studentID = Users.getID(student);
-        updateStudentLevel(studentID);
+        updateStudentLevel(studentID, studentID);
       } else {
         console.log(`${student} is not defined need to create them.`);
         try {
@@ -162,7 +168,7 @@ const processBulkStarDefinitions = (advisor, definitions) => {
           StudentProfiles.define(definitionData);
           processStudentStarDefinitions(advisor, student, definitions[student].courses);
           const studentID = Users.getID(student);
-          updateStudentLevel(studentID);
+          updateStudentLevel(studentID, studentID);
           newStudents += 1;
         } catch (e) {
           console.log(`Error defining student ${student}`, e);
