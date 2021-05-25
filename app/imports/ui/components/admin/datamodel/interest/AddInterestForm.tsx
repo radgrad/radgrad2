@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Header, Segment } from 'semantic-ui-react';
-import { AutoForm, TextField, SelectField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
+import { AutoForm, TextField, SelectField, LongTextField, BoolField, SubmitField, ErrorsField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
@@ -47,6 +47,7 @@ const AddInterestForm: React.FC<AddInterestFormProps> = ({ interestTypes }) => {
         <LongTextField name="description" />
         <BoolField name="retired" />
         <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
+          <ErrorsField/>
       </AutoForm>
     </Segment>
   );
