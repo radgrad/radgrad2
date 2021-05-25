@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import React, { useEffect, useState } from 'react';
-import { Form, Grid, Header, Icon, Segment } from 'semantic-ui-react';
+import { Form, Grid, Segment } from 'semantic-ui-react';
 import {
   getPublicProfileData,
   PublicProfileData,
