@@ -3,7 +3,7 @@ import { Button, Grid, Modal } from 'semantic-ui-react';
 import SimpleSchema from 'simpl-schema';
 import Swal from 'sweetalert2';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
-import { AutoForm, LongTextField, SubmitField } from 'uniforms-semantic';
+import { AutoForm, ErrorsField, LongTextField, SubmitField } from 'uniforms-semantic';
 import { updateMethod } from '../../../../api/base/BaseCollection.methods';
 import { Reviews } from '../../../../api/review/ReviewCollection';
 import { Review, ReviewUpdate } from '../../../../typings/radgrad';
@@ -100,6 +100,7 @@ const EditReviewButton: React.FC<EditReviewButtonProps> = ({ review }) => {
               </Button>
             </Grid.Column>
           </Grid>
+            <ErrorsField/>
         </AutoForm>
       </Modal.Content>
   </Modal>
