@@ -1,6 +1,6 @@
 import React from 'react';
 import { Header, Segment } from 'semantic-ui-react';
-import { AutoForm, TextField, LongTextField, SubmitField } from 'uniforms-semantic';
+import { AutoForm, TextField, LongTextField, SubmitField, ErrorsField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
@@ -53,6 +53,7 @@ const AddCareerGoalForm: React.FC<AddCareerGoalFormProps> = ({ interests }) => {
         <MultiSelectField name="interests" placeholder="Select interest(s)" />
         <LongTextField name="description" placeholder="Describe the Career Goal here" />
         <SubmitField className="mini basic green" value="Add" />
+          <ErrorsField/>
       </AutoForm>
     </Segment>
   );
