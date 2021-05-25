@@ -48,7 +48,7 @@ const OnboardTimothyPage: React.FC<OnBoardVar> = ({ user, urlName, totalCareerGo
     marginBottom: 30,
   };
 
-  // Task 6
+  // Task 5 & 6
   const interestNameList = totalInterests.map(docToName);
   const schema = new SimpleSchema({
     interest: {
@@ -74,7 +74,7 @@ const OnboardTimothyPage: React.FC<OnBoardVar> = ({ user, urlName, totalCareerGo
     );
   };
 
-  // Task 5
+  // Task 4
   const entitiesList = (entity) => {
     const profile = Users.getProfile(user);
     switch (entity) {
