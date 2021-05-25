@@ -21,7 +21,8 @@ const AddInterestTypeForm: React.FC = () => {
             <Header dividing>Add Interest Type</Header>
             {/* eslint-disable-next-line no-return-assign */}
             <AutoForm schema={new SimpleSchema2Bridge(InterestTypes.getDefineSchema())} onSubmit={handleAdd}
-                      ref={(ref) => formRef = ref}
+                      /* eslint-disable-next-line no-return-assign */
+                      ref={( ref ) => formRef = ref}
                       showInlineError>
                 <Form.Group widths="equal">
                     <TextField name="slug"/>
