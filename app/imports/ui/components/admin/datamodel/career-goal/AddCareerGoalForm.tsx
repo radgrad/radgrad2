@@ -45,17 +45,17 @@ const AddCareerGoalForm: React.FC<AddCareerGoalFormProps> = ({ interests }) => {
   });
   const formSchema = new SimpleSchema2Bridge(schema);
   return (
-    <Segment padded>
-      <Header dividing>Add Career Goal</Header>
-      {/* eslint-disable-next-line no-return-assign */}
-      <AutoForm schema={formSchema} onSubmit={handleAdd} ref={(ref) => formRef = ref} showInlineError>
-        <TextField name="name" placeholder="Software Engineer" />
-        <MultiSelectField name="interests" placeholder="Select interest(s)" />
-        <LongTextField name="description" placeholder="Describe the Career Goal here" />
-        <SubmitField className="mini basic green" value="Add" />
-          <ErrorsField/>
-      </AutoForm>
-    </Segment>
+        <Segment padded>
+            <Header dividing>Add Career Goal</Header>
+            {/* eslint-disable-next-line no-return-assign */}
+            <AutoForm schema={formSchema} onSubmit={handleAdd} ref={(ref) => formRef = ref} showInlineError>
+                <TextField name="name" placeholder="Software Engineer"/>
+                <MultiSelectField name="interests" placeholder="Select interest(s)"/>
+                <LongTextField name="description" placeholder="Describe the Career Goal here"/>
+                <SubmitField className="mini basic green" value="Add"/>
+                <ErrorsField/>
+            </AutoForm>
+        </Segment>
   );
 };
 
