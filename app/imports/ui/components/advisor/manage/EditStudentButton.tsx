@@ -3,7 +3,7 @@ import { Button, Form, Modal } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import SimpleSchema from 'simpl-schema';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
-import { AutoForm, BoolField, NumField, SubmitField, TextField } from 'uniforms-semantic';
+import { AutoForm, BoolField, ErrorsField, NumField, SubmitField, TextField } from 'uniforms-semantic';
 import { updateMethod } from '../../../../api/base/BaseCollection.methods';
 import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
 import { Interests } from '../../../../api/interest/InterestCollection';
@@ -139,6 +139,7 @@ const EditStudentButton: React.FC<ManageStudentProps> = ({
           <Button color='red' onClick={() => setOpen(false)}>
             Cancel
           </Button>
+        <ErrorsField/>
         </AutoForm>
       </Modal.Content>
     </Modal>
