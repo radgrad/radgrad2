@@ -2,10 +2,10 @@ import { Meteor } from 'meteor/meteor';
 // import { DDP } from 'meteor/ddp-client';
 import _ from 'lodash';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
+import { CallPromiseMixin } from 'meteor/didericis:callpromise-mixin';
 import { RadGrad } from '../radgrad/RadGrad';
 import { Users } from '../user/UserCollection';
 import { removeAllEntities } from '../base/BaseUtilities';
-import {CallPromiseMixin} from "meteor/didericis:callpromise-mixin";
 
 /**
  * Sleeps for ms milliseconds.
