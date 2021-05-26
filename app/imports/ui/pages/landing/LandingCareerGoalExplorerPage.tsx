@@ -49,9 +49,9 @@ const LandingCareerGoalExplorerPage: React.FC<CareerGoalExplorerProps> = ({ care
               <b>Description:</b>
               <Markdown escapeHtml source={careerGoal.description}
                         renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}/>
-              {careerGoal.interestIDs.length > 0 ?
-                <LandingInterestList interestIDs={careerGoal.interestIDs}/> : 'N/A'}
             </Segment>
+            {careerGoal.interestIDs.length > 0 ?
+            <Segment><LandingInterestList interestIDs={careerGoal.interestIDs}/></Segment> : 'N/A'}
           </Grid.Column>
         </Grid>
       </PageLayout>
