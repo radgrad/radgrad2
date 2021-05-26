@@ -108,9 +108,12 @@ export const verificationRequestsUpdateStatusMethod = new ValidatedMethod({
   validate: null,
   mixins: [CallPromiseMixin],
   run(update) {
-    // Verify that currently logged in user is an admin, advisor, or faculty. otherwise no update can occur.
-    VerificationRequests.assertRole(Meteor.userId(), [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]);
-    return VerificationRequests.updateStatus(update.id, update.status, update.processed);
+    if (Meteor.isServer) {
+      // Verify that currently logged in user is an admin, advisor, or faculty. otherwise no update can occur.
+      VerificationRequests.assertRole(Meteor.userId(), [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]);
+      return VerificationRequests.updateStatus(update.id, update.status, update.processed);
+    }
+    return null;
   },
 });
 
@@ -150,38 +153,41 @@ export const processVerificationEventMethod = new ValidatedMethod({
   validate: null,
   mixins: [CallPromiseMixin],
   run({ student, opportunity, academicTerm, verified = false }: { student: string; opportunity: string; academicTerm: string; verified?: boolean; }) {
-    // Define a string to hold the result of this process.
-    let resultMessage = '';
+    if (Meteor.isServer) {
+      // Define a string to hold the result of this process.
+      let resultMessage = '';
 
-    // Verify that currently logged in user is an admin, advisor, or faculty. otherwise no verification can occur.
-    VerificationRequests.assertRole(Meteor.userId(), [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]);
+      // Verify that currently logged in user is an admin, advisor, or faculty. otherwise no verification can occur.
+      VerificationRequests.assertRole(Meteor.userId(), [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]);
 
-    // Make sure there's an opportunity instance for this student.
-    let opportunityInstanceID = getOpportunityInstanceID(student, opportunity, academicTerm);
-    if (!opportunityInstanceID) {
-      resultMessage += '  No opportunity instance found. Defining a new one.\n';
-      opportunityInstanceID = OpportunityInstances.define({ academicTerm, opportunity, student, verified });
+      // Make sure there's an opportunity instance for this student.
+      let opportunityInstanceID = getOpportunityInstanceID(student, opportunity, academicTerm);
+      if (!opportunityInstanceID) {
+        resultMessage += '  No opportunity instance found. Defining a new one.\n';
+        opportunityInstanceID = OpportunityInstances.define({ academicTerm, opportunity, student, verified });
+      }
+
+      // Make sure there's a verification request for this opportunity instance.
+      let verificationRequestID = VerificationRequests.findOne({ opportunityInstanceID });
+      if (!verificationRequestID) {
+        resultMessage += '  No verification request found. Defining a new one.\n';
+        verificationRequestID = VerificationRequests.define({ student, opportunityInstance: opportunityInstanceID, documentation: 'documentation' });
+      }
+
+      // If this event has already been verified, then return now.
+      if (OpportunityInstances.findDoc(opportunityInstanceID).verified) {
+        const opp = Opportunities.findDoc(opportunity);
+        return `  Event ${opp.name} is already verified for ${student}\n`;
+      }
+
+      // Otherwise verify the opportunity instance and the VerificationRequestID.
+      resultMessage += '  Setting the opportunity instance and verification request to verified.\n';
+      OpportunityInstances.update(opportunityInstanceID, { verified: true });
+      VerificationRequests.setVerified(verificationRequestID, Meteor.userId());
+
+      return resultMessage;
     }
-
-    // Make sure there's a verification request for this opportunity instance.
-    let verificationRequestID = VerificationRequests.findOne({ opportunityInstanceID });
-    if (!verificationRequestID) {
-      resultMessage += '  No verification request found. Defining a new one.\n';
-      verificationRequestID = VerificationRequests.define({ student, opportunityInstance: opportunityInstanceID, documentation: 'documentation' });
-    }
-
-    // If this event has already been verified, then return now.
-    if (OpportunityInstances.findDoc(opportunityInstanceID).verified) {
-      const opp = Opportunities.findDoc(opportunity);
-      return `  Event ${opp.name} is already verified for ${student}\n`;
-    }
-
-    // Otherwise verify the opportunity instance and the VerificationRequestID.
-    resultMessage += '  Setting the opportunity instance and verification request to verified.\n';
-    OpportunityInstances.update(opportunityInstanceID, { verified: true });
-    VerificationRequests.setVerified(verificationRequestID, Meteor.userId());
-
-    return resultMessage;
+    return null;
   },
 });
 
@@ -205,26 +211,29 @@ export const processPendingVerificationMethod = new ValidatedMethod({
   validate: null,
   mixins: [CallPromiseMixin],
   run({ verificationRequestID, command, feedback }) {
-    // Verify that currently logged in user is an admin, advisor, or faculty. otherwise no verification can occur.
-    VerificationRequests.assertRole(Meteor.userId(), [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]);
+    if (Meteor.isServer) {
+      // Verify that currently logged in user is an admin, advisor, or faculty. otherwise no verification can occur.
+      VerificationRequests.assertRole(Meteor.userId(), [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]);
 
-    // Verify that the ID is valid.
-    const requestDoc = VerificationRequests.findDoc(verificationRequestID);
+      // Verify that the ID is valid.
+      const requestDoc = VerificationRequests.findDoc(verificationRequestID);
 
-    // Verify that the command is VerificationRequests.ACCEPTED or REJECTED.
-    if ((command !== VerificationRequests.ACCEPTED) &amp;&amp; (command !== VerificationRequests.REJECTED)) {
-      throw new Meteor.Error(`VerificationRequest command is invalid: ${command}`);
+      // Verify that the command is VerificationRequests.ACCEPTED or REJECTED.
+      if ((command !== VerificationRequests.ACCEPTED) &amp;&amp; (command !== VerificationRequests.REJECTED)) {
+        throw new Meteor.Error(`VerificationRequest command is invalid: ${command}`);
+      }
+
+      // Update the opportunityInstance corresponding to this verification request.
+      const verified = (command === VerificationRequests.ACCEPTED);
+      OpportunityInstances.update(requestDoc.opportunityInstanceID, { verified });
+
+      // Update the verification request.
+      VerificationRequests.setVerificationStatus(verificationRequestID, Meteor.userId(), command, feedback);
+
+      const student = Users.getProfile(requestDoc.studentID).username;
+      return `Verification request for ${student} was processed`;
     }
-
-    // Update the opportunityInstance corresponding to this verification request.
-    const verified = (command === VerificationRequests.ACCEPTED);
-    OpportunityInstances.update(requestDoc.opportunityInstanceID, { verified });
-
-    // Update the verification request.
-    VerificationRequests.setVerificationStatus(verificationRequestID, Meteor.userId(), command, feedback);
-
-    const student = Users.getProfile(requestDoc.studentID).username;
-    return `Verification request for ${student} was processed`;
+    return null;
   },
 });
 </code></pre>

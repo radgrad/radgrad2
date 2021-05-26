@@ -125,22 +125,25 @@ export const getFutureEnrollmentMethod = new ValidatedMethod({
   mixins: [CallPromiseMixin],
   validate: null,
   run(courseID) {
-    // Throw error if an invalid courseID is passed.
-    Courses.assertDefined(courseID);
-    // Create an array of the upcoming 9 academicTerms after the current academicTerm.
-    let academicTermDoc = AcademicTerms.getCurrentAcademicTermDoc();
-    let termsPerYear = 3;
-    if (RadGradProperties.getQuarterSystem()) {
-      termsPerYear = 4;
+    if (Meteor.isServer) {
+      // Throw error if an invalid courseID is passed.
+      Courses.assertDefined(courseID);
+      // Create an array of the upcoming 9 academicTerms after the current academicTerm.
+      let academicTermDoc = AcademicTerms.getCurrentAcademicTermDoc();
+      let termsPerYear = 3;
+      if (RadGradProperties.getQuarterSystem()) {
+        termsPerYear = 4;
+      }
+      const academicTermList = [];
+      for (let i = 0; i &lt; 3 * termsPerYear; i++) {
+        academicTermDoc = nextAcademicTerm(academicTermDoc);
+        academicTermList.push(academicTermDoc);
+      }
+      // Map over these academicTerms and return a new list that includes the enrollment data for this course and academicTerm.
+      const enrollmentData = academicTermList.map((doc) => getEnrollmentData(courseID, AcademicTerms.getID(doc)));
+      return { courseID, enrollmentData };
     }
-    const academicTermList = [];
-    for (let i = 0; i &lt; 3 * termsPerYear; i++) {
-      academicTermDoc = nextAcademicTerm(academicTermDoc);
-      academicTermList.push(academicTermDoc);
-    }
-    // Map over these academicTerms and return a new list that includes the enrollment data for this course and academicTerm.
-    const enrollmentData = academicTermList.map((doc) => getEnrollmentData(courseID, AcademicTerms.getID(doc)));
-    return { courseID, enrollmentData };
+    return null;
   },
 });
 </code></pre>
