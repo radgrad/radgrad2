@@ -116,7 +116,7 @@ const AddReviewForm: React.FC<AddReviewFormProps> = ({ terms, courses, opportuni
         formRef.reset();
       });
   };
-  // console.log(reviewType, schema);
+
   return (
     <Segment padded>
       <Header dividing>Add Review</Header>
