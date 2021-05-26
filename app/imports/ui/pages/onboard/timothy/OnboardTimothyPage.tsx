@@ -1,4 +1,5 @@
 import React from 'react';
+import { Grid } from 'semantic-ui-react';
 import { PAGEIDS } from '../../../utilities/PageIDs';
 import Task1 from './Task1';
 import Task2 from './Task2';
@@ -13,36 +14,44 @@ const headerPaneTitle = "Timothy's Onboarding Sandbox";
 const headerPaneBody = 'Page for display of onboarding component development practice';
 const headerPaneImage = 'header-onboarding.png';
 
-const OnboardTimothyPage: React.FC = () => {
-
-  const style = {
-    marginBottom: 30,
-  };
-
-  return (
-        <PageLayout id={PAGEIDS.ONBOARD_SHINYA} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}
-                    headerPaneImage={headerPaneImage}>
-          <div style={style}>
-                <Task7/>
-          </div>
-          <div style={style}>
-                <Task6/>
-          </div>
-          <div style={style}>
-                <Task5/>
-          </div>
-            <div style={style}>
-                <Task4/>
-            </div>
-            <div style={style}>
-                <Task3/>
-            </div>
-            <div className='ui two column grid'>
-                <Task1/>
-                <Task2/>
-            </div>
-        </PageLayout>
-  );
-};
+const OnboardTimothyPage: React.FC = () => (
+  <PageLayout id={PAGEIDS.ONBOARD_TIMOTHY} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
+    <Grid>
+      <Grid.Row columns={1}>
+        <Grid.Column>
+          <Task7/>
+        </Grid.Column>
+      </Grid.Row>
+      <Grid.Row columns={1}>
+        <Grid.Column>
+          <Task6/>
+        </Grid.Column>
+      </Grid.Row>
+      <Grid.Row columns={1}>
+        <Grid.Column>
+          <Task5/>
+        </Grid.Column>
+      </Grid.Row>
+      <Grid.Row columns={1}>
+        <Grid.Column>
+          <Task4/>
+        </Grid.Column>
+      </Grid.Row>
+      <Grid.Row columns={1}>
+        <Grid.Column>
+          <Task3/>
+        </Grid.Column>
+      </Grid.Row>
+      <Grid.Row columns={2}>
+        <Grid.Column>
+          <Task1/>
+        </Grid.Column>
+        <Grid.Column>
+          <Task2/>
+        </Grid.Column>
+      </Grid.Row>
+    </Grid>
+  </PageLayout>
+);
 
 export default OnboardTimothyPage;
