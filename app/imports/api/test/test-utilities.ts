@@ -81,7 +81,7 @@ export const defineTestFixturesMethod = new ValidatedMethod({
       defineTestFixtures(fixtureNames);
       return true;
     }
-    return null;
+    return true;
   },
 });
 

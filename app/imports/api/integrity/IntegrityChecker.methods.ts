@@ -15,23 +15,20 @@ export const checkIntegrityMethod = new ValidatedMethod({
   mixins: [CallPromiseMixin],
   validate: null,
   run() {
-    if (Meteor.isServer) {
-      if (!this.userId) {
-        throw new Meteor.Error('unauthorized', 'You must be logged in to check integrity.');
-      } else {
-        const profile = Users.getProfile(this.userId);
-        if (!_.includes([ROLE.ADMIN, ROLE.ADVISOR], profile.role)) {
-          throw new Meteor.Error('unauthorized', 'You must be an admin or advisor to check integrity.');
-        }
+    if (!this.userId) {
+      throw new Meteor.Error('unauthorized', 'You must be logged in to check integrity.');
+    } else {
+      const profile = Users.getProfile(this.userId);
+      if (!_.includes([ROLE.ADMIN, ROLE.ADVISOR], profile.role)) {
+        throw new Meteor.Error('unauthorized', 'You must be an admin or advisor to check integrity.');
       }
-      const integrityData = checkIntegrity();
-      // Print out integrity results to server console because the websocket might close and results of server-side check
-      // might not be communicated back to the client.
-      if (Meteor.isServer) {
-        console.log(integrityData.message);
-      }
-      return integrityData;
     }
-    return null;
+    const integrityData = checkIntegrity();
+    // Print out integrity results to server console because the websocket might close and results of server-side check
+    // might not be communicated back to the client.
+    if (Meteor.isServer) {
+      console.log(integrityData.message);
+    }
+    return integrityData;
   },
 });

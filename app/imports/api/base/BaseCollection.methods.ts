@@ -84,7 +84,7 @@ export const defineMethod = new ValidatedMethod({
       collection.assertValidRoleForMethod(this.userId);
       return collection.define(definitionData);
     }
-    return true;
+    return '';
   },
 });
 

@@ -224,10 +224,13 @@ export const starBulkLoadJsonDataMethod = new ValidatedMethod({
   mixins: [CallPromiseMixin],
   validate: null,
   run(data) {
-    if (!this.userId) {
-      throw new Meteor.Error('unauthorized', 'You must be logged in to define Star data.');
+    if (Meteor.isServer) {
+      if (!this.userId) {
+        throw new Meteor.Error('unauthorized', 'You must be logged in to define Star data.');
+      }
+      // console.log(data);
+      return processBulkStarDataJson(data.advisor, data.jsonData);
     }
-    // console.log(data);
-    return processBulkStarDataJson(data.advisor, data.jsonData);
+    return null;
   },
 });
