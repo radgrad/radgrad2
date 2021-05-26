@@ -1,6 +1,7 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
 import { Confirm, Icon } from 'semantic-ui-react';
+import Swal from 'sweetalert2';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { AcademicTerm, Course, CourseInstance, DescriptionPair, StudentProfile } from '../../../typings/radgrad';
@@ -88,6 +89,25 @@ const AdminDataModelCourseInstancesPage: React.FC<AdminDataModelCourseInstancesP
     updateData.creditHrs = doc.creditHours;
     updateData.termID = academicTermNameToDoc(doc.academicTerm)._id;
     // console.log(collectionName, updateData);
+    updateMethod.callPromise({ collectionName, updateData })
+      .catch((error) => {
+        Swal.fire({
+          title: 'Update failed',
+          text: error.message,
+          icon: 'error',
+        });
+        console.error('Error in updating. %o', error);
+      })
+      .then(() => {
+        Swal.fire({
+          title: 'Update succeeded',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setShowUpdateForm(false);
+        setId('');
+      });
     updateMethod.call({ collectionName, updateData }, updateCallBack(setShowUpdateForm, setId));
   };
 
@@ -98,10 +118,10 @@ const AdminDataModelCourseInstancesPage: React.FC<AdminDataModelCourseInstancesP
     <PageLayout id={PAGEIDS.DATA_MODEL_COURSE_INSTANCES} headerPaneTitle="Course Instances">
       {showUpdateFormState ? (
         <UpdateCourseInstanceForm collection={collection} id={idState} handleUpdate={handleUpdate}
-                                  handleCancel={handleCancel} itemTitleString={itemTitleString} terms={terms}/>
+                                  handleCancel={handleCancel} itemTitleString={itemTitleString} terms={terms} />
       ) : (
         <AddCourseInstanceForm terms={terms} courses={courses}
-                               students={students}/>
+                               students={students} />
       )}
       <ListCollectionWidget
         collection={collection}
@@ -113,7 +133,7 @@ const AdminDataModelCourseInstancesPage: React.FC<AdminDataModelCourseInstancesP
         items={items}
       />
       <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
-               header="Delete Course Instance?"/>
+               header="Delete Course Instance?" />
     </PageLayout>
   );
 };
