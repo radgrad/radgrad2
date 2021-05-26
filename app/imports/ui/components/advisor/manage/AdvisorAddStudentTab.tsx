@@ -70,18 +70,16 @@ const AdvisorAddStudentTab: React.FC<AdvisorAddStudentWidgetProps> = ({ interest
     };
     definitionData.careerGoals = careerGoalsState;
     definitionData.interests = userInterests;
-
     defineMethod.callPromise({ collectionName, definitionData })
-      .catch( (error) => {
-
+      .catch((error) => {
         console.error('Failed adding User', error);
         Swal.fire({
           title: 'Failed adding User',
           text: error.message,
           icon: 'error',
         });
-      } )
-      .then(()=> {
+      })
+      .then(() => {
         Swal.fire({
           title: 'Add User Succeeded',
           icon: 'success',
@@ -119,105 +117,105 @@ const AdvisorAddStudentTab: React.FC<AdvisorAddStudentWidgetProps> = ({ interest
   };
 
   return (
-        <Tab.Pane key="new">
-            <Header as="h4" dividing>
-                ADD STUDENT
-            </Header>
-            {/* TODO should we be using Uniforms? */}
-            <Form widths="equal" onSubmit={onSubmit}>
-                <Form.Group>
-                    <Form.Field>
-                        <Form.Input name="firstName" label="First Name" value={firstName} onChange={handleFormChange}
-                                    required/>
-                    </Form.Field>
-                    <Form.Field>
-                        <Form.Input name="lastName" label="Last Name" value={lastName} onChange={handleFormChange}
-                                    required/>
-                    </Form.Field>
-                </Form.Group>
-                <Form.Group>
-                    <Form.Field>
-                        <Form.Input name="username" label="Username" value={username} onChange={handleFormChange}
-                                    required/>
-                    </Form.Field>
-                    <Form.Field>
-                        <Form.Field>Alumni</Form.Field>
-                        <Form.Field>
-                            <Radio name="isAlumni" label="True" value="true" onChange={handleFormChange}
-                                   checked={isAlumni === true} required/>
-                        </Form.Field>
-                        <Form.Field>
-                            <Radio name="isAlumni" label="False" value="false" onChange={handleFormChange}
-                                   checked={isAlumni === false} required/>
-                        </Form.Field>
-                    </Form.Field>
-                </Form.Group>
-                <Header as="h4" dividing>
-                    Optional Fields
-                </Header>
-                <Form.Group>
-                    <Form.Field>
-                        <Form.Input
-                            name="picture"
-                            label={
-                                <React.Fragment>
-                                    Picture (
-                                    <button type="button" onClick={handleUploadClick}>
-                                        Upload
-                                    </button>
-                                    )
-                                </React.Fragment>
-                            }
-                            onChange={handleFormChange}
-                            value={picture || ''}
-                        />
-                    </Form.Field>
-                    <Form.Field>
-                        <Form.Input name="website" label="Website" value={website || ''} onChange={handleFormChange}/>
-                    </Form.Field>
-                </Form.Group>
-                <Form.Group>
-                    <Form.Dropdown
-                        selection
-                        multiple
-                        name="careerGoals"
-                        label="Select Career Goal(s)"
-                        value={careerGoalsState}
-                        onChange={handleFormChange}
-                        options={careerGoals.map((ele, i) => ({ key: i, text: ele.name, value: ele._id }))}
-                        placeholder="Select Career Goal(s)"
-                    />
-                    <Form.Dropdown
-                        selection
-                        multiple
-                        name="userInterests"
-                        label="Select Interest(s)"
-                        value={userInterests}
-                        onChange={handleFormChange}
-                        options={interests.map((ele, i) => ({ key: i, text: ele.name, value: ele._id }))}
-                        placeholder="Select Interest(s)"
-                    />
-                </Form.Group>
-                <Form.Group>
-                    <Form.Field>
-                        <Form.Dropdown
-                            name="declaredAcademicTerm"
-                            label="Declared Academic Term"
-                            value={declaredAcademicTerm}
-                            onChange={handleFormChange}
-                            options={AcademicTerms.findNonRetired().map((ele, i) => ({
-                              key: i,
-                              text: `${ele.term} ${ele.year}`,
-                              value: ele._id,
-                            }))}
-                            selection
-                            placeholder="Select AcademicTerm"
-                        />
-                    </Form.Field>
-                </Form.Group>
-                <Form.Button basic color="green" content="Add" type="Submit"/>
-            </Form>
-        </Tab.Pane>
+    <Tab.Pane key="new">
+      <Header as="h4" dividing>
+        ADD STUDENT
+      </Header>
+      {/* TODO should we be using Uniforms? */}
+      <Form widths="equal" onSubmit={onSubmit}>
+        <Form.Group>
+          <Form.Field>
+            <Form.Input name="firstName" label="First Name" value={firstName} onChange={handleFormChange}
+                        required />
+          </Form.Field>
+          <Form.Field>
+            <Form.Input name="lastName" label="Last Name" value={lastName} onChange={handleFormChange}
+                        required />
+          </Form.Field>
+        </Form.Group>
+        <Form.Group>
+          <Form.Field>
+            <Form.Input name="username" label="Username" value={username} onChange={handleFormChange}
+                        required />
+          </Form.Field>
+          <Form.Field>
+            <Form.Field>Alumni</Form.Field>
+            <Form.Field>
+              <Radio name="isAlumni" label="True" value="true" onChange={handleFormChange}
+                     checked={isAlumni === true} required />
+            </Form.Field>
+            <Form.Field>
+              <Radio name="isAlumni" label="False" value="false" onChange={handleFormChange}
+                     checked={isAlumni === false} required />
+            </Form.Field>
+          </Form.Field>
+        </Form.Group>
+        <Header as="h4" dividing>
+          Optional Fields
+        </Header>
+        <Form.Group>
+          <Form.Field>
+            <Form.Input
+              name="picture"
+              label={
+                <React.Fragment>
+                  Picture (
+                  <button type="button" onClick={handleUploadClick}>
+                    Upload
+                  </button>
+                  )
+                </React.Fragment>
+              }
+              onChange={handleFormChange}
+              value={picture || ''}
+            />
+          </Form.Field>
+          <Form.Field>
+            <Form.Input name="website" label="Website" value={website || ''} onChange={handleFormChange} />
+          </Form.Field>
+        </Form.Group>
+        <Form.Group>
+          <Form.Dropdown
+            selection
+            multiple
+            name="careerGoals"
+            label="Select Career Goal(s)"
+            value={careerGoalsState}
+            onChange={handleFormChange}
+            options={careerGoals.map((ele, i) => ({ key: i, text: ele.name, value: ele._id }))}
+            placeholder="Select Career Goal(s)"
+          />
+          <Form.Dropdown
+            selection
+            multiple
+            name="userInterests"
+            label="Select Interest(s)"
+            value={userInterests}
+            onChange={handleFormChange}
+            options={interests.map((ele, i) => ({ key: i, text: ele.name, value: ele._id }))}
+            placeholder="Select Interest(s)"
+          />
+        </Form.Group>
+        <Form.Group>
+          <Form.Field>
+            <Form.Dropdown
+              name="declaredAcademicTerm"
+              label="Declared Academic Term"
+              value={declaredAcademicTerm}
+              onChange={handleFormChange}
+              options={AcademicTerms.findNonRetired().map((ele, i) => ({
+                key: i,
+                text: `${ele.term} ${ele.year}`,
+                value: ele._id,
+              }))}
+              selection
+              placeholder="Select AcademicTerm"
+            />
+          </Form.Field>
+        </Form.Group>
+        <Form.Button basic color="green" content="Add" type="Submit" />
+      </Form>
+    </Tab.Pane>
   );
 };
 
