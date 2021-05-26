@@ -108,6 +108,7 @@ const processStudentStarJsonData = (advisor, student, jsonData) => {
   processStudentStarDefinitions(advisor, student, defintions);
 };
 
+// TODO archive this method
 /**
  * ValidatedMethod for loading student STAR data.
  * @memberOf api/star
@@ -203,6 +204,7 @@ const processBulkStarDataJson = (advisor, jsonData) => {
   return processBulkStarDefinitions(advisor, definitions);
 };
 
+// TODO archive this method
 /**
  * ValidatedMethod for loading bulk STAR data.
  * @memberOf api/star

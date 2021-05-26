@@ -47,7 +47,7 @@ export const userInteractionFindMethod = new ValidatedMethod({
   run({ selector, options }) {
     if (Meteor.isServer) {
       UserInteractions.assertAdminRoleForMethod(this.userId);
-      const results = UserInteractions.find(selector, options);
+      const results = UserInteractions.find(selector, options).fetch();
       return results;
     }
     return null;
