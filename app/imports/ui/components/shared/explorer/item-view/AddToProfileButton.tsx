@@ -11,6 +11,7 @@ import { PROFILE_ENTRY_TYPE, IProfileEntryTypes } from '../../../../../api/user/
 import { createDefinitionData, getCollectionName } from './utilities/profile-button';
 
 type ItemType = CareerGoal | Course | Interest | Opportunity;
+
 export interface AddToProfileButtonProps {
   item: ItemType;
   studentID: string;
@@ -23,8 +24,8 @@ export interface AddToProfileButtonProps {
 const handleAdd = (studentID: string, item: ItemType, type: IProfileEntryTypes) => () => {
   const collectionName = getCollectionName(type);
   const definitionData = createDefinitionData(studentID, item, type);
-  defineMethod.call({ collectionName, definitionData }, (error: MeteorError) => {
-    if (error) {
+  defineMethod.callPromise({ collectionName, definitionData })
+    .catch((error: MeteorError) => {
       Swal.fire({
         title: 'Failed to add to profile',
         icon: 'error',
@@ -33,15 +34,15 @@ const handleAdd = (studentID: string, item: ItemType, type: IProfileEntryTypes) 
         allowEscapeKey: false,
         allowEnterKey: false,
       });
-    } else {
+    })
+    .then(() => {
       Swal.fire({
         title: 'Added to profile',
         icon: 'success',
         showConfirmButton: false,
         timer: 1500,
       });
-    }
-  });
+    });
 };
 
 const handleRemove = (studentID: string, item: ItemType, type: IProfileEntryTypes) => () => {
@@ -101,7 +102,7 @@ const AddToProfileButton: React.FC<AddToProfileButtonProps> = ({ studentID, item
       </Button>
     ) : (
       <Button size="small" onClick={handleAdd(studentID, item, type)} color="teal" floated={floated || 'right'} basic inverted={inverted}>
-        <Icon name="user" color="grey" inverted={inverted}/>
+        <Icon name="user" color="grey" inverted={inverted} />
         <Icon name="plus" />
         ADD TO PROFILE
       </Button>
