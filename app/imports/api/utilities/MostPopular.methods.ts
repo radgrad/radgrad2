@@ -52,7 +52,7 @@ export const getMostPopular = new ValidatedMethod({
       data.courses = calculatePopular(ProfileCourses.find(), 'courseID', Courses);
       data.opportunities = calculatePopular(ProfileOpportunities.find(), 'opportunityID', Opportunities);
     }
-    data.levels = calculateLevels();
+    data.levels = calculateLevels(); // CAM why is this not in the if?
     return data;
   },
 });
