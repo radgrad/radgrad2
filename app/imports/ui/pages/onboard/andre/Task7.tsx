@@ -9,8 +9,8 @@ import { Interests } from '../../../../api/interest/InterestCollection';
 import { Course, Interest } from '../../../../typings/radgrad';
 import CourseLabel from '../../../components/shared/label/CourseLabel';
 import InterestLabel from '../../../components/shared/label/InterestLabel';
-import Task3Segment from './Task3Segment';
-import Task1Segment from './Task1Segment';
+import Task3Segment from './Task3';
+import Task1Segment from './Task1';
 
 interface TabbedProps {
   courses: Course[];

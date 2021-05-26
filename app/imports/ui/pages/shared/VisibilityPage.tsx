@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import React, { useEffect, useState } from 'react';
-import { Form, Grid, Header, Icon, Segment } from 'semantic-ui-react';
+import { Form, Grid, Segment } from 'semantic-ui-react';
 import {
   getPublicProfileData,
   PublicProfileData,
@@ -14,6 +14,7 @@ import { SetPictureButton } from '../../components/shared/privacy/SetPictureButt
 import { SetWebsiteButton } from '../../components/shared/privacy/SetWebsiteButton';
 import ProfileCard from '../../components/shared/profile/ProfileCard';
 import ProfileLabel from '../../components/shared/profile/ProfileLabel';
+import RadGradHeader from '../../components/shared/RadGradHeader';
 import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 
@@ -105,7 +106,7 @@ const VisibilityPage: React.FC<VisibilityPageProps> = ({ profile }) => {
     <Grid stackable>
       <Grid.Column width={4}>
         <Segment>
-          <Header dividing><Icon name="eye" /> VISIBILITY</Header>
+          <RadGradHeader title='visibility' icon='eye' dividing />
           <p>Control what data appears in your Label and Profile:</p>
           <Form>
             <Form.Group inline>
@@ -123,12 +124,12 @@ const VisibilityPage: React.FC<VisibilityPageProps> = ({ profile }) => {
       </Grid.Column>
       <Grid.Column width={12}>
         <Segment>
-          <Header dividing><Icon name="user" />YOUR LABEL</Header>
+          <RadGradHeader title='your label' icon='user' dividing />
           <p>Your Label appears in pages relevant to your public data: </p>
           <ProfileLabel name={name} image={checkboxState.sharePicture && data.picture} />
         </Segment>
         <Segment>
-          <Header dividing><Icon name="user" />YOUR PROFILE</Header>
+          <RadGradHeader title='your profile' icon='user' dividing />
           <p>Your Profile pops up when a user clicks on your Label: </p>
           <ProfileCard email={profile.username} name={name} careerGoals={data.careerGoals} interests={data.interests} courses={data.courses} ice={data.ice} image={data.picture} level={data.level} opportunities={data.opportunities}
                        website={data.website} key={profile.username} fluid />
