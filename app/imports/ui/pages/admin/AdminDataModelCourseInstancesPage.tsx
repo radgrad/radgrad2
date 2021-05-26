@@ -18,7 +18,6 @@ import {
   handleCancelWrapper,
   handleConfirmDeleteWrapper,
   handleDeleteWrapper, handleOpenUpdateWrapper,
-  updateCallBack,
 } from './utilities/data-model-page-callbacks';
 import PageLayout from '../PageLayout';
 
@@ -108,7 +107,6 @@ const AdminDataModelCourseInstancesPage: React.FC<AdminDataModelCourseInstancesP
         setShowUpdateForm(false);
         setId('');
       });
-    updateMethod.call({ collectionName, updateData }, updateCallBack(setShowUpdateForm, setId));
   };
 
   const findOptions = {
