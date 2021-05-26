@@ -127,8 +127,7 @@ const AdminAnalyticsNewsletterWidget: React.FC = () => {
               },
               filename: 'newsletter2.html',
             };
-            // @ts-ignore
-            sendEmailMethod.callPromise(emailData, (error) => {
+            sendEmailMethod.call(emailData, (error) => {
               if (error) {
                 console.error('Error sending email.', error);
               }
