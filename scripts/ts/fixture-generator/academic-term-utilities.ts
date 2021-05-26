@@ -201,3 +201,17 @@ export const compareTerms = (term1: string, term2: string): number => {
 };
 
 export const isSummerTerm = (academicTerm: string) => getTerm(academicTerm) === AcademicTerms.SUMMER;
+
+export const getAcademicTerm = (currentTerm: string, offset: number, quarters: boolean, skipSummer = true) => {
+  let academicTerm = currentTerm;
+  if (offset < 0) {
+    academicTerm = multiplePrevAcademicTerm(currentTerm, quarters, -1 * offset);
+  } else if (offset > 0) {
+    academicTerm = multipleNextAcademicTerm(currentTerm, quarters, offset);
+  } else if (skipSummer && isSummerTerm(currentTerm)) {
+    academicTerm = nextAcademicTerm(currentTerm, quarters);
+  } else {
+    academicTerm = currentTerm;
+  }
+  return academicTerm;
+};

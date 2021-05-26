@@ -8,6 +8,7 @@ import { generateCourseInstance } from './course-instance-utilities';
 import { generateOpportunityInstance } from './opportunity-instance-utilities';
 import RadGradCollection, { RadGradCollectionName } from './RadGradCollection';
 import { StudentConfig } from './user-config-file.js';
+import { generateReview } from './review-utilities';
 
 interface Doc {
   slug?: string;
@@ -61,6 +62,23 @@ const buildOpportunityInstanceCollection = (studentConfig: StudentConfig, academ
   return result;
 };
 
+const buildReviewsCollection = (studentConfig: StudentConfig, academicTerms: AcademicTermCollection, opportunities: RadGradCollection): ICollection => {
+  const result = {
+    name: RadGradCollectionName.REVIEWS,
+    contents: [],
+  };
+  const currentTerm = academicTerms.getCurrentTerm();
+  const quarters = academicTerms.isQuarterSystem();
+  studentConfig.studentPlans.forEach((plan) => {
+    const student = plan.username;
+    plan.reviews.forEach((p) => {
+      result.contents.push(generateReview(student, p, currentTerm, quarters, opportunities));
+    });
+  });
+
+  return result;
+};
+
 const compareCollections = (entry1, entry2) => {
   if (entry1.name < entry2.name) {
     return -1;
@@ -71,30 +89,18 @@ const compareCollections = (entry1, entry2) => {
   return 0;
 };
 
-const buildStudentProfileCollection = (studentConfig: StudentConfig, academicTerms, interests, careerGoals): ICollection => {
+const buildStudentProfileCollection = (studentConfig: StudentConfig): ICollection => {
   const result = {
     name: RadGradCollectionName.STUDENT_PROFILES,
     contents: [],
   };
   studentConfig.studentProfiles.contents.forEach((profile) => {
-    const randCareerGoals = careerGoals.getRandomSlugs(Math.floor(Math.random() * 3));
-    randCareerGoals.forEach((goal) => {
-      // @ts-ignore
-      profile.careerGoals.push(goal);
-      const doc = careerGoals.getDocBySlug(goal);
-      // @ts-ignore
-      doc?.interests.forEach((i) => profile.interests.push(i));
-    });
-    const randInterests = interests.getRandomSlugs(Math.floor(Math.random() * 2));
-    // @ts-ignore
-    randInterests.forEach((i) => profile.interests.push(i));
-    // @ts-ignore
-    // eslint-disable-next-line no-param-reassign
-    profile.interests = _.uniq(profile.interests);
     result.contents.push(profile);
   });
   return result;
 };
+
+const validateCareerGoalsAndInterests = () => {};
 
 const validateFixture = (radgradDump: IDataDump) => {
   const courses = new RadGradCollection(RadGradCollectionName.COURSES, getCollectionData(radgradDump, RadGradCollectionName.COURSES));
@@ -107,6 +113,10 @@ const validateFixture = (radgradDump: IDataDump) => {
     if (!(courses.isDefinedSlug(slug) || opportunities.isDefinedSlug(slug) || careerGoals.isDefinedSlug(slug) || interests.isDefinedSlug(slug))) {
       throw new Error(`Teaser target ${slug} is not a defined career goal, course, interest, or opportunity`);
     }
+  });
+  const students = new RadGradCollection(RadGradCollectionName.STUDENT_PROFILES, getCollectionData(radgradDump, RadGradCollectionName.STUDENT_PROFILES));
+  students.getContents().forEach((profile) => {
+    validateCareerGoalsAndInterests(profile, interests, careerGoals);
   });
 };
 
@@ -128,9 +138,7 @@ const createFixture = (radgradDump: IDataDump, studentConfig: StudentConfig, aca
   // Build the course instance collection
   const ciCollection: ICollection = buildCourseInstanceCollection(studentConfig, academicTerms);
   result.collections.push(ciCollection);
-  const interests = new RadGradCollection(RadGradCollectionName.INTERESTS, getNonRetiredCollectionData(radgradDump, RadGradCollectionName.INTERESTS));
-  const careerGoals = new RadGradCollection(RadGradCollectionName.CAREER_GOALS, getNonRetiredCollectionData(radgradDump, RadGradCollectionName.CAREER_GOALS));
-  const studentProfileCollection: ICollection = buildStudentProfileCollection(studentConfig, academicTerms, interests, careerGoals);
+  const studentProfileCollection: ICollection = buildStudentProfileCollection(studentConfig);
   result.collections.push(studentProfileCollection);
   const oiCollection: ICollection = buildOpportunityInstanceCollection(studentConfig, academicTerms);
   result.collections.push(oiCollection);
@@ -159,12 +167,11 @@ const createFixture = (radgradDump: IDataDump, studentConfig: StudentConfig, aca
     name: RadGradCollectionName.USER_INTERACTIONS,
     contents: [],
   });
-  result.collections.push({
-    name: RadGradCollectionName.REVIEWS,
-    contents: [],
-  });
+  const opportunities = new RadGradCollection(RadGradCollectionName.OPPORTUNITIES, getNonRetiredCollectionData(radgradDump, RadGradCollectionName.OPPORTUNITIES));
+  result.collections.push(buildReviewsCollection(studentConfig, academicTerms, opportunities));
   // sort the collections
   result.collections.sort((entry1, entry2) => compareCollections(entry1, entry2));
+  validateFixture(result);
   return result;
 };
 
@@ -175,8 +182,6 @@ async function generateDemoFixture(radgradDumpFile, userConfigFile) {
   const data = fs.readFileSync(radgradDumpFile);
   const radgradDump = JSON.parse(data.toString());
   const academicTerms = new AcademicTermCollection(getCollectionData(radgradDump, RadGradCollectionName.ACADEMIC_TERMS));
-  // const opportunities = new RadGradCollection(RadGradCollectionName.OPPORTUNITIES, getNonRetiredCollectionData(radgradDump, RadGradCollectionName.OPPORTUNITIES));
-  // console.log(opportunities.getRandomSlugs(10));
   const configData = fs.readFileSync(userConfigFile);
   const userConfig: StudentConfig = JSON.parse(configData.toString());
   const fixture = createFixture(radgradDump, userConfig, academicTerms);

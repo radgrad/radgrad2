@@ -8,8 +8,28 @@
         "lastName": "Kealoha",
         "picture": "/images/mockup/abi.jpg",
         "website": "http://abi.github.io",
-        "interests": [],
-        "careerGoals": [],
+        "interests": [
+          "application-development",
+          "research",
+          "android",
+          "software-engineering",
+          "databases",
+          "algorithms",
+          "computer-architecture",
+          "data-science",
+          "data-visualization",
+          "hardware",
+          "hci",
+          "networks",
+          "security",
+          "machine-learning"
+        ],
+        "careerGoals": [
+          "software-developer",
+          "database-administrator",
+          "iot-architect",
+          "data-scientist"
+        ],
         "level": 1,
         "profileCourses": [
           "ics_111",
@@ -48,48 +68,6 @@
         "shareCourses": true,
         "shareLevel": true,
         "shareICE": true
-      },
-      {
-        "username": "fresh1@hawaii.edu",
-        "firstName": "Ekahi",
-        "lastName": "Fresh",
-        "picture": "/images/mockup/radgrad.png",
-        "interests": [],
-        "careerGoals": [],
-        "level": 1,
-        "profileCourses": [],
-        "profileOpportunities": [],
-        "isAlumni": false,
-        "retired": false,
-        "sharePicture": false,
-        "shareWebsite": false,
-        "shareInterests": false,
-        "shareCareerGoals": false,
-        "shareOpportunities": false,
-        "shareCourses": false,
-        "shareLevel": false,
-        "shareICE": false
-      },
-      {
-        "username": "fresh2@hawaii.edu",
-        "firstName": "Elua",
-        "lastName": "Fresh",
-        "picture": "/images/mockup/radgrad.png",
-        "interests": [],
-        "careerGoals": [],
-        "level": 1,
-        "profileCourses": [],
-        "profileOpportunities": [],
-        "isAlumni": false,
-        "retired": false,
-        "sharePicture": false,
-        "shareWebsite": false,
-        "shareInterests": false,
-        "shareCareerGoals": false,
-        "shareOpportunities": false,
-        "shareCourses": false,
-        "shareLevel": false,
-        "shareICE": false
       }
     ]
   },
@@ -99,99 +77,83 @@
       "courses": [
         {
           "slug": "ics_111",
-          "academicTermOffset": -6,
+          "academicTermOffset": -5,
           "grade": "A"
         },
         {
           "slug": "ics_141",
-          "academicTermOffset": -6,
+          "academicTermOffset": -5,
           "grade": "B+"
         },
         {
           "slug": "ics_211",
-          "academicTermOffset": -5,
+          "academicTermOffset": -4,
           "grade": "A"
         },
         {
           "slug": "ics_241",
-          "academicTermOffset": -5,
+          "academicTermOffset": -4,
           "grade": "B+"
         },
         {
           "slug": "ics_311",
-          "academicTermOffset": -4,
+          "academicTermOffset": -3,
           "grade": "A"
         },
         {
           "slug": "ics_314",
-          "academicTermOffset": -4,
+          "academicTermOffset": -3,
           "grade": "B"
         },
         {
           "slug": "ics_212",
-          "academicTermOffset": -3,
+          "academicTermOffset": -2,
           "grade": "A"
         },
         {
           "slug": "ics_321",
-          "academicTermOffset": -3,
+          "academicTermOffset": -2,
           "grade": "A-"
         },
         {
           "slug": "ics_313",
-          "academicTermOffset": -2,
+          "academicTermOffset": -1,
           "grade": "B"
         },
         {
           "slug": "ics_331",
-          "academicTermOffset": -2,
+          "academicTermOffset": -1,
           "grade": "B"
         },
         {
           "slug": "ics_332",
-          "academicTermOffset": -1,
+          "academicTermOffset": 0,
           "grade": "B"
         },
         {
           "slug": "ics_464",
-          "academicTermOffset": -1,
+          "academicTermOffset": 0,
           "grade": "B+"
         },
         {
           "slug": "ics_431",
-          "academicTermOffset": 0,
+          "academicTermOffset": 1,
           "grade": "A"
         },
         {
           "slug": "ics_425",
-          "academicTermOffset": 0,
+          "academicTermOffset": 1,
           "grade": "A"
         },
         {
           "slug": "ics_426",
-          "academicTermOffset": 1,
+          "academicTermOffset": 2,
           "grade": "B"
         },
         {
           "slug": "ics_464",
-          "academicTermOffset": 1,
+          "academicTermOffset": 2,
           "grade": "B"
-        }
-      ],
-      "opportunities": []
-    },
-    {
-      "username": "fresh1@hawaii.edu",
-      "courses": [
-        {
-          "slug": "ics_111",
-          "academicTermOffset": -1,
-          "grade": "B"
-        },
-        {
-          "slug": "ics_141",
-          "academicTermOffset": -1,
-          "grade": "A"
         }
       ],
       "opportunities": [
@@ -200,42 +162,19 @@
           "academicTermOffset": -1,
           "verified": false
         }
-      ]
-    },
-    {
-      "username": "fresh2@hawaii.edu",
-      "courses": [
-        {
-          "slug": "ics_111",
-          "academicTermOffset": -2,
-          "grade": "A"
-        },
-        {
-          "slug": "ics_141",
-          "academicTermOffset": -2,
-          "grade": "A"
-        },
-        {
-          "slug": "ics_211",
-          "academicTermOffset": -1,
-          "grade": "A"
-        },
-        {
-          "slug": "ics_241",
-          "academicTermOffset": -1,
-          "grade": "B"
-        }
       ],
-      "opportunities": [
+      "reviews": [
         {
-          "slug": "py-hawaii",
-          "academicTermOffset": -2,
-          "verified": true
+          "academicTermOffset": -4,
+          "reviewee": "ics_111",
+          "rating": 5,
+          "comments": "Lecture can be boring. Tests can be tricky... so pay attention and read the questions and answers twice before answering them. Lab is were all the fun is. If you're not an ICS major or don't like programing, you probably shouldn't take the course."
         },
         {
-          "slug": "hacc",
-          "academicTermOffset": -1,
-          "verified": false
+          "academicTermOffset": 0,
+          "reviewee": "acm-manoa",
+          "rating": 4,
+          "comments": "ACM Manoa is a great all in one club that gives students a place to meet other computer science majors and enthusiasts. Joining ACM’s Discord is the best way to stay informed. Underneath ACM are Special Interest Groups such as Grey Hats, Game Dev, and Algorithms. If any of these interest you, this is definitely the place to go."
         }
       ]
     }

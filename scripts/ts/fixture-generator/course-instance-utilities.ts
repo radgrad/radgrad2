@@ -1,4 +1,4 @@
-import { isSummerTerm, multipleNextNonSummerTerm, multiplePrevNonSummerTerm, nextAcademicTerm } from './academic-term-utilities';
+import { getAcademicTerm, isSummerTerm, multipleNextNonSummerTerm, multiplePrevNonSummerTerm, nextAcademicTerm } from './academic-term-utilities';
 import { PlanCourseItem } from './user-config-file.js';
 
 const courseSlugToNote = (slug: string): string => {
@@ -22,25 +22,21 @@ export const generateCourseInstance = (student: string, planItem: PlanCourseItem
   const course = planItem.slug;
   const note = courseSlugToNote(course);
   const creditHrs = 3;
-  let academicTerm;
+  const academicTerm = getAcademicTerm(currentTerm, planItem.academicTermOffset, quarters);
   let verified;
   let fromRegistrar;
   const grade = planItem.grade;
   if (planItem.academicTermOffset < 0) {
-    academicTerm = multiplePrevNonSummerTerm(currentTerm, quarters, -1 * planItem.academicTermOffset);
     verified = true;
     fromRegistrar = true;
   } else if (planItem.academicTermOffset > 0) {
     const summerAdd = isSummerTerm(currentTerm) ? 1 : 0;
-    academicTerm = multipleNextNonSummerTerm(currentTerm, quarters, planItem.academicTermOffset + summerAdd);
     verified = false;
     fromRegistrar = false;
   } else if (isSummerTerm(currentTerm)) {
-      academicTerm = nextAcademicTerm(currentTerm, quarters);
       verified = false;
       fromRegistrar = false;
     } else {
-      academicTerm = currentTerm;
       verified = false;
       fromRegistrar = true;
     }

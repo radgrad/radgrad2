@@ -33,10 +33,18 @@ export interface PlanOpportunityItem {
   verified: boolean;
 }
 
+export interface PlanReviewItem {
+  academicTermOffset: number;
+  reviewee: string;
+  rating: number;
+  comments: string;
+}
+
 export interface StudentPlan {
   username: string;
   courses: PlanCourseItem[];
   opportunities: PlanOpportunityItem[];
+  reviews: PlanReviewItem[];
 }
 
 export interface StudentConfig {
