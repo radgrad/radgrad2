@@ -99,7 +99,6 @@ export const updateMethod = new ValidatedMethod({
       collection.assertValidRoleForMethod(this.userId);
       collection.update(updateData.id, updateData);
     }
-    return true;
   },
 });
 
