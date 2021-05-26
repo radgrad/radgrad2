@@ -124,7 +124,7 @@ class UserCollection {
     const userID = this.getID(user);
     const profile = this.getProfile(userID);
     if (Array.isArray(role)) {
-      if (!_.includes(role, profile.role)) {
+      if (!Roles.userIsInRole(role, profile.role)) {
         throw new Meteor.Error(`${userID} (${this.getProfile(userID).username}) is not in role ${role}.`);
       }
     } else if (profile.role !== role) {

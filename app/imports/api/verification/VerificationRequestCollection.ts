@@ -352,10 +352,9 @@ class VerificationRequestCollection extends BaseCollection {
       throw new Meteor.Error('unauthorized', 'You must be logged in.');
     } else {
       const profile = Users.getProfile(userId);
-      if (!_.includes(roles, profile.role)) {
+      if (!Roles.userIsInRole(profile.role, roles)) {
         throw new Meteor.Error('unauthorized', `You must be one of the following roles: ${roles}`);
       }
-
     }
     return true;
   }

@@ -149,7 +149,7 @@ const processBulkStarDefinitions = (advisor, definitions) => {
         updateNum += 1;
         processStudentStarDefinitions(advisor, student, definitions[student].courses);
         const studentID = Users.getID(student);
-        updateStudentLevel(studentID);
+        updateStudentLevel(studentID, studentID);
       } else {
         console.log(`${student} is not defined need to create them.`);
         try {
@@ -162,7 +162,7 @@ const processBulkStarDefinitions = (advisor, definitions) => {
           StudentProfiles.define(definitionData);
           processStudentStarDefinitions(advisor, student, definitions[student].courses);
           const studentID = Users.getID(student);
-          updateStudentLevel(studentID);
+          updateStudentLevel(studentID, studentID);
           newStudents += 1;
         } catch (e) {
           console.log(`Error defining student ${student}`, e);
