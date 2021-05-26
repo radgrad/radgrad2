@@ -11,8 +11,11 @@ export const userInteractionDefineMethod = new ValidatedMethod({
   validate: null,
   mixins: [CallPromiseMixin],
   run(interactionData) {
-    UserInteractions.assertValidRoleForMethod(this.userId);
-    return UserInteractions.define(interactionData);
+    if (Meteor.isServer) {
+      UserInteractions.assertValidRoleForMethod(this.userId);
+      return UserInteractions.define(interactionData);
+    }
+    return null;
   },
 });
 
@@ -25,8 +28,11 @@ export const userInteractionRemoveUserMethod = new ValidatedMethod({
   validate: null,
   mixins: [CallPromiseMixin],
   run(instances) {
-    UserInteractions.assertAdminRoleForMethod(this.userId);
-    return UserInteractions.removeUser(instances);
+    if (Meteor.isServer) {
+      UserInteractions.assertAdminRoleForMethod(this.userId);
+      return UserInteractions.removeUser(instances);
+    }
+    return null;
   },
 });
 
@@ -39,8 +45,11 @@ export const userInteractionFindMethod = new ValidatedMethod({
   validate: null,
   mixins: [CallPromiseMixin],
   run({ selector, options }) {
-    UserInteractions.assertAdminRoleForMethod(this.userId);
-    const results = UserInteractions.find(selector, options);
-    return results.fetch();
+    if (Meteor.isServer) {
+      UserInteractions.assertAdminRoleForMethod(this.userId);
+      const results = UserInteractions.find(selector, options).fetch();
+      return results;
+    }
+    return null;
   },
 });
