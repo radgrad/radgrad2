@@ -14,7 +14,7 @@ export const generateStudentEmailsMethod = new ValidatedMethod({
       throw new Meteor.Error('unauthorized', 'You must be logged in to get student emails.');
     } else {
       const profile = Users.getProfile(this.userId);
-      if (!Roles.userIsInRole(this.userId, profile.role, [ROLE.ADMIN, ROLE.ADVISOR])) {
+      if (!Roles.userIsInRole(this.userId, [ROLE.ADMIN, ROLE.ADVISOR], profile.role)) {
         throw new Meteor.Error('unauthorized', 'You must be an admin or advisor to get student emails.');
       }
     }
