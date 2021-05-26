@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Header, Segment } from 'semantic-ui-react';
+import Swal from 'sweetalert2';
 import {
   AutoForm,
   TextField,
@@ -27,7 +28,6 @@ import {
 import { iceSchema } from '../../../../../api/ice/IceProcessor';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
 import { interestSlugFromName } from '../../../shared/utilities/form';
-import { defineCallback } from '../utilities/add-form';
 
 interface AddOpportunityFormProps {
   sponsors: BaseProfile[];
@@ -58,7 +58,24 @@ const AddOpportunityForm: React.FC<AddOpportunityFormProps> = ({ sponsors, inter
     definitionData.sponsor = profileNameToUsername(doc.sponsor);
     definitionData.slug = `${slugify(doc.name)}-opportunity`;
     // console.log(definitionData);
-    defineMethod.call({ collectionName, definitionData }, defineCallback(formRef));
+    defineMethod.callPromise({ collectionName, definitionData })
+      .catch((error) => {
+        console.error('Failed adding User', error);
+        Swal.fire({
+          title: 'Failed adding User',
+          text: error.message,
+          icon: 'error',
+        });
+      })
+      .then(() => {
+        Swal.fire({
+          title: 'Add User Succeeded',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        formRef.reset();
+      });
   };
 
   // Hacky way of resetting pictureURL to be empty
@@ -94,51 +111,51 @@ const AddOpportunityForm: React.FC<AddOpportunityFormProps> = ({ sponsors, inter
   });
   const formSchema = new SimpleSchema2Bridge(schema);
   return (
-        <Segment padded>
-            <Header dividing>Add Opportunity</Header>
-            {/* eslint-disable-next-line no-return-assign */}
-            <AutoForm schema={formSchema} onSubmit={(doc) => handleAddOpportunity(doc)} ref={(ref) => formRef = ref}
-                      showInlineError>
-                <Form.Group widths="equal">
-                    <TextField name="name"/>
-                </Form.Group>
-                <Form.Group widths="equal">
-                    <SelectField name="opportunityType"/>
-                    <SelectField name="sponsor"/>
-                </Form.Group>
-                <LongTextField name="description"/>
-                <Form.Group widths="equal">
-                    <MultiSelectField name="terms"/>
-                    <MultiSelectField name="interests"/>
-                </Form.Group>
-                <Form.Group widths="equal">
-                    <DateField name="eventDate1"/>
-                    <TextField name="eventDateLabel1"/>
-                </Form.Group>
-                <Form.Group widths="equal">
-                    <DateField name="eventDate2"/>
-                    <TextField name="eventDateLabel2"/>
-                </Form.Group>
-                <Form.Group widths="equal">
-                    <DateField name="eventDate3"/>
-                    <TextField name="eventDateLabel3"/>
-                </Form.Group>
-                <Form.Group widths="equal">
-                    <DateField name="eventDate4"/>
-                    <TextField name="eventDateLabel4"/>
-                </Form.Group>
-                <Form.Group widths="equal">
-                    <NumField name="ice.i"/>
-                    <NumField name="ice.c"/>
-                    <NumField name="ice.e"/>
-                </Form.Group>
-                <BoolField name="retired"/>
-                <PictureField name="picture"/>
-                <ErrorsField/>
-                <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined}/>
-                <ErrorsField/>
-            </AutoForm>
-        </Segment>
+    <Segment padded>
+      <Header dividing>Add Opportunity</Header>
+      {/* eslint-disable-next-line no-return-assign */}
+      <AutoForm schema={formSchema} onSubmit={(doc) => handleAddOpportunity(doc)} ref={(ref) => formRef = ref}
+                showInlineError>
+        <Form.Group widths="equal">
+          <TextField name="name" />
+        </Form.Group>
+        <Form.Group widths="equal">
+          <SelectField name="opportunityType" />
+          <SelectField name="sponsor" />
+        </Form.Group>
+        <LongTextField name="description" />
+        <Form.Group widths="equal">
+          <MultiSelectField name="terms" />
+          <MultiSelectField name="interests" />
+        </Form.Group>
+        <Form.Group widths="equal">
+          <DateField name="eventDate1" />
+          <TextField name="eventDateLabel1" />
+        </Form.Group>
+        <Form.Group widths="equal">
+          <DateField name="eventDate2" />
+          <TextField name="eventDateLabel2" />
+        </Form.Group>
+        <Form.Group widths="equal">
+          <DateField name="eventDate3" />
+          <TextField name="eventDateLabel3" />
+        </Form.Group>
+        <Form.Group widths="equal">
+          <DateField name="eventDate4" />
+          <TextField name="eventDateLabel4" />
+        </Form.Group>
+        <Form.Group widths="equal">
+          <NumField name="ice.i" />
+          <NumField name="ice.c" />
+          <NumField name="ice.e" />
+        </Form.Group>
+        <BoolField name="retired" />
+        <PictureField name="picture" />
+        <ErrorsField />
+        <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
+        <ErrorsField />
+      </AutoForm>
+    </Segment>
   );
 };
 
