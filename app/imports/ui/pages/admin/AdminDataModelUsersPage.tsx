@@ -197,6 +197,7 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
     if (!_.isNil(doc.declaredAcademicTerm)) {
       updateData.declaredAcademicTerm = declaredAcademicTermSlugFromName(doc.declaredAcademicTerm);
     }
+    // @ts-ignore
     const { isCloudinaryUsed, cloudinaryUrl } = props;
     if (isCloudinaryUsed) {
       updateData.picture = cloudinaryUrl;
