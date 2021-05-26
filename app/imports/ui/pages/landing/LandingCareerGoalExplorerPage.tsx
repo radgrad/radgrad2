@@ -3,7 +3,7 @@ import React from 'react';
 import Markdown from 'react-markdown';
 import { useParams, useRouteMatch } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Grid, Header, Segment } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import LandingExplorerMenuBar from '../../components/landing/explorer/LandingExplorerMenuBar';
 import { CareerGoal } from '../../../typings/radgrad';
@@ -14,7 +14,10 @@ import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
 import LandingInterestList from '../../components/landing/LandingInterestList';
 import * as Router from '../../components/shared/utilities/router';
 import { PAGEIDS } from '../../utilities/PageIDs';
+import { EXPLORER_TYPE_ICON } from '../../utilities/ExplorerUtils';
 import PageLayout from '../PageLayout';
+import RadGradSegment from '../../components/shared/RadGradSegment';
+import RadGradHeader from '../../components/shared/RadGradHeader';
 
 interface CareerGoalExplorerProps {
   careerGoal: CareerGoal;
@@ -42,16 +45,12 @@ const LandingCareerGoalExplorerPage: React.FC<CareerGoalExplorerProps> = ({ care
           </Grid.Column>
 
           <Grid.Column width={13}>
-            <Segment>
-              <Header as="h4" dividing>
-                <span>{careerGoal.name}</span>
-              </Header>
+            <RadGradSegment header={<RadGradHeader title={careerGoal.name} dividing/>}>
               <b>Description:</b>
               <Markdown escapeHtml source={careerGoal.description}
                         renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}/>
-            </Segment>
-            {careerGoal.interestIDs.length > 0 ?
-            <Segment><LandingInterestList interestIDs={careerGoal.interestIDs}/></Segment> : 'N/A'}
+            </RadGradSegment>
+            <RadGradSegment header={<RadGradHeader title='Related Interests' icon={EXPLORER_TYPE_ICON.INTEREST} dividing/>}>{careerGoal.interestIDs.length > 0 ? <LandingInterestList interestIDs={careerGoal.interestIDs}/> : 'N/A'}</RadGradSegment>
           </Grid.Column>
         </Grid>
       </PageLayout>

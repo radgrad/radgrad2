@@ -1,7 +1,7 @@
 import React from 'react';
-import { List } from 'semantic-ui-react';
 import { Courses } from '../../../api/course/CourseCollection';
 import { getSlugFromEntityID } from './utilities/helper-functions';
+import CourseLabel from '../shared/label/CourseLabel';
 
 interface PrerequisitesListProps {
   prerequisites: string[];
@@ -10,16 +10,10 @@ interface PrerequisitesListProps {
 const LandingPrerequisiteList: React.FC<PrerequisitesListProps> = ({ prerequisites }) => {
   const courses = prerequisites.map((slug) => Courses.findDocBySlug(slug));
   return (
-    <List horizontal bulleted>
-      {
-        // console.log(course.name);
-        courses.map((course) => (
-          <List.Item key={course._id} href={`#/explorer/courses/${getSlugFromEntityID(course._id)}`}>
-            {course.name}
-          </List.Item>
-        ))
-      }
-    </List>
+  <React.Fragment>
+    {courses.map((course) =>
+    <CourseLabel key={course._id} slug={getSlugFromEntityID(course._id)} size='small'/>)}
+  </React.Fragment>
   );
 };
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Header } from 'semantic-ui-react';
 import { Interests } from '../../../api/interest/InterestCollection';
 import InterestLabel from '../shared/label/InterestLabel';
 
