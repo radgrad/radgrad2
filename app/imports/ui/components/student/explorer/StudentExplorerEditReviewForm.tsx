@@ -71,22 +71,22 @@ const StudentExplorerEditReviewForm: React.FC<StudentExplorerEditReviewWidgetPro
     e.preventDefault();
     const id = review._id;
     const collectionName = collection.getCollectionName();
-    removeItMethod.call({ collectionName, instance: id }, (error) => {
-      if (error) {
+    removeItMethod.callPromise({ collectionName, instance: id })
+      .catch((error) => {
         Swal.fire({
           title: 'Delete failed',
           text: error.message,
           icon: 'error',
         });
         console.error('Error deleting Review. %o', error);
-      } else {
+      })
+      .then(() => {
         Swal.fire({
           title: 'Delete succeeded',
           icon: 'success',
         });
-      }
-      setConfirmOpen(false);
-    });
+      });
+    setConfirmOpen(false);
   };
 
   const handleCancelDelete = (e: any): void => {
