@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Segment, Header, Form } from 'semantic-ui-react';
+import { Segment, Form } from 'semantic-ui-react';
 import moment from 'moment';
 import { processVerificationEventMethod } from '../../../../api/verification/VerificationRequestCollection.methods';
 import { Opportunity } from '../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
+import RadGradHeader from '../RadGradHeader';
 
 interface EventVerificationsWidgetProps {
   eventOpportunities: Opportunity[];
@@ -77,7 +78,7 @@ const EventVerificationsWidget: React.FC<EventVerificationsWidgetProps> = ({ eve
 
   return (
     <Segment>
-      <Header as="h4" dividing content="EVENT VERIFICATION" />
+      <RadGradHeader title='event verification' dividing />
       <Form onSubmit={onSubmit}>
         <Form.Group inline>
           <Form.Dropdown
