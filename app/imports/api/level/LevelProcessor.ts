@@ -134,7 +134,7 @@ export const testCalcLevel = (studentID: string): number => {
  * @param studentID the studentID.
  * @memberOf api/level
  */
-export const updateStudentLevel = (studentID: string): void => {
+export const updateStudentLevel = (studentID: string, any: any): void => {
   let level;
   if (RadGrad.calcLevel) {
     level = RadGrad.calcLevel(studentID);
@@ -160,9 +160,9 @@ export const updateStudentLevel = (studentID: string): void => {
  * Updates all the students level.
  * @memberOf api/level
  */
-export const updateAllStudentLevels = (): number => {
+export const updateAllStudentLevels = (userId): number => {
   StudentProfiles.find().forEach((student) => {
-    updateStudentLevel(student.userID);
+    updateStudentLevel(student.userID, studentID);
   });
   return StudentProfiles.find().count();
 };
