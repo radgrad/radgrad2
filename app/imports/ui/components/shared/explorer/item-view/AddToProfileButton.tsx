@@ -77,9 +77,8 @@ const handleRemove = (studentID: string, item: ItemType, type: IProfileEntryType
       console.error(`Bad profile entry type: ${type}`);
       break;
   }
-
-  removeItMethod.call({ collectionName, instance }, (error: MeteorError) => {
-    if (error) {
+  removeItMethod.callPromise({ collectionName, instance })
+    .catch((error) => {
       Swal.fire({
         title: 'Failed to remove from profile',
         icon: 'error',
@@ -88,8 +87,7 @@ const handleRemove = (studentID: string, item: ItemType, type: IProfileEntryType
         allowEscapeKey: false,
         allowEnterKey: false,
       });
-    }
-  });
+    });
 };
 
 const AddToProfileButton: React.FC<AddToProfileButtonProps> = ({ studentID, item, type, added, inverted, floated }) => (
