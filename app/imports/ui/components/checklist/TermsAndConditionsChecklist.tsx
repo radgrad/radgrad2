@@ -88,7 +88,7 @@ export class TermsAndConditionsChecklist extends Checklist {
         return (
           <ActionsBox description='Please indicate if you consent to the Terms and Conditions below. If you indicate that you do not consent, we will initiate your removal from the RadGrad system. You will also be automatically logged out.' >
             <ChecklistButtonAction onClick={handleAccept} label='I consent'/>
-            <ChecklistButtonAction onClick={handleReject} label='I do not consent' icon='thumbs down outline'/>
+            <ChecklistButtonAction onClick={handleReject} label='I do not consent' icon='thumbs down outline' color='red' />
           </ActionsBox>
         );
       default:
