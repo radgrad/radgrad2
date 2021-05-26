@@ -47,7 +47,7 @@ export class TermsAndConditionsChecklist extends Checklist {
     const url = `/${this.role.toLowerCase()}/${this.profile.username}/${TERMS_AND_CONDITIONS}`;
     return (
       <DetailsBox description='To review Terms and Conditions:'>
-        <ChecklistButtonLink url={url} label='Terms and Conditions Page'/>
+        <ChecklistButtonLink url={url} label='Terms and Conditions Page' />
       </DetailsBox>
     );
   }
@@ -98,19 +98,20 @@ export class TermsAndConditionsChecklist extends Checklist {
     switch (this.state) {
       case CHECKSTATE.IMPROVE:
         return (
-          <ActionsBox description='Please indicate if you consent to the Terms and Conditions below. If you indicate that you do not consent, we will initiate your removal from the RadGrad system. You will also be automatically logged out.' >
-            <ChecklistButtonAction onClick={handleAccept} label='I consent'/>
+          <ActionsBox
+            description='Please indicate if you consent to the Terms and Conditions below. If you indicate that you do not consent, we will initiate your removal from the RadGrad system. You will also be automatically logged out.'>
+            <ChecklistButtonAction onClick={handleAccept} label='I consent' />
             <ChecklistButtonAction onClick={handleReject} label='I do not consent' icon='thumbs down outline' color='red' />
           </ActionsBox>
         );
       default:
-        return <React.Fragment/>;
+        return <React.Fragment />;
     }
   }
 
   public getChecklistItem(): JSX.Element {
     if (this.profile.refusedTermsAndConditions) {
-      return <Redirect to={{ pathname: '/signout-refused' }} key={`${this.profile.username}-refused-terms`}/>;
+      return <Redirect to={{ pathname: '/signout-refused' }} key={`${this.profile.username}-refused-terms`} />;
     }
     return super.getChecklistItem();
   }
