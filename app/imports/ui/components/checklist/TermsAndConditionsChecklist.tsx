@@ -1,6 +1,7 @@
 import moment from 'moment';
 import React from 'react';
 import { Redirect } from 'react-router';
+import Swal from 'sweetalert2';
 import { sendRefusedTermsEmailMethod } from '../../../api/email/Email.methods';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
@@ -62,26 +63,37 @@ export class TermsAndConditionsChecklist extends Checklist {
         .catch((error) => console.error('Failed to update acceptedTermsAndConditions', error));
     };
     const handleReject = () => {
-      // need to inform the admin that a student has disagreed to the terms.
-      const emailData = {
-        to: RadGradProperties.getAdminEmail(),
-        bcc: '',
-        from: RadGradProperties.getAdminEmail(),
-        replyTo: RadGradProperties.getAdminEmail(),
-        subject: `${this.profile.username} refused the terms and conditions`,
-        templateData: {
-          username: this.profile.username,
-        },
-        filename: 'refusedTerms.html',
-      };
-      sendRefusedTermsEmailMethod.callPromise(emailData)
-        .catch((error) => console.error('Failed to send email.', error));
-      const collectionName = StudentProfiles.getCollectionNameForProfile(this.profile);
-      const updateData: StudentProfileUpdate = {};
-      updateData.id = this.profile._id;
-      updateData.refusedTermsAndConditions = moment().format('YYYY-MM-DD');
-      updateMethod.callPromise({ collectionName, updateData })
-        .catch((error) => console.error('Failed to update refusedTermsAndConditions', error));
+      Swal.fire({
+        title: 'WARNING',
+        text: 'By not accepting the terms and conditions you will be immediately logged out and your account will be removed. Are you sure you don\'t consent to the terms and conditions?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'I do not consent',
+        cancelButtonText: 'Cancel',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // need to inform the admin that a student has disagreed to the terms.
+          const emailData = {
+            to: RadGradProperties.getAdminEmail(),
+            bcc: '',
+            from: RadGradProperties.getAdminEmail(),
+            replyTo: RadGradProperties.getAdminEmail(),
+            subject: `${this.profile.username} refused the terms and conditions`,
+            templateData: {
+              username: this.profile.username,
+            },
+            filename: 'refusedTerms.html',
+          };
+          sendRefusedTermsEmailMethod.callPromise(emailData)
+            .catch((error) => console.error('Failed to send email.', error));
+          const collectionName = StudentProfiles.getCollectionNameForProfile(this.profile);
+          const updateData: StudentProfileUpdate = {};
+          updateData.id = this.profile._id;
+          updateData.refusedTermsAndConditions = moment().format('YYYY-MM-DD');
+          updateMethod.callPromise({ collectionName, updateData })
+            .catch((error) => console.error('Failed to update refusedTermsAndConditions', error));
+        }
+      });
     };
     switch (this.state) {
       case CHECKSTATE.IMPROVE:
