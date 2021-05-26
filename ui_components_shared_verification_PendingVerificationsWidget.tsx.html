@@ -86,8 +86,9 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>import React from 'react';
-import { Segment, Header, Container } from 'semantic-ui-react';
+import { Segment, Container } from 'semantic-ui-react';
 import { VerificationRequest } from '../../../../typings/radgrad';
+import RadGradHeader from '../RadGradHeader';
 import PendingVerificationItem from './PendingVerificationItem';
 
 interface PendingVerificationsWidgetProps {
@@ -103,7 +104,7 @@ interface PendingVerificationsWidgetProps {
  */
 const PendingVerificationsWidget: React.FC&lt;PendingVerificationsWidgetProps> = ({ pendingVerifications }) => (
   &lt;Segment>
-    &lt;Header as="h4" dividing content="PENDING VERIFICATION REQUESTS" />
+    &lt;RadGradHeader title='pending verification requests' dividing />
     &lt;Container fluid={false} style={{ paddingBottom: '14px' }}>
       {pendingVerifications.map((ele: VerificationRequest) => (
         &lt;PendingVerificationItem verificationRequest={ele} key={ele._id} />
