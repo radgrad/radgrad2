@@ -1,9 +1,10 @@
 import React from 'react';
 import { useRouteMatch } from 'react-router-dom';
-import { Grid, Header, Image, List } from 'semantic-ui-react';
+import { Grid, Image, List } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
 import { Users } from '../../../../api/user/UserCollection';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
+import RadGradHeader from '../../shared/RadGradHeader';
 import StudentExplorerReviewStarsWidget from './StudentExplorerReviewStarsWidget';
 import StudentExplorerEditReviewForm from './StudentExplorerEditReviewForm';
 import StudentExplorerAddReviewForm from './StudentExplorerAddReviewForm';
@@ -40,7 +41,6 @@ const reviewData = (review: { [key: string]: any }): { [key: string]: any } => {
 
 const StudentExplorerReviewWidget: React.FC<StudentExplorerReviewWidgetProps> = ({ itemReviews, userReview, completed, reviewType, itemToReview }) => {
   const match = useRouteMatch();
-  const uppercaseStyle = { textTransform: 'uppercase' };
   const commentsStyle = { paddingTop: '5px' };
 
   const { name, picture, term, rating, comments } = reviewData(userReview);
@@ -52,9 +52,7 @@ const StudentExplorerReviewWidget: React.FC<StudentExplorerReviewWidgetProps> = 
   }
   return (
     <div className="ui padded container">
-      <Header as="h4" dividing style={uppercaseStyle}>
-        {reviewType} REVIEWS
-      </Header>
+      <RadGradHeader title={`${reviewType} reviews`} dividing />
 
       <List verticalAlign="middle" relaxed="very" divided>
         {userReview ? (

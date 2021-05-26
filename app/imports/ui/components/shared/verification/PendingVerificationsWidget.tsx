@@ -1,6 +1,7 @@
 import React from 'react';
-import { Segment, Header, Container } from 'semantic-ui-react';
+import { Segment, Container } from 'semantic-ui-react';
 import { VerificationRequest } from '../../../../typings/radgrad';
+import RadGradHeader from '../RadGradHeader';
 import PendingVerificationItem from './PendingVerificationItem';
 
 interface PendingVerificationsWidgetProps {
@@ -16,7 +17,7 @@ interface PendingVerificationsWidgetProps {
  */
 const PendingVerificationsWidget: React.FC<PendingVerificationsWidgetProps> = ({ pendingVerifications }) => (
   <Segment>
-    <Header as="h4" dividing content="PENDING VERIFICATION REQUESTS" />
+    <RadGradHeader title='pending verification requests' dividing />
     <Container fluid={false} style={{ paddingBottom: '14px' }}>
       {pendingVerifications.map((ele: VerificationRequest) => (
         <PendingVerificationItem verificationRequest={ele} key={ele._id} />

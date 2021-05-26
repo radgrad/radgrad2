@@ -1,7 +1,12 @@
+// @ts-ignore
 import React from 'react';
+// @ts-ignore
 import { Form, Header, Segment } from 'semantic-ui-react';
+// @ts-ignore
 import { AutoForm, TextField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
+// @ts-ignore
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
+// @ts-ignore
 import { HelpMessages } from '../../../../../api/help/HelpMessageCollection';
 
 interface AddHelpMessageFormProps {

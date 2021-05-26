@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 import SimpleSchema from 'simpl-schema';
-import { AutoForm, LongTextField, SelectField, SubmitField } from 'uniforms-semantic/';
+import { AutoForm, ErrorsField, LongTextField, SelectField, SubmitField } from 'uniforms-semantic/';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { Accordion, Form, Icon } from 'semantic-ui-react';
 import { useRouteMatch } from 'react-router-dom';
@@ -122,27 +122,28 @@ const StudentExplorerAddReviewForm: React.FC<StudentExplorerAddReviewFormProps> 
   });
   const formSchema = new SimpleSchema2Bridge(schema);
   return (
-    <Accordion>
-      <Accordion.Title style={accordionTitleStyle} active={activeState} onClick={handleAccordionClick}>
-        <Icon name="dropdown" />
-        <a>Add Review </a>
-      </Accordion.Title>
+        <Accordion>
+            <Accordion.Title style={accordionTitleStyle} active={activeState} onClick={handleAccordionClick}>
+                <Icon name="dropdown"/>
+                <a>Add Review </a>
+            </Accordion.Title>
 
-      <Accordion.Content active={activeState}>
-        <div className="ui padded container" style={paddedContainerStyle}>
-          <AutoForm schema={formSchema} onSubmit={handleAdd} ref={formRef}>
-            <Form.Group widths="equal">
-              <SelectField name="academicTerm" />
-              <RatingField name="rating" />
-            </Form.Group>
+            <Accordion.Content active={activeState}>
+                <div className="ui padded container" style={paddedContainerStyle}>
+                    <AutoForm schema={formSchema} onSubmit={handleAdd} ref={formRef}>
+                        <Form.Group widths="equal">
+                            <SelectField name="academicTerm"/>
+                            <RatingField name="rating"/>
+                        </Form.Group>
 
-            <LongTextField placeholder="Explain the reasoning behind your rating here." name="comments" />
+                        <LongTextField placeholder="Explain the reasoning behind your rating here." name="comments"/>
 
-            <SubmitField className="green basic mini" value="ADD" inputRef={undefined} disabled={false} />
-          </AutoForm>
-        </div>
-      </Accordion.Content>
-    </Accordion>
+                        <SubmitField className="green basic mini" value="ADD" inputRef={undefined} disabled={false}/>
+                        <ErrorsField/>
+                    </AutoForm>
+                </div>
+            </Accordion.Content>
+        </Accordion>
   );
 };
 

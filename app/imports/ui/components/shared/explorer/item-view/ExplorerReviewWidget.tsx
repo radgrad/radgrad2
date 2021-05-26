@@ -1,10 +1,11 @@
 import React from 'react';
 import Markdown from 'react-markdown';
-import { Grid, Header, Image, List } from 'semantic-ui-react';
+import { Grid, Image, List } from 'semantic-ui-react';
 import { useRouteMatch } from 'react-router-dom';
 import { Users } from '../../../../../api/user/UserCollection';
 import { Review } from '../../../../../typings/radgrad';
 import StudentExplorerReviewStarsWidget from '../../../student/explorer/StudentExplorerReviewStarsWidget';
+import RadGradHeader from '../../RadGradHeader';
 import { academicTermNameToShortName } from '../../utilities/data-model';
 import * as Router from '../../utilities/router';
 
@@ -33,14 +34,11 @@ const reviewData = (review: { [key: string]: any }): { [key: string]: any } => {
 };
 
 const ExplorerReviewWidget: React.FC<ExplorerReviewWidgetProps> = ({ itemReviews, reviewType }) => {
-  const uppercaseStyle = { textTransform: 'uppercase' };
   const commentsStyle = { paddingTop: '5px' };
   const match = useRouteMatch();
   return (
     <div className="ui padded container">
-      <Header as="h4" dividing style={uppercaseStyle}>
-        {reviewType} REVIEWS
-      </Header>
+      <RadGradHeader title={`${reviewType} reviews`} dividing />
       <List verticalAlign="middle" relaxed="very" divided>
         {itemReviews ? (
           <React.Fragment>
