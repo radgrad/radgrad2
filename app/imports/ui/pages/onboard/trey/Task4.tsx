@@ -14,7 +14,7 @@ import CourseLabel from '../../../components/shared/label/CourseLabel';
 import OpportunityLabel from '../../../components/shared/label/OpportunityLabel';
 import UserLabel from '../../../components/shared/profile/UserLabel';
 
-interface Task4ComponentProps {
+interface Task4Props {
   careerGoals: CareerGoal[];
   courses: Course[];
   interests: Interest[];
@@ -22,7 +22,7 @@ interface Task4ComponentProps {
   students: StudentProfile[];
 }
 
-const Task4Component: React.FC<Task4ComponentProps> = ({ careerGoals, courses, interests, opportunities, students }) => {
+const Task4: React.FC<Task4Props> = ({ careerGoals, courses, interests, opportunities, students }) => {
 
   const currentUser = Meteor.user() ? Meteor.user()._id : '';
 
@@ -30,10 +30,10 @@ const Task4Component: React.FC<Task4ComponentProps> = ({ careerGoals, courses, i
     <RadGradSegment header={<RadGradHeader title='TASK 4: LABELS' icon='tags' dividing />}>
 
       <h3>Career Goals</h3>
-      {careerGoals.map((careerGoal) => <CareerGoalLabel key={careerGoal._id} slug={careerGoal.slugID} userID={currentUser} size='small'/>)}
+      {careerGoals.map((careerGoal) => <CareerGoalLabel key={careerGoal._id} slug={careerGoal.slugID} userID={currentUser} size='small' />)}
 
       <h3>Courses</h3>
-      {courses.map((course) => <CourseLabel key={course._id} slug={course.slugID} userID={currentUser} size='small'/>)}
+      {courses.map((course) => <CourseLabel key={course._id} slug={course.slugID} userID={currentUser} size='small' />)}
 
       <h3>Interests</h3>
       {interests.map((interest) => <InterestLabel key={interest._id} slug={interest.slugID} userID={currentUser} size='small' />)}
@@ -53,7 +53,7 @@ export default withTracker(() => {
   const courses = Courses.findNonRetired();
   const interests = Interests.findNonRetired();
   const opportunities = Opportunities.findNonRetired();
-  const students = StudentProfiles.find({ isAlumni: false }, {}).fetch();
+  const students = StudentProfiles.findNonRetired({ isAlumni: false });
   return {
     careerGoals,
     courses,
@@ -61,4 +61,4 @@ export default withTracker(() => {
     opportunities,
     students,
   };
-})(Task4Component);
+})(Task4);
