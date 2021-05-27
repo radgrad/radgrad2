@@ -114,6 +114,18 @@ const createFixture = (radgradDump: IDataDump, studentConfig: StudentConfig, aca
     if (copyCollectionNames.includes(coll.name)) {
       // eslint-disable-next-line no-param-reassign
       coll.contents = coll.contents.filter((doc) => !doc.retired); // We don't want retired items.
+      if (coll.name === RadGradCollectionName.FACULTY_PROFILES || coll.name === RadGradCollectionName.ADVISOR_PROFILES) { // Ensure advisors, faculty have profileCourses and profileOpportunities
+        coll.contents.forEach((profile) => {
+          if (!profile.profileOpportunities) {
+            // eslint-disable-next-line no-param-reassign
+            profile.profileOpportunities = [];
+          }
+          if (!profile.profileCourses) {
+            // eslint-disable-next-line no-param-reassign
+            profile.profileCourses = [];
+          }
+        });
+      }
       result.collections.push(coll);
     }
   });

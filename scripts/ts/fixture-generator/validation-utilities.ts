@@ -45,4 +45,14 @@ export const validateFixture = (radgradDump: IDataDump) => {
     validateCareerGoalsAndInterests(profile, interests, careerGoals);
     validateProfileCoursesAndOpportunities(profile, courses, opportunities);
   });
+  const faculty = new RadGradCollection(RadGradCollectionName.FACULTY_PROFILES, getCollectionData(radgradDump, RadGradCollectionName.FACULTY_PROFILES));
+  faculty.getContents().forEach((profile) => {
+    validateCareerGoalsAndInterests(profile, interests, careerGoals);
+    validateProfileCoursesAndOpportunities(profile, courses, opportunities);
+  });
+  const advisors = new RadGradCollection(RadGradCollectionName.ADVISOR_PROFILES, getCollectionData(radgradDump, RadGradCollectionName.ADVISOR_PROFILES));
+  faculty.getContents().forEach((profile) => {
+    validateCareerGoalsAndInterests(profile, interests, careerGoals);
+    validateProfileCoursesAndOpportunities(profile, courses, opportunities);
+  });
 };
