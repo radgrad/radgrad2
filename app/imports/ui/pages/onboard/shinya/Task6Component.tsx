@@ -11,14 +11,14 @@ import { docToName } from '../../../components/shared/utilities/data-model';
 import Task6EditComponent from './Task6EditComponent';
 
 
-
 export interface Task6SegmentProps {
   interests: Interest[]
 }
+
 const Task6Component: React.FC<Task6SegmentProps> = ({ interests }) => {
-  const Task6Header = <RadGradHeader title="TASK 6: EDIT THE DESCRIPTION" icon = "pencil"/>;
+  const Task6Header = <RadGradHeader title="TASK 6: EDIT THE DESCRIPTION" icon="pencil" />;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [ description, updateDescription ] = useState('');
+  const [description, updateDescription] = useState('');
   const sumbitData = (doc) => {
     const selectedInterest = interests.find(interest => doc.interest == interest.name);
     updateDescription(selectedInterest.description);
@@ -35,13 +35,13 @@ const Task6Component: React.FC<Task6SegmentProps> = ({ interests }) => {
   const formSchema = new SimpleSchema2Bridge(schema);
 
   return (
-        <RadGradSegment header={Task6Header}>
-            <AutoForm schema = {formSchema} onSubmit = {sumbitData} showInlineError>
-                <SelectField name="interest" placeholder="Select Interest"/>
-                <SubmitField className="mini basic green" value="Display Description"/>
-            </AutoForm>
-            <Task6EditComponent/>
-        </RadGradSegment>
+    <RadGradSegment header={Task6Header}>
+      <AutoForm schema={formSchema} onSubmit={sumbitData} showInlineError>
+        <SelectField name="interest" placeholder="Select Interest" />
+        <SubmitField className="mini basic green" value="Display Description" />
+      </AutoForm>
+      <Task6EditComponent />
+    </RadGradSegment>
   );
 };
 export default withTracker(() => {

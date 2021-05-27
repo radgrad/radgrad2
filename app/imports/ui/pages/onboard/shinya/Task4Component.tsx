@@ -21,6 +21,7 @@ export interface Task4Props {
   opportunities: Opportunity[];
   students: StudentProfile[];
 }
+
 const Task4Component: React.FC<Task4Props> = ({ students, careerGoals, courses, interests, opportunities }) => {
   const Task4Header = <RadGradHeader title="Task 4 Labels" icon="tags"/>;
   const loggedInUser = Meteor.user() ? Meteor.user()._id : '';
@@ -39,6 +40,7 @@ const Task4Component: React.FC<Task4Props> = ({ students, careerGoals, courses, 
     </RadGradSegment>
   );
 };
+
 export default withTracker(() => {
   const careerGoals = CareerGoals.findNonRetired();
   const courses = Courses.findNonRetired();
