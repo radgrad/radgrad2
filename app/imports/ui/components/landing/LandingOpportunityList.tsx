@@ -5,7 +5,7 @@ import { Opportunity } from '../../../typings/radgrad';
 import { getSlugFromEntityID } from './utilities/helper-functions';
 
 interface LandingOpportunityListProps {
-  opportunities : Opportunity[];
+  opportunities: Opportunity[];
   size: SemanticSIZES;
 }
 

@@ -12,10 +12,10 @@ const LandingInterestList: React.FC<LandingInterestsListProps> = ({ size, intere
   const interests = interestIDs.map((id) => Interests.findDoc(id));
   const interestSlug = interests.map(interest => Interests.findSlugByID(interest));
   return (
-  <Label.Group size={size}>
-    {interestSlug.map((slug) =>
-    <InterestLabel key={slug} slug={slug} size={size} />)}
-  </Label.Group>
+    <Label.Group size={size}>
+      {interestSlug.map((slug) =>
+      <InterestLabel key={slug} slug={slug} size={size} />)}
+    </Label.Group>
   );
 };
 

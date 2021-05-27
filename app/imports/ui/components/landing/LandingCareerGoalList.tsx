@@ -5,15 +5,15 @@ import { CareerGoal } from '../../../typings/radgrad';
 import { getSlugFromEntityID } from './utilities/helper-functions';
 
 interface LandingCareerGoalListProps {
-  careerGoals : CareerGoal[];
+  careerGoals: CareerGoal[];
   size: SemanticSIZES;
 }
 
 const LandingCareerGoalList: React.FC<LandingCareerGoalListProps> = ({ size, careerGoals }) => (
-<Label.Group size={size}>
-  {careerGoals.map((careerGoal) =>
-  <CareerGoalLabel key={careerGoal._id} slug={getSlugFromEntityID(careerGoal._id)} size={size} />)}
-</Label.Group>
+  <Label.Group size={size}>
+    {careerGoals.map((careerGoal) =>
+    <CareerGoalLabel key={careerGoal._id} slug={getSlugFromEntityID(careerGoal._id)} size={size} />)}
+  </Label.Group>
 );
 
 export default LandingCareerGoalList;
