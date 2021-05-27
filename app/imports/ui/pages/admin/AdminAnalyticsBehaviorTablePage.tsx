@@ -5,7 +5,6 @@ import { Table } from 'semantic-ui-react';
 import { USER_INTERACTION_DESCRIPTIONS } from '../../../api/user-interaction/UserInteractionCollection';
 import { userInteractionFindMethod } from '../../../api/user-interaction/UserInteractionCollection.methods';
 import { UserInteraction } from '../../../typings/radgrad';
-import BehaviorTable from '../../components/admin/analytics/BehaviorTable';
 import DateIntervalSelector from '../../components/admin/analytics/DateIntervalSelector';
 import UserLabel from '../../components/shared/profile/UserLabel';
 import RadGradHeader from '../../components/shared/RadGradHeader';
