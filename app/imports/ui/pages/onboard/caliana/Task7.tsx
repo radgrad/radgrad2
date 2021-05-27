@@ -31,9 +31,13 @@ const Task7: React.FC<Task7Props> = ({ careerGoals, courses, interests, opportun
 
   const panes = [
     { menuItem: 'Career Goals', render: () => <Tab.Pane>{careerGoals.map((careerGoal) => <CareerGoalLabel key={careerGoal._id} slug={careerGoal.slugID} userID={currentUser} size='small' />)}</Tab.Pane> },
+
     { menuItem: 'Courses', render: () => <Tab.Pane>{courses.map((course) => <CourseLabel key={course._id} slug={course.slugID} userID={currentUser} size='small' />)}</Tab.Pane> },
+
     { menuItem: 'Interests', render: () => <Tab.Pane>{interests.map((interest) => <InterestLabel key={interest._id} slug={interest.slugID} userID={currentUser} size='small' />)}</Tab.Pane> },
+
     { menuItem: 'Opportunities', render: () => <Tab.Pane>{opportunities.map((opportunity) => <OpportunityLabel key={opportunity._id} slug={opportunity.slugID} userID={currentUser} size='small' />)}</Tab.Pane> },
+
     { menuItem: 'Students', render: () => <Tab.Pane>{students.map((student) => <UserLabel key={student._id} username={student.username} size='small' />)}</Tab.Pane> },
     {
       menuItem: 'Task 2', render: () => <Tab.Pane>
