@@ -19,9 +19,9 @@ import './style.css';
 const headerPaneTitle = 'Make the most of RadGrad';
 const headerPaneBody = `
 <p>This page contains your personal To Do list, which is designed to help RadGrad help you! It's divided into three sections.</p>
-<p><span class="headerLabel redBG">HIGH PRIORITY</span> Please act on these right away. They make a significant difference. </p>
-<p><span class="headerLabel yellowBG">MEDIUM PRIORITY</span> These are requests to review your settings or things that might have changed recently. </p>
-<p><span class="headerLabel greenBG">LOW PRIORITY</span>  All of these look good for now!</p>
+<p><span class="headerLabel redBG">HIGH PRIORITY</span> &nbsp; Please act on these right away. They make a significant difference. </p>
+<p><span class="headerLabel yellowBG">MEDIUM PRIORITY</span> &nbsp; These are requests to review your settings or things that might have changed recently. </p>
+<p><span class="headerLabel greenBG">COMPLETED</span>  &nbsp; All of these look good for now!</p>
 `;
 const headerPaneImage = 'header-home.png';
 

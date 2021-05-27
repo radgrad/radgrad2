@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { BrowserView } from 'react-device-detect';
 import { Button, Header, Image, Menu } from 'semantic-ui-react';
 import RadGradLogoText from '../shared/RadGradLogoText';
 import RadGradLoginButtons from './RadGradLoginButtons';
@@ -24,14 +25,14 @@ const LandingNavBar: React.FC<NavBarProps> = ({ currentUser, iconName, role, ins
   // Capitalize first letter
   const displayRole = currentUser && role ? role.charAt(0).toUpperCase() + role.slice(1) : '';
   return (
-    <Menu attached="top" borderless size="small">
+    <Menu attached="top" borderless size="small" >
         <Menu.Item as={NavLink} activeClassName="" exact to="/">
           <Image style={imageStyle} circular src="/images/radgrad_logo.png" />
-          <div className="mobile hidden item">
+          <BrowserView>
             <Header as="h2">
               <RadGradLogoText instanceName={instanceName} />
             </Header>
-          </div>
+          </BrowserView>
         </Menu.Item>
         <Menu.Item position="right">
           {currentUser ? (

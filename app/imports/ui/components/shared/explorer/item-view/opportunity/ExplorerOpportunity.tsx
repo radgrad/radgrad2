@@ -2,7 +2,7 @@ import moment from 'moment';
 import React from 'react';
 import Markdown from 'react-markdown';
 import { useRouteMatch } from 'react-router-dom';
-import { Divider, Grid, Header, Segment } from 'semantic-ui-react';
+import { Divider, Grid, Segment } from 'semantic-ui-react';
 import { AcademicTerms } from '../../../../../../api/academic-term/AcademicTermCollection';
 import { OpportunityTypes } from '../../../../../../api/opportunity/OpportunityTypeCollection';
 import { Reviews } from '../../../../../../api/review/ReviewCollection';
@@ -15,6 +15,7 @@ import StudentExplorerReviewWidget from '../../../../student/explorer/StudentExp
 import IceHeader from '../../../IceHeader';
 import DeleteItemButton from '../../../manage/DeleteItemButton';
 import EditOpportunityButton from '../../../manage/opportunity/EditOpportunityButton';
+import RadGradHeader from '../../../RadGradHeader';
 import TeaserVideo from '../../../TeaserVideo';
 import FutureParticipation from '../../FutureParticipation';
 import ExplorerReviewWidget from '../ExplorerReviewWidget';
@@ -108,7 +109,7 @@ const ExplorerOpportunity: React.FC<ExplorerOpportunitiesWidgetProps> = ({ oppor
       </Segment>
 
       <Segment textAlign="center">
-        <Header>STUDENTS PARTICIPATING BY SEMESTER</Header>
+        <RadGradHeader title='students participating by semester' dividing={false} />
         <Divider />
         <FutureParticipation item={opportunity} />
       </Segment>

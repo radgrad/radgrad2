@@ -5,7 +5,7 @@ import { CourseInstance } from '../../../../typings/radgrad';
 import { getDraggablePillStyle } from './utilities/styles';
 import NamePill from './NamePill';
 import { Courses } from '../../../../api/course/CourseCollection';
-import RemoveItWidget from './RemoveItWidget';
+import RemoveIt from './RemoveIt';
 
 interface CourseInstancePillProps {
   instance: CourseInstance;
@@ -32,12 +32,21 @@ const DraggableCourseInstancePill: React.FC<CourseInstancePillProps> = ({ instan
           {(prov, snap) => (
             <div ref={prov.innerRef} {...prov.draggableProps} {...prov.dragHandleProps} style={getDraggablePillStyle(snap.isDragging, prov.draggableProps.style)}>
               <Grid>
-                <Grid.Row style={{ paddingTop: 7, paddingBottom: 7 }}>
-                  <Grid.Column width={13} onClick={handleClick(instance, handleClickCourseInstance)}>
-                    <NamePill name={instance.note} />
-                  </Grid.Column>
-                  <Grid.Column width={2}>{inPast ? '' : <RemoveItWidget collectionName="CourseInstanceCollection" id={instance._id} name={getName(instance)} courseNumber={instance.note} />}</Grid.Column>
-                </Grid.Row>
+                {inPast ?
+                  <Grid.Row style={{ paddingTop: 7, paddingBottom: 7 }}>
+                    <Grid.Column width={16} onClick={handleClick(instance, handleClickCourseInstance)}>
+                      <NamePill name={instance.note} />
+                    </Grid.Column>
+                  </Grid.Row> :
+                  <Grid.Row style={{ paddingTop: 7, paddingBottom: 7 }}>
+                    <Grid.Column width={13} onClick={handleClick(instance, handleClickCourseInstance)}>
+                      <NamePill name={instance.note} />
+                    </Grid.Column>
+                    <Grid.Column width={3} verticalAlign='middle' textAlign='left'>
+                      <RemoveIt collectionName="CourseInstanceCollection" id={instance._id} name={getName(instance)} courseNumber={instance.note} />
+                    </Grid.Column>
+                  </Grid.Row>
+                }
               </Grid>
             </div>
           )}

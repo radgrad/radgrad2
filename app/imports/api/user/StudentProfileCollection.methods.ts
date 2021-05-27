@@ -40,13 +40,12 @@ const generatePublicProfileDataObject = (username) => {
   if (Meteor.isServer) {
     const profile = Users.getProfile(username);
     const userID = Users.getID(username);
-    // Advisors, Faculty, Admins always share picture, website, interests, career goals.
-    // CAM but that's not true look at their ProfileLabel.
-    // const autoShare = (profile.role !== ROLE.STUDENT);
-    if (profile.sharePicture /* || autoShare */) {
+    // Advisors, Faculty, Admins should share everything by default
+    // when their accounts are created, but can manually opt-out if they want.
+    if (profile.sharePicture) {
       publicData.picture = profile.picture;
     }
-    if (profile.shareWebsite /* || autoShare */) {
+    if (profile.shareWebsite) {
       publicData.website = profile.website;
     }
     if (profile.shareLevel) {
@@ -56,21 +55,25 @@ const generatePublicProfileDataObject = (username) => {
       // if shareICE exists, then the user must be a student.
       publicData.ice = StudentProfiles.getEarnedICE(username);
     }
-    if (profile.shareCareerGoals /* || autoShare */) {
+    if (profile.shareCareerGoals) {
       const profileDocs = ProfileCareerGoals.findNonRetired({ userID });
-      publicData.careerGoals = profileDocs.map(doc => CareerGoals.findSlugByID(doc.careerGoalID));
+      const careerGoalSlugs = profileDocs.map(doc => CareerGoals.findSlugByID(doc.careerGoalID));
+      publicData.careerGoals = CareerGoals.sort(careerGoalSlugs);
     }
-    if (profile.shareInterests /* || autoShare */) {
+    if (profile.shareInterests) {
       const profileDocs = ProfileInterests.findNonRetired({ userID });
-      publicData.interests = profileDocs.map(doc => Interests.findSlugByID(doc.interestID));
+      const interestSlugs = profileDocs.map(doc => Interests.findSlugByID(doc.interestID));
+      publicData.interests = Interests.sort(interestSlugs);
     }
     if (profile.shareCourses) {
       const profileDocs = ProfileCourses.findNonRetired({ studentID: userID });
-      publicData.courses = profileDocs.map(doc => Courses.findSlugByID(doc.courseID));
+      const courseSlugs = profileDocs.map(doc => Courses.findSlugByID(doc.courseID));
+      publicData.courses = Courses.sort(courseSlugs);
     }
     if (profile.shareOpportunities) {
       const profileDocs = ProfileOpportunities.findNonRetired({ studentID: userID });
-      publicData.opportunities = profileDocs.map(doc => Opportunities.findSlugByID(doc.opportunityID));
+      const opportunitySlugs = profileDocs.map(doc => Opportunities.findSlugByID(doc.opportunityID));
+      publicData.opportunities = Opportunities.sort(opportunitySlugs);
     }
   }
   return publicData;
@@ -85,7 +88,10 @@ export const getPublicProfileData = new ValidatedMethod({
   mixins: [CallPromiseMixin],
   validate: null,
   run({ username }) {
-    return generatePublicProfileDataObject(username);
+    if (Meteor.isServer) {
+      return generatePublicProfileDataObject(username);
+    }
+    return null;
   },
 });
 

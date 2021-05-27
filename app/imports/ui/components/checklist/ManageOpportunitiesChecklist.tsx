@@ -40,14 +40,6 @@ export class ManageOpportunitiesChecklist extends Checklist {
     }
   }
 
-  // public getDetails(): JSX.Element {
-  //   return (
-  //     <DetailsBox description='Your visibility settings are:'>
-  //       <VisibilitySettingList profile={this.profile} size="medium" />
-  //     </DetailsBox>
-  //   );
-  // }
-
   public getActions(): JSX.Element {
     switch (this.state) {
       case CHECKSTATE.REVIEW:

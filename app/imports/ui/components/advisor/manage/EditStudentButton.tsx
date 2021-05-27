@@ -3,7 +3,7 @@ import { Button, Form, Modal } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import SimpleSchema from 'simpl-schema';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
-import { AutoForm, BoolField, NumField, SubmitField, TextField } from 'uniforms-semantic';
+import { AutoForm, BoolField, ErrorsField, NumField, SubmitField, TextField } from 'uniforms-semantic';
 import { updateMethod } from '../../../../api/base/BaseCollection.methods';
 import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
 import { Interests } from '../../../../api/interest/InterestCollection';
@@ -94,54 +94,56 @@ const EditStudentButton: React.FC<ManageStudentProps> = ({
 
   // console.log(model);
   return (
-    <Modal key={`${student._id}-modal`}
-           onClose={() => setOpen(false)}
-           onOpen={() => setOpen(true)}
-           open={open}
-           trigger={<ButtonAction color='green' key={`${student._id}-edit-button`} size='mini' onClick={() => setOpen(true)} icon='edit' label='edit' />}
-    >
-      <Modal.Header>{`Edit ${student.firstName} ${student.lastName}`}</Modal.Header>
-      <Modal.Content>
-        <AutoForm model={model} schema={updateStudentFormSchema} onSubmit={(doc) => {
-          handleSubmit(doc);
-          setOpen(false);
-        }}>
-          <Form.Group widths="equal">
-            <TextField name="firstName" placeholder="John" />
-            <TextField name="lastName" placeholder="Doe" />
-          </Form.Group>
-          <Form.Group widths="equal">
-            <PictureField name="picture" iconLeft='user'/>
-            <TextField name="website" />
-          </Form.Group>
-          <Form.Group widths="equal">
-            <MultiSelectField name="interests" />
-            <MultiSelectField name="careerGoals" />
-          </Form.Group>
-          <Form.Group widths="equal">
-            <NumField name="level" />
-            <BoolField name="retired" />
-          </Form.Group>
-          <Form.Group widths="equal">
-            <BoolField name="sharePicture" />
-            <BoolField name="shareWebsite" />
-            <BoolField name="shareInterests" />
-            <BoolField name="shareCareerGoals" />
-          </Form.Group>
-          <Form.Group>
-            <BoolField name="shareOpportunities" />
-            <BoolField name="shareCourses" />
-            <BoolField name="shareLevel" />
-            <BoolField name="shareICE" />
-            <BoolField name="isAlumni" />
-          </Form.Group>
-          <SubmitField />
-          <Button color='red' onClick={() => setOpen(false)}>
-            Cancel
-          </Button>
-        </AutoForm>
-      </Modal.Content>
-    </Modal>
+        <Modal key={`${student._id}-modal`}
+               onClose={() => setOpen(false)}
+               onOpen={() => setOpen(true)}
+               open={open}
+               trigger={<ButtonAction color='green' key={`${student._id}-edit-button`} size='mini'
+                                      onClick={() => setOpen(true)} icon='edit' label='edit'/>}
+        >
+            <Modal.Header>{`Edit ${student.firstName} ${student.lastName}`}</Modal.Header>
+            <Modal.Content>
+                <AutoForm model={model} schema={updateStudentFormSchema} onSubmit={(doc) => {
+                  handleSubmit(doc);
+                  setOpen(false);
+                }}>
+                    <Form.Group widths="equal">
+                        <TextField name="firstName" placeholder="John"/>
+                        <TextField name="lastName" placeholder="Doe"/>
+                    </Form.Group>
+                    <Form.Group widths="equal">
+                        <PictureField name="picture" iconLeft='user'/>
+                        <TextField name="website"/>
+                    </Form.Group>
+                    <Form.Group widths="equal">
+                        <MultiSelectField name="interests"/>
+                        <MultiSelectField name="careerGoals"/>
+                    </Form.Group>
+                    <Form.Group widths="equal">
+                        <NumField name="level"/>
+                        <BoolField name="retired"/>
+                    </Form.Group>
+                    <Form.Group widths="equal">
+                        <BoolField name="sharePicture"/>
+                        <BoolField name="shareWebsite"/>
+                        <BoolField name="shareInterests"/>
+                        <BoolField name="shareCareerGoals"/>
+                    </Form.Group>
+                    <Form.Group>
+                        <BoolField name="shareOpportunities"/>
+                        <BoolField name="shareCourses"/>
+                        <BoolField name="shareLevel"/>
+                        <BoolField name="shareICE"/>
+                        <BoolField name="isAlumni"/>
+                    </Form.Group>
+                    <SubmitField/>
+                    <Button color='red' onClick={() => setOpen(false)}>
+                        Cancel
+                    </Button>
+                    <ErrorsField/>
+                </AutoForm>
+            </Modal.Content>
+        </Modal>
   );
 };
 

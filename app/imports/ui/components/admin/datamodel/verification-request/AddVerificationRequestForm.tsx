@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React from 'react';
 import { Header, Segment } from 'semantic-ui-react';
 import SimpleSchema from 'simpl-schema';
-import { AutoForm, SelectField, BoolField, SubmitField } from 'uniforms-semantic';
+import { AutoForm, SelectField, BoolField, SubmitField, ErrorsField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
 import {
@@ -85,23 +85,24 @@ const AddVerificationRequestForm: React.FC<AddVerificationRequestFormProps> = ({
   };
 
   return (
-    <Segment padded>
-      <Header dividing>Add Verification Request</Header>
-      {/* eslint-disable-next-line no-return-assign */}
-      <AutoForm schema={formSchema} onSubmit={handleAdd} ref={(ref) => formRef = ref} showInlineError>
-        {/* <Form.Group widths="equal"> */}
-        {/*  <SelectField name="student" placeholder="Choose the student" /> */}
-        {/*  <SelectField name="status" placeholder="Choose the status" /> */}
-        {/* </Form.Group> */}
-        {/* <Form.Group widths="equal"> */}
-        <SelectField name="opportunityInstance" />
-        {/* <SelectField name="opportunity" /> */}
-        {/* <SelectField name="academicTerm" /> */}
-        {/* </Form.Group> */}
-        <BoolField name="retired" />
-        <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
-      </AutoForm>
-    </Segment>
+        <Segment padded>
+            <Header dividing>Add Verification Request</Header>
+            {/* eslint-disable-next-line no-return-assign */}
+            <AutoForm schema={formSchema} onSubmit={handleAdd} ref={(ref) => formRef = ref} showInlineError>
+                {/* <Form.Group widths="equal"> */}
+                {/*  <SelectField name="student" placeholder="Choose the student" /> */}
+                {/*  <SelectField name="status" placeholder="Choose the status" /> */}
+                {/* </Form.Group> */}
+                {/* <Form.Group widths="equal"> */}
+                <SelectField name="opportunityInstance"/>
+                {/* <SelectField name="opportunity" /> */}
+                {/* <SelectField name="academicTerm" /> */}
+                {/* </Form.Group> */}
+                <BoolField name="retired"/>
+                <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined}/>
+                <ErrorsField/>
+            </AutoForm>
+        </Segment>
   );
 };
 
