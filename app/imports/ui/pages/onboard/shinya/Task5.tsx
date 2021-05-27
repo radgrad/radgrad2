@@ -14,7 +14,7 @@ export interface Task5SegmentProps {
   interests: Interest[]
 }
 
-const Task5Component: React.FC<Task5SegmentProps> = ({ interests }) => {
+const Task5: React.FC<Task5SegmentProps> = ({ interests }) => {
   const Task5Header = <RadGradHeader title="TASK 5: SHOW ME THE DESCRIPTION" icon="file alternate outline" />;
   const [description, updateDescription] = useState('');
   const sumbitData = (doc) => {
@@ -47,4 +47,4 @@ export default withTracker(() => {
   return {
     interests,
   };
-})(Task5Component);
+})(Task5);

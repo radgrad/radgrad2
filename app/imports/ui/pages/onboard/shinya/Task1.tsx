@@ -2,7 +2,7 @@ import React from 'react';
 import RadGradHeader from '../../../components/shared/RadGradHeader';
 import RadGradSegment from '../../../components/shared/RadGradSegment';
 
-const Task1Segment: React.FC = ({}) => {
+const Task1: React.FC = ({}) => {
   const task1Header = <RadGradHeader title="TASK 1: HELLO WORLD" icon="globe america" />;
   return (
     <RadGradSegment header={task1Header}>
@@ -11,4 +11,4 @@ const Task1Segment: React.FC = ({}) => {
   );
 };
 
-export default Task1Segment;
+export default Task1;

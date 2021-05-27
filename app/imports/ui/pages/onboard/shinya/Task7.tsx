@@ -7,10 +7,10 @@ import RadGradSegment from '../../../components/shared/RadGradSegment';
 import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
 import { CareerGoal } from '../../../../typings/radgrad';
 import RadGradTabHeader from '../../../components/shared/RadGradTabHeader';
-import Task3Component from './Task3Component';
+import Task3 from './Task3';
 import { Users } from '../../../../api/user/UserCollection';
-import Task2Segment from './Task2Segment';
-import Task5Component from './Task5Component';
+import Task2 from './Task2';
+import Task5Component from './Task5';
 
 export interface Task7SegmentProps {
   loggedInUser: string;
@@ -19,7 +19,7 @@ export interface Task7SegmentProps {
   careerGoals: CareerGoal[];
 }
 
-const Task7Component: React.FC<Task7SegmentProps> = ({ careerGoals, loggedInUser, urlUser }) => {
+const Task7: React.FC<Task7SegmentProps> = ({ careerGoals, loggedInUser, urlUser }) => {
   const [open, setOpen] = useState(false);
   const Task7Header = <RadGradHeader title="TASK 7: Tabbed and Modal Component" icon="server" />;
   const Task1Header = <RadGradTabHeader title="TASK 3: CAREER GOAL" />;
@@ -29,12 +29,12 @@ const Task7Component: React.FC<Task7SegmentProps> = ({ careerGoals, loggedInUser
     {
       menuItem: <Menu.Item key='task1tab'>{Task2Header}</Menu.Item>,
       render: () => (
-        <Task2Segment loggedInUser={loggedInUser} urlUser={urlUser} />),
+        <Task2 loggedInUser={loggedInUser} urlUser={urlUser} />),
     },
     {
       menuItem: <Menu.Item key='task2tab'>{Task1Header}</Menu.Item>,
       render: () => (
-        <Task3Component />
+        <Task3 />
       ),
     },
     {
@@ -71,4 +71,4 @@ export default withTracker(() => {
     loggedInUser,
     count,
   };
-})(Task7Component);
+})(Task7);

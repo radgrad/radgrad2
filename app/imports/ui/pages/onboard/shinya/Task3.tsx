@@ -10,7 +10,7 @@ export interface Task3SegmentProps {
   careerGoals: CareerGoal[]
 }
 
-const Task3Component: React.FC<Task3SegmentProps> = ({ careerGoals }) => {
+const Task3: React.FC<Task3SegmentProps> = ({ careerGoals }) => {
   const Task3Header = <RadGradHeader title="TASK 3: A RANDOM CAREER GOAL(REFRESH FOR A NEW ONE)" icon="database" />;
   const totalCareer = careerGoals.length;
   const { name, description } = careerGoals[Math.floor(Math.random() * totalCareer)];
@@ -29,4 +29,4 @@ export default withTracker(() => {
   return {
     careerGoals,
   };
-})(Task3Component);
+})(Task3);

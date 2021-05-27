@@ -13,7 +13,7 @@ export interface Task6EditSegmentProps {
   interests: Interest[]
 }
 
-const Task6EditComponent: React.FC<Task6EditSegmentProps> = ({ interests }) => {
+const Task6Edit: React.FC<Task6EditSegmentProps> = ({ interests }) => {
   const interestNames = interests.map((interest) => interest.name);
 
   const handleSubmit = (doc) => {
@@ -67,4 +67,4 @@ export default withTracker(() => {
   return {
     interests,
   };
-})(Task6EditComponent);
+})(Task6Edit);

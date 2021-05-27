@@ -8,14 +8,14 @@ import RadGradHeader from '../../../components/shared/RadGradHeader';
 import RadGradSegment from '../../../components/shared/RadGradSegment';
 import { Interests } from '../../../../api/interest/InterestCollection';
 import { docToName } from '../../../components/shared/utilities/data-model';
-import Task6EditComponent from './Task6EditComponent';
+import Task6Edit from './Task6Edit';
 
 
 export interface Task6SegmentProps {
   interests: Interest[]
 }
 
-const Task6Component: React.FC<Task6SegmentProps> = ({ interests }) => {
+const Task6: React.FC<Task6SegmentProps> = ({ interests }) => {
   const Task6Header = <RadGradHeader title="TASK 6: EDIT THE DESCRIPTION" icon="pencil" />;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [description, updateDescription] = useState('');
@@ -40,7 +40,7 @@ const Task6Component: React.FC<Task6SegmentProps> = ({ interests }) => {
         <SelectField name="interest" placeholder="Select Interest" />
         <SubmitField className="mini basic green" value="Display Description" />
       </AutoForm>
-      <Task6EditComponent />
+      <Task6Edit />
     </RadGradSegment>
   );
 };
@@ -49,4 +49,4 @@ export default withTracker(() => {
   return {
     interests,
   };
-})(Task6Component);
+})(Task6);
