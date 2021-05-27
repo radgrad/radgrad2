@@ -39,8 +39,7 @@ const Task7: React.FC<Task7Props> = ({ careerGoals, courses, interests, opportun
     { menuItem: 'Opportunities', render: () => <Tab.Pane>{opportunities.map((opportunity) => <OpportunityLabel key={opportunity._id} slug={opportunity.slugID} userID={currentUser} size='small' />)}</Tab.Pane> },
 
     { menuItem: 'Students', render: () => <Tab.Pane>{students.map((student) => <UserLabel key={student._id} username={student.username} size='small' />)}</Tab.Pane> },
-    {
-      menuItem: 'Task 2', render: () => <Tab.Pane>
+    { menuItem: 'Task 2', render: () => <Tab.Pane>
                 <Modal
                     onClose={() => setOpen(false)}
                     onOpen={() => setOpen(true)}

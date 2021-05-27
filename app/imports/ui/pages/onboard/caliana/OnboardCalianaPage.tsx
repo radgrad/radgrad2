@@ -18,47 +18,46 @@ const headerPaneImage = 'header-onboarding.png';
 const headerTask1 = <RadGradHeader title='TASK 1: HELLO WORLD' icon='globe americas icon' dividing/>;
 
 const OnboardCalianaPage: React.FC = () => (
-
-    <PageLayout id={PAGEIDS.ONBOARD_CALIANA} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}
-                headerPaneImage={headerPaneImage}>
-        <Grid>
-            <Grid.Row columns={1}>
-                <Grid.Column>
-                    <Task7 />
-                </Grid.Column>
-            </Grid.Row>
-            <Grid.Row columns={1}>
-                <Grid.Column>
-                    <Task6 />
-                </Grid.Column>
-            </Grid.Row>
-            <Grid.Row columns={1}>
-                <Grid.Column>
-                    <Task5 />
-                </Grid.Column>
-            </Grid.Row>
-            <Grid.Row columns={1}>
-                <Grid.Column>
-                    <Task4 />
-                </Grid.Column>
-            </Grid.Row>
-            <Grid.Row columns={1}>
-                <Grid.Column>
-                    <Task3 />
-                </Grid.Column>
-            </Grid.Row>
-            <Grid.Row columns={2}>
-                <Grid.Column>
-                    <RadGradSegment header={headerTask1}>
-                        Hello World
-                    </RadGradSegment>
-                </Grid.Column>
-                <Grid.Column>
-                    <Task2 />
-                </Grid.Column>
-            </Grid.Row>
-        </Grid>
-    </PageLayout>
+  <PageLayout id={PAGEIDS.ONBOARD_CALIANA} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}
+              headerPaneImage={headerPaneImage}>
+    <Grid>
+      <Grid.Row columns={1}>
+        <Grid.Column>
+          <Task7/>
+        </Grid.Column>
+      </Grid.Row>
+      <Grid.Row columns={1}>
+        <Grid.Column>
+          <Task6/>
+        </Grid.Column>
+      </Grid.Row>
+      <Grid.Row columns={1}>
+        <Grid.Column>
+          <Task5/>
+        </Grid.Column>
+      </Grid.Row>
+      <Grid.Row columns={1}>
+        <Grid.Column>
+          <Task4/>
+        </Grid.Column>
+      </Grid.Row>
+      <Grid.Row columns={1}>
+        <Grid.Column>
+          <Task3/>
+        </Grid.Column>
+      </Grid.Row>
+      <Grid.Row columns={2}>
+        <Grid.Column>
+          <RadGradSegment header={headerTask1}>
+            Hello World
+          </RadGradSegment>
+        </Grid.Column>
+        <Grid.Column>
+          <Task2/>
+        </Grid.Column>
+      </Grid.Row>
+    </Grid>
+  </PageLayout>
 );
 
 export default OnboardCalianaPage;

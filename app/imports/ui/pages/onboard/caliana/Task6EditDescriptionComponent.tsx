@@ -36,10 +36,10 @@ const Task6EditDescriptionComponent: React.FC<Task6EditDescriptionProps> = ({ in
   const formSchema = new SimpleSchema2Bridge(schema);
 
   return (
-        <AutoForm schema={formSchema} onSubmit={handleSubmit} showInlineError>
-            <LongTextField name="description" />
-            <SubmitField className="mini basic green" value="Update Description" />
-        </AutoForm>
+    <AutoForm schema={formSchema} onSubmit={handleSubmit} showInlineError>
+      <LongTextField name="description"/>
+      <SubmitField className="mini basic green" value="Update Description"/>
+    </AutoForm>
   );
 };
 

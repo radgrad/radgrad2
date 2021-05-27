@@ -26,28 +26,33 @@ interface Task4Props {
 const Task4: React.FC<Task4Props> = ({ careerGoals, courses, opportunities, interests, students }) => {
   const header = <RadGradHeader title="TASK 4: LABELS" icon="tags"/>;
   return (
-        <RadGradSegment header={header}>
-            <h3>Career Goals</h3>
-            {careerGoals.map((goal) => (
-                <CareerGoalLabel slug={Slugs.getNameFromID(goal.slugID)}/>
-            ))}
-            <h3>Courses</h3>
-            {courses.map((course) => (
-                <CourseLabel slug={Slugs.getNameFromID(course.slugID)}/>
-            ))}
-            <h3>Interests</h3>
-            {interests.map((interest) => (
-                <InterestLabel slug={Slugs.getNameFromID(interest.slugID)}/>
-            ))}
-            <h3>Opportunities</h3>
-            {opportunities.map((opportunity) => (
-                <OpportunityLabel slug={Slugs.getNameFromID(opportunity.slugID)}/>
-            ))}
-            <h3>Students</h3>
-            {students.map((student) => (
-                <UserLabel username={student.username} size='small'/>
-            ))}
-        </RadGradSegment>
+    <RadGradSegment header={header}>
+      <h3>Career Goals</h3>
+      {careerGoals.map((goal) => (
+        <CareerGoalLabel slug={Slugs.getNameFromID(goal.slugID)}/>
+      ))}
+      
+      <h3>Courses</h3>
+      {courses.map((course) => (
+        <CourseLabel slug={Slugs.getNameFromID(course.slugID)}/>
+      ))}
+      
+      <h3>Interests</h3>
+      {interests.map((interest) => (
+        <InterestLabel slug={Slugs.getNameFromID(interest.slugID)}/>
+      ))}
+      
+      <h3>Opportunities</h3>
+      {opportunities.map((opportunity) => (
+        <OpportunityLabel slug={Slugs.getNameFromID(opportunity.slugID)}/>
+      ))}
+      
+      <h3>Students</h3>
+      {students.map((student) => (
+        <UserLabel username={student.username} size='small'/>
+      ))}
+      
+    </RadGradSegment>
   );
 };
 export default withTracker(() => {
