@@ -1,11 +1,9 @@
 import { Meteor } from 'meteor/meteor';
-import _ from 'lodash';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { CallPromiseMixin } from 'meteor/didericis:callpromise-mixin';
 import { updateStudentLevel, updateAllStudentLevels, defaultCalcLevel } from './LevelProcessor';
 import { ROLE } from '../role/Role';
 import { RadGrad } from '../radgrad/RadGrad';
-import { Users } from '../user/UserCollection';
 
 /**
  * The LevelProcessor calcLevel ValidatedMethod.
@@ -19,9 +17,7 @@ export const calcLevelMethod = new ValidatedMethod({
     if (Meteor.isServer) {
       if (!this.userId) {
         throw new Meteor.Error('unauthorized', 'You must be logged in to calculate Levels.');
-      }
-      const profile = Users.getProfile(this.userId);
-      if (!_.includes([ROLE.ADMIN, ROLE.ADVISOR], profile.role)) {
+      } else if (!Roles.userIsInRole(this.userId, [ROLE.ADMIN, ROLE.ADVISOR])) {
         throw new Meteor.Error('unauthorized', 'You must be logged in as ADMIN or ADVISOR to calculate Levels.');
       }
       if (RadGrad.calcLevel) {
@@ -45,9 +41,7 @@ export const updateLevelMethod = new ValidatedMethod({
     if (Meteor.isServer) {
       if (!this.userId) {
         throw new Meteor.Error('unauthorized', 'You must be logged in to calculate Levels.');
-      }
-      const profile = Users.getProfile(this.userId);
-      if (!_.includes([ROLE.ADMIN, ROLE.ADVISOR], profile.role)) {
+      } else if (!Roles.userIsInRole(this.userId, [ROLE.ADMIN, ROLE.ADVISOR])) {
         throw new Meteor.Error('unauthorized', 'You must be logged in as ADMIN or ADVISOR to calculate Levels.');
       }
       updateStudentLevel(this.userId, studentID);
@@ -66,9 +60,7 @@ export const updateAllStudentLevelsMethod = new ValidatedMethod({
     if (Meteor.isServer) {
       if (!this.userId) {
         throw new Meteor.Error('unauthorized', 'You must be logged in to calculate Levels.');
-      }
-      const profile = Users.getProfile(this.userId);
-      if (!_.includes([ROLE.ADMIN, ROLE.ADVISOR], profile.role)) {
+      } else if (!Roles.userIsInRole(this.userId, [ROLE.ADMIN, ROLE.ADVISOR])) {
         throw new Meteor.Error('unauthorized', 'You must be logged in as ADMIN or ADVISOR to calculate Levels.');
       }
       const count = updateAllStudentLevels(this.userId);
