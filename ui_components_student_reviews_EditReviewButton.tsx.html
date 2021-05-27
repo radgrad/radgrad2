@@ -116,15 +116,16 @@ const EditReviewButton: React.FC&lt;EditReviewButtonProps> = ({ review }) => {
     updateData.rating = doc.rating;
     updateData.comments = doc.comments;
     const collectionName = Reviews.getCollectionName();
-    updateMethod.call({ collectionName, updateData }, (error) => {
-      if (error) {
+    updateMethod.callPromise({ collectionName, updateData })
+      .catch((error) => {
         Swal.fire({
           title: 'Update Failed',
           text: error.message,
           icon: 'error',
           timer: 1500,
         });
-      } else {
+      })
+      .then(() => {
         Swal.fire({
           title: 'Review Updated',
           icon: 'success',
@@ -135,9 +136,8 @@ const EditReviewButton: React.FC&lt;EditReviewButtonProps> = ({ review }) => {
           showConfirmButton: false,
           timer: 1500,
         });
-      }
-      setOpen(false);
-    });
+        setOpen(false);
+      });
   };
   const itemName = getRevieweeName(review);
   const reviewSchema = new SimpleSchema({
@@ -157,41 +157,41 @@ const EditReviewButton: React.FC&lt;EditReviewButtonProps> = ({ review }) => {
   });
   const reviewFormSchema = new SimpleSchema2Bridge(reviewSchema);
   return (&lt;Modal
-            onClose={() => setOpen(false)}
-            onOpen={() => setOpen(true)}
-            open={open}
-            trigger={&lt;Button basic color='green'>EDIT&lt;/Button>}
-        >
-            &lt;Modal.Header>{`Edit your review of ${itemName}`}&lt;/Modal.Header>
-            &lt;Modal.Content>
-                &lt;AutoForm model={review} schema={reviewFormSchema} onSubmit={handleSubmit}>
-                    &lt;Grid>
-                        &lt;Grid.Column width={6} verticalAlign='middle'>
-                            Rate your overall satisfaction.
-                        &lt;/Grid.Column>
-                        &lt;Grid.Column width={10}>
-                            &lt;RatingField name='rating'/>
-                        &lt;/Grid.Column>
-                        &lt;Grid.Column width={6} verticalAlign='middle'>
-                            Please provide three or four sentences discussing your experience. Please use language your
-                            parents
-                            would
-                            find appropriate :)
-                        &lt;/Grid.Column>
-                        &lt;Grid.Column width={10}>
-                            &lt;LongTextField name='comments'/>
-                        &lt;/Grid.Column>
-                        &lt;Grid.Column width={6}>
-                            &lt;SubmitField/>
-                            &lt;Button color='red' onClick={() => setOpen(false)}>
-                                Cancel
-                            &lt;/Button>
-                        &lt;/Grid.Column>
-                    &lt;/Grid>
-                    &lt;ErrorsField/>
-                &lt;/AutoForm>
-            &lt;/Modal.Content>
-        &lt;/Modal>
+      onClose={() => setOpen(false)}
+      onOpen={() => setOpen(true)}
+      open={open}
+      trigger={&lt;Button basic color='green'>EDIT&lt;/Button>}
+    >
+      &lt;Modal.Header>{`Edit your review of ${itemName}`}&lt;/Modal.Header>
+      &lt;Modal.Content>
+        &lt;AutoForm model={review} schema={reviewFormSchema} onSubmit={handleSubmit}>
+          &lt;Grid>
+            &lt;Grid.Column width={6} verticalAlign='middle'>
+              Rate your overall satisfaction.
+            &lt;/Grid.Column>
+            &lt;Grid.Column width={10}>
+              &lt;RatingField name='rating' />
+            &lt;/Grid.Column>
+            &lt;Grid.Column width={6} verticalAlign='middle'>
+              Please provide three or four sentences discussing your experience. Please use language your
+              parents
+              would
+              find appropriate :)
+            &lt;/Grid.Column>
+            &lt;Grid.Column width={10}>
+              &lt;LongTextField name='comments' />
+            &lt;/Grid.Column>
+            &lt;Grid.Column width={6}>
+              &lt;SubmitField />
+              &lt;Button color='red' onClick={() => setOpen(false)}>
+                Cancel
+              &lt;/Button>
+            &lt;/Grid.Column>
+          &lt;/Grid>
+          &lt;ErrorsField />
+        &lt;/AutoForm>
+      &lt;/Modal.Content>
+    &lt;/Modal>
   );
 };
 
