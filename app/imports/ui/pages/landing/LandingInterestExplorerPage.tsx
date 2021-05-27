@@ -3,10 +3,11 @@ import Markdown from 'react-markdown';
 import { useParams, useRouteMatch } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Grid } from 'semantic-ui-react';
-import { Course, Interest, Opportunity } from '../../../typings/radgrad';
+import { CareerGoal, Course, Interest, Opportunity } from '../../../typings/radgrad';
 import { Courses } from '../../../api/course/CourseCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
+import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
 import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
@@ -16,6 +17,7 @@ import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 import LandingOpportunityList from '../../components/landing/LandingOpportunityList';
 import LandingCourseList from '../../components/landing/LandingCourseList';
+import LandingCareerGoalList from '../../components/landing/LandingCareerGoalList';
 import RadGradSegment from '../../components/shared/RadGradSegment';
 import RadGradHeader from '../../components/shared/RadGradHeader';
 import { EXPLORER_TYPE_ICON } from '../../utilities/ExplorerUtils';
@@ -25,6 +27,7 @@ interface InterestExplorerProps {
   interest: Interest;
   courses: Course[];
   opportunities: Opportunity[];
+  careerGoals: CareerGoal[];
 }
 
 const headerPaneTitle = 'The Interest Explorer';
@@ -34,7 +37,7 @@ Interests are curated by the faculty to provide information about topic areas im
 This public explorer does not provide information about community members.
 `;
 
-const LandingInterestExplorerPage: React.FC<InterestExplorerProps> = ({ currentUser, opportunities, courses, interest }) => {
+const LandingInterestExplorerPage: React.FC<InterestExplorerProps> = ({ currentUser, opportunities, courses, interest, careerGoals }) => {
   const match = useRouteMatch();
   return (
     <div>
@@ -54,6 +57,9 @@ const LandingInterestExplorerPage: React.FC<InterestExplorerProps> = ({ currentU
               <RadGradSegment header={<RadGradHeader title="Related Opportunities" icon={EXPLORER_TYPE_ICON.OPPORTUNITY} dividing />}>
                 {opportunities.length > 0 ? <LandingOpportunityList opportunities={opportunities} size='small' /> : 'N/A'}
               </RadGradSegment>
+              <RadGradSegment header={<RadGradHeader title="Related Career Goals" icon={EXPLORER_TYPE_ICON.CAREERGOAL} dividing />}>
+                {careerGoals.length > 0 ? <LandingCareerGoalList careerGoals={careerGoals} size='small' /> : 'N/A'}
+              </RadGradSegment>
             </Grid.Column>
           </Grid.Row>
         </Grid>
@@ -68,10 +74,12 @@ const LandingInterestExplorerContainer = withTracker(() => {
   const interestDoc = Interests.findDoc(id);
   const courses = Courses.findNonRetired({ interestIDs: id });
   const opportunities = Opportunities.findNonRetired({ interestIDs: id });
+  const careerGoals = CareerGoals.findNonRetired( { interestIDs: id });
   return {
     interest: interestDoc,
     courses,
     opportunities,
+    careerGoals,
   };
 })(LandingInterestExplorerPage);
 
