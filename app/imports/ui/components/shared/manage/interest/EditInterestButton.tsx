@@ -62,7 +62,7 @@ const EditInterestButton: React.FC<EditInterestButtonProps> = ({ interest, inter
     // console.log(collectionName, updateData);
     updateMethod.callPromise({ collectionName, updateData })
       .then((result) => Swal.fire({
-        title: 'Interest Updated',
+        title: 'Updated Succeeded',
         icon: 'success',
         text: 'Successfully updated interest.',
         allowOutsideClick: false,

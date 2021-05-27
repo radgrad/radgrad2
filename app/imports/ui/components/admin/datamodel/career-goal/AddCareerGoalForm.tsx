@@ -30,16 +30,15 @@ const AddCareerGoalForm: React.FC<AddCareerGoalFormProps> = ({ interests }) => {
     definitionData.slug = slugify(doc.name);
     defineMethod.callPromise({ collectionName, definitionData })
       .catch((error) => {
-        console.error('Failed adding User', error);
         Swal.fire({
-          title: 'Failed adding User',
+          title: 'Add Failed',
           text: error.message,
           icon: 'error',
         });
       })
       .then(() => {
         Swal.fire({
-          title: 'Add User Succeeded',
+          title: 'Add Succeeded',
           icon: 'success',
           showConfirmButton: false,
           timer: 1500,
