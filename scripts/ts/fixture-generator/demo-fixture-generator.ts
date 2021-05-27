@@ -98,7 +98,10 @@ const buildStudentProfileCollection = (studentConfig: StudentConfig): ICollectio
     name: RadGradCollectionName.STUDENT_PROFILES,
     contents: [],
   };
-  studentConfig.studentProfiles.contents.forEach((profile) => {
+  studentConfig.studentProfiles.contents.forEach((profile: { username: string }) => {
+    const username = profile.username;
+    const plan = studentConfig.studentPlans.filter((plan) => plan.username === username);
+    console.log(plan);
     result.contents.push(profile);
   });
   return result;
