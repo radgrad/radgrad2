@@ -17,7 +17,6 @@ import {
   handleCancelWrapper,
   handleConfirmDeleteWrapper,
   handleDeleteWrapper, handleOpenUpdateWrapper,
-  updateCallBack,
 } from './utilities/data-model-page-callbacks';
 import PageLayout from '../PageLayout';
 
