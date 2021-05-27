@@ -10,11 +10,11 @@ import RadGradHeader from '../../../components/shared/RadGradHeader';
 import RadGradSegment from '../../../components/shared/RadGradSegment';
 import { docToName } from '../../../components/shared/utilities/data-model';
 
-interface Task5ComponentProps {
+interface Task5Props {
   interests: Interest[];
 }
 
-const Task5Component: React.FC<Task5ComponentProps> = ({ interests }) => {
+const Task5: React.FC<Task5Props> = ({ interests }) => {
 
   const [description, updateDescription] = useState('');
 
@@ -52,4 +52,4 @@ export default withTracker(() => {
   return {
     interests,
   };
-})(Task5Component);
+})(Task5);

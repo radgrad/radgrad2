@@ -14,7 +14,7 @@ import CourseLabel from '../../../components/shared/label/CourseLabel';
 import OpportunityLabel from '../../../components/shared/label/OpportunityLabel';
 import UserLabel from '../../../components/shared/profile/UserLabel';
 
-interface Task4ComponentProps {
+interface Task4Props {
   careerGoals: CareerGoal[];
   courses: Course[];
   interests: Interest[];
@@ -22,7 +22,7 @@ interface Task4ComponentProps {
   students: StudentProfile[];
 }
 
-const Task4Component: React.FC<Task4ComponentProps> = ({ careerGoals, courses, interests, opportunities, students }) => {
+const Task4: React.FC<Task4Props> = ({ careerGoals, courses, interests, opportunities, students }) => {
 
   const currentUser = Meteor.user() ? Meteor.user()._id : '';
 
@@ -61,4 +61,4 @@ export default withTracker(() => {
     opportunities,
     students,
   };
-})(Task4Component);
+})(Task4);

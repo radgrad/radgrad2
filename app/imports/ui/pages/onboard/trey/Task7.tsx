@@ -14,10 +14,10 @@ import OpportunityLabel from '../../../components/shared/label/OpportunityLabel'
 import UserLabel from '../../../components/shared/profile/UserLabel';
 import RadGradHeader from '../../../components/shared/RadGradHeader';
 import RadGradSegment from '../../../components/shared/RadGradSegment';
-import Task2Component from './Task2Component';
+import Task2 from './Task2';
 
 
-interface Task7ComponentProps {
+interface Task7Props {
   careerGoals: CareerGoal[];
   courses: Course[];
   interests: Interest[];
@@ -25,7 +25,7 @@ interface Task7ComponentProps {
   students: StudentProfile[];
 }
 
-const Task7Component: React.FC<Task7ComponentProps> = ({ careerGoals, courses, interests, opportunities, students }) => {
+const Task7: React.FC<Task7Props> = ({ careerGoals, courses, interests, opportunities, students }) => {
 
   const currentUser = Meteor.user() ? Meteor.user()._id : '';
 
@@ -45,7 +45,7 @@ const Task7Component: React.FC<Task7ComponentProps> = ({ careerGoals, courses, i
         <Modal.Header>Task 2</Modal.Header>
         <Modal.Content>
           <Modal.Description>
-            <Task2Component />
+            <Task2 />
           </Modal.Description>
         </Modal.Content>
         <Modal.Actions>
@@ -79,4 +79,4 @@ export default withTracker(() => {
     opportunities,
     students,
   };
-})(Task7Component);
+})(Task7);

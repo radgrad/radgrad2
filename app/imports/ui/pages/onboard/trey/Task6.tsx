@@ -10,11 +10,11 @@ import RadGradSegment from '../../../components/shared/RadGradSegment';
 import { docToName } from '../../../components/shared/utilities/data-model';
 import Task6EditDescription from './Task6EditDescription';
 
-interface Task6ComponentProps {
+interface Task6Props {
   interests: Interest[];
 }
 
-const Task6Component: React.FC<Task6ComponentProps> = ({ interests }) => {
+const Task6: React.FC<Task6Props> = ({ interests }) => {
 
   const [myInterest, updateInterest] = useState(null);
 
@@ -51,4 +51,4 @@ export default withTracker(() => {
   return {
     interests,
   };
-})(Task6Component);
+})(Task6);

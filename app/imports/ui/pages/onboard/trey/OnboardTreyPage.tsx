@@ -2,13 +2,13 @@ import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import { PAGEIDS } from '../../../utilities/PageIDs';
 import PageLayout from '../../PageLayout';
-import Task1Component from './Task1Component';
-import Task2Component from './Task2Component';
-import Task3Component from './Task3Component';
-import Task4Component from './Task4Component';
-import Task5Component from './Task5Component';
-import Task6Component from './Task6Component';
-import Task7Component from './Task7Component';
+import Task1 from './Task1';
+import Task2 from './Task2';
+import Task3 from './Task3';
+import Task4 from './Task4';
+import Task5 from './Task5';
+import Task6 from './Task6';
+import Task7 from './Task7';
 
 const headerPaneTitle = "Trey's Onboarding Sandbox";
 const headerPaneBody = 'Page for display of onboarding component development practice';
@@ -20,35 +20,35 @@ const OnboardTreyPage: React.FC = () => (
       <Grid>
         <Grid.Row columns={1}>
           <Grid.Column>
-            <Task7Component/>
+            <Task7/>
           </Grid.Column>
         </Grid.Row>
         <Grid.Row columns={1}>
           <Grid.Column>
-            <Task6Component/>
+            <Task6/>
           </Grid.Column>
         </Grid.Row>
         <Grid.Row columns={1}>
           <Grid.Column>
-            <Task5Component/>
+            <Task5/>
           </Grid.Column>
         </Grid.Row>
         <Grid.Row columns={1}>
           <Grid.Column>
-            <Task4Component/>
+            <Task4/>
           </Grid.Column>
         </Grid.Row>
         <Grid.Row columns={1}>
           <Grid.Column>
-            <Task3Component/>
+            <Task3/>
           </Grid.Column>
         </Grid.Row>
         <Grid.Row columns={2}>
           <Grid.Column>
-            <Task1Component/>
+            <Task1/>
           </Grid.Column>
           <Grid.Column>
-            <Task2Component/>
+            <Task2/>
           </Grid.Column>
         </Grid.Row>
       </Grid>

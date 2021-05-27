@@ -6,11 +6,11 @@ import { CareerGoal } from '../../../../typings/radgrad';
 import RadGradHeader from '../../../components/shared/RadGradHeader';
 import RadGradSegment from '../../../components/shared/RadGradSegment';
 
-interface Task3ComponentProps {
+interface Task3Props {
   careerGoals: CareerGoal[];
 }
 
-const Task3Component: React.FC<Task3ComponentProps> = ({ careerGoals }) => {
+const Task3: React.FC<Task3Props> = ({ careerGoals }) => {
 
   const totalCareerGoals = careerGoals.length;
   // code for grabbing a random career from the array can be found here: https://attacomsian.com/blog/javascript-get-random-value-from-array
@@ -33,4 +33,4 @@ export default withTracker(() => {
   return {
     careerGoals,
   };
-})(Task3Component);
+})(Task3);

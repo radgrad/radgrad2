@@ -4,7 +4,7 @@ import React from 'react';
 import RadGradSegment from '../../../components/shared/RadGradSegment';
 import RadGradHeader from '../../../components/shared/RadGradHeader';
 
-const Task2Component: React.FC = () => {
+const Task2: React.FC = () => {
 
   const currentUser = Meteor.user() ? Meteor.user().username : '';
   const { username } = useParams();
@@ -19,4 +19,4 @@ const Task2Component: React.FC = () => {
 };
 
 
-export default Task2Component;
+export default Task2;
