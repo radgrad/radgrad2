@@ -16,9 +16,10 @@ import { ProfileInterests } from '../../../../api/user/profile-entries/ProfileIn
 const InterestLabel: React.FC<EntityLabelPublicProps> = ({ slug, userID, size, style, rightside }) => {
   let inProfile = false;
   const match = useRouteMatch();
-  const route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${slug}`);
+  let route = `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${slug}`;
   const name = Interests.findDocBySlug(slug).name; // will throw an error if slug is undefined.
   if (userID) {
+    route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${slug}`);
     // Calculate inProfile and route.
     const profileEntityIDs = ProfileInterests.findNonRetired({ userID: userID });
     const id = Interests.findIdBySlug(slug);

@@ -24,6 +24,7 @@ const InterestFactoid: React.FC<InterestOrCareerGoalFactoidProps> = ({
             <List.Content><Label><Icon name='book' /> {numberOfCourses}</Label></List.Content>
           </List.Item>
           <List.Item>
+            {/* TODO Should this be lightbulb? */}
             <List.Content><Label><Icon name='bullseye' /> {numberOfOpportunities}</Label></List.Content>
           </List.Item>
         </List>

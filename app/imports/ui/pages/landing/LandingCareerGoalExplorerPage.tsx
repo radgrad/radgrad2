@@ -1,9 +1,8 @@
-import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import Markdown from 'react-markdown';
 import { useParams, useRouteMatch } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Grid, Header, Segment } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import LandingExplorerMenuBar from '../../components/landing/explorer/LandingExplorerMenuBar';
 import { CareerGoal } from '../../../typings/radgrad';
@@ -14,7 +13,10 @@ import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
 import LandingInterestList from '../../components/landing/LandingInterestList';
 import * as Router from '../../components/shared/utilities/router';
 import { PAGEIDS } from '../../utilities/PageIDs';
+import { EXPLORER_TYPE_ICON } from '../../utilities/ExplorerUtils';
 import PageLayout from '../PageLayout';
+import RadGradSegment from '../../components/shared/RadGradSegment';
+import RadGradHeader from '../../components/shared/RadGradHeader';
 
 interface CareerGoalExplorerProps {
   careerGoal: CareerGoal;
@@ -33,25 +35,21 @@ const LandingCareerGoalExplorerPage: React.FC<CareerGoalExplorerProps> = ({ care
   const match = useRouteMatch();
   return (
     <div>
-      <LandingExplorerMenuBar/>
+      <LandingExplorerMenuBar />
       <PageLayout id={PAGEIDS.LANDING_CAREER_GOAL_EXPLORER} headerPaneTitle={headerPaneTitle}
                   headerPaneBody={headerPaneBody}>
         <Grid stackable>
           <Grid.Column width={3}>
-            <LandingExplorerMenuContainer/>
+            <LandingExplorerMenuContainer />
           </Grid.Column>
 
           <Grid.Column width={13}>
-            <Segment>
-              <Header as="h4" dividing>
-                <span>{careerGoal.name}</span>
-              </Header>
+            <RadGradSegment header={<RadGradHeader title={careerGoal.name} dividing />}>
               <b>Description:</b>
               <Markdown escapeHtml source={careerGoal.description}
-                        renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}/>
-              {careerGoal.interestIDs.length > 0 ?
-                <LandingInterestList interestIDs={careerGoal.interestIDs}/> : 'N/A'}
-            </Segment>
+                        renderers={{ link: (localProps) => Router.renderLink(localProps, match) }} />
+            </RadGradSegment>
+            <RadGradSegment header={<RadGradHeader title='Related Interests' icon={EXPLORER_TYPE_ICON.INTEREST} dividing />}>{careerGoal.interestIDs.length > 0 ? <LandingInterestList interestIDs={careerGoal.interestIDs} size='small' /> : 'N/A'}</RadGradSegment>
           </Grid.Column>
         </Grid>
       </PageLayout>
@@ -62,9 +60,9 @@ const LandingCareerGoalExplorerPage: React.FC<CareerGoalExplorerProps> = ({ care
 const LandingCareerGoalExplorerContainer = withTracker(() => {
   const { careergoal } = useParams();
   const id = Slugs.getEntityID(careergoal, 'CareerGoal');
+  const careerGoalDoc = CareerGoals.findDoc(id);
   return {
-    careerGoal: CareerGoals.findDoc(id),
-    currentUser: Meteor.user() ? Meteor.user().username : '',
+    careerGoal: careerGoalDoc,
   };
 })(LandingCareerGoalExplorerPage);
 
