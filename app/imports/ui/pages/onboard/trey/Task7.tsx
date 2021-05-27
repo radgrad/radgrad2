@@ -55,7 +55,7 @@ const Task7: React.FC<Task7Props> = ({ careerGoals, courses, interests, opportun
             </Button>
           </Modal.Actions>
         </Modal>
-      </Tab.Pane>
+      </Tab.Pane>,
     },
   ];
 
