@@ -1,11 +1,17 @@
 import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
+import { useParams } from 'react-router';
+import moment from 'moment';
+import { ROLE } from '../../../../api/role/Role';
+import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import { PAGEIDS } from '../../../utilities/PageIDs';
 import PageLayout from '../../PageLayout';
 import BrowserView from '../../../components/shared/explorer/browser-view/BrowserView';
-import { Opportunity } from '../../../../typings/radgrad';
+import { Opportunity, StudentProfile, StudentProfileUpdate } from '../../../../typings/radgrad';
 import { EXPLORER_TYPE } from '../../../utilities/ExplorerUtils';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
+import { Users } from '../../../../api/user/UserCollection';
+import { updateMethod } from '../../../../api/base/BaseCollection.methods';
 
 interface OpportunityBrowserViewPageProps {
   opportunities: Opportunity[];
@@ -32,6 +38,20 @@ const OpportunityBrowserViewPage: React.FC<OpportunityBrowserViewPageProps> = ({
 
 export default withTracker(() => {
   const opportunities = Opportunities.findNonRetired({});
+  const { username } = useParams();
+  const profile = Users.getProfile(username) as StudentProfile;
+  if (profile.role === ROLE.STUDENT) {
+    const thisVisit = moment().format('YYYY-MM-DD');
+    const lastVisited = profile.lastVisited.lastVisitedOpportunity;
+    if (lastVisited !== thisVisit) {
+      const collectionName = StudentProfiles.getCollectionName();
+      const updateData: StudentProfileUpdate = {};
+      updateData.id = profile._id;
+      updateData.lastVisited = { lastVisitedOpportunity: thisVisit };
+      updateMethod.callPromise({ collectionName, updateData });
+    }
+    console.log(`last visited: ${lastVisited}`);
+  }
   return {
     opportunities,
   };
