@@ -1,7 +1,6 @@
 import { program } from 'commander';
 import * as fs from 'fs';
 import moment from 'moment';
-import _ from 'lodash';
 import { getCollectionData, getNonRetiredCollectionData } from '../data-dump-utils';
 import AcademicTermCollection from './AcademicTermCollection';
 import { generateCourseInstance } from './course-instance-utilities';
@@ -9,20 +8,23 @@ import { generateOpportunityInstance } from './opportunity-instance-utilities';
 import RadGradCollection, { RadGradCollectionName } from './RadGradCollection';
 import { StudentConfig } from './user-config-file.js';
 import { generateReview } from './review-utilities';
+import { validateFixture } from './validation-utilities';
 
-interface Doc {
+export interface Doc {
   slug?: string;
   term?: string;
   targetSlug?: string;
+  interests?: string[];
+  careerGoals?: string[];
   retired?: boolean;
 }
 
-interface ICollection {
+export interface ICollection {
   name: string;
   contents: Doc[];
 }
 
-interface IDataDump {
+export interface IDataDump {
   timestamp: string;
   collections: ICollection[];
 }
@@ -100,26 +102,6 @@ const buildStudentProfileCollection = (studentConfig: StudentConfig): ICollectio
   return result;
 };
 
-const validateCareerGoalsAndInterests = () => {};
-
-const validateFixture = (radgradDump: IDataDump) => {
-  const courses = new RadGradCollection(RadGradCollectionName.COURSES, getCollectionData(radgradDump, RadGradCollectionName.COURSES));
-  const opportunities = new RadGradCollection(RadGradCollectionName.OPPORTUNITIES, getCollectionData(radgradDump, RadGradCollectionName.OPPORTUNITIES));
-  const careerGoals = new RadGradCollection(RadGradCollectionName.CAREER_GOALS, getCollectionData(radgradDump, RadGradCollectionName.CAREER_GOALS));
-  const interests = new RadGradCollection(RadGradCollectionName.INTERESTS, getCollectionData(radgradDump, RadGradCollectionName.INTERESTS));
-  const teasers = new RadGradCollection(RadGradCollectionName.TEASERS, getCollectionData(radgradDump, RadGradCollectionName.TEASERS));
-  const teaserSlugs = teasers.getContents().map((teaser) => teaser.targetSlug);
-  teaserSlugs.forEach((slug) => {
-    if (!(courses.isDefinedSlug(slug) || opportunities.isDefinedSlug(slug) || careerGoals.isDefinedSlug(slug) || interests.isDefinedSlug(slug))) {
-      throw new Error(`Teaser target ${slug} is not a defined career goal, course, interest, or opportunity`);
-    }
-  });
-  const students = new RadGradCollection(RadGradCollectionName.STUDENT_PROFILES, getCollectionData(radgradDump, RadGradCollectionName.STUDENT_PROFILES));
-  students.getContents().forEach((profile) => {
-    validateCareerGoalsAndInterests(profile, interests, careerGoals);
-  });
-};
-
 const createFixture = (radgradDump: IDataDump, studentConfig: StudentConfig, academicTerms: AcademicTermCollection): IDataDump => {
   const result: IDataDump = {
     timestamp: `${moment().format(databaseFileDateFormat)}`,
@@ -133,8 +115,6 @@ const createFixture = (radgradDump: IDataDump, studentConfig: StudentConfig, aca
       result.collections.push(coll);
     }
   });
-  // Validate the slugs
-  validateFixture(result);
   // Build the course instance collection
   const ciCollection: ICollection = buildCourseInstanceCollection(studentConfig, academicTerms);
   result.collections.push(ciCollection);
