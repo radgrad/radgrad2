@@ -6,6 +6,7 @@ import { PAGEIDS } from '../../../utilities/PageIDs';
 import PageLayout from '../../PageLayout';
 import RadGradSegment from '../../../components/shared/RadGradSegment';
 import RadGradHeader from '../../../components/shared/RadGradHeader';
+import Task1Segment from './Task1Segment';
 import Task2Segment from './Task2Segment';
 import { Users } from '../../../../api/user/UserCollection';
 import Task3Component from './Task3Component';
@@ -20,7 +21,6 @@ import Task7Component from './Task7Component';
 const headerPaneTitle = "Shinya's Onboarding Sandbox";
 const headerPaneBody = 'Page for display of onboarding component development practice';
 const headerPaneImage = 'header-onboarding.png';
-const task1Header = <RadGradHeader title="TASK 1: HELLO WORLD" icon = "globe america"/>;
 
 interface OnBoardTask {
   loggedInUser: string,
@@ -29,22 +29,21 @@ interface OnBoardTask {
   info: string,
   careerGoals: CareerGoal[],
 }
+
 const OnboardShinyaPage: React.FC<OnBoardTask> = ({ loggedInUser, urlUser, info, count }) => (
   <PageLayout id={PAGEIDS.ONBOARD_SHINYA} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
-      <Task7Component/>
-      <Task6Component/>
-      <Task5Component/>
-     <Task4Component/>
-      <Task3Component/>
-      <Grid columns={2}>
-        <Grid.Column>
-        <RadGradSegment header= {task1Header}>
-                Hello World
-    </RadGradSegment>;
-        </Grid.Column>
-        <Grid.Column>
-            <Task2Segment loggedInUser={loggedInUser} urlUser={urlUser}/>
-        </Grid.Column>
+    <Task7Component />
+    <Task6Component />
+    <Task5Component />
+    <Task4Component />
+    <Task3Component />
+    <Grid columns={2}>
+      <Grid.Column>
+        <Task1Segment />
+      </Grid.Column>
+      <Grid.Column>
+        <Task2Segment loggedInUser={loggedInUser} urlUser={urlUser} />
+      </Grid.Column>
     </Grid>
   </PageLayout>
 );
