@@ -57,7 +57,7 @@ const LandingOpportunityExplorerPage: React.FC<OpportunityExplorerProps> = ({ op
           </Grid.Column>
 
           <Grid.Column width={13}>
-            <RadGradSegment header={<RadGradHeader title={opportunity.name} dividing/>}>
+            <RadGradSegment header={<RadGradHeader title={opportunity.name} dividing />}>
               {hasTeaser ? (
                 <React.Fragment>
                   <Grid stackable columns={2}>
@@ -177,7 +177,7 @@ const LandingOpportunityExplorerPage: React.FC<OpportunityExplorerProps> = ({ op
                 </React.Fragment>
               )}
             </RadGradSegment>
-            <RadGradSegment header={<RadGradHeader title='Related Interests' icon={EXPLORER_TYPE_ICON.INTEREST} dividing/>}>{opportunity.interestIDs.length > 0 ? <LandingInterestList interestIDs={opportunity.interestIDs}/> : 'N/A'}</RadGradSegment>
+            <RadGradSegment header={<RadGradHeader title='Related Interests' icon={EXPLORER_TYPE_ICON.INTEREST} dividing/>}>{opportunity.interestIDs.length > 0 ? <LandingInterestList interestIDs={opportunity.interestIDs} size='small' /> : 'N/A'}</RadGradSegment>
           </Grid.Column>
         </Grid.Row>
       </Grid>
@@ -188,11 +188,12 @@ const LandingOpportunityExplorerPage: React.FC<OpportunityExplorerProps> = ({ op
 
 const LandingOpportunityExplorerContainer = withTracker(() => {
   const { opportunity } = useParams();
-  // console.log(Slugs.find().fetch());
   const id = Slugs.getEntityID(opportunity, 'Opportunity');
+  const opportunityDoc = Opportunities.findDoc(id);
+  const quarters = RadGradProperties.getQuarterSystem();
   return {
-    opportunity: Opportunities.findDoc(id),
-    quarters: RadGradProperties.getQuarterSystem(),
+    opportunity: opportunityDoc,
+    quarters,
   };
 })(LandingOpportunityExplorerPage);
 

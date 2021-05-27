@@ -40,17 +40,17 @@ const LandingCourseExplorerPage: React.FC<CourseExplorerProps> = ({ course }) =>
   const match = useRouteMatch();
   return (
     <div>
-      <LandingExplorerMenuBar/>
+      <LandingExplorerMenuBar />
       <PageLayout id={PAGEIDS.LANDING_COURSE_EXPLORER} headerPaneTitle={headerPaneTitle}
                   headerPaneBody={headerPaneBody}>
         <Grid stackable>
           <Grid.Row>
             <Grid.Column width={3}>
-              <LandingExplorerMenuContainer/>
+              <LandingExplorerMenuContainer />
             </Grid.Column>
 
             <Grid.Column width={13}>
-              <RadGradSegment header={<RadGradHeader title={course.name}/>}>
+              <RadGradSegment header={<RadGradHeader title={course.name} />}>
                 <Grid columns={2} stackable>
                   <Grid.Column width="six">
                     <b>Course Number:</b> {course.num}
@@ -71,11 +71,11 @@ const LandingCourseExplorerPage: React.FC<CourseExplorerProps> = ({ course }) =>
                 <b>Description:</b>
                 <Markdown escapeHtml source={course.description}
                           renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}/>
-                <RadGradHeader title='Prerequisites' dividing/>
+                <RadGradHeader title='Prerequisites' dividing />
                 {course.prerequisites.length > 0 ?
-                  <LandingPrerequisiteList prerequisites={course.prerequisites}/> : 'N/A'}
+                  <LandingPrerequisiteList prerequisites={course.prerequisites} size='small' /> : 'N/A'}
               </RadGradSegment>
-              <RadGradSegment header={<RadGradHeader title='Related Interests' icon={EXPLORER_TYPE_ICON.INTEREST} dividing/>}>{course.interestIDs.length > 0 ? <LandingInterestList interestIDs={course.interestIDs}/> : 'N/A'}</RadGradSegment>
+              <RadGradSegment header={<RadGradHeader title='Related Interests' icon={EXPLORER_TYPE_ICON.INTEREST} dividing/>}>{course.interestIDs.length > 0 ? <LandingInterestList interestIDs={course.interestIDs} size='small' /> : 'N/A'}</RadGradSegment>
             </Grid.Column>
           </Grid.Row>
         </Grid>
@@ -87,8 +87,9 @@ const LandingCourseExplorerPage: React.FC<CourseExplorerProps> = ({ course }) =>
 const LandingCourseExplorerContainer = withTracker(() => {
   const { course } = useParams();
   const id = Slugs.getEntityID(course, 'Course');
+  const courseDoc = Courses.findDoc(id);
   return {
-    course: Courses.findDoc(id),
+    course: courseDoc,
   };
 })(LandingCourseExplorerPage);
 

@@ -1,17 +1,18 @@
 import React from 'react';
-import { Label } from 'semantic-ui-react';
+import { Label, SemanticSIZES } from 'semantic-ui-react';
 import OpportunityLabel from '../shared/label/OpportunityLabel';
 import { Opportunity } from '../../../typings/radgrad';
 import { getSlugFromEntityID } from './utilities/helper-functions';
 
-interface WithOpportunitiesProps {
+interface LandingOpportunityListProps {
   opportunities : Opportunity[];
+  size: SemanticSIZES;
 }
 
-const LandingOpportunityList: React.FC<WithOpportunitiesProps> = ({ opportunities }) => (
-  <Label.Group>
+const LandingOpportunityList: React.FC<LandingOpportunityListProps> = ({ size, opportunities }) => (
+  <Label.Group size={size}>
     {opportunities.map((opportunity) =>
-    <OpportunityLabel key={opportunity._id} slug={getSlugFromEntityID(opportunity._id)} size='small'/>)}
+    <OpportunityLabel key={opportunity._id} slug={getSlugFromEntityID(opportunity._id)} size={size}/>)}
   </Label.Group>
 );
 

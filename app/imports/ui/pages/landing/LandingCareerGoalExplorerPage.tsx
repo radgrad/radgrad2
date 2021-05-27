@@ -1,4 +1,3 @@
-import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import Markdown from 'react-markdown';
 import { useParams, useRouteMatch } from 'react-router-dom';
@@ -36,21 +35,21 @@ const LandingCareerGoalExplorerPage: React.FC<CareerGoalExplorerProps> = ({ care
   const match = useRouteMatch();
   return (
     <div>
-      <LandingExplorerMenuBar/>
+      <LandingExplorerMenuBar />
       <PageLayout id={PAGEIDS.LANDING_CAREER_GOAL_EXPLORER} headerPaneTitle={headerPaneTitle}
                   headerPaneBody={headerPaneBody}>
         <Grid stackable>
           <Grid.Column width={3}>
-            <LandingExplorerMenuContainer/>
+            <LandingExplorerMenuContainer />
           </Grid.Column>
 
           <Grid.Column width={13}>
-            <RadGradSegment header={<RadGradHeader title={careerGoal.name} dividing/>}>
+            <RadGradSegment header={<RadGradHeader title={careerGoal.name} dividing />}>
               <b>Description:</b>
               <Markdown escapeHtml source={careerGoal.description}
-                        renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}/>
+                        renderers={{ link: (localProps) => Router.renderLink(localProps, match) }} />
             </RadGradSegment>
-            <RadGradSegment header={<RadGradHeader title='Related Interests' icon={EXPLORER_TYPE_ICON.INTEREST} dividing/>}>{careerGoal.interestIDs.length > 0 ? <LandingInterestList interestIDs={careerGoal.interestIDs}/> : 'N/A'}</RadGradSegment>
+            <RadGradSegment header={<RadGradHeader title='Related Interests' icon={EXPLORER_TYPE_ICON.INTEREST} dividing />}>{careerGoal.interestIDs.length > 0 ? <LandingInterestList interestIDs={careerGoal.interestIDs} size='small' /> : 'N/A'}</RadGradSegment>
           </Grid.Column>
         </Grid>
       </PageLayout>
@@ -61,9 +60,9 @@ const LandingCareerGoalExplorerPage: React.FC<CareerGoalExplorerProps> = ({ care
 const LandingCareerGoalExplorerContainer = withTracker(() => {
   const { careergoal } = useParams();
   const id = Slugs.getEntityID(careergoal, 'CareerGoal');
+  const careerGoalDoc = CareerGoals.findDoc(id);
   return {
-    careerGoal: CareerGoals.findDoc(id),
-    currentUser: Meteor.user() ? Meteor.user().username : '',
+    careerGoal: careerGoalDoc,
   };
 })(LandingCareerGoalExplorerPage);
 

@@ -50,9 +50,9 @@ const LandingInterestExplorerPage: React.FC<InterestExplorerProps> = ({ currentU
                 <b>Description:</b>
                 <Markdown escapeHtml source={interest.description} renderers={{ link: (localProps) => Router.renderLink(localProps, match) }} />
               </RadGradSegment>
-              <RadGradSegment header={<RadGradHeader title="Related Courses" icon={EXPLORER_TYPE_ICON.COURSE} dividing />}>{courses.length > 0 ? <LandingCourseList courses={courses} /> : 'N/A'}</RadGradSegment>
+              <RadGradSegment header={<RadGradHeader title="Related Courses" icon={EXPLORER_TYPE_ICON.COURSE} dividing />}>{courses.length > 0 ? <LandingCourseList courses={courses} size='small' /> : 'N/A'}</RadGradSegment>
               <RadGradSegment header={<RadGradHeader title="Related Opportunities" icon={EXPLORER_TYPE_ICON.OPPORTUNITY} dividing />}>
-                {opportunities.length > 0 ? <LandingOpportunityList opportunities={opportunities} /> : 'N/A'}
+                {opportunities.length > 0 ? <LandingOpportunityList opportunities={opportunities} size='small' /> : 'N/A'}
               </RadGradSegment>
             </Grid.Column>
           </Grid.Row>
