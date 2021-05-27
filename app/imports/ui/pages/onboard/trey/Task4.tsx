@@ -30,10 +30,10 @@ const Task4: React.FC<Task4Props> = ({ careerGoals, courses, interests, opportun
     <RadGradSegment header={<RadGradHeader title='TASK 4: LABELS' icon='tags' dividing />}>
 
       <h3>Career Goals</h3>
-      {careerGoals.map((careerGoal) => <CareerGoalLabel key={careerGoal._id} slug={careerGoal.slugID} userID={currentUser} size='small'/>)}
+      {careerGoals.map((careerGoal) => <CareerGoalLabel key={careerGoal._id} slug={careerGoal.slugID} userID={currentUser} size='small' />)}
 
       <h3>Courses</h3>
-      {courses.map((course) => <CourseLabel key={course._id} slug={course.slugID} userID={currentUser} size='small'/>)}
+      {courses.map((course) => <CourseLabel key={course._id} slug={course.slugID} userID={currentUser} size='small' />)}
 
       <h3>Interests</h3>
       {interests.map((interest) => <InterestLabel key={interest._id} slug={interest.slugID} userID={currentUser} size='small' />)}

@@ -35,7 +35,7 @@ const Task5: React.FC<Task5Props> = ({ interests }) => {
   return (
     <RadGradSegment header={<RadGradHeader title='TASK 5: SHOW ME THE DESCRIPTION' icon='file alternate outline' dividing />}>
       <AutoForm schema={formSchema} onSubmit={handleSubmit} showInlineError>
-        <SelectField name="interest" placeholder="(Select interest)"/>
+        <SelectField name="interest" placeholder="(Select interest)" />
         <SubmitField className="mini basic green" value="Display Description" />
       </AutoForm>
 

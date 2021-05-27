@@ -18,9 +18,9 @@ const Task3: React.FC<Task3Props> = ({ careerGoals }) => {
 
   return (
     <RadGradSegment header={<RadGradHeader title='TASK 3: A RANDOM CAREER GOAL (REFRESH FOR A NEW ONE)' icon='database' dividing />}>
-      <RadGradHeader title={name} dividing={false}/>
-      <Markdown source={description}/>
-      <hr/>
+      <RadGradHeader title={name} dividing={false} />
+      <Markdown source={description} />
+      <hr />
       <p>
         Note: The total number of career goals is: {totalCareerGoals}
       </p>
