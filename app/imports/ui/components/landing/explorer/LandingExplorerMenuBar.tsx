@@ -11,7 +11,7 @@ const LandingExplorerMenuBar: React.FC = () => {
   const instanceName = Meteor.settings.public.instanceName;
   return (
     <Menu attached="top" borderless size="small">
-      <Menu.Item as={NavLink} activeClassName="" exact to="/">
+      <Menu.Item id='landing-explorer-menu' as={NavLink} activeClassName="" exact to="/">
         <Image style={imageStyle} circular src="/images/radgrad_logo.png" />
         <div className="mobile hidden item">
           <Header as="h2">
