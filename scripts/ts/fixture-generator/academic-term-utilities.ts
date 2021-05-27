@@ -206,12 +206,19 @@ export const getAcademicTerm = (currentTerm: string, offset: number, quarters: b
   let academicTerm = currentTerm;
   if (offset < 0) {
     academicTerm = multiplePrevAcademicTerm(currentTerm, quarters, -1 * offset);
+    if (skipSummer && isSummerTerm(academicTerm)) {
+      academicTerm = prevAcademicTerm(academicTerm, quarters);
+    }
   } else if (offset > 0) {
     academicTerm = multipleNextAcademicTerm(currentTerm, quarters, offset);
-  } else if (skipSummer && isSummerTerm(currentTerm)) {
-    academicTerm = nextAcademicTerm(currentTerm, quarters);
+    if (skipSummer && isSummerTerm(academicTerm)) {
+      academicTerm = nextAcademicTerm(academicTerm, quarters);
+    }
   } else {
     academicTerm = currentTerm;
+    if (skipSummer && isSummerTerm(academicTerm)) {
+      academicTerm = nextAcademicTerm(academicTerm, quarters);
+    }
   }
   return academicTerm;
 };

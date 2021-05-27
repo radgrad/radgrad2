@@ -238,7 +238,24 @@
           "full-stack-developer"
         ],
         "level": 1,
-        "profileCourses": [],
+        "profileCourses": [
+          "ics_111",
+          "ics_141",
+          "ics_211",
+          "ics_241",
+          "ics_311",
+          "ics_314",
+          "ics_212",
+          "ics_321",
+          "ics_313",
+          "ics_331",
+          "ics_332",
+          "ics_464",
+          "ics_431",
+          "ics_425",
+          "ics_426",
+          "ics_414"
+        ],
         "profileOpportunities": [],
         "isAlumni": true,
         "retired": false,
@@ -365,7 +382,88 @@
     },
     {
       "username": "ella@hawaii.edu",
-      "courses": [],
+      "courses": [
+        {
+          "slug" : "ics_111",
+          "academicTermOffset": -9,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_141",
+          "academicTermOffset": -9,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_211",
+          "academicTermOffset": -8,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_241",
+          "academicTermOffset": -8,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_311",
+          "academicTermOffset": -7,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_314",
+          "academicTermOffset": -7,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_212",
+          "academicTermOffset": -6,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_321",
+          "academicTermOffset": -6,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_313",
+          "academicTermOffset": -5,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_331",
+          "academicTermOffset": -5,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_332",
+          "academicTermOffset": -4,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_464",
+          "academicTermOffset": -4,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_431",
+          "academicTermOffset": -3,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_425",
+          "academicTermOffset": -3,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_426",
+          "academicTermOffset": -2,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_414",
+          "academicTermOffset": -2,
+          "grade": "B+"
+        }
+      ],
       "opportunities": [],
       "reviews": []
     }
