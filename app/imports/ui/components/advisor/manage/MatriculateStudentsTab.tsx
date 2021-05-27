@@ -33,19 +33,21 @@ const MatriculateStudentsTab: React.FC<MatriculateStudentsTabProps> = ({ student
     }
   };
   return (
-    <Tab.Pane>
-      <Message info>You should dump the database before matriculating the students. This will delete their records.</Message>
-      <AutoForm schema={formSchema} onSubmit={(model) => {
-        setData(model);
-        setOpenConfirm(true);
-      }} >
-        <RadGradHeader title='Matriculate Retired Students' />
-        <AutoFields />
-        <ErrorsField />
-        <SubmitField />
-      </AutoForm>
-      <Confirm onConfirm={handleSubmit} onCancel={() => setOpenConfirm(false)} open={openConfirm} content='Are you sure you want to matriculate these students?'/>
-    </Tab.Pane>
+        <Tab.Pane>
+            <Message info>You should dump the database before matriculating the students. This will delete their
+                records.</Message>
+            <AutoForm schema={formSchema} onSubmit={(model) => {
+              setData(model);
+              setOpenConfirm(true);
+            }}>
+                <RadGradHeader title='Matriculate Retired Students'/>
+                <AutoFields/>
+                <SubmitField/>
+                <ErrorsField/>
+            </AutoForm>
+            <Confirm onConfirm={handleSubmit} onCancel={() => setOpenConfirm(false)} open={openConfirm}
+                     content='Are you sure you want to matriculate these students?'/>
+        </Tab.Pane>
   );
 };
 

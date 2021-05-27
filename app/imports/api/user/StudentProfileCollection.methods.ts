@@ -88,7 +88,10 @@ export const getPublicProfileData = new ValidatedMethod({
   mixins: [CallPromiseMixin],
   validate: null,
   run({ username }) {
-    return generatePublicProfileDataObject(username);
+    if (Meteor.isServer) {
+      return generatePublicProfileDataObject(username);
+    }
+    return null;
   },
 });
 

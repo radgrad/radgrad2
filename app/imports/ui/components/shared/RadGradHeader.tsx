@@ -1,5 +1,6 @@
 import React from 'react';
 import { Header, Icon } from 'semantic-ui-react';
+import { headerText } from '../../utilities/HeaderText';
 
 interface RadGradHeaderProps {
   title: string;
@@ -16,7 +17,7 @@ const RadGradHeader: React.FC<RadGradHeaderProps> = ({ title, count, icon, divid
     <div>
       {icon ? (<Icon className={icon} />) : ''}
       &nbsp;
-      {title.toUpperCase()} {count ? `(${count})` : ''}
+      {headerText(title)} {count ? `(${count})` : ''}
       &nbsp; &nbsp;
       <span style={{ display: 'inline-block' }}>{leftside}</span>
       <span style={{ float: 'right' }}>{rightside}</span>

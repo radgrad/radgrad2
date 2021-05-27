@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import _ from 'lodash';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
+import { CallPromiseMixin } from 'meteor/didericis:callpromise-mixin';
 import { updateStudentLevel, updateAllStudentLevels, defaultCalcLevel } from './LevelProcessor';
 import { ROLE } from '../role/Role';
 import { RadGrad } from '../radgrad/RadGrad';
@@ -12,19 +13,23 @@ import { Users } from '../user/UserCollection';
  */
 export const calcLevelMethod = new ValidatedMethod({
   name: 'LevelProcessor.calcLevel',
+  mixins: [CallPromiseMixin],
   validate: null,
   run({ studentID }) {
-    if (!this.userId) {
-      throw new Meteor.Error('unauthorized', 'You must be logged in to calculate Levels.');
+    if (Meteor.isServer) {
+      if (!this.userId) {
+        throw new Meteor.Error('unauthorized', 'You must be logged in to calculate Levels.');
+      }
+      const profile = Users.getProfile(this.userId);
+      if (!_.includes([ROLE.ADMIN, ROLE.ADVISOR], profile.role)) {
+        throw new Meteor.Error('unauthorized', 'You must be logged in as ADMIN or ADVISOR to calculate Levels.');
+      }
+      if (RadGrad.calcLevel) {
+        return RadGrad.calcLevel(studentID);
+      }
+      return defaultCalcLevel(studentID);
     }
-    const profile = Users.getProfile(this.userId);
-    if (!_.includes([ROLE.ADMIN, ROLE.ADVISOR], profile.role)) {
-      throw new Meteor.Error('unauthorized', 'You must be logged in as ADMIN or ADVISOR to calculate Levels.');
-    }
-    if (RadGrad.calcLevel) {
-      return RadGrad.calcLevel(studentID);
-    }
-    return defaultCalcLevel(studentID);
+    return null;
   },
 });
 
@@ -34,16 +39,19 @@ export const calcLevelMethod = new ValidatedMethod({
  */
 export const updateLevelMethod = new ValidatedMethod({
   name: 'LevelProcessor.updateLevel',
+  mixins: [CallPromiseMixin],
   validate: null,
   run({ studentID }) {
-    if (!this.userId) {
-      throw new Meteor.Error('unauthorized', 'You must be logged in to calculate Levels.');
+    if (Meteor.isServer) {
+      if (!this.userId) {
+        throw new Meteor.Error('unauthorized', 'You must be logged in to calculate Levels.');
+      }
+      const profile = Users.getProfile(this.userId);
+      if (!_.includes([ROLE.ADMIN, ROLE.ADVISOR], profile.role)) {
+        throw new Meteor.Error('unauthorized', 'You must be logged in as ADMIN or ADVISOR to calculate Levels.');
+      }
+      updateStudentLevel(this.userId, studentID);
     }
-    const profile = Users.getProfile(this.userId);
-    if (!_.includes([ROLE.ADMIN, ROLE.ADVISOR], profile.role)) {
-      throw new Meteor.Error('unauthorized', 'You must be logged in as ADMIN or ADVISOR to calculate Levels.');
-    }
-    updateStudentLevel(this.userId, studentID);
   },
 });
 
@@ -55,14 +63,17 @@ export const updateAllStudentLevelsMethod = new ValidatedMethod({
   name: 'LevelProcessor.updateAllStudentLevels',
   validate: null,
   run() {
-    if (!this.userId) {
-      throw new Meteor.Error('unauthorized', 'You must be logged in to calculate Levels.');
+    if (Meteor.isServer) {
+      if (!this.userId) {
+        throw new Meteor.Error('unauthorized', 'You must be logged in to calculate Levels.');
+      }
+      const profile = Users.getProfile(this.userId);
+      if (!_.includes([ROLE.ADMIN, ROLE.ADVISOR], profile.role)) {
+        throw new Meteor.Error('unauthorized', 'You must be logged in as ADMIN or ADVISOR to calculate Levels.');
+      }
+      const count = updateAllStudentLevels(this.userId);
+      return `Updated ${count} students' levels.`;
     }
-    const profile = Users.getProfile(this.userId);
-    if (!_.includes([ROLE.ADMIN, ROLE.ADVISOR], profile.role)) {
-      throw new Meteor.Error('unauthorized', 'You must be logged in as ADMIN or ADVISOR to calculate Levels.');
-    }
-    const count = updateAllStudentLevels(this.userId);
-    return `Updated ${count} students' levels.`;
+    return null;
   },
 });

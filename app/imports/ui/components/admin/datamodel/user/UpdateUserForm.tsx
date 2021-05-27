@@ -1,6 +1,15 @@
 import React from 'react';
 import { Button, Form, Header, Segment } from 'semantic-ui-react';
-import { AutoForm, TextField, BoolField, NumField, SelectField, SubmitField, LongTextField } from 'uniforms-semantic';
+import {
+  AutoForm,
+  TextField,
+  BoolField,
+  NumField,
+  SelectField,
+  SubmitField,
+  LongTextField,
+  ErrorsField,
+} from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { AdminProfiles } from '../../../../../api/user/AdminProfileCollection';
@@ -36,7 +45,17 @@ interface UpdateUserProps {
   itemTitleString: (item) => React.ReactNode;
 }
 
-const UpdateUserForm: React.FC<UpdateUserProps> = ({ id, interests, careerGoals, academicTerms, itemTitleString, handleCancel, handleUpdate, courses, opportunities }) => {
+const UpdateUserForm: React.FC<UpdateUserProps> = ({
+  id,
+  interests,
+  careerGoals,
+  academicTerms,
+  itemTitleString,
+  handleCancel,
+  handleUpdate,
+  courses,
+  opportunities,
+}) => {
   // console.log('UpdateUserForm', props);
   let collection;
   if (StudentProfiles.isDefined(id)) {
@@ -131,68 +150,69 @@ const UpdateUserForm: React.FC<UpdateUserProps> = ({ id, interests, careerGoals,
   const formSchema = new SimpleSchema2Bridge(schema);
   // console.log(schema);
   return (
-    <Segment padded>
-      <Header dividing>
-        Update
-        {collection.getType()}:{itemTitleString(model)}
-      </Header>
-      <AutoForm schema={formSchema} onSubmit={handleUpdate} showInlineError model={model}>
-        <Form.Group widths="equal">
-          <TextField name="username" placeholder="johndoe@foo.edu" />
-          <TextField name="firstName" placeholder="John" />
-          <TextField name="lastName" placeholder="Doe" />
-        </Form.Group>
-        <Header dividing as="h4">
-          Optional fields (all users)
-        </Header>
-        <PictureField name="picture" />
-        <Form.Group widths="equal">
-          <MultiSelectField name="interests" />
-          <MultiSelectField name="careerGoals" />
-        </Form.Group>
-        <BoolField name="retired" />
-        {model.role === ROLE.STUDENT || model.role === ROLE.ALUMNI ? (
-          <div>
-            <Header dividing as="h4">
-              Student fields
+        <Segment padded>
+            <Header dividing>
+                Update
+                {collection.getType()}:{itemTitleString(model)}
             </Header>
-            <Form.Group widths="equal">
-              <MultiSelectField name="courses" />
-              <MultiSelectField name="opportunities" />
-            </Form.Group>
-            <Form.Group widths="equal">
-              <NumField name="level" />
-              <SelectField name="declaredAcademicTerm" />
-            </Form.Group>
-            <Form.Group widths="equal">
-              <BoolField name="sharePicture" />
-              <BoolField name="shareWebsite" />
-              <BoolField name="shareInterests" />
-              <BoolField name="shareCareerGoals" />
-              <BoolField name="shareOpportunities" />
-              <BoolField name="shareCourses" />
-              <BoolField name="shareLevel" />
-              <BoolField name="shareICE" />
-              <BoolField name="isAlumni" />
-            </Form.Group>
-          </div>
-        ) : (
-          ''
-        )}
-        {model.role === ROLE.FACULTY ? (
-          <div>
-            <Header dividing as="h4">
-              Faculty field
-            </Header>
-            <LongTextField name="aboutMe" />
-          </div>
-        ) : (
-          ''
-        )}
-        <SubmitField inputRef={undefined} value="Update" disabled={false} className="mini basic green" />
-        <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
-      </AutoForm>
-    </Segment>
+            <AutoForm schema={formSchema} onSubmit={handleUpdate} showInlineError model={model}>
+                <Form.Group widths="equal">
+                    <TextField name="username" placeholder="johndoe@foo.edu"/>
+                    <TextField name="firstName" placeholder="John"/>
+                    <TextField name="lastName" placeholder="Doe"/>
+                </Form.Group>
+                <Header dividing as="h4">
+                    Optional fields (all users)
+                </Header>
+                <PictureField name="picture"/>
+                <Form.Group widths="equal">
+                    <MultiSelectField name="interests"/>
+                    <MultiSelectField name="careerGoals"/>
+                </Form.Group>
+                <BoolField name="retired"/>
+                {model.role === ROLE.STUDENT || model.role === ROLE.ALUMNI ? (
+                    <div>
+                        <Header dividing as="h4">
+                            Student fields
+                        </Header>
+                        <Form.Group widths="equal">
+                            <MultiSelectField name="courses"/>
+                            <MultiSelectField name="opportunities"/>
+                        </Form.Group>
+                        <Form.Group widths="equal">
+                            <NumField name="level"/>
+                            <SelectField name="declaredAcademicTerm"/>
+                        </Form.Group>
+                        <Form.Group widths="equal">
+                            <BoolField name="sharePicture"/>
+                            <BoolField name="shareWebsite"/>
+                            <BoolField name="shareInterests"/>
+                            <BoolField name="shareCareerGoals"/>
+                            <BoolField name="shareOpportunities"/>
+                            <BoolField name="shareCourses"/>
+                            <BoolField name="shareLevel"/>
+                            <BoolField name="shareICE"/>
+                            <BoolField name="isAlumni"/>
+                        </Form.Group>
+                    </div>
+                ) : (
+                  ''
+                )}
+                {model.role === ROLE.FACULTY ? (
+                    <div>
+                        <Header dividing as="h4">
+                            Faculty field
+                        </Header>
+                        <LongTextField name="aboutMe"/>
+                    </div>
+                ) : (
+                  ''
+                )}
+                <SubmitField inputRef={undefined} value="Update" disabled={false} className="mini basic green"/>
+                <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
+                <ErrorsField/>
+            </AutoForm>
+        </Segment>
   );
 };
 

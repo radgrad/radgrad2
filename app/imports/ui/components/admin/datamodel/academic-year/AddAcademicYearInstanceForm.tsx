@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Header, Segment } from 'semantic-ui-react';
-import { AutoForm, NumField, SelectField, SubmitField } from 'uniforms-semantic';
+import { AutoForm, ErrorsField, NumField, SelectField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import moment from 'moment';
@@ -40,6 +40,7 @@ const AddAcademicYearInstanceForm: React.FC<AddAcademicYearInstanceProps> = ({ s
         <NumField name="year" />
         <SelectField name="student" />
         <SubmitField className="mini basic green" value="Add" />
+          <ErrorsField/>
       </AutoForm>
     </Segment>
   );

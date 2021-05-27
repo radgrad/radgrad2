@@ -51,7 +51,7 @@ export default withTracker(() => {
   const interests = Interests.findNonRetired();
   const courses = Courses.findNonRetired();
   const opportunities = Opportunities.findNonRetired();
-  const students = StudentProfiles.find({ isAlumni: false }).fetch();
+  const students = StudentProfiles.findNonRetired({ isAlumni: false });
   return {
     careerGoals,
     interests,

@@ -40,7 +40,6 @@ const Task5: React.FC<Task5Props> = ({ totalInterests }) => {
   return (
     <RadGradSegment header={<RadGradHeader title='TASK 5: SHOW ME THE DESCRIPTION' icon='file alternate outline'/>}>
       <Header dividing>Add Career Goal</Header>
-      {/* eslint-disable-next-line no-return-assign */}
       <AutoForm schema={formSchema} onSubmit={submit}>
         <SelectField name="interest" placeholder="(Select interest)"/>
         <SubmitField className="mini basic green" value='Display Description'/>

@@ -33,15 +33,15 @@ const Task4: React.FC<Task4Prop> = ({ user, totalCareerGoals, totalInterests, to
   const opportunitySlugs = totalOpportunities.map(opportunity => Opportunities.findSlugByID(opportunity));
   return (
   <RadGradSegment header={<RadGradHeader title='TASK 4: LABELS' icon='tags'/>}>
-    <h3 className='ui header'> Career Goals </h3>
+    <h3> Career Goals </h3>
     {careerGoalSlugs.map((slug) => <CareerGoalLabel key={slug} slug={slug} userID={userID} size='small' />)}
-    <h3 className='ui header'> Courses </h3>
+    <h3> Courses </h3>
     {courseSlugs.map((slug) => <CourseLabel key={slug} slug={slug} userID={userID} size='small' />)}
-    <h3 className='ui header'> Interests </h3>
+    <h3> Interests </h3>
     {interestSlugs.map((slug) => <InterestLabel key={slug} slug={slug} userID={userID} size='small' />)}
-    <h3 className='ui header'> Opportunities </h3>
+    <h3> Opportunities </h3>
     {opportunitySlugs.map((slug) => <OpportunityLabel key={slug} slug={slug} userID={userID} size='small' />)}
-    <h3 className='ui header'> Students </h3>
+    <h3> Students </h3>
     {totalStudents.map((student) => <UserLabel username={student} size='small' />)}
   </RadGradSegment>
   );
