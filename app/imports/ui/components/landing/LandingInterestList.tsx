@@ -14,7 +14,7 @@ const LandingInterestList: React.FC<LandingInterestsListProps> = ({ size, intere
   return (
   <Label.Group size={size}>
     {interestSlug.map((slug) =>
-    <InterestLabel key={slug} slug={slug} size={size}/>)}
+    <InterestLabel key={slug} slug={slug} size={size} />)}
   </Label.Group>
   );
 };

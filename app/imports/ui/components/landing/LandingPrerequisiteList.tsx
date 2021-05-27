@@ -14,7 +14,7 @@ const LandingPrerequisiteList: React.FC<LandingPrerequisitesListProps> = ({ size
   return (
   <Label.Group size={size}>
     {courses.map((course) =>
-    <CourseLabel key={course._id} slug={getSlugFromEntityID(course._id)} size={size}/>)}
+    <CourseLabel key={course._id} slug={getSlugFromEntityID(course._id)} size={size} />)}
   </Label.Group>
   );
 };

@@ -12,7 +12,7 @@ interface LandingCareerGoalListProps {
 const LandingCareerGoalList: React.FC<LandingCareerGoalListProps> = ({ size, careerGoals }) => (
 <Label.Group size={size}>
   {careerGoals.map((careerGoal) =>
-  <CareerGoalLabel key={careerGoal._id} slug={getSlugFromEntityID(careerGoal._id)} size={size}/>)}
+  <CareerGoalLabel key={careerGoal._id} slug={getSlugFromEntityID(careerGoal._id)} size={size} />)}
 </Label.Group>
 );
 
