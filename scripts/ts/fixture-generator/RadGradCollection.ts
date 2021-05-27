@@ -1,10 +1,5 @@
 import _ from 'lodash';
-
-export interface Doc {
-  targetSlug: any;
-  slug?: string;
-  term?: string;
-}
+import { Doc } from './demo-fixture-generator';
 
 export enum RadGradCollectionName {
   ACADEMIC_TERMS = 'AcademicTermCollection',

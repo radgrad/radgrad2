@@ -3,14 +3,27 @@ import RadGradCollection, { RadGradCollectionName } from './RadGradCollection';
 import { Doc, IDataDump } from './demo-fixture-generator';
 
 const validateCareerGoalsAndInterests = (profile: Doc, interests: RadGradCollection, careerGoals: RadGradCollection) => {
-  profile.interests.forEach((interest) => {
-    if (!interests.isDefinedSlug(interest)) {
-      throw new Error(`${interest} is not a defined Interest.`);
+  profile.interests.forEach((slug) => {
+    if (!interests.isDefinedSlug(slug)) {
+      throw new Error(`${slug} is not a defined Interest.`);
     }
   });
-  profile.careerGoals.forEach((goal) => {
-    if (!careerGoals.isDefinedSlug(goal)) {
-      throw new Error(`${goal} is not a defined CareeerGoal.`);
+  profile.careerGoals.forEach((slug) => {
+    if (!careerGoals.isDefinedSlug(slug)) {
+      throw new Error(`${slug} is not a defined CareeerGoal.`);
+    }
+  });
+};
+
+const validateProfileCoursesAndOpportunities = (profile: Doc, courses: RadGradCollection, opportunities: RadGradCollection) => {
+  profile.profileCourses.forEach((slug) => {
+    if (!courses.isDefinedSlug(slug)) {
+      throw new Error(`${slug} is not a defined Course`);
+    }
+  });
+  profile.profileOpportunities.forEach((slug) => {
+    if (!opportunities.isDefinedSlug(slug)) {
+      throw new Error(`${slug} is not a defined Opportunity`);
     }
   });
 };
@@ -30,5 +43,6 @@ export const validateFixture = (radgradDump: IDataDump) => {
   const students = new RadGradCollection(RadGradCollectionName.STUDENT_PROFILES, getCollectionData(radgradDump, RadGradCollectionName.STUDENT_PROFILES));
   students.getContents().forEach((profile) => {
     validateCareerGoalsAndInterests(profile, interests, careerGoals);
+    validateProfileCoursesAndOpportunities(profile, courses, opportunities);
   });
 };

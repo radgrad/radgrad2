@@ -106,16 +106,11 @@
           "ics_435"
         ],
         "profileOpportunities": [
-          "acm-manoa-hardware",
-          "hawaii-virtual-reality",
           "code-for-hawaii",
           "booz-allen-internship",
           "att-iot-hackathon",
           "shidler-bpc",
-          "acm-manoa-vr",
-          "hacc",
-          "booz-allen-ideas-festival",
-          "virtual-art-meetup"
+          "hacc"
         ],
         "declaredAcademicTerm": "Fall-2018",
         "isAlumni": false,
@@ -166,11 +161,8 @@
           "ics_426"
         ],
         "profileOpportunities": [
-          "dahi-internship",
           "lava-lab",
-          "gen-cyber-internship",
-          "wetware-wednesday",
-          "booz-allen-ideas-festival"
+          "gen-cyber-internship"
         ],
         "declaredAcademicTerm": "Fall-2019",
         "isAlumni": false,
@@ -218,9 +210,7 @@
         "profileOpportunities": [
           "code-for-hawaii",
           "itma",
-          "att-iot-hackathon",
-          "booz-allen-ideas-festival",
-          "acm-manoa-vr"
+          "att-iot-hackathon"
         ],
         "isAlumni": false,
         "retired": false,

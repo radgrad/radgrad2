@@ -16,6 +16,8 @@ export interface Doc {
   targetSlug?: string;
   interests?: string[];
   careerGoals?: string[];
+  profileCourses?: string[];
+  profileOpportunities: string[];
   retired?: boolean;
 }
 
