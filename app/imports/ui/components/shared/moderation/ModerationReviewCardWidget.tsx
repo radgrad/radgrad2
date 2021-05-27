@@ -31,46 +31,46 @@ const ModerationReviewCardWidget: React.FC<ModerationReviewCardWidget> = ({ item
     const update = handleAccept(item, moderatorCommentState);
     setModeratorComment('');
     // console.log('handle accept click', update);
-    updateMethod.call({ collectionName: update.collectionName, updateData: update.updateInfo }, (error) => {
-      if (error) {
+    updateMethod.callPromise({ collectionName: update.collectionName, updateData: update.updateInfo })
+      .catch((error) => {
         Swal.fire({
           title: 'Update failed',
           text: error.message,
           icon: 'error',
         });
         console.error('Error in updating. %o', error);
-      } else {
+      })
+      .then(() => {
         Swal.fire({
           title: 'Update succeeded',
           icon: 'success',
           showConfirmButton: false,
           timer: 1500,
         });
-      }
-    });
+      });
   };
 
   const handleRejectClick = () => {
     const update = handleReject(item, moderatorCommentState);
     setModeratorComment('');
     // console.log('handle accept click', update);
-    updateMethod.call({ collectionName: update.collectionName, updateData: update.updateInfo }, (error) => {
-      if (error) {
+    updateMethod.callPromise({ collectionName: update.collectionName, updateData: update.updateInfo })
+      .catch((error) => {
         Swal.fire({
           title: 'Update failed',
           text: error.message,
           icon: 'error',
         });
         console.error('Error in updating. %o', error);
-      } else {
+      })
+      .then(() => {
         Swal.fire({
           title: 'Update succeeded',
           icon: 'success',
           showConfirmButton: false,
           timer: 1500,
         });
-      }
-    });
+      });
   };
 
   const handleChange = (event, { value }) => {

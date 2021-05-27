@@ -16,9 +16,10 @@ import { ProfileCourses } from '../../../../api/user/profile-entries/ProfileCour
 const CourseLabel: React.FC<EntityLabelPublicProps> = ({ slug, userID, size, style, rightside }) => {
   let inProfile = false;
   const match = useRouteMatch();
-  const route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${slug}`);
+  let route = `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${slug}`;
   const name = Courses.findDocBySlug(slug).num; // will throw an error if slug is undefined.
   if (userID) {
+    route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${slug}`);
     // Calculate inProfile and route.
     const profileEntityIDs = ProfileCourses.findNonRetired({ studentID: userID });
     const id = Courses.findIdBySlug(slug);

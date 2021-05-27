@@ -5,6 +5,7 @@ import { PAGEIDS } from '../imports/ui/utilities/PageIDs';
 class SimplePage {
   private pageId: string;
   private pageSelector: Selector;
+
   constructor(id) {
     this.pageId = `#${id}`;
     this.pageSelector = Selector(this.pageId);
@@ -57,3 +58,13 @@ export const manageStudentsPage = new SimplePage(PAGEIDS.MANAGE_STUDENTS);
 export const forecastsPage = new SimplePage(PAGEIDS.FORECASTS);
 export const communityPage = new SimplePage(PAGEIDS.COMMUNITY);
 export const advisorFacultyVisibilityPage = new SimplePage(PAGEIDS.VISIBILITY);
+
+// Landing explorer pages
+export const landingCareerGoalExplorerPage = new SimplePage(PAGEIDS.LANDING_CAREER_GOALS_EXPLORER);
+export const landingCareerGoalExplorerItemPage = new SimplePage(PAGEIDS.LANDING_CAREER_GOAL_EXPLORER);
+export const landingCourseExplorerPage = new SimplePage(PAGEIDS.LANDING_COURSES_EXPLORER);
+export const landingCourseExplorerItemPage = new SimplePage(PAGEIDS.LANDING_COURSE_EXPLORER);
+export const landingInterestExplorerPage = new SimplePage(PAGEIDS.LANDING_INTERESTS_EXPLORER);
+export const landingInterestExplorerItemPage = new SimplePage(PAGEIDS.LANDING_INTEREST_EXPLORER);
+export const landingOpportunityExplorerPage = new SimplePage(PAGEIDS.LANDING_OPPORTUNITIES_EXPLORER);
+export const landingOpportunityExplorerItemPage = new SimplePage(PAGEIDS.LANDING_OPPORTUNITY_EXPLORER);

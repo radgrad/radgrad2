@@ -70,16 +70,16 @@ const AdvisorAddStudentTab: React.FC<AdvisorAddStudentWidgetProps> = ({ interest
     };
     definitionData.careerGoals = careerGoalsState;
     definitionData.interests = userInterests;
-
-    defineMethod.call({ collectionName, definitionData }, (error) => {
-      if (error) {
+    defineMethod.callPromise({ collectionName, definitionData })
+      .catch((error) => {
         console.error('Failed adding User', error);
         Swal.fire({
           title: 'Failed adding User',
           text: error.message,
           icon: 'error',
         });
-      } else {
+      })
+      .then(() => {
         Swal.fire({
           title: 'Add User Succeeded',
           icon: 'success',
@@ -95,8 +95,7 @@ const AdvisorAddStudentTab: React.FC<AdvisorAddStudentWidgetProps> = ({ interest
         setCareerGoals([]);
         setUserInterests([]);
         setDeclaredAcademicTerm(undefined);
-      }
-    });
+      });
   };
 
   const handleUploadClick = async (): Promise<void> => {
@@ -126,23 +125,28 @@ const AdvisorAddStudentTab: React.FC<AdvisorAddStudentWidgetProps> = ({ interest
       <Form widths="equal" onSubmit={onSubmit}>
         <Form.Group>
           <Form.Field>
-            <Form.Input name="firstName" label="First Name" value={firstName} onChange={handleFormChange} required />
+            <Form.Input name="firstName" label="First Name" value={firstName} onChange={handleFormChange}
+                        required />
           </Form.Field>
           <Form.Field>
-            <Form.Input name="lastName" label="Last Name" value={lastName} onChange={handleFormChange} required />
+            <Form.Input name="lastName" label="Last Name" value={lastName} onChange={handleFormChange}
+                        required />
           </Form.Field>
         </Form.Group>
         <Form.Group>
           <Form.Field>
-            <Form.Input name="username" label="Username" value={username} onChange={handleFormChange} required />
+            <Form.Input name="username" label="Username" value={username} onChange={handleFormChange}
+                        required />
           </Form.Field>
           <Form.Field>
             <Form.Field>Alumni</Form.Field>
             <Form.Field>
-              <Radio name="isAlumni" label="True" value="true" onChange={handleFormChange} checked={isAlumni === true} required />
+              <Radio name="isAlumni" label="True" value="true" onChange={handleFormChange}
+                     checked={isAlumni === true} required />
             </Form.Field>
             <Form.Field>
-              <Radio name="isAlumni" label="False" value="false" onChange={handleFormChange} checked={isAlumni === false} required />
+              <Radio name="isAlumni" label="False" value="false" onChange={handleFormChange}
+                     checked={isAlumni === false} required />
             </Form.Field>
           </Form.Field>
         </Form.Group>
@@ -199,7 +203,11 @@ const AdvisorAddStudentTab: React.FC<AdvisorAddStudentWidgetProps> = ({ interest
               label="Declared Academic Term"
               value={declaredAcademicTerm}
               onChange={handleFormChange}
-              options={AcademicTerms.findNonRetired().map((ele, i) => ({ key: i, text: `${ele.term} ${ele.year}`, value: ele._id }))}
+              options={AcademicTerms.findNonRetired().map((ele, i) => ({
+                key: i,
+                text: `${ele.term} ${ele.year}`,
+                value: ele._id,
+              }))}
               selection
               placeholder="Select AcademicTerm"
             />

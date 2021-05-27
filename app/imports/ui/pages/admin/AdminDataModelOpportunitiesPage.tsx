@@ -2,6 +2,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
 import { Confirm, Icon } from 'semantic-ui-react';
 import _ from 'lodash';
+import Swal from 'sweetalert2';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
@@ -20,7 +21,7 @@ import { PAGEIDS } from '../../utilities/PageIDs';
 import {
   handleCancelWrapper,
   handleConfirmDeleteWrapper,
-  handleDeleteWrapper, handleOpenUpdateWrapper, updateCallBack,
+  handleDeleteWrapper, handleOpenUpdateWrapper,
 } from './utilities/data-model-page-callbacks';
 import { makeMarkdownLink } from './utilities/datamodel';
 import PageLayout from '../PageLayout';
@@ -106,7 +107,25 @@ const AdminDataModelOpportunitiesPage: React.FC<AdminDataModelOpportunitiesPageP
     updateData.interests = doc.interests.map(interestSlugFromName);
     updateData.academicTerms = doc.terms.map(academicTermNameToSlug);
     // console.log(collectionName, updateData);
-    updateMethod.call({ collectionName, updateData }, updateCallBack(setShowUpdateForm, setId));
+    updateMethod.callPromise({ collectionName, updateData })
+      .catch((error) => {
+        Swal.fire({
+          title: 'Update failed',
+          text: error.message,
+          icon: 'error',
+        });
+        console.error('Error in updating. %o', error);
+      })
+      .then(() => {
+        Swal.fire({
+          title: 'Update succeeded',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setShowUpdateForm(false);
+        setId('');
+      });
   };
 
   const findOptions = {
@@ -128,7 +147,7 @@ const AdminDataModelOpportunitiesPage: React.FC<AdminDataModelOpportunitiesPageP
         />
       ) : (
         <AddOpportunityForm sponsors={sponsors} terms={terms}
-                            interests={interests} opportunityTypes={opportunityTypes}/>
+                            interests={interests} opportunityTypes={opportunityTypes} />
       )}
       <ListCollectionWidget
         collection={collection}
@@ -141,7 +160,7 @@ const AdminDataModelOpportunitiesPage: React.FC<AdminDataModelOpportunitiesPageP
       />
 
       <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
-               header="Delete Opportunity?"/>
+               header="Delete Opportunity?" />
     </PageLayout>
   );
 };

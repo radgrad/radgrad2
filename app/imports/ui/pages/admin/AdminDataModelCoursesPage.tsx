@@ -2,6 +2,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
 import { Confirm, Icon } from 'semantic-ui-react';
 import _ from 'lodash';
+import Swal from 'sweetalert2';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { Course, CourseUpdate, DescriptionPair, Interest } from '../../../typings/radgrad';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
@@ -12,7 +13,6 @@ import {
   handleCancelWrapper,
   handleConfirmDeleteWrapper,
   handleDeleteWrapper, handleOpenUpdateWrapper,
-  updateCallBack,
 } from './utilities/data-model-page-callbacks';
 import { makeMarkdownLink } from './utilities/datamodel';
 import { Interests } from '../../../api/interest/InterestCollection';
@@ -83,7 +83,25 @@ const AdminDataModelCoursesPage: React.FC<AdminDataModelCoursesPageProps> = ({ i
     updateData.prerequisites = doc.prerequisiteNames.map(courseNameToSlug);
     updateData.interests = doc.interests.map(interestNameToId);
     // console.log(collectionName, updateData);
-    updateMethod.call({ collectionName, updateData }, updateCallBack(setShowUpdateForm, setId));
+    updateMethod.callPromise({ collectionName, updateData })
+      .catch((error) => {
+        Swal.fire({
+          title: 'Update failed',
+          text: error.message,
+          icon: 'error',
+        });
+        console.error('Error in updating. %o', error);
+      })
+      .then(() => {
+        Swal.fire({
+          title: 'Update succeeded',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setShowUpdateForm(false);
+        setId('');
+      });
   };
 
   const findOptions = {
@@ -98,9 +116,9 @@ const AdminDataModelCoursesPage: React.FC<AdminDataModelCoursesPageProps> = ({ i
       {showUpdateFormState ? (
         <UpdateCourseForm collection={collection} id={idState} handleUpdate={handleUpdate}
                           handleCancel={handleCancel} itemTitleString={itemTitleString} interests={interests}
-                          courses={courses}/>
+                          courses={courses} />
       ) : (
-        <AddCourseForm interests={interests} courses={courses}/>
+        <AddCourseForm interests={interests} courses={courses} />
       )}
       <ListCollectionWidget
         collection={collection}
@@ -112,7 +130,7 @@ const AdminDataModelCoursesPage: React.FC<AdminDataModelCoursesPageProps> = ({ i
         items={items}
       />
 
-      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Course?"/>
+      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Course?" />
     </PageLayout>
   );
 };

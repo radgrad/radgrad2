@@ -2,6 +2,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
 import { Confirm, Icon } from 'semantic-ui-react';
 import _ from 'lodash';
+import Swal from 'sweetalert2';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { DescriptionPair, OpportunityType } from '../../../typings/radgrad';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
@@ -16,7 +17,6 @@ import {
   handleCancelWrapper,
   handleConfirmDeleteWrapper,
   handleDeleteWrapper, handleOpenUpdateWrapper,
-  updateCallBack,
 } from './utilities/data-model-page-callbacks';
 import PageLayout from '../PageLayout';
 
@@ -82,7 +82,25 @@ const AdminDataModelOpportunityTypesPage: React.FC<AdminDataModelOpportunityType
     const collectionName = collection.getCollectionName();
     const updateData = doc;
     updateData.id = doc._id;
-    updateMethod.call({ collectionName, updateData }, updateCallBack(setShowUpdateForm, setId));
+    updateMethod.callPromise({ collectionName, updateData })
+      .catch((error) => {
+        Swal.fire({
+          title: 'Update failed',
+          text: error.message,
+          icon: 'error',
+        });
+        console.error('Error in updating. %o', error);
+      })
+      .then(() => {
+        Swal.fire({
+          title: 'Update succeeded',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setShowUpdateForm(false);
+        setId('');
+      });
   };
 
   const findOptions = {
@@ -92,7 +110,7 @@ const AdminDataModelOpportunityTypesPage: React.FC<AdminDataModelOpportunityType
     <PageLayout id={PAGEIDS.DATA_MODEL_OPPORTUNITY_TYPES} headerPaneTitle="Opportunity Types">
       {showUpdateFormState ? (
         <UpdateOpportunityTypeForm collection={collection} id={idState} handleUpdate={handleUpdate}
-                                   handleCancel={handleCancel} itemTitleString={itemTitleString}/>
+                                   handleCancel={handleCancel} itemTitleString={itemTitleString} />
       ) : (
         <AddOpportunityTypeForm />
       )}
@@ -106,7 +124,7 @@ const AdminDataModelOpportunityTypesPage: React.FC<AdminDataModelOpportunityType
         items={items}
       />
       <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
-               header="Delete Opportunity Type?"/>
+               header="Delete Opportunity Type?" />
     </PageLayout>
   );
 };

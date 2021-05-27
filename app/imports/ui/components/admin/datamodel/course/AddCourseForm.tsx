@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form, Header, Segment } from 'semantic-ui-react';
+import Swal from 'sweetalert2';
 import { AutoForm, TextField, NumField, LongTextField, SubmitField, BoolField, ErrorsField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
@@ -9,7 +10,6 @@ import MultiSelectField from '../../../form-fields/MultiSelectField';
 import { Course, CourseDefine, Interest } from '../../../../../typings/radgrad';
 import { courseNameToSlug, courseToName, docToName } from '../../../shared/utilities/data-model';
 import { interestSlugFromName } from '../../../shared/utilities/form';
-import { defineCallback } from '../utilities/add-form';
 
 interface AddCourseFormProps {
   interests: Interest[];
@@ -33,7 +33,24 @@ const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses }) => 
       definitionData.prerequisites = doc.prerequisites.map(courseNameToSlug);
     }
     // console.log(collectionName, definitionData);
-    defineMethod.call({ collectionName, definitionData }, defineCallback(formRef));
+    defineMethod.callPromise({ collectionName, definitionData })
+      .catch((error) => {
+        console.error('Failed adding User', error);
+        Swal.fire({
+          title: 'Failed adding User',
+          text: error.message,
+          icon: 'error',
+        });
+      })
+      .then(() => {
+        Swal.fire({
+          title: 'Add User Succeeded',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        formRef.reset();
+      });
   };
 
 
@@ -65,30 +82,30 @@ const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses }) => 
   });
   const formSchema = new SimpleSchema2Bridge(schema);
   return (
-        <Segment padded>
-            <Header dividing>Add Course</Header>
-            {/* eslint-disable-next-line no-return-assign */}
-            <AutoForm schema={formSchema} onSubmit={handleAdd} ref={(ref) => formRef = ref} showInlineError>
-                <Form.Group widths="equal">
-                    <TextField name="slug" placeholder="dept_111"/>
-                    <TextField name="name" placeholder="DEPT 111 Introduction to Science"/>
-                </Form.Group>
-                <Form.Group widths="equal">
-                    <TextField name="shortName" placeholder="DEPT 111 Introduction to Science"/>
-                    <NumField name="creditHours"/>
-                    <TextField name="num" placeholder="DEPT 111"/>
-                </Form.Group>
-                <LongTextField name="description"/>
-                <TextField name="syllabus" placeholder="https://dept.foo.edu/dept_111/syllabus.html"/>
-                <Form.Group widths="equal">
-                    <MultiSelectField name="interests" placeholder="Select Interest(s)"/>
-                    <MultiSelectField name="prerequisites" placeholder="Select Prerequisite(s)"/>
-                </Form.Group>
-                <BoolField name="repeatable"/>
-                <SubmitField className="mini basic green" value="Add"/>
-                <ErrorsField/>
-            </AutoForm>
-        </Segment>
+    <Segment padded>
+      <Header dividing>Add Course</Header>
+      {/* eslint-disable-next-line no-return-assign */}
+      <AutoForm schema={formSchema} onSubmit={handleAdd} ref={(ref) => formRef = ref} showInlineError>
+        <Form.Group widths="equal">
+          <TextField name="slug" placeholder="dept_111" />
+          <TextField name="name" placeholder="DEPT 111 Introduction to Science" />
+        </Form.Group>
+        <Form.Group widths="equal">
+          <TextField name="shortName" placeholder="DEPT 111 Introduction to Science" />
+          <NumField name="creditHours" />
+          <TextField name="num" placeholder="DEPT 111" />
+        </Form.Group>
+        <LongTextField name="description" />
+        <TextField name="syllabus" placeholder="https://dept.foo.edu/dept_111/syllabus.html" />
+        <Form.Group widths="equal">
+          <MultiSelectField name="interests" placeholder="Select Interest(s)" />
+          <MultiSelectField name="prerequisites" placeholder="Select Prerequisite(s)" />
+        </Form.Group>
+        <BoolField name="repeatable" />
+        <SubmitField className="mini basic green" value="Add" />
+        <ErrorsField />
+      </AutoForm>
+    </Segment>
   );
 };
 

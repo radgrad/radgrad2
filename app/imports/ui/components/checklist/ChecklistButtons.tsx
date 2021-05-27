@@ -1,4 +1,5 @@
 import React from 'react';
+import { SemanticCOLORS } from 'semantic-ui-react';
 import { ButtonLink } from '../shared/button/ButtonLink';
 import { ButtonAction } from '../shared/button/ButtonAction';
 
@@ -15,9 +16,10 @@ interface ChecklistButtonActionProps {
   onClick: () => void,
   label: string
   icon?: string
+  color?: SemanticCOLORS
 }
 
-export const ChecklistButtonAction: React.FC<ChecklistButtonActionProps> = ({ onClick, label, icon = 'thumbs up outline' }) => (
-  <ButtonAction style={{ marginBottom: '10px' }} size='mini' color='green' onClick={onClick} label={label} icon={icon}/>
+export const ChecklistButtonAction: React.FC<ChecklistButtonActionProps> = ({ onClick, label, icon = 'thumbs up outline', color = 'green' }) => (
+  <ButtonAction style={{ marginBottom: '10px' }} size='mini' color={color} onClick={onClick} label={label} icon={icon}/>
 );
 

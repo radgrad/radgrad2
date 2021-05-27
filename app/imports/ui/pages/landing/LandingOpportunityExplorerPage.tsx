@@ -2,7 +2,7 @@ import React from 'react';
 import Markdown from 'react-markdown';
 import { useParams, useRouteMatch } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Embed, Grid, Header, Segment } from 'semantic-ui-react';
+import { Embed, Grid } from 'semantic-ui-react';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
 import { Opportunity } from '../../../typings/radgrad';
@@ -21,6 +21,9 @@ import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import LandingExplorerMenuBar from '../../components/landing/explorer/LandingExplorerMenuBar';
 import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
+import RadGradSegment from '../../components/shared/RadGradSegment';
+import RadGradHeader from '../../components/shared/RadGradHeader';
+import { EXPLORER_TYPE_ICON } from '../../utilities/ExplorerUtils';
 
 interface OpportunityExplorerProps {
   opportunity: Opportunity;
@@ -54,10 +57,7 @@ const LandingOpportunityExplorerPage: React.FC<OpportunityExplorerProps> = ({ op
           </Grid.Column>
 
           <Grid.Column width={13}>
-            <Segment>
-              <Header as="h4" dividing>
-                <span>{opportunity.name}</span>
-              </Header>
+            <RadGradSegment header={<RadGradHeader title={opportunity.name} dividing />}>
               {hasTeaser ? (
                 <React.Fragment>
                   <Grid stackable columns={2}>
@@ -115,7 +115,6 @@ const LandingOpportunityExplorerPage: React.FC<OpportunityExplorerProps> = ({ op
                       {teaserID ? <Embed active autoplay={false} source="youtube" id={teaserID} /> : 'N/A'}
                     </Grid.Column>
                   </Grid>
-                  <LandingInterestList interestIDs={opportunity.interestIDs} />
                 </React.Fragment>
               ) : (
                 <React.Fragment>
@@ -177,7 +176,8 @@ const LandingOpportunityExplorerPage: React.FC<OpportunityExplorerProps> = ({ op
                   </Grid>
                 </React.Fragment>
               )}
-            </Segment>
+            </RadGradSegment>
+            <RadGradSegment header={<RadGradHeader title='Related Interests' icon={EXPLORER_TYPE_ICON.INTEREST} dividing/>}>{opportunity.interestIDs.length > 0 ? <LandingInterestList interestIDs={opportunity.interestIDs} size='small' /> : 'N/A'}</RadGradSegment>
           </Grid.Column>
         </Grid.Row>
       </Grid>
@@ -188,11 +188,12 @@ const LandingOpportunityExplorerPage: React.FC<OpportunityExplorerProps> = ({ op
 
 const LandingOpportunityExplorerContainer = withTracker(() => {
   const { opportunity } = useParams();
-  // console.log(Slugs.find().fetch());
   const id = Slugs.getEntityID(opportunity, 'Opportunity');
+  const opportunityDoc = Opportunities.findDoc(id);
+  const quarters = RadGradProperties.getQuarterSystem();
   return {
-    opportunity: Opportunities.findDoc(id),
-    quarters: RadGradProperties.getQuarterSystem(),
+    opportunity: opportunityDoc,
+    quarters,
   };
 })(LandingOpportunityExplorerPage);
 
