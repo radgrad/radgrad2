@@ -36,11 +36,10 @@ export const careerGoalInterestConversionMethod = new ValidatedMethod({
             interest: interestID,
             share,
           };
-          defineMethod.call({ collectionName, definitionData }, (error) => {
-            if (error) {
+          defineMethod.callPromise({ collectionName, definitionData })
+            .catch((error) => {
               console.error(`Failed to define interest ${userID}, ${interestID}`, error);
-            }
-          });
+            });
         });
         // console.log(missingInterestIDs);a
       });

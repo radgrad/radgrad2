@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import React from 'react';
+import Swal from 'sweetalert2';
 import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, SelectField, BoolField, SubmitField, ErrorsField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
@@ -15,7 +16,6 @@ import {
   docToName, opportunityNameToSlug, profileNameToUsername,
   profileToName,
 } from '../../../shared/utilities/data-model';
-import { defineCallback } from '../utilities/add-form';
 
 interface AddOpportunityInstanceFormProps {
   terms: AcademicTerm[];
@@ -80,31 +80,47 @@ const AddOpportunityInstanceForm: React.FC<AddOpportunityInstanceFormProps> = ({
     if (_.isBoolean(doc.retired)) {
       definitionData.retired = doc.retired;
     }
-    defineMethod.call({ collectionName, definitionData }, defineCallback(formRef));
+    defineMethod.callPromise({ collectionName, definitionData })
+      .catch((error) => {
+        Swal.fire({
+          title: 'Add failed',
+          text: error.message,
+          icon: 'error',
+        });
+      })
+      .then(() => {
+        Swal.fire({
+          title: 'Add succeeded',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        formRef.reset();
+      });
   };
 
   // console.log(termNames, courseNames, studentNames);
   return (
-        <Segment padded>
-            <Header dividing>Add Opportunity Instance</Header>
-            {/* eslint-disable-next-line no-return-assign */}
-            <AutoForm schema={formSchema} onSubmit={handleAdd} ref={(ref) => formRef = ref} showInlineError>
-                <Form.Group widths="equal">
-                    <SelectField name="term"/>
-                    <SelectField name="student"/>
-                </Form.Group>
-                <Form.Group widths="equal">
-                    <SelectField name="opportunity"/>
-                    <SelectField name="sponsor"/>
-                </Form.Group>
-                <Form.Group widths="equal">
-                    <BoolField name="verified"/>
-                    <BoolField name="retired"/>
-                </Form.Group>
-                <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined}/>
-                <ErrorsField/>
-            </AutoForm>
-        </Segment>
+    <Segment padded>
+      <Header dividing>Add Opportunity Instance</Header>
+      {/* eslint-disable-next-line no-return-assign */}
+      <AutoForm schema={formSchema} onSubmit={handleAdd} ref={(ref) => formRef = ref} showInlineError>
+        <Form.Group widths="equal">
+          <SelectField name="term" />
+          <SelectField name="student" />
+        </Form.Group>
+        <Form.Group widths="equal">
+          <SelectField name="opportunity" />
+          <SelectField name="sponsor" />
+        </Form.Group>
+        <Form.Group widths="equal">
+          <BoolField name="verified" />
+          <BoolField name="retired" />
+        </Form.Group>
+        <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
+        <ErrorsField />
+      </AutoForm>
+    </Segment>
   );
 };
 

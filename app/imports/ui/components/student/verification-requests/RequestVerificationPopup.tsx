@@ -27,18 +27,18 @@ const handleVerificationRequest = (instance, match) => (model) => {
     opportunityInstance,
     documentation,
   };
-  defineMethod.call({ collectionName, definitionData }, (error) => {
-    if (error) {
+  defineMethod.callPromise({ collectionName, definitionData })
+    .catch((error) => {
       console.error(`Verification Request define ${definitionData} failed.`);
-    } else {
+    })
+    .then(() => {
       Swal.fire({
         title: 'Verification request sent.',
         icon: 'success',
         showConfirmButton: false,
         timer: 1500,
       });
-    }
-  });
+    });
 };
 
 const RequestVerificationPopup: React.FC<RequestVerificationPopupProps> = ({ opportunityInstance, size = 'large' }) => {

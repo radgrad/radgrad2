@@ -1,31 +1,21 @@
 import React from 'react';
-import { Header, Label } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
+import { Label, SemanticSIZES } from 'semantic-ui-react';
 import { Interests } from '../../../api/interest/InterestCollection';
-import { EXPLORER_TYPE } from '../../layouts/utilities/route-constants';
-import { Slugs } from '../../../api/slug/SlugCollection';
-import { Interest } from '../../../typings/radgrad';
+import InterestLabel from '../shared/label/InterestLabel';
 
-interface WithInterestsProps {
+interface LandingInterestsListProps {
   interestIDs: string[];
+  size: SemanticSIZES;
 }
 
-const getSlugName = (interest: Interest) => Slugs.getNameFromID(interest.slugID);
-
-const LandingInterestList: React.FC<WithInterestsProps> = ({ interestIDs }) => {
-  const interests: Interest[] = interestIDs.map((id) => Interests.findDoc(id));
-  const labelStyle = { marginBottom: '2px' };
+const LandingInterestList: React.FC<LandingInterestsListProps> = ({ size, interestIDs }) => {
+  const interests = interestIDs.map((id) => Interests.findDoc(id));
+  const interestSlug = interests.map(interest => Interests.findSlugByID(interest));
   return (
-    <React.Fragment>
-      <Header as="h4" dividing>
-        Related Interests
-      </Header>
-      {interests.map((interest) => (
-        <Label as={Link} key={interest._id} to={`/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${getSlugName(interest)}`} color="grey" style={labelStyle}>
-          {interest.name}
-        </Label>
-      ))}
-    </React.Fragment>
+    <Label.Group size={size}>
+      {interestSlug.map((slug) =>
+      <InterestLabel key={slug} slug={slug} size={size} />)}
+    </Label.Group>
   );
 };
 
