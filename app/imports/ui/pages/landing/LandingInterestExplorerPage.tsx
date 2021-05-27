@@ -38,36 +38,25 @@ const LandingInterestExplorerPage: React.FC<InterestExplorerProps> = ({ currentU
   const match = useRouteMatch();
   return (
     <div>
-      <LandingExplorerMenuBar/>
-      <PageLayout id={PAGEIDS.LANDING_INTEREST_EXPLORER} headerPaneTitle={headerPaneTitle}
-                  headerPaneBody={headerPaneBody}>
-      <Grid stackable>
-        <Grid.Row>
-          <Grid.Column width={3}>
-            <LandingExplorerMenuContainer />
-          </Grid.Column>
-          <Grid.Column width={13}>
-            <RadGradSegment header={<RadGradHeader title={interest.name} dividing/>}>
-              <b>Description:</b>
-              <Markdown escapeHtml source={interest.description} renderers={{ link: (localProps) => Router.renderLink(localProps, match) }} />
-            </RadGradSegment>
-            <RadGradSegment header={<RadGradHeader title='Related Courses' icon={EXPLORER_TYPE_ICON.COURSE} dividing/>}>
-              {courses.length > 0 ? (
-                <LandingCourseList courses={courses}/>
-              ) : (
-                'N/A'
-              )}
-            </RadGradSegment>
-            <RadGradSegment header={<RadGradHeader title='Related Opportunities' icon={EXPLORER_TYPE_ICON.OPPORTUNITY} dividing/>}>
-              {opportunities.length > 0 ? (
-                  <LandingOpportunityList opportunities={opportunities}/>
-              ) : (
-                'N/A'
-              )}
-            </RadGradSegment>
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
+      <LandingExplorerMenuBar />
+      <PageLayout id={PAGEIDS.LANDING_INTEREST_EXPLORER} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
+        <Grid stackable>
+          <Grid.Row>
+            <Grid.Column width={3}>
+              <LandingExplorerMenuContainer />
+            </Grid.Column>
+            <Grid.Column width={13}>
+              <RadGradSegment header={<RadGradHeader title={interest.name} dividing />}>
+                <b>Description:</b>
+                <Markdown escapeHtml source={interest.description} renderers={{ link: (localProps) => Router.renderLink(localProps, match) }} />
+              </RadGradSegment>
+              <RadGradSegment header={<RadGradHeader title="Related Courses" icon={EXPLORER_TYPE_ICON.COURSE} dividing />}>{courses.length > 0 ? <LandingCourseList courses={courses} /> : 'N/A'}</RadGradSegment>
+              <RadGradSegment header={<RadGradHeader title="Related Opportunities" icon={EXPLORER_TYPE_ICON.OPPORTUNITY} dividing />}>
+                {opportunities.length > 0 ? <LandingOpportunityList opportunities={opportunities} /> : 'N/A'}
+              </RadGradSegment>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
       </PageLayout>
     </div>
   );
@@ -76,10 +65,13 @@ const LandingInterestExplorerPage: React.FC<InterestExplorerProps> = ({ currentU
 const LandingInterestExplorerContainer = withTracker(() => {
   const { interest } = useParams();
   const id = Slugs.getEntityID(interest, 'Interest');
+  const interestDoc = Interests.findDoc(id);
+  const courses = Courses.findNonRetired({ interestIDs: id });
+  const opportunities = Opportunities.findNonRetired({ interestIDs: id });
   return {
-    interest: Interests.findDoc(id),
-    courses: Courses.findNonRetired({ interestIDs: id }),
-    opportunities: Opportunities.findNonRetired({ interestIDs: id }),
+    interest: interestDoc,
+    courses,
+    opportunities,
   };
 })(LandingInterestExplorerPage);
 
