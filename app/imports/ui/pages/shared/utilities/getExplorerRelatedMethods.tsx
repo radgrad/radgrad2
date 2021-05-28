@@ -3,7 +3,7 @@ import { Course, Opportunity, RelatedCoursesOrOpportunities } from '../../../../
 import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
 
-export const getBaseURL = (match: any): string => {
+export const getBaseURL = (match: any): string => { // getting an es-lint error here 
   const split = match.url.split('/');
   const temp = [];
   temp.push(split[0]);
