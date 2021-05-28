@@ -66,9 +66,9 @@ const RadGradLoginButtons: React.FC<RadGradLoginButtonsProps> = ({ instanceName 
       <Button inverted={inverted} size={size}>
         <Dropdown id={COMPONENTIDS.LOGIN} text={`${instanceName} LOGIN`} pointing="top right">
           <Dropdown.Menu>
-            <Dropdown.Item id="student" text={studentLabel} as={Link} to="/signin" />
-            <Dropdown.Item id="faculty" text={facultyLabel} as={Link} to="/signin" />
-            <Dropdown.Item id="advisor" text={advisorLabel} as={Link} to="/signin" />
+            <Dropdown.Item id={COMPONENTIDS.STUDENT} text={studentLabel} as={Link} to="/signin" />
+            <Dropdown.Item id={COMPONENTIDS.FACULTY} text={facultyLabel} as={Link} to="/signin" />
+            <Dropdown.Item id={COMPONENTIDS.ADVISOR} text={advisorLabel} as={Link} to="/signin" />
             <Dropdown.Item id={COMPONENTIDS.ADMIN} text={adminLabel} as={Link} to="/signin" />
           </Dropdown.Menu>
         </Dropdown>
@@ -81,9 +81,9 @@ const RadGradLoginButtons: React.FC<RadGradLoginButtonsProps> = ({ instanceName 
     <Button inverted={inverted} size={size}>
       <Dropdown id={COMPONENTIDS.LOGIN} text={`${instanceName} LOGIN FOR`} pointing="top right">
         <Dropdown.Menu>
-          <Dropdown.Item id="student" text={studentLabel} onClick={handleClick} />
-          <Dropdown.Item id="faculty" text={facultyLabel} onClick={handleClick} />
-          <Dropdown.Item id="advisor" text={advisorLabel} onClick={handleClick} />
+          <Dropdown.Item id={COMPONENTIDS.STUDENT} text={studentLabel} onClick={handleClick} />
+          <Dropdown.Item id={COMPONENTIDS.FACULTY} text={facultyLabel} onClick={handleClick} />
+          <Dropdown.Item id={COMPONENTIDS.ADVISOR} text={advisorLabel} onClick={handleClick} />
           <Dropdown.Item id={COMPONENTIDS.ADMIN} text={adminLabel} as={Link} to="/signin" />
         </Dropdown.Menu>
       </Dropdown>

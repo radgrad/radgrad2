@@ -27,6 +27,7 @@ export enum COMPONENTIDS {
   ADMIN_MENU_MANAGE_REVIEW = 'admin-menu-manage-review',
   FIRST_MENU_USERNAME = 'first-menu-username',
 
+  ADVISOR = 'advisor',
   ADVISOR_MENU_HOME = 'advisor-menu-home',
   ADVISOR_MENU_VISIBILITY = 'advisor-menu-visibility',
   ADVISOR_MENU_FORECASTS = 'advisor-menu-forecasts',
@@ -41,4 +42,8 @@ export enum COMPONENTIDS {
   ADVISOR_MENU_MANAGE_VERIFICATION = 'advisor-menu-manage-verification',
   ADVISOR_MENU_MANAGE_REVIEW = 'advisor-menu-manage-review',
   ADVISOR_MENU_MANAGE_OPPORTUNITIES = 'advisor-menu-manage-opportunities',
+
+  STUDENT = 'student',
+
+  FACULTY = 'faculty',
 }

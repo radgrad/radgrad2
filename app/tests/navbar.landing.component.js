@@ -13,23 +13,23 @@ class LandingNavBar {
   }
 
   async gotoAdminLogin(testController) {
-    await testController.click('#LOGIN');
-    await testController.click('#admin');
+    await testController.click(`#${COMPONENTIDS.LOGIN}`);
+    await testController.click(`#${COMPONENTIDS.ADMIN}`);
   }
 
   async gotoStudentLogin(testController) {
-    await testController.click('#LOGIN');
-    await testController.click('#student');
+    await testController.click(`#${COMPONENTIDS.LOGIN}`);
+    await testController.click(`#${COMPONENTIDS.STUDENT}`);
   }
 
   async gotoFacultyLogin(testController) {
-    await testController.click('#LOGIN');
-    await testController.click('#faculty');
+    await testController.click(`#${COMPONENTIDS.LOGIN}`);
+    await testController.click(`#${COMPONENTIDS.FACULTY}`);
   }
 
   async gotoAdvisorLogin(testController) {
-    await testController.click('#LOGIN');
-    await testController.click('#advisor');
+    await testController.click(`#${COMPONENTIDS.LOGIN}`);
+    await testController.click(`#${COMPONENTIDS.ADVISOR}`);
   }
 }
 
