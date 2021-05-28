@@ -189,6 +189,7 @@ export interface CareerGoal extends Document {
   description: string;
   interestIDs: string[];
   retired?: boolean;
+  picture?: string;
 }
 
 export interface CareerGoalDefine extends DumpOne {
@@ -197,6 +198,7 @@ export interface CareerGoalDefine extends DumpOne {
   description: string;
   interests: string[];
   retired?: boolean;
+  picture?: string,
 }
 
 export interface CareerGoalUpdate extends Update {
@@ -204,6 +206,7 @@ export interface CareerGoalUpdate extends Update {
   description?: string;
   interests?: string[];
   retired?: boolean;
+  picture?: string,
 }
 
 // CourseInstances

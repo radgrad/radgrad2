@@ -26,12 +26,14 @@ class CareerGoalCollection extends BaseSlugCollection {
       description: { type: String },
       interestIDs: [SimpleSchema.RegEx.Id],
       retired: { type: Boolean, optional: true },
+      picture: { type: String, optional: true },
     }));
     this.defineSchema = new SimpleSchema({
       name: { type: String },
       slug: { type: String },
       description: { type: String },
       interests: [String],
+      picture: { type: String, optional: true },
     });
     // name, description, interests
     this.updateSchema = new SimpleSchema({
@@ -40,6 +42,7 @@ class CareerGoalCollection extends BaseSlugCollection {
       interests: { type: Array, optional: true },
       'interests.$': String,
       retired: { type: Boolean, optional: true },
+      picture: { type: String, optional: true },
     });
   }
 
@@ -57,10 +60,10 @@ class CareerGoalCollection extends BaseSlugCollection {
    * @throws { Meteor.Error } If the slug already exists.
    * @returns The newly created docID.
    */
-  public define({ name, slug, description, interests, retired = false }: CareerGoalDefine) {
+  public define({ name, slug, description, interests, retired = false, picture = false }: CareerGoalDefine) {
     // Get Interests, throw error if any of them are not found.
     const interestIDs = Interests.getIDs(interests);
-    const doc = this.collection.findOne({ name, description, interestIDs, retired });
+    const doc = this.collection.findOne({ name, description, interestIDs, retired, picture });
     if (doc) {
       return doc._id;
     }
