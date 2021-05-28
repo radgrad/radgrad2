@@ -31,4 +31,9 @@ export enum COMPONENTIDS {
   ADVISOR_MENU_VISIBILITY = 'advisor-menu-visibility',
   ADVISOR_MENU_FORECASTS = 'advisor-menu-forecasts',
   ADVISOR_MENU_COMMUNITY = 'advisor-menu-community',
+  ADVISOR_MENU_EXPLORERS = 'advisor-menu-explorers',
+  ADVISOR_MENU_EXPLORER_CAREERS = 'advisor-menu-explorer-careers',
+  ADVISOR_MENU_EXPLORER_COURSES = 'advisor-menu-explorer-courses',
+  ADVISOR_MENU_EXPLORER_INTERESTS = 'advisor-menu-explorer-interests',
+  ADVISOR_MENU_EXPLORER_OPPORTUNITIES = 'advisor-menu-explorer-opportunities',
 }

@@ -29,23 +29,23 @@ class AdvisorNavBar {
   }
 
   async gotoCareerGoalsExplorerPage(testController) {
-    await testController.click('#advisor-menu-explorers');
-    await testController.click('#advisor-menu-explorer-careers');
+    await testController.click(`#${COMPONENTIDS.ADVISOR_MENU_EXPLORERS}`);
+    await testController.click(`#${COMPONENTIDS.ADVISOR_MENU_EXPLORER_CAREERS}`);
   }
 
   async gotoCoursesExplorerPage(testController) {
-    await testController.click('#advisor-menu-explorers');
-    await testController.click('#advisor-menu-explorer-courses');
+    await testController.click(`#${COMPONENTIDS.ADVISOR_MENU_EXPLORERS}`);
+    await testController.click(`#${COMPONENTIDS.ADVISOR_MENU_EXPLORER_COURSES}`);
   }
 
   async gotoInterestsExplorerPage(testController) {
-    await testController.click('#advisor-menu-explorers');
-    await testController.click('#advisor-menu-explorer-interests');
+    await testController.click(`#${COMPONENTIDS.ADVISOR_MENU_EXPLORERS}`);
+    await testController.click(`#${COMPONENTIDS.ADVISOR_MENU_EXPLORER_INTERESTS}`);
   }
 
   async gotoOpportunitiesExplorerPage(testController) {
-    await testController.click('#advisor-menu-explorers');
-    await testController.click('#advisor-menu-explorer-opportunities');
+    await testController.click(`#${COMPONENTIDS.ADVISOR_MENU_EXPLORERS}`);
+    await testController.click(`#${COMPONENTIDS.ADVISOR_MENU_EXPLORER_OPPORTUNITIES}`);
   }
 
   async gotoManageStudentsPage(testController) {
