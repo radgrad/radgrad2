@@ -19,6 +19,7 @@ import '../imports/api/teaser';
 import '../imports/api/test';
 import '../imports/api/user';
 import '../imports/api/verification';
+import '../imports/api/whats-new';
 
 import '../imports/startup/both';
 import '../imports/startup/client';

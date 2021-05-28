@@ -1,5 +1,6 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
+import Swal from 'sweetalert2';
 import { Confirm, Icon } from 'semantic-ui-react';
 import _ from 'lodash';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
@@ -20,7 +21,6 @@ import {
   handleCancelWrapper,
   handleConfirmDeleteWrapper,
   handleDeleteWrapper, handleOpenUpdateWrapper,
-  updateCallBack,
 } from './utilities/data-model-page-callbacks';
 import PageLayout from '../PageLayout';
 
@@ -94,7 +94,24 @@ const AdminDataModelOpportunityInstancesPage: React.FC<AdminDataModelOpportunity
     updateData.id = doc._id;
     updateData.termID = academicTermNameToDoc(doc.academicTerm)._id;
     // console.log(collectionName, updateData);
-    updateMethod.call({ collectionName, updateData }, updateCallBack(setShowUpdateForm, setId));
+    updateMethod.callPromise({ collectionName, updateData })
+      .catch((error) => {
+        Swal.fire({
+          title: 'Update failed',
+          text: error.message,
+          icon: 'error',
+        });
+      })
+      .then(() => {
+        Swal.fire({
+          title: 'Update succeeded',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setShowUpdateForm(false);
+        setId('');
+      });
   };
 
   const findOptions = {
@@ -105,10 +122,10 @@ const AdminDataModelOpportunityInstancesPage: React.FC<AdminDataModelOpportunity
       {showUpdateFormState ? (
         <UpdateOpportunityInstanceForm collection={collection} id={idState}
                                        handleUpdate={handleUpdate} handleCancel={handleCancel}
-                                       itemTitleString={itemTitleString} terms={terms}/>
+                                       itemTitleString={itemTitleString} terms={terms} />
       ) : (
         <AddOpportunityInstanceForm opportunities={opportunities}
-                                    sponsors={sponsors} students={students} terms={terms}/>
+                                    sponsors={sponsors} students={students} terms={terms} />
       )}
       <ListCollectionWidget
         collection={collection}
@@ -120,7 +137,7 @@ const AdminDataModelOpportunityInstancesPage: React.FC<AdminDataModelOpportunity
         items={items}
       />
       <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
-               header="Delete Opportunity Instance?"/>
+               header="Delete Opportunity Instance?" />
     </PageLayout>
   );
 };

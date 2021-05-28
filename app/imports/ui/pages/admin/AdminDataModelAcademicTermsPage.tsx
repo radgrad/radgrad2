@@ -2,6 +2,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
 import { Confirm, Icon } from 'semantic-ui-react';
 import _ from 'lodash';
+import Swal from 'sweetalert2';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
@@ -15,7 +16,6 @@ import { PAGEIDS } from '../../utilities/PageIDs';
 import {
   handleCancelWrapper, handleConfirmDeleteWrapper,
   handleDeleteWrapper, handleOpenUpdateWrapper,
-  updateCallBack,
 } from './utilities/data-model-page-callbacks';
 import PageLayout from '../PageLayout';
 
@@ -83,7 +83,25 @@ const AdminDataModelAcademicTermsPage: React.FC<AdminDataModelAcademicTermsPageP
     updateData.id = doc._id;
     updateData.retired = doc.retired;
     // console.log('parameter = %o', { collectionName, updateData });
-    updateMethod.call({ collectionName, updateData }, updateCallBack(setShowUpdateForm, setId));
+    updateMethod.callPromise({ collectionName, updateData })
+      .catch((error) => {
+        Swal.fire({
+          title: 'Update failed',
+          text: error.message,
+          icon: 'error',
+        });
+        console.error('Error in updating. %o', error);
+      })
+      .then(() =>{
+        Swal.fire({
+          title: 'Update succeeded',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setShowUpdateForm(false);
+        setId('');
+      });
   };
 
   const findOptions = {

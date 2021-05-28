@@ -113,26 +113,28 @@ const AdminDataModelHelpMessagesPage: React.FC<AdminDataModelHelpMessagesPagePro
   const handleConfirmDelete = () => {
     const collectionName = collection.getCollectionName();
     const instance = idState;
-    removeItMethod.call({ collectionName, instance }, (error) => {
-      if (error) {
+    removeItMethod.callPromise({ collectionName, instance })
+      .catch((error => {
         Swal.fire({
           title: 'Delete failed',
           text: error.message,
           icon: 'error',
         });
         console.error('Error deleting AcademicTerm. %o', error);
-      } else {
+      }))
+      .then(() => {
         Swal.fire({
           title: 'Delete succeeded',
           icon: 'success',
           showConfirmButton: false,
           timer: 1500,
         });
-      }
-      setShowUpdateForm(false);
-      setId('');
-      setConfirmOpen(false);
-    });
+      })
+      .finally(() => {
+        setShowUpdateForm(false);
+        setId('');
+        setConfirmOpen(false);
+      });
   };
 
   const handleOpenUpdate = (evt, inst) => {

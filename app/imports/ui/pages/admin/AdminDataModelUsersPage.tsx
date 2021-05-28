@@ -28,7 +28,6 @@ import { PAGEIDS } from '../../utilities/PageIDs';
 import {
   handleCancelWrapper,
   handleDeleteWrapper, handleOpenUpdateWrapper,
-  updateCallBack,
 } from './utilities/data-model-page-callbacks';
 import { makeMarkdownLink } from './utilities/datamodel';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
@@ -151,25 +150,27 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
       }
       const instance = profile._id;
       // console.log('removeIt.call(%o, %o)', collectionName, instance);
-      removeItMethod.call({ collectionName, instance }, (error) => {
-        if (error) {
+      removeItMethod.callPromise({ collectionName, instance })
+        .catch((error) => {
           Swal.fire({
             title: 'Failed deleting User',
             text: error.message,
             icon: 'error',
           });
-        } else {
+        })
+        .then(() => {
           Swal.fire({
             title: 'Delete User Succeeded',
             icon: 'success',
             showConfirmButton: false,
             timer: 1500,
           });
-        }
-        setShowUpdateForm(false);
-        setId('');
-        setConfirmOpen(false);
-      });
+        })
+        .finally(() => {
+          setShowUpdateForm(false);
+          setId('');
+          setConfirmOpen(false);
+        });
     }
   };
 
@@ -197,12 +198,31 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
     if (!_.isNil(doc.declaredAcademicTerm)) {
       updateData.declaredAcademicTerm = declaredAcademicTermSlugFromName(doc.declaredAcademicTerm);
     }
+    // @ts-ignore
     const { isCloudinaryUsed, cloudinaryUrl } = props;
     if (isCloudinaryUsed) {
       updateData.picture = cloudinaryUrl;
     }
     // console.log(updateData);
-    updateMethod.call({ collectionName, updateData }, updateCallBack(setShowUpdateForm, setId));
+    updateMethod.callPromise({ collectionName, updateData })
+      .catch((error) => {
+        Swal.fire({
+          title: 'Update failed',
+          text: error.message,
+          icon: 'error',
+        });
+        console.error('Error in updating. %o', error);
+      })
+      .then(() => {
+        Swal.fire({
+          title: 'Update succeeded',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setShowUpdateForm(false);
+        setId('');
+      });
   };
 
   const handleConvert = () => {

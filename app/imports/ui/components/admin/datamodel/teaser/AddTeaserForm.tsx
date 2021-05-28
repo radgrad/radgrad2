@@ -1,6 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import { Form, Header, Segment } from 'semantic-ui-react';
+import Swal from 'sweetalert2';
 import { AutoForm, TextField, SelectField, LongTextField, BoolField, SubmitField, ErrorsField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
@@ -14,7 +15,6 @@ import {
   slugNameAndTypeToName,
 } from '../../../shared/utilities/data-model';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
-import { defineCallback } from '../utilities/add-form';
 
 interface AddTeaserFormProps {
   careerGoals: CareerGoal[];
@@ -66,30 +66,46 @@ const AddTeaserForm: React.FC<AddTeaserFormProps> = ({ careerGoals, courses, int
     definitionData.slug = `${definitionData.targetSlug}-teaser`;
     // definitionData.opportunity = opportunityNameToSlug(doc.opportunity);
     // console.log(collectionName, definitionData);
-    defineMethod.call({ collectionName, definitionData }, defineCallback(formRef));
+    defineMethod.callPromise({ collectionName, definitionData })
+      .catch((error) => {
+        Swal.fire({
+          title: 'Add failed',
+          text: error.message,
+          icon: 'error',
+        });
+      })
+      .then(() => {
+        Swal.fire({
+          title: 'Add succeeded',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        formRef.reset();
+      });
   };
 
   return (
-        <Segment padded>
-            <Header dividing>Add Teaser</Header>
-            {/* eslint-disable-next-line no-return-assign */}
-            <AutoForm schema={formSchema} onSubmit={handleAdd} ref={(ref) => formRef = ref} showInlineError>
-                <Form.Group widths="equal">
-                    <TextField name="title"/>
-                    <TextField name="author"/>
-                </Form.Group>
-                <Form.Group widths="equal">
-                    <SelectField name="targetSlug"/>
-                    <TextField name="youtubeID"/>
-                    <TextField name="duration"/>
-                </Form.Group>
-                <MultiSelectField name="interests"/>
-                <LongTextField name="description"/>
-                <BoolField name="retired"/>
-                <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined}/>
-                <ErrorsField/>
-            </AutoForm>
-        </Segment>
+    <Segment padded>
+      <Header dividing>Add Teaser</Header>
+      {/* eslint-disable-next-line no-return-assign */}
+      <AutoForm schema={formSchema} onSubmit={handleAdd} ref={(ref) => formRef = ref} showInlineError>
+        <Form.Group widths="equal">
+          <TextField name="title" />
+          <TextField name="author" />
+        </Form.Group>
+        <Form.Group widths="equal">
+          <SelectField name="targetSlug" />
+          <TextField name="youtubeID" />
+          <TextField name="duration" />
+        </Form.Group>
+        <MultiSelectField name="interests" />
+        <LongTextField name="description" />
+        <BoolField name="retired" />
+        <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
+        <ErrorsField />
+      </AutoForm>
+    </Segment>
   );
 };
 
