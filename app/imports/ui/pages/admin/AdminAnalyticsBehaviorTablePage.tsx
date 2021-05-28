@@ -5,8 +5,6 @@ import { Form, Table } from 'semantic-ui-react';
 import DatePicker from 'react-datepicker';
 import { USER_INTERACTION_DESCRIPTIONS } from '../../../api/user-interaction/UserInteractionCollection';
 import { userInteractionFindMethod } from '../../../api/user-interaction/UserInteractionCollection.methods';
-import { UserInteraction } from '../../../typings/radgrad';
-import DateIntervalSelector from '../../components/admin/analytics/DateIntervalSelector';
 import UserLabel from '../../components/shared/profile/UserLabel';
 import RadGradHeader from '../../components/shared/RadGradHeader';
 import RadGradSegment from '../../components/shared/RadGradSegment';
