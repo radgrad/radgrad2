@@ -18,15 +18,15 @@ export const getAssociationRelatedCourses = (courses: Course[], studentID: strin
     studentID,
     verified: false,
   });
-  const inPlanIDs = _.uniq(_.map(inPlanInstances, 'courseID'));
+  const inPlanIDs = _.uniq(inPlanInstances.map(instance => instance.courseID));
 
   const completedInstance = CourseInstances.findNonRetired({
     studentID,
     verified: true,
   });
-  const completedIDs = _.uniq(_.map(completedInstance, 'courseID'));
+  const completedIDs = _.uniq((completedInstance.map(instance => instance.courseID)));
 
-  const relatedIDs = _.uniq(_.map(courses, '_id'));
+  const relatedIDs = _.uniq(courses.map(instance => instance._id));
   const relatedInPlanIDs = _.intersection(relatedIDs, inPlanIDs);
   const relatedCompletedIDs = _.intersection(relatedIDs, completedIDs);
   const relatedNotInPlanIDs = _.difference(relatedIDs, relatedInPlanIDs, relatedCompletedIDs);
@@ -44,15 +44,16 @@ export const getAssociationRelatedOpportunities = (opportunities: Opportunity[],
     studentID,
     verified: false,
   }).fetch();
-  const inPlanIDs = _.uniq(_.map(inPlanInstances, 'opportunityID'));
+  const inPlanIDs = _.uniq(inPlanInstances.map(instance => instance.opportunityID));
+
 
   const completedInstances = OpportunityInstances.find({
     studentID,
     verified: true,
   }).fetch();
-  const completedIDs = _.uniq(_.map(completedInstances, 'opportunityID'));
+  const completedIDs = _.uniq(completedInstances.map(instance => instance.opportunityID));
 
-  const relatedIDs = _.uniq(_.map(opportunities, '_id'));
+  const relatedIDs = _.uniq(opportunities.map(instance => instance._id));
   const relatedInPlanIDs = _.intersection(relatedIDs, inPlanIDs);
   const relatedCompletedIDs = _.intersection(relatedIDs, completedIDs);
   const relatedNotInPlanIDs = _.difference(relatedIDs, relatedInPlanIDs, relatedCompletedIDs);
