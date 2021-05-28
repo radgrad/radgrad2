@@ -13,19 +13,19 @@ class AdvisorNavBar {
   }
 
   async gotoHomePage(testController) {
-    await testController.click('#advisor-menu-home');
+    await testController.click(`#${COMPONENTIDS.ADVISOR_MENU_HOME}`);
   }
 
   async gotoVisibilityPage(testController) {
-    await testController.click('#advisor-menu-visibility');
+    await testController.click(`#${COMPONENTIDS.ADVISOR_MENU_VISIBILITY}`);
   }
 
   async gotoForecastsPage(testController) {
-    await testController.click('#advisor-menu-forecasts');
+    await testController.click(`#${COMPONENTIDS.ADVISOR_MENU_FORECASTS}`);
   }
 
   async gotoCommunityPage(testController) {
-    await testController.click('#advisor-menu-community');
+    await testController.click(`#${COMPONENTIDS.ADVISOR_MENU_COMMUNITY}`);
   }
 
   async gotoCareerGoalsExplorerPage(testController) {
@@ -70,7 +70,7 @@ class AdvisorNavBar {
 
   /** Check that the specified user is currently logged in. */
   async isLoggedIn(testController, credentials) {
-    const usernameField = Selector('#first-menu-username')
+    const usernameField = Selector(`#${COMPONENTIDS.FIRST_MENU_USERNAME}`)
       .child('div')
       .textContent;
     await testController.expect(usernameField).eql(credentials.userName);
