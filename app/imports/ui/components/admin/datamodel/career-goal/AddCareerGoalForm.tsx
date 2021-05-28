@@ -32,14 +32,14 @@ const AddCareerGoalForm: React.FC<AddCareerGoalFormProps> = ({ interests }) => {
       .catch((error) => {
         console.error('Failed adding User', error);
         Swal.fire({
-          title: 'Failed adding User',
+          title: 'Failed to Add',
           text: error.message,
           icon: 'error',
         });
       })
       .then(() => {
         Swal.fire({
-          title: 'Add User Succeeded',
+          title: 'Succeed',
           icon: 'success',
           showConfirmButton: false,
           timer: 1500,
