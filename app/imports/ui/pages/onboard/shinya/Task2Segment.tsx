@@ -10,11 +10,11 @@ export interface Task2SegmentProps {
 const Task2Segment: React.FC<Task2SegmentProps> = ({ loggedInUser, urlUser }) => {
   const task2Header = <RadGradHeader title="TASK 2:  WHO IS THE USER?" icon = "user graduate" dividing/>;
   return (
-      <RadGradSegment header={task2Header}>
-          <p>The currently logged in user is {`${loggedInUser}`}.</p>
-          <p>The user in the URL is {`${urlUser}`}.</p>
-          <p> In RadGrad, these are not the necessarily the same.</p>
-      </RadGradSegment>
+    <RadGradSegment header={task2Header}>
+      <p>The currently logged in user is {`${loggedInUser}`}.</p>
+      <p>The user in the URL is {`${urlUser}`}.</p>
+      <p> In RadGrad, these are not the necessarily the same.</p>
+    </RadGradSegment>
   );
 };
 

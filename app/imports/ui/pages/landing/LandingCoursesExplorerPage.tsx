@@ -26,7 +26,7 @@ const LandingCoursesExplorerPage: React.FC<LandingCoursesExplorerPageProps> = ({
   <div>
     <LandingExplorerMenuBar/>
     <PageLayout id={PAGEIDS.LANDING_COURSES_EXPLORER} headerPaneTitle={headerPaneTitle}
-                headerPaneBody={headerPaneBody}>
+      headerPaneBody={headerPaneBody}>
       <Segment>
         <Header as="h4" dividing>
           <span>COURSES</span> ({count})

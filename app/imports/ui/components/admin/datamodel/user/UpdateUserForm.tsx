@@ -150,69 +150,69 @@ const UpdateUserForm: React.FC<UpdateUserProps> = ({
   const formSchema = new SimpleSchema2Bridge(schema);
   // console.log(schema);
   return (
-        <Segment padded>
-            <Header dividing>
+    <Segment padded>
+      <Header dividing>
                 Update
-                {collection.getType()}:{itemTitleString(model)}
-            </Header>
-            <AutoForm schema={formSchema} onSubmit={handleUpdate} showInlineError model={model}>
-                <Form.Group widths="equal">
-                    <TextField name="username" placeholder="johndoe@foo.edu"/>
-                    <TextField name="firstName" placeholder="John"/>
-                    <TextField name="lastName" placeholder="Doe"/>
-                </Form.Group>
-                <Header dividing as="h4">
+        {collection.getType()}:{itemTitleString(model)}
+      </Header>
+      <AutoForm schema={formSchema} onSubmit={handleUpdate} showInlineError model={model}>
+        <Form.Group widths="equal">
+          <TextField name="username" placeholder="johndoe@foo.edu"/>
+          <TextField name="firstName" placeholder="John"/>
+          <TextField name="lastName" placeholder="Doe"/>
+        </Form.Group>
+        <Header dividing as="h4">
                     Optional fields (all users)
-                </Header>
-                <PictureField name="picture"/>
-                <Form.Group widths="equal">
-                    <MultiSelectField name="interests"/>
-                    <MultiSelectField name="careerGoals"/>
-                </Form.Group>
-                <BoolField name="retired"/>
-                {model.role === ROLE.STUDENT || model.role === ROLE.ALUMNI ? (
-                    <div>
-                        <Header dividing as="h4">
+        </Header>
+        <PictureField name="picture"/>
+        <Form.Group widths="equal">
+          <MultiSelectField name="interests"/>
+          <MultiSelectField name="careerGoals"/>
+        </Form.Group>
+        <BoolField name="retired"/>
+        {model.role === ROLE.STUDENT || model.role === ROLE.ALUMNI ? (
+          <div>
+            <Header dividing as="h4">
                             Student fields
-                        </Header>
-                        <Form.Group widths="equal">
-                            <MultiSelectField name="courses"/>
-                            <MultiSelectField name="opportunities"/>
-                        </Form.Group>
-                        <Form.Group widths="equal">
-                            <NumField name="level"/>
-                            <SelectField name="declaredAcademicTerm"/>
-                        </Form.Group>
-                        <Form.Group widths="equal">
-                            <BoolField name="sharePicture"/>
-                            <BoolField name="shareWebsite"/>
-                            <BoolField name="shareInterests"/>
-                            <BoolField name="shareCareerGoals"/>
-                            <BoolField name="shareOpportunities"/>
-                            <BoolField name="shareCourses"/>
-                            <BoolField name="shareLevel"/>
-                            <BoolField name="shareICE"/>
-                            <BoolField name="isAlumni"/>
-                        </Form.Group>
-                    </div>
-                ) : (
-                  ''
-                )}
-                {model.role === ROLE.FACULTY ? (
-                    <div>
-                        <Header dividing as="h4">
+            </Header>
+            <Form.Group widths="equal">
+              <MultiSelectField name="courses"/>
+              <MultiSelectField name="opportunities"/>
+            </Form.Group>
+            <Form.Group widths="equal">
+              <NumField name="level"/>
+              <SelectField name="declaredAcademicTerm"/>
+            </Form.Group>
+            <Form.Group widths="equal">
+              <BoolField name="sharePicture"/>
+              <BoolField name="shareWebsite"/>
+              <BoolField name="shareInterests"/>
+              <BoolField name="shareCareerGoals"/>
+              <BoolField name="shareOpportunities"/>
+              <BoolField name="shareCourses"/>
+              <BoolField name="shareLevel"/>
+              <BoolField name="shareICE"/>
+              <BoolField name="isAlumni"/>
+            </Form.Group>
+          </div>
+        ) : (
+          ''
+        )}
+        {model.role === ROLE.FACULTY ? (
+          <div>
+            <Header dividing as="h4">
                             Faculty field
-                        </Header>
-                        <LongTextField name="aboutMe"/>
-                    </div>
-                ) : (
-                  ''
-                )}
-                <SubmitField inputRef={undefined} value="Update" disabled={false} className="mini basic green"/>
-                <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
-                <ErrorsField/>
-            </AutoForm>
-        </Segment>
+            </Header>
+            <LongTextField name="aboutMe"/>
+          </div>
+        ) : (
+          ''
+        )}
+        <SubmitField inputRef={undefined} value="Update" disabled={false} className="mini basic green"/>
+        <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
+        <ErrorsField/>
+      </AutoForm>
+    </Segment>
   );
 };
 

@@ -27,7 +27,7 @@ const headerPaneImage = 'header-home.png';
 
 const StudentHomePage: React.FC<HomePageProps> = ({ okItems, reviewItems, improveItems }) => (
   <PageLayout id={PAGEIDS.STUDENT_HOME} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}
-              headerPaneImage={headerPaneImage}>
+    headerPaneImage={headerPaneImage}>
     <HomePageChecklistSegment okItems={okItems} reviewItems={reviewItems} improveItems={improveItems} />
   </PageLayout>
 );

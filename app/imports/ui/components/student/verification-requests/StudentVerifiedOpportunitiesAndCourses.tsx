@@ -17,7 +17,7 @@ const StudentVerifiedOpportunitiesAndCourses: React.FC<StudentVerifiedOpportunit
   const panes = [
     {
       menuItem: <Menu.Item key='verified-opportunity-menu-item'><RadGradHeader title='verified opportunities' count={verifiedOpportunityInstances.length}
-                                          icon='lightbulb outline' /></Menu.Item>,
+        icon='lightbulb outline' /></Menu.Item>,
       render: () => (
         <Tab.Pane key="Verified-Opportunities-pane">
           <Grid stackable>

@@ -29,7 +29,7 @@ const LandingCareerGoalsExplorerPage: React.FC<CareerGoalsExplorerProps> = ({ co
   <div>
     <LandingExplorerMenuBar/>
     <PageLayout id={PAGEIDS.LANDING_CAREER_GOALS_EXPLORER} headerPaneTitle={headerPaneTitle}
-                headerPaneBody={headerPaneBody}>
+      headerPaneBody={headerPaneBody}>
       <Segment>
         <Header as="h4" dividing>
           <span>CAREER GOALS</span> ({count})

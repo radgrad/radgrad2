@@ -103,8 +103,8 @@ const AdminDataModelCareerGoalsPage: React.FC<AdminDataModelCareerGoalsPageProps
     <PageLayout id={PAGEIDS.DATA_MODEL_CAREER_GOALS} headerPaneTitle="Career Goals">
       {showUpdateFormState ? (
         <UpdateCareerGoalForm collection={CareerGoals} id={idState} handleUpdate={handleUpdate}
-                              handleCancel={handleCancel} itemTitleString={itemTitleString}
-                              interests={interests} />
+          handleCancel={handleCancel} itemTitleString={itemTitleString}
+          interests={interests} />
       ) : (
         <AddCareerGoalForm interests={interests} />
       )}
@@ -118,7 +118,7 @@ const AdminDataModelCareerGoalsPage: React.FC<AdminDataModelCareerGoalsPageProps
       />
 
       <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
-               header="Delete Career Goal?" />
+        header="Delete Career Goal?" />
     </PageLayout>
   );
 };

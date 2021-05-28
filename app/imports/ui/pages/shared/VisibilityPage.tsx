@@ -102,7 +102,7 @@ const VisibilityPage: React.FC<VisibilityPageProps> = ({ profile }) => {
       .catch(error => { console.error(error); });
   };
   return (<PageLayout id={PAGEIDS.VISIBILITY} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}
-              headerPaneImage={headerPaneImage}>
+    headerPaneImage={headerPaneImage}>
     <Grid stackable>
       <Grid.Column width={4}>
         <Segment>
@@ -132,7 +132,7 @@ const VisibilityPage: React.FC<VisibilityPageProps> = ({ profile }) => {
           <RadGradHeader title='your profile' icon='user' dividing />
           <p>Your Profile pops up when a user clicks on your Label: </p>
           <ProfileCard email={profile.username} name={name} careerGoals={data.careerGoals} interests={data.interests} courses={data.courses} ice={data.ice} image={data.picture} level={data.level} opportunities={data.opportunities}
-                       website={data.website} key={profile.username} fluid />
+            website={data.website} key={profile.username} fluid />
         </Segment>
       </Grid.Column>
     </Grid>

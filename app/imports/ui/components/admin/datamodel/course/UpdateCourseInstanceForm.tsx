@@ -62,31 +62,31 @@ const UpdateCourseInstanceForm: React.FC<UpdateCourseInstanceFormProps> = ({
   });
   const formSchema = new SimpleSchema2Bridge(schema);
   return (
-        <Segment padded>
-            <Header dividing>
+    <Segment padded>
+      <Header dividing>
                 Update
-                {collection.getType()}:{itemTitleString(model)}
-            </Header>
-            <AutoForm schema={formSchema} onSubmit={handleUpdate} showInlineError model={model}>
-                <Form.Group widths="equal">
-                    <SelectField name="academicTerm"/>
-                    <AutoField name="ice"/>
-                </Form.Group>
-                <Form.Group widths="equal">
-                    <BoolField name="verified"/>
-                    <BoolField name="fromRegistrar"/>
-                </Form.Group>
-                <Form.Group>
-                    <NumField name="creditHours"/>
-                    <SelectField name="grade"/>
-                    <TextField name="note"/>
-                </Form.Group>
-                <BoolField name="retired"/>
-                <SubmitField inputRef={undefined} value="Update" disabled={false} className="mini basic green"/>
-                <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
-                <ErrorsField/>
-            </AutoForm>
-        </Segment>
+        {collection.getType()}:{itemTitleString(model)}
+      </Header>
+      <AutoForm schema={formSchema} onSubmit={handleUpdate} showInlineError model={model}>
+        <Form.Group widths="equal">
+          <SelectField name="academicTerm"/>
+          <AutoField name="ice"/>
+        </Form.Group>
+        <Form.Group widths="equal">
+          <BoolField name="verified"/>
+          <BoolField name="fromRegistrar"/>
+        </Form.Group>
+        <Form.Group>
+          <NumField name="creditHours"/>
+          <SelectField name="grade"/>
+          <TextField name="note"/>
+        </Form.Group>
+        <BoolField name="retired"/>
+        <SubmitField inputRef={undefined} value="Update" disabled={false} className="mini basic green"/>
+        <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
+        <ErrorsField/>
+      </AutoForm>
+    </Segment>
   );
 };
 

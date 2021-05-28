@@ -45,8 +45,8 @@ const LandingSection2: React.FC<LandingSection2Props> = ({ careerGoals, interest
           <Grid.Column>
             <div style={styles['landing-number-column']}>
               <span style={styles['home-number']}>
-              {users}
-            </span>
+                {users}
+              </span>
               <p />
               <p style={styles['home-number-label']}>
                 STUDENTS, FACULTY, ALUMNI

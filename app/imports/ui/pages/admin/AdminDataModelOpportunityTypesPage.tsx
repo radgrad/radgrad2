@@ -110,7 +110,7 @@ const AdminDataModelOpportunityTypesPage: React.FC<AdminDataModelOpportunityType
     <PageLayout id={PAGEIDS.DATA_MODEL_OPPORTUNITY_TYPES} headerPaneTitle="Opportunity Types">
       {showUpdateFormState ? (
         <UpdateOpportunityTypeForm collection={collection} id={idState} handleUpdate={handleUpdate}
-                                   handleCancel={handleCancel} itemTitleString={itemTitleString} />
+          handleCancel={handleCancel} itemTitleString={itemTitleString} />
       ) : (
         <AddOpportunityTypeForm />
       )}
@@ -124,7 +124,7 @@ const AdminDataModelOpportunityTypesPage: React.FC<AdminDataModelOpportunityType
         items={items}
       />
       <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
-               header="Delete Opportunity Type?" />
+        header="Delete Opportunity Type?" />
     </PageLayout>
   );
 };

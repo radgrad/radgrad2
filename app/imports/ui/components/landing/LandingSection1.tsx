@@ -24,26 +24,26 @@ interface LandingSection1Props {
 }
 
 const LandingSection1: React.FC<LandingSection1Props> = ({ instanceName, tagline, careerGoalFactoid, interestFactoid, levelFactoid, opportunityFactoid, reviewFactoid }) => (
-    <div id="landing-section-1" style={styles['inverted-section']}>
-      <Container>
-        <Grid stackable columns='equal' style={{ height: '300px' }}>
-          <Grid.Column only="computer">
-            <LandingFactoids careerGoalFactoid={careerGoalFactoid} interestFactoid={interestFactoid} levelFactoid={levelFactoid} opportunityFactoid={opportunityFactoid} reviewFactoid={reviewFactoid} />
-          </Grid.Column>
-          <Grid.Column verticalAlign="middle">
-            <div style={styles['inverted-main-header']}>
+  <div id="landing-section-1" style={styles['inverted-section']}>
+    <Container>
+      <Grid stackable columns='equal' style={{ height: '300px' }}>
+        <Grid.Column only="computer">
+          <LandingFactoids careerGoalFactoid={careerGoalFactoid} interestFactoid={interestFactoid} levelFactoid={levelFactoid} opportunityFactoid={opportunityFactoid} reviewFactoid={reviewFactoid} />
+        </Grid.Column>
+        <Grid.Column verticalAlign="middle">
+          <div style={styles['inverted-main-header']}>
               Welcome to{' '}
-              <span style={styles['green-text']}>
+            <span style={styles['green-text']}>
               <RadGradLogoText style={headerStyle} instanceName={instanceName} />
             </span>
-            </div>
-            <span style={styles['inverted-main-description']}>
+          </div>
+          <span style={styles['inverted-main-description']}>
             <Markdown source={tagline} />
           </span>
-          </Grid.Column>
-        </Grid>
-      </Container>
-    </div>
+        </Grid.Column>
+      </Grid>
+    </Container>
+  </div>
 );
 
 export default LandingSection1;
