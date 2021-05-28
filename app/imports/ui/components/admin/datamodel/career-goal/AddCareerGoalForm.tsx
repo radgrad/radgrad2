@@ -61,6 +61,7 @@ const AddCareerGoalForm: React.FC<AddCareerGoalFormProps> = ({ interests }) => {
     },
     picture: {
       type: String,
+      optional: true,
     },
   });
   const formSchema = new SimpleSchema2Bridge(schema);
