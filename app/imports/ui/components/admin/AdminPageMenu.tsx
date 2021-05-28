@@ -88,7 +88,7 @@ const AdminPageMenu: React.FC = () => {
           </Dropdown.Menu>
         </Dropdown>
 
-        <Dropdown item text="Manage" id="admin-menu-manage">
+        <Dropdown item text="Manage" id={COMPONENTIDS.ADMIN_MENU_MANAGE}>
           <Dropdown.Menu>
             {manageDropdownItems.map((item) => (
               <Dropdown.Item id={convertLabelToId('admin-menu-manage', item.label)} key={item.label} as={NavLink} exact to={buildRouteName(match, `/${item.route}`)} content={item.label} />

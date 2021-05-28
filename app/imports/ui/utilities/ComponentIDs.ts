@@ -17,4 +17,13 @@ export enum COMPONENTIDS {
   ADMIN_MENU_FORECASTS = 'admin-menu-forecasts',
   ADMIN_MENU_COMMUNITY = 'admin-menu-community',
   ADMIN_MENU_EXPLORERS = 'admin-menu-explorers',
+  ADMIN_MENU_EXPLORER_CAREERS = 'admin-menu-explorer-careers',
+  ADMIN_MENU_EXPLORER_COURSES = 'admin-menu-explorer-courses',
+  ADMIN_MENU_EXPLORER_INTERESTS = 'admin-menu-explorer-interests',
+  ADMIN_MENU_EXPLORER_OPPORTUNITIES = 'admin-menu-explorer-opportunities',
+  ADMIN_MENU_MANAGE = 'admin-menu-manage',
+  ADMIN_MENU_MANAGE_STUDENTS = 'admin-menu-manage-students',
+  ADMIN_MENU_MANAGE_VERIFICATION = 'admin-menu-manage-verification',
+  ADMIN_MENU_MANAGE_REVIEW = 'admin-menu-manage-review',
+  FIRST_MENU_USERNAME = 'first-menu-username',
 }

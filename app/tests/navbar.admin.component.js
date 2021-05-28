@@ -35,37 +35,37 @@ class AdminNavBar {
 
   async gotoCareerGoalsExplorerPage(testController) {
     await testController.click(`#${COMPONENTIDS.ADMIN_MENU_EXPLORERS}`);
-    await testController.click('#admin-menu-explorer-careers');
+    await testController.click(`#${COMPONENTIDS.ADMIN_MENU_EXPLORER_CAREERS}`);
   }
 
   async gotoCoursesExplorerPage(testController) {
     await testController.click(`#${COMPONENTIDS.ADMIN_MENU_EXPLORERS}`);
-    await testController.click('#admin-menu-explorer-courses');
+    await testController.click(`#${COMPONENTIDS.ADMIN_MENU_EXPLORER_COURSES}`);
   }
 
   async gotoInterestsExplorerPage(testController) {
     await testController.click(`#${COMPONENTIDS.ADMIN_MENU_EXPLORERS}`);
-    await testController.click('#admin-menu-explorer-interests');
+    await testController.click(`#${COMPONENTIDS.ADMIN_MENU_EXPLORER_INTERESTS}`);
   }
 
   async gotoOpportunitiesExplorerPage(testController) {
     await testController.click(`#${COMPONENTIDS.ADMIN_MENU_EXPLORERS}`);
-    await testController.click('#admin-menu-explorer-opportunities');
+    await testController.click(`#${COMPONENTIDS.ADMIN_MENU_EXPLORER_OPPORTUNITIES}`);
   }
 
   async gotoManageStudentsPage(testController) {
-    await testController.click('#admin-menu-manage');
-    await testController.click('#admin-menu-manage-students');
+    await testController.click(`#${COMPONENTIDS.ADMIN_MENU_MANAGE}`);
+    await testController.click(`#${COMPONENTIDS.ADMIN_MENU_MANAGE_STUDENTS}`);
   }
 
   async gotoManageVerificationPage(testController) {
-    await testController.click('#admin-menu-manage');
-    await testController.click('#admin-menu-manage-verification');
+    await testController.click(`#${COMPONENTIDS.ADMIN_MENU_MANAGE}`);
+    await testController.click(`#${COMPONENTIDS.ADMIN_MENU_MANAGE_VERIFICATION}`);
   }
 
   async gotoManageReviewPage(testController) {
-    await testController.click('#admin-menu-manage');
-    await testController.click('#admin-menu-manage-review');
+    await testController.click(`#${COMPONENTIDS.ADMIN_MENU_MANAGE}`);
+    await testController.click(`#${COMPONENTIDS.ADMIN_MENU_MANAGE_REVIEW}`);
   }
 
   async gotoMenuPageAndVerify(testController, menu, pageName) {
@@ -77,7 +77,7 @@ class AdminNavBar {
 
   /** Check that the specified user is currently logged in. */
   async isLoggedIn(testController, credentials) {
-    const usernameField = Selector('#first-menu-username')
+    const usernameField = Selector(`#${COMPONENTIDS.FIRST_MENU_USERNAME}`)
       .child('div')
       .textContent;
     await testController.expect(usernameField).eql(credentials.userName);
