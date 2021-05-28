@@ -185,8 +185,8 @@ const AdminDataModelAcademicYearsPage: React.FC&lt;AdminDataModelAcademicYearsPa
     &lt;PageLayout id={PAGEIDS.DATA_MODEL_ACADEMIC_YEARS} headerPaneTitle="Academic Year Instances">
       {showUpdateFormState ? (
         &lt;AdminDataModelUpdateForm collection={AcademicYearInstances} id={idState}
-                                  handleUpdate={handleUpdate} handleCancel={handleCancel}
-                                  itemTitleString={itemTitleString} />
+          handleUpdate={handleUpdate} handleCancel={handleCancel}
+          itemTitleString={itemTitleString} />
       ) : (
         &lt;AddAcademicYearInstanceForm students={students} />
       )}
@@ -201,7 +201,7 @@ const AdminDataModelAcademicYearsPage: React.FC&lt;AdminDataModelAcademicYearsPa
       />
 
       &lt;Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
-               header="Delete Academic Year Instance?" />
+        header="Delete Academic Year Instance?" />
     &lt;/PageLayout>
   );
 };

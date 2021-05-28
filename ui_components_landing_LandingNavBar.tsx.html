@@ -113,25 +113,25 @@ const LandingNavBar: React.FC&lt;NavBarProps> = ({ currentUser, iconName, role, 
   const displayRole = currentUser &amp;&amp; role ? role.charAt(0).toUpperCase() + role.slice(1) : '';
   return (
     &lt;Menu attached="top" borderless size="small" >
-        &lt;Menu.Item as={NavLink} activeClassName="" exact to="/">
-          &lt;Image style={imageStyle} circular src="/images/radgrad_logo.png" />
-          &lt;BrowserView>
-            &lt;Header as="h2">
-              &lt;RadGradLogoText instanceName={instanceName} />
-            &lt;/Header>
-          &lt;/BrowserView>
-        &lt;/Menu.Item>
-        &lt;Menu.Item position="right">
-          {currentUser ? (
-            &lt;div>
-              &lt;Button basic compact style={{ color:COLORS.GREEN }}>
-                &lt;a href={url}>{displayRole} Home&lt;/a>
-              &lt;/Button>
-            &lt;/div>
-          ) : (
-            &lt;RadGradLoginButtons instanceName={instanceName} size="medium" />
-          )}
-        &lt;/Menu.Item>
+      &lt;Menu.Item as={NavLink} activeClassName="" exact to="/">
+        &lt;Image style={imageStyle} circular src="/images/radgrad_logo.png" />
+        &lt;BrowserView>
+          &lt;Header as="h2">
+            &lt;RadGradLogoText instanceName={instanceName} />
+          &lt;/Header>
+        &lt;/BrowserView>
+      &lt;/Menu.Item>
+      &lt;Menu.Item position="right">
+        {currentUser ? (
+          &lt;div>
+            &lt;Button basic compact style={{ color:COLORS.GREEN }}>
+              &lt;a href={url}>{displayRole} Home&lt;/a>
+            &lt;/Button>
+          &lt;/div>
+        ) : (
+          &lt;RadGradLoginButtons instanceName={instanceName} size="medium" />
+        )}
+      &lt;/Menu.Item>
     &lt;/Menu>
   );
 };

@@ -203,10 +203,10 @@ const AdminDataModelCourseInstancesPage: React.FC&lt;AdminDataModelCourseInstanc
     &lt;PageLayout id={PAGEIDS.DATA_MODEL_COURSE_INSTANCES} headerPaneTitle="Course Instances">
       {showUpdateFormState ? (
         &lt;UpdateCourseInstanceForm collection={collection} id={idState} handleUpdate={handleUpdate}
-                                  handleCancel={handleCancel} itemTitleString={itemTitleString} terms={terms} />
+          handleCancel={handleCancel} itemTitleString={itemTitleString} terms={terms} />
       ) : (
         &lt;AddCourseInstanceForm terms={terms} courses={courses}
-                               students={students} />
+          students={students} />
       )}
       &lt;ListCollectionWidget
         collection={collection}
@@ -218,7 +218,7 @@ const AdminDataModelCourseInstancesPage: React.FC&lt;AdminDataModelCourseInstanc
         items={items}
       />
       &lt;Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
-               header="Delete Course Instance?" />
+        header="Delete Course Instance?" />
     &lt;/PageLayout>
   );
 };

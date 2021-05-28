@@ -196,7 +196,7 @@ const AdminDataModelInterestTypesPage: React.FC&lt;AdminDataModelInterestTypesPa
     &lt;PageLayout id={PAGEIDS.DATA_MODEL_INTEREST_TYPES} headerPaneTitle="Interest Types">
       {showUpdateFormState ? (
         &lt;UpdateInterestTypeForm collection={collection} id={idState} handleUpdate={handleUpdate}
-                                handleCancel={handleCancel} itemTitleString={itemTitleString} />
+          handleCancel={handleCancel} itemTitleString={itemTitleString} />
       ) : (
         &lt;AddInterestTypeForm />
       )}
@@ -210,7 +210,7 @@ const AdminDataModelInterestTypesPage: React.FC&lt;AdminDataModelInterestTypesPa
         items={items}
       />
       &lt;Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
-               header="Delete Interest Type?" />
+        header="Delete Interest Type?" />
     &lt;/PageLayout>
   );
 };

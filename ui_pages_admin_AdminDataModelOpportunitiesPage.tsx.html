@@ -234,7 +234,7 @@ const AdminDataModelOpportunitiesPage: React.FC&lt;AdminDataModelOpportunitiesPa
         />
       ) : (
         &lt;AddOpportunityForm sponsors={sponsors} terms={terms}
-                            interests={interests} opportunityTypes={opportunityTypes} />
+          interests={interests} opportunityTypes={opportunityTypes} />
       )}
       &lt;ListCollectionWidget
         collection={collection}
@@ -247,7 +247,7 @@ const AdminDataModelOpportunitiesPage: React.FC&lt;AdminDataModelOpportunitiesPa
       />
 
       &lt;Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
-               header="Delete Opportunity?" />
+        header="Delete Opportunity?" />
     &lt;/PageLayout>
   );
 };
