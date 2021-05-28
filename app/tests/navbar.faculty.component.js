@@ -13,19 +13,19 @@ class FacultyNavBar {
   }
 
   async gotoHomePage(testController) {
-    await testController.click('#faculty-menu-home');
+    await testController.click(`#${COMPONENTIDS.FACULTY_MENU_HOME}`);
   }
 
   async gotoVisibilityPage(testController) {
-    await testController.click('#faculty-menu-visibility');
+    await testController.click(`#${COMPONENTIDS.FACULTY_MENU_VISIBILITY}`);
   }
 
   async gotoForecastsPage(testController) {
-    await testController.click('#faculty-menu-forecasts');
+    await testController.click(`#${COMPONENTIDS.FACULTY_MENU_FORECASTS}`);
   }
 
   async gotoCommunityPage(testController) {
-    await testController.click('#faculty-menu-community');
+    await testController.click(`#${COMPONENTIDS.FACULTY_MENU_COMMUNITY}`);
   }
 
   async gotoCareerGoalsExplorerPage(testController) {

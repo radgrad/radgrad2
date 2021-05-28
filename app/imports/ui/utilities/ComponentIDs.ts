@@ -43,7 +43,11 @@ export enum COMPONENTIDS {
   ADVISOR_MENU_MANAGE_REVIEW = 'advisor-menu-manage-review',
   ADVISOR_MENU_MANAGE_OPPORTUNITIES = 'advisor-menu-manage-opportunities',
 
-  STUDENT = 'student',
-
   FACULTY = 'faculty',
+  FACULTY_MENU_HOME = 'faculty-menu-home',
+  FACULTY_MENU_VISIBILITY = 'faculty-menu-visibility',
+  FACULTY_MENU_FORECASTS = 'faculty-menu-forecasts',
+  FACULTY_MENU_COMMUNITY = 'faculty-menu-community',
+
+  STUDENT = 'student',
 }
