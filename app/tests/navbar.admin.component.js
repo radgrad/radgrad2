@@ -8,7 +8,7 @@ class AdminNavBar {
     const loggedInUser = await Selector(`#${COMPONENTIDS.NAVBAR_CURRENT_USER}`).exists;
     if (loggedInUser) {
       await testController.click(`#${COMPONENTIDS.NAVBAR_CURRENT_USER}`);
-      await testController.click('#navbar-sign-out');
+      await testController.click(`#${COMPONENTIDS.NAVBAR_SIGN_OUT}`);
     }
   }
 

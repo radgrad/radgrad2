@@ -8,4 +8,5 @@ export enum COMPONENTIDS {
   LANDING_OPPORTUNITIES_EXPLORER = 'landing-opportunities-explorer',
 
   NAVBAR_CURRENT_USER = 'navbar-current-user',
+  NAVBAR_SIGN_OUT = 'navbar-sign-out',
 }
