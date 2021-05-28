@@ -36,4 +36,9 @@ export enum COMPONENTIDS {
   ADVISOR_MENU_EXPLORER_COURSES = 'advisor-menu-explorer-courses',
   ADVISOR_MENU_EXPLORER_INTERESTS = 'advisor-menu-explorer-interests',
   ADVISOR_MENU_EXPLORER_OPPORTUNITIES = 'advisor-menu-explorer-opportunities',
+  ADVISOR_MENU_MANAGE = 'advisor-menu-manage',
+  ADVISOR_MENU_MANAGE_STUDENTS = 'advisor-menu-manage-students',
+  ADVISOR_MENU_MANAGE_VERIFICATION = 'advisor-menu-manage-verification',
+  ADVISOR_MENU_MANAGE_REVIEW = 'advisor-menu-manage-review',
+  ADVISOR_MENU_MANAGE_OPPORTUNITIES = 'advisor-menu-manage-opportunities',
 }

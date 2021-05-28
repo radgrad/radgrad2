@@ -49,23 +49,23 @@ class AdvisorNavBar {
   }
 
   async gotoManageStudentsPage(testController) {
-    await testController.click('#advisor-menu-manage');
-    await testController.click('#advisor-menu-manage-students');
+    await testController.click(`#${COMPONENTIDS.ADVISOR_MENU_MANAGE}`);
+    await testController.click(`#${COMPONENTIDS.ADVISOR_MENU_MANAGE_STUDENTS}`);
   }
 
   async gotoManageVerificationPage(testController) {
-    await testController.click('#advisor-menu-manage');
-    await testController.click('#advisor-menu-manage-verification');
+    await testController.click(`#${COMPONENTIDS.ADVISOR_MENU_MANAGE}`);
+    await testController.click(`#${COMPONENTIDS.ADVISOR_MENU_MANAGE_VERIFICATION}`);
   }
 
   async gotoManageReviewPage(testController) {
-    await testController.click('#advisor-menu-manage');
-    await testController.click('#advisor-menu-manage-review');
+    await testController.click(`#${COMPONENTIDS.ADVISOR_MENU_MANAGE}`);
+    await testController.click(`#${COMPONENTIDS.ADVISOR_MENU_MANAGE_REVIEW}`);
   }
 
   async gotoManageOpportunitiesPage(testController) {
-    await testController.click('#advisor-menu-manage');
-    await testController.click('#advisor-menu-manage-opportunities');
+    await testController.click(`#${COMPONENTIDS.ADVISOR_MENU_MANAGE}`);
+    await testController.click(`#${COMPONENTIDS.ADVISOR_MENU_MANAGE_OPPORTUNITIES}`);
   }
 
   /** Check that the specified user is currently logged in. */

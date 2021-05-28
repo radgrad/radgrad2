@@ -64,7 +64,7 @@ const AdvisorPageMenu: React.FC = () => {
           </Dropdown.Menu>
         </Dropdown>
 
-        <Dropdown item text="Manage" id="advisor-menu-manage">
+        <Dropdown item text="Manage" id={COMPONENTIDS.ADVISOR_MENU_MANAGE}>
           <Dropdown.Menu>
             {manageDropdownItems.map((item) => (
               <Dropdown.Item id={`advisor-menu-manage-${item.label.toLowerCase()}`} key={item.label} as={NavLink} exact to={buildRouteName(match, `/${item.route}`)} content={item.label} />
