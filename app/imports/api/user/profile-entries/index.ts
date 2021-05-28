@@ -1,8 +1,6 @@
+/** @namespace api/user/profile-entries */
 import './ProfileCareerGoalCollection';
 import './ProfileCourseCollection';
-import './ProfileEntries.methods';
-import './ProfileAssociatedUsers.methods';
+import './ProfileEntryTypes';
 import './ProfileInterestCollection';
 import './ProfileOpportunityCollection';
-import './ProfileOpportunityCollection.methods';
-import './ProfileEntryTypes';
