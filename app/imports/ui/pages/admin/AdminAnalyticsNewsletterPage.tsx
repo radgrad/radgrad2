@@ -5,8 +5,8 @@ import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import Swal from 'sweetalert2';
 import { $ } from 'meteor/jquery';
+import Markdown from 'react-markdown';
 import { useStickyState } from '../../utilities/StickyState';
-import AdminAnalyticsNewsletterMessagePreviewWidget from '../../components/admin/analytics/newsletter/AdminAnalyticsNewsletterMessagePreviewWidget';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { sendEmailMethod } from '../../../api/email/Email.methods';
 import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
@@ -286,7 +286,16 @@ const AdminAnalyticsNewsletterPage: React.FC = () => {
           <TextField name="bcc" />
           <Form.Group widths="equal">
             <LongTextField name="inputMessage" />
-            <AdminAnalyticsNewsletterMessagePreviewWidget message={onSubmitInputMessage} />
+            <div className="field">
+              {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+              <label htmlFor="example">Message Preview</label>
+              <input type="hidden" id="example" />
+              <p>Aloha Student</p>
+              <div className="adminMessage">
+                <Markdown source={onSubmitInputMessage} />
+              </div>
+              <p>- The RadGrad Team</p>
+            </div>
           </Form.Group>
           <Button color="green" basic onClick={onClickPreviewSave}>
             Preview And Save
