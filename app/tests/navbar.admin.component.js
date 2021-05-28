@@ -18,38 +18,38 @@ class AdminNavBar {
   }
 
   async gotoHomePage(testController) {
-    await testController.click('#admin-menu-home');
+    await testController.click(`#${COMPONENTIDS.ADMIN_MENU_HOME}`);
   }
 
   async gotoVisibilityPage(testController) {
-    await testController.click('#admin-menu-visibility');
+    await testController.click(`#${COMPONENTIDS.ADMIN_MENU_VISIBILITY}`);
   }
 
   async gotoForecastsPage(testController) {
-    await testController.click('#admin-menu-forecasts');
+    await testController.click(`#${COMPONENTIDS.ADMIN_MENU_FORECASTS}`);
   }
 
   async gotoCommunityPage(testController) {
-    await testController.click('#admin-menu-community');
+    await testController.click(`#${COMPONENTIDS.ADMIN_MENU_COMMUNITY}`);
   }
 
   async gotoCareerGoalsExplorerPage(testController) {
-    await testController.click('#admin-menu-explorers');
+    await testController.click(`#${COMPONENTIDS.ADMIN_MENU_EXPLORERS}`);
     await testController.click('#admin-menu-explorer-careers');
   }
 
   async gotoCoursesExplorerPage(testController) {
-    await testController.click('#admin-menu-explorers');
+    await testController.click(`#${COMPONENTIDS.ADMIN_MENU_EXPLORERS}`);
     await testController.click('#admin-menu-explorer-courses');
   }
 
   async gotoInterestsExplorerPage(testController) {
-    await testController.click('#admin-menu-explorers');
+    await testController.click(`#${COMPONENTIDS.ADMIN_MENU_EXPLORERS}`);
     await testController.click('#admin-menu-explorer-interests');
   }
 
   async gotoOpportunitiesExplorerPage(testController) {
-    await testController.click('#admin-menu-explorers');
+    await testController.click(`#${COMPONENTIDS.ADMIN_MENU_EXPLORERS}`);
     await testController.click('#admin-menu-explorer-opportunities');
   }
 

@@ -12,4 +12,9 @@ export enum COMPONENTIDS {
   LOGIN = 'LOGIN',
 
   ADMIN = 'admin',
+  ADMIN_MENU_HOME = 'admin-menu-home',
+  ADMIN_MENU_VISIBILITY = 'admin-menu-visibility',
+  ADMIN_MENU_FORECASTS = 'admin-menu-forecasts',
+  ADMIN_MENU_COMMUNITY = 'admin-menu-community',
+  ADMIN_MENU_EXPLORERS = 'admin-menu-explorers',
 }
