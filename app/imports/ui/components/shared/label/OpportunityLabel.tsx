@@ -1,5 +1,4 @@
 import React from 'react';
-import _ from 'lodash';
 import { useRouteMatch } from 'react-router-dom';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import * as Router from '../utilities/router';
