@@ -48,6 +48,15 @@ export enum COMPONENTIDS {
   FACULTY_MENU_VISIBILITY = 'faculty-menu-visibility',
   FACULTY_MENU_FORECASTS = 'faculty-menu-forecasts',
   FACULTY_MENU_COMMUNITY = 'faculty-menu-community',
+  FACULTY_MENU_EXPLORERS = 'faculty-menu-explorers',
+  FACULTY_MENU_EXPLORER_CAREERS = 'faculty-menu-explorer-careers',
+  FACULTY_MENU_EXPLORER_COURSES = 'faculty-menu-explorer-courses',
+  FACULTY_MENU_EXPLORER_INTERESTS = 'faculty-menu-explorer-interests',
+  FACULTY_MENU_EXPLORER_OPPORTUNITIES = 'faculty-menu-explorer-opportunities',
+  FACULTY_MENU_MANAGE = 'faculty-menu-manage',
+  FACULTY_MENU_MANAGE_OPPORTUNITIES = 'faculty-menu-manage-opportunities',
+  FACULTY_MENU_MANAGE_VERIFICATION = 'faculty-menu-manage-verification',
+  FACULTY_MENU_MANAGE_REVIEW = 'faculty-menu-manage-review',
 
   STUDENT = 'student',
 }
