@@ -17,24 +17,23 @@ const DeleteReviewButton: React.FC<DeleteReviewButtonProps> = ({ review }) => {
     console.log('handleDelete', review);
     const collectionName = Reviews.getCollectionName();
     const instance = review._id;
-    removeItMethod.call({ collectionName, instance }, (error) => {
-      if (error) {
+    removeItMethod.callPromise({ collectionName, instance })
+      .catch((error) => {
         Swal.fire({
           title: 'Delete Failed',
           text: error.message,
           icon: 'error',
           timer: 1500,
         });
-      } else {
+      }).then(() => {
         Swal.fire({
           title: 'Review Deleted',
           icon: 'success',
           text: 'Your review was successfully deleted.',
           timer: 1500,
         });
-      }
-      setOpen(false);
-    });
+        setOpen(false);
+      });
   };
 
   const itemName = getRevieweeName(review);

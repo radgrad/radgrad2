@@ -15,10 +15,11 @@ import { ProfileOpportunities } from '../../../../api/user/profile-entries/Profi
 const OpportunityLabel: React.FC<EntityLabelPublicProps> = ({ slug, userID, size, style, rightside }) => {
   let inProfile = false;
   const match = useRouteMatch();
-  const route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${slug}`);
+  let route = `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${slug}`;
   const opportunity = Opportunities.findDocBySlug(slug);
   const name = opportunity.name; // will throw an error if slug is undefined.
   if (userID) {
+    route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${slug}`);
     // Calculate inProfile.
     const profileEntityIDs = ProfileOpportunities.findNonRetired({ studentID: userID });
     const id = opportunity._id;
@@ -26,7 +27,7 @@ const OpportunityLabel: React.FC<EntityLabelPublicProps> = ({ slug, userID, size
   }
   return (
     <EntityLabel slug={slug} inProfile={inProfile} icon='lightbulb outline' name={name} route={route} size={size}
-                 style={style} rightside={rightside}/>
+      style={style} rightside={rightside}/>
   );
 };
 

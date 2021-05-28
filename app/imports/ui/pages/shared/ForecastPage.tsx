@@ -14,10 +14,10 @@ For more information, please see the [Faculty User Guide](https://www.radgrad.or
 `;
 
 const ForecastPage: React.FC = () => (
-    <PageLayout id={PAGEIDS.FORECASTS} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
-      <CourseForecast />
-      <OpportunityForecast />
-    </PageLayout>
+  <PageLayout id={PAGEIDS.FORECASTS} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
+    <CourseForecast />
+    <OpportunityForecast />
+  </PageLayout>
 );
 
 export default ForecastPage;

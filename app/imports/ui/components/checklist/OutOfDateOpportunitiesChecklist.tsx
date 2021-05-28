@@ -91,7 +91,7 @@ export class OutOfDateOpportunitiesChecklist extends Checklist {
           <ActionsBox
             description='Use the Manage Opportunities page to review and adjust your sponsored opportunities:'>
             <ChecklistButtonLink url={`/${this.role.toLowerCase()}/${this.profile.username}/${MANAGE.OPPORTUNITIES}`}
-                                 label='Manage Opportunities Page' />
+              label='Manage Opportunities Page' />
           </ActionsBox>
         );
       default:

@@ -53,16 +53,16 @@ const StudentIcePage: React.FC<StudentIcePageProps> = ({
   const header = <RadGradHeader title='your ice points' />;
   return (
     <PageLayout id={PAGEIDS.STUDENT_ICE} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}
-                headerPaneImage={headerPaneImage}>
+      headerPaneImage={headerPaneImage}>
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={16} stretched>
             <RadGradSegment header={header} >
               <StudentIceTabs username={username} profileID={profileID} earnedICE={earnedICE} projectedICE={projectedICE}
-                              profileCourses={profileCourses}
-                              profileInterests={profileInterests} profileOpportunities={profileOpportunities}
-                              courseInstances={courseInstances}
-                              opportunityInstances={opportunityInstances} />
+                profileCourses={profileCourses}
+                profileInterests={profileInterests} profileOpportunities={profileOpportunities}
+                courseInstances={courseInstances}
+                opportunityInstances={opportunityInstances} />
             </RadGradSegment>
           </Grid.Column>
         </Grid.Row>

@@ -31,32 +31,32 @@ const Task7Component: React.FC<Task7SegmentProps> = ({ careerGoals, loggedInUser
     {
       menuItem:<Menu.Item key='task1tab'>{Task2Header}</Menu.Item>,
       render: ()=> (
-              <Task2Segment loggedInUser={loggedInUser} urlUser={urlUser}/> ),
+        <Task2Segment loggedInUser={loggedInUser} urlUser={urlUser}/> ),
     },
     {
       menuItem:<Menu.Item key='task2tab'>{Task1Header}</Menu.Item>,
       render: ()=> (
-              <Task3Component/>
+        <Task3Component/>
       ),
     },
     {
       menuItem:<Menu.Item key='task5tab'>{Task5Header}</Menu.Item>,
       render: ()=> (
-              <Modal size='small'
-                     onClose={() => setOpen(false)}
-                     onOpen={() => setOpen(true)}
-                     open={open}
-                     trigger={<Button textAlign='centered'>SEE THE DIFFERENT INTERESTS</Button>}>
-                  <Modal.Header>SEE THE DIFFERENT INTERESTS IN CS</Modal.Header>
-                  <Modal.Content><Task5Component/></Modal.Content>
-              </Modal>
+        <Modal size='small'
+          onClose={() => setOpen(false)}
+          onOpen={() => setOpen(true)}
+          open={open}
+          trigger={<Button textAlign='centered'>SEE THE DIFFERENT INTERESTS</Button>}>
+          <Modal.Header>SEE THE DIFFERENT INTERESTS IN CS</Modal.Header>
+          <Modal.Content><Task5Component/></Modal.Content>
+        </Modal>
       ),
     },
   ];
   return (
-        <RadGradSegment header={Task7Header}>
-            <Tab panes={task7Pane}/>
-        </RadGradSegment>
+    <RadGradSegment header={Task7Header}>
+      <Tab panes={task7Pane}/>
+    </RadGradSegment>
   );
 };
 export default withTracker(() => {

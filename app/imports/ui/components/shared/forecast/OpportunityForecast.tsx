@@ -92,7 +92,7 @@ const OpportunityForecast: React.FC = () => {
                           const score = entry.count;
                           return (
                             <Table.Cell width={1} key={`${opportunity._id}${entry.termID}`} negative={score > 0}
-                                        collapsing>
+                              collapsing>
                               {score > 10 ? <Icon name="attention" /> : ''}
                               {score}
                             </Table.Cell>

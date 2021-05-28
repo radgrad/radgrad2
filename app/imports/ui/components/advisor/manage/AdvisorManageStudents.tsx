@@ -26,9 +26,9 @@ const AdvisorManageStudents: React.FC<AdvisorManageStudentsProps> = ({
       menuItem: <Menu.Item key='update-tab'><RadGradTabHeader title='update' /></Menu.Item>,
       render: () => (
         <AdvisorUpdateStudentTab students={students} alumni={alumni} careerGoals={careerGoals} courses={courses}
-                                 interests={interests} opportunities={opportunities}
-                                 profileCareerGoals={profileCareerGoals}
-                                 profileInterests={profileInterests} />),
+          interests={interests} opportunities={opportunities}
+          profileCareerGoals={profileCareerGoals}
+          profileInterests={profileInterests} />),
     },
     {
       menuItem: <Menu.Item key='add-new-tab'><RadGradTabHeader title='add new' /></Menu.Item>,

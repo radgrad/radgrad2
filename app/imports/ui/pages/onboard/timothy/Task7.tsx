@@ -23,26 +23,26 @@ const Task7: React.FC<Task7Prop> = ({ totalAdvisors, totalFaculty, totalStudents
     { menuItem: 'Advisors', render: () => <Tab.Pane>{totalAdvisors.map((advisor) => <UserLabel username={advisor} size='small' />)}</Tab.Pane> },
     { menuItem: 'Student', render: () => <Tab.Pane>{totalStudents.map((student) => <UserLabel username={student} size='small' />)}</Tab.Pane> },
     { menuItem: 'Task 1', render: () => <Tab.Pane>
-        <Modal
+      <Modal
         onClose={() => setOpen(false)}
         onOpen={() =>  setOpen(true)}
         open={open}
         trigger={<Button>Show Modal</Button>}
-        >
-          <Modal.Header icon='globe americas'>TASK 1: HELLO WORLD</Modal.Header>
-          <Modal.Content>
-            <Modal.Description>
-              <p>Hello World</p>
-            </Modal.Description>
-          </Modal.Content>
-        </Modal>
-      </Tab.Pane> },
+      >
+        <Modal.Header icon='globe americas'>TASK 1: HELLO WORLD</Modal.Header>
+        <Modal.Content>
+          <Modal.Description>
+            <p>Hello World</p>
+          </Modal.Description>
+        </Modal.Content>
+      </Modal>
+    </Tab.Pane> },
   ];
 
   return (
-  <RadGradSegment header={<RadGradHeader title='TASK 7: Tabbed and Modal components' icon='splotch'/>}>
-    <Tab panes={panes} />
-  </RadGradSegment>
+    <RadGradSegment header={<RadGradHeader title='TASK 7: Tabbed and Modal components' icon='splotch'/>}>
+      <Tab panes={panes} />
+    </RadGradSegment>
   );
 };
 

@@ -14,10 +14,10 @@ import OpportunityLabel from '../../../components/shared/label/OpportunityLabel'
 import UserLabel from '../../../components/shared/profile/UserLabel';
 import RadGradHeader from '../../../components/shared/RadGradHeader';
 import RadGradSegment from '../../../components/shared/RadGradSegment';
-import Task2Component from './Task2Component';
+import Task2 from './Task2';
 
 
-interface Task7ComponentProps {
+interface Task7Props {
   careerGoals: CareerGoal[];
   courses: Course[];
   interests: Interest[];
@@ -25,36 +25,38 @@ interface Task7ComponentProps {
   students: StudentProfile[];
 }
 
-const Task7Component: React.FC<Task7ComponentProps> = ({ careerGoals, courses, interests, opportunities, students }) => {
+const Task7: React.FC<Task7Props> = ({ careerGoals, courses, interests, opportunities, students }) => {
 
   const currentUser = Meteor.user() ? Meteor.user()._id : '';
 
   const panes = [
-    { menuItem: 'Career Goals', render: () => <Tab.Pane>{careerGoals.map((careerGoal) => <CareerGoalLabel key={careerGoal._id} slug={careerGoal.slugID} userID={currentUser} size='small'/>)}</Tab.Pane> },
-    { menuItem: 'Courses', render: () => <Tab.Pane>{courses.map((course) => <CourseLabel key={course._id} slug={course.slugID} userID={currentUser} size='small'/>)}</Tab.Pane> },
+    { menuItem: 'Career Goals', render: () => <Tab.Pane>{careerGoals.map((careerGoal) => <CareerGoalLabel key={careerGoal._id} slug={careerGoal.slugID} userID={currentUser} size='small' />)}</Tab.Pane> },
+    { menuItem: 'Courses', render: () => <Tab.Pane>{courses.map((course) => <CourseLabel key={course._id} slug={course.slugID} userID={currentUser} size='small' />)}</Tab.Pane> },
     { menuItem: 'Interests', render: () => <Tab.Pane>{interests.map((interest) => <InterestLabel key={interest._id} slug={interest.slugID} userID={currentUser} size='small' />)}</Tab.Pane> },
     { menuItem: 'Opportunities', render: () => <Tab.Pane>{opportunities.map((opportunity) => <OpportunityLabel key={opportunity._id} slug={opportunity.slugID} userID={currentUser} size='small' />)}</Tab.Pane> },
     { menuItem: 'Students', render: () => <Tab.Pane>{students.map((student) => <UserLabel key={student._id} username={student.username} size='small' />)}</Tab.Pane> },
-    { menuItem: 'Task 2', render: () => <Tab.Pane>
+    {
+      menuItem: 'Task 2', render: () => <Tab.Pane>
         <Modal
-        onClose={() => setOpen(false)}
-        onOpen={() => setOpen(true)}
-        open={open}
-        trigger={<Button>Who is the user?</Button>}
-      >
-        <Modal.Header>Task 2</Modal.Header>
-        <Modal.Content>
-          <Modal.Description>
-            <Task2Component />
-          </Modal.Description>
-        </Modal.Content>
-        <Modal.Actions>
-          <Button color='red' onClick={() => setOpen(false)}>
-            Close
-          </Button>
-        </Modal.Actions>
-      </Modal>
-    </Tab.Pane> },
+          onClose={() => setOpen(false)}
+          onOpen={() => setOpen(true)}
+          open={open}
+          trigger={<Button>Who is the user?</Button>}
+        >
+          <Modal.Header>Task 2</Modal.Header>
+          <Modal.Content>
+            <Modal.Description>
+              <Task2 />
+            </Modal.Description>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button color='red' onClick={() => setOpen(false)}>
+              Close
+            </Button>
+          </Modal.Actions>
+        </Modal>
+      </Tab.Pane>,
+    },
   ];
 
   const [open, setOpen] = useState(false);
@@ -71,7 +73,7 @@ export default withTracker(() => {
   const courses = Courses.findNonRetired();
   const interests = Interests.findNonRetired();
   const opportunities = Opportunities.findNonRetired();
-  const students = StudentProfiles.find({ isAlumni: false }, {}).fetch();
+  const students = StudentProfiles.findNonRetired({ isAlumni: false });
   return {
     careerGoals,
     courses,
@@ -79,4 +81,4 @@ export default withTracker(() => {
     opportunities,
     students,
   };
-})(Task7Component);
+})(Task7);

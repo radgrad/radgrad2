@@ -17,24 +17,25 @@ const AdminDataModelAddForm: React.FC<AdminDataModelAddFormProps> = ({ collectio
     // console.log('handleAdd(%o)', doc, formRef);
     const collectionName = collection.getCollectionName();
     const definitionData = doc;
-    defineMethod.call({ collectionName, definitionData }, defineCallback(formRef));
+    defineMethod.callPromise({ collectionName, definitionData });
+    defineCallback(formRef);
   };
 
   return (
-        <Segment padded>
-            <Header dividing>
+    <Segment padded>
+      <Header dividing>
                 Add
-                {collection.getType()}
-            </Header>
-            {/* eslint-disable-next-line no-param-reassign,no-return-assign */}
-            <AutoForm ref={(ref) => formRef = ref} onSubmit={handleAdd}
-                      schema={new SimpleSchema2Bridge(collection.getDefineSchema())}>
-                <AutoFields autoField={undefined} element={undefined} fields={undefined} omitFields={undefined}/>
-                <p/>
-                <SubmitField className="mini basic green" inputRef={undefined} disabled={false} value="Add"/>
-                <ErrorsField/>
-            </AutoForm>
-        </Segment>
+        {collection.getType()}
+      </Header>
+      {/* eslint-disable-next-line no-param-reassign,no-return-assign */}
+      <AutoForm ref={(ref) => formRef = ref} onSubmit={handleAdd}
+        schema={new SimpleSchema2Bridge(collection.getDefineSchema())}>
+        <AutoFields autoField={undefined} element={undefined} fields={undefined} omitFields={undefined}/>
+        <p/>
+        <SubmitField className="mini basic green" inputRef={undefined} disabled={false} value="Add"/>
+        <ErrorsField/>
+      </AutoForm>
+    </Segment>
   );
 };
 

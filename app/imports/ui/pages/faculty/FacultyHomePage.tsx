@@ -28,9 +28,9 @@ This page contains a personalized set of recommendations to help you configure R
 `;
 
 const FacultyHomePage: React.FC<HomePageProps> = ({ okItems, reviewItems, improveItems }) => (
-    <PageLayout id={PAGEIDS.FACULTY_HOME_PAGE} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} >
-      <HomePageChecklistSegment okItems={okItems} reviewItems={reviewItems} improveItems={improveItems} />
-    </PageLayout>
+  <PageLayout id={PAGEIDS.FACULTY_HOME_PAGE} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} >
+    <HomePageChecklistSegment okItems={okItems} reviewItems={reviewItems} improveItems={improveItems} />
+  </PageLayout>
 );
 
 export default withTracker(() => {
