@@ -221,6 +221,7 @@ export interface CourseInstance extends Document {
   studentID: string;
   ice?: Ice;
   retired?: boolean;
+  picture?: string,
 }
 
 export interface CourseInstanceDefine extends DumpOne {
@@ -233,6 +234,7 @@ export interface CourseInstanceDefine extends DumpOne {
   student: string;
   creditHrs?: number;
   retired?: boolean;
+  picture?: string;
 }
 
 export interface CourseInstanceUpdate extends Update {
@@ -244,6 +246,7 @@ export interface CourseInstanceUpdate extends Update {
   note?: string;
   ice?: Ice;
   retired?: boolean;
+  picture?: string;
 }
 
 export interface Forecast {
@@ -280,6 +283,7 @@ export interface CourseDefine extends DumpOne {
   prerequisites?: string[];
   repeatable?: boolean;
   retired?: boolean;
+  picture?: string,
 }
 
 export interface CourseUpdate extends Update {
@@ -294,6 +298,7 @@ export interface CourseUpdate extends Update {
   syllabus?: string;
   repeatable?: boolean;
   retired?: boolean;
+  picture?: string;
 }
 
 // Factoids

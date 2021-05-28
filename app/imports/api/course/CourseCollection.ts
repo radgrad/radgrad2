@@ -41,6 +41,7 @@ class CourseCollection extends BaseSlugCollection {
       'prerequisites.$': String,
       repeatable: { type: Boolean, optional: true },
       retired: { type: Boolean, optional: true },
+      picture: { type: String, optional: true },
     }));
     this.defineSchema = new SimpleSchema({
       name: String,
@@ -56,6 +57,7 @@ class CourseCollection extends BaseSlugCollection {
       'prerequisites.$': String,
       repeatable: { type: Boolean, optional: true },
       retired: { type: Boolean, optional: true },
+      picture: { type: String, optional: true },
     });
     this.updateSchema = new SimpleSchema({
       name: { type: String, optional: true },
@@ -69,6 +71,7 @@ class CourseCollection extends BaseSlugCollection {
       'prerequisites.$': String,
       repeatable: { type: Boolean, optional: true },
       retired: { type: Boolean, optional: true },
+      picture: { type: String, optional: true },
     });
     this.unInterestingSlug = 'other';
   }
@@ -101,7 +104,7 @@ class CourseCollection extends BaseSlugCollection {
    * @throws {Meteor.Error} If the definition includes a defined slug or undefined interest or invalid creditHrs.
    * @returns The newly created docID.
    */
-  public define({ name, shortName = name, slug, num, description, creditHrs = 3, interests = [], syllabus, corequisites = [], prerequisites = [], retired = false, repeatable = false }: CourseDefine) {
+  public define({ name, shortName = name, slug, num, description, creditHrs = 3, interests = [], syllabus, picture, corequisites = [], prerequisites = [], retired = false, repeatable = false }: CourseDefine) {
     // Make sure the slug has the right format <dept>_<number>
     validateCourseSlugFormat(slug);
     // check if slug is defined
@@ -143,6 +146,7 @@ class CourseCollection extends BaseSlugCollection {
         prerequisites,
         repeatable,
         retired,
+        picture,
       });
     // Connect the Slug to this Interest
     Slugs.updateEntityID(slugID, courseID);
@@ -163,7 +167,7 @@ class CourseCollection extends BaseSlugCollection {
    * @param repeatable optional boolean.
    * @param retired optional boolean.
    */
-  public update(instance: string, { name, shortName, num, description, creditHrs, interests, corequisites, prerequisites, syllabus, retired, repeatable }: CourseUpdate) {
+  public update(instance: string, { name, shortName, num, description, creditHrs, interests, picture, corequisites, prerequisites, syllabus, retired, repeatable }: CourseUpdate) {
     const docID = this.getID(instance);
     const updateData: {
       name?: string;
@@ -177,12 +181,16 @@ class CourseCollection extends BaseSlugCollection {
       prerequisites?: string[];
       repeatable?: boolean;
       retired?: boolean;
+      picture?: string;
     } = {};
     if (name) {
       updateData.name = name;
     }
     if (description) {
       updateData.description = description;
+    }
+    if (picture) {
+      updateData.picture = picture;
     }
     if (interests) {
       const interestIDs = Interests.getIDs(interests);

@@ -40,6 +40,7 @@ const UpdateCareerGoalForm: React.FC<UpdateCareerGoalFormProps> = ({
       allowedValues: interestNames,
     },
     retired: { type: Boolean, optional: true },
+    picture: { type: String, optional: true },
   });
   const formSchema = new SimpleSchema2Bridge(schema);
   // console.log(model, schema);
@@ -53,6 +54,7 @@ const UpdateCareerGoalForm: React.FC<UpdateCareerGoalFormProps> = ({
                 <TextField name="name"/>
                 <LongTextField name="description"/>
                 <MultiSelectField name="interests"/>
+                <TextField placeholder='https://mywebsite.com/picture.png' name='picture'/>
                 <BoolField name="retired"/>
                 <p/>
                 <ErrorsField/>
