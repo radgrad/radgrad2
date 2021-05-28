@@ -4,3 +4,4 @@ import './AdvisorProfileCollection';
 import './FacultyProfileCollection';
 import './StudentProfileCollection';
 import './UserCollection';
+import './profile-entries';
