@@ -1,12 +1,13 @@
 import { Selector } from 'testcafe';
+import { COMPONENTIDS } from '../imports/ui/utilities/ComponentIDs';
 
 class FacultyNavBar {
 
   /** If someone is logged in, then log them out, otherwise do nothing. */
   async ensureLogout(testController) {
-    const loggedInUser = await Selector('#navbar-current-user').exists;
+    const loggedInUser = await Selector(`#${COMPONENTIDS.NAVBAR_CURRENT_USER}`).exists;
     if (loggedInUser) {
-      await testController.click('#navbar-current-user');
+      await testController.click(`#${COMPONENTIDS.NAVBAR_CURRENT_USER}`);
       await testController.click('#navbar-sign-out');
     }
   }

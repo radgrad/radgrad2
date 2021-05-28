@@ -6,4 +6,6 @@ export enum COMPONENTIDS {
   LANDING_INTERESTS_EXPLORER = 'landing-interests-explorer',
   LANDING_COURSES_EXPLORER = 'landing-courses-explorer',
   LANDING_OPPORTUNITIES_EXPLORER = 'landing-opportunities-explorer',
+
+  NAVBAR_CURRENT_USER = 'navbar-current-user',
 }
