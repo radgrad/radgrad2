@@ -1,6 +1,6 @@
 import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Card, Header, Segment } from 'semantic-ui-react';
+import { Card } from 'semantic-ui-react';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Opportunity } from '../../../typings/radgrad';
 import LandingExplorerCard from '../../components/landing/explorer/LandingExplorerCard';
@@ -9,6 +9,10 @@ import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuBar from '../../components/landing/explorer/LandingExplorerMenuBar';
 import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
+import { EXPLORER_TYPE } from '../../utilities/ExplorerUtils';
+import { Interests } from '../../../api/interest/InterestCollection';
+import RadGradHeader from '../../components/shared/RadGradHeader';
+import RadGradSegment from '../../components/shared/RadGradSegment';
 
 interface LandingOpportunitiesExplorerPageProps {
   opportunities: Opportunity[];
@@ -27,23 +31,25 @@ const LandingOpportunitiesExplorerPage: React.FC<LandingOpportunitiesExplorerPag
     <LandingExplorerMenuBar/>
     <PageLayout id={PAGEIDS.LANDING_OPPORTUNITIES_EXPLORER} headerPaneTitle={headerPaneTitle}
                 headerPaneBody={headerPaneBody}>
-      <Segment>
-        <Header as="h4" dividing>
-          <span>OPPORTUNITIES</span> ({count})
-        </Header>
+      <RadGradSegment header={<RadGradHeader title="OPPORTUNITIES" count={count} dividing />}>
         <Card.Group stackable>
           {opportunities.map((opportunity) => (
-            <LandingExplorerCard key={opportunity._id} type="opportunities" item={opportunity}/>
+            <LandingExplorerCard key={opportunity._id} type={EXPLORER_TYPE.OPPORTUNITIES} item={opportunity}/>
           ))}
         </Card.Group>
-      </Segment>
+      </RadGradSegment>
     </PageLayout>
   </div>
 );
 
-const LandingOpportunitiesExplorerPageContainer = withTracker(() => ({
-  opportunities: Opportunities.findNonRetired({}, { sort: { name: 1 } }),
-  count: Opportunities.countNonRetired(),
-}))(LandingOpportunitiesExplorerPage);
+const LandingOpportunitiesExplorerPageContainer = withTracker(() => {
+  const opportunities = Opportunities.findNonRetired({}, { sort: { name: 1 } });
+  const count = Opportunities.countNonRetired();
+  return {
+    opportunities,
+    count,
+  };
+})(LandingOpportunitiesExplorerPage);
 
-export default withListSubscriptions(LandingOpportunitiesExplorerPageContainer, [Opportunities.getPublicationName(), Slugs.getPublicationName()]);
+export default withListSubscriptions(LandingOpportunitiesExplorerPageContainer, [Opportunities.getPublicationName(), Interests.getPublicationName(), Slugs.getPublicationName()]);
+

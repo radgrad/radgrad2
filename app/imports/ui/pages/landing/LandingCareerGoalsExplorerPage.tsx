@@ -1,6 +1,6 @@
 import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Card, Header, Segment } from 'semantic-ui-react';
+import { Card } from 'semantic-ui-react';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import LandingExplorerMenuBar from '../../components/landing/explorer/LandingExplorerMenuBar';
@@ -10,8 +10,12 @@ import { Slugs } from '../../../api/slug/SlugCollection';
 import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
 import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
+import { EXPLORER_TYPE } from '../../utilities/ExplorerUtils';
+import RadGradHeader from '../../components/shared/RadGradHeader';
+import RadGradSegment from '../../components/shared/RadGradSegment';
 
 interface CareerGoalsExplorerProps {
+  explorerType: EXPLORER_TYPE;
   careerGoals: CareerGoal[];
   count: number;
 }
@@ -30,23 +34,24 @@ const LandingCareerGoalsExplorerPage: React.FC<CareerGoalsExplorerProps> = ({ co
     <LandingExplorerMenuBar/>
     <PageLayout id={PAGEIDS.LANDING_CAREER_GOALS_EXPLORER} headerPaneTitle={headerPaneTitle}
                 headerPaneBody={headerPaneBody}>
-      <Segment>
-        <Header as="h4" dividing>
-          <span>CAREER GOALS</span> ({count})
-        </Header>
+      <RadGradSegment header={<RadGradHeader title="CAREER GOALS" count={count} dividing />}>
         <Card.Group stackable>
           {careerGoals.map((goal) => (
-            <LandingExplorerCard key={goal._id} type="career-goals" item={goal}/>
+            <LandingExplorerCard key={goal._id} type={EXPLORER_TYPE.CAREERGOALS} item={goal}/>
           ))}
         </Card.Group>
-      </Segment>
+      </RadGradSegment>
     </PageLayout>
   </div>
 );
 
-const LandingCareerGoalsExplorerContainer = withTracker(() => ({
-  careerGoals: CareerGoals.findNonRetired({}),
-  count: CareerGoals.countNonRetired(),
-}))(LandingCareerGoalsExplorerPage);
+const LandingCareerGoalsExplorerContainer = withTracker(() => {
+  const careerGoals = CareerGoals.findNonRetired();
+  const count = CareerGoals.countNonRetired();
+  return {
+    careerGoals,
+    count,
+  };
+})(LandingCareerGoalsExplorerPage);
 
-export default withListSubscriptions(LandingCareerGoalsExplorerContainer, [CareerGoals.getPublicationName(), Slugs.getPublicationName(), Interests.getPublicationName()]);
+export default withListSubscriptions(LandingCareerGoalsExplorerContainer, [Interests.getPublicationName(), CareerGoals.getPublicationName(), Slugs.getPublicationName()]);
