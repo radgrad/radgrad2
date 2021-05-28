@@ -35,7 +35,7 @@ const ExplorerCard: React.FC<ProfileCardProps> = ({ item, type, inProfile }) => 
       </Card.Content>
       <Card.Content>
         <Markdown escapeHtml source={`${itemShortDescription}...`}
-                  renderers={{ link: (localProps) => Router.renderLink(localProps, match) }} />
+          renderers={{ link: (localProps) => Router.renderLink(localProps, match) }} />
         { item.interestIDs ? (<InterestList item={item} size="small" />) : ''}
       </Card.Content>
       <Link to={buildExplorerSlugRoute(match, type, slugName)} className="ui button">

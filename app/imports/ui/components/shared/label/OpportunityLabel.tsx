@@ -28,7 +28,7 @@ const OpportunityLabel: React.FC<EntityLabelPublicProps> = ({ slug, userID, size
   }
   return (
     <EntityLabel slug={slug} inProfile={inProfile} icon='lightbulb outline' name={name} route={route} size={size}
-                 style={style} rightside={rightside}/>
+      style={style} rightside={rightside}/>
   );
 };
 

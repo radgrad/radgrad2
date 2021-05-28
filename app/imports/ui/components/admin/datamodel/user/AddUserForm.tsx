@@ -153,7 +153,7 @@ const AddUserForm: React.FC<AddUserProps> = ({ interests, academicTerms, careerG
       <Header dividing>Add User</Header>
       {/* eslint-disable-next-line no-return-assign */}
       <AutoForm schema={formSchema} onSubmit={(doc) => handleAddUser(doc)} ref={(ref) => formRef = ref}
-                showInlineError onChangeModel={handleModelChange}>
+        showInlineError onChangeModel={handleModelChange}>
         <Form.Group widths="equal">
           <TextField name="username" placeholder="johndoe@foo.edu" />
           <SelectField name="role" />

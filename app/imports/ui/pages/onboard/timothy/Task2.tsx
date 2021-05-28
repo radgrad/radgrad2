@@ -16,13 +16,13 @@ const Task2: React.FC<Task2Prop> = ({ user, urlName }) => {
     marginBottom: 30,
   };
   return (
-  <div className='column'>
-    <RadGradSegment header={<RadGradHeader title='TASK 2: WHO IS THE USER?' icon='user graduate'/>}>
-      <p style={style}>The current logged in user is: {user}</p>
-      <p style={style}>The username appearing in the URL is: {urlName}</p>
-      <p style={style}>In RadGrad, these are not necessarily the same!</p>
-    </RadGradSegment>
-  </div>
+    <div className='column'>
+      <RadGradSegment header={<RadGradHeader title='TASK 2: WHO IS THE USER?' icon='user graduate'/>}>
+        <p style={style}>The current logged in user is: {user}</p>
+        <p style={style}>The username appearing in the URL is: {urlName}</p>
+        <p style={style}>In RadGrad, these are not necessarily the same!</p>
+      </RadGradSegment>
+    </div>
   );
 };
 

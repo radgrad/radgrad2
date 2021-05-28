@@ -35,13 +35,13 @@ const Task6Component: React.FC<Task6SegmentProps> = ({ interests }) => {
   const formSchema = new SimpleSchema2Bridge(schema);
 
   return (
-        <RadGradSegment header={Task6Header}>
-            <AutoForm schema = {formSchema} onSubmit = {sumbitData} showInlineError>
-                <SelectField name="interest" placeholder="Select Interest"/>
-                <SubmitField className="mini basic green" value="Display Description"/>
-            </AutoForm>
-            <Task6EditComponent/>
-        </RadGradSegment>
+    <RadGradSegment header={Task6Header}>
+      <AutoForm schema = {formSchema} onSubmit = {sumbitData} showInlineError>
+        <SelectField name="interest" placeholder="Select Interest"/>
+        <SubmitField className="mini basic green" value="Display Description"/>
+      </AutoForm>
+      <Task6EditComponent/>
+    </RadGradSegment>
   );
 };
 export default withTracker(() => {

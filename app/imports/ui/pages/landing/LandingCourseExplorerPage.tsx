@@ -42,7 +42,7 @@ const LandingCourseExplorerPage: React.FC<CourseExplorerProps> = ({ course }) =>
     <div>
       <LandingExplorerMenuBar />
       <PageLayout id={PAGEIDS.LANDING_COURSE_EXPLORER} headerPaneTitle={headerPaneTitle}
-                  headerPaneBody={headerPaneBody}>
+        headerPaneBody={headerPaneBody}>
         <Grid stackable>
           <Grid.Row>
             <Grid.Column width={3}>
@@ -70,7 +70,7 @@ const LandingCourseExplorerPage: React.FC<CourseExplorerProps> = ({ course }) =>
                 </Grid>
                 <b>Description:</b>
                 <Markdown escapeHtml source={course.description}
-                          renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}/>
+                  renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}/>
                 <RadGradHeader title='Prerequisites' dividing />
                 {course.prerequisites.length > 0 ?
                   <LandingPrerequisiteList prerequisites={course.prerequisites} size='small' /> : 'N/A'}

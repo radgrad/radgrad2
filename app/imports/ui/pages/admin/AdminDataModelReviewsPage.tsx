@@ -121,10 +121,10 @@ const AdminDataModelReviewsPage: React.FC<AdminDataModelReviewsPageProps> = ({ i
     <PageLayout id={PAGEIDS.DATA_MODEL_REVIEWS} headerPaneTitle="Reviews" headerPaneBody="Be sure to select the reviewee. If you don't you will get an error.">
       {showUpdateFormState ? (
         <UpdateReviewForm collection={collection} id={idState} handleUpdate={handleUpdate}
-                          handleCancel={handleCancel} itemTitleString={itemTitleString} terms={terms}/>
+          handleCancel={handleCancel} itemTitleString={itemTitleString} terms={terms}/>
       ) : (
         <AddReviewForm terms={terms} students={students}
-                       opportunities={opportunities} courses={courses}/>
+          opportunities={opportunities} courses={courses}/>
       )}
       <ListCollectionWidget
         collection={collection}

@@ -177,11 +177,11 @@ const AdvisorOtherTab: React.FC = () => {
     color: 'green',
     content: 'Bulk Course Data JSON',
   }} />
-    <Button size='tiny' basic color='green'
-            onClick={handleStarSubmit}
-            loading={isUploadWorkingState}
-            disabled={isUploadWorkingState}
-    >UPLOAD</Button>
+  <Button size='tiny' basic color='green'
+    onClick={handleStarSubmit}
+    loading={isUploadWorkingState}
+    disabled={isUploadWorkingState}
+  >UPLOAD</Button>
   </>;
 
   const alumniEmailsUploadRightSide = <>
@@ -191,31 +191,31 @@ const AdvisorOtherTab: React.FC = () => {
       content: 'Alumni Emails file',
     }} />
     <Button size='tiny' basic color='green'
-            onClick={handleAlumniSubmit}
-            loading={isAlumniWorkingState}
-            disabled={isAlumniWorkingState}
+      onClick={handleAlumniSubmit}
+      loading={isAlumniWorkingState}
+      disabled={isAlumniWorkingState}
     >UPLOAD</Button>
   </>;
 
   return (
     <Tab.Pane key='advisor-other-tab'>
       <Segment vertical><RadGradTabHeader title='Update all students&apos; levels' icon='sort amount up'
-                                          rightside={<Button size='mini' basic color='green'
-                                                             onClick={handleUpdateLevelButton}
-                                                             loading={isUpdateWorkingState}
-                                                             disabled={isUpdateWorkingState}>UPDATE LEVELS</Button>} /></Segment>
+        rightside={<Button size='mini' basic color='green'
+          onClick={handleUpdateLevelButton}
+          loading={isUpdateWorkingState}
+          disabled={isUpdateWorkingState}>UPDATE LEVELS</Button>} /></Segment>
       <Segment vertical><RadGradTabHeader title='Get student emails' icon='envelope'
-                                          rightside={<Button size='mini' basic color='green' onClick={getStudentEmails}
-                                                             loading={isEmailWorkingState}
-                                                             disabled={isEmailWorkingState}>DOWNLOAD</Button>} /></Segment>
+        rightside={<Button size='mini' basic color='green' onClick={getStudentEmails}
+          loading={isEmailWorkingState}
+          disabled={isEmailWorkingState}>DOWNLOAD</Button>} /></Segment>
       <Segment vertical><RadGradTabHeader title='Bulk course data upload' icon='upload'
-                                          rightside={bulkUploadRightSide} /></Segment>
+        rightside={bulkUploadRightSide} /></Segment>
       <Segment vertical><RadGradTabHeader title='Bulk alumni data upload' icon='upload'
-                                          rightside={alumniEmailsUploadRightSide} /></Segment>
+        rightside={alumniEmailsUploadRightSide} /></Segment>
       <Segment vertical><RadGradTabHeader title='Update old student status' icon='highlighter'
-                                          rightside={<Button basic color='green' onClick={handleUpdateStudentStatus} size='mini'
-                                          loading={isUpdateOldWorkingState}
-                                          disabled={isUpdateOldWorkingState}>UPDATE
+        rightside={<Button basic color='green' onClick={handleUpdateStudentStatus} size='mini'
+          loading={isUpdateOldWorkingState}
+          disabled={isUpdateOldWorkingState}>UPDATE
                                             STATUS</Button>} /></Segment>
     </Tab.Pane>
   );

@@ -31,14 +31,14 @@ const Task5Component: React.FC<Task5SegmentProps> = ({ interests }) => {
   });
   const formSchema = new SimpleSchema2Bridge(schema);
   return (
-        <RadGradSegment header={Task5Header}>
-            <AutoForm schema = {formSchema} onSubmit = {sumbitData} showInlineError>
-                <SelectField name="interest" placeholder="Select Interest"/>
-                <SubmitField className="mini basic green" value="Display Description"/>
-            </AutoForm>
-            <RadGradHeader title="description"/>
-            <Markdown source={description}/>
-        </RadGradSegment>
+    <RadGradSegment header={Task5Header}>
+      <AutoForm schema = {formSchema} onSubmit = {sumbitData} showInlineError>
+        <SelectField name="interest" placeholder="Select Interest"/>
+        <SubmitField className="mini basic green" value="Display Description"/>
+      </AutoForm>
+      <RadGradHeader title="description"/>
+      <Markdown source={description}/>
+    </RadGradSegment>
   );
 };
 export default withTracker(() => {

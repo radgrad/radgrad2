@@ -66,14 +66,14 @@ const Task6: React.FC<Task6Prop> = ({ totalInterests }) => {
   );
 
   return (
-  <RadGradSegment header={<RadGradHeader title='TASK 6: EDIT THE DESCRIPTION' icon='file alternate outline'/>}>
-    <Header dividing>Add Career Goal</Header>
-    <AutoForm schema={formSchema} onSubmit={submit}>
-      <SelectField name="interest" placeholder="(Select interest)"/>
-      <SubmitField className="mini basic green" value='Display Description'/>
-    </AutoForm>
-    <DisplayInterest/>
-  </RadGradSegment>
+    <RadGradSegment header={<RadGradHeader title='TASK 6: EDIT THE DESCRIPTION' icon='file alternate outline'/>}>
+      <Header dividing>Add Career Goal</Header>
+      <AutoForm schema={formSchema} onSubmit={submit}>
+        <SelectField name="interest" placeholder="(Select interest)"/>
+        <SubmitField className="mini basic green" value='Display Description'/>
+      </AutoForm>
+      <DisplayInterest/>
+    </RadGradSegment>
   );
 };
 

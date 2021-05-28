@@ -20,12 +20,12 @@ const Task6EditDescription: React.FC<EditInterestButtonProps> = ({ interestDesc,
   };
 
   return (
-  <div>
-    <AutoForm schema={formSchema} onSubmit={submit}>
-      <LongTextField name="description" required/>
-      <SubmitField className="mini basic green" value='Update Description'/>
-    </AutoForm>
-  </div>
+    <div>
+      <AutoForm schema={formSchema} onSubmit={submit}>
+        <LongTextField name="description" required/>
+        <SubmitField className="mini basic green" value='Update Description'/>
+      </AutoForm>
+    </div>
   );
 };
 

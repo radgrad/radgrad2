@@ -115,8 +115,8 @@ const AdminDataModelCoursesPage: React.FC<AdminDataModelCoursesPageProps> = ({ i
     <PageLayout id={PAGEIDS.DATA_MODEL_COURSES} headerPaneTitle="Courses" headerPaneBody={headerPaneBody}>
       {showUpdateFormState ? (
         <UpdateCourseForm collection={collection} id={idState} handleUpdate={handleUpdate}
-                          handleCancel={handleCancel} itemTitleString={itemTitleString} interests={interests}
-                          courses={courses} />
+          handleCancel={handleCancel} itemTitleString={itemTitleString} interests={interests}
+          courses={courses} />
       ) : (
         <AddCourseForm interests={interests} courses={courses} />
       )}

@@ -16,7 +16,7 @@ const ManageOpportunityItem: React.FC<ManageOpportunityProps> = ({ opportunity, 
         {opportunity.name}
       </Grid.Column>
       <Grid.Column width={2}>
-         <EditOpportunityButton opportunity={opportunity} sponsors={sponsors} terms={terms} interests={interests} opportunityTypes={opportunityTypes} />
+        <EditOpportunityButton opportunity={opportunity} sponsors={sponsors} terms={terms} interests={interests} opportunityTypes={opportunityTypes} />
       </Grid.Column>
       <Grid.Column width={2}>
         <DeleteItemButton item={opportunity} type={PROFILE_ENTRY_TYPE.OPPORTUNITY} />

@@ -46,7 +46,7 @@ const AddOpportunityTypeForm: React.FC = () => {
       <Header dividing>Add Interest Type</Header>
       {/* eslint-disable-next-line no-return-assign */}
       <AutoForm schema={new SimpleSchema2Bridge(schema)} onSubmit={handleAdd} ref={(ref) => formRef = ref}
-                showInlineError>
+        showInlineError>
         <Form.Group widths="equal">
           <TextField name="name" />
         </Form.Group>

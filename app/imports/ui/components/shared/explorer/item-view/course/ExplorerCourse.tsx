@@ -56,19 +56,19 @@ const ExplorerCourse: React.FC<ExplorerCoursesWidgetProps> = ({ course, courses,
     <div id="explorerCourseWidget">
       <Segment padded className="container" style={segmentStyle}>
         {hasTeaser ? <TeaserVideo id={teaserUrlHelper(course)} /> : ''}
-          <Grid stackable style={fiveMarginTopStyle}>
-            <Grid.Row style={compactRowStyle}>
-              <strong>Credit Hours:</strong>&nbsp; {course.creditHrs}
-            </Grid.Row>
-            <Grid.Row style={compactRowStyle}>
-                <strong>Syllabus:</strong>&nbsp; {course.syllabus ? <a href={course.syllabus } target="_blank" rel="noreferrer" style={linkStyle}>{course.syllabus}</a> : 'N/A'}
-            </Grid.Row>
-            <Grid.Row>
-              <Markdown allowDangerousHtml source={course.description} />
-            </Grid.Row>
-            {isStudent ? '' : <EditCourseButton course={course} courses={courses} interests={interests} />}
-            {isAdmin ? <DeleteItemButton item={course} type={PROFILE_ENTRY_TYPE.COURSE} /> : ''}
-          </Grid>
+        <Grid stackable style={fiveMarginTopStyle}>
+          <Grid.Row style={compactRowStyle}>
+            <strong>Credit Hours:</strong>&nbsp; {course.creditHrs}
+          </Grid.Row>
+          <Grid.Row style={compactRowStyle}>
+            <strong>Syllabus:</strong>&nbsp; {course.syllabus ? <a href={course.syllabus } target="_blank" rel="noreferrer" style={linkStyle}>{course.syllabus}</a> : 'N/A'}
+          </Grid.Row>
+          <Grid.Row>
+            <Markdown allowDangerousHtml source={course.description} />
+          </Grid.Row>
+          {isStudent ? '' : <EditCourseButton course={course} courses={courses} interests={interests} />}
+          {isAdmin ? <DeleteItemButton item={course} type={PROFILE_ENTRY_TYPE.COURSE} /> : ''}
+        </Grid>
       </Segment>
 
       <Segment textAlign="center">

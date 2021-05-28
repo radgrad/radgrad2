@@ -34,11 +34,11 @@ const ProfileOpportunityCard: React.FC<ProfileOpportunityCardProps> = ({
 
   return (
     <Card style={cardStyle}>
-       <Card.Content style={contentStyle}>
+      <Card.Content style={contentStyle}>
         <IceHeader ice={opportunity.ice} />
         <Card.Header>{opportunity.name}</Card.Header>
-       </Card.Content>
-       <Card.Content style={contentStyle}>
+      </Card.Content>
+      <Card.Content style={contentStyle}>
         {instances.length > 0 ? (
           <React.Fragment>
             <b>Scheduled:</b> {termNames}
@@ -52,7 +52,7 @@ const ProfileOpportunityCard: React.FC<ProfileOpportunityCardProps> = ({
               <Draggable key={slug} draggableId={slug} index={0}>
                 {(prov, snap) => (
                   <div ref={prov.innerRef} {...prov.draggableProps} {...prov.dragHandleProps}
-                       style={getDraggablePillStyle(snap.isDragging, prov.draggableProps.style)}>
+                    style={getDraggablePillStyle(snap.isDragging, prov.draggableProps.style)}>
                     <NamePill name={opportunity.name} />
                   </div>
                 )}
@@ -62,13 +62,13 @@ const ProfileOpportunityCard: React.FC<ProfileOpportunityCardProps> = ({
             </div>
           )}
         </Droppable>
-       </Card.Content>
-       <Card.Content style={contentStyle}>
+      </Card.Content>
+      <Card.Content style={contentStyle}>
         <FutureParticipationButton item={opportunity} />
-       </Card.Content>
-       <Card.Content style={contentStyle}>
+      </Card.Content>
+      <Card.Content style={contentStyle}>
         <ViewInExplorerButtonLink match={match} type={EXPLORER_TYPE.OPPORTUNITIES} item={opportunity} size="mini" />
-       </Card.Content>
+      </Card.Content>
     </Card>
   );
 };

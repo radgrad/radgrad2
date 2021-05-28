@@ -115,7 +115,7 @@ const AddOpportunityForm: React.FC<AddOpportunityFormProps> = ({ sponsors, inter
       <Header dividing>Add Opportunity</Header>
       {/* eslint-disable-next-line no-return-assign */}
       <AutoForm schema={formSchema} onSubmit={(doc) => handleAddOpportunity(doc)} ref={(ref) => formRef = ref}
-                showInlineError>
+        showInlineError>
         <Form.Group widths="equal">
           <TextField name="name" />
         </Form.Group>

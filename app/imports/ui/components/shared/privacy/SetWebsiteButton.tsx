@@ -24,20 +24,20 @@ export const SetWebsiteButton: React.FC<SetWebsiteButtonProps> = ({ website, han
   };
 
   return (
-        <Modal size='small'
-               onClose={() => setOpen(false)}
-               onOpen={() => setOpen(true)}
-               open={open}
-               trigger={<Button size='mini'>{website ? 'Edit' : 'Add'}</Button>}
-        >
-            <Modal.Header>Add, edit, or remove website</Modal.Header>
-            <Modal.Content>
-                <AutoForm schema={bridge} onSubmit={data => submit(data)} model={{ website }}>
-                    <TextField placeholder='https://mywebsite.com' name='website'/>
-                    <SubmitField value='Submit'/>
-                    <ErrorsField/>
-                </AutoForm>
-            </Modal.Content>
-        </Modal>
+    <Modal size='small'
+      onClose={() => setOpen(false)}
+      onOpen={() => setOpen(true)}
+      open={open}
+      trigger={<Button size='mini'>{website ? 'Edit' : 'Add'}</Button>}
+    >
+      <Modal.Header>Add, edit, or remove website</Modal.Header>
+      <Modal.Content>
+        <AutoForm schema={bridge} onSubmit={data => submit(data)} model={{ website }}>
+          <TextField placeholder='https://mywebsite.com' name='website'/>
+          <SubmitField value='Submit'/>
+          <ErrorsField/>
+        </AutoForm>
+      </Modal.Content>
+    </Modal>
   );
 };
