@@ -13,7 +13,7 @@ class AdminNavBar {
   }
 
   async gotoAdminLogin(testController) {
-    await testController.click('#LOGIN');
+    await testController.click(`#${COMPONENTIDS.LOGIN}`);
     await testController.click('#admin');
   }
 
