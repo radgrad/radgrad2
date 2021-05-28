@@ -111,7 +111,7 @@ const AdminDataModelAcademicTermsPage: React.FC<AdminDataModelAcademicTermsPageP
     <PageLayout id={PAGEIDS.DATA_MODEL_ACADEMIC_TERMS} headerPaneTitle="Academic Terms">
       {showUpdateFormState ? (
         <AdminDataModelUpdateForm collection={AcademicTerms} id={idState} handleUpdate={handleUpdate}
-                                  handleCancel={handleCancel} itemTitleString={itemTitleString} />
+          handleCancel={handleCancel} itemTitleString={itemTitleString} />
       ) : (
         <AdminDataModelAddForm collection={AcademicTerms} />
       )}
@@ -125,7 +125,7 @@ const AdminDataModelAcademicTermsPage: React.FC<AdminDataModelAcademicTermsPageP
         items={items}
       />
       <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
-               header="Delete Academic Term?" />
+        header="Delete Academic Term?" />
     </PageLayout>
   );
 };

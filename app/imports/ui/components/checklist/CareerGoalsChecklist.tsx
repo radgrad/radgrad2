@@ -64,10 +64,10 @@ export class CareerGoalsChecklist extends Checklist {
     const userID = this.profile.userID;
     const careerGoals = ProfileCareerGoals.findNonRetired({ userID });
     return ((careerGoals.length === 0) ?
-        <DetailsBox description='You have 0 Career Goals in your profile. Please add some!'/> :
-        <DetailsBox description='Your current Career Goals:'>
-          <ProfileCareerGoalList profile={this.profile} size="medium"/>
-        </DetailsBox>
+      <DetailsBox description='You have 0 Career Goals in your profile. Please add some!'/> :
+      <DetailsBox description='Your current Career Goals:'>
+        <ProfileCareerGoalList profile={this.profile} size="medium"/>
+      </DetailsBox>
     );
   }
 

@@ -48,10 +48,10 @@ const Sort: React.FC<SortProps> = ({ explorerType }) => {
     sortBy: sortChoice,
   };
   return (
-        <AutoForm schema={formSchema} model={model} onChange={handleChange}>
-            <RadioField name="sortBy" label="Sort By:" inline/>
-            <ErrorsField/>
-        </AutoForm>
+    <AutoForm schema={formSchema} model={model} onChange={handleChange}>
+      <RadioField name="sortBy" label="Sort By:" inline/>
+      <ErrorsField/>
+    </AutoForm>
   );
 };
 

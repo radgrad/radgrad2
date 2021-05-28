@@ -60,17 +60,17 @@ const ExperienceIceTabPane: React.FC<ExperienceIceTabPaneProps> = ({
                 <p>You have {unVerifiedOIs.length} opportunit{unVerifiedOIs.length > 1 ? 'ies' : 'y'} without
                   verification
                   requests. Visit the Verification Page to request verification. <ButtonLink
-                    url={`/${URL_ROLES.STUDENT}/${username}/${STUDENT_VERIFICATION}`} label='Verification Page'
-                    size='mini' /></p> : ''}
+                  url={`/${URL_ROLES.STUDENT}/${username}/${STUDENT_VERIFICATION}`} label='Verification Page'
+                  size='mini' /></p> : ''}
               {projectedICE < 100 ?
                 <div><p>You don&quot;t have enough experiential opportunities in your degree experience plan. Here are
                   some recommended opportunities that match your interests:</p>
-                  <OpportunityList opportunities={recommended} size='large' keyStr='recommended' userID={profileID} />
-                  <List ordered>
-                    <List.Item>View the opportunity by clicking on the label.</List.Item>
-                    <List.Item>If you like the opportunity, add it to your profile.</List.Item>
-                    <List.Item>Then go to the Planner page and add the opportunity to your degree experience plan.</List.Item>
-                  </List>
+                <OpportunityList opportunities={recommended} size='large' keyStr='recommended' userID={profileID} />
+                <List ordered>
+                  <List.Item>View the opportunity by clicking on the label.</List.Item>
+                  <List.Item>If you like the opportunity, add it to your profile.</List.Item>
+                  <List.Item>Then go to the Planner page and add the opportunity to your degree experience plan.</List.Item>
+                </List>
                 </div> : ''}
             </Grid.Column>
           </Grid.Row>

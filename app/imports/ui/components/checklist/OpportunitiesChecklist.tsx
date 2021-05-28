@@ -62,10 +62,10 @@ Adding Opportunities to your Degree Plan helps you balance your curricular and e
   public getDetails(): JSX.Element {
     const upcomingOpportunities = OpportunityInstances.findNonRetired({ studentID: this.profile.userID, verified: false });
     return ((upcomingOpportunities.length === 0) ?
-        <DetailsBox description='You have no upcoming opportunities. Please add some!'/> :
-        <DetailsBox description='Here are your upcoming Opportunities:'>
-          <ProfileFutureOpportunitiesList profile={this.profile} size="medium"/>
-        </DetailsBox>
+      <DetailsBox description='You have no upcoming opportunities. Please add some!'/> :
+      <DetailsBox description='Here are your upcoming Opportunities:'>
+        <ProfileFutureOpportunitiesList profile={this.profile} size="medium"/>
+      </DetailsBox>
     );
   }
 

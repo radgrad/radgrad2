@@ -44,22 +44,22 @@ const UpdateCareerGoalForm: React.FC<UpdateCareerGoalFormProps> = ({
   const formSchema = new SimpleSchema2Bridge(schema);
   // console.log(model, schema);
   return (
-        <Segment padded>
-            <Header dividing>
+    <Segment padded>
+      <Header dividing>
                 Update
-                {collection.getType()}:{itemTitleString(model)}
-            </Header>
-            <AutoForm schema={formSchema} onSubmit={handleUpdate} showInlineError model={model}>
-                <TextField name="name"/>
-                <LongTextField name="description"/>
-                <MultiSelectField name="interests"/>
-                <BoolField name="retired"/>
-                <p/>
-                <ErrorsField/>
-                <SubmitField value="Update" disabled={false} className="mini basic green"/>
-                <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
-            </AutoForm>
-        </Segment>
+        {collection.getType()}:{itemTitleString(model)}
+      </Header>
+      <AutoForm schema={formSchema} onSubmit={handleUpdate} showInlineError model={model}>
+        <TextField name="name"/>
+        <LongTextField name="description"/>
+        <MultiSelectField name="interests"/>
+        <BoolField name="retired"/>
+        <p/>
+        <ErrorsField/>
+        <SubmitField value="Update" disabled={false} className="mini basic green"/>
+        <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
+      </AutoForm>
+    </Segment>
   );
 
 };

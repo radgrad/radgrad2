@@ -27,24 +27,24 @@ const OtherStudentsAtLevel: React.FC<OtherStudentsAtLevelProps> = ({ students, p
   const studentLevelName = getStudentLevelName(profile);
   return (
     <div>
-        <Header as="h4" dividing>
+      <Header as="h4" dividing>
             OTHER {studentLevelName} STUDENTS
-        </Header>
-        {studentsExist(students) ? (
-            <Label.Group size="mini" circular style={imageGroupStyle}>
-                {students.map((student) => (
-                    // FIXME the <Image circular> gives a console warning:
-                    // "Warning: Received `true` for a non-boolean attribute `circular`."
-                    // Not really our problem, more of a Semantic UI React problem as "circular" is a boolean attribute.
-                    // This has happened for other Semantic UI React components in the past but after a while those warnings
-                    // disappear for whatever reason. So no need to really fix this, just putting this here that this warning
-                    // can pop up.
-                    <ProfileLabel image={studentPicture(student)} name={fullName(student)} level={profile.level}/>
-                ))}
-            </Label.Group>
-        ) : (
-            <i>No students to display.</i>
-        )}
+      </Header>
+      {studentsExist(students) ? (
+        <Label.Group size="mini" circular style={imageGroupStyle}>
+          {students.map((student) => (
+            // FIXME the <Image circular> gives a console warning:
+            // "Warning: Received `true` for a non-boolean attribute `circular`."
+            // Not really our problem, more of a Semantic UI React problem as "circular" is a boolean attribute.
+            // This has happened for other Semantic UI React components in the past but after a while those warnings
+            // disappear for whatever reason. So no need to really fix this, just putting this here that this warning
+            // can pop up.
+            <ProfileLabel image={studentPicture(student)} name={fullName(student)} level={profile.level}/>
+          ))}
+        </Label.Group>
+      ) : (
+        <i>No students to display.</i>
+      )}
     </div>
   );
 };

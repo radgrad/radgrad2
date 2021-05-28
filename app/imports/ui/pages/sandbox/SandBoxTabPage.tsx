@@ -75,8 +75,8 @@ const SandBoxTabPage: React.FC = () => {
 
   return (
     <PageLayout id='sandbox-tab-page' headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
-    <Tab panes={panes} />
-  </PageLayout>);
+      <Tab panes={panes} />
+    </PageLayout>);
 };
 
 export default SandBoxTabPage;

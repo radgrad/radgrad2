@@ -128,7 +128,7 @@ const AdminDataModelTeasersPage: React.FC<AdminDataModelTeasersPageProps> = ({ i
         />
       ) : (
         <AddTeaserForm opportunities={opportunities}
-                       courses={courses} interests={interests} careerGoals={careerGoals} />
+          courses={courses} interests={interests} careerGoals={careerGoals} />
       )}
       <ListCollectionWidget
         collection={collection}

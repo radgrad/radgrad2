@@ -31,20 +31,20 @@ interface OnBoardTask {
 }
 const OnboardShinyaPage: React.FC<OnBoardTask> = ({ loggedInUser, urlUser, info, count }) => (
   <PageLayout id={PAGEIDS.ONBOARD_SHINYA} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
-      <Task7Component/>
-      <Task6Component/>
-      <Task5Component/>
-     <Task4Component/>
-      <Task3Component/>
-      <Grid columns={2}>
-        <Grid.Column>
+    <Task7Component/>
+    <Task6Component/>
+    <Task5Component/>
+    <Task4Component/>
+    <Task3Component/>
+    <Grid columns={2}>
+      <Grid.Column>
         <RadGradSegment header= {task1Header}>
                 Hello World
-    </RadGradSegment>;
-        </Grid.Column>
-        <Grid.Column>
-            <Task2Segment loggedInUser={loggedInUser} urlUser={urlUser}/>
-        </Grid.Column>
+        </RadGradSegment>;
+      </Grid.Column>
+      <Grid.Column>
+        <Task2Segment loggedInUser={loggedInUser} urlUser={urlUser}/>
+      </Grid.Column>
     </Grid>
   </PageLayout>
 );

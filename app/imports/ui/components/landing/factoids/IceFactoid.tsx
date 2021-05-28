@@ -12,15 +12,15 @@ const IceFactoid: React.FC = () => {
     <div id="ice-factoid">
       <Header inverted style={styles['green-text']}>In RadGrad, GPA doesn&apos;t matter.</Header>
       <Card fluid>
-      <Card.Content>
-        <Card.Header>RadGrad focuses on Innovation, Competency, and Experience.</Card.Header>
-        <div style={flexStyle}>
-          <MenuIceCircle earned={earnedICE.i} planned={projectedICE.i} type='innov' />
-          <MenuIceCircle earned={earnedICE.c} planned={projectedICE.c} type='comp' />
-          <MenuIceCircle earned={earnedICE.e} planned={projectedICE.e} type='exp' />
-        </div>
-      </Card.Content>
-    </Card></div>
+        <Card.Content>
+          <Card.Header>RadGrad focuses on Innovation, Competency, and Experience.</Card.Header>
+          <div style={flexStyle}>
+            <MenuIceCircle earned={earnedICE.i} planned={projectedICE.i} type='innov' />
+            <MenuIceCircle earned={earnedICE.c} planned={projectedICE.c} type='comp' />
+            <MenuIceCircle earned={earnedICE.e} planned={projectedICE.e} type='exp' />
+          </div>
+        </Card.Content>
+      </Card></div>
   );
 };
 

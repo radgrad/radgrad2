@@ -25,38 +25,38 @@ const FirstMenu: React.FC<FirstMenuProps> = ({ profile, displayLevelAndIce, earn
   const signoutStyle = { marginTop: '32px' };
   const currentUser = Meteor.user() ? Meteor.user().username : '';
   return (
-      <Menu attached="top" borderless className="radgrad-first-menu" id="firstMenu">
-        <Menu.Item as={NavLink} activeClassName="" exact to="/" style={noPadding}>
-          <Image style={imageStyle} circular src="/images/radgrad_logo.png" />
-          <div className="mobile hidden item">
-            <Header as="h1" className="inline">
-              <RadGradLogoText instanceName={instanceName} />
-            </Header>
+    <Menu attached="top" borderless className="radgrad-first-menu" id="firstMenu">
+      <Menu.Item as={NavLink} activeClassName="" exact to="/" style={noPadding}>
+        <Image style={imageStyle} circular src="/images/radgrad_logo.png" />
+        <div className="mobile hidden item">
+          <Header as="h1" className="inline">
+            <RadGradLogoText instanceName={instanceName} />
+          </Header>
+        </div>
+      </Menu.Item>
+      <Menu.Item position="right" className="right menu" style={noPadding}>
+        {currentUser === '' ? (
+          <div>
+            <Dropdown text="Login" pointing="top right" icon="user">
+              <Dropdown.Menu>
+                <Dropdown.Item icon="user" text="Sign In" as={NavLink} exact to="/signin" />
+              </Dropdown.Menu>
+            </Dropdown>
           </div>
-        </Menu.Item>
-        <Menu.Item position="right" className="right menu" style={noPadding}>
-          {currentUser === '' ? (
-            <div>
-              <Dropdown text="Login" pointing="top right" icon="user">
-                <Dropdown.Menu>
-                  <Dropdown.Item icon="user" text="Sign In" as={NavLink} exact to="/signin" />
-                </Dropdown.Menu>
-              </Dropdown>
-            </div>
-          ) : (
-            <div style={flexStyle}>
-              <RadGradMenuProfile profile={profile} displayLevelAndIce={displayLevelAndIce} projectedICE={projectedICE}
-                                  earnedICE={earnedICE} />
-              <Dropdown text={currentUser} id={COMPONENTIDS.FIRST_MENU_USERNAME} pointing="top right" icon="caret down"
-                        style={signoutStyle}>
-                <Dropdown.Menu>
-                  <Dropdown.Item icon="sign out" text="Sign Out" as={NavLink} exact to="/signout" />
-                </Dropdown.Menu>
-              </Dropdown>
-            </div>
-          )}
-        </Menu.Item>
-      </Menu>
+        ) : (
+          <div style={flexStyle}>
+            <RadGradMenuProfile profile={profile} displayLevelAndIce={displayLevelAndIce} projectedICE={projectedICE}
+              earnedICE={earnedICE} />
+            <Dropdown text={currentUser} id={COMPONENTIDS.FIRST_MENU_USERNAME} pointing="top right" icon="caret down"
+              style={signoutStyle}>
+              <Dropdown.Menu>
+                <Dropdown.Item icon="sign out" text="Sign Out" as={NavLink} exact to="/signout" />
+              </Dropdown.Menu>
+            </Dropdown>
+          </div>
+        )}
+      </Menu.Item>
+    </Menu>
   );
 };
 
