@@ -1,7 +1,8 @@
 import _ from 'lodash';
 import moment from 'moment';
 import React from 'react';
-import { Table } from 'semantic-ui-react';
+import { Form, Table } from 'semantic-ui-react';
+import DatePicker from 'react-datepicker';
 import { USER_INTERACTION_DESCRIPTIONS } from '../../../api/user-interaction/UserInteractionCollection';
 import { userInteractionFindMethod } from '../../../api/user-interaction/UserInteractionCollection.methods';
 import { UserInteraction } from '../../../typings/radgrad';
@@ -15,7 +16,9 @@ import PageLayout from '../PageLayout';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 interface AdminBehaviorTableProps {
-  userInteractions: UserInteraction[];
+  startStickyStateID: string;
+  endStickyStateID: string;
+  onClick: () => any;
 }
 const headerPaneTitle = 'Student Behavior Table';
 const headerPaneBody = `
@@ -32,7 +35,7 @@ const endStickyStateID = 'AdminAnalyticsStudentSummaryPage.endDate';
 const userInteractionsStickyStateID = 'AdminAnalyticsStudentSummaryPage.userInteractions';
 
 const AdminAnalyticsBehaviorTablePage: React.FC = () => {
-  const [startDate] = useStickyState(startStickyStateID, startOf(moment().subtract(1, 'days')));
+  const [startDate, setStartDate] = useStickyState(startStickyStateID, startOf(moment().subtract(1, 'days')));
   const [endDate] = useStickyState(endStickyStateID, startOf(moment().add(1, 'days')));
   const [userInteractions, setUserInteractions] = useStickyState(userInteractionsStickyStateID, null);
   const groups = _.groupBy(userInteractions, 'type');
@@ -47,7 +50,19 @@ const AdminAnalyticsBehaviorTablePage: React.FC = () => {
   return (
     <PageLayout id={PAGEIDS.ANALYTICS_BEHAVIOR_TABLE} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
       <RadGradSegment header={header}>
-        <DateIntervalSelector startStickyStateID={startStickyStateID} endStickyStateID={endStickyStateID} onClick={onClick} />
+
+        <Form>
+          <Form.Group>
+            <Form.Input label="Start Date">
+              <DatePicker onChange={(date: Date) => setStartDate(startOf(date))} selected={startDate} maxDate={endDate} />
+            </Form.Input>
+            <Form.Input label="End Date (midnight of day before)">
+              <DatePicker onChange={(date: Date) => (startOf(date))} selected={endDate} minDate={startDate} />
+            </Form.Input>
+          </Form.Group>
+          <Form.Button onClick={onClick}>Submit</Form.Button>
+        </Form>
+
         <Table celled>
           <Table.Header>
             <Table.Row>
