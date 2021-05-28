@@ -21,6 +21,8 @@ import LandingCareerGoalList from '../../components/landing/LandingCareerGoalLis
 import RadGradSegment from '../../components/shared/RadGradSegment';
 import RadGradHeader from '../../components/shared/RadGradHeader';
 import { EXPLORER_TYPE_ICON } from '../../utilities/ExplorerUtils';
+import { Teasers } from '../../../api/teaser/TeaserCollection';
+import TeaserVideo from '../../components/shared/TeaserVideo';
 
 interface InterestExplorerProps {
   currentUser: string;
@@ -39,6 +41,8 @@ This public explorer does not provide information about community members.
 
 const LandingInterestExplorerPage: React.FC<InterestExplorerProps> = ({ currentUser, opportunities, courses, interest, careerGoals }) => {
   const match = useRouteMatch();
+  const teaser = Teasers.findNonRetired({ targetSlugID: interest.slugID });
+  const hasTeaser = teaser.length > 0;
   return (
     <div>
       <LandingExplorerMenuBar />
@@ -50,7 +54,7 @@ const LandingInterestExplorerPage: React.FC<InterestExplorerProps> = ({ currentU
             </Grid.Column>
             <Grid.Column width={13}>
               <RadGradSegment header={<RadGradHeader title={interest.name} dividing />}>
-                <b>Description:</b>
+                {hasTeaser ? (<TeaserVideo id={teaser && teaser[0] && teaser[0].url} />) : ''}
                 <Markdown escapeHtml source={interest.description} renderers={{ link: (localProps) => Router.renderLink(localProps, match) }} />
               </RadGradSegment>
               <RadGradSegment header={<RadGradHeader title="Related Career Goals" icon={EXPLORER_TYPE_ICON.CAREERGOAL} dividing />}>
@@ -83,4 +87,4 @@ const LandingInterestExplorerContainer = withTracker(() => {
   };
 })(LandingInterestExplorerPage);
 
-export default withListSubscriptions(LandingInterestExplorerContainer, [Courses.getPublicationName(), Interests.getPublicationName(), Opportunities.getPublicationName(), CareerGoals.getPublicationName(), Slugs.getPublicationName()]);
+export default withListSubscriptions(LandingInterestExplorerContainer, [Courses.getPublicationName(), Interests.getPublicationName(), Opportunities.getPublicationName(), CareerGoals.getPublicationName(), Slugs.getPublicationName(), Teasers.getPublicationName()]);

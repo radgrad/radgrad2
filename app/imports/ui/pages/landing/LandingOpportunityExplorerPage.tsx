@@ -2,7 +2,7 @@ import React from 'react';
 import Markdown from 'react-markdown';
 import { useParams, useRouteMatch } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Embed, Grid } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
 import { Opportunity } from '../../../typings/radgrad';
@@ -15,7 +15,7 @@ import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
 import LandingInterestList from '../../components/landing/LandingInterestList';
 import LandingCareerGoalList from '../../components/landing/LandingCareerGoalList';
 import LandingCourseList from '../../components/landing/LandingCourseList';
-import { getOpportunityTypeName, semesters, teaser } from '../../components/landing/utilities/helper-functions';
+import { getOpportunityTypeName } from '../../components/landing/utilities/helper-functions';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import * as Router from '../../components/shared/utilities/router';
@@ -28,6 +28,7 @@ import PageLayout from '../PageLayout';
 import RadGradSegment from '../../components/shared/RadGradSegment';
 import RadGradHeader from '../../components/shared/RadGradHeader';
 import { EXPLORER_TYPE_ICON } from '../../utilities/ExplorerUtils';
+import TeaserVideo from '../../components/shared/TeaserVideo';
 
 interface OpportunityExplorerProps {
   opportunity: Opportunity;
@@ -43,13 +44,13 @@ This public explorer does not provide information about community members or the
 
 const LandingOpportunityExplorerPage: React.FC<OpportunityExplorerProps> = ({ opportunity, quarters }) => {
   const match = useRouteMatch();
-  const hasTeaser = Teasers.findNonRetired({ targetSlugID: opportunity.slugID }).length > 0;
+  const teaser = Teasers.findNonRetired({ targetSlugID: opportunity.slugID });
+  const hasTeaser = teaser.length > 0;
   const opportunityTypeName = getOpportunityTypeName(opportunity.opportunityTypeID);
-  const academicTerms = semesters(opportunity);
-  const teaserID = teaser(opportunity);
   const sponsor = Users.getFullName(opportunity.sponsorID);
   const relatedCareerGoals = Opportunities.findRelatedCareerGoals(opportunity._id);
   const relatedCourses  = Opportunities.findRelatedCourses(opportunity._id);
+  const opportunityTermNames = opportunity.termIDs.map((id) => AcademicTerms.toString(id));
 
   return (
     <div>
@@ -64,124 +65,28 @@ const LandingOpportunityExplorerPage: React.FC<OpportunityExplorerProps> = ({ op
 
           <Grid.Column width={13}>
             <RadGradSegment header={<RadGradHeader title={opportunity.name} dividing />}>
-              {hasTeaser ? (
+              {hasTeaser ? (<TeaserVideo id={teaser && teaser[0] && teaser[0].url} />) : ''}
                 <React.Fragment>
-                  <Grid stackable columns={2}>
-                    <Grid.Column width={9}>
-                      <b>Opportunity Type: </b>
-                      {opportunityTypeName ? (
-                        <React.Fragment>
-                          {opportunityTypeName} <br />
-                        </React.Fragment>
-                      ) : (
-                        <React.Fragment>
-                          N/A <br />
-                        </React.Fragment>
-                      )}
-
-                      <b>{quarters ? 'Quarters' : 'Academic Terms'}: </b>
-                      {academicTerms.length > 0 ? (
-                        <React.Fragment>
-                          {academicTerms} <br />
-                        </React.Fragment>
-                      ) : (
-                        <React.Fragment>
-                          N/A <br />
-                        </React.Fragment>
-                      )}
-
-                      <b>Sponsor: </b>
-                      {sponsor ? (
-                        <React.Fragment>
-                          {sponsor} <br />
-                        </React.Fragment>
-                      ) : (
-                        <React.Fragment>
-                          N/A <br />
-                        </React.Fragment>
-                      )}
-
-                      <b>Description: </b>
-                      {opportunity.description ? <Markdown escapeHtml source={opportunity.description} renderers={{ link: (localProps) => Router.renderLink(localProps, match) }} /> : 'N/A'}
-                    </Grid.Column>
-
-                    <Grid.Column width={7}>
-                      <b>Event Date: </b>
-                      {opportunity.eventDate ? (
-                        <React.Fragment>
-                          {opportunity.eventDate} <br />
-                        </React.Fragment>
-                      ) : (
-                        <React.Fragment>
-                          N/A <br />
-                        </React.Fragment>
-                      )}
-
-                      <b>Teaser: </b>
-                      {teaserID ? <Embed active autoplay={false} source="youtube" id={teaserID} /> : 'N/A'}
-                    </Grid.Column>
+                  <Grid stackable style={{ margin: '10px 0px' }}>
+                      <Grid.Row columns={2}>
+                        <Grid.Column>
+                          <strong>Opportunity Type:</strong>&nbsp; {opportunityTypeName ? ({ opportunityTypeName }) : ('N/A')}
+                        </Grid.Column>
+                        <Grid.Column>
+                          <strong>Date: </strong>&nbsp; {opportunity.eventDate ? (opportunity.eventDate) : ('N/A')}
+                        </Grid.Column>
+                      </Grid.Row>
+                      <Grid.Row columns={2}>
+                        <Grid.Column>
+                          <strong>Academic Terms:</strong>&nbsp; {opportunityTermNames.length > 0 ? (opportunityTermNames.join(', ')) : ('N/A')}
+                        </Grid.Column>
+                        <Grid.Column>
+                          <strong>Sponsor:</strong>&nbsp; { sponsor }
+                        </Grid.Column>
+                      </Grid.Row>
                   </Grid>
+                    {opportunity.description ? <Markdown escapeHtml source={opportunity.description} renderers={{ link: (localProps) => Router.renderLink(localProps, match) }} /> : 'N/A'}
                 </React.Fragment>
-              ) : (
-                <React.Fragment>
-                  <Grid stackable columns={2}>
-                    <Grid.Column width={5}>
-                      <b>Opportunity Type: </b>
-                      {opportunityTypeName ? (
-                        <React.Fragment>
-                          {opportunityTypeName} <br />
-                        </React.Fragment>
-                      ) : (
-                        <React.Fragment>
-                          N/A <br />
-                        </React.Fragment>
-                      )}
-
-                      <b>Sponsor: </b>
-                      {sponsor ? (
-                        <React.Fragment>
-                          {sponsor} <br />
-                        </React.Fragment>
-                      ) : (
-                        <React.Fragment>
-                          N/A <br />
-                        </React.Fragment>
-                      )}
-                    </Grid.Column>
-
-                    <Grid.Column width={11}>
-                      <b>{quarters ? 'Quarters' : 'Academic Terms'}: </b>
-                      {academicTerms.length > 0 ? (
-                        <React.Fragment>
-                          {academicTerms} <br />
-                        </React.Fragment>
-                      ) : (
-                        <React.Fragment>
-                          N/A <br />
-                        </React.Fragment>
-                      )}
-
-                      <b>Event Date: </b>
-                      {opportunity.eventDate ? (
-                        <React.Fragment>
-                          {opportunity.eventDate} <br />
-                        </React.Fragment>
-                      ) : (
-                        <React.Fragment>
-                          N/A <br />
-                        </React.Fragment>
-                      )}
-                    </Grid.Column>
-                  </Grid>
-
-                  <Grid stackable columns={1}>
-                    <Grid.Column>
-                      <b>Description: </b>
-                      {opportunity.description ? <Markdown escapeHtml source={opportunity.description} renderers={{ link: (localProps) => Router.renderLink(localProps, match) }} /> : 'N/A'}
-                    </Grid.Column>
-                  </Grid>
-                </React.Fragment>
-              )}
             </RadGradSegment>
             <RadGradSegment header={<RadGradHeader title='Related Interests' icon={EXPLORER_TYPE_ICON.INTEREST} dividing/>}>{opportunity.interestIDs.length > 0 ? <LandingInterestList interestIDs={opportunity.interestIDs} size='small' /> : 'N/A'}</RadGradSegment>
             <RadGradSegment header={<RadGradHeader title="Related Career Goals" icon={EXPLORER_TYPE_ICON.CAREERGOAL} dividing />}>

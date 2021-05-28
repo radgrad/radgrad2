@@ -21,6 +21,8 @@ import { EXPLORER_TYPE_ICON } from '../../utilities/ExplorerUtils';
 import PageLayout from '../PageLayout';
 import RadGradSegment from '../../components/shared/RadGradSegment';
 import RadGradHeader from '../../components/shared/RadGradHeader';
+import { Teasers } from '../../../api/teaser/TeaserCollection';
+import TeaserVideo from '../../components/shared/TeaserVideo';
 
 interface CareerGoalExplorerProps {
   careerGoal: CareerGoal;
@@ -40,6 +42,8 @@ const LandingCareerGoalExplorerPage: React.FC<CareerGoalExplorerProps> = ({ care
   const careerGoalID = careerGoal._id;
   const relatedCourses = CareerGoals.findRelatedCourses(careerGoalID);
   const relatedOpportunities = CareerGoals.findRelatedOpportunities(careerGoalID);
+  const teaser = Teasers.findNonRetired({ targetSlugID: careerGoal.slugID });
+  const hasTeaser = teaser.length > 0;
   return (
     <div>
       <LandingExplorerMenuBar />
@@ -52,7 +56,7 @@ const LandingCareerGoalExplorerPage: React.FC<CareerGoalExplorerProps> = ({ care
 
           <Grid.Column width={13}>
             <RadGradSegment header={<RadGradHeader title={careerGoal.name} dividing />}>
-              <b>Description:</b>
+              {hasTeaser ? (<TeaserVideo id={teaser && teaser[0] && teaser[0].url} />) : ''}
               <Markdown escapeHtml source={careerGoal.description}
                         renderers={{ link: (localProps) => Router.renderLink(localProps, match) }} />
             </RadGradSegment>
@@ -77,4 +81,4 @@ const LandingCareerGoalExplorerContainer = withTracker(() => {
   };
 })(LandingCareerGoalExplorerPage);
 
-export default withListSubscriptions(LandingCareerGoalExplorerContainer, [CareerGoals.getPublicationName(), Slugs.getPublicationName(), Interests.getPublicationName(), Courses.getPublicationName(), Opportunities.getPublicationName()]);
+export default withListSubscriptions(LandingCareerGoalExplorerContainer, [CareerGoals.getPublicationName(), Slugs.getPublicationName(), Interests.getPublicationName(), Courses.getPublicationName(), Opportunities.getPublicationName(), Teasers.getPublicationName()]);
