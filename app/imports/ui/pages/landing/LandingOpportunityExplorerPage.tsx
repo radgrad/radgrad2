@@ -9,8 +9,12 @@ import { Opportunity } from '../../../typings/radgrad';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
 import { Interests } from '../../../api/interest/InterestCollection';
+import { CareerGoals } from '../../../api/career/CareerGoalCollection';
+import { Courses } from '../../../api/course/CourseCollection';
 import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
 import LandingInterestList from '../../components/landing/LandingInterestList';
+import LandingCareerGoalList from '../../components/landing/LandingCareerGoalList';
+import LandingCourseList from '../../components/landing/LandingCourseList';
 import { getOpportunityTypeName, semesters, teaser } from '../../components/landing/utilities/helper-functions';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
@@ -44,6 +48,8 @@ const LandingOpportunityExplorerPage: React.FC<OpportunityExplorerProps> = ({ op
   const academicTerms = semesters(opportunity);
   const teaserID = teaser(opportunity);
   const sponsor = Users.getFullName(opportunity.sponsorID);
+  const relatedCareerGoals = Opportunities.findRelatedCareerGoals(opportunity._id);
+  const relatedCourses  = Opportunities.findRelatedCourses(opportunity._id);
 
   return (
     <div>
@@ -178,6 +184,10 @@ const LandingOpportunityExplorerPage: React.FC<OpportunityExplorerProps> = ({ op
               )}
             </RadGradSegment>
             <RadGradSegment header={<RadGradHeader title='Related Interests' icon={EXPLORER_TYPE_ICON.INTEREST} dividing/>}>{opportunity.interestIDs.length > 0 ? <LandingInterestList interestIDs={opportunity.interestIDs} size='small' /> : 'N/A'}</RadGradSegment>
+            <RadGradSegment header={<RadGradHeader title="Related Career Goals" icon={EXPLORER_TYPE_ICON.CAREERGOAL} dividing />}>
+              {relatedCareerGoals.length > 0 ? <LandingCareerGoalList careerGoals={relatedCareerGoals} size='small' /> : 'N/A'}
+            </RadGradSegment>
+            <RadGradSegment header={<RadGradHeader title="Related Courses" icon={EXPLORER_TYPE_ICON.COURSE} dividing />}>{relatedCourses.length > 0 ? <LandingCourseList courses={relatedCourses} size='small' /> : 'N/A'}</RadGradSegment>
           </Grid.Column>
         </Grid.Row>
       </Grid>
@@ -201,6 +211,8 @@ export default withListSubscriptions(LandingOpportunityExplorerContainer, [
   AcademicTerms.getPublicationName(),
   Interests.getPublicationName(),
   Opportunities.getPublicationName(),
+  CareerGoals.getPublicationName(),
+  Courses.getPublicationName(),
   Slugs.getPublicationName(),
   Teasers.getPublicationName(),
   FacultyProfiles.getPublicationName(),
