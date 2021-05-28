@@ -58,36 +58,37 @@ const UpdateCourseForm: React.FC<UpdateCourseFormProps> = ({
   const formSchema = new SimpleSchema2Bridge(schema);
   // console.log(model, schema);
   return (
-        <Segment padded>
-            <Header dividing>
-                Update
-                {collection.getType()}:{itemTitleString(model)}
-            </Header>
-            <AutoForm schema={formSchema} onSubmit={handleUpdate} showInlineError model={model}>
-                <Form.Group widths="equal">
-                    <TextField name="name"/>
-                    <TextField name="shortName"/>
-                </Form.Group>
-                <Form.Group widths="equal">
-                    <NumField name="creditHrs"/>
-                    <TextField name="num"/>
-                </Form.Group>
-                <LongTextField name="description"/>
-                <TextField name="syllabus"/>
-                <Form.Group widths="equal">
-                    <MultiSelectField name="interests"/>
-                    <MultiSelectField name="prerequisiteNames"/>
-                </Form.Group>
-                <Form.Group widths="equal">
-                    <BoolField name="repeatable"/>
-                    <BoolField name="retired"/>
-                </Form.Group>
-                <p/>
-                <SubmitField value="Update" disabled={false} className="mini basic green"/>
-                <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
-                <ErrorsField/>
-            </AutoForm>
-        </Segment>
+    <Segment padded>
+      <Header dividing>
+        Update
+        {collection.getType()}:{itemTitleString(model)}
+      </Header>
+      <AutoForm schema={formSchema} onSubmit={handleUpdate} showInlineError model={model}>
+        <Form.Group widths="equal">
+          <TextField name="name" />
+          <TextField name="shortName" />
+        </Form.Group>
+        <Form.Group widths="equal">
+          <NumField name="creditHrs" />
+          <TextField name="num" />
+        </Form.Group>
+        <LongTextField name="description" />
+        <TextField placeholder='https://mywebsite.com/picture.png' name='picture' />
+        <TextField name="syllabus" />
+        <Form.Group widths="equal">
+          <MultiSelectField name="interests" />
+          <MultiSelectField name="prerequisiteNames" />
+        </Form.Group>
+        <Form.Group widths="equal">
+          <BoolField name="repeatable" />
+          <BoolField name="retired" />
+        </Form.Group>
+        <p />
+        <SubmitField value="Update" disabled={false} className="mini basic green" />
+        <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
+        <ErrorsField />
+      </AutoForm>
+    </Segment>
   );
 };
 

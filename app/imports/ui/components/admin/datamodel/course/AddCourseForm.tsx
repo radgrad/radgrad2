@@ -35,16 +35,16 @@ const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses }) => 
     // console.log(collectionName, definitionData);
     defineMethod.callPromise({ collectionName, definitionData })
       .catch((error) => {
-        console.error('Failed adding User', error);
+        console.error('Failed adding', error);
         Swal.fire({
-          title: 'Failed adding User',
+          title: 'Failed adding',
           text: error.message,
           icon: 'error',
         });
       })
       .then(() => {
         Swal.fire({
-          title: 'Add User Succeeded',
+          title: 'Course Added',
           icon: 'success',
           showConfirmButton: false,
           timer: 1500,
@@ -71,6 +71,7 @@ const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses }) => 
     description: String,
     interests: Array,
     syllabus: { type: String, optional: true },
+    picture: { type: String, optional: true },
     'interests.$': {
       type: String,
       allowedValues: interestNames,
@@ -96,6 +97,7 @@ const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses }) => 
           <TextField name="num" placeholder="DEPT 111" />
         </Form.Group>
         <LongTextField name="description" />
+        <TextField placeholder='https://mywebsite.com/picture.png' name='picture' />
         <TextField name="syllabus" placeholder="https://dept.foo.edu/dept_111/syllabus.html" />
         <Form.Group widths="equal">
           <MultiSelectField name="interests" placeholder="Select Interest(s)" />
