@@ -35,7 +35,7 @@ const LandingCareerGoalsExplorerPage: React.FC<CareerGoalsExplorerProps> = ({ co
     <PageLayout id={PAGEIDS.LANDING_CAREER_GOALS_EXPLORER} headerPaneTitle={headerPaneTitle}
                 headerPaneBody={headerPaneBody}>
       <RadGradSegment header={<RadGradHeader title="CAREER GOALS" count={count} dividing />}>
-        <Card.Group stackable>
+        <Card.Group stackable itemsPerRow={4} id="browserCardGroup" style={{ margin: '0px' }}>
           {careerGoals.map((goal) => (
             <LandingExplorerCard key={goal._id} type={EXPLORER_TYPE.CAREERGOALS} item={goal}/>
           ))}

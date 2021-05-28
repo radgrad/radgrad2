@@ -32,7 +32,7 @@ const LandingOpportunitiesExplorerPage: React.FC<LandingOpportunitiesExplorerPag
     <PageLayout id={PAGEIDS.LANDING_OPPORTUNITIES_EXPLORER} headerPaneTitle={headerPaneTitle}
                 headerPaneBody={headerPaneBody}>
       <RadGradSegment header={<RadGradHeader title="OPPORTUNITIES" count={count} dividing />}>
-        <Card.Group stackable>
+        <Card.Group stackable itemsPerRow={4} id="browserCardGroup" style={{ margin: '0px' }}>
           {opportunities.map((opportunity) => (
             <LandingExplorerCard key={opportunity._id} type={EXPLORER_TYPE.OPPORTUNITIES} item={opportunity}/>
           ))}

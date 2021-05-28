@@ -31,7 +31,7 @@ const LandingInterestsExplorerPage: React.FC<InterestsCardExplorerProps> = ({ in
     <PageLayout id={PAGEIDS.LANDING_INTERESTS_EXPLORER} headerPaneTitle={headerPaneTitle}
                 headerPaneBody={headerPaneBody}>
       <RadGradSegment header={<RadGradHeader title="INTERESTS" count={count} dividing />}>
-        <Card.Group stackable>
+        <Card.Group stackable itemsPerRow={4} id="browserCardGroup" style={{ margin: '0px' }}>
           {interests.map((interest) => (
             <LandingExplorerCard key={interest._id} type={EXPLORER_TYPE.INTERESTS} item={interest}/>
           ))}

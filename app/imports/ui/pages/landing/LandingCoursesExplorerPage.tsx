@@ -32,7 +32,7 @@ const LandingCoursesExplorerPage: React.FC<LandingCoursesExplorerPageProps> = ({
     <PageLayout id={PAGEIDS.LANDING_COURSES_EXPLORER} headerPaneTitle={headerPaneTitle}
                 headerPaneBody={headerPaneBody}>
       <RadGradSegment header={<RadGradHeader title="COURSES" count={count} dividing />}>
-        <Card.Group stackable>
+        <Card.Group stackable itemsPerRow={4} id="browserCardGroup" style={{ margin: '0px' }}>
           {courses.map((course) => (
             <LandingExplorerCard key={course._id} type={EXPLORER_TYPE.COURSES} item={course}/>
           ))}
@@ -43,7 +43,7 @@ const LandingCoursesExplorerPage: React.FC<LandingCoursesExplorerPageProps> = ({
 );
 
 const LandingCoursesCardExplorerContainer = withTracker(() => {
-  const courses = Courses.findNonRetired({}, { sort: { shortName: 1 } });
+  const courses = Courses.findNonRetired({}, { sort: { num: 1 } });
   const count = Courses.countNonRetired();
   return {
     courses,
