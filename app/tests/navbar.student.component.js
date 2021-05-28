@@ -12,55 +12,58 @@ class StudentNavBar {
   }
 
   async gotoHomePage(testController) {
-    await testController.click('#student-menu-home');
+    await testController.click(`#${COMPONENTIDS.STUDENT_MENU_HOME}`);
   }
 
   async gotoInterestsExplorerPage(testController) {
-    await testController.click('#student-menu-interests');
+    await testController.click(`#${COMPONENTIDS.STUDENT_MENU_INTERESTS}`);
   }
 
   async gotoCourseExplorerPage(testController) {
     await testController.click('#student-menu-courses');
+    await testController.click(`#${COMPONENTIDS.STUDENT_MENU_COURSES}`);
   }
 
   async gotoCareerGoalsExplorerPage(testController) {
-    await testController.click('#student-menu-careers');
+    await testController.click(`#${COMPONENTIDS.STUDENT_MENU_CAREERS}`);
+
   }
 
   async gotoOpportunitiesPage(testController) {
-    await testController.click('#student-menu-opportunities');
+    await testController.click(`#${COMPONENTIDS.STUDENT_MENU_OPPORTUNITIES}`);
+
   }
 
   async gotoDegreePlannerPage(testController) {
-    await testController.click('#student-menu-planner');
+    await testController.click(`#${COMPONENTIDS.STUDENT_MENU_PLANNER}`);
   }
 
   async gotoVerificationPage(testController) {
-    await testController.click('#student-menu-verification');
+    await testController.click(`#${COMPONENTIDS.STUDENT_MENU_VERIFICATION}`);
   }
 
   async gotoVisibilityPage(testController) {
-    await testController.click('#student-menu-visibility');
+    await testController.click(`#${COMPONENTIDS.STUDENT_MENU_VISIBILITY}`);
   }
 
   async gotoICEPointsPage(testController) {
-    await testController.click('#student-menu-ice');
+    await testController.click(`#${COMPONENTIDS.STUDENT_MENU_ICE}`);
   }
 
   async gotoLevelsPage(testController) {
-    await testController.click('#student-menu-levels');
+    await testController.click(`#${COMPONENTIDS.STUDENT_MENU_LEVELS}`);
   }
 
   async gotoReviewsPage(testController) {
-    await testController.click('#student-menu-reviews');
+    await testController.click(`#${COMPONENTIDS.STUDENT_MENU_REVIEWS}`);
   }
 
   async gotoCommunityPage(testController) {
-    await testController.click('#student-menu-community');
+    await testController.click(`#${COMPONENTIDS.STUDENT_MENU_COMMUNITY}`);
   }
 
   async signout(testController) {
-    await testController.click('#student-menu-signout');
+    await testController.click(`#${COMPONENTIDS.STUDENT_MENU_SIGNOUT}`);
   }
 }
 

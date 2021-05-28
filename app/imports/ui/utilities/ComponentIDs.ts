@@ -59,4 +59,21 @@ export enum COMPONENTIDS {
   FACULTY_MENU_MANAGE_REVIEW = 'faculty-menu-manage-review',
 
   STUDENT = 'student',
+  STUDENT_MENU_HOME = 'student-menu-home',
+  STUDENT_MENU_INTERESTS = 'student-menu-interests',
+  STUDENT_MENU_COURSES = 'student-menu-courses',
+  STUDENT_MENU_CAREERS = 'student-menu-careers',
+  STUDENT_MENU_OPPORTUNITIES = 'student-menu-opportunities',
+  STUDENT_MENU_PLANNER = 'student-menu-planner',
+  STUDENT_MENU_VERIFICATION = 'student-menu-verification',
+  STUDENT_MENU_VISIBILITY = 'student-menu-visibility',
+  STUDENT_MENU_ICE = 'student-menu-ice',
+  STUDENT_MENU_LEVELS = 'student-menu-levels',
+  STUDENT_MENU_REVIEWS = 'student-menu-reviews',
+  STUDENT_MENU_COMMUNITY = 'student-menu-community',
+  STUDENT_MENU_SIGNOUT = 'student-menu-signout',
+
+  SIGNIN_FORM_EMAIL = 'signin-form-email',
+  SIGNIN_FORM_PASSWORD = 'signin-form-password',
+  SIGNIN_FORM_SUBMIT = 'signin-form-submit',
 }
