@@ -2,7 +2,6 @@ import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
 import { Confirm, Icon } from 'semantic-ui-react';
 import _ from 'lodash';
-import Swal from 'sweetalert2';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
@@ -23,7 +22,9 @@ import UpdateTeaserForm from '../../components/admin/datamodel/teaser/UpdateTeas
 import { itemToSlugName, interestNameToSlug } from '../../components/shared/utilities/data-model';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import PageLayout from '../PageLayout';
+import RadGradAlerts from '../../utilities/RadGradAlert';
 
+const RadGradAlert = new RadGradAlerts();
 const collection = Teasers; // the collection to use.
 
 /**
@@ -90,20 +91,10 @@ const AdminDataModelTeasersPage: React.FC<AdminDataModelTeasersPageProps> = ({ i
     // console.log(collectionName, updateData);
     updateMethod.callPromise({ collectionName, updateData })
       .catch((error) => {
-        Swal.fire({
-          title: 'Update failed',
-          text: error.message,
-          icon: 'error',
-        });
-        console.error('Error in updating. %o', error);
+        RadGradAlert.failure('Update failed', error.message, 2500, error);
       })
       .then(() => {
-        Swal.fire({
-          title: 'Update succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        RadGradAlert.success('Update succeeded', 1500);
         setShowUpdateForm(false);
         setId('');
       });

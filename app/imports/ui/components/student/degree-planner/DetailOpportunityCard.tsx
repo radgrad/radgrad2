@@ -1,7 +1,6 @@
 import React from 'react';
 import { Card } from 'semantic-ui-react';
 import { useRouteMatch } from 'react-router-dom';
-import Swal from 'sweetalert2';
 import { DegreePlannerStateNames } from '../../../pages/student/StudentDegreePlannerPage';
 import { useStickyState } from '../../../utilities/StickyState';
 import { ButtonAction } from '../../shared/button/ButtonAction';
@@ -19,11 +18,14 @@ import { TabbedProfileEntryNames } from './TabbedProfileEntries';
 import { cardStyle, contentStyle } from './utilities/styles';
 import VerificationRequestStatus from './VerificationRequestStatus';
 import * as RouterUtils from '../../shared/utilities/router';
+import RadGradAlerts from '../../../utilities/RadGradAlert';
 
 interface DetailOpportunityCardProps {
   instance: OpportunityInstance;
   verificationRequests: VerificationRequest[];
 }
+
+const RadGradAlert = new RadGradAlerts();
 
 const DetailOpportunityCard: React.FC<DetailOpportunityCardProps> = ({ instance, verificationRequests }) => {
   const [, setSelectedCiID] = useStickyState(DegreePlannerStateNames.selectedCiID, '');
@@ -42,12 +44,7 @@ const DetailOpportunityCard: React.FC<DetailOpportunityCardProps> = ({ instance,
     const collectionName = OpportunityInstances.getCollectionName();
     removeItMethod.callPromise({ collectionName, instance })
       .then(() => {
-        Swal.fire({
-          title: 'Remove succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        RadGradAlert.success('Remove succeeded', 1500);
         setSelectedCiID('');
         setSelectedOiID('');
         setSelectedProfileTab(TabbedProfileEntryNames.profileOpportunities);

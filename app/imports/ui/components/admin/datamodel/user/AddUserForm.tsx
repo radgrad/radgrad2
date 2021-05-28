@@ -1,7 +1,6 @@
 import _ from 'lodash';
 import React, { useState } from 'react';
 import { Form, Header, Segment } from 'semantic-ui-react';
-import Swal from 'sweetalert2';
 import {
   AutoForm,
   TextField,
@@ -23,6 +22,7 @@ import { ROLE } from '../../../../../api/role/Role';
 import PictureField from '../../../form-fields/PictureField';
 import { academicTermToName, docToName } from '../../../shared/utilities/data-model';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
+import RadGradAlerts from '../../../../utilities/RadGradAlert';
 import {
   careerGoalSlugFromName,
   declaredAcademicTermSlugFromName,
@@ -36,6 +36,7 @@ interface AddUserProps {
 }
 
 const AddUserForm: React.FC<AddUserProps> = ({ interests, academicTerms, careerGoals }) => {
+  const RadGradAlert = new RadGradAlerts();
   const [role, setRole] = useState<string>('');
   let formRef;
 
@@ -67,20 +68,9 @@ const AddUserForm: React.FC<AddUserProps> = ({ interests, academicTerms, careerG
     }
     // console.log(collectionName, definitionData);
     defineMethod.callPromise({ collectionName, definitionData })
-      .catch((error) => {
-        Swal.fire({
-          title: 'Add failed',
-          text: error.message,
-          icon: 'error',
-        });
-      })
+      .catch((error) => { RadGradAlert.failure('Add failed', error.message, 2500, error);})
       .then(() => {
-        Swal.fire({
-          title: 'Add succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        RadGradAlert.success('Add succeeded', 1500);
         formRef.reset();
       });
   };

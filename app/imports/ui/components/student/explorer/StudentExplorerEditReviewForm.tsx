@@ -4,7 +4,6 @@ import { AutoForm, ErrorsField, LongTextField, SelectField, SubmitField } from '
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { useRouteMatch } from 'react-router-dom';
-import Swal from 'sweetalert2';
 import { Reviews } from '../../../../api/review/ReviewCollection';
 import { removeItMethod, updateMethod } from '../../../../api/base/BaseCollection.methods';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
@@ -15,12 +14,14 @@ import RatingField from './RatingField';
 import { AcademicTerm, Review, ReviewUpdate } from '../../../../typings/radgrad';
 import { getUsername } from '../../shared/utilities/router';
 import { ReviewTypes } from '../../../../api/review/ReviewTypes';
+import RadGradAlerts from '../../../utilities/RadGradAlert';
 
 interface StudentExplorerEditReviewWidgetProps {
   review: Review;
   itemToReview: any;
 }
 
+const RadGradAlert = new RadGradAlerts();
 const collection = Reviews;
 
 const StudentExplorerEditReviewForm: React.FC<StudentExplorerEditReviewWidgetProps> = ({ review, itemToReview }) => {
@@ -43,23 +44,8 @@ const StudentExplorerEditReviewForm: React.FC<StudentExplorerEditReviewWidgetPro
     updateData.moderated = false;
     updateData.id = review._id;
     updateMethod.callPromise({ collectionName, updateData })
-      .catch((error) => {
-        Swal.fire({
-          title: 'Update Failed',
-          text: error.message,
-          icon: 'error',
-        });
-      })
-      .then(() => {
-        Swal.fire({
-          title: 'Update Succeeded',
-          icon: 'success',
-          text: 'Your review was successfully edited.',
-          allowOutsideClick: false,
-          allowEscapeKey: false,
-          allowEnterKey: false,
-        });
-      });
+      .catch((error) => { RadGradAlert.failure('Update Failed', error.message, 2500, error);})
+      .then(() => { RadGradAlert.success('Update Succeeded', 1500);});
   };
 
   const handleDelete = (e: any): void => {
@@ -72,20 +58,8 @@ const StudentExplorerEditReviewForm: React.FC<StudentExplorerEditReviewWidgetPro
     const id = review._id;
     const collectionName = collection.getCollectionName();
     removeItMethod.callPromise({ collectionName, instance: id })
-      .catch((error) => {
-        Swal.fire({
-          title: 'Delete failed',
-          text: error.message,
-          icon: 'error',
-        });
-        console.error('Error deleting Review. %o', error);
-      })
-      .then(() => {
-        Swal.fire({
-          title: 'Delete succeeded',
-          icon: 'success',
-        });
-      });
+      .catch((error) => { RadGradAlert.failure('Delete failed', error.message, 2500, error);})
+      .then(() => { RadGradAlert.success('Delete succeeded', 1500);});
     setConfirmOpen(false);
   };
 

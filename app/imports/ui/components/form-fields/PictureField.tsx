@@ -1,9 +1,9 @@
 import classnames from 'classnames';
 import React, { useState } from 'react';
-import Swal from 'sweetalert2';
 import { connectField, filterDOMProps } from 'uniforms';
 import { TextFieldProps } from 'uniforms-semantic';
 import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
+import RadGradAlerts from '../../utilities/RadGradAlert';
 
 /**
  * Augment the Uniforms TextField with an to support Cloudinary upload for pictures.
@@ -32,6 +32,7 @@ import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
  SOFTWARE.
  */
 
+const RadGradAlert = new RadGradAlerts();
 const PictureField: React.FC<TextFieldProps> = ({
   autoComplete,
   className,
@@ -65,14 +66,7 @@ const PictureField: React.FC<TextFieldProps> = ({
         setPictureURL(cloudinaryResult.info.secure_url);
       }
     } catch (err) {
-      Swal.fire({
-        title: 'Failed to Upload Photo',
-        icon: 'error',
-        text: err.statusText,
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        allowEnterKey: false,
-      });
+      RadGradAlert.failure('Failed to Upload Photo', err.statusText, 2500, err);
     }
   };
 

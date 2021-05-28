@@ -1,6 +1,5 @@
 import React from 'react';
 import { Form, Header, Segment } from 'semantic-ui-react';
-import Swal from 'sweetalert2';
 import { AutoForm, TextField, NumField, LongTextField, SubmitField, BoolField, ErrorsField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
@@ -10,12 +9,13 @@ import MultiSelectField from '../../../form-fields/MultiSelectField';
 import { Course, CourseDefine, Interest } from '../../../../../typings/radgrad';
 import { courseNameToSlug, courseToName, docToName } from '../../../shared/utilities/data-model';
 import { interestSlugFromName } from '../../../shared/utilities/form';
+import RadGradAlerts from '../../../../utilities/RadGradAlert';
 
 interface AddCourseFormProps {
   interests: Interest[];
   courses: Course[];
 }
-
+const RadGradAlert = new RadGradAlerts();
 const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses }) => {
   let formRef;
   const handleAdd = (doc) => {
@@ -35,20 +35,10 @@ const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses }) => 
     // console.log(collectionName, definitionData);
     defineMethod.callPromise({ collectionName, definitionData })
       .catch((error) => {
-        console.error('Failed adding User', error);
-        Swal.fire({
-          title: 'Failed adding User',
-          text: error.message,
-          icon: 'error',
-        });
+        RadGradAlert.failure('Failed adding User', error.message, 2500, error);
       })
       .then(() => {
-        Swal.fire({
-          title: 'Add User Succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        RadGradAlert.success('Add User Succeeded', 1500);
         formRef.reset();
       });
   };

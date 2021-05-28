@@ -5,16 +5,17 @@ import { AutoForm, ErrorsField, NumField, SelectField, SubmitField } from 'unifo
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import moment from 'moment';
-import Swal from 'sweetalert2';
 import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
 import { AcademicYearInstances } from '../../../../../api/degree-plan/AcademicYearInstanceCollection';
 import { profileToUsername } from '../../../shared/utilities/data-model';
+import RadGradAlerts from '../../../../utilities/RadGradAlert';
 
 interface AddAcademicYearInstanceProps {
   students: Meteor.User[];
 }
 
 const AddAcademicYearInstanceForm: React.FC<AddAcademicYearInstanceProps> = ({ students }) => {
+  const RadGradAlert = new RadGradAlerts();
   const studentNames = students.map(profileToUsername);
   const schema = new SimpleSchema({
     student: {
@@ -29,24 +30,12 @@ const AddAcademicYearInstanceForm: React.FC<AddAcademicYearInstanceProps> = ({ s
     const collectionName = AcademicYearInstances.getCollectionName();
     const definitionData = doc;
     defineMethod.callPromise({ collectionName, definitionData })
-      .catch((error) => {
-        Swal.fire({
-          title: 'Add failed',
-          text: error.message,
-          icon: 'error',
-        });
-      })
+      .catch((error) => { RadGradAlert.failure('Add failed', error.message, 2500, error);})
       .then(() => {
-        Swal.fire({
-          title: 'Add succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        RadGradAlert.success('Add succeeded', 1500);
         formRef.reset();
       });
   };
-
 
   return (
     <Segment padded>

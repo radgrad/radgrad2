@@ -2,7 +2,6 @@ import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
-import Swal from 'sweetalert2';
 import { AdvisorProfiles } from '../../../../app/imports/api/user/AdvisorProfileCollection';
 import { StudentProfiles } from '../../../../app/imports/api/user/StudentProfileCollection';
 import AdminPageMenu from '../../../../app/imports/ui/components/admin/AdminPageMenu';
@@ -20,6 +19,9 @@ import AddAdvisorLogFormContainer from '../../component/admin/advisor-log/AddAdv
 import BackToTopButton from '../../../../app/imports/ui/components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import { getDatamodelCount } from '../../../../app/imports/ui/pages/admin/utilities/datamodel';
+import RadGradAlerts from '../../../../app/imports/ui/utilities/RadGradAlert';
+
+const RadGradAlert = new RadGradAlerts();
 
 const descriptionPairs = (advisorLog: AdvisorLog): DescriptionPair[] => [
   { label: 'Advisor', value: `${Users.getFullName(advisorLog.advisorID)}` },
@@ -61,19 +63,9 @@ const AdminDataModelAdvisorLogsPage: React.FC<AdminDataModelAdvisorLogsPageProps
     const definitionData = doc;
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
-        Swal.fire({
-          title: 'Add failed',
-          text: error.message,
-          icon: 'error',
-        });
+        RadGradAlert.failure('Add failed.', error.message, 2500, error);
       } else {
-        Swal.fire({
-          title: 'Add succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        // console.log(formRef);
+        RadGradAlert.success('Add succeeded', 1500);
         // @ts-ignore
         formRef.current.reset();
       }
@@ -102,18 +94,9 @@ const AdminDataModelAdvisorLogsPage: React.FC<AdminDataModelAdvisorLogsPageProps
     const instance = idState;
     removeItMethod.call({ collectionName, instance }, (error) => {
       if (error) {
-        Swal.fire({
-          title: 'Delete failed',
-          text: error.message,
-          icon: 'error',
-        });
+        RadGradAlert.failure('Delete failed', error.message, 2500, error);
       } else {
-        Swal.fire({
-          title: 'Delete succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        RadGradAlert.success('Delete succeeded', 1500);
         // this.formRef.current.reset();
         setId('');
         setConfirmOpen(false);
@@ -138,18 +121,9 @@ const AdminDataModelAdvisorLogsPage: React.FC<AdminDataModelAdvisorLogsPageProps
     // console.log('updateData = %o', updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
-        Swal.fire({
-          title: 'Update failed',
-          text: error.message,
-          icon: 'error',
-        });
+        RadGradAlert.failure('Update failed.', error.message, 2500, error);
       } else {
-        Swal.fire({
-          title: 'Update succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        RadGradAlert.success('Update succeeded', 1500);
         // @ts-ignore
         formRef.current.reset();
         setShowUpdateForm(false);

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Form, Header, Segment } from 'semantic-ui-react';
-import Swal from 'sweetalert2';
 import {
   AutoForm,
   TextField,
@@ -28,6 +27,7 @@ import {
 import { iceSchema } from '../../../../../api/ice/IceProcessor';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
 import { interestSlugFromName } from '../../../shared/utilities/form';
+import RadGradAlerts from '../../../../utilities/RadGradAlert';
 
 interface AddOpportunityFormProps {
   sponsors: BaseProfile[];
@@ -37,6 +37,8 @@ interface AddOpportunityFormProps {
 }
 
 // Technical Debt: Picture part of the form is different than the AddUserForm.
+
+const RadGradAlert = new RadGradAlerts();
 
 const AddOpportunityForm: React.FC<AddOpportunityFormProps> = ({ sponsors, interests, terms, opportunityTypes }) => {
   const [pictureURL, setPictureURL] = useState<string>('');
@@ -60,20 +62,10 @@ const AddOpportunityForm: React.FC<AddOpportunityFormProps> = ({ sponsors, inter
     // console.log(definitionData);
     defineMethod.callPromise({ collectionName, definitionData })
       .catch((error) => {
-        console.error('Failed adding User', error);
-        Swal.fire({
-          title: 'Failed adding User',
-          text: error.message,
-          icon: 'error',
-        });
+        RadGradAlert.failure('Failed adding User', error.message, 2500, error);
       })
       .then(() => {
-        Swal.fire({
-          title: 'Add User Succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        RadGradAlert.success('Add User Succeeded', 1500);
         formRef.reset();
       });
   };

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Swal from 'sweetalert2';
 import { connect } from 'react-redux';
 import { Segment, Header, Form, Radio } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
@@ -13,6 +12,7 @@ import { ProfileInterests } from '../../../../app/imports/api/user/profile-entri
 import { ProfileCareerGoals } from '../../../../app/imports/api/user/profile-entries/ProfileCareerGoalCollection';
 import { RootState } from '../../../redux/types';
 import { BaseProfile, CareerGoal, Interest } from '../../../../app/imports/typings/radgrad';
+import RadGradAlerts from '../../../../app/imports/ui/utilities/RadGradAlert';
 
 interface AdvisorUpdateStudentWidgetProps {
   dispatch: (any) => void;
@@ -30,6 +30,7 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const AdvisorUpdateStudentWidget: React.FC<AdvisorUpdateStudentWidgetProps> = ({ dispatch, interests, careerGoals, usernameDoc, isLoaded, selectedUsername, studentCollectionName }) => {
+  const RadGradAlert = new RadGradAlerts();
   const doc = usernameDoc;
   const userID = doc.userID;
   const favCareerGoals = ProfileCareerGoals.findNonRetired({ userID });
@@ -51,14 +52,7 @@ const AdvisorUpdateStudentWidget: React.FC<AdvisorUpdateStudentWidgetProps> = ({
         setPicture(cloudinaryResult.info.secure_url);
       }
     } catch (error) {
-      Swal.fire({
-        title: 'Failed to Upload Photo',
-        icon: 'error',
-        text: error.statusText,
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        allowEnterKey: false,
-      });
+      RadGradAlert.failure('Failed to Upload Photo', error.statusText, 2500, error);
     }
   };
 
@@ -120,19 +114,9 @@ const AdvisorUpdateStudentWidget: React.FC<AdvisorUpdateStudentWidgetProps> = ({
 
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
-        Swal.fire({
-          title: 'Update failed',
-          text: error.message,
-          icon: 'error',
-        });
-        console.error('Error in updating. %o', error);
+        RadGradAlert.failure('Update failed', error.message, 2500, error);
       } else {
-        Swal.fire({
-          title: 'Update succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        RadGradAlert.success('Update succeeded', 1500);
       }
     });
   };
