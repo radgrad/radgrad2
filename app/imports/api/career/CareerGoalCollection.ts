@@ -60,7 +60,7 @@ class CareerGoalCollection extends BaseSlugCollection {
    * @throws { Meteor.Error } If the slug already exists.
    * @returns The newly created docID.
    */
-  public define({ name, slug, description, interests, retired = false, picture = false }: CareerGoalDefine) {
+  public define({ name, slug, description, interests, retired = false, picture }: CareerGoalDefine) {
     // Get Interests, throw error if any of them are not found.
     const interestIDs = Interests.getIDs(interests);
     const doc = this.collection.findOne({ name, description, interestIDs, retired, picture });
@@ -69,7 +69,7 @@ class CareerGoalCollection extends BaseSlugCollection {
     }
     // Get SlugID, throw error if found.
     const slugID = Slugs.define({ name: slug, entityName: this.getType() });
-    const docID = this.collection.insert({ name, slugID, description, interestIDs, retired });
+    const docID = this.collection.insert({ name, slugID, description, interestIDs, retired, picture });
     // Connect the Slug to this Interest
     Slugs.updateEntityID(slugID, docID);
     return docID;
@@ -83,19 +83,23 @@ class CareerGoalCollection extends BaseSlugCollection {
    * @param interests A new list of interest slugs or IDs. (optional).
    * @throws { Meteor.Error } If docID is not defined, or if any interest is not a defined slug or ID.
    */
-  public update(docID: string, { name, description, interests, retired }: CareerGoalUpdate): void {
+  public update(docID: string, { name, description, interests, retired, picture }: CareerGoalUpdate): void {
     this.assertDefined(docID);
     const updateData: {
       name?: string;
       description?: string;
       interestIDs?: string[];
       retired?: boolean;
+      picture?: string;
     } = {};
     if (name) {
       updateData.name = name;
     }
     if (description) {
       updateData.description = description;
+    }
+    if (picture) {
+      updateData.picture = picture;
     }
     if (interests) {
       const interestIDs = Interests.getIDs(interests);
@@ -204,9 +208,10 @@ class CareerGoalCollection extends BaseSlugCollection {
     const name = doc.name;
     const slug = Slugs.getNameFromID(doc.slugID);
     const description = doc.description;
+    const picture = doc.picture;
     const interests = doc.interestIDs.map((interestID) => Interests.findSlugByID(interestID));
     const retired = doc.retired;
-    return { name, slug, interests, description, retired };
+    return { name, slug, interests, description, retired, picture };
   }
 }
 
