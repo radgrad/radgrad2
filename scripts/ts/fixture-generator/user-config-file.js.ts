@@ -1,7 +1,4 @@
-interface Collection {
-  name: string;
-  contents: object[];
-}
+import { ICollection } from './demo-fixture-generator';
 
 export enum Grade {
   A = 'A',
@@ -23,18 +20,21 @@ export enum Grade {
 
 export interface PlanCourseItem {
   slug: string;
-  academicTermOffset: number;
+  academicYearOffset: number;
+  termNum: number;
   grade: Grade;
 }
 
 export interface PlanOpportunityItem {
   slug: string;
-  academicTermOffset: number;
+  academicYearOffset: number;
+  termNum: number
   verified: boolean;
 }
 
 export interface PlanReviewItem {
-  academicTermOffset: number;
+  academicYearOffset: number;
+  termNum: number
   reviewee: string;
   rating: number;
   comments: string;
@@ -48,7 +48,7 @@ export interface StudentPlan {
 }
 
 export interface StudentConfig {
-  studentProfiles: Collection;
+  studentProfiles: ICollection;
   studentPlans: StudentPlan[];
 }
 

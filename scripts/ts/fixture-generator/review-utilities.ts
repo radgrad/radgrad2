@@ -1,4 +1,5 @@
 import { getAcademicTerm } from './academic-term-utilities';
+import AcademicTermCollection from './AcademicTermCollection';
 // eslint-disable-next-line no-unused-vars
 import RadGradCollection from './RadGradCollection';
 // eslint-disable-next-line no-unused-vars
@@ -29,8 +30,10 @@ interface Review {
 
 const buildReivewSlug = (student: string, reviewee: string, term: string) => `review-${student.substr(0, student.indexOf('@'))}-${reviewee}-${term}`;
 
-export const generateReview = (student: string, planItem: PlanReviewItem, currentTerm: string, quarters: boolean, opportunities: RadGradCollection): Review => {
-  const academicTerm = getAcademicTerm(currentTerm, planItem.academicTermOffset, quarters, false);
+export const generateReview = (student: string, planItem: PlanReviewItem, academicTerms: AcademicTermCollection, opportunities: RadGradCollection): Review => {
+  const currentTerm = academicTerms.getCurrentTerm();
+  const quarters = academicTerms.isQuarterSystem();
+  const academicTerm = getAcademicTerm(currentTerm, planItem.academicYearOffset, planItem.termNum, quarters);
   const slug = buildReivewSlug(student, planItem.reviewee, academicTerm);
   let reviewType = ReviewType.COURSE;
   if (opportunities.isDefinedSlug(planItem.reviewee)) {

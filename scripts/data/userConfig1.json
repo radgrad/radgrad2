@@ -57,7 +57,6 @@
           "ics_451"
         ],
         "profileOpportunities": [],
-        "declaredAcademicTerm": "Fall-2017",
         "isAlumni": false,
         "retired": false,
         "sharePicture": true,
@@ -112,7 +111,6 @@
           "shidler-bpc",
           "hacc"
         ],
-        "declaredAcademicTerm": "Fall-2018",
         "isAlumni": false,
         "retired": false,
         "sharePicture": false,
@@ -164,7 +162,6 @@
           "lava-lab",
           "gen-cyber-internship"
         ],
-        "declaredAcademicTerm": "Fall-2019",
         "isAlumni": false,
         "retired": false,
         "sharePicture": true,
@@ -276,86 +273,102 @@
       "courses": [
         {
           "slug": "ics_111",
-          "academicTermOffset": -3,
+          "academicYearOffset": -1,
+          "termNum": 0,
           "grade": "A"
         },
         {
           "slug": "ics_141",
-          "academicTermOffset": -3,
+          "academicYearOffset": -1,
+          "termNum": 0,
           "grade": "B+"
         },
         {
           "slug": "ics_211",
-          "academicTermOffset": -2,
+          "academicYearOffset": -1,
+          "termNum": 1,
           "grade": "A"
         },
         {
           "slug": "ics_241",
-          "academicTermOffset": -2,
+          "academicYearOffset": -1,
+          "termNum": 1,
           "grade": "B+"
         },
         {
           "slug": "ics_311",
-          "academicTermOffset": -1,
+          "academicYearOffset": 0,
+          "termNum": 0,
           "grade": "A"
         },
         {
           "slug": "ics_314",
-          "academicTermOffset": -1,
+          "academicYearOffset": 0,
+          "termNum": 0,
           "grade": "B"
         },
         {
           "slug": "ics_212",
-          "academicTermOffset": 0,
+          "academicYearOffset": 0,
+          "termNum": 1,
           "grade": "A"
         },
         {
           "slug": "ics_321",
-          "academicTermOffset": 0,
+          "academicYearOffset": 0,
+          "termNum": 1,
           "grade": "A-"
         },
         {
           "slug": "ics_313",
-          "academicTermOffset": 1,
+          "academicYearOffset": 1,
+          "termNum": 0,
           "grade": "B"
         },
         {
           "slug": "ics_331",
-          "academicTermOffset": 1,
+          "academicYearOffset": 1,
+          "termNum": 0,
           "grade": "B"
         },
         {
           "slug": "ics_332",
-          "academicTermOffset": 2,
+          "academicYearOffset": 1,
+          "termNum": 1,
           "grade": "B"
         },
         {
           "slug": "ics_464",
-          "academicTermOffset": 2,
+          "academicYearOffset": 1,
+          "termNum": 1,
           "grade": "B+"
         }
       ],
       "opportunities": [
         {
           "slug": "acm-manoa",
-          "academicTermOffset": -2,
+          "academicYearOffset": -1,
+          "termNum": 0,
           "verified": false
         },
         {
           "slug": "acm-manoa",
-          "academicTermOffset": -1,
+          "academicYearOffset": -1,
+          "termNum": 1,
           "verified": false
         }
       ],
       "reviews": [
         {
-          "academicTermOffset": -4,
+          "academicYearOffset": -1,
+          "termNum": 1,
           "reviewee": "ics_111",
           "rating": 5,
           "comments": "Lecture can be boring. Tests can be tricky... so pay attention and read the questions and answers twice before answering them. Lab is were all the fun is. If you're not an ICS major or don't like programing, you probably shouldn't take the course."
         },
         {
-          "academicTermOffset": 0,
+          "academicYearOffset": -1,
+          "termNum": 2,
           "reviewee": "acm-manoa",
           "rating": 4,
           "comments": "ACM Manoa is a great all in one club that gives students a place to meet other computer science majors and enthusiasts. Joining ACM’s Discord is the best way to stay informed. Underneath ACM are Special Interest Groups such as Grey Hats, Game Dev, and Algorithms. If any of these interest you, this is definitely the place to go."
@@ -385,82 +398,98 @@
       "courses": [
         {
           "slug" : "ics_111",
-          "academicTermOffset": -9,
+          "academicYearOffset": -5,
+          "termNum": 0,
           "grade": "A"
         },
         {
           "slug" : "ics_141",
-          "academicTermOffset": -9,
+          "academicYearOffset": -5,
+          "termNum": 0,
           "grade": "A"
         },
         {
           "slug" : "ics_211",
-          "academicTermOffset": -8,
+          "academicYearOffset": -5,
+          "termNum": 1,
           "grade": "A"
         },
         {
           "slug" : "ics_241",
-          "academicTermOffset": -8,
+          "academicYearOffset": -5,
+          "termNum": 1,
           "grade": "A"
         },
         {
           "slug" : "ics_311",
-          "academicTermOffset": -7,
+          "academicYearOffset": -4,
+          "termNum": 0,
           "grade": "A"
         },
         {
           "slug" : "ics_314",
-          "academicTermOffset": -7,
+          "academicYearOffset": -4,
+          "termNum": 0,
           "grade": "A"
         },
         {
           "slug" : "ics_212",
-          "academicTermOffset": -6,
+          "academicYearOffset": -4,
+          "termNum": 1,
           "grade": "A"
         },
         {
           "slug" : "ics_321",
-          "academicTermOffset": -6,
+          "academicYearOffset": -4,
+          "termNum": 1,
           "grade": "A"
         },
         {
           "slug" : "ics_313",
-          "academicTermOffset": -5,
+          "academicYearOffset": -3,
+          "termNum": 0,
           "grade": "A"
         },
         {
           "slug" : "ics_331",
-          "academicTermOffset": -5,
+          "academicYearOffset": -3,
+          "termNum": 0,
           "grade": "A"
         },
         {
           "slug" : "ics_332",
-          "academicTermOffset": -4,
+          "academicYearOffset": -3,
+          "termNum": 1,
           "grade": "A"
         },
         {
           "slug" : "ics_464",
-          "academicTermOffset": -4,
+          "academicYearOffset": -3,
+          "termNum": 1,
           "grade": "A"
         },
         {
           "slug" : "ics_431",
-          "academicTermOffset": -3,
+          "academicYearOffset": -2,
+          "termNum": 0,
           "grade": "A"
         },
         {
           "slug" : "ics_425",
-          "academicTermOffset": -3,
+          "academicYearOffset": -2,
+          "termNum": 0,
           "grade": "A"
         },
         {
           "slug" : "ics_426",
-          "academicTermOffset": -2,
+          "academicYearOffset": -2,
+          "termNum": 1,
           "grade": "A"
         },
         {
           "slug" : "ics_414",
-          "academicTermOffset": -2,
+          "academicYearOffset": -2,
+          "termNum": 1,
           "grade": "B+"
         }
       ],

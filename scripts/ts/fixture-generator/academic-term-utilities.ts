@@ -202,23 +202,31 @@ export const compareTerms = (term1: string, term2: string): number => {
 
 export const isSummerTerm = (academicTerm: string) => getTerm(academicTerm) === AcademicTerms.SUMMER;
 
-export const getAcademicTerm = (currentTerm: string, offset: number, quarters: boolean, skipSummer = true) => {
-  let academicTerm = currentTerm;
-  if (offset < 0) {
-    academicTerm = multiplePrevAcademicTerm(currentTerm, quarters, -1 * offset);
-    if (skipSummer && isSummerTerm(academicTerm)) {
-      academicTerm = prevAcademicTerm(academicTerm, quarters);
-    }
-  } else if (offset > 0) {
-    academicTerm = multipleNextAcademicTerm(currentTerm, quarters, offset);
-    if (skipSummer && isSummerTerm(academicTerm)) {
-      academicTerm = nextAcademicTerm(academicTerm, quarters);
-    }
-  } else {
-    academicTerm = currentTerm;
-    if (skipSummer && isSummerTerm(academicTerm)) {
-      academicTerm = nextAcademicTerm(academicTerm, quarters);
+export const getTermName = (termNum: number, quarters: boolean) => {
+  if (quarters) {
+    switch (termNum) {
+      case 0:
+        return AcademicTerms.FALL;
+      case 1:
+        return AcademicTerms.WINTER;
+      case 2:
+        return AcademicTerms.SPRING;
+      default:
+        return AcademicTerms.SUMMER;
     }
   }
+  switch (termNum) {
+    case 0:
+      return AcademicTerms.FALL;
+    case 1:
+      return AcademicTerms.SPRING;
+    default:
+      return AcademicTerms.SUMMER;
+  }
+};
+
+export const getAcademicTerm = (currentTerm: string, yearOffset: number, termNum: number, quarters: boolean) => {
+  const currentYear = getYear(currentTerm);
+  const academicTerm = `${getTermName(termNum, quarters)}-${currentYear + yearOffset}`;
   return academicTerm;
 };

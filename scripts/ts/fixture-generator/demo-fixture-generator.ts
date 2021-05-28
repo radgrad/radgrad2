@@ -39,12 +39,10 @@ const buildCourseInstanceCollection = (studentConfig: StudentConfig, academicTer
     name: RadGradCollectionName.COURSE_INSTANCES,
     contents: [],
   };
-  const currentTerm = academicTerms.getCurrentTerm();
-  const quarters = academicTerms.isQuarterSystem();
   studentConfig.studentPlans.forEach((plan) => {
     const student = plan.username;
     plan.courses.forEach((p) => {
-      result.contents.push(generateCourseInstance(student, p, currentTerm, quarters));
+      result.contents.push(generateCourseInstance(student, p, academicTerms));
     });
   });
   return result;
@@ -76,7 +74,7 @@ const buildReviewsCollection = (studentConfig: StudentConfig, academicTerms: Aca
   studentConfig.studentPlans.forEach((plan) => {
     const student = plan.username;
     plan.reviews.forEach((p) => {
-      result.contents.push(generateReview(student, p, currentTerm, quarters, opportunities));
+      result.contents.push(generateReview(student, p, academicTerms, opportunities));
     });
   });
 
@@ -93,12 +91,17 @@ const compareCollections = (entry1, entry2) => {
   return 0;
 };
 
+/**
+ * Builds the StudentProfileCollection. We'll take the studentConfig's StudentProfiles and just add them.
+ * @param {StudentConfig} studentConfig
+ * @return {ICollection}
+ */
 const buildStudentProfileCollection = (studentConfig: StudentConfig): ICollection => {
   const result = {
     name: RadGradCollectionName.STUDENT_PROFILES,
     contents: [],
   };
-  studentConfig.studentProfiles.contents.forEach((profile: { username: string, declaredAcademicTerm: string }) => {
+  studentConfig.studentProfiles.contents.forEach((profile) => {
      result.contents.push(profile);
   });
   return result;

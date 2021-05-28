@@ -12,8 +12,8 @@ interface OpportunityInstance {
 
 export const generateOpportunityInstance = (student: string, planItem: PlanOpportunityItem, currentTerm: string, quarters: boolean): OpportunityInstance => {
   const opportunity = planItem.slug;
-  const verified = planItem.academicTermOffset < 0 && planItem.verified;
-  const academicTerm = getAcademicTerm(currentTerm, planItem.academicTermOffset, quarters);
+  const verified = planItem.academicYearOffset < 0 && planItem.verified;
+  const academicTerm = getAcademicTerm(currentTerm, planItem.academicYearOffset, planItem.termNum, quarters);
   return {
     academicTerm,
     opportunity,

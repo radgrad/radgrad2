@@ -1,4 +1,5 @@
 import { getAcademicTerm, isSummerTerm, multipleNextNonSummerTerm, multiplePrevNonSummerTerm, nextAcademicTerm } from './academic-term-utilities';
+import AcademicTermCollection, { AcademicTerms } from './AcademicTermCollection';
 import { PlanCourseItem } from './user-config-file.js';
 
 const courseSlugToNote = (slug: string): string => {
@@ -18,28 +19,30 @@ export interface CourseInstanceDefine {
   retired?: boolean;
 }
 
-export const generateCourseInstance = (student: string, planItem: PlanCourseItem, currentTerm: string, quarters: boolean): CourseInstanceDefine => {
+export const generateCourseInstance = (student: string, planItem: PlanCourseItem, academicTerms: AcademicTermCollection): CourseInstanceDefine => {
+  const currentTerm = academicTerms.getCurrentTerm();
+  const quarters = academicTerms.isQuarterSystem();
   const course = planItem.slug;
   const note = courseSlugToNote(course);
   const creditHrs = 3;
-  const academicTerm = getAcademicTerm(currentTerm, planItem.academicTermOffset, quarters);
+  const academicTerm = getAcademicTerm(currentTerm, planItem.academicYearOffset, planItem.termNum, quarters);
   let verified;
   let fromRegistrar;
   const grade = planItem.grade;
-  if (planItem.academicTermOffset < 0) {
+  const result = academicTerms.compareTerms(academicTerm, currentTerm);
+  if (result < 0) {
+    // academicTerm is in the past
     verified = true;
     fromRegistrar = true;
-  } else if (planItem.academicTermOffset > 0) {
-    const summerAdd = isSummerTerm(currentTerm) ? 1 : 0;
+  } else if (result > 0) {
+    // academicTerm is in the future
     verified = false;
     fromRegistrar = false;
-  } else if (isSummerTerm(currentTerm)) {
-      verified = false;
-      fromRegistrar = false;
-    } else {
-      verified = false;
-      fromRegistrar = true;
-    }
+  } else {
+    // current term
+    verified = false;
+    fromRegistrar = true;
+  }
   return {
     academicTerm,
     course,
