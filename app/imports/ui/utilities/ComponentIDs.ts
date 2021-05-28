@@ -10,4 +10,6 @@ export enum COMPONENTIDS {
   NAVBAR_CURRENT_USER = 'navbar-current-user',
   NAVBAR_SIGN_OUT = 'navbar-sign-out',
   LOGIN = 'LOGIN',
+
+  ADMIN = 'admin',
 }

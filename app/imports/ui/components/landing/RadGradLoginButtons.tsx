@@ -69,7 +69,7 @@ const RadGradLoginButtons: React.FC<RadGradLoginButtonsProps> = ({ instanceName 
             <Dropdown.Item id="student" text={studentLabel} as={Link} to="/signin" />
             <Dropdown.Item id="faculty" text={facultyLabel} as={Link} to="/signin" />
             <Dropdown.Item id="advisor" text={advisorLabel} as={Link} to="/signin" />
-            <Dropdown.Item id="admin" text={adminLabel} as={Link} to="/signin" />
+            <Dropdown.Item id={COMPONENTIDS.ADMIN} text={adminLabel} as={Link} to="/signin" />
           </Dropdown.Menu>
         </Dropdown>
       </Button>
@@ -84,7 +84,7 @@ const RadGradLoginButtons: React.FC<RadGradLoginButtonsProps> = ({ instanceName 
           <Dropdown.Item id="student" text={studentLabel} onClick={handleClick} />
           <Dropdown.Item id="faculty" text={facultyLabel} onClick={handleClick} />
           <Dropdown.Item id="advisor" text={advisorLabel} onClick={handleClick} />
-          <Dropdown.Item id="admin" text={adminLabel} as={Link} to="/signin" />
+          <Dropdown.Item id={COMPONENTIDS.ADMIN} text={adminLabel} as={Link} to="/signin" />
         </Dropdown.Menu>
       </Dropdown>
     </Button>
