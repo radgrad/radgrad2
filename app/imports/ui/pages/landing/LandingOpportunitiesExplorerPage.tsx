@@ -25,12 +25,13 @@ Opportunities are extracurricular activities that relate to this discipline. The
 
 This public explorer does not provide information about community members or the reviews associated with Opportunities.
 `;
+const headerPaneImage = 'header-opportunities.png';
 
 const LandingOpportunitiesExplorerPage: React.FC<LandingOpportunitiesExplorerPageProps> = ({ opportunities, count }) => (
   <div>
     <LandingExplorerMenuBar/>
     <PageLayout id={PAGEIDS.LANDING_OPPORTUNITIES_EXPLORER} headerPaneTitle={headerPaneTitle}
-                headerPaneBody={headerPaneBody}>
+                headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
       <RadGradSegment header={<RadGradHeader title="OPPORTUNITIES" count={count} dividing />}>
         <Card.Group stackable itemsPerRow={4} id="browserCardGroup" style={{ margin: '0px' }}>
           {opportunities.map((opportunity) => (

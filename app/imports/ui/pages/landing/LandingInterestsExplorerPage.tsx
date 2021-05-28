@@ -24,12 +24,13 @@ Interests are curated by the faculty to provide information about topic areas im
 
 This public explorer does not provide information about community members.
 `;
+const headerPaneImage = 'header-interests.png';
 
 const LandingInterestsExplorerPage: React.FC<InterestsCardExplorerProps> = ({ interests, count }) => (
   <div>
     <LandingExplorerMenuBar/>
     <PageLayout id={PAGEIDS.LANDING_INTERESTS_EXPLORER} headerPaneTitle={headerPaneTitle}
-                headerPaneBody={headerPaneBody}>
+                headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
       <RadGradSegment header={<RadGradHeader title="INTERESTS" count={count} dividing />}>
         <Card.Group stackable itemsPerRow={4} id="browserCardGroup" style={{ margin: '0px' }}>
           {interests.map((interest) => (

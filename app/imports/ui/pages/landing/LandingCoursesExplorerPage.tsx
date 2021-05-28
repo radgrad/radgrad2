@@ -25,12 +25,13 @@ The RadGrad course explorer provides helpful information about courses, includin
 
 This public explorer does not show reviews or the forecasts for future semesters, but does provide an overview of the courses currently available in the system.
 `;
+const headerPaneImage = 'header-courses.png';
 
 const LandingCoursesExplorerPage: React.FC<LandingCoursesExplorerPageProps> = ({ courses, count }) => (
   <div>
     <LandingExplorerMenuBar/>
     <PageLayout id={PAGEIDS.LANDING_COURSES_EXPLORER} headerPaneTitle={headerPaneTitle}
-                headerPaneBody={headerPaneBody}>
+                headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
       <RadGradSegment header={<RadGradHeader title="COURSES" count={count} dividing />}>
         <Card.Group stackable itemsPerRow={4} id="browserCardGroup" style={{ margin: '0px' }}>
           {courses.map((course) => (

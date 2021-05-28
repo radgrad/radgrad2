@@ -28,12 +28,13 @@ Registered users can add Career Goals to their profile which enables RadGrad to 
 
 This page provides an overview of the Career Goals currently available in RadGrad. 
 `;
+const headerPaneImage = 'header-career.png';
 
 const LandingCareerGoalsExplorerPage: React.FC<CareerGoalsExplorerProps> = ({ count, careerGoals }) => (
   <div>
     <LandingExplorerMenuBar/>
     <PageLayout id={PAGEIDS.LANDING_CAREER_GOALS_EXPLORER} headerPaneTitle={headerPaneTitle}
-                headerPaneBody={headerPaneBody}>
+                headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
       <RadGradSegment header={<RadGradHeader title="CAREER GOALS" count={count} dividing />}>
         <Card.Group stackable itemsPerRow={4} id="browserCardGroup" style={{ margin: '0px' }}>
           {careerGoals.map((goal) => (
