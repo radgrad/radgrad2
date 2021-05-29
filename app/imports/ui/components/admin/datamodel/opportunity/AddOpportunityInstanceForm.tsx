@@ -1,10 +1,10 @@
 import _ from 'lodash';
 import React from 'react';
-import Swal from 'sweetalert2';
 import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, SelectField, BoolField, SubmitField, ErrorsField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
+import RadGradAlerts from '../../../../utilities/RadGradAlert';
 import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
 import { OpportunityInstances } from '../../../../../api/opportunity/OpportunityInstanceCollection';
 import { Slugs } from '../../../../../api/slug/SlugCollection';
@@ -30,6 +30,7 @@ const AddOpportunityInstanceForm: React.FC<AddOpportunityInstanceFormProps> = ({
   students,
   sponsors,
 }) => {
+  const RadGradAlert = new RadGradAlerts();
   const termNames = terms.map(academicTermToName);
   const currentTermName = AcademicTerms.toString(AcademicTerms.getCurrentTermID(), false);
   const opportunityNames = opportunities.map(docToName);
@@ -81,20 +82,9 @@ const AddOpportunityInstanceForm: React.FC<AddOpportunityInstanceFormProps> = ({
       definitionData.retired = doc.retired;
     }
     defineMethod.callPromise({ collectionName, definitionData })
-      .catch((error) => {
-        Swal.fire({
-          title: 'Add failed',
-          text: error.message,
-          icon: 'error',
-        });
-      })
+      .catch((error) => { RadGradAlert.failure('Add failed', error.message, 2500, error);})
       .then(() => {
-        Swal.fire({
-          title: 'Add succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        RadGradAlert.success('Add succeeded', '', 1500);
         formRef.reset();
       });
   };

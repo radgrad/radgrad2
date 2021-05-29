@@ -1,9 +1,9 @@
 import React from 'react';
 import { Form, Header, Segment } from 'semantic-ui-react';
-import Swal from 'sweetalert2';
 import { AutoForm, TextField, SelectField, LongTextField, BoolField, SubmitField, ErrorsField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
+import RadGradAlerts from '../../../../utilities/RadGradAlert';
 import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
 import { Interests } from '../../../../../api/interest/InterestCollection';
 import slugify from '../../../../../api/slug/SlugCollection';
@@ -15,6 +15,7 @@ interface AddInterestFormProps {
 }
 
 const AddInterestForm: React.FC<AddInterestFormProps> = ({ interestTypes }) => {
+  const RadGradAlert = new RadGradAlerts();
   let formRef;
   const handleAdd = (doc) => {
     // console.log('Interests.handleAdd(%o)', doc);
@@ -24,21 +25,9 @@ const AddInterestForm: React.FC<AddInterestFormProps> = ({ interestTypes }) => {
     definitionData.interestType = interestTypeNameToSlug(doc.interestType);
     // console.log(collectionName, definitionData);
     defineMethod.callPromise({ collectionName, definitionData })
-      .catch((error) => {
-        console.error('Failed adding User', error);
-        Swal.fire({
-          title: 'Failed adding User',
-          text: error.message,
-          icon: 'error',
-        });
-      })
-      .then(() => {
-        Swal.fire({
-          title: 'Add User Succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+      .catch((error) => { RadGradAlert.failure('Failed to add User', error.message, 2500, error);})
+      .then(() => { 
+        RadGradAlert.success('Add User Succeeded', '', 1500);
         formRef.reset();
       });
   };

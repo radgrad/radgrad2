@@ -1,19 +1,12 @@
-import Swal from 'sweetalert2';
+import RadGradAlerts from '../../../../utilities/RadGradAlert';
+
+const RadGradAlert = new RadGradAlerts();
 
 export const defineCallback = (ref) => (error) => {
   if (error) {
-    Swal.fire({
-      title: 'Add failed',
-      text: error.message,
-      icon: 'error',
-    });
+    RadGradAlert.failure('Add failed', error.message, 2500, error);
   } else {
-    Swal.fire({
-      title: 'Add succeeded',
-      icon: 'success',
-      showConfirmButton: false,
-      timer: 1500,
-    });
+    RadGradAlert.success('Add succeeded', 1500);
     ref.reset();
   }
 };

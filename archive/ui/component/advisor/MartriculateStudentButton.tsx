@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Confirm, SemanticSIZES } from 'semantic-ui-react';
-import Swal from 'sweetalert2';
+import RadGradAlerts from '../../../../app/imports/ui/utilities/RadGradAlert';
 import { matriculateStudentMethod } from '../../../../app/imports/api/user/StudentProfileCollection.methods';
 import { StudentProfile } from '../../../../app/imports/typings/radgrad';
 import { ButtonAction } from '../../../../app/imports/ui/components/shared/button/ButtonAction';
@@ -11,25 +11,14 @@ interface MatriculateStudentButtonProps {
 }
 
 const MatriculateStudentButton: React.FC<MatriculateStudentButtonProps> = ({ student, size }) => {
+
+  const RadGradAlert = new RadGradAlerts();
   const [confirmOpenState, setConfirmOpen] = useState(false);
 
   const handleConfirmMatriculate = () => {
     matriculateStudentMethod.callPromise(student.username)
-      .then(() => {
-        Swal.fire({
-          icon: 'success',
-          title: `Successfully matriculated ${student.firstName} ${student.lastName}`,
-          text: `Student ${student.username} has matriculated and is no longer in RadGrad.`,
-          timer: 1500,
-        });
-      })
-      .catch((error) => {
-        Swal.fire({
-          icon: 'error',
-          title: `Error: failed to matriculated ${student.firstName} ${student.lastName}`,
-          text: `Student ${student.username} has not matriculated. ${error.message}`,
-        });
-      })
+      .then(() => { RadGradAlert.success(`Successfully matriculated ${student.firstName} ${student.lastName}`, 1500);})
+      .catch((error) => { RadGradAlert.failure(`Error: failed to matriculated ${student.firstName} ${student.lastName}`, error.message, 2500, error);})
       .finally(() => setConfirmOpen(false));
   };
   return (

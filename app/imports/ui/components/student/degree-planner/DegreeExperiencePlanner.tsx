@@ -1,9 +1,9 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Grid, Segment } from 'semantic-ui-react';
-import Swal from 'sweetalert2';
 import moment from 'moment';
 import _ from 'lodash';
+import RadGradAlerts from '../../../utilities/RadGradAlert';
 import { Users } from '../../../../api/user/UserCollection';
 import { AcademicYearInstances } from '../../../../api/degree-plan/AcademicYearInstanceCollection';
 import { DegreePlannerStateNames } from '../../../pages/student/StudentDegreePlannerPage';
@@ -29,6 +29,7 @@ interface DePProps {
 
 const DegreeExperiencePlanner: React.FC<DePProps> = ({ academicYearInstances, courseInstances, opportunityInstances }) => {
 
+  const RadGradAlert = new RadGradAlerts();
   const [, setSelectedCiID] = useStickyState(DegreePlannerStateNames.selectedCiID, '');
   const [, setSelectedOiID] = useStickyState(DegreePlannerStateNames.selectedOiID, '');
   const [, setSelectedProfileTab] = useStickyState(DegreePlannerStateNames.selectedProfileTab, '');
@@ -76,25 +77,13 @@ const DegreeExperiencePlanner: React.FC<DePProps> = ({ academicYearInstances, co
     const collectionName = AcademicYearInstances.getCollectionName();
     defineMethod.callPromise({ collectionName, definitionData })
       .then(() => {
-        Swal.fire({
-          title: 'Added new Academic Year',
-          icon: 'success',
-          text: `Fall ${definitionData.year} - Summer ${definitionData.year + 1}`,
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        RadGradAlert.success('Added new Academic Year', `Fall ${definitionData.year} - Summer ${definitionData.year + 1}`, 1500);
         years = AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
         visibleYears = years;
       })
-      .catch((error) =>
-        Swal.fire({
-          title: 'Failed to add a new Academic Year',
-          text: error.message,
-          icon: 'error',
-          allowOutsideClick: false,
-          allowEscapeKey: false,
-          allowEnterKey: false,
-        }));
+      .catch((error) => {
+        RadGradAlert.failure('Failed to add a new Academic Year', error.message, 2500, error);
+      });
   };
 
 
@@ -103,26 +92,11 @@ const DegreeExperiencePlanner: React.FC<DePProps> = ({ academicYearInstances, co
     const instance = visibleYears[visibleYears.length - 1]._id;
     removeItMethod.callPromise({ collectionName, instance })
       .then(() => {
-        Swal.fire({
-          title: 'Deleted Academic Year',
-          icon: 'success',
-          text: 'Successfully deleted an empty Academic Year',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        RadGradAlert.success('Deleted Academic Year', 'Successfully deleted an empty Academic Year', 1500);
         years = AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
         visibleYears = years;
       })
-      .catch((error) => {
-        Swal.fire({
-          title: 'Failed to delete Academic Year',
-          text: error.message,
-          icon: 'error',
-          allowOutsideClick: false,
-          allowEscapeKey: false,
-          allowEnterKey: false,
-        });
-      });
+      .catch((error) => { RadGradAlert.failure('Failed to delete Academic Year', error.message, 2500, error);});
   };
 
   const isTermEmpty = (termID: string): boolean => {
