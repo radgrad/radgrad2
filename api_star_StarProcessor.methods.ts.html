@@ -110,6 +110,7 @@ const processStudentStarDefinitions = (advisor, student, definitions) => {
   // console.log(definitions);
   const studentID = Users.getID(student);
   // console.log(student, studentID);
+  // TODO: This doesn't get rid of all the old instances.
   const oldInstances = CourseInstances.find({ studentID, fromRegistrar: true }).fetch();
   oldInstances.forEach((instance) => {
     CourseInstances.removeIt(instance._id);
