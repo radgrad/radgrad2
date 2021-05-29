@@ -1,34 +1,35 @@
 import { Selector } from 'testcafe';
+import { COMPONENTIDS } from '../imports/ui/utilities/ComponentIDs';
 
 class LandingNavBar {
 
   /** If someone is logged in, then log them out, otherwise do nothing. */
   async ensureLogout(testController) {
-    const loggedInUser = await Selector('#navbar-current-user').exists;
+    const loggedInUser = await Selector(`#${COMPONENTIDS.NAVBAR_CURRENT_USER}`).exists;
     if (loggedInUser) {
-      await testController.click('#navbar-current-user');
-      await testController.click('#navbar-sign-out');
+      await testController.click(`#${COMPONENTIDS.NAVBAR_CURRENT_USER}`);
+      await testController.click(`#${COMPONENTIDS.NAVBAR_SIGN_OUT}`);
     }
   }
 
   async gotoAdminLogin(testController) {
-    await testController.click('#LOGIN');
-    await testController.click('#admin');
+    await testController.click(`#${COMPONENTIDS.LOGIN}`);
+    await testController.click(`#${COMPONENTIDS.ADMIN}`);
   }
 
   async gotoStudentLogin(testController) {
-    await testController.click('#LOGIN');
-    await testController.click('#student');
+    await testController.click(`#${COMPONENTIDS.LOGIN}`);
+    await testController.click(`#${COMPONENTIDS.STUDENT}`);
   }
 
   async gotoFacultyLogin(testController) {
-    await testController.click('#LOGIN');
-    await testController.click('#faculty');
+    await testController.click(`#${COMPONENTIDS.LOGIN}`);
+    await testController.click(`#${COMPONENTIDS.FACULTY}`);
   }
 
   async gotoAdvisorLogin(testController) {
-    await testController.click('#LOGIN');
-    await testController.click('#advisor');
+    await testController.click(`#${COMPONENTIDS.LOGIN}`);
+    await testController.click(`#${COMPONENTIDS.ADVISOR}`);
   }
 }
 

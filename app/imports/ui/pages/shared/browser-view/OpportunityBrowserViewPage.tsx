@@ -24,10 +24,10 @@ const headerPaneImage = 'header-opportunities.png';
 
 
 const OpportunityBrowserViewPage: React.FC<OpportunityBrowserViewPageProps> = ({ opportunities }) => (
-    <PageLayout id={PAGEIDS.OPPORTUNITY_BROWSER} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}
-                headerPaneImage={headerPaneImage}>
-        <BrowserView items={opportunities} explorerType={EXPLORER_TYPE.OPPORTUNITIES} />
-    </PageLayout>
+  <PageLayout id={PAGEIDS.OPPORTUNITY_BROWSER} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}
+    headerPaneImage={headerPaneImage}>
+    <BrowserView items={opportunities} explorerType={EXPLORER_TYPE.OPPORTUNITIES} />
+  </PageLayout>
 );
 
 export default withTracker(() => {

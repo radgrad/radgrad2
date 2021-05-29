@@ -109,9 +109,9 @@ const iceRecHelper = (student: StudentProfile, value, component): string => {
         ' Add some interests so we can provide course recommendations!</a></em>';
       return html;
     }
-    const relevantCourses = Courses.find().fetch().filter((course) => _.some(course.interestIDs, interest => _.includes(studentInterests, interest)));
+    const relevantCourses = Courses.find().fetch().filter((course) => _.some(course.interestIDs, interest => (studentInterests.includes(interest))));
     const currentCourses = CourseInstances.find({ studentID: student.userID }).fetch().map((ci) => ci.courseID);
-    const recommendedCourses = relevantCourses.filter(course => !_.includes(currentCourses, course._id));
+    const recommendedCourses = relevantCourses.filter(course => !(currentCourses.includes(course._id)));
     if (recommendedCourses.length === 0) {
       html += '<em><a href="https://radgrad.ics.hawaii.edu">' +
         ' Add more interests so we can provide course recommendations!</a></em>';
@@ -129,13 +129,13 @@ const iceRecHelper = (student: StudentProfile, value, component): string => {
       return html;
     }
     const opps = Opportunities.find().fetch().filter((opp) => opp.ice[component] > 0);
-    const relevantOpps = opps.filter((opp) => _.some(opp.interestIDs, interest => _.includes(studentInterests, interest)));
+    const relevantOpps = opps.filter((opp) => _.some(opp.interestIDs, interest => (studentInterests.includes(interest))));
     if (relevantOpps.length === 0) {
       return ' <em><a href="https://radgrad.ics.hawaii.edu">' +
         ' Add more Interests to your profile so we can provide opportunity recommendations!</a></em>';
     }
     const currentOpps = OpportunityInstances.find({ studentID: student.userID }).fetch().map((oi) => oi.opportunityID);
-    const recommendedOpps = relevantOpps.filter(opp => !_.includes(currentOpps, opp._id));
+    const recommendedOpps = relevantOpps.filter(opp => currentOpps.includes(opp._id));
     let recOpp;
     if (recommendedOpps.length === 0) {
       recOpp = relevantOpps[0];

@@ -272,7 +272,7 @@ export const processStarJsonData = (student, jsonData) => {
   const dataObjects = courses.map((course) => {
     const name = course.name;
     let grade = course.grade;
-    if (_.includes(CourseInstances.validGrades, grade)) {
+    if ((CourseInstances.validGrades).includes(grade)) {
       if (grade === 'CR' && course.transferGrade && isNaN(course.transferGrade)) {
         grade = course.transferGrade;
       } else if (grade === 'CR' && course.transferGrade && !isNaN(course.transferGrade)) {

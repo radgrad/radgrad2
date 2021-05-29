@@ -112,7 +112,7 @@ const AddReviewForm: React.FC<AddReviewFormProps> = ({ terms, courses, opportuni
       <Header dividing>Add Review</Header>
       {/* eslint-disable-next-line no-return-assign */}
       <AutoForm schema={new SimpleSchema2Bridge(schema)} onSubmit={handleAdd} ref={(ref) => formRef = ref}
-                showInlineError onChangeModel={handleModelChange}>
+        showInlineError onChangeModel={handleModelChange}>
         <Form.Group widths="equal">
           <SelectField name="reviewType" />
           <SelectField name="student" />

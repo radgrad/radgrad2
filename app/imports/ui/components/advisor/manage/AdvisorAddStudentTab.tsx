@@ -108,27 +108,27 @@ const AdvisorAddStudentTab: React.FC<AdvisorAddStudentWidgetProps> = ({ interest
         <Form.Group>
           <Form.Field>
             <Form.Input name="firstName" label="First Name" value={firstName} onChange={handleFormChange}
-                        required />
+              required />
           </Form.Field>
           <Form.Field>
             <Form.Input name="lastName" label="Last Name" value={lastName} onChange={handleFormChange}
-                        required />
+              required />
           </Form.Field>
         </Form.Group>
         <Form.Group>
           <Form.Field>
             <Form.Input name="username" label="Username" value={username} onChange={handleFormChange}
-                        required />
+              required />
           </Form.Field>
           <Form.Field>
             <Form.Field>Alumni</Form.Field>
             <Form.Field>
               <Radio name="isAlumni" label="True" value="true" onChange={handleFormChange}
-                     checked={isAlumni === true} required />
+                checked={isAlumni === true} required />
             </Form.Field>
             <Form.Field>
               <Radio name="isAlumni" label="False" value="false" onChange={handleFormChange}
-                     checked={isAlumni === false} required />
+                checked={isAlumni === false} required />
             </Form.Field>
           </Form.Field>
         </Form.Group>

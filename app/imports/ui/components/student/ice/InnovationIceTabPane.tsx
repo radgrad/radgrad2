@@ -59,11 +59,11 @@ const InnovationIceTabPane: React.FC<InnovationIceTabPaneProps> = ({
                 <p>You have {unVerifiedOIs.length} opportunit{unVerifiedOIs.length > 1 ? 'ies' : 'y'} without
                   verification
                   requests. Visit the Verification Page to request verification. <ButtonLink
-                    url={`/${URL_ROLES.STUDENT}/${username}/${STUDENT_VERIFICATION}`} label='Verification Page'
-                    size='mini' /></p> : ''}
+                  url={`/${URL_ROLES.STUDENT}/${username}/${STUDENT_VERIFICATION}`} label='Verification Page'
+                  size='mini' /></p> : ''}
               {projectedICE < 100 ? <div>
                 <p>You don&quot;t have enough innovative opportunities in your degree experience plan. Here are some recommended innovative opportunities based upon your interests:</p>
-                  <OpportunityList opportunities={recommended} size='large' keyStr='recommended' userID={profileID} />
+                <OpportunityList opportunities={recommended} size='large' keyStr='recommended' userID={profileID} />
                 <List ordered>
                   <List.Item>View the opportunity by clicking on the label.</List.Item>
                   <List.Item>If you like the opportunity, add it to your profile.</List.Item>

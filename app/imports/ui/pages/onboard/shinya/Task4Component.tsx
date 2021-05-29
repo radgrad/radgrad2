@@ -26,16 +26,16 @@ const Task4Component: React.FC<Task4Props> = ({ students, careerGoals, courses, 
   const loggedInUser = Meteor.user() ? Meteor.user()._id : '';
   return (
     <RadGradSegment header={Task4Header}>
-        <RadGradHeader title="Career Goals"/>
-        {careerGoals.map((careerGoal) => <CareerGoalLabel key={careerGoal._id} slug={careerGoal.slugID} userID={ loggedInUser } size='small'/>)}
-        <RadGradHeader title="Courses"/>
-        {courses.map((course)=><CourseLabel key={course._id} slug={course.slugID} userID={ loggedInUser} size='small'/>)}
-        <RadGradHeader title="Interests"/>
-        {interests.map((interest) => <InterestLabel key={interest._id} slug={interest.slugID} userID={loggedInUser} size='small'/>)}
-        <RadGradHeader title="Opportunities"/>
-        {opportunities.map((opportunity) => <OpportunityLabel key={opportunity._id} slug={opportunity.slugID} userID = {loggedInUser} size='small'/>)}
-        <RadGradHeader title="Students"/>
-        {students.map((student) => <UserLabel key={student._id} username={student.username} size='small'/>)}
+      <RadGradHeader title="Career Goals"/>
+      {careerGoals.map((careerGoal) => <CareerGoalLabel key={careerGoal._id} slug={careerGoal.slugID} userID={ loggedInUser } size='small'/>)}
+      <RadGradHeader title="Courses"/>
+      {courses.map((course)=><CourseLabel key={course._id} slug={course.slugID} userID={ loggedInUser} size='small'/>)}
+      <RadGradHeader title="Interests"/>
+      {interests.map((interest) => <InterestLabel key={interest._id} slug={interest.slugID} userID={loggedInUser} size='small'/>)}
+      <RadGradHeader title="Opportunities"/>
+      {opportunities.map((opportunity) => <OpportunityLabel key={opportunity._id} slug={opportunity.slugID} userID = {loggedInUser} size='small'/>)}
+      <RadGradHeader title="Students"/>
+      {students.map((student) => <UserLabel key={student._id} username={student.username} size='small'/>)}
     </RadGradSegment>
   );
 };

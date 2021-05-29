@@ -22,9 +22,9 @@ If we've missed a career goal of interest to you, please click the button below 
 const headerPaneImage = 'header-career.png';
 
 const CareerGoalBrowserViewPage: React.FC<CareerGoalBrowserViewPageProps> = ({ careerGoals }) => (
-    <PageLayout id={PAGEIDS.CAREER_GOAL_BROWSER} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
-      <BrowserView items={careerGoals} explorerType={EXPLORER_TYPE.CAREERGOALS} />
-    </PageLayout>
+  <PageLayout id={PAGEIDS.CAREER_GOAL_BROWSER} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
+    <BrowserView items={careerGoals} explorerType={EXPLORER_TYPE.CAREERGOALS} />
+  </PageLayout>
 );
 
 export default withTracker(() => {

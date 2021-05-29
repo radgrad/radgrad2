@@ -93,36 +93,36 @@ const FutureParticipation: React.FC<FutureParticipationProps> = ({ item }) => {
     );
   }
   return (
-      <Table celled>
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell>Academic Year</Table.HeaderCell>
-            <Table.HeaderCell>Fall</Table.HeaderCell>
-            <Table.HeaderCell>Spring</Table.HeaderCell>
-            <Table.HeaderCell>Summer</Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
-          <Table.Row>
-            <Table.Cell>{label1}</Table.Cell>
-            <Table.Cell>{tableData[label1][0]}</Table.Cell>
-            <Table.Cell>{tableData[label1][1]}</Table.Cell>
-            <Table.Cell>{tableData[label1][2]}</Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell>{label2}</Table.Cell>
-            <Table.Cell>{tableData[label2][0]}</Table.Cell>
-            <Table.Cell>{tableData[label2][1]}</Table.Cell>
-            <Table.Cell>{tableData[label2][2]}</Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell>{label3}</Table.Cell>
-            <Table.Cell>{tableData[label3][0]}</Table.Cell>
-            <Table.Cell>{tableData[label3][1]}</Table.Cell>
-            <Table.Cell>{tableData[label3][2]}</Table.Cell>
-          </Table.Row>
-        </Table.Body>
-      </Table>
+    <Table celled>
+      <Table.Header>
+        <Table.Row>
+          <Table.HeaderCell>Academic Year</Table.HeaderCell>
+          <Table.HeaderCell>Fall</Table.HeaderCell>
+          <Table.HeaderCell>Spring</Table.HeaderCell>
+          <Table.HeaderCell>Summer</Table.HeaderCell>
+        </Table.Row>
+      </Table.Header>
+      <Table.Body>
+        <Table.Row>
+          <Table.Cell>{label1}</Table.Cell>
+          <Table.Cell>{tableData[label1][0]}</Table.Cell>
+          <Table.Cell>{tableData[label1][1]}</Table.Cell>
+          <Table.Cell>{tableData[label1][2]}</Table.Cell>
+        </Table.Row>
+        <Table.Row>
+          <Table.Cell>{label2}</Table.Cell>
+          <Table.Cell>{tableData[label2][0]}</Table.Cell>
+          <Table.Cell>{tableData[label2][1]}</Table.Cell>
+          <Table.Cell>{tableData[label2][2]}</Table.Cell>
+        </Table.Row>
+        <Table.Row>
+          <Table.Cell>{label3}</Table.Cell>
+          <Table.Cell>{tableData[label3][0]}</Table.Cell>
+          <Table.Cell>{tableData[label3][1]}</Table.Cell>
+          <Table.Cell>{tableData[label3][2]}</Table.Cell>
+        </Table.Row>
+      </Table.Body>
+    </Table>
   );
 };
 

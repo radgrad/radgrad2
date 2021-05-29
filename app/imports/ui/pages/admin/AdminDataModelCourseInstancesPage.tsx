@@ -105,10 +105,10 @@ const AdminDataModelCourseInstancesPage: React.FC<AdminDataModelCourseInstancesP
     <PageLayout id={PAGEIDS.DATA_MODEL_COURSE_INSTANCES} headerPaneTitle="Course Instances">
       {showUpdateFormState ? (
         <UpdateCourseInstanceForm collection={collection} id={idState} handleUpdate={handleUpdate}
-                                  handleCancel={handleCancel} itemTitleString={itemTitleString} terms={terms} />
+          handleCancel={handleCancel} itemTitleString={itemTitleString} terms={terms} />
       ) : (
         <AddCourseInstanceForm terms={terms} courses={courses}
-                               students={students} />
+          students={students} />
       )}
       <ListCollectionWidget
         collection={collection}
@@ -120,7 +120,7 @@ const AdminDataModelCourseInstancesPage: React.FC<AdminDataModelCourseInstancesP
         items={items}
       />
       <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
-               header="Delete Course Instance?" />
+        header="Delete Course Instance?" />
     </PageLayout>
   );
 };

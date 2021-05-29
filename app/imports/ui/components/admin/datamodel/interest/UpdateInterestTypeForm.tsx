@@ -22,21 +22,21 @@ const UpdateInterestTypeForm: React.FC<UpdateInterestTypeFormProps> = ({
 }) => {
   const model = collection.findDoc(id);
   return (
-        <Segment padded>
-            <Header dividing>
+    <Segment padded>
+      <Header dividing>
                 Update
-                {collection.getType()}:{itemTitleString(model)}
-            </Header>
-            <AutoForm schema={new SimpleSchema2Bridge(InterestTypes.getUpdateSchema())} onSubmit={handleUpdate}
-                      showInlineError model={model}>
-                <TextField name="name"/>
-                <LongTextField name="description"/>
-                <BoolField name="retired"/>
-                <SubmitField inputRef={undefined} value="Update" disabled={false} className="mini basic green"/>
-                <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
-                <ErrorsField/>
-            </AutoForm>
-        </Segment>
+        {collection.getType()}:{itemTitleString(model)}
+      </Header>
+      <AutoForm schema={new SimpleSchema2Bridge(InterestTypes.getUpdateSchema())} onSubmit={handleUpdate}
+        showInlineError model={model}>
+        <TextField name="name"/>
+        <LongTextField name="description"/>
+        <BoolField name="retired"/>
+        <SubmitField inputRef={undefined} value="Update" disabled={false} className="mini basic green"/>
+        <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
+        <ErrorsField/>
+      </AutoForm>
+    </Segment>
   );
 };
 

@@ -65,41 +65,41 @@ const EditCourseButton: React.FC<EditCourseButtonProps> = ({ course, courses, in
   const formSchema = new SimpleSchema2Bridge(updateSchema);
 
   return (
-        <Modal key={`${course._id}-modal`}
-               onClose={() => setOpen(false)}
-               onOpen={() => setOpen(true)}
-               open={open}
-               trigger={<Button basic color='green' key={`${course._id}-edit-button`}>EDIT</Button>}>
-            <Modal.Header>{`Edit ${course.num} ${course.name}`}</Modal.Header>
-            <Modal.Content>
-                <AutoForm model={model} schema={formSchema} showInlineError onSubmit={(doc) => {
-                  handleSubmit(doc);
-                  setOpen(false);
-                }}>
-                    <Form.Group widths="equal">
-                        <TextField name="name"/>
-                        <TextField name="shortName"/>
-                    </Form.Group>
-                    <LongTextField name="description"/>
-                    <MultiSelectField name="interests"/>
-                    <TextField name="syllabus"/>
-                    <Form.Group widths="equal">
-                        <MultiSelectField name="corequisites"/>
-                        <MultiSelectField name="prerequisites"/>
-                    </Form.Group>
-                    <Form.Group>
-                        <BoolField name="repeatable"/>
-                        <BoolField name="retired"/>
-                    </Form.Group>
-                    <p/>
-                    <ErrorsField/>
-                    <SubmitField/>
-                    <Button color='red' onClick={() => setOpen(false)}>
+    <Modal key={`${course._id}-modal`}
+      onClose={() => setOpen(false)}
+      onOpen={() => setOpen(true)}
+      open={open}
+      trigger={<Button basic color='green' key={`${course._id}-edit-button`}>EDIT</Button>}>
+      <Modal.Header>{`Edit ${course.num} ${course.name}`}</Modal.Header>
+      <Modal.Content>
+        <AutoForm model={model} schema={formSchema} showInlineError onSubmit={(doc) => {
+          handleSubmit(doc);
+          setOpen(false);
+        }}>
+          <Form.Group widths="equal">
+            <TextField name="name"/>
+            <TextField name="shortName"/>
+          </Form.Group>
+          <LongTextField name="description"/>
+          <MultiSelectField name="interests"/>
+          <TextField name="syllabus"/>
+          <Form.Group widths="equal">
+            <MultiSelectField name="corequisites"/>
+            <MultiSelectField name="prerequisites"/>
+          </Form.Group>
+          <Form.Group>
+            <BoolField name="repeatable"/>
+            <BoolField name="retired"/>
+          </Form.Group>
+          <p/>
+          <ErrorsField/>
+          <SubmitField/>
+          <Button color='red' onClick={() => setOpen(false)}>
                         Cancel
-                    </Button>
-                </AutoForm>
-            </Modal.Content>
-        </Modal>
+          </Button>
+        </AutoForm>
+      </Modal.Content>
+    </Modal>
   );
 
 };

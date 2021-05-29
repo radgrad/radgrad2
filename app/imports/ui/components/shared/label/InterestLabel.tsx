@@ -1,5 +1,4 @@
 import React from 'react';
-import _ from 'lodash';
 import { useRouteMatch } from 'react-router-dom';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import * as Router from '../utilities/router';
@@ -23,7 +22,7 @@ const InterestLabel: React.FC<EntityLabelPublicProps> = ({ slug, userID, size, s
     // Calculate inProfile and route.
     const profileEntityIDs = ProfileInterests.findNonRetired({ userID: userID });
     const id = Interests.findIdBySlug(slug);
-    inProfile = _.includes(profileEntityIDs.map(doc => doc.interestID), id);
+    inProfile = ((profileEntityIDs.map(doc => doc.interestID)).includes(id));
   }
   return (
     <EntityLabel key={slug} slug={slug} inProfile={inProfile} icon='heart outline' name={name} route={route} size={size} style={style} rightside={rightside} />

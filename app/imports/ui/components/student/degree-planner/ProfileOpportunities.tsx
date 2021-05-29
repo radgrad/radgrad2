@@ -26,7 +26,7 @@ const ProfileOpportunities: React.FC<ProfileOpportunitiesProps> = ({
         <Card.Group itemsPerRow={1}>
           {opportunities.map((o) => (
             <ProfileOpportunityCard key={o._id} opportunity={o} studentID={studentID}
-                                    opportunityInstances={opportunityInstances} />
+              opportunityInstances={opportunityInstances} />
           ))}
         </Card.Group>
         :
@@ -34,7 +34,7 @@ const ProfileOpportunities: React.FC<ProfileOpportunitiesProps> = ({
           <Message.Header>No Profile Opportunities</Message.Header>
           <p>You can add opportunities to your profile in the explorer.</p>
           <ButtonLink url={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}`)}
-                      label='View in Explorer' />
+            label='View in Explorer' />
         </Message>
       }
     </div>

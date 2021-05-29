@@ -33,16 +33,16 @@ const Task6: React.FC<Task6Props> = ({ interests }) => {
   const formSchema = new SimpleSchema2Bridge(schema);
 
   return (
-        <RadGradSegment header={<RadGradHeader title='TASK 6: EDIT THE DESCRIPTION' icon='pencil' dividing />}>
-            <AutoForm schema={formSchema} onSubmit={handleSubmit} showInlineError>
-                <SelectField name="interest" placeholder="(Select interest)" />
-                <SubmitField className="mini basic green" value="Display Description" />
-            </AutoForm>
+    <RadGradSegment header={<RadGradHeader title='TASK 6: EDIT THE DESCRIPTION' icon='pencil' dividing />}>
+      <AutoForm schema={formSchema} onSubmit={handleSubmit} showInlineError>
+        <SelectField name="interest" placeholder="(Select interest)" />
+        <SubmitField className="mini basic green" value="Display Description" />
+      </AutoForm>
 
-            {description ? <div style={{ marginTop: '1rem' }}>
-                <Task6EditDescriptionComponent interest={description} />
-            </div> : null}
-        </RadGradSegment>
+      {description ? <div style={{ marginTop: '1rem' }}>
+        <Task6EditDescriptionComponent interest={description} />
+      </div> : null}
+    </RadGradSegment>
   );
 };
 

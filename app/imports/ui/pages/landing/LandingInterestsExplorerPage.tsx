@@ -26,7 +26,7 @@ const LandingInterestsExplorerPage: React.FC<InterestsCardExplorerProps> = ({ in
   <div>
     <LandingExplorerMenuBar/>
     <PageLayout id={PAGEIDS.LANDING_INTERESTS_EXPLORER} headerPaneTitle={headerPaneTitle}
-                headerPaneBody={headerPaneBody}>
+      headerPaneBody={headerPaneBody}>
       <Segment>
         <Header as="h4" dividing>
           <span>INTERESTS</span> ({count})

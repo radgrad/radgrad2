@@ -25,7 +25,7 @@ const collection = OpportunityTypes; // the collection to use.
 const numReferences = (opportunityType) => {
   let references = 0;
   Opportunities.find().forEach((doc) => {
-    if (_.includes(doc.opportunityTypeID, opportunityType._id)) {
+    if ((doc.opportunityTypeID).includes(opportunityType._id)) {
       references += 1;
     }
   });
@@ -99,7 +99,7 @@ const AdminDataModelOpportunityTypesPage: React.FC<AdminDataModelOpportunityType
     <PageLayout id={PAGEIDS.DATA_MODEL_OPPORTUNITY_TYPES} headerPaneTitle="Opportunity Types">
       {showUpdateFormState ? (
         <UpdateOpportunityTypeForm collection={collection} id={idState} handleUpdate={handleUpdate}
-                                   handleCancel={handleCancel} itemTitleString={itemTitleString} />
+          handleCancel={handleCancel} itemTitleString={itemTitleString} />
       ) : (
         <AddOpportunityTypeForm />
       )}
@@ -113,7 +113,7 @@ const AdminDataModelOpportunityTypesPage: React.FC<AdminDataModelOpportunityType
         items={items}
       />
       <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
-               header="Delete Opportunity Type?" />
+        header="Delete Opportunity Type?" />
     </PageLayout>
   );
 };

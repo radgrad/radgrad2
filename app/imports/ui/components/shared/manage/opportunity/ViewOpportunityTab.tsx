@@ -21,7 +21,7 @@ const ViewOpportunityTab: React.FC<ViewOpportunityTabProps> = ({
   <Tab.Pane>
     <Grid stackable>
       {opportunities.map((opp) => <ManageOpportunityItem opportunity={opp} sponsors={sponsors} terms={terms}
-                                                         interests={interests} opportunityTypes={opportunityTypes} key={opp._id} />)}
+        interests={interests} opportunityTypes={opportunityTypes} key={opp._id} />)}
     </Grid>
   </Tab.Pane>
 );

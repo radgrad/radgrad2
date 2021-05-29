@@ -1,4 +1,5 @@
 import { Selector } from 'testcafe';
+import { COMPONENTIDS } from '../imports/ui/utilities/ComponentIDs';
 
 class SigninPage {
   constructor() {
@@ -14,9 +15,9 @@ class SigninPage {
   /** Fills out and submits the form to signin. */
   async signin(testController, credentials) {
     await this.isDisplayed(testController);
-    await testController.typeText('#signin-form-email', credentials.userName);
-    await testController.typeText('#signin-form-password', credentials.password);
-    await testController.click('#signin-form-submit');
+    await testController.typeText(`#${COMPONENTIDS.SIGNIN_FORM_EMAIL}`, credentials.userName);
+    await testController.typeText(`#${COMPONENTIDS.SIGNIN_FORM_PASSWORD}`, credentials.password);
+    await testController.click(`#${COMPONENTIDS.SIGNIN_FORM_SUBMIT}`);
   }
 }
 

@@ -30,12 +30,12 @@ const AdvisorUpdateStudentTab: React.FC<AdvisorManageStudentsProps> = ({
   return (
     <Tab.Pane>
       <AdvisorFilterStudents firstName={firstNameFilter} setFirstName={setFirstNameFilter} lastName={lastNameFilter}
-                             setLastName={setLastNameFilter} username={userNameFilter} setUserName={setUserNameFilter}
-                             numStudents={numShowing} />
+        setLastName={setLastNameFilter} username={userNameFilter} setUserName={setUserNameFilter}
+        numStudents={numShowing} />
       <AdvisorFilteredStudentTabs students={filteredStudents} alumni={filteredAlumni} careerGoals={careerGoals}
-                                  courses={courses}
-                                  interests={interests} opportunities={opportunities} profileCareerGoals={profileCareerGoals}
-                                  profileInterests={profileInterests} />
+        courses={courses}
+        interests={interests} opportunities={opportunities} profileCareerGoals={profileCareerGoals}
+        profileInterests={profileInterests} />
     </Tab.Pane>
   );
 };

@@ -69,10 +69,10 @@ const DeleteItemButton: React.FC<DeleteItemButtonProps> = ({ item, type }) => {
 
   return (
     <Modal key={`${item._id}-modal-delete`}
-           onClose={() => setOpen(false)}
-           onOpen={() => setOpen(true)}
-           open={open}
-           trigger={<Button basic color='red' key={`${item._id}-delete-button`}>DELETE</Button>}>
+      onClose={() => setOpen(false)}
+      onOpen={() => setOpen(true)}
+      open={open}
+      trigger={<Button basic color='red' key={`${item._id}-delete-button`}>DELETE</Button>}>
       <Modal.Header>{`Delete ${typeStr} ${item.name}?`}</Modal.Header>
       <Modal.Content>Do you really want to delete the {`${typeStr}`}, &quot;{`${item.name}`}&quot; ?</Modal.Content>
       <Modal.Actions>
