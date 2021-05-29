@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Image, Grid } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import { Interests } from '../../../../api/interest/InterestCollection';
 import {
   CareerGoal,
@@ -55,7 +55,6 @@ const CareerGoalViewPage: React.FC<CareerGoalViewPageProps> = ({
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={5}>
-            <Image src = {careerGoal.picture}/>
             <RelatedInterests item={careerGoal} />
             <RelatedCourses relatedCourses={relatedCourses} profile={profile} />
             <RelatedOpportunities relatedOpportunities={relatedOpportunities} profile={profile} />
