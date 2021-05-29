@@ -7,7 +7,7 @@ const courseSlugToNote = (slug: string): string => {
   return `${split[0].toUpperCase()} ${split[1]}`;
 };
 
-export interface CourseInstanceDefine {
+export interface CourseInstance {
   academicTerm: string;
   course: string;
   verified?: boolean;
@@ -19,7 +19,7 @@ export interface CourseInstanceDefine {
   retired?: boolean;
 }
 
-export const generateCourseInstance = (student: string, planItem: PlanCourseItem, academicTerms: AcademicTermCollection): CourseInstanceDefine => {
+export const generateCourseInstance = (student: string, planItem: PlanCourseItem, academicTerms: AcademicTermCollection): CourseInstance => {
   const currentTerm = academicTerms.getCurrentTerm();
   const quarters = academicTerms.isQuarterSystem();
   const course = planItem.slug;

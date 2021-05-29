@@ -4,20 +4,25 @@ import moment from 'moment';
 import { getCollectionData, getNonRetiredCollectionData } from '../data-dump-utils';
 import AcademicTermCollection from './AcademicTermCollection';
 import { generateCourseInstance } from './course-instance-utilities';
-import { generateOpportunityInstance } from './opportunity-instance-utilities';
+import { generateOpportunityInstance, OpportunityInstance } from './opportunity-instance-utilities';
 import RadGradCollection, { RadGradCollectionName } from './RadGradCollection';
 import { StudentConfig } from './user-config-file.js';
 import { generateReview } from './review-utilities';
 import { validateFixture } from './validation-utilities';
+import { generateVerificationRequest } from './verification-request-utilities';
 
 export interface Doc {
   slug?: string;
   term?: string;
+  academicTerm?: string;
+  student?: string;
+  opportunity?: string;
   targetSlug?: string;
   interests?: string[];
   careerGoals?: string[];
   profileCourses?: string[];
   profileOpportunities: string[];
+  verified?: boolean;
   retired?: boolean;
 }
 
@@ -107,6 +112,19 @@ const buildStudentProfileCollection = (studentConfig: StudentConfig): ICollectio
   return result;
 };
 
+const buildVerificationRequestCollection = (opportunities: ICollection): ICollection => {
+  const result = {
+    name: RadGradCollectionName.VERIFICATION_REQUESTS,
+    contents: [],
+  };
+  opportunities.contents.forEach((opp) => {
+    if (opp.verified) {
+      result.contents.push(generateVerificationRequest(opp as OpportunityInstance));
+    }
+  });
+  return result;
+};
+
 const createFixture = (radgradDump: IDataDump, studentConfig: StudentConfig, academicTerms: AcademicTermCollection): IDataDump => {
   const result: IDataDump = {
     timestamp: `${moment().format(databaseFileDateFormat)}`,
@@ -157,13 +175,10 @@ const createFixture = (radgradDump: IDataDump, studentConfig: StudentConfig, aca
     contents: [],
   });
   result.collections.push({
-    name: RadGradCollectionName.VERIFICATION_REQUESTS,
-    contents: [],
-  });
-  result.collections.push({
     name: RadGradCollectionName.USER_INTERACTIONS,
     contents: [],
   });
+  result.collections.push(buildVerificationRequestCollection(oiCollection));
   const opportunities = new RadGradCollection(RadGradCollectionName.OPPORTUNITIES, getNonRetiredCollectionData(radgradDump, RadGradCollectionName.OPPORTUNITIES));
   result.collections.push(buildReviewsCollection(studentConfig, academicTerms, opportunities));
   // sort the collections

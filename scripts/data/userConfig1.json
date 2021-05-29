@@ -30,7 +30,7 @@
           "iot-architect",
           "data-scientist"
         ],
-        "level": 1,
+        "level": 2,
         "profileCourses": [
           "ics_111",
           "ics_141",
@@ -66,7 +66,8 @@
         "shareOpportunities": true,
         "shareCourses": true,
         "shareLevel": true,
-        "shareICE": true
+        "shareICE": true,
+        "acceptedTermsAndConditions": true
       },
       {
         "username": "alfred@hawaii.edu",
@@ -82,7 +83,7 @@
         "careerGoals": [
           "software-developer"
         ],
-        "level": 5,
+        "level": 3,
         "profileCourses": [
           "ics_111",
           "ics_141",
@@ -105,6 +106,7 @@
           "ics_435"
         ],
         "profileOpportunities": [
+          "acm-manoa",
           "code-for-hawaii",
           "booz-allen-internship",
           "att-iot-hackathon",
@@ -140,7 +142,7 @@
           "data-scientist",
           "graduate-school"
         ],
-        "level": 4,
+        "level": 2,
         "profileCourses": [
           "ics_111",
           "ics_141",
@@ -171,44 +173,19 @@
         "shareOpportunities": false,
         "shareCourses": false,
         "shareLevel": true,
-        "shareICE": true
+        "shareICE": true,
+        "acceptedTermsAndConditions": true
       },
       {
         "username": "charley@hawaii.edu",
         "firstName": "Charley",
         "lastName": "Sherry",
         "picture": "/images/mockup/charley.jpg",
-        "interests": [
-          "bioinformatics",
-          "algorithms",
-          "data-science",
-          "databases",
-          "machine-learning",
-          "research"
-        ],
-        "careerGoals": [
-          "data-scientist"
-        ],
+        "interests": [],
+        "careerGoals": [],
         "level": 2,
-        "profileCourses": [
-          "ics_111",
-          "ics_141",
-          "ics_211",
-          "ics_241",
-          "ics_311",
-          "ics_314",
-          "ics_212",
-          "ics_321",
-          "ics_313",
-          "ics_331",
-          "ics_332",
-          "ics_464"
-        ],
-        "profileOpportunities": [
-          "code-for-hawaii",
-          "itma",
-          "att-iot-hackathon"
-        ],
+        "profileCourses": [],
+        "profileOpportunities": [],
         "isAlumni": false,
         "retired": false,
         "sharePicture": false,
@@ -234,7 +211,7 @@
         "careerGoals": [
           "full-stack-developer"
         ],
-        "level": 1,
+        "level": 2,
         "profileCourses": [
           "ics_111",
           "ics_141",
@@ -263,7 +240,8 @@
         "shareOpportunities": false,
         "shareCourses": false,
         "shareLevel": false,
-        "shareICE": false
+        "shareICE": false,
+        "acceptedTermsAndConditions": true
       }
     ]
   },
@@ -273,13 +251,13 @@
       "courses": [
         {
           "slug": "ics_111",
-          "academicYearOffset": -1,
+          "academicYearOffset": -2,
           "termNum": 0,
           "grade": "A"
         },
         {
           "slug": "ics_141",
-          "academicYearOffset": -1,
+          "academicYearOffset": -2,
           "termNum": 0,
           "grade": "B+"
         },
@@ -297,13 +275,13 @@
         },
         {
           "slug": "ics_311",
-          "academicYearOffset": 0,
+          "academicYearOffset": -1,
           "termNum": 0,
           "grade": "A"
         },
         {
           "slug": "ics_314",
-          "academicYearOffset": 0,
+          "academicYearOffset": -1,
           "termNum": 0,
           "grade": "B"
         },
@@ -321,13 +299,13 @@
         },
         {
           "slug": "ics_313",
-          "academicYearOffset": 1,
+          "academicYearOffset": 0,
           "termNum": 0,
           "grade": "B"
         },
         {
           "slug": "ics_331",
-          "academicYearOffset": 1,
+          "academicYearOffset": 0,
           "termNum": 0,
           "grade": "B"
         },
@@ -348,12 +326,30 @@
         {
           "slug": "acm-manoa",
           "academicYearOffset": -1,
+          "termNum": 1,
+          "verified": true
+        },
+        {
+          "slug": "acm-manoa",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "acm-manoa",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "verified": false
+        },
+        {
+          "slug": "acm-manoa",
+          "academicYearOffset": 0,
           "termNum": 0,
           "verified": false
         },
         {
           "slug": "acm-manoa",
-          "academicYearOffset": -1,
+          "academicYearOffset": 1,
           "termNum": 1,
           "verified": false
         }
@@ -377,9 +373,182 @@
     },
     {
       "username": "alfred@hawaii.edu",
-      "courses": [],
-      "opportunities": [],
-      "reviews": []
+      "courses": [
+        {
+          "slug": "ics_111",
+          "academicYearOffset": -3,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ics_141",
+          "academicYearOffset": -3,
+          "termNum": 1,
+          "grade": "B+"
+        },
+        {
+          "slug": "ics_211",
+          "academicYearOffset": -3,
+          "termNum": 0,
+          "grade": "A-"
+        },
+        {
+          "slug": "ics_241",
+          "academicYearOffset": -3,
+          "termNum": 0,
+          "grade": "B+"
+        },
+        {
+          "slug": "ics_311",
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "grade": "A-"
+        },
+        {
+          "slug": "ics_314",
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "grade": "B+"
+        },
+        {
+          "slug": "ics_212",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "grade": "A-"
+        },
+        {
+          "slug": "ics_321",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "grade": "B+"
+        },
+        {
+          "slug": "ics_313",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "grade": "A-"
+        },
+        {
+          "slug": "ics_331",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "grade": "B+"
+        },
+        {
+          "slug": "ics_332",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "grade": "A-"
+        },
+        {
+          "slug": "ics_464",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "grade": "B+"
+        },
+        {
+          "slug": "ics_431",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "grade": "A-"
+        },
+        {
+          "slug": "ics_425",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "grade": "B+"
+        },
+        {
+          "slug": "ics_426",
+          "academicYearOffset": 0,
+          "termNum": 0,
+          "grade": "A-"
+        },
+        {
+          "slug": "ics_464",
+          "academicYearOffset": 0,
+          "termNum": 0,
+          "grade": "B+"
+        }
+      ],
+      "opportunities": [
+        {
+          "slug": "acm-manoa",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "acm-manoa",
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "verified": true
+        },
+        {
+          "slug": "acm-manoa",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "hacc",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "acm-manoa",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "verified": true
+        },
+        {
+          "slug": "booz-allen-internship",
+          "academicYearOffset": -1,
+          "termNum": 2,
+          "verified": true
+        },
+        {
+          "slug": "acm-manoa",
+          "academicYearOffset": 0,
+          "termNum": 0,
+          "verified": false
+        },
+        {
+          "slug": "acm-manoa",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "verified": false
+        },
+        {
+          "slug": "hacc",
+          "academicYearOffset": 0,
+          "termNum": 0,
+          "verified": false
+        },
+        {
+          "slug": "booz-allen-internship",
+          "academicYearOffset": 0,
+          "termNum": 2,
+          "verified": false
+        }
+      ],
+      "reviews": [
+        {
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "reviewee": "ics_241",
+          "rating": 3,
+          "comments": "I understand how Discrete Math relates to Information and Computer Science, but I still didn't enjoy this course-- the content, that is. Initially the homework problems were, to me, difficult. Fortunately, the professor tried very hard to teach the concepts well, and I received a lot of help from the TA and the professor during office hours."
+        },
+        {
+          "academicYearOffset": -2,
+          "termNum": 2,
+          "reviewee": "ics_311",
+          "rating": 4,
+          "comments": "I've heard a lot about how this course is the bottleneck for progressing through the ICS program. Compared to all the courses I've taken before, this has to be the most time consuming. It's not that the concepts are difficult to understand nor is the courseload that heavy, but I found myself having to put more time to review and understand everything. The class structure for this was inverted, so we watched video lectures in our own time and used class time to do actual problems. I thought it was a better use of class time."
+        }
+      ]
     },
     {
       "username": "betty@hawaii.edu",
@@ -398,14 +567,14 @@
         },
         {
           "slug": "ics_211",
-          "academicYearOffset": -1,
+          "academicYearOffset": -2,
           "termNum": 0,
           "grade": "B"
         },
         {
           "slug": "ics_241",
-          "academicYearOffset": -1,
-          "termNum": 1,
+          "academicYearOffset": -2,
+          "termNum": 0,
           "grade": "A"
         },
         {
@@ -416,14 +585,14 @@
         },
         {
           "slug": "ics_314",
-          "academicYearOffset": 0,
+          "academicYearOffset": -1,
           "termNum": 0,
           "grade": "B-"
         },
         {
           "slug": "ics_212",
           "academicYearOffset": 0,
-          "termNum": 0,
+          "termNum": 1,
           "grade": "B-"
         },
         {
@@ -435,23 +604,36 @@
         {
           "slug": "ics_331",
           "academicYearOffset": 0,
-          "termNum": 1,
+          "termNum": 0,
           "grade": "B-"
         },
         {
           "slug": "ics_313",
-          "academicYearOffset": 1,
+          "academicYearOffset": 0,
           "termNum": 0,
           "grade": "B-"
         },
         {
           "slug": "ics_332",
           "academicYearOffset": 1,
-          "termNum": 0,
+          "termNum": 1,
           "grade": "B-"
         }
       ],
-      "opportunities": [],
+      "opportunities": [
+        {
+          "slug": "sadowski-lab-research-assistant",
+          "academicYearOffset": 0,
+          "termNum": 0,
+          "verified": false
+        },
+        {
+          "slug": "sadowski-lab-research-assistant",
+          "academicYearOffset": 1,
+          "termNum": 1,
+          "verified": false
+        }
+      ],
       "reviews": []
     },
     {
@@ -459,13 +641,13 @@
       "courses": [
         {
           "slug": "ics_111",
-          "academicYearOffset": -1,
+          "academicYearOffset": -2,
           "termNum": 0,
           "grade": "A-"
         },
         {
           "slug": "ics_141",
-          "academicYearOffset": -1,
+          "academicYearOffset": -2,
           "termNum": 0,
           "grade": "B+"
         },
@@ -489,13 +671,13 @@
         },
         {
           "slug": "ics_311",
-          "academicYearOffset": 0,
+          "academicYearOffset": -1,
           "termNum": 0,
           "grade": "A"
         },
         {
           "slug": "ics_314",
-          "academicYearOffset": 0,
+          "academicYearOffset": -1,
           "termNum": 0,
           "grade": "B-"
         },

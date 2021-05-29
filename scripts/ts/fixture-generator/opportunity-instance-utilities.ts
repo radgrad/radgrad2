@@ -1,7 +1,7 @@
 import { getAcademicTerm, isSummerTerm, multipleNextAcademicTerm, multipleNextNonSummerTerm, multiplePrevAcademicTerm, multiplePrevNonSummerTerm, nextAcademicTerm } from './academic-term-utilities';
 import { PlanOpportunityItem } from './user-config-file.js';
 
-interface OpportunityInstance {
+export interface OpportunityInstance {
   academicTerm: string;
   opportunity: string;
   sponsor?: string;
