@@ -25,5 +25,6 @@ import '../imports/startup/both';
 import '../imports/startup/client';
 
 import './style.css';
-
+import 'react-datepicker/dist/react-datepicker.css';
 import '../imports/ui/pages/admin'; // for jsdoc.
+

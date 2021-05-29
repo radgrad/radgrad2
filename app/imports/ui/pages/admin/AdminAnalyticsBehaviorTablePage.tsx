@@ -43,7 +43,6 @@ const AdminAnalyticsBehaviorTablePage: React.FC = () => {
   return (
     <PageLayout id={PAGEIDS.ANALYTICS_BEHAVIOR_TABLE} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
       <RadGradSegment header={header}>
-        <DateIntervalSelector startStickyStateID={startStickyStateID} endStickyStateID={endStickyStateID} onClick={onClick} />
         <Form>
           <Form.Group>
             <Form.Input label="Start Date">
