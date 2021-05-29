@@ -2,9 +2,10 @@ import _ from 'lodash';
 import moment from 'moment';
 import React from 'react';
 import { Form, Table } from 'semantic-ui-react';
-import DatePicker from 'react-datepicker';
 import { USER_INTERACTION_DESCRIPTIONS } from '../../../api/user-interaction/UserInteractionCollection';
 import { userInteractionFindMethod } from '../../../api/user-interaction/UserInteractionCollection.methods';
+import DateIntervalSelector from '../../components/admin/analytics/DateIntervalSelector';
+import DatePicker from 'react-datepicker';
 import UserLabel from '../../components/shared/profile/UserLabel';
 import RadGradHeader from '../../components/shared/RadGradHeader';
 import RadGradSegment from '../../components/shared/RadGradSegment';
@@ -12,18 +13,10 @@ import { PAGEIDS } from '../../utilities/PageIDs';
 import { useStickyState } from '../../utilities/StickyState';
 import PageLayout from '../PageLayout';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-interface AdminBehaviorTableProps {
-  startStickyStateID: string;
-  endStickyStateID: string;
-  onClick: () => any;
-}
 const headerPaneTitle = 'Student Behavior Table';
 const headerPaneBody = `
 First, select a time interval (defaults to the current day.)
-
 Then, press "Submit" to obtain a table of the behaviors exhibited by students over the time period.
-
 Note that User Interactions are generated for each day around midnight. So, today's user interactions are generally not available.
 `;
 
@@ -34,7 +27,9 @@ const userInteractionsStickyStateID = 'AdminAnalyticsStudentSummaryPage.userInte
 
 const AdminAnalyticsBehaviorTablePage: React.FC = () => {
   const [startDate, setStartDate] = useStickyState(startStickyStateID, startOf(moment().subtract(1, 'days')));
-  const [endDate] = useStickyState(endStickyStateID, startOf(moment().add(1, 'days')));
+  const [endDate, setEndDate] = useStickyState(endStickyStateID, startOf(moment().add(1, 'days')));
+  const handleChangeStartDate = (date: Date) => setStartDate(startOf(date));
+  const handleChangeEndDate = (date: Date) => setEndDate(startOf(date));
   const [userInteractions, setUserInteractions] = useStickyState(userInteractionsStickyStateID, null);
   const groups = _.groupBy(userInteractions, 'type');
   const onClick = () => {
@@ -48,19 +43,18 @@ const AdminAnalyticsBehaviorTablePage: React.FC = () => {
   return (
     <PageLayout id={PAGEIDS.ANALYTICS_BEHAVIOR_TABLE} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
       <RadGradSegment header={header}>
-
+        <DateIntervalSelector startStickyStateID={startStickyStateID} endStickyStateID={endStickyStateID} onClick={onClick} />
         <Form>
           <Form.Group>
             <Form.Input label="Start Date">
-              <DatePicker onChange={(date: Date) => setStartDate(startOf(date))} selected={startDate} maxDate={endDate} />
+              <DatePicker onChange={handleChangeStartDate} selected={startDate} maxDate={endDate} />
             </Form.Input>
             <Form.Input label="End Date (midnight of day before)">
-              <DatePicker onChange={(date: Date) => (startOf(date))} selected={endDate} minDate={startDate} />
+              <DatePicker onChange={handleChangeEndDate} selected={endDate} minDate={startDate} />
             </Form.Input>
           </Form.Group>
           <Form.Button onClick={onClick}>Submit</Form.Button>
         </Form>
-
         <Table celled>
           <Table.Header>
             <Table.Row>
@@ -74,7 +68,7 @@ const AdminAnalyticsBehaviorTablePage: React.FC = () => {
             {Object.keys(groups).map(key => {
               const behavior = key;
               const description = USER_INTERACTION_DESCRIPTIONS[behavior];
-              const users = _.map(groups[key], 'username').map(username => <UserLabel key={username} username={username}/>);
+              const users = groups[key].map(instance => instance.username).map(username => <UserLabel key={username} username={username}/>);
               return (
                 <Table.Row key={behavior}>
                   <Table.Cell>{behavior}</Table.Cell>
