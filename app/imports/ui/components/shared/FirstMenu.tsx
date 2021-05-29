@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Dropdown, Header, Image, Menu } from 'semantic-ui-react';
 import { Meteor } from 'meteor/meteor';
+import { COMPONENTIDS } from '../../utilities/ComponentIDs';
 import RadGradLogoText from './RadGradLogoText';
 import RadGradMenuProfile, { RadGradMenuProfileProps } from './RadGradMenuProfile';
 
@@ -46,7 +47,7 @@ const FirstMenu: React.FC<FirstMenuProps> = ({ profile, displayLevelAndIce, earn
           <div style={flexStyle}>
             <RadGradMenuProfile profile={profile} displayLevelAndIce={displayLevelAndIce} projectedICE={projectedICE}
               earnedICE={earnedICE} />
-            <Dropdown text={currentUser} id="first-menu-username" pointing="top right" icon="caret down"
+            <Dropdown text={currentUser} id={COMPONENTIDS.FIRST_MENU_USERNAME} pointing="top right" icon="caret down"
               style={signoutStyle}>
               <Dropdown.Menu>
                 <Dropdown.Item icon="sign out" text="Sign Out" as={NavLink} exact to="/signout" />
