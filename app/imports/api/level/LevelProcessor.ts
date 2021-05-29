@@ -162,13 +162,13 @@ export const updateStudentLevel = (studentID: string, any: any): void => {
  */
 export const updateAllStudentLevels = (userId): number => {
   StudentProfiles.find().forEach((student) => {
-    updateStudentLevel(student.userID, studentID);
+    updateStudentLevel(student.userID, userId);
   });
   return StudentProfiles.find().count();
 };
 
 export const getLevelCriteriaStringMarkdown = (level: string): string => {
-  if (!_.includes(['six', 'five', 'four', 'three', 'two'], level)) {
+  if (!(['six', 'five', 'four', 'three', 'two'].includes(level))) {
     throw new Meteor.Error(`${level} is not a valid level`);
   }
   const criteria = Meteor.settings.public.level[level];

@@ -1,7 +1,6 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
 import { Confirm, Icon } from 'semantic-ui-react';
-import _ from 'lodash';
 import Swal from 'sweetalert2';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { DescriptionPair, InterestType } from '../../../typings/radgrad';
@@ -25,7 +24,7 @@ const collection = InterestTypes; // the collection to use.
 const numReferences = (interestType) => {
   let references = 0;
   Interests.find().forEach((doc) => {
-    if (_.includes(doc.interestTypeID, interestType._id)) {
+    if ((doc.interestTypeID).includes(interestType._id)) {
       references += 1;
     }
   });

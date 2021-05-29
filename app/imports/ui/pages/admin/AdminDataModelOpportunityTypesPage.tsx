@@ -25,7 +25,7 @@ const collection = OpportunityTypes; // the collection to use.
 const numReferences = (opportunityType) => {
   let references = 0;
   Opportunities.find().forEach((doc) => {
-    if (_.includes(doc.opportunityTypeID, opportunityType._id)) {
+    if ((doc.opportunityTypeID).includes(opportunityType._id)) {
       references += 1;
     }
   });

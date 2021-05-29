@@ -170,4 +170,4 @@ export const getDepartment = (courseSlug: string): string => courseSlug.split('_
  */
 export const getCourseNumber = (courseSlug: string): string => courseSlug.split('_')[1];
 
-export const passedCourse = (ci: CourseInstance): boolean => ci && _.includes(['C', 'C+', 'B-', 'B', 'B+', 'A-', 'A', 'A+'], ci.grade) && ci.verified;
+export const passedCourse = (ci: CourseInstance): boolean => ci && (['C', 'C+', 'B-', 'B', 'B+', 'A-', 'A', 'A+'].includes(ci.grade)) && ci.verified;

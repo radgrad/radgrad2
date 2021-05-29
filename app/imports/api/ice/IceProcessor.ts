@@ -89,10 +89,10 @@ export const makeCourseICE = (course: string, grade: string): Ice => {
     return { i, c, e };
   }
   // Courses get competency points only if you get an A or a B.
-  if (_.includes(['B+', 'B', 'B-'], grade)) {
+  if ((['B+', 'B', 'B-'].includes(grade))) {
     c = gradeCompetency.B;
   } else
-  if (_.includes(['A+', 'A', 'A-'], grade)) {
+  if ((['A+', 'A', 'A-'].includes(grade))) {
     c = gradeCompetency.A;
   }
   return { i, c, e };
