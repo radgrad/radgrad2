@@ -95,11 +95,11 @@ const AdminDataModelVerificationRequestsPage: React.FC<AdminDataModelVerificatio
     <PageLayout id={PAGEIDS.DATA_MODEL_VERIFICATION_REQUESTS} headerPaneTitle="Verification Requests">
       {showUpdateFormState ? (
         <AdminDataModelUpdateForm collection={collection} id={idState} handleUpdate={handleUpdate}
-                                  handleCancel={handleCancel} itemTitleString={itemTitleString}/>
+          handleCancel={handleCancel} itemTitleString={itemTitleString}/>
       ) : (
         <AddVerificationRequestForm opportunities={opportunities}
-                                    students={students} opportunityInstances={opportunityInstances}
-                                    academicTerms={academicTerms}/>
+          students={students} opportunityInstances={opportunityInstances}
+          academicTerms={academicTerms}/>
       )}
       <ListCollectionWidget
         collection={collection}
@@ -111,7 +111,7 @@ const AdminDataModelVerificationRequestsPage: React.FC<AdminDataModelVerificatio
         items={items}
       />
       <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
-               header="Delete Verification Request?"/>
+        header="Delete Verification Request?"/>
     </PageLayout>
   );
 };

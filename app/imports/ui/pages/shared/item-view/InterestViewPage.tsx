@@ -51,8 +51,8 @@ const InterestViewPage: React.FC<InterestViewPageProps> = ({
   const added = ProfileInterests.findNonRetired({ userID: profile.userID, interestID }).length > 0;
   return (
     <PageLayout id={PAGEIDS.INTEREST} headerPaneTitle={headerPaneTitle} headerPaneImage={headerPaneImage}
-                headerPaneButton={<AddToProfileButton type={PROFILE_ENTRY_TYPE.INTEREST} studentID={profile.userID}
-                                                      item={interest} added={added} inverted floated="left" />}>
+      headerPaneButton={<AddToProfileButton type={PROFILE_ENTRY_TYPE.INTEREST} studentID={profile.userID}
+        item={interest} added={added} inverted floated="left" />}>
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={5}>
@@ -62,8 +62,8 @@ const InterestViewPage: React.FC<InterestViewPageProps> = ({
           </Grid.Column>
           <Grid.Column width={11}>
             <ExplorerItemView profile={profile} item={interest} opportunities={opportunities} courses={courses}
-                              explorerType={EXPLORER_TYPE.INTERESTS} interestTypes={interestTypes}
-                              interests={interests} />
+              explorerType={EXPLORER_TYPE.INTERESTS} interestTypes={interestTypes}
+              interests={interests} />
           </Grid.Column>
         </Grid.Row>
       </Grid>

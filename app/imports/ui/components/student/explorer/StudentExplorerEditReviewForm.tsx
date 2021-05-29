@@ -232,7 +232,7 @@ const StudentExplorerEditReviewForm: React.FC<StudentExplorerEditReviewWidgetPro
               DELETE
             </Button>
             <Confirm open={confirmOpenState} onCancel={handleCancelDelete} onConfirm={handleConfirmDelete}
-                     header="Delete Review?" />
+              header="Delete Review?" />
             <ErrorsField />
           </AutoForm>
         </div>

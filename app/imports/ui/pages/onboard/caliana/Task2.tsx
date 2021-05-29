@@ -10,11 +10,11 @@ const Task2: React.FC = () => {
   const { username } = useParams();
 
   return (
-        <RadGradSegment header={headerTask2}>
-            <p>The currently logged in user is: { currentUser }</p>
-            <p>The username appearing in the URL is: { username }</p>
-            <p>In RadGrad, these are not necessarily the same!</p>
-        </RadGradSegment>
+    <RadGradSegment header={headerTask2}>
+      <p>The currently logged in user is: { currentUser }</p>
+      <p>The username appearing in the URL is: { username }</p>
+      <p>In RadGrad, these are not necessarily the same!</p>
+    </RadGradSegment>
   );
 };
 

@@ -32,10 +32,10 @@ const AdvisorManageStudentsPage: React.FC<AdvisorManageStudentsProps> = ({
   profileInterests,
 }) => (
   <PageLayout id={PAGEIDS.MANAGE_STUDENTS} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}
-              headerPaneImage={headerPaneImage}>
+    headerPaneImage={headerPaneImage}>
     <AdvisorManageStudents students={students} alumni={alumni} careerGoals={careerGoals} courses={courses}
-                           interests={interests} opportunities={opportunities} profileCareerGoals={profileCareerGoals}
-                           profileInterests={profileInterests} />
+      interests={interests} opportunities={opportunities} profileCareerGoals={profileCareerGoals}
+      profileInterests={profileInterests} />
   </PageLayout>
 );
 

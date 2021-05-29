@@ -1,5 +1,6 @@
 import { Selector } from 'testcafe';
 import { PAGEIDS } from '../imports/ui/utilities/PageIDs';
+import { COMPONENTIDS } from '../imports/ui/utilities/ComponentIDs';
 
 class LandingPage {
   constructor() {
@@ -15,27 +16,27 @@ class LandingPage {
   }
 
   async gotoLanding(testController) {
-    await testController.click('#landing-explorer-menu');
+    await testController.click(`#${COMPONENTIDS.LANDING_EXPLORER_MENU}`);
   }
 
   async gotoCareerGoalsExplorer(testController) {
-    await testController.click('#landing-explorer-buttons');
-    await testController.click('#landing-career-goals-explorer');
+    await testController.click(`#${COMPONENTIDS.LANDING_EXPLORER_BUTTONS}`);
+    await testController.click(`#${COMPONENTIDS.LANDING_CAREER_GOALS_EXPLORER}`);
   }
 
   async gotoInterestsExplorer(testController) {
-    await testController.click('#landing-explorer-buttons');
-    await testController.click('#landing-interests-explorer');
+    await testController.click(`#${COMPONENTIDS.LANDING_EXPLORER_BUTTONS}`);
+    await testController.click(`#${COMPONENTIDS.LANDING_INTERESTS_EXPLORER}`);
   }
 
   async gotoCoursesExplorer(testController) {
-    await testController.click('#landing-explorer-buttons');
-    await testController.click('#landing-courses-explorer');
+    await testController.click(`#${COMPONENTIDS.LANDING_EXPLORER_BUTTONS}`);
+    await testController.click(`#${COMPONENTIDS.LANDING_COURSES_EXPLORER}`);
   }
 
   async gotoOpportunitiesExplorer(testController) {
-    await testController.click('#landing-explorer-buttons');
-    await testController.click('#landing-opportunities-explorer');
+    await testController.click(`#${COMPONENTIDS.LANDING_EXPLORER_BUTTONS}`);
+    await testController.click(`#${COMPONENTIDS.LANDING_OPPORTUNITIES_EXPLORER}`);
   }
 }
 

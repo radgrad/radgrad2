@@ -41,10 +41,10 @@ const StudentReviewsPage: React.FC<StudentReviewsPageProps> = ({
   username,
 }) => (
   <PageLayout id={PAGEIDS.STUDENT_REVIEWS} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}
-              headerPaneImage={headerPaneImage}>
+    headerPaneImage={headerPaneImage}>
     <RadGradSegment header={header}>
       <WriteReviews username={username} unreviewedCourses={unreviewedCourses}
-                    unreviewedOpportunities={unreviewedOpportunities} />
+        unreviewedOpportunities={unreviewedOpportunities} />
     </RadGradSegment>
     <Segment basic>
       <StudentReviewsTab courseReviews={courseReviews} opportunityReviews={opportunityReviews} username={username} />

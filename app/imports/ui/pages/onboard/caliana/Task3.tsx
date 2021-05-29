@@ -19,14 +19,14 @@ const Task3: React.FC<Task3CareerGoalsProps> = ({ careerGoals }) => {
   const subheaderTask3 = <RadGradHeader title={ name }/>;
 
   return (
-        <RadGradSegment header={headerTask3}>
-            {subheaderTask3}
-            <Markdown source={description}/>
-            <hr/>
-            <p>
+    <RadGradSegment header={headerTask3}>
+      {subheaderTask3}
+      <Markdown source={description}/>
+      <hr/>
+      <p>
                 Note: The total number of career goals is: {careerGoalsTotal}
-            </p>
-        </RadGradSegment>
+      </p>
+    </RadGradSegment>
   );
 };
 

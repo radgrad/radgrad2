@@ -10,9 +10,9 @@ const headerPaneImage = 'header-sandbox.png';
 
 const SandBoxStickyStatePage: React.FC = () => (
   <PageLayout id="sandbox-sticky-state-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
-   <SandboxStickyState1/>
-   <SandboxStickyState2/>
-   <SandboxStickyState3/>
+    <SandboxStickyState1/>
+    <SandboxStickyState2/>
+    <SandboxStickyState3/>
   </PageLayout>
 );
 

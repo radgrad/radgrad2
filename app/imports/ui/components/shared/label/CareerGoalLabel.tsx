@@ -1,5 +1,4 @@
 import React from 'react';
-import _ from 'lodash';
 import { useRouteMatch } from 'react-router-dom';
 import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
 import { ProfileCareerGoals } from '../../../../api/user/profile-entries/ProfileCareerGoalCollection';
@@ -23,7 +22,7 @@ const CareerGoalLabel: React.FC<EntityLabelPublicProps> = ({ slug, userID, size,
     // Calculate inProfile and route.
     const profileEntityIDs = ProfileCareerGoals.findNonRetired({ userID: userID });
     const id = CareerGoals.findIdBySlug(slug);
-    inProfile = _.includes(profileEntityIDs.map(doc => doc.careerGoalID), id);
+    inProfile = (profileEntityIDs.map(doc => doc.careerGoalID)).includes(id);
   }
   return (
     <EntityLabel slug={slug} inProfile={inProfile} icon='briefcase' name={name} route={route} size={size} style={style} rightside={rightside}/>

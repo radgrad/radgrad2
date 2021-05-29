@@ -86,10 +86,10 @@ export class ReviewChecklist extends Checklist {
         );
       case CHECKSTATE.REVIEW:
         return (
-            <DetailsBox description='You have not reviewed the following completed Courses and Opportunities:'>
-              <CourseList courses={nonReviewedCourses} size="medium" keyStr="review" userID={this.profile.userID} />
-              <OpportunityList opportunities={nonReviewedOpportunities} size="medium" keyStr="review" userID={this.profile.userID} />
-            </DetailsBox>
+          <DetailsBox description='You have not reviewed the following completed Courses and Opportunities:'>
+            <CourseList courses={nonReviewedCourses} size="medium" keyStr="review" userID={this.profile.userID} />
+            <OpportunityList opportunities={nonReviewedOpportunities} size="medium" keyStr="review" userID={this.profile.userID} />
+          </DetailsBox>
         );
       default:
         return <React.Fragment />;

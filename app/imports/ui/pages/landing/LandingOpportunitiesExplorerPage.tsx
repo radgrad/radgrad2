@@ -26,7 +26,7 @@ const LandingOpportunitiesExplorerPage: React.FC<LandingOpportunitiesExplorerPag
   <div>
     <LandingExplorerMenuBar/>
     <PageLayout id={PAGEIDS.LANDING_OPPORTUNITIES_EXPLORER} headerPaneTitle={headerPaneTitle}
-                headerPaneBody={headerPaneBody}>
+      headerPaneBody={headerPaneBody}>
       <Segment>
         <Header as="h4" dividing>
           <span>OPPORTUNITIES</span> ({count})

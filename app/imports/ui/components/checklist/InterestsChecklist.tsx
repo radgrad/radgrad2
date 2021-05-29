@@ -60,10 +60,10 @@ export class InterestsChecklist extends Checklist {
   public getDetails(): JSX.Element {
     const interests = Users.getInterestIDs(this.profile.userID);
     return ((interests.length === 0) ?
-        <DetailsBox description='You have not yet added any Interests to your profile.'/> :
-        <DetailsBox description='Here are your current Interests:'>
-          <ProfileInterestList profile={this.profile} size="medium" />
-        </DetailsBox>
+      <DetailsBox description='You have not yet added any Interests to your profile.'/> :
+      <DetailsBox description='Here are your current Interests:'>
+        <ProfileInterestList profile={this.profile} size="medium" />
+      </DetailsBox>
     );
   }
 

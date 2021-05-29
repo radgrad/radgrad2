@@ -12,13 +12,13 @@ interface ChecklistCareerGoalListProps {
 }
 
 const ChecklistCareerGoalList: React.FC<ChecklistCareerGoalListProps> = ({ careerGoals, size, profile }) => (
-    <Label.Group>
-      {careerGoals.map((goal) => {
-        const slug = CareerGoals.findSlugByID(goal._id);
-        const url = `/${profile.role.toLowerCase()}/${profile.username}/${EXPLORER.CAREERGOALS}/${slug}`;
-        return <ButtonLink url={url} label={goal.name} size={size} />;
-      })}
-    </Label.Group>
+  <Label.Group>
+    {careerGoals.map((goal) => {
+      const slug = CareerGoals.findSlugByID(goal._id);
+      const url = `/${profile.role.toLowerCase()}/${profile.username}/${EXPLORER.CAREERGOALS}/${slug}`;
+      return <ButtonLink url={url} label={goal.name} size={size} />;
+    })}
+  </Label.Group>
 );
 
 export default ChecklistCareerGoalList;

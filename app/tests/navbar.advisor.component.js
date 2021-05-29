@@ -1,75 +1,76 @@
 import { Selector } from 'testcafe';
+import { COMPONENTIDS } from '../imports/ui/utilities/ComponentIDs';
 
 class AdvisorNavBar {
 
   /** If someone is logged in, then log them out, otherwise do nothing. */
   async ensureLogout(testController) {
-    const loggedInUser = await Selector('#navbar-current-user').exists;
+    const loggedInUser = await Selector(`#${COMPONENTIDS.NAVBAR_CURRENT_USER}`).exists;
     if (loggedInUser) {
-      await testController.click('#navbar-current-user');
-      await testController.click('#navbar-sign-out');
+      await testController.click(`#${COMPONENTIDS.NAVBAR_CURRENT_USER}`);
+      await testController.click(`#${COMPONENTIDS.NAVBAR_SIGN_OUT}`);
     }
   }
 
   async gotoHomePage(testController) {
-    await testController.click('#advisor-menu-home');
+    await testController.click(`#${COMPONENTIDS.ADVISOR_MENU_HOME}`);
   }
 
   async gotoVisibilityPage(testController) {
-    await testController.click('#advisor-menu-visibility');
+    await testController.click(`#${COMPONENTIDS.ADVISOR_MENU_VISIBILITY}`);
   }
 
   async gotoForecastsPage(testController) {
-    await testController.click('#advisor-menu-forecasts');
+    await testController.click(`#${COMPONENTIDS.ADVISOR_MENU_FORECASTS}`);
   }
 
   async gotoCommunityPage(testController) {
-    await testController.click('#advisor-menu-community');
+    await testController.click(`#${COMPONENTIDS.ADVISOR_MENU_COMMUNITY}`);
   }
 
   async gotoCareerGoalsExplorerPage(testController) {
-    await testController.click('#advisor-menu-explorers');
-    await testController.click('#advisor-menu-explorer-careers');
+    await testController.click(`#${COMPONENTIDS.ADVISOR_MENU_EXPLORERS}`);
+    await testController.click(`#${COMPONENTIDS.ADVISOR_MENU_EXPLORER_CAREERS}`);
   }
 
   async gotoCoursesExplorerPage(testController) {
-    await testController.click('#advisor-menu-explorers');
-    await testController.click('#advisor-menu-explorer-courses');
+    await testController.click(`#${COMPONENTIDS.ADVISOR_MENU_EXPLORERS}`);
+    await testController.click(`#${COMPONENTIDS.ADVISOR_MENU_EXPLORER_COURSES}`);
   }
 
   async gotoInterestsExplorerPage(testController) {
-    await testController.click('#advisor-menu-explorers');
-    await testController.click('#advisor-menu-explorer-interests');
+    await testController.click(`#${COMPONENTIDS.ADVISOR_MENU_EXPLORERS}`);
+    await testController.click(`#${COMPONENTIDS.ADVISOR_MENU_EXPLORER_INTERESTS}`);
   }
 
   async gotoOpportunitiesExplorerPage(testController) {
-    await testController.click('#advisor-menu-explorers');
-    await testController.click('#advisor-menu-explorer-opportunities');
+    await testController.click(`#${COMPONENTIDS.ADVISOR_MENU_EXPLORERS}`);
+    await testController.click(`#${COMPONENTIDS.ADVISOR_MENU_EXPLORER_OPPORTUNITIES}`);
   }
 
   async gotoManageStudentsPage(testController) {
-    await testController.click('#advisor-menu-manage');
-    await testController.click('#advisor-menu-manage-students');
+    await testController.click(`#${COMPONENTIDS.ADVISOR_MENU_MANAGE}`);
+    await testController.click(`#${COMPONENTIDS.ADVISOR_MENU_MANAGE_STUDENTS}`);
   }
 
   async gotoManageVerificationPage(testController) {
-    await testController.click('#advisor-menu-manage');
-    await testController.click('#advisor-menu-manage-verification');
+    await testController.click(`#${COMPONENTIDS.ADVISOR_MENU_MANAGE}`);
+    await testController.click(`#${COMPONENTIDS.ADVISOR_MENU_MANAGE_VERIFICATION}`);
   }
 
   async gotoManageReviewPage(testController) {
-    await testController.click('#advisor-menu-manage');
-    await testController.click('#advisor-menu-manage-review');
+    await testController.click(`#${COMPONENTIDS.ADVISOR_MENU_MANAGE}`);
+    await testController.click(`#${COMPONENTIDS.ADVISOR_MENU_MANAGE_REVIEW}`);
   }
 
   async gotoManageOpportunitiesPage(testController) {
-    await testController.click('#advisor-menu-manage');
-    await testController.click('#advisor-menu-manage-opportunities');
+    await testController.click(`#${COMPONENTIDS.ADVISOR_MENU_MANAGE}`);
+    await testController.click(`#${COMPONENTIDS.ADVISOR_MENU_MANAGE_OPPORTUNITIES}`);
   }
 
   /** Check that the specified user is currently logged in. */
   async isLoggedIn(testController, credentials) {
-    const usernameField = Selector('#first-menu-username')
+    const usernameField = Selector(`#${COMPONENTIDS.FIRST_MENU_USERNAME}`)
       .child('div')
       .textContent;
     await testController.expect(usernameField).eql(credentials.userName);

@@ -41,7 +41,7 @@ const StudentVerificationPage: React.FC<StudentVerificationPageProps> = ({ unVer
       <Grid.Row>
         <Grid.Column width={16}>
           <StudentUnverifiedOpportunities unVerifiedOpportunityInstances={unVerifiedOpportunityInstances}
-                                           verificationRequests={verificationRequests} student={student} />
+            verificationRequests={verificationRequests} student={student} />
         </Grid.Column>
       </Grid.Row>
       <Grid.Row>
