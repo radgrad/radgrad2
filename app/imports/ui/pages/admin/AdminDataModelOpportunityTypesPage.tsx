@@ -1,7 +1,6 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
 import { Confirm, Icon } from 'semantic-ui-react';
-import _ from 'lodash';
 import Swal from 'sweetalert2';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { DescriptionPair, OpportunityType } from '../../../typings/radgrad';
