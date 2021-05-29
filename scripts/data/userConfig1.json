@@ -383,13 +383,135 @@
     },
     {
       "username": "betty@hawaii.edu",
-      "courses": [],
+      "courses": [
+        {
+          "slug": "ics_111",
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "grade": "A-"
+        },
+        {
+          "slug": "ics_141",
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "grade": "B+"
+        },
+        {
+          "slug": "ics_211",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "grade": "B"
+        },
+        {
+          "slug": "ics_241",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ics_311",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ics_314",
+          "academicYearOffset": 0,
+          "termNum": 0,
+          "grade": "B-"
+        },
+        {
+          "slug": "ics_212",
+          "academicYearOffset": 0,
+          "termNum": 0,
+          "grade": "B-"
+        },
+        {
+          "slug": "ics_321",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "grade": "B-"
+        },
+        {
+          "slug": "ics_331",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "grade": "B-"
+        },
+        {
+          "slug": "ics_313",
+          "academicYearOffset": 1,
+          "termNum": 0,
+          "grade": "B-"
+        },
+        {
+          "slug": "ics_332",
+          "academicYearOffset": 1,
+          "termNum": 0,
+          "grade": "B-"
+        }
+      ],
       "opportunities": [],
       "reviews": []
     },
     {
       "username": "charley@hawaii.edu",
-      "courses": [],
+      "courses": [
+        {
+          "slug": "ics_111",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "grade": "A-"
+        },
+        {
+          "slug": "ics_141",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "grade": "B+"
+        },
+        {
+          "slug": "ics_211",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "grade": "B"
+        },
+        {
+          "slug": "ics_241",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ics_222",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "grade": "A-"
+        },
+        {
+          "slug": "ics_311",
+          "academicYearOffset": 0,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ics_314",
+          "academicYearOffset": 0,
+          "termNum": 0,
+          "grade": "B-"
+        },
+        {
+          "slug": "ics_355",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "grade": "B"
+        },
+        {
+          "slug": "ics_414",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "grade": "A"
+        }
+      ],
       "opportunities": [],
       "reviews": []
     },

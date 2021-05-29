@@ -8,13 +8,12 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": false,
     "esModuleInterop": true,
-    "sourceMap": true,
+    "sourceMap": true
   },
   "include": [
     "ts/**/*.ts"
   ],
   "exclude": [
-    "node_modules",
-    ".meteor"
+    "node_modules"
   ]
 }
