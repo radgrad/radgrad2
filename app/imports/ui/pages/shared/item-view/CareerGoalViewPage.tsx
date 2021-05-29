@@ -55,6 +55,7 @@ const CareerGoalViewPage: React.FC<CareerGoalViewPageProps> = ({
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={5}>
+            <Image src = {careerGoal.picture}/>
             <RelatedInterests item={careerGoal} />
             <RelatedCourses relatedCourses={relatedCourses} profile={profile} />
             <RelatedOpportunities relatedOpportunities={relatedOpportunities} profile={profile} />

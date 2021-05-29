@@ -5,6 +5,7 @@ import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { InterestTypes } from '../../../../../api/interest/InterestTypeCollection';
 import { Slugs } from '../../../../../api/slug/SlugCollection';
+import PictureField from '../../../form-fields/PictureField';
 import { docToName } from '../../../shared/utilities/data-model';
 import { InterestType } from '../../../../../typings/radgrad';
 import BaseCollection from '../../../../../api/base/BaseCollection';
@@ -56,7 +57,7 @@ const UpdateInterestForm: React.FC<UpdateInterestFormProps> = ({
           <TextField name="name" />
           <SelectField name="interestType" />
         </Form.Group>
-        <TextField placeholder='https://mywebsite.com/picture.png' name='picture' />
+        <PictureField name="picture" placeholder='https://mywebsite.com/picture.png' />
         <LongTextField name="description" />
         <BoolField name="retired" />
         <SubmitField inputRef={undefined} value="Update" disabled={false} className="mini basic green" />

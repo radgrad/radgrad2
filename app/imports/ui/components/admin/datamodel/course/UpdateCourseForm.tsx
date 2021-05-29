@@ -5,6 +5,7 @@ import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import BaseCollection from '../../../../../api/base/BaseCollection';
 import { Course, Interest } from '../../../../../typings/radgrad';
+import PictureField from '../../../form-fields/PictureField';
 import { courseSlugToName, courseToName, docToName, interestIdToName } from '../../../shared/utilities/data-model';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
 
@@ -74,7 +75,7 @@ const UpdateCourseForm: React.FC<UpdateCourseFormProps> = ({
           <TextField name="num" />
         </Form.Group>
         <LongTextField name="description" />
-        <TextField placeholder='https://mywebsite.com/picture.png' name='picture' />
+        <PictureField name="picture" placeholder='https://mywebsite.com/picture.png' />
         <TextField name="syllabus" />
         <Form.Group widths="equal">
           <MultiSelectField name="interests" />

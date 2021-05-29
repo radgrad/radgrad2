@@ -8,6 +8,7 @@ import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
 import { Interests } from '../../../../../api/interest/InterestCollection';
 import slugify from '../../../../../api/slug/SlugCollection';
 import { InterestType } from '../../../../../typings/radgrad';
+import PictureField from '../../../form-fields/PictureField';
 import { docToName, interestTypeNameToSlug } from '../../../shared/utilities/data-model';
 
 interface AddInterestFormProps {
@@ -62,7 +63,7 @@ const AddInterestForm: React.FC<AddInterestFormProps> = ({ interestTypes }) => {
           <TextField name="name" placeholder="Rust Programming Language" />
           <SelectField name="interestType" />
         </Form.Group>
-        <TextField placeholder='https://mywebsite.com/picture.png' name='picture'/>
+        <PictureField name="picture" placeholder='https://mywebsite.com/picture.png' />
         <LongTextField name="description" />
         <BoolField name="retired" />
         <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />

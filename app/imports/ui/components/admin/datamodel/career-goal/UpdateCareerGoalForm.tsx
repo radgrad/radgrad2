@@ -5,6 +5,7 @@ import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import BaseCollection from '../../../../../api/base/BaseCollection';
 import { Interest } from '../../../../../typings/radgrad';
+import PictureField from '../../../form-fields/PictureField';
 import { docToName, interestIdToName } from '../../../shared/utilities/data-model';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
 
@@ -47,21 +48,21 @@ const UpdateCareerGoalForm: React.FC<UpdateCareerGoalFormProps> = ({
   return (
     <Segment padded>
       <Header dividing>
-                Update
-                {collection.getType()}:{itemTitleString(model)}
-            </Header>
-            <AutoForm schema={formSchema} onSubmit={handleUpdate} showInlineError model={model}>
-                <TextField name="name"/>
-                <LongTextField name="description"/>
-                <MultiSelectField name="interests"/>
-                <TextField placeholder='https://mywebsite.com/picture.png' name='picture'/>
-                <BoolField name="retired"/>
-                <p/>
-                <ErrorsField/>
-                <SubmitField value="Update" disabled={false} className="mini basic green"/>
-                <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
-            </AutoForm>
-        </Segment>
+        Update
+        {collection.getType()}:{itemTitleString(model)}
+      </Header>
+      <AutoForm schema={formSchema} onSubmit={handleUpdate} showInlineError model={model}>
+        <TextField name="name" />
+        <LongTextField name="description" />
+        <MultiSelectField name="interests" />
+        <PictureField name="picture" placeholder='https://mywebsite.com/picture.png'/>
+        <BoolField name="retired" />
+        <p />
+        <ErrorsField />
+        <SubmitField value="Update" disabled={false} className="mini basic green" />
+        <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
+      </AutoForm>
+    </Segment>
   );
 
 };

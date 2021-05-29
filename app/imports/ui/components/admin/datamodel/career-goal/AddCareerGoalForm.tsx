@@ -10,6 +10,7 @@ import { Interests } from '../../../../../api/interest/InterestCollection';
 import slugify, { Slugs } from '../../../../../api/slug/SlugCollection';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
 import { Interest } from '../../../../../typings/radgrad';
+import PictureField from '../../../form-fields/PictureField';
 import { docToName } from '../../../shared/utilities/data-model';
 
 interface AddCareerGoalFormProps {
@@ -72,7 +73,7 @@ const AddCareerGoalForm: React.FC<AddCareerGoalFormProps> = ({ interests }) => {
       <AutoForm schema={formSchema} onSubmit={handleAdd} ref={(ref) => formRef = ref} showInlineError>
         <TextField name="name" placeholder="Software Engineer" />
         <MultiSelectField name="interests" placeholder="Select interest(s)" />
-        <TextField placeholder='https://mywebsite.com/picture.png' name='picture'/>
+        <PictureField name="picture" placeholder='https://mywebsite.com/picture.png'/>
         <LongTextField name="description" placeholder="Describe the Career Goal here" />
         <SubmitField className="mini basic green" value="Add" />
         <ErrorsField />
