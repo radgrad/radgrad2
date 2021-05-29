@@ -1,7 +1,6 @@
 import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
-import _ from 'lodash';
 import RadGradSegment from '../../../components/shared/RadGradSegment';
 import RadGradHeader from '../../../components/shared/RadGradHeader';
 import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
@@ -53,7 +52,7 @@ export default withTracker(() => {
   const totalInterests = Interests.findNonRetired();
   const totalCourses = Courses.findNonRetired();
   const totalOpportunities = Opportunities.findNonRetired();
-  const totalStudents = _.map(StudentProfiles.find({}).fetch(), 'username');
+  const totalStudents = StudentProfiles.findNonRetired({ isAlumni: false });
   return {
     user,
     totalCareerGoals,

@@ -338,7 +338,7 @@ class OpportunityCollection extends BaseSlugCollection {
   public hasInterest(opportunity: string, interest: string) {
     const interestID = Interests.getID(interest);
     const doc = this.findDoc(opportunity);
-    return _.includes(doc.interestIDs, interestID);
+    return ((doc.interestIDs).includes(interestID));
   }
 
   /**

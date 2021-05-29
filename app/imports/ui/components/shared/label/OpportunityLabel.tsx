@@ -1,5 +1,4 @@
 import React from 'react';
-import _ from 'lodash';
 import { useRouteMatch } from 'react-router-dom';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import * as Router from '../utilities/router';
@@ -24,7 +23,7 @@ const OpportunityLabel: React.FC<EntityLabelPublicProps> = ({ slug, userID, size
     // Calculate inProfile.
     const profileEntityIDs = ProfileOpportunities.findNonRetired({ studentID: userID });
     const id = opportunity._id;
-    inProfile = _.includes(profileEntityIDs.map(doc => doc.opportunityID), id) || opportunity.sponsorID === userID;
+    inProfile = (profileEntityIDs.map(doc => doc.opportunityID)).includes(id) || opportunity.sponsorID === userID;
   }
   return (
     <EntityLabel slug={slug} inProfile={inProfile} icon='lightbulb outline' name={name} route={route} size={size}

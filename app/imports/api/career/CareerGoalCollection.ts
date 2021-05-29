@@ -167,7 +167,7 @@ class CareerGoalCollection extends BaseSlugCollection {
   public hasInterest(careerGoal: string, interest: string) {
     const interestID = Interests.getID(interest);
     const doc = this.findDoc(careerGoal);
-    return _.includes(doc.interestIDs, interestID);
+    return (doc.interestIDs.includes(interestID));
   }
 
   /**
