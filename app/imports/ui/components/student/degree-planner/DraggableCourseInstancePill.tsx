@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Grid, Popup } from 'semantic-ui-react';
 import { Draggable } from 'react-beautiful-dnd';
 import { CourseInstance } from '../../../../typings/radgrad';
+import { useResize } from './utilities/custom-hook';
 import { getDraggablePillStyle } from './utilities/styles';
 import NamePill from './NamePill';
 import { Courses } from '../../../../api/course/CourseCollection';
@@ -24,37 +25,42 @@ const handleClick = (instance, handleClickCourseInstance) => (event) => {
   handleClickCourseInstance(event, { value: instance._id });
 };
 
-const DraggableCourseInstancePill: React.FC<CourseInstancePillProps> = ({ instance, index, inPast, handleClickCourseInstance }) => (
-  <Popup
-    trigger={
-      <div>
-        <Draggable key={instance._id} draggableId={instance._id} index={index}>
-          {(prov, snap) => (
-            <div ref={prov.innerRef} {...prov.draggableProps} {...prov.dragHandleProps} style={getDraggablePillStyle(snap.isDragging, prov.draggableProps.style)}>
-              <Grid>
-                {inPast ?
-                  <Grid.Row style={{ paddingTop: 7, paddingBottom: 7 }}>
-                    <Grid.Column width={16} onClick={handleClick(instance, handleClickCourseInstance)}>
-                      <NamePill name={instance.note} />
-                    </Grid.Column>
-                  </Grid.Row> :
-                  <Grid.Row style={{ paddingTop: 7, paddingBottom: 7 }}>
-                    <Grid.Column width={13} onClick={handleClick(instance, handleClickCourseInstance)}>
-                      <NamePill name={instance.note} />
-                    </Grid.Column>
-                    <Grid.Column width={3} verticalAlign='middle' textAlign='left'>
-                      <RemoveIt collectionName="CourseInstanceCollection" id={instance._id} name={getName(instance)} courseNumber={instance.note} />
-                    </Grid.Column>
-                  </Grid.Row>
-                }
-              </Grid>
-            </div>
-          )}
-        </Draggable>
-      </div>
-    }
-    content={getName(instance)}
-  />
-);
+const DraggableCourseInstancePill: React.FC<CourseInstancePillProps> = ({ instance, index, inPast, handleClickCourseInstance }) => {
+  const componentRef = useRef();
+  useResize(componentRef);
+  return (
+    <Popup
+      trigger={
+        <div ref={componentRef}>
+          <Draggable key={instance._id} draggableId={instance._id} index={index}>
+            {(prov, snap) => (
+              <div ref={prov.innerRef} {...prov.draggableProps} {...prov.dragHandleProps} style={getDraggablePillStyle(snap.isDragging, prov.draggableProps.style)}>
+                <Grid>
+                  {inPast ? (
+                    <Grid.Row style={{ paddingTop: 7, paddingBottom: 7 }}>
+                      <Grid.Column width={16} onClick={handleClick(instance, handleClickCourseInstance)}>
+                        <NamePill name={instance.note} />
+                      </Grid.Column>
+                    </Grid.Row>
+                  ) : (
+                    <Grid.Row style={{ paddingTop: 7, paddingBottom: 7 }}>
+                      <Grid.Column width={13} onClick={handleClick(instance, handleClickCourseInstance)}>
+                        <NamePill name={instance.note} />
+                      </Grid.Column>
+                      <Grid.Column width={3} verticalAlign="middle" textAlign="left">
+                        <RemoveIt collectionName="CourseInstanceCollection" id={instance._id} name={getName(instance)} courseNumber={instance.note} />
+                      </Grid.Column>
+                    </Grid.Row>
+                  )}
+                </Grid>
+              </div>
+            )}
+          </Draggable>
+        </div>
+      }
+      content={getName(instance)}
+    />
+  );
+};
 
 export default DraggableCourseInstancePill;

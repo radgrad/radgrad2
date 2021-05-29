@@ -40,6 +40,8 @@ export enum DegreePlannerStateNames {
   selectedCiID = 'Planner.selectedCiID',
   selectedOiID = 'Planner.selectedOiID',
   selectedProfileTab = 'Planner.selectedProfileTab',
+  draggablePillWidth = 'Planner.draggablePillWidth',
+  draggablePillHeight = 'Planner.draggablePillHeight',
 }
 
 interface StudentDegreePlannerProps {
