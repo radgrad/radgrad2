@@ -33,6 +33,7 @@ const UpdateInterestForm: React.FC<UpdateInterestFormProps> = ({
   const schema = new SimpleSchema({
     name: { type: String, optional: true },
     slug: { type: String, optional: true },
+    picture: { type: String, optional: true },
     interestType: {
       type: String,
       allowedValues: interestTypeNames,
@@ -44,24 +45,25 @@ const UpdateInterestForm: React.FC<UpdateInterestFormProps> = ({
   });
   const formSchema = new SimpleSchema2Bridge(schema);
   return (
-        <Segment padded>
-            <Header dividing>
-                Update
-                {collection.getType()}:{itemTitleString(model)}
-            </Header>
-            <AutoForm schema={formSchema} onSubmit={handleUpdate} showInlineError model={model}>
-                <Form.Group widths="equal">
-                    <TextField name="slug" disabled/>
-                    <TextField name="name"/>
-                    <SelectField name="interestType"/>
-                </Form.Group>
-                <LongTextField name="description"/>
-                <BoolField name="retired"/>
-                <SubmitField inputRef={undefined} value="Update" disabled={false} className="mini basic green"/>
-                <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
-                <ErrorsField/>
-            </AutoForm>
-        </Segment>
+    <Segment padded>
+      <Header dividing>
+        Update
+        {collection.getType()}:{itemTitleString(model)}
+      </Header>
+      <AutoForm schema={formSchema} onSubmit={handleUpdate} showInlineError model={model}>
+        <Form.Group widths="equal">
+          <TextField name="slug" disabled />
+          <TextField name="name" />
+          <SelectField name="interestType" />
+        </Form.Group>
+        <TextField placeholder='https://mywebsite.com/picture.png' name='picture' />
+        <LongTextField name="description" />
+        <BoolField name="retired" />
+        <SubmitField inputRef={undefined} value="Update" disabled={false} className="mini basic green" />
+        <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
+        <ErrorsField />
+      </AutoForm>
+    </Segment>
   );
 };
 

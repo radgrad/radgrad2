@@ -49,6 +49,7 @@ const AddInterestForm: React.FC<AddInterestFormProps> = ({ interestTypes }) => {
     name: String,
     interestType: { type: String, allowedValues: interestTypeNames, defaultValue: interestTypeNames[0] },
     description: String,
+    picture: { type: String, optional: true },
     retired: { type: Boolean, optional: true },
   });
   const formSchema = new SimpleSchema2Bridge(schema);
@@ -61,6 +62,7 @@ const AddInterestForm: React.FC<AddInterestFormProps> = ({ interestTypes }) => {
           <TextField name="name" placeholder="Rust Programming Language" />
           <SelectField name="interestType" />
         </Form.Group>
+        <TextField placeholder='https://mywebsite.com/picture.png' name='picture'/>
         <LongTextField name="description" />
         <BoolField name="retired" />
         <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
