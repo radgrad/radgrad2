@@ -46,7 +46,7 @@ const AdvisorLogEntryWidget: React.FC<AdvisorLogEntryWidgetProps> = ({ advisorLo
       if (error) {
         RadGradAlert.failure('Add failed', error.message, 2500, error);
       } else {
-        RadGradAlert.success('Add succeeded', 1500);
+        RadGradAlert.success('Add succeeded', '', 1500);
         setComment('');
       }
     });

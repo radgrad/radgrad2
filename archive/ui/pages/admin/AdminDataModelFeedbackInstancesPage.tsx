@@ -80,7 +80,7 @@ const AdminDataModelFeedbackInstancesPage: React.FC<AdminDataModelFeedbackInstan
       if (error) {
         RadGradAlert.failure('Add failed', error.message, 2500, error);
       } else {
-        RadGradAlert.success('Add succeeded', 1500);
+        RadGradAlert.success('Add succeeded', '', 1500);
         // @ts-ignore
         formRef.current.reset();
       }
@@ -108,7 +108,7 @@ const AdminDataModelFeedbackInstancesPage: React.FC<AdminDataModelFeedbackInstan
       if (error) {
         RadGradAlert.failure('Delete failed', error.message, 2500, error);
       } else {
-        RadGradAlert.success('Delete succeeded', 1500);
+        RadGradAlert.success('Delete succeeded', '', 1500);
       }
       setShowUpdateForm(false);
       setId('');
@@ -134,7 +134,7 @@ const AdminDataModelFeedbackInstancesPage: React.FC<AdminDataModelFeedbackInstan
       if (error) {
         RadGradAlert.failure('Update failed', error.message, 2500, error);
       } else {
-        RadGradAlert.success('Update succeeded', 1500);
+        RadGradAlert.success('Update succeeded', '', 1500);
         setShowUpdateForm(false);
         setId('');
       }

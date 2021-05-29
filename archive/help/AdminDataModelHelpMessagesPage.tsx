@@ -81,7 +81,7 @@ const AdminDataModelHelpMessagesPage: React.FC<AdminDataModelHelpMessagesPagePro
       if (error) {
         RadGradAlert.failure('Add failed', error.message, 2500, error);
       } else {
-        RadGradAlert.success('Add succeeded', 1500);
+        RadGradAlert.success('Add succeeded', '', 1500);
         // @ts-ignore
         formRef.current.reset();
       }
@@ -107,7 +107,7 @@ const AdminDataModelHelpMessagesPage: React.FC<AdminDataModelHelpMessagesPagePro
     const instance = idState;
     removeItMethod.callPromise({ collectionName, instance })
       .catch((error => { RadGradAlert.failure('Delete failed', error.message, 2500, error);}))
-      .then(() => { RadGradAlert.success('Delete succeeded', 1500);})
+      .then(() => { RadGradAlert.success('Delete succeeded', '', 1500);})
       .finally(() => {
         setShowUpdateForm(false);
         setId('');
@@ -131,7 +131,7 @@ const AdminDataModelHelpMessagesPage: React.FC<AdminDataModelHelpMessagesPagePro
       if (error) {
         RadGradAlert.failure('Update failed', error.message, 2500, error);
       } else {
-        RadGradAlert.success('Update succeeded', 1500);
+        RadGradAlert.success('Update succeeded', '', 1500);
         setShowUpdateForm(false);
         setId('');
       }

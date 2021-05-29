@@ -116,7 +116,7 @@ const AdvisorUpdateStudentWidget: React.FC<AdvisorUpdateStudentWidgetProps> = ({
       if (error) {
         RadGradAlert.failure('Update failed', error.message, 2500, error);
       } else {
-        RadGradAlert.success('Update succeeded', 1500);
+        RadGradAlert.success('Update succeeded', '', 1500);
       }
     });
   };

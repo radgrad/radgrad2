@@ -94,7 +94,7 @@ const AdminDataModelTeasersPage: React.FC<AdminDataModelTeasersPageProps> = ({ i
         RadGradAlert.failure('Update failed', error.message, 2500, error);
       })
       .then(() => {
-        RadGradAlert.success('Update succeeded', 1500);
+        RadGradAlert.success('Update succeeded', '', 1500);
         setShowUpdateForm(false);
         setId('');
       });

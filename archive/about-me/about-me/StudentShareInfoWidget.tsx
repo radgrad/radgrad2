@@ -35,7 +35,7 @@ const handleUpdateInformation = (doc): void => {
         if (error) {
             RadGradAlert.failure('Update Failed', error.message, 2500, error);
         } else {
-            RadGradAlert.success('Update Succeeded', 1500);
+            RadGradAlert.success('Update Succeeded', '', 1500);
             // Define a user interaction that describes a user updating their share information
             const keys = ['shareUsername', 'sharePicture', 'shareWebsite', 'shareInterests', 'shareCareerGoals', 'shareCourses', 'shareOpportunities', 'shareLevel'];
             const modifiedList = [];

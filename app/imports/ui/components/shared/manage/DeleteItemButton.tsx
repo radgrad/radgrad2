@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Modal } from 'semantic-ui-react';
-import Swal from 'sweetalert2';
+import RadGradAlerts from '../../../utilities/RadGradAlert';
 import { removeItMethod } from '../../../../api/base/BaseCollection.methods';
 import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
 import { Courses } from '../../../../api/course/CourseCollection';
@@ -15,6 +15,7 @@ interface DeleteItemButtonProps {
 }
 
 const DeleteItemButton: React.FC<DeleteItemButtonProps> = ({ item, type }) => {
+  const RadGradAlert = new RadGradAlerts();
   const [open, setOpen] = useState(false);
 
   let typeStr;
@@ -61,22 +62,8 @@ const DeleteItemButton: React.FC<DeleteItemButtonProps> = ({ item, type }) => {
     }
     const instance = item._id;
     removeItMethod.callPromise({ collectionName, instance })
-      .then(Swal.fire({
-        title,
-        icon: 'success',
-        text,
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        allowEnterKey: false,
-        showConfirmButton: false,
-        timer: 1500,
-      }))
-      .catch((error) => Swal.fire({
-        title: 'Delete Failed',
-        text: error.message,
-        icon: 'error',
-        // timer: 1500,
-      }));
+      .then(() => { RadGradAlert.success(title, text, 1500);})
+      .catch((error) => { RadGradAlert.failure('Delete Failed', error.message, 2500, error);});
     setOpen(false);
   };
 

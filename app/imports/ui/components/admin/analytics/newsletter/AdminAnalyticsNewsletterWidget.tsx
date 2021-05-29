@@ -137,7 +137,7 @@ const AdminAnalyticsNewsletterWidget: React.FC = () => {
           }
         }, emailDelayMs);
       });
-      RadGradAlert.success('Emails Successfully Sent', 1500);
+      RadGradAlert.success('Emails Successfully Sent', '', 1500);
       setTestNewsletterWorking(false);
     } else {
       const error = 'Subject Line and Input Message Required';
@@ -180,7 +180,7 @@ const AdminAnalyticsNewsletterWidget: React.FC = () => {
           }
         }, emailDelayMs);
       });
-      RadGradAlert.success('Emails Successfully Sent', 1500);
+      RadGradAlert.success('Emails Successfully Sent', '', 1500);
       setLevelNewsletterWorking(false);
     } else {
       const error = 'Subject Line and Input Message Required';
@@ -224,7 +224,7 @@ const AdminAnalyticsNewsletterWidget: React.FC = () => {
           }
         }, emailDelayMs);
       });
-      RadGradAlert.success('Emails Successfully Sent', 1500);
+      RadGradAlert.success('Emails Successfully Sent', '', 1500);
       setAllNewsletterWorking(false);
     } else {
       const error = 'Subject Line and Input Message Required';

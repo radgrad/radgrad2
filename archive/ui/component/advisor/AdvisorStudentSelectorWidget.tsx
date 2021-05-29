@@ -91,7 +91,7 @@ const AdvisorStudentSelectorWidget: React.FC<AdvisorStudentSelectorWidgetProps> 
       if (error) {
         RadGradAlert.failure('Error loading bulk STAR data', error.message, 2500, error);
       } else {
-        RadGradAlert.success('STAR Data loaded successfully', 1500);
+        RadGradAlert.success('STAR Data loaded successfully', '', 1500);
         setFileData('');
       }
     });
@@ -104,7 +104,7 @@ const AdvisorStudentSelectorWidget: React.FC<AdvisorStudentSelectorWidgetProps> 
       if (error) {
         RadGradAlert.failure('Error during Generating Student Emails', error.message, 2500, error);
       } else {
-        RadGradAlert.success('Beginning Download...', 1500);
+        RadGradAlert.success('Beginning Download...', '', 1500);
         const data: any = {};
         data.name = 'Students';
         data.contents = result.students;

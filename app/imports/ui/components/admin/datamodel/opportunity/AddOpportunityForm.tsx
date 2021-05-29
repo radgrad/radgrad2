@@ -65,7 +65,7 @@ const AddOpportunityForm: React.FC<AddOpportunityFormProps> = ({ sponsors, inter
         RadGradAlert.failure('Failed adding User', error.message, 2500, error);
       })
       .then(() => {
-        RadGradAlert.success('Add User Succeeded', 1500);
+        RadGradAlert.success('Add User Succeeded', '', 1500);
         formRef.reset();
       });
   };

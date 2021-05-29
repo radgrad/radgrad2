@@ -1,10 +1,10 @@
 import React from 'react';
 import SimpleSchema from 'simpl-schema';
-import Swal from 'sweetalert2';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { Popup, SemanticSIZES } from 'semantic-ui-react';
 import { AutoForm } from 'uniforms-semantic';
 import { useRouteMatch } from 'react-router-dom';
+import RadGradAlerts from '../../../utilities/RadGradAlert';
 import { defineMethod } from '../../../../api/base/BaseCollection.methods';
 import { VerificationRequests } from '../../../../api/verification/VerificationRequestCollection';
 import { OpportunityInstance, VerificationRequestDefine } from '../../../../typings/radgrad';
@@ -18,6 +18,7 @@ interface RequestVerificationPopupProps {
 
 const handleVerificationRequest = (instance, match) => (model) => {
   // console.log(instance, match, model);
+  const RadGradAlert = new RadGradAlerts();
   const collectionName = VerificationRequests.getCollectionName();
   const username = getUsername(match);
   const opportunityInstance = instance._id;
@@ -31,14 +32,7 @@ const handleVerificationRequest = (instance, match) => (model) => {
     .catch((error) => {
       console.error(`Verification Request define ${definitionData} failed.`);
     })
-    .then(() => {
-      Swal.fire({
-        title: 'Verification request sent.',
-        icon: 'success',
-        showConfirmButton: false,
-        timer: 1500,
-      });
-    });
+    .then(() => { RadGradAlert.success('Verification request sent.', '', 1500);});
 };
 
 const RequestVerificationPopup: React.FC<RequestVerificationPopupProps> = ({ opportunityInstance, size = 'large' }) => {

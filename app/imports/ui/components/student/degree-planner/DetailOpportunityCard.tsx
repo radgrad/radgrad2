@@ -44,7 +44,7 @@ const DetailOpportunityCard: React.FC<DetailOpportunityCardProps> = ({ instance,
     const collectionName = OpportunityInstances.getCollectionName();
     removeItMethod.callPromise({ collectionName, instance })
       .then(() => {
-        RadGradAlert.success('Remove succeeded', 1500);
+        RadGradAlert.success('Remove succeeded', '', 1500);
         setSelectedCiID('');
         setSelectedOiID('');
         setSelectedProfileTab(TabbedProfileEntryNames.profileOpportunities);

@@ -45,7 +45,7 @@ const StudentExplorerEditReviewForm: React.FC<StudentExplorerEditReviewWidgetPro
     updateData.id = review._id;
     updateMethod.callPromise({ collectionName, updateData })
       .catch((error) => { RadGradAlert.failure('Update Failed', error.message, 2500, error);})
-      .then(() => { RadGradAlert.success('Update Succeeded', 1500);});
+      .then(() => { RadGradAlert.success('Update Succeeded', '', 1500);});
   };
 
   const handleDelete = (e: any): void => {
@@ -59,7 +59,7 @@ const StudentExplorerEditReviewForm: React.FC<StudentExplorerEditReviewWidgetPro
     const collectionName = collection.getCollectionName();
     removeItMethod.callPromise({ collectionName, instance: id })
       .catch((error) => { RadGradAlert.failure('Delete failed', error.message, 2500, error);})
-      .then(() => { RadGradAlert.success('Delete succeeded', 1500);});
+      .then(() => { RadGradAlert.success('Delete succeeded', '', 1500);});
     setConfirmOpen(false);
   };
 

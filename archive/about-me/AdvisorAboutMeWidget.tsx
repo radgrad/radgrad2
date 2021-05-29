@@ -59,7 +59,7 @@ const AdvisorAboutMeWidget: React.FC<AdvisorAboutMeWidgetProps> = ({ profile, fa
       if (error) {
         RadGradAlert.failure('Update Failed', error.message, 2500, error);
       } else {
-        RadGradAlert.success('Update Succeeded', 1500);
+        RadGradAlert.success('Update Succeeded', '', 1500);
       }
     });
   };
@@ -72,7 +72,7 @@ const AdvisorAboutMeWidget: React.FC<AdvisorAboutMeWidgetProps> = ({ profile, fa
       if (error) {
         RadGradAlert.failure('Update Failed', error.message, 2500, error);
       } else {
-        RadGradAlert.success('Update Succeeded', 1500);
+        RadGradAlert.success('Update Succeeded', '', 1500);
       }
     });
   };
@@ -117,7 +117,7 @@ const AdvisorAboutMeWidget: React.FC<AdvisorAboutMeWidgetProps> = ({ profile, fa
             RadGradAlert.failure('Update Failed', error.message, 2500, error);
           } else {
             setPicture(cloudinaryResult.info.secure_url);
-            RadGradAlert.success('Update Succeeded', 1500);
+            RadGradAlert.success('Update Succeeded', '', 1500);
           }
         });
       }

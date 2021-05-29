@@ -2,7 +2,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
 import { Confirm, Icon } from 'semantic-ui-react';
 import _ from 'lodash';
-import Swal from 'sweetalert2';
+import RadGradAlerts from '../../utilities/RadGradAlert';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
@@ -67,6 +67,7 @@ interface AdminDataModelAcademicTermsPageProps {
  * @constructor
  */
 const AdminDataModelAcademicTermsPage: React.FC<AdminDataModelAcademicTermsPageProps> = ({ items }) => {
+  const RadGradAlert = new RadGradAlerts();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
   const [showUpdateFormState, setShowUpdateForm] = useState(false);
@@ -84,21 +85,9 @@ const AdminDataModelAcademicTermsPage: React.FC<AdminDataModelAcademicTermsPageP
     updateData.retired = doc.retired;
     // console.log('parameter = %o', { collectionName, updateData });
     updateMethod.callPromise({ collectionName, updateData })
-      .catch((error) => {
-        Swal.fire({
-          title: 'Update failed',
-          text: error.message,
-          icon: 'error',
-        });
-        console.error('Error in updating. %o', error);
-      })
-      .then(() =>{
-        Swal.fire({
-          title: 'Update succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+      .catch((error) => { RadGradAlert.failure('Update Failed', error.message, 2500, error);})
+      .then(() => {
+        RadGradAlert.success('Update Succeeded', '', 1500);
         setShowUpdateForm(false);
         setId('');
       });

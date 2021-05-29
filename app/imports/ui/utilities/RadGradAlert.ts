@@ -23,18 +23,6 @@ class RadGradAlert {
     });
     console.error('Error Alert:', error);
   }
-
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  warning(title, text, confirmButtonText, cancelButtonText) {
-    Swal.fire({
-      title: title,
-      text: text,
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: confirmButtonText,
-      cancelButtonText: cancelButtonText,
-    });
-  }
 }
 
 

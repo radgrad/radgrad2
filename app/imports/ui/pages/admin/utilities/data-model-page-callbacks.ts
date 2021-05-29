@@ -7,7 +7,7 @@ export const updateCallBack = (setShowUpdateForm, setId) => (error) => {
   if (error) {
     RadGradAlert.failure('Update failed', error.message, 2500, error);
   } else {
-    RadGradAlert.success('Update succeeded', 1500);
+    RadGradAlert.success('Update succeeded', '', 1500);
     setShowUpdateForm(false);
     setId('');
   }
@@ -17,7 +17,7 @@ export const removeItCallback = (setShowUpdateForm, setId, setConfirmOpen) => (e
   if (error) {
     RadGradAlert.failure('Delete failed', error.message, 2500, error);
   } else {
-    RadGradAlert.success('Delete succeeded', 1500);
+    RadGradAlert.success('Delete succeeded', '', 1500);
   }
   setShowUpdateForm(false);
   setId('');

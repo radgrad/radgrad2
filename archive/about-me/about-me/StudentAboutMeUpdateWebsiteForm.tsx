@@ -28,7 +28,7 @@ const StudentAboutMeUpdateWebsiteForm: React.FC<StudentAboutMeUpdateWebsiteFormP
       if (error) {
         RadGradAlert.failure('Update Failed', error.message, 2500, error);
       } else {
-        RadGradAlert.success('Update Succeeded', 1500);
+        RadGradAlert.success('Update Succeeded', '', 1500);
         const username = getUsername(match);
         const interactionData: UserInteractionDefine = {
           username,

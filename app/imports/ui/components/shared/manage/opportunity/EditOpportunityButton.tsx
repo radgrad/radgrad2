@@ -61,7 +61,7 @@ const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({
     updateData.academicTerms = doc.academicTerms.map((name) => AcademicTerms.getAcademicTermFromToString(name)._id);
     // console.log(collectionName, updateData);
     updateMethod.callPromise({ collectionName, updateData })
-      .then((result) => { RadGradAlert.success('Opportunity Updated', 1500);})
+      .then((result) => { RadGradAlert.success('Opportunity Updated', result, 1500);})
       .catch((error) => { RadGradAlert.failure('Update Failed', error.message, 2500, error);});
   };
 

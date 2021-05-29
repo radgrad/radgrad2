@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Button, Grid, Modal } from 'semantic-ui-react';
 import SimpleSchema from 'simpl-schema';
-import Swal from 'sweetalert2';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { AutoForm, ErrorsField, LongTextField, SubmitField } from 'uniforms-semantic';
+import RadGradAlerts from '../../../utilities/RadGradAlert';
 import { updateMethod } from '../../../../api/base/BaseCollection.methods';
 import { Reviews } from '../../../../api/review/ReviewCollection';
 import { Review, ReviewUpdate } from '../../../../typings/radgrad';
@@ -21,6 +21,7 @@ interface EditReviewButtonProps {
  * @constructor
  */
 const EditReviewButton: React.FC<EditReviewButtonProps> = ({ review }) => {
+  const RadGradAlert = new RadGradAlerts();
   const [open, setOpen] = useState(false);
 
   const handleSubmit = (doc) => {
@@ -30,25 +31,9 @@ const EditReviewButton: React.FC<EditReviewButtonProps> = ({ review }) => {
     updateData.comments = doc.comments;
     const collectionName = Reviews.getCollectionName();
     updateMethod.callPromise({ collectionName, updateData })
-      .catch((error) => {
-        Swal.fire({
-          title: 'Update Failed',
-          text: error.message,
-          icon: 'error',
-          timer: 1500,
-        });
-      })
+      .catch((error) => { RadGradAlert.failure('Update Failed', error.message, 2500, error);})
       .then(() => {
-        Swal.fire({
-          title: 'Review Updated',
-          icon: 'success',
-          text: 'Your review was successfully updated.',
-          allowOutsideClick: false,
-          allowEscapeKey: false,
-          allowEnterKey: false,
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        RadGradAlert.success('Review Updated', '', 1500);
         setOpen(false);
       });
   };

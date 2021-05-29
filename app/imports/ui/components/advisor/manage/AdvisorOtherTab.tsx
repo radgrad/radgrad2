@@ -51,7 +51,7 @@ const AdvisorOtherTab: React.FC = () => {
       if (error) {
         RadGradAlert.failure('Error updating students\' levels', 'There was an error updating the students\' levels', 2500, error);
       } else {
-        RadGradAlert.success('Updates Students\' levels', 1500);
+        RadGradAlert.success('Updates Students\' levels', '', 1500);
       }
     });
     setIsUpdateWorking(false);
@@ -64,7 +64,7 @@ const AdvisorOtherTab: React.FC = () => {
       if (error) {
         RadGradAlert.failure('Error loading alumni emails', error.message, 2500, error);
       } else {
-        RadGradAlert.success('Alumni emails loaded successfully', 1500);
+        RadGradAlert.success('Alumni emails loaded successfully', '', 1500);
         setAlumniEmails('');
       }
       setIsAlumniWorking(false);
@@ -81,7 +81,7 @@ const AdvisorOtherTab: React.FC = () => {
     // console.log(data);
     starBulkLoadJsonDataMethod.callPromise(data)
       .then((result) => {
-        RadGradAlert.success('Bulk Course Data loaded successfully', 1500);
+        RadGradAlert.success('Bulk Course Data loaded successfully', result, 1500);
         setIsUploadWorking(false);
       })
       .catch((error) => {
@@ -97,7 +97,7 @@ const AdvisorOtherTab: React.FC = () => {
       if (error) {
         RadGradAlert.failure('Error during Generating Student Emails', error.message, 2500, error);
       } else {
-        RadGradAlert.success('Beginning Download...', 1500);
+        RadGradAlert.success('Beginning Download...', '', 1500);
         const data: any = {};
         data.name = 'Students';
         data.contents = result.students;

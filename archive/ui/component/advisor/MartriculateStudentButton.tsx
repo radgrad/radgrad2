@@ -17,7 +17,7 @@ const MatriculateStudentButton: React.FC<MatriculateStudentButtonProps> = ({ stu
 
   const handleConfirmMatriculate = () => {
     matriculateStudentMethod.callPromise(student.username)
-      .then(() => { RadGradAlert.success(`Successfully matriculated ${student.firstName} ${student.lastName}`, 1500);})
+      .then(() => { RadGradAlert.success(`Successfully matriculated ${student.firstName} ${student.lastName}`, '', 1500);})
       .catch((error) => { RadGradAlert.failure(`Error: failed to matriculated ${student.firstName} ${student.lastName}`, error.message, 2500, error);})
       .finally(() => setConfirmOpen(false));
   };

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Button, Modal } from 'semantic-ui-react';
 import SimpleSchema from 'simpl-schema';
-import Swal from 'sweetalert2';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { AutoForm, BoolField, ErrorsField, LongTextField, SubmitField, TextField } from 'uniforms-semantic';
+import RadGradAlerts from '../../../../utilities/RadGradAlert';
 import { updateMethod } from '../../../../../api/base/BaseCollection.methods';
 import { CareerGoals } from '../../../../../api/career/CareerGoalCollection';
 import { Interests } from '../../../../../api/interest/InterestCollection';
@@ -16,6 +16,7 @@ interface EditCareerGoalButtonProps {
 }
 
 const EditCareerGoalButton: React.FC<EditCareerGoalButtonProps> = ({ careerGoal, interests }) => {
+  const RadGradAlert = new RadGradAlerts();
   const [open, setOpen] = useState(false);
   const interestNames = interests.map((interest) => interest.name);
 
@@ -32,22 +33,8 @@ const EditCareerGoalButton: React.FC<EditCareerGoalButtonProps> = ({ careerGoal,
     updateData.interests = doc.interests.map((name) => Interests.findDoc(name)._id);
     // console.log(collectionName, updateData);
     updateMethod.callPromise({ collectionName, updateData })
-      .then((result) => Swal.fire({
-        title: 'Interest Updated',
-        icon: 'success',
-        text: 'Successfully updated interest.',
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        allowEnterKey: false,
-        showConfirmButton: false,
-        timer: 1500,
-      }))
-      .catch((error) => Swal.fire({
-        title: 'Update Failed',
-        text: error.message,
-        icon: 'error',
-        // timer: 1500,
-      }));
+      .then((result) => { RadGradAlert.success('Interest Updated', result, 1500);})
+      .catch((error) => { RadGradAlert.failure('Update Failed', error.message, 2500, error);});
   };
 
   const updateSchema = new SimpleSchema({

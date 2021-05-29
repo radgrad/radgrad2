@@ -75,7 +75,7 @@ const WriteReviews: React.FC<WriteReviewsProps> = ({ unreviewedCourses, unreview
     // console.log(collectionName, definitionData);
     defineMethod.callPromise({ collectionName, definitionData })
       .catch((error) => { RadGradAlert.failure('Add Failed', error.message, 2500, error);})
-      .then(() => { RadGradAlert.success('Review Added', 1500);});
+      .then(() => { RadGradAlert.success('Review Added', '', 1500);});
   };
 
   const choiceSchema = new SimpleSchema({

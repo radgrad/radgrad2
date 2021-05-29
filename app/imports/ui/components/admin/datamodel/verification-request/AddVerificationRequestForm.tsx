@@ -84,7 +84,7 @@ const AddVerificationRequestForm: React.FC<AddVerificationRequestFormProps> = ({
     defineMethod.callPromise({ collectionName, definitionData })
       .catch((error) => { RadGradAlert.failure('Add failed', error.message, 2500, error);})
       .then(() => {
-        RadGradAlert.success('Add succeeded', 1500);
+        RadGradAlert.success('Add succeeded', '', 1500);
         formRef.reset();
       });
   };
