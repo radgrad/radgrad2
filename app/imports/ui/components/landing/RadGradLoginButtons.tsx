@@ -5,6 +5,7 @@ import { Button, Dropdown, Message, SemanticSIZES } from 'semantic-ui-react';
 import { Roles } from 'meteor/alanning:roles';
 import { Users } from '../../../api/user/UserCollection';
 import { ROLE } from '../../../api/role/Role';
+import { COMPONENTIDS } from '../../utilities/ComponentIDs';
 
 interface RadGradLoginButtonsProps {
   size?: SemanticSIZES;
@@ -63,12 +64,12 @@ const RadGradLoginButtons: React.FC<RadGradLoginButtonsProps> = ({ instanceName 
   return development ? (
     <div>
       <Button inverted={inverted} size={size}>
-        <Dropdown id="LOGIN" text={`${instanceName} LOGIN`} pointing="top right">
+        <Dropdown id={COMPONENTIDS.LOGIN} text={`${instanceName} LOGIN`} pointing="top right">
           <Dropdown.Menu>
-            <Dropdown.Item id="student" text={studentLabel} as={Link} to="/signin" />
-            <Dropdown.Item id="faculty" text={facultyLabel} as={Link} to="/signin" />
-            <Dropdown.Item id="advisor" text={advisorLabel} as={Link} to="/signin" />
-            <Dropdown.Item id="admin" text={adminLabel} as={Link} to="/signin" />
+            <Dropdown.Item id={COMPONENTIDS.STUDENT} text={studentLabel} as={Link} to="/signin" />
+            <Dropdown.Item id={COMPONENTIDS.FACULTY} text={facultyLabel} as={Link} to="/signin" />
+            <Dropdown.Item id={COMPONENTIDS.ADVISOR} text={advisorLabel} as={Link} to="/signin" />
+            <Dropdown.Item id={COMPONENTIDS.ADMIN} text={adminLabel} as={Link} to="/signin" />
           </Dropdown.Menu>
         </Dropdown>
       </Button>
@@ -78,12 +79,12 @@ const RadGradLoginButtons: React.FC<RadGradLoginButtonsProps> = ({ instanceName 
     </div>
   ) : (
     <Button inverted={inverted} size={size}>
-      <Dropdown id="LOGIN" text={`${instanceName} LOGIN FOR`} pointing="top right">
+      <Dropdown id={COMPONENTIDS.LOGIN} text={`${instanceName} LOGIN FOR`} pointing="top right">
         <Dropdown.Menu>
-          <Dropdown.Item id="student" text={studentLabel} onClick={handleClick} />
-          <Dropdown.Item id="faculty" text={facultyLabel} onClick={handleClick} />
-          <Dropdown.Item id="advisor" text={advisorLabel} onClick={handleClick} />
-          <Dropdown.Item id="admin" text={adminLabel} as={Link} to="/signin" />
+          <Dropdown.Item id={COMPONENTIDS.STUDENT} text={studentLabel} onClick={handleClick} />
+          <Dropdown.Item id={COMPONENTIDS.FACULTY} text={facultyLabel} onClick={handleClick} />
+          <Dropdown.Item id={COMPONENTIDS.ADVISOR} text={advisorLabel} onClick={handleClick} />
+          <Dropdown.Item id={COMPONENTIDS.ADMIN} text={adminLabel} as={Link} to="/signin" />
         </Dropdown.Menu>
       </Dropdown>
     </Button>

@@ -57,9 +57,9 @@ const buildCareerGoalFactoid = (): InterestOrCareerGoalFactoidProps => {
 const buildInterestFactoid = (): InterestOrCareerGoalFactoidProps => {
   const interest = getRandomDocument(Interests);
   let courses = Courses.findNonRetired();
-  courses = courses.filter((course) => _.includes(course.interestIDs, interest._id));
+  courses = courses.filter((course) => (course.interestIDs).includes(interest._id));
   let opportunities = Opportunities.findNonRetired({});
-  opportunities = opportunities.filter((opp) => _.includes(opp.interestIDs, interest._id));
+  opportunities = opportunities.filter((opp) => (opp.interestIDs).includes( interest._id));
   const factoid = interest ? {
     name: interest.name,
     description: getShortenedDescription(interest.description),

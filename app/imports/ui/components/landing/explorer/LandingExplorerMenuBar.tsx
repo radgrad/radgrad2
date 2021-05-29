@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Dropdown, Header, Image, Menu } from 'semantic-ui-react';
+import { COMPONENTIDS } from '../../../utilities/ComponentIDs';
 import RadGradLogoText from '../../shared/RadGradLogoText';
 import RadGradLoginButtons from '../RadGradLoginButtons';
 
@@ -11,7 +12,7 @@ const LandingExplorerMenuBar: React.FC = () => {
   const instanceName = Meteor.settings.public.instanceName;
   return (
     <Menu attached="top" borderless size="small">
-      <Menu.Item id='landing-explorer-menu' as={NavLink} activeClassName="" exact to="/">
+      <Menu.Item id={COMPONENTIDS.LANDING_EXPLORER_MENU} as={NavLink} activeClassName="" exact to="/">
         <Image style={imageStyle} circular src="/images/radgrad_logo.png" />
         <div className="mobile hidden item">
           <Header as="h2">

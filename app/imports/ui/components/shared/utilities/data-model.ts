@@ -125,7 +125,7 @@ export const opportunityTermsNotTaken = (opportunity, studentID) => {
   });
   termIDs.forEach((termID) => {
     if (AcademicTerms.findDoc(termID).termNumber >= currentTerm.termNumber) {
-      if (!_.includes(takenTermIDs, termID)) {
+      if (!(takenTermIDs.includes(termID))) {
         termNames.push(AcademicTerms.toString(termID));
       }
     }

@@ -168,7 +168,7 @@ export const updateAllStudentLevels = (userId): number => {
 };
 
 export const getLevelCriteriaStringMarkdown = (level: string): string => {
-  if (!_.includes(['six', 'five', 'four', 'three', 'two'], level)) {
+  if (!(['six', 'five', 'four', 'three', 'two'].includes(level))) {
     throw new Meteor.Error(`${level} is not a valid level`);
   }
   const criteria = Meteor.settings.public.level[level];
