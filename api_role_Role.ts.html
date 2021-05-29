@@ -117,7 +117,7 @@ export const ROLES = _.values(ROLE);
  * @returns {boolean} True if role is a defined ROLE.
  * @memberOf api/role
  */
-export const isRole = (role: string): boolean => (typeof role) === 'string' &amp;&amp; _.includes(_.values(ROLE), role);
+export const isRole = (role: string): boolean => (typeof role) === 'string' &amp;&amp; (_.values(ROLE)).includes(role);
 
 /**
  * Ensures that role(s) are valid roles.
@@ -140,7 +140,7 @@ if (Meteor.isServer) {
   const allDefinedRoles = Roles.getAllRoles().fetch();
   const definedRoleNames = allDefinedRoles.map((role) => role.name);
   _.values(ROLE).forEach((role) => {
-    if (!_.includes(definedRoleNames, role)) {
+    if (!(definedRoleNames.includes(role))) {
       Roles.createRole(role, { unlessExists: true });
     }
   });

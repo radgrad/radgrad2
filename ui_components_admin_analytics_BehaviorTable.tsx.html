@@ -113,7 +113,7 @@ const BehaviorTable: React.FC&lt;BehaviorTableProps> = ({ userInteractions }) =>
         {Object.keys(groups).map(key => {
           const behavior = key;
           const description = USER_INTERACTION_DESCRIPTIONS[behavior];
-          const users = _.map(groups[key], 'username').map(username => &lt;UserLabel key={username} username={username}/>);
+          const users = groups[key].map(instance => instance.username).map(username => &lt;UserLabel key={username} username={username}/>);
           return (
             &lt;Table.Row key={behavior}>
               &lt;Table.Cell>{behavior}&lt;/Table.Cell>

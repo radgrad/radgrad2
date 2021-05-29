@@ -473,7 +473,7 @@ class AcademicTermCollection extends BaseSlugCollection {
     });
     // Check that this term is not referenced by any Opportunity
     Opportunities.find().map((opportunity) => {
-      if (_.includes(opportunity.termIDs, docID)) {
+      if (opportunity.termIDs.includes(docID)) {
         throw new Meteor.Error(`AcademicTerm ${instance} referenced by an opportunity.`);
       }
       return true;

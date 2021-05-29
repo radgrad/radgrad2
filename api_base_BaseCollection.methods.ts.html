@@ -137,7 +137,7 @@ export const alumniEmailsMethod = new ValidatedMethod({
     if (Meteor.isServer) {
       const alumniEmails = emails.split('\n');
       let count = 0;
-      _.forEach(alumniEmails, (e) => {
+      alumniEmails.forEach((e) => {
         // TODO load the names from a config file.
         if (e !== 'samplestudent@hawaii.edu' &amp;&amp; e !== 'opq@hawaii.edu' &amp;&amp; e !== 'spaek@hawaii.edu' &amp;&amp; e !== 'peterleo@hawaii.edu' &amp;&amp; e !== '') {
           const profile = StudentProfiles.findDoc({ username: e });

@@ -217,11 +217,11 @@ class CourseInstanceCollection extends BaseCollection {
     if ((typeof verified) !== 'boolean') {
       throw new Meteor.Error(`${verified} is not a boolean.`);
     }
-    if (!_.includes(this.validGrades, grade)) {
+    if (!(this.validGrades.includes(grade), grade)) {
       if (grade.startsWith('I')) {
         grade = grade.substring(1); // eslint-disable-line no-param-reassign
       }
-      if (!_.includes(this.validGrades, grade)) {
+      if (!(this.validGrades.includes(grade))) {
         throw new Meteor.Error(`${grade} is not a valid grade.`);
       }
     }

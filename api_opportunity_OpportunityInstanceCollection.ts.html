@@ -347,7 +347,7 @@ class OpportunityInstanceCollection extends BaseCollection {
     });
     const requests = VerificationRequests.findNonRetired({ studentID });
     const requestedOIs = requests.map((request) => request.opportunityInstanceID);
-    const unverified = oisInPast.filter((oi) => !_.includes(requestedOIs, oi._id));
+    const unverified = oisInPast.filter((oi) => !((requestedOIs.includes(oi._id))));
     return unverified;
   }
 

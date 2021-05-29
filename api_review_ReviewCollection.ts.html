@@ -239,7 +239,7 @@ class ReviewCollection extends BaseSlugCollection {
    * @param reviewType The review type.
    */
   public assertValidReviewType(reviewType: string) {
-    if (!_.includes([this.OPPORTUNITY, this.COURSE], reviewType)) {
+    if (!([this.OPPORTUNITY, this.COURSE].includes(reviewType))) {
       throw new Meteor.Error(`Invalid reviewType: ${reviewType}`);
     }
   }
