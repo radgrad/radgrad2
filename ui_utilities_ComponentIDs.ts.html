@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> startup/server/initialize-db.ts</title>
+  <title> ui/utilities/ComponentIDs.ts</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -76,7 +76,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>startup/server/initialize-db.ts</h1>
+                    <h1>ui/utilities/ComponentIDs.ts</h1>
                 </header>
                 
 
@@ -85,134 +85,85 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { Meteor } from 'meteor/meteor';
-import _ from 'lodash';
-import moment from 'moment';
-import { defineAcademicTerms } from '../../api/academic-term/AcademicTermUtilities';
-import { PublicStats } from '../../api/public-stats/PublicStatsCollection';
-import { RadGrad } from '../../api/radgrad/RadGrad';
-import { RadGradProperties } from '../../api/radgrad/RadGradProperties';
-import { loadCollection } from '../../api/test/test-utilities';
-import { checkIntegrity } from '../../api/integrity/IntegrityChecker';
-import { AdminProfiles } from '../../api/user/AdminProfileCollection';
+            <pre class="prettyprint source linenums"><code>/** Define IDs to identify components in the system. This is used for testing. */
+export enum COMPONENTIDS {
+  LANDING_EXPLORER_MENU = 'landing-explorer-menu',
+  LANDING_EXPLORER_BUTTONS = 'landing-explorer-buttons',
+  LANDING_CAREER_GOALS_EXPLORER = 'landing-career-goals-explorer',
+  LANDING_INTERESTS_EXPLORER = 'landing-interests-explorer',
+  LANDING_COURSES_EXPLORER = 'landing-courses-explorer',
+  LANDING_OPPORTUNITIES_EXPLORER = 'landing-opportunities-explorer',
 
-/** global Assets */
-/* eslint-disable no-console */
+  NAVBAR_CURRENT_USER = 'navbar-current-user',
+  NAVBAR_SIGN_OUT = 'navbar-sign-out',
+  LOGIN = 'LOGIN',
 
-/**
- * Returns an Array of numbers, one per loadable collection, indicating the number of documents in that collection.
- * @returns { Array } An array of collection document counts.
- * @memberOf startup/server
- */
-const documentCounts = () => RadGrad.collectionLoadSequence.map((collection) => collection.count());
+  ADMIN = 'admin',
+  ADMIN_MENU_HOME = 'admin-menu-home',
+  ADMIN_MENU_VISIBILITY = 'admin-menu-visibility',
+  ADMIN_MENU_FORECASTS = 'admin-menu-forecasts',
+  ADMIN_MENU_COMMUNITY = 'admin-menu-community',
+  ADMIN_MENU_EXPLORERS = 'admin-menu-explorers',
+  ADMIN_MENU_EXPLORER_CAREERS = 'admin-menu-explorer-careers',
+  ADMIN_MENU_EXPLORER_COURSES = 'admin-menu-explorer-courses',
+  ADMIN_MENU_EXPLORER_INTERESTS = 'admin-menu-explorer-interests',
+  ADMIN_MENU_EXPLORER_OPPORTUNITIES = 'admin-menu-explorer-opportunities',
+  ADMIN_MENU_MANAGE = 'admin-menu-manage',
+  ADMIN_MENU_MANAGE_STUDENTS = 'admin-menu-manage-students',
+  ADMIN_MENU_MANAGE_VERIFICATION = 'admin-menu-manage-verification',
+  ADMIN_MENU_MANAGE_REVIEW = 'admin-menu-manage-review',
+  FIRST_MENU_USERNAME = 'first-menu-username',
 
-/**
- * Returns the total number of documents in the loadable collections.
- * @returns { Number } The total number of RadGrad documents in the loadable collections.
- * @memberOf startup/server
- */
-const totalDocuments = () => documentCounts().reduce((sum, count) => sum + count, 0);
+  ADVISOR = 'advisor',
+  ADVISOR_MENU_HOME = 'advisor-menu-home',
+  ADVISOR_MENU_VISIBILITY = 'advisor-menu-visibility',
+  ADVISOR_MENU_FORECASTS = 'advisor-menu-forecasts',
+  ADVISOR_MENU_COMMUNITY = 'advisor-menu-community',
+  ADVISOR_MENU_EXPLORERS = 'advisor-menu-explorers',
+  ADVISOR_MENU_EXPLORER_CAREERS = 'advisor-menu-explorer-careers',
+  ADVISOR_MENU_EXPLORER_COURSES = 'advisor-menu-explorer-courses',
+  ADVISOR_MENU_EXPLORER_INTERESTS = 'advisor-menu-explorer-interests',
+  ADVISOR_MENU_EXPLORER_OPPORTUNITIES = 'advisor-menu-explorer-opportunities',
+  ADVISOR_MENU_MANAGE = 'advisor-menu-manage',
+  ADVISOR_MENU_MANAGE_STUDENTS = 'advisor-menu-manage-students',
+  ADVISOR_MENU_MANAGE_VERIFICATION = 'advisor-menu-manage-verification',
+  ADVISOR_MENU_MANAGE_REVIEW = 'advisor-menu-manage-review',
+  ADVISOR_MENU_MANAGE_OPPORTUNITIES = 'advisor-menu-manage-opportunities',
 
-/**
- * The load/fixture file date format.
- * Used when dumping and restoring the RadGrad database.
- * @type {string}
- * @memberOf startup/server
- */
-const loadFileDateFormat = 'YYYY-MM-DD-HH-mm-ss';
+  FACULTY = 'faculty',
+  FACULTY_MENU_HOME = 'faculty-menu-home',
+  FACULTY_MENU_VISIBILITY = 'faculty-menu-visibility',
+  FACULTY_MENU_FORECASTS = 'faculty-menu-forecasts',
+  FACULTY_MENU_COMMUNITY = 'faculty-menu-community',
+  FACULTY_MENU_EXPLORERS = 'faculty-menu-explorers',
+  FACULTY_MENU_EXPLORER_CAREERS = 'faculty-menu-explorer-careers',
+  FACULTY_MENU_EXPLORER_COURSES = 'faculty-menu-explorer-courses',
+  FACULTY_MENU_EXPLORER_INTERESTS = 'faculty-menu-explorer-interests',
+  FACULTY_MENU_EXPLORER_OPPORTUNITIES = 'faculty-menu-explorer-opportunities',
+  FACULTY_MENU_MANAGE = 'faculty-menu-manage',
+  FACULTY_MENU_MANAGE_OPPORTUNITIES = 'faculty-menu-manage-opportunities',
+  FACULTY_MENU_MANAGE_VERIFICATION = 'faculty-menu-manage-verification',
+  FACULTY_MENU_MANAGE_REVIEW = 'faculty-menu-manage-review',
 
-/**
- * Returns a string indicating how long ago the load file was created. Parses the file name string.
- * @param loadFileName The file name.
- * @returns { String } A string indicating how long ago the file was created.
- * @memberOf startup/server
- */
-const getRestoreFileAge = (loadFileName) => {
-  const terms = _.words(loadFileName, /[^/. ]+/g);
-  const dateString = terms[terms.length - 2];
-  return moment(dateString, loadFileDateFormat).fromNow();
-};
+  STUDENT = 'student',
+  STUDENT_MENU_HOME = 'student-menu-home',
+  STUDENT_MENU_INTERESTS = 'student-menu-interests',
+  STUDENT_MENU_COURSES = 'student-menu-courses',
+  STUDENT_MENU_CAREERS = 'student-menu-careers',
+  STUDENT_MENU_OPPORTUNITIES = 'student-menu-opportunities',
+  STUDENT_MENU_PLANNER = 'student-menu-planner',
+  STUDENT_MENU_VERIFICATION = 'student-menu-verification',
+  STUDENT_MENU_VISIBILITY = 'student-menu-visibility',
+  STUDENT_MENU_ICE = 'student-menu-ice',
+  STUDENT_MENU_LEVELS = 'student-menu-levels',
+  STUDENT_MENU_REVIEWS = 'student-menu-reviews',
+  STUDENT_MENU_COMMUNITY = 'student-menu-community',
+  STUDENT_MENU_SIGNOUT = 'student-menu-signout',
 
-/**
- * If the database is empty, this function looks up the name of the load file in the settings file,
- * and if it is specified, then it reads it in and calls define() on its contents in order to load the database.
- * Console messages are generated when the contents of the load file does not include collections that
- * this function assumes are present. Conversely, if the load file contains collections not processed with
- * this file, a string is also printed out.
- * @memberOf startup/server
- */
-export const loadDatabase = () => {
-  const loadFileName = Meteor.settings.databaseRestoreFileName;
-  if (loadFileName &amp;&amp; (totalDocuments() === 0 || totalDocuments() === 1)) {
-    const loadFileAge = getRestoreFileAge(loadFileName);
-    console.log(`Loading database from file ${loadFileName}, dumped ${loadFileAge}.`);
-    const loadJSON = JSON.parse(Assets.getText(loadFileName));
-    // The list of collections, ordered so that they can be sequentially restored.
-    const collectionList = RadGrad.collectionLoadSequence;
-
-    const loadNames = loadJSON.collections.map((obj) => obj.name);
-    const collectionNames = collectionList.map((collection) => collection.getCollectionName());
-    const extraRestoreNames = _.difference(loadNames, collectionNames);
-    const extraCollectionNames = _.difference(collectionNames, loadNames);
-
-    if (extraRestoreNames.length) {
-      console.log(`Error: The following collections are in ${loadFileName}, but not in RadGrad.collectionLoadSequence: ${extraRestoreNames}`);
-    }
-    if (extraCollectionNames.length) {
-      console.log(`Error: The following collections are in RadGrad.collectionLoadSequence, but missing from ${loadFileName}: ${extraCollectionNames}`);
-    }
-
-    if (!extraRestoreNames.length &amp;&amp; !extraCollectionNames.length) {
-      collectionList.forEach((collection) => loadCollection(collection, loadJSON, true));
-    }
-    const loadTimeString = loadFileName.substring(loadFileName.lastIndexOf('/') + 1, loadFileName.indexOf('.'));
-    // console.log(loadTimeString);
-    // CAM is this the right time to set?
-    PublicStats.setCareerGoalUpdateTime(loadTimeString);
-    PublicStats.setCoursesUpdateTime(loadTimeString);
-    PublicStats.setInterestsUpdateTime(loadTimeString);
-    PublicStats.setOpportunitiesUpdateTime(loadTimeString);
-    // CAM make sure we have AcademicTerms.
-    defineAcademicTerms();
-    console.log('Finished loading database.');
-  }
-};
-
-/**
- * Check the integrity of the newly loaded collections; print out problems if any occur.
- * @memberOf startup/server
- */
-export const startupCheckIntegrity = () => {
-  // console.log('Checking DB integrity.');
-  const integrity = checkIntegrity();
-  if (integrity.count > 0) {
-    console.log(checkIntegrity().message);
-  }
-};
-
-export const defineAdminUser = () => {
-  const adminProfile = RadGradProperties.getAdminProfile();
-  if (!adminProfile) {
-    console.error('\n\nNO ADMIN PROFILE SPECIFIED IN SETTINGS FILE! SHUTDOWN AND FIX!!\n\n');
-    return;
-  }
-  const user = Meteor.users.findOne({ username: adminProfile.username });
-  if (!user) {
-    AdminProfiles.define(adminProfile);
-  }
-};
-
-export const defineTestAdminUser = () => {
-  if (Meteor.isTest || Meteor.isAppTest) {
-    const adminProfile = {
-      username: 'radgrad@hawaii.edu',
-      firstName: 'RadGrad',
-      lastName: 'Admin',
-    };
-    AdminProfiles.define(adminProfile);
-  }
-};
-</code></pre>
+  SIGNIN_FORM_EMAIL = 'signin-form-email',
+  SIGNIN_FORM_PASSWORD = 'signin-form-password',
+  SIGNIN_FORM_SUBMIT = 'signin-form-submit',
+}</code></pre>
         </article>
     </section>
 
