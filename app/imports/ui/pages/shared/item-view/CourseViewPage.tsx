@@ -67,13 +67,13 @@ const CourseViewPage: React.FC<CourseViewPageProps> = ({
   const relatedCareerGoals = Courses.findRelatedCareerGoals(course._id);
   const headerPaneButton = profile.role === ROLE.STUDENT ?
     <AddToProfileButton type={PROFILE_ENTRY_TYPE.COURSE} studentID={profile.userID} item={course}
-                        added={added} inverted floated="left" /> : undefined;
+      added={added} inverted floated="left" /> : undefined;
   const courseSlug = Slugs.getNameFromID(course.slugID);
   const completed = isCourseCompleted(courseSlug, profile.userID);
   const relatedCourses = getAssociationRelatedCourses(course.prerequisites.map((c) => Courses.findDocBySlug(c)), profile.userID);
   return (
     <PageLayout id={PAGEIDS.COURSE} headerPaneTitle={headerPaneTitle} headerPaneImage={headerPaneImage}
-                headerPaneButton={headerPaneButton}>
+      headerPaneButton={headerPaneButton}>
       <Grid>
         <Grid.Row>
           <Grid.Column width={5}>
@@ -84,7 +84,7 @@ const CourseViewPage: React.FC<CourseViewPageProps> = ({
           </Grid.Column>
           <Grid.Column width={11}>
             <ExplorerCourse course={course} profile={profile} completed={completed} itemReviews={itemReviews}
-                            terms={terms} courses={courses} interests={interests} />
+              terms={terms} courses={courses} interests={interests} />
           </Grid.Column>
         </Grid.Row>
       </Grid>

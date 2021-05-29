@@ -46,7 +46,7 @@ const ReviewItem: React.FC<ReviewItemProps> = ({ review }) => {
         <Grid.Column width={16}>
           <div style={commentsStyle}>
             <Markdown escapeHtml source={review.comments}
-                      renderers={{ link: (props2) => Router.renderLink(props2, match) }} />
+              renderers={{ link: (props2) => Router.renderLink(props2, match) }} />
           </div>
         </Grid.Column>
       </Grid>

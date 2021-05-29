@@ -16,7 +16,7 @@ const headerPaneImage = 'header-onboarding.png';
 
 const OnboardCalianaPage: React.FC = () => (
   <PageLayout id={PAGEIDS.ONBOARD_CALIANA} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}
-              headerPaneImage={headerPaneImage}>
+    headerPaneImage={headerPaneImage}>
     <Grid>
       <Grid.Row columns={1}>
         <Grid.Column>

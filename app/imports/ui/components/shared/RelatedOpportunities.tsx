@@ -28,11 +28,11 @@ const RelatedOpportunities: React.FC<RelatedOpportunitiesProps> = ({ relatedOppo
           <Grid.Row>
             <OpportunityList opportunities={relatedOpportunities.completed.map((id) => Opportunities.findDoc(id))} size="medium" keyStr="completedOpp" userID={profile.userID} />
           </Grid.Row>
-            <Grid.Row textAlign="center">
-              <Header as="h4">
-                <Icon name="warning sign" color="yellow" />
+          <Grid.Row textAlign="center">
+            <Header as="h4">
+              <Icon name="warning sign" color="yellow" />
                 In Plan (Not Yet Completed)
-              </Header>
+            </Header>
           </Grid.Row>
           <Grid.Row>
             <OpportunityList opportunities={relatedOpportunities.inPlan.map((id) => Opportunities.findDoc(id))} size="medium" keyStr="oppInPlan" userID={profile.userID} />

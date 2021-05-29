@@ -19,14 +19,14 @@ const UserLabel: React.FC<UserLabelProps> = ({ username, size = 'large' }) => {
   const [open, setOpen] = React.useState(false);
   return (
     <Modal size='small'
-           onClose={() => setOpen(false)}
-           onOpen={() => setOpen(true)}
-           open={open}
-           trigger={
-             <Button style={{ margin: '2px', padding: '0px' }}>
-               <ProfileLabel name={name} key={name} image={sharePicture && profile.picture}
-                             level={shareLevel && profile.level} size={size} />
-             </Button>}
+      onClose={() => setOpen(false)}
+      onOpen={() => setOpen(true)}
+      open={open}
+      trigger={
+        <Button style={{ margin: '2px', padding: '0px' }}>
+          <ProfileLabel name={name} key={name} image={sharePicture && profile.picture}
+            level={shareLevel && profile.level} size={size} />
+        </Button>}
     >
       <Modal.Content>
         <UserProfileCard username={username} fluid />

@@ -24,9 +24,9 @@ const headerPaneImage = 'header-courses.png';
 
 
 const CourseBrowserViewPage: React.FC<CourseBrowserViewPageProps> = ({ courses }) => (
-    <PageLayout id={PAGEIDS.COURSE_BROWSER} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
-        <BrowserView items={courses} explorerType={EXPLORER_TYPE.COURSES} />
-    </PageLayout>
+  <PageLayout id={PAGEIDS.COURSE_BROWSER} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
+    <BrowserView items={courses} explorerType={EXPLORER_TYPE.COURSES} />
+  </PageLayout>
 );
 
 export default withTracker(() => {

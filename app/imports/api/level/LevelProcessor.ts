@@ -234,32 +234,32 @@ export const getLevelHintStringMarkdown = (level: string): string => {
   let result = '';
   switch (level) {
     case 'six':
-      // eslint-disable-next-line max-len
+    // eslint-disable-next-line max-len
       result = `
 ${getLevelCriteriaStringMarkdown(level)}.`;
       break;
     case 'five':
-      // eslint-disable-next-line max-len
+    // eslint-disable-next-line max-len
       result = `
  ${getLevelCriteriaStringMarkdown(level)}.`;
       break;
     case 'four':
-      // eslint-disable-next-line max-len
+    // eslint-disable-next-line max-len
       result = `
 ${getLevelCriteriaStringMarkdown(level)}.`;
       break;
     case 'three':
-      // eslint-disable-next-line max-len
+    // eslint-disable-next-line max-len
       result = `
 ${getLevelCriteriaStringMarkdown(level)}.`;
       break;
     case 'two':
-      // eslint-disable-next-line max-len
+    // eslint-disable-next-line max-len
       result = `
 ${getLevelCriteriaStringMarkdown(level)}.`;
       break;
     default:
-      // eslint-disable-next-line max-len
+    // eslint-disable-next-line max-len
       result = 'You begin your RadGrad experience at Level 1, and you will receive this laptop sticker when you first sign up for RadGrad with your advisor. *"A journey of a thousand miles begins with a single step" -- Lao Tzu*';
   }
   return result;

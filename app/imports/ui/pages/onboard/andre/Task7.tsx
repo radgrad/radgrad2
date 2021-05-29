@@ -23,35 +23,35 @@ const Task7Segment: React.FC<TabbedProps> = ({ courses, interests }) => {
     { menuItem: 'Courses', render: () => <Tab.Pane>{courses.map((course) => <CourseLabel key={course._id} slug={course.slugID} userID={currentUser} size='small'/>)}</Tab.Pane> },
     { menuItem: 'Interests', render: () => <Tab.Pane>{interests.map((interest) => <InterestLabel key={interest._id} slug={interest.slugID} userID={currentUser} size='small'/>)}</Tab.Pane> },
     { menuItem: 'Task 1', render: () => <Tab.Pane>
-        <Modal
-          onClose={() => setOpen(false)}
-          onOpen={() => setOpen(true)}
-          open={open}
-          trigger={<Button className='mini basic green'>Hello World</Button>}
-        >
-          <Modal.Content>
-            <Task1Segment/>
-            <Button color='red' onClick={() => setOpen(false)}>
+      <Modal
+        onClose={() => setOpen(false)}
+        onOpen={() => setOpen(true)}
+        open={open}
+        trigger={<Button className='mini basic green'>Hello World</Button>}
+      >
+        <Modal.Content>
+          <Task1Segment/>
+          <Button color='red' onClick={() => setOpen(false)}>
               Close
-            </Button>
-          </Modal.Content>
-        </Modal>
-      </Tab.Pane> },
+          </Button>
+        </Modal.Content>
+      </Modal>
+    </Tab.Pane> },
     { menuItem: 'Task 3', render: () => <Tab.Pane>
-        <Modal
-          onClose={() => setOpen(false)}
-          onOpen={() => setOpen(true)}
-          open={open}
-          trigger={<Button className='mini basic green'>A Random Career Goal</Button>}
-        >
-          <Modal.Content>
-            <Task3Segment/>
-            <Button color='red' onClick={() => setOpen(false)}>
+      <Modal
+        onClose={() => setOpen(false)}
+        onOpen={() => setOpen(true)}
+        open={open}
+        trigger={<Button className='mini basic green'>A Random Career Goal</Button>}
+      >
+        <Modal.Content>
+          <Task3Segment/>
+          <Button color='red' onClick={() => setOpen(false)}>
               Close
-            </Button>
-          </Modal.Content>
-        </Modal>
-      </Tab.Pane> },
+          </Button>
+        </Modal.Content>
+      </Modal>
+    </Tab.Pane> },
   ];
   return (
     <RadGradSegment header={<RadGradHeader dividing title='Task 7: Tabbed and Modal Components' icon='folder plus'/>}>

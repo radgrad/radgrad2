@@ -54,10 +54,10 @@ const Task6EditComponent: React.FC<Task6EditSegmentProps> = ({ interests }) => {
   const formSchema = new SimpleSchema2Bridge(updateSchema);
 
   return (
-      <AutoForm schema = {formSchema} onSubmit = {handleSubmit} showInlineError>
-          <LongTextField name="description"/>
-          <SubmitField className="mini basic green" value="Submit Description"/>
-      </AutoForm>
+    <AutoForm schema = {formSchema} onSubmit = {handleSubmit} showInlineError>
+      <LongTextField name="description"/>
+      <SubmitField className="mini basic green" value="Submit Description"/>
+    </AutoForm>
   );
 };
 export default withTracker(() => {

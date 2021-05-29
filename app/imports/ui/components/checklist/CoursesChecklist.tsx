@@ -64,10 +64,10 @@ export class CoursesChecklist extends Checklist {
   public getDetails(): JSX.Element {
     const upcomingCourses = CourseInstances.findNonRetired({ studentID: this.profile.userID, verified: false });
     return ((upcomingCourses.length === 0) ?
-        <DetailsBox description='You do not have any upcoming Courses in your Degree Plan. Are you graduating?'/> :
-        <DetailsBox description='Here are your upcoming Courses:'>
-          <ProfileFutureCoursesList profile={this.profile} size="medium" />
-        </DetailsBox>
+      <DetailsBox description='You do not have any upcoming Courses in your Degree Plan. Are you graduating?'/> :
+      <DetailsBox description='Here are your upcoming Courses:'>
+        <ProfileFutureCoursesList profile={this.profile} size="medium" />
+      </DetailsBox>
     );
   }
 

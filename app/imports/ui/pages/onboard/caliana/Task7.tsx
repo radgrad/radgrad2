@@ -40,34 +40,34 @@ const Task7: React.FC<Task7Props> = ({ careerGoals, courses, interests, opportun
 
     { menuItem: 'Students', render: () => <Tab.Pane>{students.map((student) => <UserLabel key={student._id} username={student.username} size='small' />)}</Tab.Pane> },
     { menuItem: 'Task 2', render: () => <Tab.Pane>
-                <Modal
-                    onClose={() => setOpen(false)}
-                    onOpen={() => setOpen(true)}
-                    open={open}
-                    trigger={<Button>Who is the user?</Button>}
-                >
-                    <Modal.Header>Task 2</Modal.Header>
-                    <Modal.Content>
-                        <Modal.Description>
-                            <Task2 />
-                        </Modal.Description>
-                    </Modal.Content>
-                    <Modal.Actions>
-                        <Button color='red' onClick={() => setOpen(false)}>
+      <Modal
+        onClose={() => setOpen(false)}
+        onOpen={() => setOpen(true)}
+        open={open}
+        trigger={<Button>Who is the user?</Button>}
+      >
+        <Modal.Header>Task 2</Modal.Header>
+        <Modal.Content>
+          <Modal.Description>
+            <Task2 />
+          </Modal.Description>
+        </Modal.Content>
+        <Modal.Actions>
+          <Button color='red' onClick={() => setOpen(false)}>
                             Close
-                        </Button>
-                    </Modal.Actions>
-                </Modal>
-            </Tab.Pane>,
+          </Button>
+        </Modal.Actions>
+      </Modal>
+    </Tab.Pane>,
     },
   ];
 
   const [open, setOpen] = useState(false);
 
   return (
-        <RadGradSegment header={<RadGradHeader title='Task 7: Tabbed and Modal Components' dividing />}>
-            <Tab panes={panes} />
-        </RadGradSegment>
+    <RadGradSegment header={<RadGradHeader title='Task 7: Tabbed and Modal Components' dividing />}>
+      <Tab panes={panes} />
+    </RadGradSegment>
   );
 };
 

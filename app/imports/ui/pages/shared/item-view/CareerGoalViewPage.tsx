@@ -50,8 +50,8 @@ const CareerGoalViewPage: React.FC<CareerGoalViewPageProps> = ({
   const added = ProfileCareerGoals.findNonRetired({ userID: profile.userID, careerGoalID }).length > 0;
   return (
     <PageLayout id={PAGEIDS.CAREER_GOAL} headerPaneTitle={headerPaneTitle} headerPaneImage={headerPaneImage}
-                headerPaneButton={<AddToProfileButton type={PROFILE_ENTRY_TYPE.CAREERGOAL} studentID={profile.userID}
-                                                      item={careerGoal} added={added} inverted floated="left" />}>
+      headerPaneButton={<AddToProfileButton type={PROFILE_ENTRY_TYPE.CAREERGOAL} studentID={profile.userID}
+        item={careerGoal} added={added} inverted floated="left" />}>
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={5}>
@@ -61,7 +61,7 @@ const CareerGoalViewPage: React.FC<CareerGoalViewPageProps> = ({
           </Grid.Column>
           <Grid.Column width={11}>
             <ExplorerItemView profile={profile} item={careerGoal} opportunities={opportunities} courses={courses}
-                              explorerType={EXPLORER_TYPE.CAREERGOALS} interests={interests} />
+              explorerType={EXPLORER_TYPE.CAREERGOALS} interests={interests} />
           </Grid.Column>
         </Grid.Row>
       </Grid>

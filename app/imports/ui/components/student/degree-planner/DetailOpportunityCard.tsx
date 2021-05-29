@@ -88,12 +88,12 @@ const DetailOpportunityCard: React.FC<DetailOpportunityCardProps> = ({ instance,
           {verificationRequested ? <VerificationRequestStatus request={verificationRequestsToShow[0]} /> : ''}
           {!futureP && !verificationRequested ? (
             <ButtonLink url={RouterUtils.buildRouteName(match, '/student-verification')} label='Request verification'
-                        style={cardStyle} size="small" />
+              style={cardStyle} size="small" />
           ) : (
             ''
           )}
           <ViewInExplorerButtonLink match={match} type={EXPLORER_TYPE.OPPORTUNITIES} item={opportunity}
-                                    style={cardStyle} size="small" />
+            style={cardStyle} size="small" />
         </Card.Content>
       </Card>
     </Card.Group>

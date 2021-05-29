@@ -80,10 +80,10 @@ const OpportunityViewPage: React.FC<OpportunityViewPageProps> = ({
   const relatedCourses : RelatedCoursesOrOpportunities = getAssociationRelatedCourses(Opportunities.findRelatedCourses(opportunity._id), profile.userID);
   const relatedCareerGoals = Opportunities.findRelatedCareerGoals(opportunity._id);
   const headerPaneButton = profile.role === ROLE.STUDENT ? <AddToProfileButton type={PROFILE_ENTRY_TYPE.OPPORTUNITY} studentID={profile.userID}
-                                                                               item={opportunity} added={added} inverted floated="left" /> : undefined;
+    item={opportunity} added={added} inverted floated="left" /> : undefined;
   return (
     <PageLayout id={PAGEIDS.OPPORTUNITY} headerPaneTitle={headerPaneTitle} headerPaneImage={headerPaneImage}
-                headerPaneButton={headerPaneButton}>
+      headerPaneButton={headerPaneButton}>
       <Grid>
         <Grid.Row>
           <Grid.Column width={5}>
@@ -93,8 +93,8 @@ const OpportunityViewPage: React.FC<OpportunityViewPageProps> = ({
           </Grid.Column>
           <Grid.Column width={11}>
             <ExplorerOpportunity opportunity={opportunity} opportunityTypes={opportunityTypes}
-                                 opportunities={opportunities} interests={interests} sponsors={sponsors}
-                                 terms={terms} completed={completed} itemReviews={itemReviews} profile={profile} />
+              opportunities={opportunities} interests={interests} sponsors={sponsors}
+              terms={terms} completed={completed} itemReviews={itemReviews} profile={profile} />
           </Grid.Column>
         </Grid.Row>
       </Grid>

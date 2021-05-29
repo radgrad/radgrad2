@@ -42,12 +42,12 @@ const Filter: React.FC<FilterProps> = ({ explorerType }) => {
   const formSchema = new SimpleSchema2Bridge(schema);
   const model = { filterBy: filterChoice };
   return (
-        <div>
-            <AutoForm schema={formSchema} model={model} onChange={handleChange}>
-                <RadioField name="filterBy" label="Filter By:" inline/>
-                <ErrorsField/>
-            </AutoForm>
-        </div>
+    <div>
+      <AutoForm schema={formSchema} model={model} onChange={handleChange}>
+        <RadioField name="filterBy" label="Filter By:" inline/>
+        <ErrorsField/>
+      </AutoForm>
+    </div>
   );
 };
 
