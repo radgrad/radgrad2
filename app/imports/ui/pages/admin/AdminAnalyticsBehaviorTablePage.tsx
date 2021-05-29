@@ -2,10 +2,9 @@ import _ from 'lodash';
 import moment from 'moment';
 import React from 'react';
 import { Form, Table } from 'semantic-ui-react';
+import DatePicker from 'react-datepicker';
 import { USER_INTERACTION_DESCRIPTIONS } from '../../../api/user-interaction/UserInteractionCollection';
 import { userInteractionFindMethod } from '../../../api/user-interaction/UserInteractionCollection.methods';
-import DateIntervalSelector from '../../components/admin/analytics/DateIntervalSelector';
-import DatePicker from 'react-datepicker';
 import UserLabel from '../../components/shared/profile/UserLabel';
 import RadGradHeader from '../../components/shared/RadGradHeader';
 import RadGradSegment from '../../components/shared/RadGradSegment';
@@ -39,7 +38,7 @@ const AdminAnalyticsBehaviorTablePage: React.FC = () => {
       .catch(error => console.error(error.message))
       .then(results => setUserInteractions(results));
   };
-  const header = <RadGradHeader title='Behavior Table'/>;
+  const header = <RadGradHeader title='Behavior Table' />;
   return (
     <PageLayout id={PAGEIDS.ANALYTICS_BEHAVIOR_TABLE} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
       <RadGradSegment header={header}>
@@ -67,7 +66,7 @@ const AdminAnalyticsBehaviorTablePage: React.FC = () => {
             {Object.keys(groups).map(key => {
               const behavior = key;
               const description = USER_INTERACTION_DESCRIPTIONS[behavior];
-              const users = groups[key].map(instance => instance.username).map(username => <UserLabel key={username} username={username}/>);
+              const users = groups[key].map(instance => instance.username).map(username => <UserLabel key={username} username={username} />);
               return (
                 <Table.Row key={behavior}>
                   <Table.Cell>{behavior}</Table.Cell>
