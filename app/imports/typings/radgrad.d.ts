@@ -393,6 +393,7 @@ export interface Interest extends Document {
   description: string;
   interestTypeID: string;
   retired?: boolean;
+  picture?: string,
 }
 
 export interface InterestDefine extends DumpOne {
@@ -401,6 +402,7 @@ export interface InterestDefine extends DumpOne {
   description: string;
   interestType: string;
   retired?: boolean;
+  picture?: string;
 }
 
 export interface InterestUpdate extends Update {
@@ -408,6 +410,7 @@ export interface InterestUpdate extends Update {
   description?: string;
   interestType?: string;
   retired?: boolean;
+  picture?: string;
 }
 
 // InterestTypes
@@ -417,6 +420,7 @@ export interface InterestType extends Document {
   description: string;
   interestTypeID: string;
   retired?: boolean;
+  picture?: string;
 }
 
 export interface TypeDefine extends DumpOne {
