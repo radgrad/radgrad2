@@ -82,6 +82,7 @@ const DegreeExperiencePlanner: React.FC<DePProps> = ({ academicYearInstances, co
           text: `Fall ${definitionData.year} - Summer ${definitionData.year + 1}`,
           showConfirmButton: false,
           timer: 1500,
+          timerProgressBar: true,
         });
         years = AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
         visibleYears = years;
@@ -109,6 +110,7 @@ const DegreeExperiencePlanner: React.FC<DePProps> = ({ academicYearInstances, co
           text: 'Successfully deleted an empty Academic Year',
           showConfirmButton: false,
           timer: 1500,
+          timerProgressBar: true,
         });
         years = AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
         visibleYears = years;
