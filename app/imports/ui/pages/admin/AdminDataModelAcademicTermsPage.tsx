@@ -1,7 +1,6 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
 import { Confirm, Icon } from 'semantic-ui-react';
-import _ from 'lodash';
 import Swal from 'sweetalert2';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
@@ -31,7 +30,7 @@ const numReferences = (term) => {
     });
   });
   Opportunities.find().fetch().forEach((e) => {
-    if (_.includes(e.termIDs, term._id)) {
+    if (e.termIDs.includes(term._id)) {
       references++;
     }
   });

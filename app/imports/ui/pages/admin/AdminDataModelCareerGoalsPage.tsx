@@ -29,7 +29,7 @@ const collection = CareerGoals;
 const numReferences = (careerGoal) => {
   let references = 0;
   Users.findProfiles({}, {}).forEach((profile) => {
-    if (_.includes(profileGetCareerGoalIDs(profile), careerGoal._id)) {
+    if ((profileGetCareerGoalIDs(profile)).includes(careerGoal._id)) {
       references += 1;
     }
   });

@@ -134,7 +134,7 @@ export const testCalcLevel = (studentID: string): number => {
  * @param studentID the studentID.
  * @memberOf api/level
  */
-export const updateStudentLevel = (studentID: string, any: any): void => {
+export const updateStudentLevel = (studentID: string): void => {
   let level;
   if (RadGrad.calcLevel) {
     level = RadGrad.calcLevel(studentID);
@@ -162,13 +162,13 @@ export const updateStudentLevel = (studentID: string, any: any): void => {
  */
 export const updateAllStudentLevels = (userId): number => {
   StudentProfiles.find().forEach((student) => {
-    updateStudentLevel(student.userID, studentID);
+    updateStudentLevel(student.userID);
   });
   return StudentProfiles.find().count();
 };
 
 export const getLevelCriteriaStringMarkdown = (level: string): string => {
-  if (!_.includes(['six', 'five', 'four', 'three', 'two'], level)) {
+  if (!(['six', 'five', 'four', 'three', 'two'].includes(level))) {
     throw new Meteor.Error(`${level} is not a valid level`);
   }
   const criteria = Meteor.settings.public.level[level];

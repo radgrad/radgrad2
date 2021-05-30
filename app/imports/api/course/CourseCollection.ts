@@ -270,7 +270,7 @@ class CourseCollection extends BaseSlugCollection {
   public hasInterest(course: string, interest: string) {
     const interestID = Interests.getID(interest);
     const doc = this.findDoc(course);
-    return _.includes(doc.interestIDs, interestID);
+    return (((doc.interestIDs).includes(interestID)));
   }
 
   /**

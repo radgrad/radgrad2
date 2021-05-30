@@ -1,6 +1,6 @@
 {
   "name": "radgrad2",
-  "version": "2.0.41",
+  "version": "2.0.42",
   "meteor": {
     "mainModule": {
       "client": "client/main.ts",
@@ -167,7 +167,13 @@
       "import/imports-first": "off",
       "import/prefer-default-export": "off",
       "import/no-extraneous-dependencies": "off",
-      "indent": ["error", 2, { "SwitchCase": 1 }],
+      "indent": [
+        "error",
+        2,
+        {
+          "SwitchCase": 1
+        }
+      ],
       "linebreak-style": "off",
       "lines-between-class-members": "off",
       "max-len": "off",

@@ -82,7 +82,7 @@ class ProfileCareerGoalCollection extends BaseCollection {
           return this.ready();
         }
         const profile = Users.getProfile(userID);
-        if (_.includes([ROLE.ADMIN, ROLE.ADVISOR], profile.role)) {
+        if ([ROLE.ADMIN, ROLE.ADVISOR].includes(profile.role)) {
           return collection.find();
         }
         return collection.find({ userID });
