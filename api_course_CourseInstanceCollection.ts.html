@@ -452,6 +452,18 @@ class CourseInstanceCollection extends BaseCollection {
   }
 
   /**
+   * Returns true if the CourseInstance is in the current term or past.
+   * @param {string} courseInstanceID The id to check.
+   * @return {boolean} true if the course instance is in the current term or the past.
+   */
+  public isInCurrentOrPast(courseInstanceID: string) {
+    const doc = this.findDoc(courseInstanceID);
+    const currentTermNum = AcademicTerms.getCurrentAcademicTermNumber();
+    const termNumber = AcademicTerms.findDoc(doc.termID).termNumber;
+    return termNumber &lt;= currentTermNum;
+  }
+
+  /**
    * Depending on the logged in user publish only their CourseInstances. If
    * the user is in the Role.ADMIN then publish all CourseInstances.
    */

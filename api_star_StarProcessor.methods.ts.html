@@ -110,12 +110,12 @@ const processStudentStarDefinitions = (advisor, student, definitions) => {
   // console.log(definitions);
   const studentID = Users.getID(student);
   // console.log(student, studentID);
-  // TODO: This doesn't get rid of all the old instances.
-  const oldInstances = CourseInstances.find({ studentID, fromRegistrar: true }).fetch();
+  const courseInstances = CourseInstances.find({ studentID }).fetch() ;
+  const oldInstances = courseInstances.filter((ci) => CourseInstances.isInCurrentOrPast(ci._id));
   oldInstances.forEach((instance) => {
     CourseInstances.removeIt(instance._id);
   });
-  let numInterstingCourses = 0;
+  let numInterestingCourses = 0;
   // let numOtherCourses = 0;
   // console.log('create new instances');
   const departments = {};
@@ -130,7 +130,7 @@ const processStudentStarDefinitions = (advisor, student, definitions) => {
       } else {
         departments[department] += 1;
       }
-      numInterstingCourses += 1;
+      numInterestingCourses += 1;
       const courseID = Courses.findIdBySlug(definition.course);
       // console.log('courseID', courseID);
       const planning = CourseInstances.find({ studentID, termID, courseID, verified: false }).fetch();
@@ -158,7 +158,7 @@ const processStudentStarDefinitions = (advisor, student, definitions) => {
     }
   }
   text = text.substring(0, text.length - 2);
-  if (numInterstingCourses > 1) {
+  if (numInterestingCourses > 1) {
     text = `${text} courses from STAR.`;
   } else {
     text = `${text} course from STAR.`;
@@ -244,7 +244,7 @@ const processBulkStarDefinitions = (advisor, definitions) => {
         updateNum += 1;
         processStudentStarDefinitions(advisor, student, definitions[student].courses);
         const studentID = Users.getID(student);
-        updateStudentLevel(studentID, studentID);
+        updateStudentLevel(studentID);
       } else {
         console.log(`${student} is not defined need to create them.`);
         try {
@@ -257,7 +257,7 @@ const processBulkStarDefinitions = (advisor, definitions) => {
           StudentProfiles.define(definitionData);
           processStudentStarDefinitions(advisor, student, definitions[student].courses);
           const studentID = Users.getID(student);
-          updateStudentLevel(studentID, studentID);
+          updateStudentLevel(studentID);
           newStudents += 1;
         } catch (e) {
           console.log(`Error defining student ${student}`, e);
