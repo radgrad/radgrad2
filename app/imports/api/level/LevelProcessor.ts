@@ -25,7 +25,7 @@ export const defaultCalcLevel = (studentID: string): number => {
   const plannedICE: Ice = getProjectedICE(instances);
   const numReviews: number = Reviews.find({ studentID, visible: true })
     .count();
-  console.log('defaultCalcLevel', earnedICE, plannedICE, numReviews);
+  // console.log('defaultCalcLevel', earnedICE, plannedICE, numReviews);
   let level = 1;
   if (Meteor.isTest) {
     return testCalcLevel(studentID);
