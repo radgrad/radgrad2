@@ -211,11 +211,11 @@ const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({ academi
       <PageLayout id={PAGEIDS.STUDENT_DEGREE_PLANNER} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
         <Grid stackable>
           <Grid.Row stretched>
-            <Grid.Column width={10} style={paddedStyle}>
+            <Grid.Column width={11} style={paddedStyle}>
               <DegreeExperiencePlanner academicYearInstances={academicYearInstances} courseInstances={courseInstances} opportunityInstances={opportunityInstances} />
             </Grid.Column>
 
-            <Grid.Column width={6} style={paddedStyle}>
+            <Grid.Column width={5} style={paddedStyle}>
               <TabbedProfileEntries
                 takenSlugs={takenSlugs}
                 profileOpportunities={profileOpportunities}
