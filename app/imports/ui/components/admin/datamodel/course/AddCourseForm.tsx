@@ -35,16 +35,16 @@ const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses }) => 
     // console.log(collectionName, definitionData);
     defineMethod.callPromise({ collectionName, definitionData })
       .catch((error) => {
-        console.error('Failed adding User', error);
+        console.error('Failed adding course', error);
         Swal.fire({
-          title: 'Failed adding User',
+          title: 'Failed adding course',
           text: error.message,
           icon: 'error',
         });
       })
       .then(() => {
         Swal.fire({
-          title: 'Add User Succeeded',
+          title: 'Add Course Succeeded',
           icon: 'success',
           showConfirmButton: false,
           timer: 1500,
