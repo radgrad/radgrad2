@@ -3,8 +3,10 @@ import _ from 'lodash';
 import SimpleSchema from 'simpl-schema';
 import { CareerGoals } from '../career/CareerGoalCollection';
 import { Opportunities } from '../opportunity/OpportunityCollection';
+import { Reviews } from '../review/ReviewCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { Interests } from '../interest/InterestCollection';
+import { Teasers } from '../teaser/TeaserCollection';
 import { ProfileCourses } from '../user/profile-entries/ProfileCourseCollection';
 import { CourseInstances } from './CourseInstanceCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
@@ -229,6 +231,11 @@ class CourseCollection extends BaseSlugCollection {
       updateData.retired = retired;
       const profileCourses = ProfileCourses.find({ courseID: docID }).fetch();
       profileCourses.forEach((pc) => ProfileCourses.update(pc._id, { retired }));
+      const reviews = Reviews.find({ revieweeID: docID }).fetch();
+      reviews.forEach((review) => Reviews.update(review._id, { retired }));
+      const course = this.findDoc(docID);
+      const teasers = Teasers.find({ targetSlugID: course.slugID }).fetch();
+      teasers.forEach((teaser) => Teasers.update(teaser._id, { retired }));
     }
     this.collection.update(docID, { $set: updateData });
   }
