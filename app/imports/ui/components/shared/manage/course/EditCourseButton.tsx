@@ -9,6 +9,7 @@ import { Courses } from '../../../../../api/course/CourseCollection';
 import { Interests } from '../../../../../api/interest/InterestCollection';
 import { Course, CourseUpdate, Interest } from '../../../../../typings/radgrad';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
+import { getSlug } from '../../../landing/utilities/helper-functions';
 
 interface EditCourseButtonProps {
   course: Course;
@@ -23,6 +24,7 @@ const EditCourseButton: React.FC<EditCourseButtonProps> = ({ course, courses, in
 
   const model: CourseUpdate = course;
   model.interests = course.interestIDs.map((id) => Interests.findDoc(id).name);
+  const courseName = Courses.getName(getSlug(course));
 
   const handleSubmit = (doc) => {
     // console.log('handleSubmit', doc);
@@ -83,7 +85,7 @@ const EditCourseButton: React.FC<EditCourseButtonProps> = ({ course, courses, in
       onOpen={() => setOpen(true)}
       open={open}
       trigger={<Button basic color='green' key={`${course._id}-edit-button`}>EDIT</Button>}>
-      <Modal.Header>{`Edit ${course.num} ${course.name}`}</Modal.Header>
+      <Modal.Header>{`Edit ${courseName}`}</Modal.Header>
       <Modal.Content>
         <AutoForm model={model} schema={formSchema} showInlineError onSubmit={(doc) => {
           handleSubmit(doc);
