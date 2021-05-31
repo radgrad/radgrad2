@@ -383,6 +383,17 @@ class CourseCollection extends BaseSlugCollection {
     const course = this.findDoc(docID);
     return `${course.num}: ${course.name}`;
   }
+
+  /**
+   * Returns the name of the course ID or slug.
+   * @param {string} docIdOrSlug a course ID or slug.
+   * @return {string} Course name.
+   */
+  public getName(docIdOrSlug: string): string {
+    const courseID = this.getID(docIdOrSlug);
+    const course =  this.findDoc(courseID);
+    return `${course.num} ${course.shortName}`;
+  }
 }
 
 /**

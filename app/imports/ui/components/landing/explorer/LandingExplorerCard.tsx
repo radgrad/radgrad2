@@ -5,6 +5,7 @@ import Markdown from 'react-markdown';
 import { getSlug, itemShortDescription } from '../utilities/helper-functions';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import * as Router from '../../shared/utilities/router';
+import { Courses } from '../../../../api/course/CourseCollection';
 
 interface ItemProps {
   name: string;
@@ -22,7 +23,7 @@ const LandingExplorerCard: React.FC<LandingExplorerCardProps> = ({ item, type })
   const routeToItem = `#/${EXPLORER_TYPE.HOME}/${type}/${getSlug(item)}`;
   let title = item.name;
   if (type === EXPLORER_TYPE.COURSES) {
-    title = `${title} (${item.num})`;
+    title = Courses.getName(getSlug(item));
   }
   const match = useRouteMatch();
   return (
