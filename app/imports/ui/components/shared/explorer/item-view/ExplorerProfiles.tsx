@@ -20,16 +20,16 @@ visibleUsersInitialState[ROLE.ADVISOR] = [];
 const ExplorerProfiles: React.FC<ExplorerProfileWidgetProps> = ({ item, explorerType }) => {
   const [visibleUsers, setVisibleUsers] = useState(visibleUsersInitialState);
   const [fetched, setFetched] = useState(false);
-  const [visibleStudents, setVisibleStudents] = useState(1);
+  const [visibleStudents, setVisibleStudents] = useState(10);
   const [buttonText, setButtonText] = useState('Show More');
 
   const handleClick = () => {
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    visibleStudents === 1 ? (
+    visibleStudents === 10 ? (
       setVisibleStudents(visibleUsers[ROLE.STUDENT].length),
       setButtonText('Show Less')
     ) : (
-      setVisibleStudents(1),
+      setVisibleStudents(10),
       setButtonText('Show More Students')
     );
   };
