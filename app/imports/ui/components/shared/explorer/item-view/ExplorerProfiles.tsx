@@ -21,9 +21,17 @@ const ExplorerProfiles: React.FC<ExplorerProfileWidgetProps> = ({ item, explorer
   const [visibleUsers, setVisibleUsers] = useState(visibleUsersInitialState);
   const [fetched, setFetched] = useState(false);
   const [visibleStudents, setVisibleStudents] = useState(1);
+  const [buttonText, setButtonText] = useState('Show More');
 
   const handleClick = () => {
-    setVisibleStudents(visibleUsers[ROLE.STUDENT].length);
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    visibleStudents === 1 ? (
+      setVisibleStudents(visibleUsers[ROLE.STUDENT].length),
+      setButtonText('Show Less')
+    ) : (
+      setVisibleStudents(1),
+      setButtonText('Show More Students')
+    );
   };
 
   if (!fetched) {
@@ -43,7 +51,7 @@ const ExplorerProfiles: React.FC<ExplorerProfileWidgetProps> = ({ item, explorer
       {visibleUsers[ROLE.STUDENT].slice(0, visibleStudents).map(username => <UserLabel key={username} username={username} />)}
       <Grid>
         <Grid.Column textAlign='center'>
-          <Button onClick={handleClick}> SEE MORE STUDENTS</Button>
+          <Button onClick={handleClick}>{buttonText}</Button>
         </Grid.Column>
       </Grid>
       <Divider />
