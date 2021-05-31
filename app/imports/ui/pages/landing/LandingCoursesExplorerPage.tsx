@@ -52,4 +52,8 @@ const LandingCoursesCardExplorerContainer = withTracker(() => {
   };
 })(LandingCoursesExplorerPage);
 
-export default withListSubscriptions(LandingCoursesCardExplorerContainer, [Courses.getPublicationName(), Interests.getPublicationName(), Slugs.getPublicationName()]);
+export default withListSubscriptions(LandingCoursesCardExplorerContainer, [
+  Courses.getPublicationName(),
+  Interests.getPublicationName(),
+  Slugs.getPublicationName(),
+]);

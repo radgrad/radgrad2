@@ -54,4 +54,8 @@ const LandingCareerGoalsExplorerContainer = withTracker(() => {
   };
 })(LandingCareerGoalsExplorerPage);
 
-export default withListSubscriptions(LandingCareerGoalsExplorerContainer, [Interests.getPublicationName(), CareerGoals.getPublicationName(), Slugs.getPublicationName()]);
+export default withListSubscriptions(LandingCareerGoalsExplorerContainer, [
+  Interests.getPublicationName(),
+  CareerGoals.getPublicationName(),
+  Slugs.getPublicationName(),
+]);

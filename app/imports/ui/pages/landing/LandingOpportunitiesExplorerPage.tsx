@@ -51,5 +51,9 @@ const LandingOpportunitiesExplorerPageContainer = withTracker(() => {
   };
 })(LandingOpportunitiesExplorerPage);
 
-export default withListSubscriptions(LandingOpportunitiesExplorerPageContainer, [Opportunities.getPublicationName(), Interests.getPublicationName(), Slugs.getPublicationName()]);
+export default withListSubscriptions(LandingOpportunitiesExplorerPageContainer, [
+  Opportunities.getPublicationName(),
+  Interests.getPublicationName(),
+  Slugs.getPublicationName(),
+]);
 

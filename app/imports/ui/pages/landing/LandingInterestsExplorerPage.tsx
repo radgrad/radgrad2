@@ -50,4 +50,7 @@ const LandingInterestsCardExplorerContainer = withTracker(() => {
   };
 })(LandingInterestsExplorerPage);
 
-export default withListSubscriptions(LandingInterestsCardExplorerContainer, [Interests.getPublicationName(), Slugs.getPublicationName()]);
+export default withListSubscriptions(LandingInterestsCardExplorerContainer, [
+  Interests.getPublicationName(),
+  Slugs.getPublicationName(),
+]);

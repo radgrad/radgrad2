@@ -38,6 +38,7 @@ Interests are curated by the faculty to provide information about topic areas im
 
 This public explorer does not provide information about community members.
 `;
+const headerPaneImage = 'header-interests.png';
 
 const LandingInterestExplorerPage: React.FC<InterestExplorerProps> = ({ currentUser, opportunities, courses, interest, careerGoals }) => {
   const match = useRouteMatch();
@@ -46,7 +47,7 @@ const LandingInterestExplorerPage: React.FC<InterestExplorerProps> = ({ currentU
   return (
     <div>
       <LandingExplorerMenuBar />
-      <PageLayout id={PAGEIDS.LANDING_INTEREST_EXPLORER} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
+      <PageLayout id={PAGEIDS.LANDING_INTEREST_EXPLORER} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
         <Grid stackable>
           <Grid.Row>
             <Grid.Column width={3}>
@@ -87,4 +88,11 @@ const LandingInterestExplorerContainer = withTracker(() => {
   };
 })(LandingInterestExplorerPage);
 
-export default withListSubscriptions(LandingInterestExplorerContainer, [Courses.getPublicationName(), Interests.getPublicationName(), Opportunities.getPublicationName(), CareerGoals.getPublicationName(), Slugs.getPublicationName(), Teasers.getPublicationName()]);
+export default withListSubscriptions(LandingInterestExplorerContainer, [
+  Courses.getPublicationName(),
+  Interests.getPublicationName(),
+  Opportunities.getPublicationName(),
+  CareerGoals.getPublicationName(),
+  Slugs.getPublicationName(),
+  Teasers.getPublicationName(),
+]);

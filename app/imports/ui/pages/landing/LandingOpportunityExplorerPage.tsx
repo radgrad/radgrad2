@@ -3,8 +3,8 @@ import Markdown from 'react-markdown';
 import { useParams, useRouteMatch } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Grid } from 'semantic-ui-react';
+import moment from 'moment';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
-import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
 import { Opportunity } from '../../../typings/radgrad';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
@@ -15,7 +15,6 @@ import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
 import LandingInterestList from '../../components/landing/LandingInterestList';
 import LandingCareerGoalList from '../../components/landing/LandingCareerGoalList';
 import LandingCourseList from '../../components/landing/LandingCourseList';
-import { getOpportunityTypeName } from '../../components/landing/utilities/helper-functions';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import * as Router from '../../components/shared/utilities/router';
@@ -29,10 +28,10 @@ import RadGradSegment from '../../components/shared/RadGradSegment';
 import RadGradHeader from '../../components/shared/RadGradHeader';
 import { EXPLORER_TYPE_ICON } from '../../utilities/ExplorerUtils';
 import TeaserVideo from '../../components/shared/TeaserVideo';
+import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
 
 interface OpportunityExplorerProps {
   opportunity: Opportunity;
-  quarters: boolean;
 }
 
 const headerPaneTitle = 'The Opportunity Explorer';
@@ -41,21 +40,35 @@ Opportunities are extracurricular activities that relate to this discipline. The
 
 This public explorer does not provide information about community members or the reviews associated with Opportunities.
 `;
+const headerPaneImage = 'header-opportunities.png';
 
-const LandingOpportunityExplorerPage: React.FC<OpportunityExplorerProps> = ({ opportunity, quarters }) => {
+const LandingOpportunityExplorerPage: React.FC<OpportunityExplorerProps> = ({ opportunity }) => {
   const match = useRouteMatch();
   const teaser = Teasers.findNonRetired({ targetSlugID: opportunity.slugID });
   const hasTeaser = teaser.length > 0;
-  const opportunityTypeName = getOpportunityTypeName(opportunity.opportunityTypeID);
+  const opportunityType = OpportunityTypes.findDoc(opportunity.opportunityTypeID).name;
   const sponsor = Users.getFullName(opportunity.sponsorID);
   const relatedCareerGoals = Opportunities.findRelatedCareerGoals(opportunity._id);
   const relatedCourses  = Opportunities.findRelatedCourses(opportunity._id);
   const opportunityTermNames = opportunity.termIDs.map((id) => AcademicTerms.toString(id));
+  const dateStrings = [];
+  if (opportunity.eventDate1) {
+    dateStrings.push(moment(opportunity.eventDate1).format('MM/DD/YYYY'));
+  }
+  if (opportunity.eventDate2) {
+    dateStrings.push(moment(opportunity.eventDate2).format('MM/DD/YYYY'));
+  }
+  if (opportunity.eventDate3) {
+    dateStrings.push(moment(opportunity.eventDate3).format('MM/DD/YYYY'));
+  }
+  if (opportunity.eventDate4) {
+    dateStrings.push(moment(opportunity.eventDate4).format('MM/DD/YYYY'));
+  }
 
   return (
     <div>
       <LandingExplorerMenuBar/>
-      <PageLayout id={PAGEIDS.LANDING_OPPORTUNITY_EXPLORER} headerPaneTitle={headerPaneTitle}  headerPaneBody={headerPaneBody}>
+      <PageLayout id={PAGEIDS.LANDING_OPPORTUNITY_EXPLORER} headerPaneTitle={headerPaneTitle}  headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
         <Grid stackable>
           <Grid.Row>
             <Grid.Column width={3}>
@@ -69,10 +82,10 @@ const LandingOpportunityExplorerPage: React.FC<OpportunityExplorerProps> = ({ op
                   <Grid stackable style={{ margin: '10px 0px' }}>
                     <Grid.Row columns={2}>
                       <Grid.Column>
-                        <strong>Opportunity Type:</strong>&nbsp; {opportunityTypeName ? ({ opportunityTypeName }) : ('N/A')}
+                        <strong>Opportunity Type:</strong>&nbsp; { opportunityType }
                       </Grid.Column>
                       <Grid.Column>
-                        <strong>Date: </strong>&nbsp; {opportunity.eventDate ? (opportunity.eventDate) : ('N/A')}
+                        <strong>Date: </strong>&nbsp; {opportunity.eventDate1 ? dateStrings.join(', ') : 'N/A'}
                       </Grid.Column>
                     </Grid.Row>
                     <Grid.Row columns={2}>
@@ -104,10 +117,8 @@ const LandingOpportunityExplorerContainer = withTracker(() => {
   const { opportunity } = useParams();
   const id = Slugs.getEntityID(opportunity, 'Opportunity');
   const opportunityDoc = Opportunities.findDoc(id);
-  const quarters = RadGradProperties.getQuarterSystem();
   return {
     opportunity: opportunityDoc,
-    quarters,
   };
 })(LandingOpportunityExplorerPage);
 
@@ -119,6 +130,7 @@ export default withListSubscriptions(LandingOpportunityExplorerContainer, [
   Courses.getPublicationName(),
   Slugs.getPublicationName(),
   Teasers.getPublicationName(),
+  OpportunityTypes.getPublicationName(),
   FacultyProfiles.getPublicationName(),
   AdvisorProfiles.getPublicationName(),
   Users.getPublicationName(),
