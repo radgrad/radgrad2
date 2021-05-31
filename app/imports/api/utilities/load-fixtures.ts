@@ -35,8 +35,8 @@ export const loadCollectionNewDataOnly = (collection: BaseCollection, loadJSON, 
         }
         break;
       case CourseInstances.getType():
-        // console.log(definition.student);
-        // eslint-disable-next-line no-case-declarations
+      // console.log(definition.student);
+      // eslint-disable-next-line no-case-declarations
         termID = AcademicTerms.getID(definition.academicTerm);
         // eslint-disable-next-line no-case-declarations
         const courseID = Courses.getID(definition.course);

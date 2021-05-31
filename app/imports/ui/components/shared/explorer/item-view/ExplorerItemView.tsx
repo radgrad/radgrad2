@@ -48,7 +48,7 @@ const ExplorerItemView: React.FC<ExplorerItemViewProps> = ({ profile, item, cour
           {isNotStudent ? editButton : ''}
           {isAdmin ? <DeleteItemButton item={item} type={itemType} /> : ''}
         </Segment>
-          <ExplorerProfiles item={item} explorerType={explorerType}/>
+        <ExplorerProfiles item={item} explorerType={explorerType}/>
       </SegmentGroup>
     </div>
   );

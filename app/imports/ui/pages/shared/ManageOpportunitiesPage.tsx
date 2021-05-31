@@ -52,10 +52,10 @@ const ManageOpportunitiesPage: React.FC<ManageOpportunitiesPageProps> = ({
   opportunityTypes,
   opportunities,
 }) => (
-    <PageLayout id={PAGEIDS.MANAGE_OPPORTUNITIES} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
-      <ManageOpportunitiesTabs sponsors={sponsors} terms={terms} interests={interests}
-                               opportunityTypes={opportunityTypes} opportunities={opportunities} />
-    </PageLayout>
+  <PageLayout id={PAGEIDS.MANAGE_OPPORTUNITIES} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
+    <ManageOpportunitiesTabs sponsors={sponsors} terms={terms} interests={interests}
+      opportunityTypes={opportunityTypes} opportunities={opportunities} />
+  </PageLayout>
 );
 
 export default withTracker(() => {

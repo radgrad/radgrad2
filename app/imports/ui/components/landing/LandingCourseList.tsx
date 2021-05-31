@@ -12,7 +12,7 @@ interface LandingCoursesListProps {
 const LandingCourseList: React.FC<LandingCoursesListProps> = ({ size, courses }) => (
   <Label.Group size={size}>
     {courses.map((course) =>
-    <CourseLabel key={course._id} slug={getSlugFromEntityID(course._id)} size={size} />)}
+      <CourseLabel key={course._id} slug={getSlugFromEntityID(course._id)} size={size} />)}
   </Label.Group>
 );
 

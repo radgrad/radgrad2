@@ -159,7 +159,7 @@ class TeaserCollection extends BaseSlugCollection {
   public hasInterest(teaser: string, interest: string) {
     const interestID = Interests.getID(interest);
     const doc = this.findDoc(teaser);
-    return _.includes(doc.interestIDs, interestID);
+    return (doc.interestIDs.includes(interestID));
   }
 
   /**

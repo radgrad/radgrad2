@@ -121,11 +121,11 @@ const AdminDataModelOpportunityInstancesPage: React.FC<AdminDataModelOpportunity
     <PageLayout id={PAGEIDS.DATA_MODEL_OPPORTUNITY_INSTANCES} headerPaneTitle="Opportunity Instances">
       {showUpdateFormState ? (
         <UpdateOpportunityInstanceForm collection={collection} id={idState}
-                                       handleUpdate={handleUpdate} handleCancel={handleCancel}
-                                       itemTitleString={itemTitleString} terms={terms} />
+          handleUpdate={handleUpdate} handleCancel={handleCancel}
+          itemTitleString={itemTitleString} terms={terms} />
       ) : (
         <AddOpportunityInstanceForm opportunities={opportunities}
-                                    sponsors={sponsors} students={students} terms={terms} />
+          sponsors={sponsors} students={students} terms={terms} />
       )}
       <ListCollectionWidget
         collection={collection}
@@ -137,7 +137,7 @@ const AdminDataModelOpportunityInstancesPage: React.FC<AdminDataModelOpportunity
         items={items}
       />
       <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
-               header="Delete Opportunity Instance?" />
+        header="Delete Opportunity Instance?" />
     </PageLayout>
   );
 };

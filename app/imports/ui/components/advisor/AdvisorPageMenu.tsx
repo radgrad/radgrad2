@@ -1,6 +1,7 @@
 import React from 'react';
 import { Dropdown, Menu } from 'semantic-ui-react';
 import { NavLink, useParams, useRouteMatch } from 'react-router-dom';
+import { COMPONENTIDS } from '../../utilities/ComponentIDs';
 import FirstMenu from '../shared/FirstMenu';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import { buildRouteName } from '../shared/utilities/router';
@@ -55,7 +56,7 @@ const AdvisorPageMenu: React.FC = () => {
           </Menu.Item>
         ))}
 
-        <Dropdown item text="Explorers" id="advisor-menu-explorers">
+        <Dropdown item text="Explorers" id={COMPONENTIDS.ADVISOR_MENU_EXPLORERS}>
           <Dropdown.Menu>
             {explorerDropdownItems.map((item) => (
               <Dropdown.Item id={`advisor-menu-explorer-${item.label.toLowerCase()}`} key={item.label} as={NavLink} exact to={buildRouteName(match, `/${item.route}`)} content={item.label} />
@@ -63,7 +64,7 @@ const AdvisorPageMenu: React.FC = () => {
           </Dropdown.Menu>
         </Dropdown>
 
-        <Dropdown item text="Manage" id="advisor-menu-manage">
+        <Dropdown item text="Manage" id={COMPONENTIDS.ADVISOR_MENU_MANAGE}>
           <Dropdown.Menu>
             {manageDropdownItems.map((item) => (
               <Dropdown.Item id={`advisor-menu-manage-${item.label.toLowerCase()}`} key={item.label} as={NavLink} exact to={buildRouteName(match, `/${item.route}`)} content={item.label} />

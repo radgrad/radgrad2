@@ -29,13 +29,13 @@ const ManageStudentItem: React.FC<ManageStudentProps> = ({
       </Grid.Column>
       <Grid.Column width={2}>
         <EditStudentButton student={student} careerGoals={careerGoals} courses={courses} interests={interests}
-                           opportunities={opportunities} profileCareerGoals={profileCareerGoals}
-                           profileInterests={profileInterests} />
+          opportunities={opportunities} profileCareerGoals={profileCareerGoals}
+          profileInterests={profileInterests} />
       </Grid.Column>
       <Grid.Column width={2} />
       <Grid.Column width={3}>
         <ButtonLink url={`/${student.isAlumni ? 'alumni' : 'student'}/${student.username}/home`} label='student view'
-                    size='mini' />
+          size='mini' />
       </Grid.Column>
       <Grid.Column width={3}>
         {/* updatedOnStr */}

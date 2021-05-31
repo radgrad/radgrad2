@@ -5,6 +5,7 @@ import { Redirect } from 'react-router-dom';
 import { Container, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
 import { ROLE } from '../../api/role/Role';
 import LandingNavBar from '../components/landing/LandingNavBar';
+import { COMPONENTIDS } from '../utilities/ComponentIDs';
 
 /**
  * SigninPage page overrides the form’s submit event and call Meteor’s loginWithPassword().
@@ -76,9 +77,9 @@ const SigninPage: React.FC = () => {
             </Header>
             <Form onSubmit={handleSubmit}>
               <Segment stacked>
-                <Form.Input label="Email" id="signin-form-email" icon="user" iconPosition="left" name="email" type="email" placeholder="E-mail address" onChange={handleChange} />
-                <Form.Input label="Password" id="signin-form-password" icon="lock" iconPosition="left" name="password" placeholder="Password" type="password" onChange={handleChange} />
-                <Form.Button id="signin-form-submit" content="Submit" />
+                <Form.Input label="Email" id={COMPONENTIDS.SIGNIN_FORM_EMAIL} icon="user" iconPosition="left" name="email" type="email" placeholder="E-mail address" onChange={handleChange} />
+                <Form.Input label="Password" id={COMPONENTIDS.SIGNIN_FORM_PASSWORD} icon="lock" iconPosition="left" name="password" placeholder="Password" type="password" onChange={handleChange} />
+                <Form.Button id={COMPONENTIDS.SIGNIN_FORM_SUBMIT} content="Submit" />
               </Segment>
             </Form>
             {errorState === '' ? '' : <Message error header="Login was not successful" content={errorState} />}

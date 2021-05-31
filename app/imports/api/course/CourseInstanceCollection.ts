@@ -130,11 +130,11 @@ class CourseInstanceCollection extends BaseCollection {
     if ((typeof verified) !== 'boolean') {
       throw new Meteor.Error(`${verified} is not a boolean.`);
     }
-    if (!_.includes(this.validGrades, grade)) {
+    if (!(this.validGrades.includes(grade), grade)) {
       if (grade.startsWith('I')) {
         grade = grade.substring(1); // eslint-disable-line no-param-reassign
       }
-      if (!_.includes(this.validGrades, grade)) {
+      if (!(this.validGrades.includes(grade))) {
         throw new Meteor.Error(`${grade} is not a valid grade.`);
       }
     }
@@ -362,6 +362,18 @@ class CourseInstanceCollection extends BaseCollection {
     this.assertDefined(courseInstanceID);
     const instance = this.findDoc(courseInstanceID);
     return Courses.findDoc(instance.courseID).num !== Courses.unInterestingSlug;
+  }
+
+  /**
+   * Returns true if the CourseInstance is in the current term or past.
+   * @param {string} courseInstanceID The id to check.
+   * @return {boolean} true if the course instance is in the current term or the past.
+   */
+  public isInCurrentOrPast(courseInstanceID: string) {
+    const doc = this.findDoc(courseInstanceID);
+    const currentTermNum = AcademicTerms.getCurrentAcademicTermNumber();
+    const termNumber = AcademicTerms.findDoc(doc.termID).termNumber;
+    return termNumber <= currentTermNum;
   }
 
   /**

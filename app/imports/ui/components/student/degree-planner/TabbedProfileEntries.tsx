@@ -74,7 +74,7 @@ const TabbedProfileEntries: React.FC<TabbedProfileEntriesProps> = ({
       pane: (
         <Tab.Pane key="ProfileOpportunitiesPane" active={active(selectedTab) === 0}>
           <ProfileOpportunities opportunities={profileOpportunities} studentID={studentID}
-                                opportunityInstances={opportunityInstances} />
+            opportunityInstances={opportunityInstances} />
         </Tab.Pane>
       ),
     },
@@ -102,7 +102,7 @@ const TabbedProfileEntries: React.FC<TabbedProfileEntriesProps> = ({
   return (
     <Segment padded id="tabbedProfilesWidget">
       <Tab panes={panes} renderActiveOnly={false} onTabChange={(event, instance) => handleTabChange(event, instance)}
-           activeIndex={active(selectedTab)} />
+        activeIndex={active(selectedTab)} />
     </Segment>
   );
 };

@@ -31,7 +31,7 @@ const LandingCoursesExplorerPage: React.FC<LandingCoursesExplorerPageProps> = ({
   <div>
     <LandingExplorerMenuBar/>
     <PageLayout id={PAGEIDS.LANDING_COURSES_EXPLORER} headerPaneTitle={headerPaneTitle}
-                headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
+      headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
       <RadGradSegment header={<RadGradHeader title="COURSES" count={count} dividing />}>
         <Card.Group stackable itemsPerRow={4} id="browserCardGroup" style={{ margin: '0px' }}>
           {courses.map((course) => (

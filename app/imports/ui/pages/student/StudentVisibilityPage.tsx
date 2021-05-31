@@ -132,13 +132,13 @@ const StudentVisibilityPage: React.FC<StudentVisibilityPageProps> = ({ profile }
             <Header dividing><Icon name="user" />YOUR LABEL</Header>
             <p>Your Label appears in pages relevant to your public data: </p>
             <ProfileLabel name={name} image={checkboxState.sharePicture && data.picture}
-                          level={checkboxState.shareLevel && data.level} />
+              level={checkboxState.shareLevel && data.level} />
           </Segment>
           <Segment>
             <Header dividing><Icon name="user" />YOUR PROFILE</Header>
             <p>Your Profile pops up when a user clicks on your Label: </p>
             <ProfileCard email={profile.username} name={name} careerGoals={data.careerGoals} interests={data.interests} courses={data.courses} ice={data.ice} image={data.picture} level={data.level} opportunities={data.opportunities}
-                         website={data.website} key={profile.username} fluid />
+              website={data.website} key={profile.username} fluid />
           </Segment>
         </Grid.Column>
       </Grid>

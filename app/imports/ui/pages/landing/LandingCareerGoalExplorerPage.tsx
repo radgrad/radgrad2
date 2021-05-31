@@ -48,7 +48,7 @@ const LandingCareerGoalExplorerPage: React.FC<CareerGoalExplorerProps> = ({ care
     <div>
       <LandingExplorerMenuBar />
       <PageLayout id={PAGEIDS.LANDING_CAREER_GOAL_EXPLORER} headerPaneTitle={headerPaneTitle}
-                  headerPaneBody={headerPaneBody}>
+        headerPaneBody={headerPaneBody}>
         <Grid stackable>
           <Grid.Column width={3}>
             <LandingExplorerMenuContainer />
@@ -58,7 +58,7 @@ const LandingCareerGoalExplorerPage: React.FC<CareerGoalExplorerProps> = ({ care
             <RadGradSegment header={<RadGradHeader title={careerGoal.name} dividing />}>
               {hasTeaser ? (<TeaserVideo id={teaser && teaser[0] && teaser[0].url} />) : ''}
               <Markdown escapeHtml source={careerGoal.description}
-                        renderers={{ link: (localProps) => Router.renderLink(localProps, match) }} />
+                renderers={{ link: (localProps) => Router.renderLink(localProps, match) }} />
             </RadGradSegment>
             <RadGradSegment header={<RadGradHeader title='Related Interests' icon={EXPLORER_TYPE_ICON.INTEREST} dividing />}>{careerGoal.interestIDs.length > 0 ? <LandingInterestList interestIDs={careerGoal.interestIDs} size='small' /> : 'N/A'}</RadGradSegment>
             <RadGradSegment header={<RadGradHeader title="Related Courses" icon={EXPLORER_TYPE_ICON.COURSE} dividing />}>{relatedCourses.length > 0 ? <LandingCourseList courses={relatedCourses} size='small' /> : 'N/A'}</RadGradSegment>

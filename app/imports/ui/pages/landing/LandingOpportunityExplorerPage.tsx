@@ -55,47 +55,46 @@ const LandingOpportunityExplorerPage: React.FC<OpportunityExplorerProps> = ({ op
   return (
     <div>
       <LandingExplorerMenuBar/>
-      <PageLayout id={PAGEIDS.LANDING_OPPORTUNITY_EXPLORER} headerPaneTitle={headerPaneTitle}
-                  headerPaneBody={headerPaneBody}>
-      <Grid stackable>
-        <Grid.Row>
-          <Grid.Column width={3}>
-            <LandingExplorerMenuContainer />
-          </Grid.Column>
+      <PageLayout id={PAGEIDS.LANDING_OPPORTUNITY_EXPLORER} headerPaneTitle={headerPaneTitle}  headerPaneBody={headerPaneBody}>
+        <Grid stackable>
+          <Grid.Row>
+            <Grid.Column width={3}>
+              <LandingExplorerMenuContainer />
+            </Grid.Column>
 
-          <Grid.Column width={13}>
-            <RadGradSegment header={<RadGradHeader title={opportunity.name} dividing />}>
-              {hasTeaser ? (<TeaserVideo id={teaser && teaser[0] && teaser[0].url} />) : ''}
+            <Grid.Column width={13}>
+              <RadGradSegment header={<RadGradHeader title={opportunity.name} dividing />}>
+                {hasTeaser ? (<TeaserVideo id={teaser && teaser[0] && teaser[0].url} />) : ''}
                 <React.Fragment>
                   <Grid stackable style={{ margin: '10px 0px' }}>
-                      <Grid.Row columns={2}>
-                        <Grid.Column>
-                          <strong>Opportunity Type:</strong>&nbsp; {opportunityTypeName ? ({ opportunityTypeName }) : ('N/A')}
-                        </Grid.Column>
-                        <Grid.Column>
-                          <strong>Date: </strong>&nbsp; {opportunity.eventDate ? (opportunity.eventDate) : ('N/A')}
-                        </Grid.Column>
-                      </Grid.Row>
-                      <Grid.Row columns={2}>
-                        <Grid.Column>
-                          <strong>Academic Terms:</strong>&nbsp; {opportunityTermNames.length > 0 ? (opportunityTermNames.join(', ')) : ('N/A')}
-                        </Grid.Column>
-                        <Grid.Column>
-                          <strong>Sponsor:</strong>&nbsp; { sponsor }
-                        </Grid.Column>
-                      </Grid.Row>
+                    <Grid.Row columns={2}>
+                      <Grid.Column>
+                        <strong>Opportunity Type:</strong>&nbsp; {opportunityTypeName ? ({ opportunityTypeName }) : ('N/A')}
+                      </Grid.Column>
+                      <Grid.Column>
+                        <strong>Date: </strong>&nbsp; {opportunity.eventDate ? (opportunity.eventDate) : ('N/A')}
+                      </Grid.Column>
+                    </Grid.Row>
+                    <Grid.Row columns={2}>
+                      <Grid.Column>
+                        <strong>Academic Terms:</strong>&nbsp; {opportunityTermNames.length > 0 ? (opportunityTermNames.join(', ')) : ('N/A')}
+                      </Grid.Column>
+                      <Grid.Column>
+                        <strong>Sponsor:</strong>&nbsp; { sponsor }
+                      </Grid.Column>
+                    </Grid.Row>
                   </Grid>
-                    {opportunity.description ? <Markdown escapeHtml source={opportunity.description} renderers={{ link: (localProps) => Router.renderLink(localProps, match) }} /> : 'N/A'}
+                  {opportunity.description ? <Markdown escapeHtml source={opportunity.description} renderers={{ link: (localProps) => Router.renderLink(localProps, match) }} /> : 'N/A'}
                 </React.Fragment>
-            </RadGradSegment>
-            <RadGradSegment header={<RadGradHeader title='Related Interests' icon={EXPLORER_TYPE_ICON.INTEREST} dividing/>}>{opportunity.interestIDs.length > 0 ? <LandingInterestList interestIDs={opportunity.interestIDs} size='small' /> : 'N/A'}</RadGradSegment>
-            <RadGradSegment header={<RadGradHeader title="Related Career Goals" icon={EXPLORER_TYPE_ICON.CAREERGOAL} dividing />}>
-              {relatedCareerGoals.length > 0 ? <LandingCareerGoalList careerGoals={relatedCareerGoals} size='small' /> : 'N/A'}
-            </RadGradSegment>
-            <RadGradSegment header={<RadGradHeader title="Related Courses" icon={EXPLORER_TYPE_ICON.COURSE} dividing />}>{relatedCourses.length > 0 ? <LandingCourseList courses={relatedCourses} size='small' /> : 'N/A'}</RadGradSegment>
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
+              </RadGradSegment>
+              <RadGradSegment header={<RadGradHeader title='Related Interests' icon={EXPLORER_TYPE_ICON.INTEREST} dividing/>}>{opportunity.interestIDs.length > 0 ? <LandingInterestList interestIDs={opportunity.interestIDs} size='small' /> : 'N/A'}</RadGradSegment>
+              <RadGradSegment header={<RadGradHeader title="Related Career Goals" icon={EXPLORER_TYPE_ICON.CAREERGOAL} dividing />}>
+                {relatedCareerGoals.length > 0 ? <LandingCareerGoalList careerGoals={relatedCareerGoals} size='small' /> : 'N/A'}
+              </RadGradSegment>
+              <RadGradSegment header={<RadGradHeader title="Related Courses" icon={EXPLORER_TYPE_ICON.COURSE} dividing />}>{relatedCourses.length > 0 ? <LandingCourseList courses={relatedCourses} size='small' /> : 'N/A'}</RadGradSegment>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
       </PageLayout>
     </div>
   );

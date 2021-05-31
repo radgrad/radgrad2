@@ -1,7 +1,6 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
 import { Confirm, Icon } from 'semantic-ui-react';
-import _ from 'lodash';
 import Swal from 'sweetalert2';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
@@ -31,7 +30,7 @@ const numReferences = (term) => {
     });
   });
   Opportunities.find().fetch().forEach((e) => {
-    if (_.includes(e.termIDs, term._id)) {
+    if (e.termIDs.includes(term._id)) {
       references++;
     }
   });
@@ -111,7 +110,7 @@ const AdminDataModelAcademicTermsPage: React.FC<AdminDataModelAcademicTermsPageP
     <PageLayout id={PAGEIDS.DATA_MODEL_ACADEMIC_TERMS} headerPaneTitle="Academic Terms">
       {showUpdateFormState ? (
         <AdminDataModelUpdateForm collection={AcademicTerms} id={idState} handleUpdate={handleUpdate}
-                                  handleCancel={handleCancel} itemTitleString={itemTitleString} />
+          handleCancel={handleCancel} itemTitleString={itemTitleString} />
       ) : (
         <AdminDataModelAddForm collection={AcademicTerms} />
       )}
@@ -125,7 +124,7 @@ const AdminDataModelAcademicTermsPage: React.FC<AdminDataModelAcademicTermsPageP
         items={items}
       />
       <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
-               header="Delete Academic Term?" />
+        header="Delete Academic Term?" />
     </PageLayout>
   );
 };

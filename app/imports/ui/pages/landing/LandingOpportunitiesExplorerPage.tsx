@@ -30,8 +30,7 @@ const headerPaneImage = 'header-opportunities.png';
 const LandingOpportunitiesExplorerPage: React.FC<LandingOpportunitiesExplorerPageProps> = ({ opportunities, count }) => (
   <div>
     <LandingExplorerMenuBar/>
-    <PageLayout id={PAGEIDS.LANDING_OPPORTUNITIES_EXPLORER} headerPaneTitle={headerPaneTitle}
-                headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
+    <PageLayout id={PAGEIDS.LANDING_OPPORTUNITIES_EXPLORER} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
       <RadGradSegment header={<RadGradHeader title="OPPORTUNITIES" count={count} dividing />}>
         <Card.Group stackable itemsPerRow={4} id="browserCardGroup" style={{ margin: '0px' }}>
           {opportunities.map((opportunity) => (

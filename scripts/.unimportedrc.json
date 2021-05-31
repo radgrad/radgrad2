@@ -1,0 +1,28 @@
+{
+  "ignoreUnresolved": [],
+  "ignoreUnimported": [],
+  "ignoreUnused": [
+    "@types/mocha",
+    "@types/node",
+    "@typescript-eslint/eslint-plugin",
+    "mocha",
+    "node",
+    "typescript-eslint-parser",
+    "typescript-estree"
+  ],
+  "entry": [
+    "ts/**/*.ts"
+  ],
+  "ignorePatterns": [
+    "**/node_modules/**",
+    "**/*.stories.{js,jsx,ts,tsx}",
+    "**/*.tests.{js,jsx,ts,tsx}",
+    "**/*.test.{js,jsx,ts,tsx}",
+    "**/*.spec.{js,jsx,ts,tsx}",
+    "**/tests/**",
+    "**/__tests__/**",
+    "**/*.d.ts",
+    "**/js/**/*.js",
+    "**/dist/**/*.js"
+  ]
+}
