@@ -1,6 +1,7 @@
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import ReactMarkdownWithHtml from 'react-markdown/with-html';
+import { Redirect } from 'react-router';
 import Swal from 'sweetalert2';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
@@ -38,6 +39,7 @@ const TermsAndConditionsPage: React.FC = () => {
     updateData.id = urlUser._id;
     updateData.acceptedTermsAndConditions = moment().format('YYYY-MM-DD');
     // console.log('handleAccept', collectionName, updateData);
+    <Redirect to={{ pathname: '/home' }}/>;
     updateMethod.callPromise({ collectionName, updateData })
       .catch((error) => console.error('Failed to update acceptedTermsAndConditions', error));
   };
@@ -52,6 +54,7 @@ const TermsAndConditionsPage: React.FC = () => {
       cancelButtonText: 'Cancel',
     }).then((result) => {
       if (result.isConfirmed) {
+        <Redirect to={{ pathname: '/signout-refused' }} key={`${urlUser}-refused-terms`} />;
         // need to inform the admin that a student has disagreed to the terms.
         const emailData = {
           to: RadGradProperties.getAdminEmail(),
