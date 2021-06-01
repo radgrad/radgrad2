@@ -28,6 +28,7 @@ const UpdateCourseForm: React.FC<UpdateCourseFormProps> = ({
   itemTitleString,
 }) => {
   const model = id ? collection.findDoc(id) : undefined;
+  const courseName = itemTitleString(model);
   model.interests = model.interestIDs.map(interestIdToName);
   model.prerequisiteNames = model.prerequisites.map(courseSlugToName);
   const interestNames = interests.map(docToName);
@@ -60,8 +61,7 @@ const UpdateCourseForm: React.FC<UpdateCourseFormProps> = ({
   return (
     <Segment padded>
       <Header dividing>
-                Update
-        {collection.getType()}:{itemTitleString(model)}
+                Update  {collection.getType()}: {courseName}
       </Header>
       <AutoForm schema={formSchema} onSubmit={handleUpdate} showInlineError model={model}>
         <Form.Group widths="equal">

@@ -12,6 +12,7 @@ import { makeCourseICE } from '../../../../api/ice/IceProcessor';
 import { cardStyle, contentStyle, getDraggablePillStyle } from './utilities/styles';
 import NamePill from './NamePill';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
+import { Courses } from '../../../../api/course/CourseCollection';
 
 interface ProfileCourseCardProps {
   course: Course;
@@ -29,15 +30,14 @@ const ProfileCourseCard: React.FC<ProfileCourseCardProps> = ({ course, courseIns
   const slug = Slugs.findDoc(course.slugID).name;
   const ice = instances.length > 0 ? makeCourseICE(slug, instances[instances.length - 1].grade) : { i: 0, c: 0, e: 0 };
   const droppableID = `${course._id}`;
+  const courseName = Courses.getName(course._id);
 
   return (
     <Card style={cardStyle}>
       <Card.Content style={contentStyle}>
         <IceHeader ice={ice} />
         <Card.Header>
-          <h4>
-            {course.num}: {course.name}
-          </h4>
+          <h4>{courseName}</h4>
         </Card.Header>
       </Card.Content>
       <Card.Content style={contentStyle}>

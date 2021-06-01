@@ -38,10 +38,6 @@ const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses }) => 
       })
       .then(() => {
         RadGradAlert.success('Add User Succeeded');
-        formRef.reset();
-      });
-  };
-
 
   const interestNames = interests.map(docToName);
   const courseNames = courses.map(courseToName);
@@ -77,10 +73,10 @@ const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses }) => 
       <AutoForm schema={formSchema} onSubmit={handleAdd} ref={(ref) => formRef = ref} showInlineError>
         <Form.Group widths="equal">
           <TextField name="slug" placeholder="dept_111" />
-          <TextField name="name" placeholder="DEPT 111 Introduction to Science" />
+          <TextField name="name" placeholder="Introduction to Science" />
         </Form.Group>
         <Form.Group widths="equal">
-          <TextField name="shortName" placeholder="DEPT 111 Introduction to Science" />
+          <TextField name="shortName" placeholder="Introduction to Science" />
           <NumField name="creditHours" />
           <TextField name="num" placeholder="DEPT 111" />
         </Form.Group>
