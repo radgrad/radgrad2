@@ -19,9 +19,7 @@ import AddAdvisorLogFormContainer from '../../component/admin/advisor-log/AddAdv
 import BackToTopButton from '../../../../app/imports/ui/components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import { getDatamodelCount } from '../../../../app/imports/ui/pages/admin/utilities/datamodel';
-import RadGradAlerts from '../../../../app/imports/ui/utilities/RadGradAlert';
-
-const RadGradAlert = new RadGradAlerts();
+import RadGradAlert from '../../../../app/imports/ui/utilities/RadGradAlert';
 
 const descriptionPairs = (advisorLog: AdvisorLog): DescriptionPair[] => [
   { label: 'Advisor', value: `${Users.getFullName(advisorLog.advisorID)}` },
@@ -63,9 +61,9 @@ const AdminDataModelAdvisorLogsPage: React.FC<AdminDataModelAdvisorLogsPageProps
     const definitionData = doc;
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
-        RadGradAlert.failure('Add failed.', error.message, 2500, error);
+        RadGradAlert.failure('Add failed.', error.message, error);
       } else {
-        RadGradAlert.success('Add succeeded', '', 1500);
+        RadGradAlert.success('Add succeeded');
         // @ts-ignore
         formRef.current.reset();
       }
@@ -94,9 +92,9 @@ const AdminDataModelAdvisorLogsPage: React.FC<AdminDataModelAdvisorLogsPageProps
     const instance = idState;
     removeItMethod.call({ collectionName, instance }, (error) => {
       if (error) {
-        RadGradAlert.failure('Delete failed', error.message, 2500, error);
+        RadGradAlert.failure('Delete failed', error.message, error);
       } else {
-        RadGradAlert.success('Delete succeeded', '', 1500);
+        RadGradAlert.success('Delete succeeded');
         // this.formRef.current.reset();
         setId('');
         setConfirmOpen(false);
@@ -121,9 +119,9 @@ const AdminDataModelAdvisorLogsPage: React.FC<AdminDataModelAdvisorLogsPageProps
     // console.log('updateData = %o', updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
-        RadGradAlert.failure('Update failed.', error.message, 2500, error);
+        RadGradAlert.failure('Update failed.', error.message, error);
       } else {
-        RadGradAlert.success('Update succeeded', '', 1500);
+        RadGradAlert.success('Update succeeded');
         // @ts-ignore
         formRef.current.reset();
         setShowUpdateForm(false);

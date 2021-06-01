@@ -18,14 +18,12 @@ import { TabbedProfileEntryNames } from './TabbedProfileEntries';
 import { cardStyle, contentStyle } from './utilities/styles';
 import VerificationRequestStatus from './VerificationRequestStatus';
 import * as RouterUtils from '../../shared/utilities/router';
-import RadGradAlerts from '../../../utilities/RadGradAlert';
+import RadGradAlert from '../../../utilities/RadGradAlert';
 
 interface DetailOpportunityCardProps {
   instance: OpportunityInstance;
   verificationRequests: VerificationRequest[];
 }
-
-const RadGradAlert = new RadGradAlerts();
 
 const DetailOpportunityCard: React.FC<DetailOpportunityCardProps> = ({ instance, verificationRequests }) => {
   const [, setSelectedCiID] = useStickyState(DegreePlannerStateNames.selectedCiID, '');
@@ -44,7 +42,7 @@ const DetailOpportunityCard: React.FC<DetailOpportunityCardProps> = ({ instance,
     const collectionName = OpportunityInstances.getCollectionName();
     removeItMethod.callPromise({ collectionName, instance })
       .then(() => {
-        RadGradAlert.success('Remove succeeded', '', 1500);
+        RadGradAlert.success('Remove succeeded');
         setSelectedCiID('');
         setSelectedOiID('');
         setSelectedProfileTab(TabbedProfileEntryNames.profileOpportunities);

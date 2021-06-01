@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { Grid, Segment } from 'semantic-ui-react';
 import moment from 'moment';
 import _ from 'lodash';
-import RadGradAlerts from '../../../utilities/RadGradAlert';
+import RadGradAlert from '../../../utilities/RadGradAlert';
 import { Users } from '../../../../api/user/UserCollection';
 import { AcademicYearInstances } from '../../../../api/degree-plan/AcademicYearInstanceCollection';
 import { DegreePlannerStateNames } from '../../../pages/student/StudentDegreePlannerPage';
@@ -28,8 +28,6 @@ interface DePProps {
 }
 
 const DegreeExperiencePlanner: React.FC<DePProps> = ({ academicYearInstances, courseInstances, opportunityInstances }) => {
-
-  const RadGradAlert = new RadGradAlerts();
   const [, setSelectedCiID] = useStickyState(DegreePlannerStateNames.selectedCiID, '');
   const [, setSelectedOiID] = useStickyState(DegreePlannerStateNames.selectedOiID, '');
   const [, setSelectedProfileTab] = useStickyState(DegreePlannerStateNames.selectedProfileTab, '');
@@ -77,12 +75,12 @@ const DegreeExperiencePlanner: React.FC<DePProps> = ({ academicYearInstances, co
     const collectionName = AcademicYearInstances.getCollectionName();
     defineMethod.callPromise({ collectionName, definitionData })
       .then(() => {
-        RadGradAlert.success('Added new Academic Year', `Fall ${definitionData.year} - Summer ${definitionData.year + 1}`, 1500);
+        RadGradAlert.success('Added new Academic Year', `Fall ${definitionData.year} - Summer ${definitionData.year + 1}`);
         years = AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
         visibleYears = years;
       })
       .catch((error) => {
-        RadGradAlert.failure('Failed to add a new Academic Year', error.message, 2500, error);
+        RadGradAlert.failure('Failed to add a new Academic Year', error.message, error);
       });
   };
 
@@ -92,11 +90,11 @@ const DegreeExperiencePlanner: React.FC<DePProps> = ({ academicYearInstances, co
     const instance = visibleYears[visibleYears.length - 1]._id;
     removeItMethod.callPromise({ collectionName, instance })
       .then(() => {
-        RadGradAlert.success('Deleted Academic Year', 'Successfully deleted an empty Academic Year', 1500);
+        RadGradAlert.success('Deleted Academic Year', 'Successfully deleted an empty Academic Year');
         years = AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
         visibleYears = years;
       })
-      .catch((error) => { RadGradAlert.failure('Failed to delete Academic Year', error.message, 2500, error);});
+      .catch((error) => { RadGradAlert.failure('Failed to delete Academic Year', error.message, error);});
   };
 
   const isTermEmpty = (termID: string): boolean => {

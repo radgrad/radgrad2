@@ -4,7 +4,7 @@ import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, SelectField, LongTextField, BoolField, SubmitField, ErrorsField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import RadGradAlerts from '../../../../utilities/RadGradAlert';
+import RadGradAlert from '../../../../utilities/RadGradAlert';
 import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
 import { Teasers } from '../../../../../api/teaser/TeaserCollection';
 import { Interest, Opportunity, CareerGoal, Course } from '../../../../../typings/radgrad';
@@ -24,7 +24,6 @@ interface AddTeaserFormProps {
 }
 
 const AddTeaserForm: React.FC<AddTeaserFormProps> = ({ careerGoals, courses, interests, opportunities }) => {
-  const RadGradAlert = new RadGradAlerts();
   let formRef;
   let careerGoalSlugNames = careerGoals.map((goal) => slugIDToSlugNameAndType(goal.slugID));
   careerGoalSlugNames = _.sortBy(careerGoalSlugNames);
@@ -68,9 +67,9 @@ const AddTeaserForm: React.FC<AddTeaserFormProps> = ({ careerGoals, courses, int
     // definitionData.opportunity = opportunityNameToSlug(doc.opportunity);
     // console.log(collectionName, definitionData);
     defineMethod.callPromise({ collectionName, definitionData })
-      .catch((error) => { RadGradAlert.failure('Add failed', error.message, 2500, error);})
+      .catch((error) => { RadGradAlert.failure('Add failed', error.message, error);})
       .then(() => {
-        RadGradAlert.success('Add succeeded', '', 1500);
+        RadGradAlert.success('Add succeeded');
         formRef.reset();
       });
   };

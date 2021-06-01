@@ -12,7 +12,7 @@ import { ProfileInterests } from '../../../../app/imports/api/user/profile-entri
 import { ProfileCareerGoals } from '../../../../app/imports/api/user/profile-entries/ProfileCareerGoalCollection';
 import { RootState } from '../../../redux/types';
 import { BaseProfile, CareerGoal, Interest } from '../../../../app/imports/typings/radgrad';
-import RadGradAlerts from '../../../../app/imports/ui/utilities/RadGradAlert';
+import RadGradAlert from '../../../../app/imports/ui/utilities/RadGradAlert';
 
 interface AdvisorUpdateStudentWidgetProps {
   dispatch: (any) => void;
@@ -30,7 +30,6 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const AdvisorUpdateStudentWidget: React.FC<AdvisorUpdateStudentWidgetProps> = ({ dispatch, interests, careerGoals, usernameDoc, isLoaded, selectedUsername, studentCollectionName }) => {
-  const RadGradAlert = new RadGradAlerts();
   const doc = usernameDoc;
   const userID = doc.userID;
   const favCareerGoals = ProfileCareerGoals.findNonRetired({ userID });
@@ -52,7 +51,7 @@ const AdvisorUpdateStudentWidget: React.FC<AdvisorUpdateStudentWidgetProps> = ({
         setPicture(cloudinaryResult.info.secure_url);
       }
     } catch (error) {
-      RadGradAlert.failure('Failed to Upload Photo', error.statusText, 2500, error);
+      RadGradAlert.failure('Failed to Upload Photo', error.statusText, error);
     }
   };
 
@@ -114,9 +113,9 @@ const AdvisorUpdateStudentWidget: React.FC<AdvisorUpdateStudentWidgetProps> = ({
 
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
-        RadGradAlert.failure('Update failed', error.message, 2500, error);
+        RadGradAlert.failure('Update failed', error.message, error);
       } else {
-        RadGradAlert.success('Update succeeded', '', 1500);
+        RadGradAlert.success('Update succeeded');
       }
     });
   };

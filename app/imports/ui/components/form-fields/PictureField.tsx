@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { connectField, filterDOMProps } from 'uniforms';
 import { TextFieldProps } from 'uniforms-semantic';
 import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
-import RadGradAlerts from '../../utilities/RadGradAlert';
+import RadGradAlert from '../../utilities/RadGradAlert';
 
 /**
  * Augment the Uniforms TextField with an to support Cloudinary upload for pictures.
@@ -32,7 +32,6 @@ import RadGradAlerts from '../../utilities/RadGradAlert';
  SOFTWARE.
  */
 
-const RadGradAlert = new RadGradAlerts();
 const PictureField: React.FC<TextFieldProps> = ({
   autoComplete,
   className,
@@ -66,7 +65,7 @@ const PictureField: React.FC<TextFieldProps> = ({
         setPictureURL(cloudinaryResult.info.secure_url);
       }
     } catch (err) {
-      RadGradAlert.failure('Failed to Upload Photo', err.statusText, 2500, err);
+      RadGradAlert.failure('Failed to Upload Photo', err.statusText, err);
     }
   };
 

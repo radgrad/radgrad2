@@ -8,14 +8,13 @@ import moment from 'moment';
 import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
 import { AcademicYearInstances } from '../../../../../api/degree-plan/AcademicYearInstanceCollection';
 import { profileToUsername } from '../../../shared/utilities/data-model';
-import RadGradAlerts from '../../../../utilities/RadGradAlert';
+import RadGradAlert from '../../../../utilities/RadGradAlert';
 
 interface AddAcademicYearInstanceProps {
   students: Meteor.User[];
 }
 
 const AddAcademicYearInstanceForm: React.FC<AddAcademicYearInstanceProps> = ({ students }) => {
-  const RadGradAlert = new RadGradAlerts();
   const studentNames = students.map(profileToUsername);
   const schema = new SimpleSchema({
     student: {
@@ -30,9 +29,9 @@ const AddAcademicYearInstanceForm: React.FC<AddAcademicYearInstanceProps> = ({ s
     const collectionName = AcademicYearInstances.getCollectionName();
     const definitionData = doc;
     defineMethod.callPromise({ collectionName, definitionData })
-      .catch((error) => { RadGradAlert.failure('Add failed', error.message, 2500, error);})
+      .catch((error) => { RadGradAlert.failure('Add failed', error.message, error);})
       .then(() => {
-        RadGradAlert.success('Add succeeded', '', 1500);
+        RadGradAlert.success('Add succeeded');
         formRef.reset();
       });
   };

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Tab, Header, Form, Radio } from 'semantic-ui-react';
-import RadGradAlerts from '../../../utilities/RadGradAlert';
+import RadGradAlert from '../../../utilities/RadGradAlert';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { defineMethod } from '../../../../api/base/BaseCollection.methods';
 import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
@@ -13,7 +13,6 @@ export interface AdvisorAddStudentWidgetProps {
 }
 
 const AdvisorAddStudentTab: React.FC<AdvisorAddStudentWidgetProps> = ({ interests, careerGoals }) => {
-  const RadGradAlert = new RadGradAlerts();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [username, setUsername] = useState('');
@@ -72,9 +71,9 @@ const AdvisorAddStudentTab: React.FC<AdvisorAddStudentWidgetProps> = ({ interest
     definitionData.careerGoals = careerGoalsState;
     definitionData.interests = userInterests;
     defineMethod.callPromise({ collectionName, definitionData })
-      .catch((error) => { RadGradAlert.failure('Failed to add User', error.message, 2500, error);})
+      .catch((error) => { RadGradAlert.failure('Failed to add User', error.message, error);})
       .then(() => {
-        RadGradAlert.success('Add User Succeeded', '', 1500);
+        RadGradAlert.success('Add User Succeeded');
         setFirstName('');
         setLastName('');
         setUsername('');
@@ -94,7 +93,7 @@ const AdvisorAddStudentTab: React.FC<AdvisorAddStudentWidgetProps> = ({ interest
         setPicture(cloudinaryResult.info.secure_url);
       }
     } catch (error) {
-      RadGradAlert.failure('Failed to Upload Photo', error.statusText, 2500, error);
+      RadGradAlert.failure('Failed to Upload Photo', error.statusText, error);
     }
   };
 

@@ -4,9 +4,7 @@ import { AutoForm, TextField, LongTextField, BoolField, SubmitField, ErrorsField
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
 import { InterestTypes } from '../../../../../api/interest/InterestTypeCollection';
-import RadGradAlerts from '../../../../utilities/RadGradAlert';
-
-const RadGradAlert = new RadGradAlerts();
+import RadGradAlert from '../../../../utilities/RadGradAlert';
 
 const AddInterestTypeForm: React.FC = () => {
   let formRef;
@@ -16,10 +14,10 @@ const AddInterestTypeForm: React.FC = () => {
     const definitionData = doc;
     defineMethod.callPromise({ collectionName, definitionData })
       .catch((error) => {
-        RadGradAlert.failure('Failed adding User', error.message, 2500, error);
+        RadGradAlert.failure('Failed adding User', error.message, error);
       })
       .then(() => {
-        RadGradAlert.success('Add User Succeeded', '', 1500);
+        RadGradAlert.success('Add User Succeeded');
         formRef.reset();
       });
   };

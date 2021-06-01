@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Modal } from 'semantic-ui-react';
-import RadGradAlerts from '../../../utilities/RadGradAlert';
+import RadGradAlert from '../../../utilities/RadGradAlert';
 import { removeItMethod } from '../../../../api/base/BaseCollection.methods';
 import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
 import { Courses } from '../../../../api/course/CourseCollection';
@@ -15,7 +15,6 @@ interface DeleteItemButtonProps {
 }
 
 const DeleteItemButton: React.FC<DeleteItemButtonProps> = ({ item, type }) => {
-  const RadGradAlert = new RadGradAlerts();
   const [open, setOpen] = useState(false);
 
   let typeStr;
@@ -62,8 +61,8 @@ const DeleteItemButton: React.FC<DeleteItemButtonProps> = ({ item, type }) => {
     }
     const instance = item._id;
     removeItMethod.callPromise({ collectionName, instance })
-      .then(() => { RadGradAlert.success(title, text, 1500);})
-      .catch((error) => { RadGradAlert.failure('Delete Failed', error.message, 2500, error);});
+      .then(() => { RadGradAlert.success(title, text);})
+      .catch((error) => { RadGradAlert.failure('Delete Failed', error.message, error);});
     setOpen(false);
   };
 

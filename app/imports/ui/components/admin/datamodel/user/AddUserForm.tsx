@@ -22,7 +22,7 @@ import { ROLE } from '../../../../../api/role/Role';
 import PictureField from '../../../form-fields/PictureField';
 import { academicTermToName, docToName } from '../../../shared/utilities/data-model';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
-import RadGradAlerts from '../../../../utilities/RadGradAlert';
+import RadGradAlert from '../../../../utilities/RadGradAlert';
 import {
   careerGoalSlugFromName,
   declaredAcademicTermSlugFromName,
@@ -36,7 +36,6 @@ interface AddUserProps {
 }
 
 const AddUserForm: React.FC<AddUserProps> = ({ interests, academicTerms, careerGoals }) => {
-  const RadGradAlert = new RadGradAlerts();
   const [role, setRole] = useState<string>('');
   let formRef;
 
@@ -68,9 +67,9 @@ const AddUserForm: React.FC<AddUserProps> = ({ interests, academicTerms, careerG
     }
     // console.log(collectionName, definitionData);
     defineMethod.callPromise({ collectionName, definitionData })
-      .catch((error) => { RadGradAlert.failure('Add failed', error.message, 2500, error);})
+      .catch((error) => { RadGradAlert.failure('Add failed', error.message, error);})
       .then(() => {
-        RadGradAlert.success('Add succeeded', '', 1500);
+        RadGradAlert.success('Add succeeded');
         formRef.reset();
       });
   };

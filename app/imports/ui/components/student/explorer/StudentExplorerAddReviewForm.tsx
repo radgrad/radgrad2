@@ -4,7 +4,7 @@ import { AutoForm, ErrorsField, LongTextField, SelectField, SubmitField } from '
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { Accordion, Form, Icon } from 'semantic-ui-react';
 import { useRouteMatch } from 'react-router-dom';
-import RadGradAlerts from '../../../utilities/RadGradAlert';
+import RadGradAlert from '../../../utilities/RadGradAlert';
 import { Reviews } from '../../../../api/review/ReviewCollection';
 import RatingField from './RatingField';
 import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
@@ -36,7 +36,6 @@ const StudentExplorerAddReviewForm: React.FC<StudentExplorerAddReviewFormProps> 
   };
 
   const handleAdd = (doc: ReviewDefine): void => {
-    const RadGradAlert = new RadGradAlerts();
     const collectionName = collection.getCollectionName();
     const username = getUsername(match);
     const academicTermDoc = AcademicTerms.getAcademicTermFromToString(doc.academicTerm);
@@ -47,8 +46,8 @@ const StudentExplorerAddReviewForm: React.FC<StudentExplorerAddReviewFormProps> 
     definitionData.reviewType = reviewType as ReviewTypes;
     definitionData.reviewee = itemToReview._id;
     defineMethod.callPromise({ collectionName, definitionData })
-      .catch((error) => { RadGradAlert.failure('Add Failed', error.message, 2500, error);})
-      .then(() => { RadGradAlert.success('Review Added', '', 1500);});
+      .catch((error) => { RadGradAlert.failure('Add Failed', error.message, error);})
+      .then(() => { RadGradAlert.success('Review Added');});
   };
 
   const academicTerm = (): AcademicTerm[] => {

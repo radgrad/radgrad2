@@ -3,7 +3,7 @@ import { Button, Modal } from 'semantic-ui-react';
 import SimpleSchema from 'simpl-schema';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { AutoForm, ErrorsField, SubmitField, TextField } from 'uniforms-semantic';
-import RadGradAlerts from '../../../utilities/RadGradAlert';
+import RadGradAlert from '../../../utilities/RadGradAlert';
 import { openCloudinaryWidget } from '../OpenCloudinaryWidget';
 
 interface SetPictureButtonProps {
@@ -18,7 +18,6 @@ const bridge = new SimpleSchema2Bridge(formSchema);
 
 
 export const SetPictureButton: React.FC<SetPictureButtonProps> = ({ picture, handleChange }) => {
-  const RadGradAlert = new RadGradAlerts();
   const [open, setOpen] = useState(false);
 
   const submit = (data) => {
@@ -34,7 +33,7 @@ export const SetPictureButton: React.FC<SetPictureButtonProps> = ({ picture, han
         setOpen(false);
       }
     } catch (error) {
-      RadGradAlert.failure('Failed to Upload Photo', error.statusText, 2500, error);
+      RadGradAlert.failure('Failed to Upload Photo', error.statusText, error);
     }
   };
 

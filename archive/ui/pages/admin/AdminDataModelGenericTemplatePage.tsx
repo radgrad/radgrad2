@@ -9,8 +9,7 @@ import { DescriptionPair } from '../../../../app/imports/typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../../app/imports/api/base/BaseCollection.methods';
 import BackToTopButton from '../../../../app/imports/ui/components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import RadGradAlerts from "../../../../app/imports/ui/utilities/RadGradAlert";
-const RadGradAlert = new RadGradAlerts();
+import RadGradAlert from "../../../../app/imports/ui/utilities/RadGradAlert";
 const collection = null; // the collection to use.
 
 /**
@@ -51,9 +50,9 @@ const AdminDataModelGenericTemplatePage = () => {
     const definitionData = doc; // create the definitionData may need to modify doc's values
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
-        RadGradAlert.failure('Add failed', error.message, 2500, error);
+        RadGradAlert.failure('Add failed', error.message, error);
       } else {
-        RadGradAlert.success('Add succeeded', '', 1500);
+        RadGradAlert.success('Add succeeded');
         // @ts-ignore
         formRef.current.reset();
       }
@@ -78,8 +77,8 @@ const AdminDataModelGenericTemplatePage = () => {
     const collectionName = collection.getCollectionName();
     const instance = idState;
     removeItMethod.call({ collectionName, instance })
-      .catch((error) => { RadGradAlert.failure('Delete failed', error.message, 2500, error)})
-      .then(() => { RadGradAlert.success('Delete succeeded', '',  1500)})
+      .catch((error) => { RadGradAlert.failure('Delete failed', error.message, error)})
+      .then(() => { RadGradAlert.success('Delete succeeded')})
       .finally(() => {
         setShowUpdateForm(false);
         setId('');
@@ -101,10 +100,10 @@ const AdminDataModelGenericTemplatePage = () => {
     updateData.id = doc._id;
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
-        RadGradAlert.failure('Update failed', error.message, 2500, error);
+        RadGradAlert.failure('Update failed', error.message, error);
         console.error('Error in updating. %o', error);
       } else {
-        RadGradAlert.success('Update succeeded', '', 1500);
+        RadGradAlert.success('Update succeeded');
         setShowUpdateForm(false);
         setId('');
       }

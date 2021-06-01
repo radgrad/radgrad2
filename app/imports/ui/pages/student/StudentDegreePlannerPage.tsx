@@ -3,7 +3,7 @@ import { Grid } from 'semantic-ui-react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
-import RadGradAlerts from '../../utilities/RadGradAlert';
+import RadGradAlert from '../../utilities/RadGradAlert';
 import DegreeExperiencePlanner from '../../components/student/degree-planner/DegreeExperiencePlanner';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
@@ -35,8 +35,6 @@ import { passedCourse, courseInstanceIsRepeatable } from '../../../api/course/Co
 import { PAGEIDS } from '../../utilities/PageIDs';
 import { useStickyState } from '../../utilities/StickyState';
 import PageLayout from '../PageLayout';
-
-const RadGradAlert = new RadGradAlerts();
 
 export enum DegreePlannerStateNames {
   selectedCiID = 'Planner.selectedCiID',
@@ -76,7 +74,7 @@ const onDragEnd = (onDragEndProps) => (result) => {
 
     if (isCourseDrop) {
       if (isPastDrop) {
-        RadGradAlert.failure('Cannot drop courses in the past.', 'You cannot drag courses to a past academic term.', 2500, '');
+        RadGradAlert.failure('Cannot drop courses in the past.', 'You cannot drag courses to a past academic term.');
       } else {
         const courseID = Courses.findIdBySlug(slug);
         const course = Courses.findDoc(courseID);
@@ -114,13 +112,13 @@ const onDragEnd = (onDragEndProps) => (result) => {
       }
     } else if (isCourseInstanceDrop) {
       if (isPastDrop) {
-        RadGradAlert.failure('Cannot drop courses in the past.', 'You cannot drag courses to a past academic term.', 2500, '');
+        RadGradAlert.failure('Cannot drop courses in the past.', 'You cannot drag courses to a past academic term.');
       } else {
         const instance = CourseInstances.findDoc(slug);
         const ciTerm = AcademicTerms.findDoc(instance.termID);
         const inPastStart = ciTerm.termNumber < currentTerm.termNumber;
         if (inPastStart) {
-          RadGradAlert.failure('Cannot drop courses in the past.', 'You cannot drag courses to a past academic term.', 2500, '');
+          RadGradAlert.failure('Cannot drop courses in the past.', 'You cannot drag courses to a past academic term.');
         } else {
           const termID = AcademicTerms.findIdBySlug(termSlug);
           const updateData: CourseInstanceUpdate = {};

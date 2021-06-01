@@ -12,7 +12,7 @@ import {
   TextField,
 } from 'uniforms-semantic';
 import _ from 'lodash';
-import RadGradAlerts from '../../../../utilities/RadGradAlert';
+import RadGradAlert from '../../../../utilities/RadGradAlert';
 import { updateMethod } from '../../../../../api/base/BaseCollection.methods';
 import { Interests } from '../../../../../api/interest/InterestCollection';
 import { InterestTypes } from '../../../../../api/interest/InterestTypeCollection';
@@ -24,7 +24,6 @@ interface EditInterestButtonProps {
 }
 
 const EditInterestButton: React.FC<EditInterestButtonProps> = ({ interest, interestTypes }) => {
-  const RadGradAlert = new RadGradAlerts();
   const [open, setOpen] = useState(false);
 
   const model: InterestUpdate = interest;
@@ -62,8 +61,8 @@ const EditInterestButton: React.FC<EditInterestButtonProps> = ({ interest, inter
     }
     // console.log(collectionName, updateData);
     updateMethod.callPromise({ collectionName, updateData })
-      .then((result) => { RadGradAlert.success('Interest Updated', result, 1500);})
-      .catch((error) => { RadGradAlert.failure('Update Failed', error.message, 2500, error);});
+      .then((result) => { RadGradAlert.success('Interest Updated', result);})
+      .catch((error) => { RadGradAlert.failure('Update Failed', error.message, error);});
   };
 
   return (

@@ -6,7 +6,7 @@ import { getUsername } from '../../shared/utilities/router';
 import { UserInteractionsTypes } from '../../../../api/analytic/UserInteractionsTypes';
 import { userInteractionDefineMethod } from '../../../../api/analytic/UserInteractionCollection.methods';
 import { UserInteractionDefine } from '../../../../typings/radgrad';
-import RadGradAlerts from '../../../app/imports/ui/utilities/RadGradAlert';
+import RadGradAlert from '../../../app/imports/ui/utilities/RadGradAlert';
 
 interface StudentAboutMeUpdateWebsiteFormProps {
   website: string;
@@ -15,7 +15,6 @@ interface StudentAboutMeUpdateWebsiteFormProps {
 }
 
 const StudentAboutMeUpdateWebsiteForm: React.FC<StudentAboutMeUpdateWebsiteFormProps> = ({ website, docID, collectionName }) => {
-  const RadGradAlert = new RadGradAlerts();
   const [websiteState, setWebsite] = useState(website);
   const match = useRouteMatch();
   const handleFormChange = (e, { value }) => setWebsite(value);
@@ -26,9 +25,9 @@ const StudentAboutMeUpdateWebsiteForm: React.FC<StudentAboutMeUpdateWebsiteFormP
 
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
-        RadGradAlert.failure('Update Failed', error.message, 2500, error);
+        RadGradAlert.failure('Update Failed', error.message, error);
       } else {
-        RadGradAlert.success('Update Succeeded', '', 1500);
+        RadGradAlert.success('Update Succeeded');
         const username = getUsername(match);
         const interactionData: UserInteractionDefine = {
           username,

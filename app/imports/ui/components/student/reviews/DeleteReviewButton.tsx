@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Modal } from 'semantic-ui-react';
-import RadGradAlerts from '../../../utilities/RadGradAlert';
+import RadGradAlert from '../../../utilities/RadGradAlert';
 import { removeItMethod } from '../../../../api/base/BaseCollection.methods';
 import { Reviews } from '../../../../api/review/ReviewCollection';
 import { Review } from '../../../../typings/radgrad';
@@ -11,7 +11,6 @@ interface DeleteReviewButtonProps {
 }
 
 const DeleteReviewButton: React.FC<DeleteReviewButtonProps> = ({ review }) => {
-  const RadGradAlert = new RadGradAlerts();
   const [open, setOpen] = useState(false);
 
   const handleDelete = () => {
@@ -19,9 +18,9 @@ const DeleteReviewButton: React.FC<DeleteReviewButtonProps> = ({ review }) => {
     const collectionName = Reviews.getCollectionName();
     const instance = review._id;
     removeItMethod.callPromise({ collectionName, instance })
-      .catch((error) => { RadGradAlert.failure('Delete Failed', error.message, 1500, error);})
+      .catch((error) => { RadGradAlert.failure('Delete Failed', error.message, error);})
       .then(() => {
-        RadGradAlert.success('Review Deleted', '', 1500);
+        RadGradAlert.success('Review Deleted');
         setOpen(false);
       });
   };

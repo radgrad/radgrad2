@@ -7,15 +7,13 @@ import { getUsername } from '../../shared/utilities/router';
 import { UserInteractionsTypes } from '../../../../api/analytic/UserInteractionsTypes';
 import { userInteractionDefineMethod } from '../../../../api/analytic/UserInteractionCollection.methods';
 import { UserInteractionDefine } from '../../../../typings/radgrad';
-import RadGradAlerts from '../../../app/imports/ui/utilities/RadGradAlert';
+import RadGradAlert from '../../../app/imports/ui/utilities/RadGradAlert';
 
 interface StudentAboutMeUpdatePictureFormProps {
   picture: string;
   docID: string;
   collectionName: string;
 }
-
-const RadGradAlert = new RadGradAlerts();
 
 const StudentAboutMeUpdatePictureForm: React.FC<StudentAboutMeUpdatePictureFormProps> = ({ picture, collectionName, docID }) => {
   const [pictureState, setPicture] = useState(picture);
@@ -28,10 +26,10 @@ const StudentAboutMeUpdatePictureForm: React.FC<StudentAboutMeUpdatePictureFormP
         const updateData: { id: string; picture: string } = { id: docID, picture: cloudinaryResult.info.secure_url };
         updateMethod.call({ collectionName, updateData }, (error) => {
           if (error) {
-            RadGradAlert.failure('Update Failed', error.message, 2500, error);
+            RadGradAlert.failure('Update Failed', error.message, error);
           } else {
             setPicture(cloudinaryResult.info.secure_url);
-            RadGradAlert.success('Update Succeeded', '', 1500);
+            RadGradAlert.success('Update Succeeded');
             const username = getUsername(match);
             const interactionData: UserInteractionDefine = {
               username,
@@ -47,7 +45,7 @@ const StudentAboutMeUpdatePictureForm: React.FC<StudentAboutMeUpdatePictureFormP
         });
       }
     } catch (error) {
-      RadGradAlert.failure('Failed to Upload Photo', error.statusText, 2500, error);
+      RadGradAlert.failure('Failed to Upload Photo', error.statusText, error);
     }
   };
 

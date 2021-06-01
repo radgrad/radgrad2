@@ -9,7 +9,7 @@ import { openCloudinaryWidget } from '../../shared/OpenCloudinaryWidget';
 import { updateMethod } from '../../../../api/base/BaseCollection.methods';
 import { AdvisorOrFacultyProfile, FavoriteCareerGoal, FavoriteInterest } from '../../../../typings/radgrad';
 import { AdvisorProfiles } from '../../../../api/user/AdvisorProfileCollection';
-import RadGradAlerts from '../../app/imports/ui/utilities/RadGradAlert';
+import RadGradAlert from '../../app/imports/ui/utilities/RadGradAlert';
 
 interface AdvisorAboutMeWidgetProps {
   profile: AdvisorOrFacultyProfile;
@@ -19,7 +19,6 @@ interface AdvisorAboutMeWidgetProps {
 
 /** The Advisor About Me Widget shows basic information of the specified user. */
 const AdvisorAboutMeWidget: React.FC<AdvisorAboutMeWidgetProps> = ({ profile, favoriteCareerGoals, favoriteInterests }) => {
-  const RadGradAlert = new RadGradAlerts();
   const [websiteState, setWebsite] = useState(profile.website);
   const [pictureState, setPicture] = useState(profile.picture);
   const [aboutMeState, setAboutMe] = useState(profile.aboutMe);
@@ -57,9 +56,9 @@ const AdvisorAboutMeWidget: React.FC<AdvisorAboutMeWidgetProps> = ({ profile, fa
     const updateData: { id: string; website: string } = { id: profile._id, website: websiteState };
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
-        RadGradAlert.failure('Update Failed', error.message, 2500, error);
+        RadGradAlert.failure('Update Failed', error.message, error);
       } else {
-        RadGradAlert.success('Update Succeeded', '', 1500);
+        RadGradAlert.success('Update Succeeded');
       }
     });
   };
@@ -70,9 +69,9 @@ const AdvisorAboutMeWidget: React.FC<AdvisorAboutMeWidgetProps> = ({ profile, fa
     const updateData: { id: string; aboutMe: string } = { id: profile._id, aboutMe: aboutMeState };
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
-        RadGradAlert.failure('Update Failed', error.message, 2500, error);
+        RadGradAlert.failure('Update Failed', error.message, error);
       } else {
-        RadGradAlert.success('Update Succeeded', '', 1500);
+        RadGradAlert.success('Update Succeeded');
       }
     });
   };
@@ -114,15 +113,15 @@ const AdvisorAboutMeWidget: React.FC<AdvisorAboutMeWidgetProps> = ({ profile, fa
         const updateData: { id: string; picture: string } = { id: profile._id, picture: cloudinaryResult.info.secure_url };
         updateMethod.call({ collectionName, updateData }, (error) => {
           if (error) {
-            RadGradAlert.failure('Update Failed', error.message, 2500, error);
+            RadGradAlert.failure('Update Failed', error.message, error);
           } else {
             setPicture(cloudinaryResult.info.secure_url);
-            RadGradAlert.success('Update Succeeded', '', 1500);
+            RadGradAlert.success('Update Succeeded');
           }
         });
       }
     } catch (error) {
-      RadGradAlert.failure('Failed to Upload Photo', error.statusText, 2500, error);
+      RadGradAlert.failure('Failed to Upload Photo', error.statusText, error);
     }
   };
 

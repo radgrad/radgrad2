@@ -2,7 +2,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
 import { Confirm, Icon } from 'semantic-ui-react';
 import _ from 'lodash';
-import RadGradAlerts from '../../utilities/RadGradAlert';
+import RadGradAlert from '../../utilities/RadGradAlert';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
@@ -78,7 +78,6 @@ interface AdminDataModelOpportunityInstancesPageProps {
 }
 
 const AdminDataModelOpportunityInstancesPage: React.FC<AdminDataModelOpportunityInstancesPageProps> = ({ items, sponsors, terms, opportunities, students }) => {
-  const RadGradAlert = new RadGradAlerts();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
   const [showUpdateFormState, setShowUpdateForm] = useState(false);
@@ -96,9 +95,9 @@ const AdminDataModelOpportunityInstancesPage: React.FC<AdminDataModelOpportunity
     updateData.termID = academicTermNameToDoc(doc.academicTerm)._id;
     // console.log(collectionName, updateData);
     updateMethod.callPromise({ collectionName, updateData })
-      .catch((error) => { RadGradAlert.failure('Update Failed', error.message, 2500, error);})
+      .catch((error) => { RadGradAlert.failure('Update Failed', error.message, error);})
       .then(() => {
-        RadGradAlert.success('Update Succeeded', '', 1500);
+        RadGradAlert.success('Update Succeeded');
         setShowUpdateForm(false);
         setId('');
       });

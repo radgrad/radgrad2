@@ -12,7 +12,7 @@ import {
   SubmitField,
   TextField,
 } from 'uniforms-semantic';
-import RadGradAlerts from '../../../../utilities/RadGradAlert';
+import RadGradAlert from '../../../../utilities/RadGradAlert';
 import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermCollection';
 import { updateMethod } from '../../../../../api/base/BaseCollection.methods';
 import { iceSchema } from '../../../../../api/ice/IceProcessor';
@@ -32,7 +32,6 @@ const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({
   terms,
   sponsors,
 }) => {
-  const RadGradAlert = new RadGradAlerts();
   const [open, setOpen] = useState(false);
   // console.log(opportunityTypes, interests, terms, sponsors);
 
@@ -61,8 +60,8 @@ const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({
     updateData.academicTerms = doc.academicTerms.map((name) => AcademicTerms.getAcademicTermFromToString(name)._id);
     // console.log(collectionName, updateData);
     updateMethod.callPromise({ collectionName, updateData })
-      .then((result) => { RadGradAlert.success('Opportunity Updated', result, 1500);})
-      .catch((error) => { RadGradAlert.failure('Update Failed', error.message, 2500, error);});
+      .then((result) => { RadGradAlert.success('Opportunity Updated', result);})
+      .catch((error) => { RadGradAlert.failure('Update Failed', error.message, error);});
   };
 
   const updateSchema = new SimpleSchema({

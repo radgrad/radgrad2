@@ -4,7 +4,7 @@ import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
 import { Users } from '../../../../app/imports/api/user/UserCollection';
 import { defineMethod } from '../../../../app/imports/api/base/BaseCollection.methods';
 import { AdvisorLog, AdvisorLogDefine, StudentProfile } from '../../../../app/imports/typings/radgrad';
-import RadGradAlerts from '../../../../app/imports/ui/utilities/RadGradAlert';
+import RadGradAlert from '../../../../app/imports/ui/utilities/RadGradAlert';
 
 export interface AdvisorLogEntryWidgetProps {
   advisorLogs: AdvisorLog[];
@@ -12,7 +12,6 @@ export interface AdvisorLogEntryWidgetProps {
   advisorUsername: string;
 }
 
-const RadGradAlert = new RadGradAlerts();
 const AdvisorLogEntryWidget: React.FC<AdvisorLogEntryWidgetProps> = ({ advisorLogs, usernameDoc, advisorUsername }) => {
   const [commentState, setComment] = useState('');
 
@@ -44,9 +43,9 @@ const AdvisorLogEntryWidget: React.FC<AdvisorLogEntryWidgetProps> = ({ advisorLo
 
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
-        RadGradAlert.failure('Add failed', error.message, 2500, error);
+        RadGradAlert.failure('Add failed', error.message, error);
       } else {
-        RadGradAlert.success('Add succeeded', '', 1500);
+        RadGradAlert.success('Add succeeded');
         setComment('');
       }
     });

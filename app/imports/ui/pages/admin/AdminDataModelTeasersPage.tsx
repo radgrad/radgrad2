@@ -22,9 +22,8 @@ import UpdateTeaserForm from '../../components/admin/datamodel/teaser/UpdateTeas
 import { itemToSlugName, interestNameToSlug } from '../../components/shared/utilities/data-model';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import PageLayout from '../PageLayout';
-import RadGradAlerts from '../../utilities/RadGradAlert';
+import RadGradAlert from '../../utilities/RadGradAlert';
 
-const RadGradAlert = new RadGradAlerts();
 const collection = Teasers; // the collection to use.
 
 /**
@@ -91,10 +90,10 @@ const AdminDataModelTeasersPage: React.FC<AdminDataModelTeasersPageProps> = ({ i
     // console.log(collectionName, updateData);
     updateMethod.callPromise({ collectionName, updateData })
       .catch((error) => {
-        RadGradAlert.failure('Update failed', error.message, 2500, error);
+        RadGradAlert.failure('Update failed', error.message, error);
       })
       .then(() => {
-        RadGradAlert.success('Update succeeded', '', 1500);
+        RadGradAlert.success('Update succeeded');
         setShowUpdateForm(false);
         setId('');
       });

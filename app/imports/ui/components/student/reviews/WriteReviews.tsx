@@ -4,7 +4,7 @@ import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { AutoForm, ErrorsField, LongTextField, SelectField, SubmitField } from 'uniforms-semantic';
-import RadGradAlerts from '../../../utilities/RadGradAlert';
+import RadGradAlert from '../../../utilities/RadGradAlert';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { defineMethod } from '../../../../api/base/BaseCollection.methods';
 import { Courses } from '../../../../api/course/CourseCollection';
@@ -22,7 +22,6 @@ interface WriteReviewsProps {
 }
 
 const WriteReviews: React.FC<WriteReviewsProps> = ({ unreviewedCourses, unreviewedOpportunities, username }) => {
-  const RadGradAlert = new RadGradAlerts();
   const cIDs = unreviewedCourses.map((ci) => ci.courseID);
   const courseNames = Courses.findNames(cIDs);
   let names = courseNames.map((cName) => `${cName} (Course)`);
@@ -74,8 +73,8 @@ const WriteReviews: React.FC<WriteReviewsProps> = ({ unreviewedCourses, unreview
     definitionData.reviewee = reviewee;
     // console.log(collectionName, definitionData);
     defineMethod.callPromise({ collectionName, definitionData })
-      .catch((error) => { RadGradAlert.failure('Add Failed', error.message, 2500, error);})
-      .then(() => { RadGradAlert.success('Review Added', '', 1500);});
+      .catch((error) => { RadGradAlert.failure('Add Failed', error.message, error);})
+      .then(() => { RadGradAlert.success('Review Added');});
   };
 
   const choiceSchema = new SimpleSchema({

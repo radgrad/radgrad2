@@ -14,7 +14,7 @@ import {
   courseToName, profileNameToUsername,
   profileToName,
 } from '../../../shared/utilities/data-model';
-import RadGradAlerts from '../../../../utilities/RadGradAlert';
+import RadGradAlert from '../../../../utilities/RadGradAlert';
 
 interface AddCourseInstanceFormProps {
   terms: AcademicTerm[];
@@ -23,7 +23,6 @@ interface AddCourseInstanceFormProps {
 }
 
 const AddCourseInstanceForm: React.FC<AddCourseInstanceFormProps> = ({ terms, courses, students }) => {
-  const RadGradAlert = new RadGradAlerts();
   let formRef;
   const handleAdd = (doc) => {
     // console.log('CourseInstancePage.handleAdd(%o)', doc);
@@ -46,9 +45,9 @@ const AddCourseInstanceForm: React.FC<AddCourseInstanceFormProps> = ({ terms, co
     };
     // console.log('definitionData=%o', definitionData);
     defineMethod.callPromise({ collectionName, definitionData })
-      .catch((error) => { RadGradAlert.failure('Failed adding User', error.message, 2500, error);})
+      .catch((error) => { RadGradAlert.failure('Failed adding User', error.message, error);})
       .then(() => {
-        RadGradAlert.success('Add User Succeeded', '', 1500);
+        RadGradAlert.success('Add User Succeeded');
         formRef.reset();
       });
   };

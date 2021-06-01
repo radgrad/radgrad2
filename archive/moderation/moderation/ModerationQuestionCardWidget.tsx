@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Container, Segment, Form } from 'semantic-ui-react';
 import { updateMethod } from '../../../../api/base/BaseCollection.methods';
-import RadGradAlerts from '../../../app/imports/ui/utilities/RadGradAlert';
+import RadGradAlert from '../../../app/imports/ui/utilities/RadGradAlert';
 
 interface ModerationQuestionCardWidget {
   question: any; // TODO isn't this a string?
@@ -10,7 +10,6 @@ interface ModerationQuestionCardWidget {
 }
 
 const ModerationQuestionCardWidget: React.FC<ModerationQuestionCardWidget> = ({ question, handleReject, handleAccept }) => {
-  const RadGradAlert = new RadGradAlerts();
   const [moderatorCommentState, setModeratorComment] = useState('');
 
   const handleAcceptClick = () => {
@@ -19,9 +18,9 @@ const ModerationQuestionCardWidget: React.FC<ModerationQuestionCardWidget> = ({ 
     // console.log('handle accept click', update);
     updateMethod.call({ collectionName: update.collectionName, updateData: update.updateInfo }, (error) => {
       if (error) {
-        RadGradAlert.failure('Update failed', error.message, 2500, error);
+        RadGradAlert.failure('Update failed', error.message, error);
       } else {
-        RadGradAlert.success('Update succeeded', '', 1500);
+        RadGradAlert.success('Update succeeded');
       }
     });
   };
@@ -36,9 +35,9 @@ const ModerationQuestionCardWidget: React.FC<ModerationQuestionCardWidget> = ({ 
     // console.log('handle accept click', update);
     updateMethod.call({ collectionName: update.collectionName, updateData: update.updateInfo }, (error) => {
       if (error) {
-        RadGradAlert.failure('Update failed', error.message, 2500, error);
+        RadGradAlert.failure('Update failed', error.message, error);
       } else {
-        RadGradAlert.success('Update succeeded', '', 1500);
+        RadGradAlert.success('Update succeeded');
       }
     });
   };

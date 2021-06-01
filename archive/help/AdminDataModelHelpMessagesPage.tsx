@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 // @ts-ignore
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
 // @ts-ignore
-import RadGradAlerts from '../../app/imports/ui/utilities/RadGradAlert';
+import RadGradAlert from '../../app/imports/ui/utilities/RadGradAlert';
 // @ts-ignore
 import AdminPageMenu from '../../components/admin/AdminPageMenu';
 // @ts-ignore
@@ -30,7 +30,6 @@ import { dataModelActions } from '../../../redux/admin/data-model';
 import { getDatamodelCount } from './utilities/datamodel';
 
 const collection = HelpMessages; // the collection to use.
-const RadGradAlert = new RadGradAlerts();
 
 /**
  * Returns an array of Description pairs used in the ListCollectionWidget.
@@ -79,9 +78,9 @@ const AdminDataModelHelpMessagesPage: React.FC<AdminDataModelHelpMessagesPagePro
     const definitionData = doc; // create the definitionData may need to modify doc's values
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
-        RadGradAlert.failure('Add failed', error.message, 2500, error);
+        RadGradAlert.failure('Add failed', error.message, error);
       } else {
-        RadGradAlert.success('Add succeeded', '', 1500);
+        RadGradAlert.success('Add succeeded');
         // @ts-ignore
         formRef.current.reset();
       }
@@ -106,8 +105,8 @@ const AdminDataModelHelpMessagesPage: React.FC<AdminDataModelHelpMessagesPagePro
     const collectionName = collection.getCollectionName();
     const instance = idState;
     removeItMethod.callPromise({ collectionName, instance })
-      .catch((error => { RadGradAlert.failure('Delete failed', error.message, 2500, error);}))
-      .then(() => { RadGradAlert.success('Delete succeeded', '', 1500);})
+      .catch((error => { RadGradAlert.failure('Delete failed', error.message, error);}))
+      .then(() => { RadGradAlert.success('Delete succeeded');})
       .finally(() => {
         setShowUpdateForm(false);
         setId('');
@@ -129,9 +128,9 @@ const AdminDataModelHelpMessagesPage: React.FC<AdminDataModelHelpMessagesPagePro
     updateData.id = doc._id;
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
-        RadGradAlert.failure('Update failed', error.message, 2500, error);
+        RadGradAlert.failure('Update failed', error.message, error);
       } else {
-        RadGradAlert.success('Update succeeded', '', 1500);
+        RadGradAlert.success('Update succeeded');
         setShowUpdateForm(false);
         setId('');
       }

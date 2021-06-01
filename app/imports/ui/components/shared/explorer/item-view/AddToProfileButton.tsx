@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Icon, SemanticFLOATS } from 'semantic-ui-react';
-import RadGradAlerts from '../../../../utilities/RadGradAlert';
+import RadGradAlert from '../../../../utilities/RadGradAlert';
 import { CareerGoal, Course, Interest, MeteorError, Opportunity } from '../../../../../typings/radgrad';
 import { ProfileCareerGoals } from '../../../../../api/user/profile-entries/ProfileCareerGoalCollection';
 import { ProfileCourses } from '../../../../../api/user/profile-entries/ProfileCourseCollection';
@@ -10,7 +10,6 @@ import { defineMethod, removeItMethod } from '../../../../../api/base/BaseCollec
 import { PROFILE_ENTRY_TYPE, IProfileEntryTypes } from '../../../../../api/user/profile-entries/ProfileEntryTypes';
 import { createDefinitionData, getCollectionName } from './utilities/profile-button';
 
-const RadGradAlert = new RadGradAlerts();
 type ItemType = CareerGoal | Course | Interest | Opportunity;
 
 export interface AddToProfileButtonProps {
@@ -26,8 +25,8 @@ const handleAdd = (studentID: string, item: ItemType, type: IProfileEntryTypes) 
   const collectionName = getCollectionName(type);
   const definitionData = createDefinitionData(studentID, item, type);
   defineMethod.callPromise({ collectionName, definitionData })
-    .catch((error: MeteorError) => { RadGradAlert.failure('Failed to add to profile', error.message, 2500, error);})
-    .then(() => { RadGradAlert.success('Added to profile', '', 1500);});
+    .catch((error: MeteorError) => { RadGradAlert.failure('Failed to add to profile', error.message, error);})
+    .then(() => { RadGradAlert.success('Added to profile');});
 };
 
 const handleRemove = (studentID: string, item: ItemType, type: IProfileEntryTypes) => () => {
@@ -63,7 +62,7 @@ const handleRemove = (studentID: string, item: ItemType, type: IProfileEntryType
       break;
   }
   removeItMethod.callPromise({ collectionName, instance })
-    .catch((error) => { RadGradAlert.failure('Failed to remove from profile', error.message, 2500, error);});
+    .catch((error) => { RadGradAlert.failure('Failed to remove from profile', error.message, error);});
 };
 
 const AddToProfileButton: React.FC<AddToProfileButtonProps> = ({ studentID, item, type, added, inverted, floated }) => (

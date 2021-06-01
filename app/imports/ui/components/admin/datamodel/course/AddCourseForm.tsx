@@ -9,13 +9,12 @@ import MultiSelectField from '../../../form-fields/MultiSelectField';
 import { Course, CourseDefine, Interest } from '../../../../../typings/radgrad';
 import { courseNameToSlug, courseToName, docToName } from '../../../shared/utilities/data-model';
 import { interestSlugFromName } from '../../../shared/utilities/form';
-import RadGradAlerts from '../../../../utilities/RadGradAlert';
+import RadGradAlert from '../../../../utilities/RadGradAlert';
 
 interface AddCourseFormProps {
   interests: Interest[];
   courses: Course[];
 }
-const RadGradAlert = new RadGradAlerts();
 const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses }) => {
   let formRef;
   const handleAdd = (doc) => {
@@ -35,10 +34,10 @@ const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses }) => 
     // console.log(collectionName, definitionData);
     defineMethod.callPromise({ collectionName, definitionData })
       .catch((error) => {
-        RadGradAlert.failure('Failed adding User', error.message, 2500, error);
+        RadGradAlert.failure('Failed adding User', error.message, error);
       })
       .then(() => {
-        RadGradAlert.success('Add User Succeeded', '', 1500);
+        RadGradAlert.success('Add User Succeeded');
         formRef.reset();
       });
   };

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Card } from 'semantic-ui-react';
 import { useRouteMatch } from 'react-router-dom';
-import RadGradAlerts from '../../../utilities/RadGradAlert';
+import RadGradAlert from '../../../utilities/RadGradAlert';
 import { CourseInstance } from '../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { DegreePlannerStateNames } from '../../../pages/student/StudentDegreePlannerPage';
@@ -22,7 +22,6 @@ interface DetailCourseCardProps {
 
 
 const DetailCourseCard: React.FC<DetailCourseCardProps> = ({ instance  }) => {
-  const RadGradAlert = new RadGradAlerts();
   const [, setSelectedCiID] = useStickyState(DegreePlannerStateNames.selectedCiID, '');
   const [, setSelectedOiID] = useStickyState(DegreePlannerStateNames.selectedOiID, '');
   const [, setSelectedProfileTab] = useStickyState(DegreePlannerStateNames.selectedProfileTab, '');
@@ -37,7 +36,7 @@ const DetailCourseCard: React.FC<DetailCourseCardProps> = ({ instance  }) => {
     const collectionName = CourseInstances.getCollectionName();
     removeItMethod.callPromise({ collectionName, instance })
       .then(() => {
-        RadGradAlert.success('Remove Succeeded', '', 1500);
+        RadGradAlert.success('Remove Succeeded');
         setSelectedCiID('');
         setSelectedOiID('');
         setSelectedProfileTab(TabbedProfileEntryNames.profileOpportunities);

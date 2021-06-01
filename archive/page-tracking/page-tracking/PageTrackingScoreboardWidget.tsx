@@ -9,13 +9,11 @@ import { PageInterestsDailySnapshot } from '../../../../typings/radgrad';
 import { aggregateDailySnapshots, getCategory, getUrlCategory, AggregatedDailySnapshot, parseName } from './utilities/page-tracking';
 import { IPageInterestsCategoryTypes } from '../../../../api/page-tracking/PageInterestsCategoryTypes';
 import PageTrackingWidgetMessage from './PageTrackingWidgetMessage';
-import RadGradAlerts from '../../../app/imports/ui/utilities/RadGradAlert';
+import RadGradAlert from '../../../app/imports/ui/utilities/RadGradAlert';
 
 interface PageTrackingScoreboardWidgetProps {
   pageInterestsDailySnapshots: PageInterestsDailySnapshot[];
 }
-
-const RadGradAlert = new RadGradAlerts();
 
 const PageTrackingScoreboardWidget: React.FC<PageTrackingScoreboardWidgetProps> = ({ pageInterestsDailySnapshots }) => {
   const match = useRouteMatch();
@@ -57,8 +55,7 @@ const PageTrackingScoreboardWidget: React.FC<PageTrackingScoreboardWidgetProps> 
 
   const handleFilter = () => {
     if (startDate === undefined || endDate === undefined) {
-      const error = 'Date Selection Required';
-      RadGradAlert.failure('Date Selection Required', 'A Start and End Date selection is required.', 2500, error);
+      RadGradAlert.failure('Date Selection Required', 'A Start and End Date selection is required.');
       return;
     }
     const filteredDailySnapshots: PageInterestsDailySnapshot[] = PageInterestsDailySnapshots.find({

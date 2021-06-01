@@ -18,13 +18,11 @@ import {StudentProfile, UserInteractionDefine} from '../../../../typings/radgrad
 import {UserInteractionsTypes} from '../../../../api/analytic/UserInteractionsTypes';
 // @ts-ignore
 import {userInteractionDefineMethod} from '../../../../api/analytic/UserInteractionCollection.methods';
-import RadGradAlerts from '../../../app/imports/ui/utilities/RadGradAlert';
+import RadGradAlert from '../../../app/imports/ui/utilities/RadGradAlert';
 
 interface StudentShareInfoWidgetProps {
     profile: StudentProfile;
 }
-
-const RadGradAlert = new RadGradAlerts();
 
 const handleUpdateInformation = (doc): void => {
     const updateData = doc;
@@ -33,9 +31,9 @@ const handleUpdateInformation = (doc): void => {
     const username = doc.username;
     updateMethod.call({collectionName, updateData}, (error) => {
         if (error) {
-            RadGradAlert.failure('Update Failed', error.message, 2500, error);
+            RadGradAlert.failure('Update Failed', error.message, error);
         } else {
-            RadGradAlert.success('Update Succeeded', '', 1500);
+            RadGradAlert.success('Update Succeeded');
             // Define a user interaction that describes a user updating their share information
             const keys = ['shareUsername', 'sharePicture', 'shareWebsite', 'shareInterests', 'shareCareerGoals', 'shareCourses', 'shareOpportunities', 'shareLevel'];
             const modifiedList = [];

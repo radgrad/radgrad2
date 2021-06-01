@@ -3,13 +3,12 @@ import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, LongTextField, BoolField, SubmitField, ErrorsField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import RadGradAlerts from '../../../../utilities/RadGradAlert';
+import RadGradAlert from '../../../../utilities/RadGradAlert';
 import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
 import { OpportunityTypes } from '../../../../../api/opportunity/OpportunityTypeCollection';
 import slugify from '../../../../../api/slug/SlugCollection';
 
 const AddOpportunityTypeForm: React.FC = () => {
-  const RadGradAlert = new RadGradAlerts();
   let formRef;
   const handleAdd = (doc) => {
     // console.log('OpportunityTypes.handleAdd(%o)', doc);
@@ -17,9 +16,9 @@ const AddOpportunityTypeForm: React.FC = () => {
     const definitionData = doc;
     definitionData.slug = `${slugify(doc.name)}-opportunity-type`;
     defineMethod.callPromise({ collectionName, definitionData })
-      .catch((error) => { RadGradAlert.failure('Add failed', error.message, 2500, error);})
+      .catch((error) => { RadGradAlert.failure('Add failed', error.message, error);})
       .then(() => { 
-        RadGradAlert.success('Add succeeded', '', 1500);
+        RadGradAlert.success('Add succeeded');
         formRef.reset();
       });
   };

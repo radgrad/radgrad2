@@ -3,7 +3,7 @@ import { Button, Form, Modal } from 'semantic-ui-react';
 import SimpleSchema from 'simpl-schema';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { AutoForm, BoolField, ErrorsField, NumField, SubmitField, TextField } from 'uniforms-semantic';
-import RadGradAlerts from '../../../utilities/RadGradAlert';
+import RadGradAlert from '../../../utilities/RadGradAlert';
 import { updateMethod } from '../../../../api/base/BaseCollection.methods';
 import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
 import { Interests } from '../../../../api/interest/InterestCollection';
@@ -23,7 +23,6 @@ const EditStudentButton: React.FC<ManageStudentProps> = ({
   profileCareerGoals,
   profileInterests,
 }) => {
-  const RadGradAlert = new RadGradAlerts();
   const [open, setOpen] = useState(false);
 
   // console.log(student, careerGoals, courses, interests, opportunities, profileCareerGoals, profileCourses, profileInterests, profileOpportunities);
@@ -46,8 +45,8 @@ const EditStudentButton: React.FC<ManageStudentProps> = ({
     // updateData.profileOpportunities = doc.profileOpportunities.map((name) => Opportunities.findSlugByID(name));
     // console.log(collectionName, updateData);
     updateMethod.callPromise({ collectionName, updateData })
-      .then(() => { RadGradAlert.success('Student Updated', '', 1500);})
-      .catch((error) => { RadGradAlert.failure('Update Failed', error.message, 2500, error);});
+      .then(() => { RadGradAlert.success('Student Updated');})
+      .catch((error) => { RadGradAlert.failure('Update Failed', error.message, error);});
   };
 
   const updateStudentSchema = new SimpleSchema({

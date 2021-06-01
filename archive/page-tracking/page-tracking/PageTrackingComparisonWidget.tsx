@@ -13,12 +13,11 @@ import { Interests } from '../../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
 import { aggregateDailySnapshots, getCategory, getUrlCategory, AggregatedDailySnapshot, parseName, slugIDToSlugName } from './utilities/page-tracking';
 import PageTrackingWidgetMessage from './PageTrackingWidgetMessage';
-import RadGradAlerts from "../../../app/imports/ui/utilities/RadGradAlert";
+import RadGradAlert from "../../../app/imports/ui/utilities/RadGradAlert";
 
 interface PageTrackingComparisonWidgetProps {
   pageInterestsDailySnapshots: PageInterestsDailySnapshot[];
 }
-const RadGradAlert = new RadGradAlerts();
 const getOptions = (urlCategory: IPageInterestsCategoryTypes) => {
   switch (urlCategory) {
     case PageInterestsCategoryTypes.CAREERGOAL:
@@ -125,8 +124,7 @@ const PageTrackingComparisonWidget: React.FC<PageTrackingComparisonWidgetProps> 
 
   const handleFilter = (event: React.SyntheticEvent): void => {
     if (startDate === undefined || endDate === undefined) {
-      const error = 'Date Selection Required';
-      RadGradAlert.failure('Date Selection Required', 'A Start and End Date selection is required.', 2500, error);
+      RadGradAlert.failure('Date Selection Required', 'A Start and End Date selection is required.');
       return;
     }
     setItemsToData(event, true);

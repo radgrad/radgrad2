@@ -9,7 +9,7 @@ import { generateStudentEmailsMethod } from '../../../../app/imports/api/user/Us
 import { starBulkLoadJsonDataMethod } from '../../../../app/imports/api/star/StarProcessor.methods';
 import { homeActions } from '../../../redux/advisor/home';
 import { RootState } from '../../../redux/types';
-import RadGradAlerts from '../../../../app/imports/ui/utilities/RadGradAlert';
+import RadGradAlert from '../../../../app/imports/ui/utilities/RadGradAlert';
 
 /* global FileReader */
 
@@ -24,8 +24,6 @@ interface AdvisorStudentSelectorWidgetProps {
   interests: Interest[];
   careerGoals: CareerGoal[];
 }
-
-const RadGradAlert = new RadGradAlerts();
 
 const mapStateToProps = (state: RootState) => ({
   firstName: state.advisor.home.firstName,
@@ -78,7 +76,7 @@ const AdvisorStudentSelectorWidget: React.FC<AdvisorStudentSelectorWidgetProps> 
         const jsonData = JSON.parse(event.target.result);
         setFileData(jsonData);
       } catch (error) {
-        RadGradAlert.failure('Error reading data from file', 'Please ensure the file you selected is formatted properly', 2500, error);
+        RadGradAlert.failure('Error reading data from file', 'Please ensure the file you selected is formatted properly', error);
       }
     };
   };
@@ -89,9 +87,9 @@ const AdvisorStudentSelectorWidget: React.FC<AdvisorStudentSelectorWidgetProps> 
     const jsonData = fileDataState;
     starBulkLoadJsonDataMethod.call({ advisor, jsonData }, (error) => {
       if (error) {
-        RadGradAlert.failure('Error loading bulk STAR data', error.message, 2500, error);
+        RadGradAlert.failure('Error loading bulk STAR data', error.message, error);
       } else {
-        RadGradAlert.success('STAR Data loaded successfully', '', 1500);
+        RadGradAlert.success('STAR Data loaded successfully');
         setFileData('');
       }
     });
@@ -102,9 +100,9 @@ const AdvisorStudentSelectorWidget: React.FC<AdvisorStudentSelectorWidgetProps> 
     setIsEmailWorking(true);
     generateStudentEmailsMethod.call({}, (error, result) => {
       if (error) {
-        RadGradAlert.failure('Error during Generating Student Emails', error.message, 2500, error);
+        RadGradAlert.failure('Error during Generating Student Emails', error.message, error);
       } else {
-        RadGradAlert.success('Beginning Download...', '', 1500);
+        RadGradAlert.success('Beginning Download...');
         const data: any = {};
         data.name = 'Students';
         data.contents = result.students;

@@ -10,9 +10,7 @@ import { StudentProfiles } from '../../../../../api/user/StudentProfileCollectio
 import { sendEmailMethod } from '../../../../../api/email/Email.methods';
 import { RadGradProperties } from '../../../../../api/radgrad/RadGradProperties';
 import { getRecList, getStudentEmailsByLevel, EmailData } from './utilities/newsletter';
-import RadGradAlerts from '../../../../utilities/RadGradAlert';
-
-const RadGradAlert = new RadGradAlerts();
+import RadGradAlert from '../../../../utilities/RadGradAlert';
 
 /**
  * Schema for the form that controls sending email.
@@ -137,11 +135,11 @@ const AdminAnalyticsNewsletterWidget: React.FC = () => {
           }
         }, emailDelayMs);
       });
-      RadGradAlert.success('Emails Successfully Sent', '', 1500);
+      RadGradAlert.success('Emails Successfully Sent');
       setTestNewsletterWorking(false);
     } else {
       const error = 'Subject Line and Input Message Required';
-      RadGradAlert.failure('Subject Line and Input Message Required', 'You forgot to fill out either the Subject Line and/or the Input Message for the Emails!', 2500, error);
+      RadGradAlert.failure('Subject Line and Input Message Required', 'You forgot to fill out either the Subject Line and/or the Input Message for the Emails!', error);
     }
   };
 
@@ -180,11 +178,11 @@ const AdminAnalyticsNewsletterWidget: React.FC = () => {
           }
         }, emailDelayMs);
       });
-      RadGradAlert.success('Emails Successfully Sent', '', 1500);
+      RadGradAlert.success('Emails Successfully Sent');
       setLevelNewsletterWorking(false);
     } else {
       const error = 'Subject Line and Input Message Required';
-      RadGradAlert.failure('Subject Line and Input Message Required', 'You forgot to fill out either the Subject Line and/or the Input Message for the Emails!', 2500, error);
+      RadGradAlert.failure('Subject Line and Input Message Required', 'You forgot to fill out either the Subject Line and/or the Input Message for the Emails!', error);
     }
   };
 
@@ -224,11 +222,11 @@ const AdminAnalyticsNewsletterWidget: React.FC = () => {
           }
         }, emailDelayMs);
       });
-      RadGradAlert.success('Emails Successfully Sent', '', 1500);
+      RadGradAlert.success('Emails Successfully Sent');
       setAllNewsletterWorking(false);
     } else {
       const error = 'Subject Line and Input Message Required';
-      RadGradAlert.failure('Subject Line and Input Message Required', 'You forgot to fill out either the Subject Line and/or the Input Message for the Emails!', 2500, error);
+      RadGradAlert.failure('Subject Line and Input Message Required', 'You forgot to fill out either the Subject Line and/or the Input Message for the Emails!', error);
     }
   };
 

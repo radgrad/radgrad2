@@ -3,7 +3,7 @@ import { Button, Confirm, Icon, Tab } from 'semantic-ui-react';
 import _ from 'lodash';
 import moment from 'moment';
 import { withTracker } from 'meteor/react-meteor-data';
-import RadGradAlerts from '../../utilities/RadGradAlert';
+import RadGradAlert from '../../utilities/RadGradAlert';
 import { Courses } from '../../../api/course/CourseCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { AdminProfiles } from '../../../api/user/AdminProfileCollection';
@@ -125,7 +125,6 @@ const itemTitle = (user: BaseProfile): React.ReactNode => (
 );
 
 const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) => {
-  const RadGradAlert = new RadGradAlerts();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
   const [showUpdateFormState, setShowUpdateForm] = useState(false);
@@ -152,8 +151,8 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
       const instance = profile._id;
       // console.log('removeIt.call(%o, %o)', collectionName, instance);
       removeItMethod.callPromise({ collectionName, instance })
-        .catch((error) => { RadGradAlert.failure('Failed Deleting User', error.message, 2500, error);})
-        .then(() => { RadGradAlert.success('Delete User Succeeded', '', 1500);})
+        .catch((error) => { RadGradAlert.failure('Failed Deleting User', error.message, error);})
+        .then(() => { RadGradAlert.success('Delete User Succeeded');})
         .finally(() => {
           setShowUpdateForm(false);
           setId('');
@@ -193,9 +192,9 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
     }
     // console.log(updateData);
     updateMethod.callPromise({ collectionName, updateData })
-      .catch((error) => { RadGradAlert.failure('Update Failed', error.message, 2500, error);})
+      .catch((error) => { RadGradAlert.failure('Update Failed', error.message, error);})
       .then(() => {
-        RadGradAlert.success('Update Succeeded', '', 1500);
+        RadGradAlert.success('Update Succeeded');
         setShowUpdateForm(false);
         setId('');
       });

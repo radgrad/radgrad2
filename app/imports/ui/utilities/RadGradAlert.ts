@@ -3,25 +3,40 @@ import Swal from 'sweetalert2';
 class RadGradAlert {
 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  success(title, text, timer) {
+  static success(title, text?) {
     Swal.fire({
       title: title,
       text: text,
+      timer: 2000,
       icon: 'success',
-      timer: timer,
+      iconColor: '#38840F',
       showConfirmButton: false,
+      backdrop: 'rgba(52, 140, 114, 0.4)',
     });
   }
 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  failure(title, text, timer, error) {
-    Swal.fire({
-      title: title,
-      text: text,
-      icon: 'error',
-      timer: timer,
-    });
-    console.error('Error Alert:', error);
+  static failure(title, text, error?) {
+    if (error === undefined) {
+      Swal.fire({
+        title: title,
+        text: text,
+        icon: 'error',
+        iconColor: '#CA4864',
+        timer: 3000,
+        backdrop: 'rgba(52, 140, 114, 0.4)',
+      });
+    } else {
+      Swal.fire({
+        title: title,
+        text: text,
+        icon: 'error',
+        iconColor: '#CA4864',
+        timer: 3000,
+        backdrop: 'rgba(52, 140, 114, 0.4)',
+      });
+      console.error('Error Alert:', error);
+    }
   }
 }
 

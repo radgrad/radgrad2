@@ -5,7 +5,7 @@ import { Opportunities } from '../../../../api/opportunity/OpportunityCollection
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { Users } from '../../../../api/user/UserCollection';
 import { updateMethod } from '../../../../api/base/BaseCollection.methods';
-import RadGradAlerts from '../../../app/imports/ui/utilities/RadGradAlert';
+import RadGradAlert from '../../../app/imports/ui/utilities/RadGradAlert';
 
 interface ModerationReviewCardWidget {
   item: any; // TODO can we type this?
@@ -14,7 +14,6 @@ interface ModerationReviewCardWidget {
 }
 
 const ModerationReviewCardWidget: React.FC<ModerationReviewCardWidget> = ({ item, handleAccept, handleReject }) => {
-  const RadGradAlert = new RadGradAlerts();
   const [moderatorCommentState, setModeratorComment] = useState('');
 
   const getReviewee = () => {
@@ -34,9 +33,9 @@ const ModerationReviewCardWidget: React.FC<ModerationReviewCardWidget> = ({ item
     // console.log('handle accept click', update);
     updateMethod.call({ collectionName: update.collectionName, updateData: update.updateInfo }, (error) => {
       if (error) {
-        RadGradAlert.failure('Update failed', error.message, 2500, error);
+        RadGradAlert.failure('Update failed', error.message, error);
       } else {
-        RadGradAlert.success('Update succeeded', '', 1500);
+        RadGradAlert.success('Update succeeded');
       }
     });
   };
@@ -47,9 +46,9 @@ const ModerationReviewCardWidget: React.FC<ModerationReviewCardWidget> = ({ item
     // console.log('handle accept click', update);
     updateMethod.call({ collectionName: update.collectionName, updateData: update.updateInfo }, (error) => {
       if (error) {
-        RadGradAlert.failure('Update failed', error.message, 2500, error);
+        RadGradAlert.failure('Update failed', error.message, error);
       } else {
-        RadGradAlert.success('Update succeeded', '', 1500);
+        RadGradAlert.success('Update succeeded');
       }
     });
   };

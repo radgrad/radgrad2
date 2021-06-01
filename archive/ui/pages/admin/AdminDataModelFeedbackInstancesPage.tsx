@@ -1,7 +1,7 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
 import { Confirm, Icon } from 'semantic-ui-react';
-import RadGradAlerts from '../../../../app/imports/ui/utilities/RadGradAlert';
+import RadGradAlert from '../../../../app/imports/ui/utilities/RadGradAlert';
 import { StudentProfiles } from '../../../../app/imports/api/user/StudentProfileCollection';
 import ListCollectionWidget from '../../../../app/imports/ui/components/admin/datamodel/ListCollectionWidget';
 import { DescriptionPair, FeedbackInstanceDefine, StudentProfile, FeedbackInstance } from '../../../../app/imports/typings/radgrad';
@@ -15,7 +15,6 @@ import { dataModelActions } from '../../../redux/admin/data-model';
 import { getDatamodelCount } from '../../../../app/imports/ui/pages/admin/utilities/datamodel';
 import PageLayout from '../../../../app/imports/ui/pages/PageLayout';
 
-const RadGradAlert = new RadGradAlerts();
 const collection = FeedbackInstances; // the collection to use.
 
 /**
@@ -78,9 +77,9 @@ const AdminDataModelFeedbackInstancesPage: React.FC<AdminDataModelFeedbackInstan
     // console.log(collectionName, doc, definitionData);
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
-        RadGradAlert.failure('Add failed', error.message, 2500, error);
+        RadGradAlert.failure('Add failed', error.message, error);
       } else {
-        RadGradAlert.success('Add succeeded', '', 1500);
+        RadGradAlert.success('Add succeeded');
         // @ts-ignore
         formRef.current.reset();
       }
@@ -106,9 +105,9 @@ const AdminDataModelFeedbackInstancesPage: React.FC<AdminDataModelFeedbackInstan
     const instance = idState;
     removeItMethod.call({ collectionName, instance }, (error) => {
       if (error) {
-        RadGradAlert.failure('Delete failed', error.message, 2500, error);
+        RadGradAlert.failure('Delete failed', error.message, error);
       } else {
-        RadGradAlert.success('Delete succeeded', '', 1500);
+        RadGradAlert.success('Delete succeeded');
       }
       setShowUpdateForm(false);
       setId('');
@@ -132,9 +131,9 @@ const AdminDataModelFeedbackInstancesPage: React.FC<AdminDataModelFeedbackInstan
     // console.log(collectionName, updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
-        RadGradAlert.failure('Update failed', error.message, 2500, error);
+        RadGradAlert.failure('Update failed', error.message, error);
       } else {
-        RadGradAlert.success('Update succeeded', '', 1500);
+        RadGradAlert.success('Update succeeded');
         setShowUpdateForm(false);
         setId('');
       }

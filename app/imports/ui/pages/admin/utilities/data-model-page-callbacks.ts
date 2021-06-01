@@ -1,13 +1,12 @@
-import RadGradAlerts from '../../../utilities/RadGradAlert';
+import RadGradAlert from '../../../utilities/RadGradAlert';
 import { removeItMethod } from '../../../../api/base/BaseCollection.methods';
 
-const RadGradAlert = new RadGradAlerts();
 
 export const updateCallBack = (setShowUpdateForm, setId) => (error) => {
   if (error) {
-    RadGradAlert.failure('Update failed', error.message, 2500, error);
+    RadGradAlert.failure('Update failed', error.message, error);
   } else {
-    RadGradAlert.success('Update succeeded', '', 1500);
+    RadGradAlert.success('Update succeeded');
     setShowUpdateForm(false);
     setId('');
   }
@@ -15,9 +14,9 @@ export const updateCallBack = (setShowUpdateForm, setId) => (error) => {
 
 export const removeItCallback = (setShowUpdateForm, setId, setConfirmOpen) => (error) => {
   if (error) {
-    RadGradAlert.failure('Delete failed', error.message, 2500, error);
+    RadGradAlert.failure('Delete failed', error.message, error);
   } else {
-    RadGradAlert.success('Delete succeeded', '', 1500);
+    RadGradAlert.success('Delete succeeded');
   }
   setShowUpdateForm(false);
   setId('');

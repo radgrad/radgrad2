@@ -14,14 +14,13 @@ import RatingField from './RatingField';
 import { AcademicTerm, Review, ReviewUpdate } from '../../../../typings/radgrad';
 import { getUsername } from '../../shared/utilities/router';
 import { ReviewTypes } from '../../../../api/review/ReviewTypes';
-import RadGradAlerts from '../../../utilities/RadGradAlert';
+import RadGradAlert from '../../../utilities/RadGradAlert';
 
 interface StudentExplorerEditReviewWidgetProps {
   review: Review;
   itemToReview: any;
 }
 
-const RadGradAlert = new RadGradAlerts();
 const collection = Reviews;
 
 const StudentExplorerEditReviewForm: React.FC<StudentExplorerEditReviewWidgetProps> = ({ review, itemToReview }) => {
@@ -44,8 +43,8 @@ const StudentExplorerEditReviewForm: React.FC<StudentExplorerEditReviewWidgetPro
     updateData.moderated = false;
     updateData.id = review._id;
     updateMethod.callPromise({ collectionName, updateData })
-      .catch((error) => { RadGradAlert.failure('Update Failed', error.message, 2500, error);})
-      .then(() => { RadGradAlert.success('Update Succeeded', '', 1500);});
+      .catch((error) => { RadGradAlert.failure('Update Failed', error.message, error);})
+      .then(() => { RadGradAlert.success('Update Succeeded');});
   };
 
   const handleDelete = (e: any): void => {
@@ -58,8 +57,8 @@ const StudentExplorerEditReviewForm: React.FC<StudentExplorerEditReviewWidgetPro
     const id = review._id;
     const collectionName = collection.getCollectionName();
     removeItMethod.callPromise({ collectionName, instance: id })
-      .catch((error) => { RadGradAlert.failure('Delete failed', error.message, 2500, error);})
-      .then(() => { RadGradAlert.success('Delete succeeded', '', 1500);});
+      .catch((error) => { RadGradAlert.failure('Delete failed', error.message, error);})
+      .then(() => { RadGradAlert.success('Delete succeeded');});
     setConfirmOpen(false);
   };
 

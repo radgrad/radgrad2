@@ -10,15 +10,13 @@ import slugify, { Slugs } from '../../../../../api/slug/SlugCollection';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
 import { Interest } from '../../../../../typings/radgrad';
 import { docToName } from '../../../shared/utilities/data-model';
-import RadGradAlerts from '../../../../utilities/RadGradAlert';
+import RadGradAlert from '../../../../utilities/RadGradAlert';
 
 interface AddCareerGoalFormProps {
   interests: Interest[];
 }
 
 const AddCareerGoalForm: React.FC<AddCareerGoalFormProps> = ({ interests }) => {
-
-  const RadGradAlert = new RadGradAlerts();
   let formRef;
 
   const handleAdd = (doc) => {
@@ -31,10 +29,10 @@ const AddCareerGoalForm: React.FC<AddCareerGoalFormProps> = ({ interests }) => {
     definitionData.slug = slugify(doc.name);
     defineMethod.callPromise({ collectionName, definitionData })
       .catch((error) => {
-        RadGradAlert.failure('Failed adding User', error.message, 2500, error);
+        RadGradAlert.failure('Failed adding User', error.message, error);
       })
       .then(() => {
-        RadGradAlert.success('Add User Succeeded', '', 1500);
+        RadGradAlert.success('Add User Succeeded');
         formRef.reset();
       });
   };
