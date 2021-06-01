@@ -39,9 +39,9 @@ const TermsAndConditionsPage: React.FC = () => {
     updateData.id = urlUser._id;
     updateData.acceptedTermsAndConditions = moment().format('YYYY-MM-DD');
     // console.log('handleAccept', collectionName, updateData);
-    <Redirect to={{ pathname: '/home' }} key={`${urlUser}-accepted`}/>;
     updateMethod.callPromise({ collectionName, updateData })
       .catch((error) => console.error('Failed to update acceptedTermsAndConditions', error));
+    return <Redirect to={{ pathname: '/home' }} key={`${urlUser}-accepted`}/>;
   };
 
   const rejectToTerm = () => {
@@ -54,7 +54,6 @@ const TermsAndConditionsPage: React.FC = () => {
       cancelButtonText: 'Cancel',
     }).then((result) => {
       if (result.isConfirmed) {
-        <Redirect to={{ pathname: '/signout-refused' }} key={`${urlUser}-refused-terms`} />;
         // need to inform the admin that a student has disagreed to the terms.
         const emailData = {
           to: RadGradProperties.getAdminEmail(),
@@ -75,6 +74,7 @@ const TermsAndConditionsPage: React.FC = () => {
         updateData.refusedTermsAndConditions = moment().format('YYYY-MM-DD');
         updateMethod.callPromise({ collectionName, updateData })
           .catch((error) => console.error('Failed to update refusedTermsAndConditions', error));
+        return <Redirect to={{ pathname: '/signout-refused' }} key={`${urlUser}-refused-terms`} />;
       }
     });
   };
