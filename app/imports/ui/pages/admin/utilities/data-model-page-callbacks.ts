@@ -67,9 +67,9 @@ export const handleOpenUpdateWrapper = (setShowUpdateForm, setId) => (evt, inst)
   // console.log('handleOpenUpdate inst=%o', evt, inst);
   setShowUpdateForm(true);
   setId(inst.id);
-  window.scroll({
-    top: 0,
-    left: 0,
-    behavior: 'smooth',
-  });
+  scrollToTop();
+};
+
+export const scrollToTop = () => {
+  window.scroll({ top: 0, left: 0, behavior: 'smooth' });
 };
