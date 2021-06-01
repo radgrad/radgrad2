@@ -1,7 +1,7 @@
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import ReactMarkdownWithHtml from 'react-markdown/with-html';
-import { Redirect } from 'react-router';
 import Swal from 'sweetalert2';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
@@ -22,6 +22,8 @@ Here are the terms and conditions for using RadGrad.
 
 /** See https://www.radgrad.org/docs/developers/patterns/components-methods for documentation. */
 const TermsAndConditionsPage: React.FC = () => {
+  const history = useHistory();
+  const rejectHistory = useHistory();
   const currentUser = Meteor.user() ? Meteor.user().username : '';
   const [terms, setTerms] = useState('');
   const urlUser = Users.getProfile(currentUser);
@@ -39,6 +41,9 @@ const TermsAndConditionsPage: React.FC = () => {
     updateData.id = urlUser._id;
     updateData.acceptedTermsAndConditions = moment().format('YYYY-MM-DD');
     // console.log('handleAccept', collectionName, updateData);
+    const agreePath = `/${urlUser.role.toLowerCase()}/${currentUser.toLowerCase()}/home`;
+    history.push(agreePath);
+
     updateMethod.callPromise({ collectionName, updateData })
       .catch((error) => console.error('Failed to update acceptedTermsAndConditions', error));
   };
@@ -73,6 +78,9 @@ const TermsAndConditionsPage: React.FC = () => {
         updateData.refusedTermsAndConditions = moment().format('YYYY-MM-DD');
         updateMethod.callPromise({ collectionName, updateData })
           .catch((error) => console.error('Failed to update refusedTermsAndConditions', error));
+        urlUser.getChecklistItem();
+        const disagreePath = `/${urlUser.role.toLowerCase()}/${currentUser.toLowerCase()}/home`;
+        rejectHistory.push(disagreePath);
       }
     });
   };
