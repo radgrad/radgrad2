@@ -71,6 +71,7 @@ const WriteReviews: React.FC<WriteReviewsProps> = ({ unreviewedCourses, unreview
     definitionData.student = username;
     definitionData.reviewType = reviewType as ReviewTypes;
     definitionData.reviewee = reviewee;
+    definitionData.visible = false;
     // console.log(collectionName, definitionData);
     defineMethod.callPromise({ collectionName, definitionData })
       .catch((error) => {
