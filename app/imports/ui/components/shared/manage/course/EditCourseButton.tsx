@@ -23,6 +23,7 @@ const EditCourseButton: React.FC<EditCourseButtonProps> = ({ course, courses, in
 
   const model: CourseUpdate = course;
   model.interests = course.interestIDs.map((id) => Interests.findDoc(id).name);
+  const courseName = Courses.getName(course._id);
 
   const handleSubmit = (doc) => {
     // console.log('handleSubmit', doc);
@@ -83,7 +84,7 @@ const EditCourseButton: React.FC<EditCourseButtonProps> = ({ course, courses, in
       onOpen={() => setOpen(true)}
       open={open}
       trigger={<Button basic color='green' key={`${course._id}-edit-button`}>EDIT</Button>}>
-      <Modal.Header>{`Edit ${course.num} ${course.name}`}</Modal.Header>
+      <Modal.Header>{`Edit ${courseName}`}</Modal.Header>
       <Modal.Content>
         <AutoForm model={model} schema={formSchema} showInlineError onSubmit={(doc) => {
           handleSubmit(doc);

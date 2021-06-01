@@ -1,6 +1,7 @@
 import { landingNavBar } from './navbar.landing.component';
 import { advisorNavBar } from './navbar.advisor.component';
 import { signinPage } from './signin.page';
+import { explorerPages } from './explorer.pages';
 import {
   advisorHomePage,
   advisorFacultyVisibilityPage,
@@ -73,3 +74,15 @@ test('Test advisor top-level pages', async (testController) => {
   await advisorNavBar.gotoManageOpportunitiesPage(testController);
   await manageOpportunitiesPage.isDisplayed(testController);
 });
+
+test('Test adding and removing interests and careers to advisor profile', async (testController) => {
+  await landingNavBar.gotoAdvisorLogin(testController);
+  await signinPage.signin(testController, credentials.advisor);
+
+  await advisorNavBar.gotoInterestsExplorerPage(testController);
+  await explorerPages.testAddAndRemove(testController, 'angular');
+
+  await advisorNavBar.gotoCareerGoalsExplorerPage(testController);
+  await explorerPages.testAddAndRemove(testController, 'game-developer');
+});
+

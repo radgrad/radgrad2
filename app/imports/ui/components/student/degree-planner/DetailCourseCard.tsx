@@ -31,6 +31,7 @@ const DetailCourseCard: React.FC<DetailCourseCardProps> = ({ instance  }) => {
   const futureP = courseTerm.termNumber >= currentTerm.termNumber;
   const termName = AcademicTerms.getShortName(instance.termID);
   const course = Courses.findDoc(instance.courseID);
+  const courseName = Courses.getName(course._id);
 
   const handleRemove = () => {
     const collectionName = CourseInstances.getCollectionName();
@@ -55,9 +56,7 @@ const DetailCourseCard: React.FC<DetailCourseCardProps> = ({ instance  }) => {
         <Card.Content style={contentStyle}>
           <IceHeader ice={instance.ice} />
           <Card.Header>
-            <h4>
-              {course.num}: {course.name}
-            </h4>
+            <h4>{courseName}</h4>
           </Card.Header>
         </Card.Content>
         <Card.Content style={contentStyle}>
