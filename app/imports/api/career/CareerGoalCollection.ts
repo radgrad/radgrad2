@@ -26,7 +26,7 @@ class CareerGoalCollection extends BaseSlugCollection {
       description: { type: String },
       interestIDs: [SimpleSchema.RegEx.Id],
       retired: { type: Boolean, optional: true },
-      picture: { type: String, optional: true },
+      picture: { type: String, optional: true, defaultValue: 'header-career.png' },
     }));
     this.defineSchema = new SimpleSchema({
       name: { type: String },
@@ -139,7 +139,6 @@ class CareerGoalCollection extends BaseSlugCollection {
   public findNames(instanceIDs: string[]) {
     return instanceIDs.map((instanceID) => this.findDoc(instanceID).name);
   }
-
   /**
    * Returns a list of Courses that have common interests.
    * @param {string} docIdOrSlug an interest ID or slug.

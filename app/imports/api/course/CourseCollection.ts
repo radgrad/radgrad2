@@ -43,7 +43,7 @@ class CourseCollection extends BaseSlugCollection {
       'prerequisites.$': String,
       repeatable: { type: Boolean, optional: true },
       retired: { type: Boolean, optional: true },
-      picture: { type: String, optional: true },
+      picture: { type: String, optional: true, defaultValue: 'header-career.png' },
     }));
     this.defineSchema = new SimpleSchema({
       name: String,

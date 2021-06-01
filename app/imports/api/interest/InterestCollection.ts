@@ -29,7 +29,7 @@ class InterestCollection extends BaseSlugCollection {
       description: { type: String },
       interestTypeID: { type: SimpleSchema.RegEx.Id },
       retired: { type: Boolean, optional: true },
-      picture: { type: String, optional: true },
+      picture: { type: String, optional: true, defaultValue: 'header-career.png' },
     }));
     this.defineSchema = new SimpleSchema({
       name: String,

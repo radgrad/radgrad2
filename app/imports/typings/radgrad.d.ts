@@ -268,6 +268,7 @@ export interface Course extends Document {
   prerequisites?: string[];
   repeatable?: boolean;
   retired?: boolean;
+  picture?: string;
 }
 
 export interface CourseDefine extends DumpOne {
