@@ -1,9 +1,11 @@
 import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
+import { Grid } from 'semantic-ui-react';
+import { Review } from '../../../typings/radgrad';
+import ModerationColumnWidget from '../../components/shared/moderation/ModerationColumnWidget';
 import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 import { Reviews } from '../../../api/review/ReviewCollection';
-import AdminModerationWidget, { ModerationWidgetProps } from '../../components/shared/moderation/ModerationWidget';
 
 const headerPaneTitle = 'Manage student-submitted reviews';
 const headerPaneBody = `
@@ -12,15 +14,51 @@ Students can submit reviews of courses and opportunities.
 Faculty and advisors should check these reviews to ensure they are appropriate for public display.
 `;
 
+interface ModerationWidgetProps {
+  opportunityReviews: Review[];
+  courseReviews: Review[];
+}
+
+const handleAcceptReview = (item, comments) => {
+  // console.log('take in a review, give back an object w/ collection name and update data');
+  // console.log(item);
+  const updateInfo = { id: item._id, moderated: true, mentorComment: comments };
+  const collectionName = Reviews.getCollectionName();
+  return {
+    updateInfo,
+    collectionName,
+  };
+};
+
+const handleRejectReview = (item, comments) => {
+  // console.log('take in a review, give back an object w/ collection name and update data');
+  // console.log(item);
+  const updateInfo = { id: item._id, moderated: true, visible: false, mentorComment: comments };
+  const collectionName = Reviews.getCollectionName();
+  return {
+    updateInfo,
+    collectionName,
+  };
+};
+
 const ManageReviewsPage: React.FC<ModerationWidgetProps> = ({ courseReviews, opportunityReviews }) => (
   <PageLayout id={PAGEIDS.MANAGE_REVIEWS} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
-    <AdminModerationWidget courseReviews={courseReviews} opportunityReviews={opportunityReviews} />
+    <Grid columns="equal" divided="vertically">
+      <Grid.Column>
+        <ModerationColumnWidget handleAccept={handleAcceptReview} handleReject={handleRejectReview} reviews={courseReviews} isReview type="COURSE" />
+      </Grid.Column>
+      <Grid.Column>
+        <ModerationColumnWidget handleAccept={handleAcceptReview} handleReject={handleRejectReview} reviews={opportunityReviews} isReview type="OPPORTUNITY" />
+      </Grid.Column>
+    </Grid>
   </PageLayout>
 );
 
-const ManageReviewsPageContainer = withTracker(() => ({
-  opportunityReviews: Reviews.findNonRetired({ moderated: false, reviewType: 'opportunity' }),
-  courseReviews: Reviews.findNonRetired({ moderated: false, reviewType: 'course' }),
-}))(ManageReviewsPage);
-
-export default ManageReviewsPageContainer;
+export default withTracker(() => {
+  const opportunityReviews = Reviews.findNonRetired({ moderated: false, reviewType: 'opportunity' });
+  const courseReviews = Reviews.findNonRetired({ moderated: false, reviewType: 'course' });
+  return {
+    opportunityReviews,
+    courseReviews,
+  };
+})(ManageReviewsPage);
