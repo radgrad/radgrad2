@@ -6,7 +6,7 @@ import SandboxStickyState3 from './SandboxStickyState3';
 
 const headerPaneTitle = 'SandBox: Sticky State';
 const headerPaneBody = 'Example use of useStickyState (April, 2021)';
-const headerPaneImage = 'header-sandbox.png';
+const headerPaneImage = 'images/header-panel/header-sandbox.png';
 
 const SandBoxStickyStatePage: React.FC = () => (
   <PageLayout id="sandbox-sticky-state-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>

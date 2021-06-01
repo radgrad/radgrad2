@@ -26,14 +26,14 @@ class CareerGoalCollection extends BaseSlugCollection {
       description: { type: String },
       interestIDs: [SimpleSchema.RegEx.Id],
       retired: { type: Boolean, optional: true },
-      picture: { type: String, optional: true, defaultValue: 'header-career.png' },
+      picture: { type: String, optional: true, defaultValue: 'images/header-panel/header-career.png' },
     }));
     this.defineSchema = new SimpleSchema({
       name: { type: String },
       slug: { type: String },
       description: { type: String },
       interests: [String],
-      picture: { type: String, optional: true, defaultValue: 'header-career.png' },
+      picture: { type: String, optional: true, defaultValue: 'images/header-panel/header-career.png' },
     });
     // name, description, interests
     this.updateSchema = new SimpleSchema({
@@ -42,7 +42,7 @@ class CareerGoalCollection extends BaseSlugCollection {
       interests: { type: Array, optional: true },
       'interests.$': String,
       retired: { type: Boolean, optional: true },
-      picture: { type: String, optional: true, defaultValue: 'header-career.png' },
+      picture: { type: String, optional: true },
     });
   }
 
