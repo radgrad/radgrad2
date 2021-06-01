@@ -1,6 +1,7 @@
 import { landingNavBar } from './navbar.landing.component';
 import { facultyNavBar } from './navbar.faculty.component';
 import { signinPage } from './signin.page';
+import { explorerPages } from './explorer.pages';
 import {
   facultyHomePage,
   manageOpportunitiesPage,
@@ -69,4 +70,15 @@ test('Test faculty top-level pages', async (testController) => {
   await facultyNavBar.gotoManageReviewPage(testController);
   await manageReviewsPage.isDisplayed(testController);
 
+});
+
+test('Test adding and removing interests and careers to faculty profile', async (testController) => {
+  await landingNavBar.gotoFacultyLogin(testController);
+  await signinPage.signin(testController, credentials.faculty);
+
+  await facultyNavBar.gotoInterestsExplorerPage(testController);
+  await explorerPages.testAddAndRemove(testController, 'angular');
+
+  await facultyNavBar.gotoCareerGoalsExplorerPage(testController);
+  await explorerPages.testAddAndRemove(testController, 'game-developer');
 });
