@@ -33,7 +33,7 @@ class CareerGoalCollection extends BaseSlugCollection {
       slug: { type: String },
       description: { type: String },
       interests: [String],
-      picture: { type: String, optional: true },
+      picture: { type: String, optional: true, defaultValue: 'header-career.png' },
     });
     // name, description, interests
     this.updateSchema = new SimpleSchema({
@@ -42,7 +42,7 @@ class CareerGoalCollection extends BaseSlugCollection {
       interests: { type: Array, optional: true },
       'interests.$': String,
       retired: { type: Boolean, optional: true },
-      picture: { type: String, optional: true },
+      picture: { type: String, optional: true, defaultValue: 'header-career.png' },
     });
   }
 
