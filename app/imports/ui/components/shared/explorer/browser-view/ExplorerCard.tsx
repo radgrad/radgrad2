@@ -7,6 +7,7 @@ import { docToName, docToShortDescription, itemToSlugName } from '../../utilitie
 import { buildExplorerSlugRoute } from '../../utilities/router';
 import InterestList from '../../InterestList';
 import { EXPLORER_TYPE } from '../../../../utilities/ExplorerUtils';
+import { Courses } from '../../../../../api/course/CourseCollection';
 
 interface ProfileCardProps {
   item: {
@@ -14,6 +15,7 @@ interface ProfileCardProps {
     name: string;
     interestIDs: string[];
     termIDs?:string[];
+    slugID: string,
     num?:string;
   };
   type: string;
@@ -24,7 +26,7 @@ interface ProfileCardProps {
 
 const ExplorerCard: React.FC<ProfileCardProps> = ({ item, type, inProfile }) => {
   const match = useRouteMatch();
-  const itemName = (type === EXPLORER_TYPE.COURSES) ? `${item.name} (${item.num})` : docToName(item);
+  const itemName = (type === EXPLORER_TYPE.COURSES) ? Courses.getName(item._id) : docToName(item);
   const itemShortDescription = docToShortDescription(item);
   const slugName = itemToSlugName(item);
   return (

@@ -45,6 +45,7 @@ const LandingCourseExplorerPage: React.FC<CourseExplorerProps> = ({ course }) =>
   const match = useRouteMatch();
   const relatedCareerGoals = Courses.findRelatedCareerGoals(course._id);
   const relatedOpportunities = Courses.findRelatedOpportunities(course._id);
+  const title = Courses.getName(course._id);
   return (
     <div>
       <LandingExplorerMenuBar />
@@ -57,11 +58,9 @@ const LandingCourseExplorerPage: React.FC<CourseExplorerProps> = ({ course }) =>
             </Grid.Column>
 
             <Grid.Column width={13}>
-              <RadGradSegment header={<RadGradHeader title={course.name} />}>
+              <RadGradSegment header={<RadGradHeader title={title} />}>
                 <Grid columns={2} stackable>
                   <Grid.Column width="six">
-                    <b>Course Number:</b> {course.num}
-                    <br/>
                     <b>Credit Hours:</b> {course.creditHrs}
                   </Grid.Column>
                   <Grid.Column width="ten">

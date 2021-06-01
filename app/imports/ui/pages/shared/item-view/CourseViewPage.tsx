@@ -57,7 +57,7 @@ const CourseViewPage: React.FC<CourseViewPageProps> = ({
   courses,
   interests,
 }) => {
-  const headerPaneTitle = `${course.name} (${course.num})`;
+  const headerPaneTitle = Courses.getName(course._id);
   const headerPaneImage = 'header-courses.png';
   const added = ProfileCourses.findNonRetired({
     studentID: profile.userID,
