@@ -76,15 +76,19 @@ test('Test all student top-level pages', async (testController) => {
   await communityPage.isDisplayed(testController);
 });
 
-test('Test adding and removing interests, careers, courses, and opportunities to profile', async (testController) => {
+test('Test adding and removing interests, careers, courses, and opportunities to student profile', async (testController) => {
   await landingNavBar.gotoStudentLogin(testController);
   await signinPage.signin(testController, credentials.student.abi);
+
   await studentNavBar.gotoInterestsExplorerPage(testController);
   await explorerPages.testAddAndRemove(testController, 'angular');
+
   await studentNavBar.gotoCareerGoalsExplorerPage(testController);
   await explorerPages.testAddAndRemove(testController, 'game-developer');
+
   await studentNavBar.gotoCourseExplorerPage(testController);
   await explorerPages.testAddAndRemove(testController, 'ics_102');
+
   await studentNavBar.gotoOpportunitiesPage(testController);
   await explorerPages.testAddAndRemove(testController, 'allnet');
 });
