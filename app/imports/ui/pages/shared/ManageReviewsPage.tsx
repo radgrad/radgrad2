@@ -19,9 +19,9 @@ interface ModerationWidgetProps {
   courseReviews: Review[];
 }
 
-const handleReview = (item, comments, approved) => {
+const handleReview = (item: Review, comments: string, approved: boolean) => {
   // If the review is approved, the visible review filled will be true
-  const updateInfo = { id: item._id, moderated: true, visible: approved, mentorComment: comments };
+  const updateInfo = { id: item._id, moderated: true, visible: approved, moderatorComments: comments };
   const collectionName = Reviews.getCollectionName();
   return {
     updateInfo,
