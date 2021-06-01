@@ -22,7 +22,6 @@ import RelatedOpportunities from '../../../components/shared/RelatedOpportunitie
 import PageLayout from '../../PageLayout';
 import { getAssociationRelatedCourses, getAssociationRelatedOpportunities } from '../utilities/getExplorerRelatedMethods';
 import RelatedCourses from '../../../components/shared/RelatedCourses';
-import { getSlug } from '../../../components/landing/utilities/helper-functions';
 
 interface CourseViewPageProps {
   profileCourses: ProfileCourse[];
@@ -58,7 +57,7 @@ const CourseViewPage: React.FC<CourseViewPageProps> = ({
   courses,
   interests,
 }) => {
-  const headerPaneTitle = Courses.getName(getSlug(course));
+  const headerPaneTitle = Courses.getName(course._id);
   const headerPaneImage = 'header-courses.png';
   const added = ProfileCourses.findNonRetired({
     studentID: profile.userID,

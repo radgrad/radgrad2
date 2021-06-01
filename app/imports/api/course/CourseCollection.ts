@@ -385,9 +385,9 @@ class CourseCollection extends BaseSlugCollection {
   }
 
   /**
-   * Returns the name of the course ID or slug.
-   * @param {string} docIdOrSlug a course ID or slug.
-   * @return {string} Course name.
+   * Returns the name of the ID or slug.
+   * @param {string} docIdOrSlug an ID or slug.
+   * @return {string} Course number and short name.
    */
   public getName(docIdOrSlug: string): string {
     const courseID = this.getID(docIdOrSlug);

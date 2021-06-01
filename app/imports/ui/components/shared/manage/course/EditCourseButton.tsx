@@ -9,7 +9,6 @@ import { Courses } from '../../../../../api/course/CourseCollection';
 import { Interests } from '../../../../../api/interest/InterestCollection';
 import { Course, CourseUpdate, Interest } from '../../../../../typings/radgrad';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
-import { getSlug } from '../../../landing/utilities/helper-functions';
 
 interface EditCourseButtonProps {
   course: Course;
@@ -24,7 +23,7 @@ const EditCourseButton: React.FC<EditCourseButtonProps> = ({ course, courses, in
 
   const model: CourseUpdate = course;
   model.interests = course.interestIDs.map((id) => Interests.findDoc(id).name);
-  const courseName = Courses.getName(getSlug(course));
+  const courseName = Courses.getName(course._id);
 
   const handleSubmit = (doc) => {
     // console.log('handleSubmit', doc);

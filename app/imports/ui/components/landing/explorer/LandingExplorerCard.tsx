@@ -5,7 +5,7 @@ import Markdown from 'react-markdown';
 import { getSlug } from '../utilities/helper-functions';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import * as Router from '../../shared/utilities/router';
-import { docToShortDescription } from '../../shared/utilities/data-model';
+import { docToName, docToShortDescription } from '../../shared/utilities/data-model';
 import LandingInterestList from '../LandingInterestList';
 import { Courses } from '../../../../api/course/CourseCollection';
 
@@ -15,6 +15,7 @@ interface ItemProps {
   description: string;
   interestIDs?: string[];
   slugID: string;
+  _id: string;
 }
 
 interface LandingExplorerCardProps {
@@ -24,10 +25,7 @@ interface LandingExplorerCardProps {
 
 const LandingExplorerCard: React.FC<LandingExplorerCardProps> = ({ item, type }) => {
   const routeToItem = `#/${EXPLORER_TYPE.HOME}/${type}/${getSlug(item)}`;
-  let title = item.name;
-  if (type === EXPLORER_TYPE.COURSES) {
-    title = Courses.getName(getSlug(item));
-  }
+  const title = (type === EXPLORER_TYPE.COURSES) ? Courses.getName(item._id) : docToName(item);
   const match = useRouteMatch();
   const itemShortDescription = docToShortDescription(item);
   return (

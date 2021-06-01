@@ -8,7 +8,6 @@ import { buildExplorerSlugRoute } from '../../utilities/router';
 import InterestList from '../../InterestList';
 import { EXPLORER_TYPE } from '../../../../utilities/ExplorerUtils';
 import { Courses } from '../../../../../api/course/CourseCollection';
-import { getSlug } from '../../../landing/utilities/helper-functions';
 
 interface ProfileCardProps {
   item: {
@@ -27,7 +26,7 @@ interface ProfileCardProps {
 
 const ExplorerCard: React.FC<ProfileCardProps> = ({ item, type, inProfile }) => {
   const match = useRouteMatch();
-  const itemName = (type === EXPLORER_TYPE.COURSES) ? Courses.getName(getSlug(item)) : docToName(item);
+  const itemName = (type === EXPLORER_TYPE.COURSES) ? Courses.getName(item._id) : docToName(item);
   const itemShortDescription = docToShortDescription(item);
   const slugName = itemToSlugName(item);
   return (
