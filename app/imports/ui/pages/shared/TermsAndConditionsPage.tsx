@@ -41,7 +41,7 @@ const TermsAndConditionsPage: React.FC = () => {
     // console.log('handleAccept', collectionName, updateData);
     updateMethod.callPromise({ collectionName, updateData })
       .catch((error) => console.error('Failed to update acceptedTermsAndConditions', error));
-    return <Redirect to={{ pathname: '/home' }} key={`${urlUser}-accepted`}/>;
+
   };
 
   const rejectToTerm = () => {
@@ -74,8 +74,8 @@ const TermsAndConditionsPage: React.FC = () => {
         updateData.refusedTermsAndConditions = moment().format('YYYY-MM-DD');
         updateMethod.callPromise({ collectionName, updateData })
           .catch((error) => console.error('Failed to update refusedTermsAndConditions', error));
-        return <Redirect to={{ pathname: '/signout-refused' }} key={`${urlUser}-refused-terms`} />;
       }
+      <Redirect to={{ pathname: '/signout-refused' }} key={`${urlUser}-refused-terms`} />;
     });
   };
 
