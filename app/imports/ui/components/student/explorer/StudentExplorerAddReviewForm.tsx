@@ -43,6 +43,7 @@ const StudentExplorerAddReviewForm: React.FC<StudentExplorerAddReviewFormProps> 
     const definitionData: ReviewDefine = doc;
     definitionData.academicTerm = academicTermSlug;
     definitionData.student = username;
+    definitionData.visible = false;
     definitionData.reviewType = reviewType as ReviewTypes;
     definitionData.reviewee = itemToReview._id;
     defineMethod.callPromise({ collectionName, definitionData })
