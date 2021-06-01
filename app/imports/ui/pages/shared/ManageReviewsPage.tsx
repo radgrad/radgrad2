@@ -19,21 +19,10 @@ interface ModerationWidgetProps {
   courseReviews: Review[];
 }
 
-const handleAcceptReview = (item, comments) => {
+const handleReview = (item, comments, visible) => {
   // console.log('take in a review, give back an object w/ collection name and update data');
   // console.log(item);
-  const updateInfo = { id: item._id, moderated: true, mentorComment: comments };
-  const collectionName = Reviews.getCollectionName();
-  return {
-    updateInfo,
-    collectionName,
-  };
-};
-
-const handleRejectReview = (item, comments) => {
-  // console.log('take in a review, give back an object w/ collection name and update data');
-  // console.log(item);
-  const updateInfo = { id: item._id, moderated: true, visible: false, mentorComment: comments };
+  const updateInfo = { id: item._id, moderated: true, visible: visible, mentorComment: comments };
   const collectionName = Reviews.getCollectionName();
   return {
     updateInfo,
@@ -45,10 +34,10 @@ const ManageReviewsPage: React.FC<ModerationWidgetProps> = ({ courseReviews, opp
   <PageLayout id={PAGEIDS.MANAGE_REVIEWS} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
     <Grid columns="equal" divided="vertically">
       <Grid.Column>
-        <ModerationColumn handleAccept={handleAcceptReview} handleReject={handleRejectReview} reviews={courseReviews} type="COURSE" />
+        <ModerationColumn handleReview={handleReview} reviews={courseReviews} type="COURSE" />
       </Grid.Column>
       <Grid.Column>
-        <ModerationColumn handleAccept={handleAcceptReview} handleReject={handleRejectReview} reviews={opportunityReviews} type="OPPORTUNITY" />
+        <ModerationColumn handleReview={handleReview} reviews={opportunityReviews} type="OPPORTUNITY" />
       </Grid.Column>
     </Grid>
   </PageLayout>

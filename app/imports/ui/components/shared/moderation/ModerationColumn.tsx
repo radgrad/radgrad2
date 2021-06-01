@@ -6,22 +6,21 @@ import ModerationReview from './ModerationReview';
 import { Review } from '../../../../typings/radgrad';
 
 interface ModerationColumnProps {
-  handleAccept: (item, comment) => any;
-  handleReject: (item, comment) => any;
+  handleReview: (item, comment, visible) => any;
   reviews: Review[];
   type: string;
 }
 
 // this will be the column widget that holds the individual moderation cards
 
-const ModerationColumn: React.FC<ModerationColumnProps> = ({ type, handleAccept, handleReject, reviews }) => (
+const ModerationColumn: React.FC<ModerationColumnProps> = ({ type, handleReview, reviews }) => (
   <RadGradSegment header={<RadGradHeader title={`PENDING ${type} REVIEWS`} dividing />}>
     {reviews.length > 0 ? (
       <Item.Group divided>
         {reviews.map((review, index) => (
           <Item key={review._id}>
             {' '}
-            <ModerationReview item={review} handleAccept={handleAccept} handleReject={handleReject} />
+            <ModerationReview item={review} handleReview={handleReview} />
           </Item>
         ))}
       </Item.Group>

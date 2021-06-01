@@ -9,11 +9,10 @@ import { updateMethod } from '../../../../api/base/BaseCollection.methods';
 
 interface ModerationReviewProps {
   item: any; // TODO can we type this?
-  handleAccept: (item, comment) => any;
-  handleReject: (item, comment) => any;
+  handleReview: (item, comment, visible) => any;
 }
 
-const ModerationReview: React.FC<ModerationReviewProps> = ({ item, handleAccept, handleReject }) => {
+const ModerationReview: React.FC<ModerationReviewProps> = ({ item, handleReview }) => {
   const [moderatorCommentState, setModeratorComment] = useState('');
 
   const getReviewee = () => {
@@ -28,7 +27,7 @@ const ModerationReview: React.FC<ModerationReviewProps> = ({ item, handleAccept,
 
   const handleAcceptClick = () => {
     // make handle accept take in the moderator comments
-    const update = handleAccept(item, moderatorCommentState);
+    const update = handleReview(item, moderatorCommentState, true);
     setModeratorComment('');
     // console.log('handle accept click', update);
     updateMethod.callPromise({ collectionName: update.collectionName, updateData: update.updateInfo })
@@ -51,7 +50,7 @@ const ModerationReview: React.FC<ModerationReviewProps> = ({ item, handleAccept,
   };
 
   const handleRejectClick = () => {
-    const update = handleReject(item, moderatorCommentState);
+    const update = handleReview(item, moderatorCommentState, false);
     setModeratorComment('');
     // console.log('handle accept click', update);
     updateMethod.callPromise({ collectionName: update.collectionName, updateData: update.updateInfo })
