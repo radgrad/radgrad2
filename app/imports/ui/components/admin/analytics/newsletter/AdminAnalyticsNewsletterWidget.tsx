@@ -138,8 +138,7 @@ const AdminAnalyticsNewsletterWidget: React.FC = () => {
       RadGradAlert.success('Emails Successfully Sent');
       setTestNewsletterWorking(false);
     } else {
-      const error = 'Subject Line and Input Message Required';
-      RadGradAlert.failure('Subject Line and Input Message Required', 'You forgot to fill out either the Subject Line and/or the Input Message for the Emails!', error);
+      RadGradAlert.failure('Subject Line and Input Message Required', 'You forgot to fill out either the Subject Line and/or the Input Message for the Emails!');
     }
   };
 
