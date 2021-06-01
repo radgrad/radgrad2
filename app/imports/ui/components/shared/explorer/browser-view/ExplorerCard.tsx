@@ -38,7 +38,7 @@ const ExplorerCard: React.FC<ProfileCardProps> = ({ item, type, inProfile }) => 
           renderers={{ link: (localProps) => Router.renderLink(localProps, match) }} />
         { item.interestIDs ? (<InterestList item={item} size="small" />) : ''}
       </Card.Content>
-      <Link to={buildExplorerSlugRoute(match, type, slugName)} className="ui button">
+      <Link to={buildExplorerSlugRoute(match, type, slugName)} className="ui button" id={`see-details-${slugName}-button`}>
         <Icon name="zoom in" />
           &nbsp; {inProfile ? 'See Details / Remove from Profile' : 'See Details / Add to Profile' || 'View More'}
       </Link>
