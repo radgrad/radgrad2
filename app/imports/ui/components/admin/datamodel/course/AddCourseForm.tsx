@@ -38,6 +38,9 @@ const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses }) => 
       })
       .then(() => {
         RadGradAlert.success('Add User Succeeded');
+        formRef.reset();
+      });
+  };
 
   const interestNames = interests.map(docToName);
   const courseNames = courses.map(courseToName);
