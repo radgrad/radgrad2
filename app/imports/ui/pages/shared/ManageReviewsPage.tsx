@@ -2,7 +2,7 @@ import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Grid } from 'semantic-ui-react';
 import { Review } from '../../../typings/radgrad';
-import ModerationColumnWidget from '../../components/shared/moderation/ModerationColumnWidget';
+import ModerationColumn from '../../components/shared/moderation/ModerationColumn';
 import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 import { Reviews } from '../../../api/review/ReviewCollection';
@@ -45,10 +45,10 @@ const ManageReviewsPage: React.FC<ModerationWidgetProps> = ({ courseReviews, opp
   <PageLayout id={PAGEIDS.MANAGE_REVIEWS} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
     <Grid columns="equal" divided="vertically">
       <Grid.Column>
-        <ModerationColumnWidget handleAccept={handleAcceptReview} handleReject={handleRejectReview} reviews={courseReviews} isReview type="COURSE" />
+        <ModerationColumn handleAccept={handleAcceptReview} handleReject={handleRejectReview} reviews={courseReviews} type="COURSE" />
       </Grid.Column>
       <Grid.Column>
-        <ModerationColumnWidget handleAccept={handleAcceptReview} handleReject={handleRejectReview} reviews={opportunityReviews} isReview type="OPPORTUNITY" />
+        <ModerationColumn handleAccept={handleAcceptReview} handleReject={handleRejectReview} reviews={opportunityReviews} type="OPPORTUNITY" />
       </Grid.Column>
     </Grid>
   </PageLayout>

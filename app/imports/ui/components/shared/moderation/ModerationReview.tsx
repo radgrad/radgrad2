@@ -7,13 +7,13 @@ import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollect
 import { Users } from '../../../../api/user/UserCollection';
 import { updateMethod } from '../../../../api/base/BaseCollection.methods';
 
-interface ModerationReviewCardWidget {
+interface ModerationReviewProps {
   item: any; // TODO can we type this?
   handleAccept: (item, comment) => any;
   handleReject: (item, comment) => any;
 }
 
-const ModerationReviewCardWidget: React.FC<ModerationReviewCardWidget> = ({ item, handleAccept, handleReject }) => {
+const ModerationReview: React.FC<ModerationReviewProps> = ({ item, handleAccept, handleReject }) => {
   const [moderatorCommentState, setModeratorComment] = useState('');
 
   const getReviewee = () => {
@@ -112,4 +112,4 @@ const ModerationReviewCardWidget: React.FC<ModerationReviewCardWidget> = ({ item
   );
 };
 
-export default ModerationReviewCardWidget;
+export default ModerationReview;

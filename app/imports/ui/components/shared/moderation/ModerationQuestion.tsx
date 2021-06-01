@@ -3,13 +3,13 @@ import Swal from 'sweetalert2';
 import { Button, Container, Segment, Form } from 'semantic-ui-react';
 import { updateMethod } from '../../../../api/base/BaseCollection.methods';
 
-interface ModerationQuestionCardWidget {
+interface ModerationQuestionProps {
   question: any; // TODO isn't this a string?
   handleAccept: (item, comments) => any;
   handleReject: (item, comments) => any;
 }
 
-const ModerationQuestionCardWidget: React.FC<ModerationQuestionCardWidget> = ({ question, handleReject, handleAccept }) => {
+const ModerationQuestion: React.FC<ModerationQuestionProps> = ({ question, handleReject, handleAccept }) => {
   const [moderatorCommentState, setModeratorComment] = useState('');
 
   const handleAcceptClick = () => {
@@ -80,4 +80,4 @@ const ModerationQuestionCardWidget: React.FC<ModerationQuestionCardWidget> = ({ 
   );
 };
 
-export default ModerationQuestionCardWidget;
+export default ModerationQuestion;

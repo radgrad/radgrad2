@@ -1,41 +1,40 @@
 import React from 'react';
 import { Header, Segment, Container, Item } from 'semantic-ui-react';
-import ModerationReviewCardWidget from './ModerationReviewCardWidget';
-import ModerationQuestionCardWidget from './ModerationQuestionCardWidget';
+import ModerationReview from './ModerationReview';
+import ModerationQuestion from './ModerationQuestion';
 import { Review } from '../../../../typings/radgrad';
 
-interface ModerationColumn {
+interface ModerationColumnProps {
   handleAccept: (item, comment) => any;
   handleReject: (item, comment) => any;
   reviews: Review[];
-  isReview: boolean; // TODO do we need this?
   type: string;
 }
 // this will be the column widget that holds the individual moderation cards
 
-const ModerationColumnWidget: React.FC<ModerationColumn> = ({ isReview, type, handleAccept, handleReject, reviews }) => (
+const ModerationColumn: React.FC<ModerationColumnProps> = ({ type, handleAccept, handleReject, reviews }) => (
   <div>
     <Segment>
       <Header as="h4" textAlign="left" dividing>
         PENDING {type} REVIEWS
       </Header>
-      {isReview && reviews.length > 0 ? (
+      {reviews.length > 0 ? (
         <Item.Group divided>
           {reviews.map((review, index) => (
             <Item key={review._id}>
               {' '}
-              <ModerationReviewCardWidget item={review} handleAccept={handleAccept} handleReject={handleReject} />
+              <ModerationReview item={review} handleAccept={handleAccept} handleReject={handleReject} />
             </Item>
           ))}
         </Item.Group>
       ) : (
         <React.Fragment>
-          {isReview === false && reviews.length > 0 ? (
+          {reviews.length > 0 ? (
             <Item.Group divided>
               {reviews.map((question, index) => (
                 <Item key={question._id}>
                   {' '}
-                  <ModerationQuestionCardWidget question={question} handleAccept={handleAccept} handleReject={handleReject} />
+                  <ModerationQuestion question={question} handleAccept={handleAccept} handleReject={handleReject} />
                 </Item>
               ))}
             </Item.Group>
@@ -50,4 +49,4 @@ const ModerationColumnWidget: React.FC<ModerationColumn> = ({ isReview, type, ha
   </div>
 );
 
-export default ModerationColumnWidget;
+export default ModerationColumn;
