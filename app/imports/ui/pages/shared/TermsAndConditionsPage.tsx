@@ -39,7 +39,7 @@ const TermsAndConditionsPage: React.FC = () => {
     updateData.id = urlUser._id;
     updateData.acceptedTermsAndConditions = moment().format('YYYY-MM-DD');
     // console.log('handleAccept', collectionName, updateData);
-    <Redirect to={{ pathname: '/home' }}/>;
+    <Redirect to={{ pathname: '/home' }} key={`${urlUser}-accepted`}/>;
     updateMethod.callPromise({ collectionName, updateData })
       .catch((error) => console.error('Failed to update acceptedTermsAndConditions', error));
   };
