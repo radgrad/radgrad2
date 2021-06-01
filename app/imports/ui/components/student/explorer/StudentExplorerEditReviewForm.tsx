@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Accordion, Button, Confirm, Form, Icon, Message } from 'semantic-ui-react';
-import { AutoForm, LongTextField, SelectField, SubmitField } from 'uniforms-semantic/';
+import { AutoForm, ErrorsField, LongTextField, SelectField, SubmitField } from 'uniforms-semantic/';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { useRouteMatch } from 'react-router-dom';
@@ -42,14 +42,15 @@ const StudentExplorerEditReviewForm: React.FC<StudentExplorerEditReviewWidgetPro
     updateData.academicTerm = academicTermSlug;
     updateData.moderated = false;
     updateData.id = review._id;
-    updateMethod.call({ collectionName, updateData }, (error) => {
-      if (error) {
+    updateMethod.callPromise({ collectionName, updateData })
+      .catch((error) => {
         Swal.fire({
           title: 'Update Failed',
           text: error.message,
           icon: 'error',
         });
-      } else {
+      })
+      .then(() => {
         Swal.fire({
           title: 'Update Succeeded',
           icon: 'success',
@@ -58,8 +59,7 @@ const StudentExplorerEditReviewForm: React.FC<StudentExplorerEditReviewWidgetPro
           allowEscapeKey: false,
           allowEnterKey: false,
         });
-      }
-    });
+      });
   };
 
   const handleDelete = (e: any): void => {
@@ -71,22 +71,22 @@ const StudentExplorerEditReviewForm: React.FC<StudentExplorerEditReviewWidgetPro
     e.preventDefault();
     const id = review._id;
     const collectionName = collection.getCollectionName();
-    removeItMethod.call({ collectionName, instance: id }, (error) => {
-      if (error) {
+    removeItMethod.callPromise({ collectionName, instance: id })
+      .catch((error) => {
         Swal.fire({
           title: 'Delete failed',
           text: error.message,
           icon: 'error',
         });
         console.error('Error deleting Review. %o', error);
-      } else {
+      })
+      .then(() => {
         Swal.fire({
           title: 'Delete succeeded',
           icon: 'success',
         });
-      }
-      setConfirmOpen(false);
-    });
+      });
+    setConfirmOpen(false);
   };
 
   const handleCancelDelete = (e: any): void => {
@@ -164,9 +164,11 @@ const StudentExplorerEditReviewForm: React.FC<StudentExplorerEditReviewWidgetPro
         <Icon name="dropdown" />
         <a>Edit Review </a>
         {review.moderated ? (
-          <React.Fragment>{review.visible ? <i className="green checkmark icon" /> : <i className="red warning circle icon" />}</React.Fragment>
+          <React.Fragment>{review.visible ? <i className="green checkmark icon" /> :
+            <i className="red warning circle icon" />}</React.Fragment>
         ) : (
-          <React.Fragment>{review.visible ? <i className="yellow checkmark icon" /> : <i className="yellow warning circle icon" />}</React.Fragment>
+          <React.Fragment>{review.visible ? <i className="yellow checkmark icon" /> :
+            <i className="yellow warning circle icon" />}</React.Fragment>
         )}
       </Accordion.Title>
 
@@ -178,14 +180,16 @@ const StudentExplorerEditReviewForm: React.FC<StudentExplorerEditReviewWidgetPro
                 <Message positive>
                   <p>
                     <i className="green checkmark icon" />
-                    Your post is visible to the RadGrad community and has been approved by moderators.
+                    Your post is visible to the RadGrad community and has been approved by
+                    moderators.
                   </p>
                 </Message>
               ) : (
                 <Message warning>
                   <p>
                     <i className="yellow checkmark icon" />
-                    Your post is visible to the RadGrad community but has not yet been approved by moderators.
+                    Your post is visible to the RadGrad community but has not yet been approved by
+                    moderators.
                   </p>
                 </Message>
               )}
@@ -205,7 +209,8 @@ const StudentExplorerEditReviewForm: React.FC<StudentExplorerEditReviewWidgetPro
                 <Message warning>
                   <p>
                     <i className="warning yellow circle icon" />
-                    Your edited post is waiting for moderator approval. Your post has currently been hidden by moderators for the following reasons:
+                    Your edited post is waiting for moderator approval. Your post has currently been
+                    hidden by moderators for the following reasons:
                     <br />
                     <i>{review.moderatorComments}</i>
                   </p>
@@ -226,7 +231,9 @@ const StudentExplorerEditReviewForm: React.FC<StudentExplorerEditReviewWidgetPro
             <Button basic color="red" size="mini" onClick={handleDelete}>
               DELETE
             </Button>
-            <Confirm open={confirmOpenState} onCancel={handleCancelDelete} onConfirm={handleConfirmDelete} header="Delete Review?" />
+            <Confirm open={confirmOpenState} onCancel={handleCancelDelete} onConfirm={handleConfirmDelete}
+              header="Delete Review?" />
+            <ErrorsField />
           </AutoForm>
         </div>
       </Accordion.Content>

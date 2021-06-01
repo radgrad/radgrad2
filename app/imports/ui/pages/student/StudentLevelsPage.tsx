@@ -1,20 +1,16 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import { useParams } from 'react-router-dom';
 import React from 'react';
-import { Grid, Tab } from 'semantic-ui-react';
-import StudentLevelsWidget from '../../components/student/levels/StudentLevelsWidget';
-import { Users } from '../../../api/user/UserCollection';
+import { Grid } from 'semantic-ui-react';
+import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
+import AllLevelsInfo from '../../components/student/levels/AllLevelsInfo';
+import StudentLevelInfo from '../../components/student/levels/StudentLevelInfo';
 import { StudentProfile } from '../../../typings/radgrad';
-import { ROLE } from '../../../api/role/Role';
 import PageLayout from '../PageLayout';
-import StudentLevelExplainerWidget from '../../components/student/levels/StudentLevelExplainerWidget';
-import RadGradSegment from '../../components/shared/RadGradSegment';
-import RadGradHeader from '../../components/shared/RadGradHeader';
 
 interface StudentLevelsPageProps {
   profile: StudentProfile;
-  students: StudentProfile[];
-  profiles: StudentProfile[];
+  allProfiles: StudentProfile[];
 }
 
 const headerPaneTitle = 'From Grasshopper to Ninja';
@@ -25,10 +21,10 @@ This page helps you learn about Levels and how to reach the next one from where 
 `;
 const headerPaneImage = 'header-level.png';
 
-const getStudentsAtSameLevel = (currentProfile: StudentProfile, profiles): StudentProfile[] => {
+const getStudentsAtLevel = (currentProfile, level: number, profiles = []): StudentProfile[] => {
   const students = [];
   profiles.forEach((profile) => {
-    if (profile.level === currentProfile.level) {
+    if (profile.level === level) {
       if (profile.userID !== currentProfile.userID) {
         students.push(profile);
       }
@@ -37,52 +33,34 @@ const getStudentsAtSameLevel = (currentProfile: StudentProfile, profiles): Stude
   return students;
 };
 
+const StudentLevelsPage: React.FC<StudentLevelsPageProps> = ({ profile, allProfiles }) => {
+  const sameLevelStudents = getStudentsAtLevel(profile, profile.level, allProfiles);
 
-
-const header = <RadGradHeader title='ABOUT THE LEVELS' />;
-
-const StudentLevelsPage: React.FC<StudentLevelsPageProps> = ({ profile, students, profiles }) => {
-  const panes = [
-    { menuItem: 'Level 1', render: () => <Tab.Pane><StudentLevelExplainerWidget level={1} students={profiles}/></Tab.Pane> },
-    { menuItem: 'Level 2', render: () => <Tab.Pane><StudentLevelExplainerWidget level={2} students={profiles}/></Tab.Pane> },
-    { menuItem: 'Level 3', render: () => <Tab.Pane><StudentLevelExplainerWidget level={3} students={profiles}/></Tab.Pane> },
-    { menuItem: 'Level 4', render: () => <Tab.Pane><StudentLevelExplainerWidget level={4} students={profiles}/></Tab.Pane> },
-    { menuItem: 'Level 5', render: () => <Tab.Pane><StudentLevelExplainerWidget level={5} students={profiles}/></Tab.Pane> },
-    { menuItem: 'Level 6', render: () => <Tab.Pane><StudentLevelExplainerWidget level={6} students={profiles}/></Tab.Pane> },
-  ];
   return (
-        <PageLayout id="student-levels-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
-            <Grid stackable>
-                <Grid.Row>
-                    <Grid.Column width={16}>
-                        <Grid stackable columns="equal">
-                            <Grid.Column stretched>
-                                <StudentLevelsWidget profile={profile} students={students} />
-                            </Grid.Column>
-                        </Grid>
-                    </Grid.Column>
-                </Grid.Row>
-                <Grid.Row>
-                    <Grid.Column width={16} divided>
-                        <RadGradSegment header={header}>
-                            <Tab panes={panes} />
-                        </RadGradSegment>
-                    </Grid.Column>
-                </Grid.Row>
-            </Grid>
-        </PageLayout>
+    <PageLayout id="student-levels-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
+      <Grid>
+        <Grid.Row>
+          <Grid.Column>
+            <StudentLevelInfo profile={profile} students={sameLevelStudents} />
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row>
+          <Grid.Column>
+            <AllLevelsInfo profile={profile} allProfiles={allProfiles} />
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
+    </PageLayout>
   );
 };
 
 const StudentLevelsPageContainer = withTracker(() => {
   const { username } = useParams();
-  const profile = Users.getProfile(username) as StudentProfile;
-  const profiles = Users.findProfilesWithRole(ROLE.STUDENT, {}, {});
-  const students: StudentProfile[] = getStudentsAtSameLevel(profile, profiles);
+  const profile = StudentProfiles.getProfile(username);
+  const allProfiles = StudentProfiles.find().fetch();
   return {
     profile,
-    students,
-    profiles,
+    allProfiles,
   };
 })(StudentLevelsPage);
 

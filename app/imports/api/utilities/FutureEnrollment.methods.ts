@@ -1,29 +1,25 @@
 import { Meteor } from 'meteor/meteor';
 import { CallPromiseMixin } from 'meteor/didericis:callpromise-mixin';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
-import { RadGradForecasts, ENROLLMENT_TYPE, EnrollmentForecast } from '../../startup/both/RadGradForecasts';
+import { RadGradForecasts, ENROLLMENT_TYPE } from '../../startup/both/RadGradForecasts';
 
 export const getFutureEnrollmentSingleMethod = new ValidatedMethod({
   name: 'Forecast.getFutureEnrollmentSingle',
   mixins: [CallPromiseMixin],
   validate: null,
-  // eslint-disable-next-line @typescript-eslint/no-shadow
   run({ id, type }) {
     if (!this.userId) {
       throw new Meteor.Error('unauthorized', 'You must be logged in to get profile entries.');
     }
-    let enrollmentForecast: EnrollmentForecast = {};
     if (Meteor.isServer) {
       switch (type) {
         case ENROLLMENT_TYPE.COURSE:
-          enrollmentForecast = RadGradForecasts.getCourseForecast(id);
-          break;
+          return RadGradForecasts.getCourseForecast(id);
         case ENROLLMENT_TYPE.OPPORTUNITY:
-          enrollmentForecast = RadGradForecasts.getOpportunityForecast(id);
-          break;
+          return RadGradForecasts.getOpportunityForecast(id);
       }
     }
-    return enrollmentForecast;
+    return {};
   },
 });
 

@@ -3,7 +3,7 @@ import { Button, Modal } from 'semantic-ui-react';
 import SimpleSchema from 'simpl-schema';
 import Swal from 'sweetalert2';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
-import { AutoForm, SubmitField, TextField } from 'uniforms-semantic';
+import { AutoForm, ErrorsField, SubmitField, TextField } from 'uniforms-semantic';
 import { openCloudinaryWidget } from '../OpenCloudinaryWidget';
 
 interface SetPictureButtonProps {
@@ -39,18 +39,20 @@ export const SetPictureButton: React.FC<SetPictureButtonProps> = ({ picture, han
 
   return (
     <Modal size='small'
-           onClose={() => setOpen(false)}
-           onOpen={() => setOpen(true)}
-           open={open}
-           trigger={<Button size='mini'>{picture ? 'Edit' : 'Add'}</Button>}
+      onClose={() => setOpen(false)}
+      onOpen={() => setOpen(true)}
+      open={open}
+      trigger={<Button size='mini'>{picture ? 'Edit' : 'Add'}</Button>}
     >
       <Modal.Header>Add, edit, or remove picture</Modal.Header>
       <Modal.Content>
         <AutoForm schema={bridge} onSubmit={data => submit(data)} model={{ picture }}>
           <TextField placeholder='https://mywebsite.com/picture.png' name='picture'/>
           <SubmitField value='Submit'/>
+          <ErrorsField/>
         </AutoForm>
-        <p style={{ marginTop: '20px' }}>Or select a picture file to upload:  <Button onClick={handleUploadClick}>Select picture</Button></p>
+        <p style={{ marginTop: '20px' }}>Or select a picture file to upload: <Button onClick={handleUploadClick}>Select
+                    picture</Button></p>
       </Modal.Content>
     </Modal>
   );

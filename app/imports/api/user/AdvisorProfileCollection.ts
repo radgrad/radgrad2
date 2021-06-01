@@ -92,6 +92,8 @@ class AdvisorProfileCollection extends BaseProfileCollection {
     sharePicture,
     shareInterests,
     shareCareerGoals,
+    acceptedTermsAndConditions,
+    refusedTermsAndConditions,
     aboutMe,
   }: AdvisorOrFacultyProfileUpdate) {
     this.assertDefined(docID);
@@ -108,10 +110,13 @@ class AdvisorProfileCollection extends BaseProfileCollection {
       sharePicture,
       shareInterests,
       shareCareerGoals,
+      acceptedTermsAndConditions,
+      refusedTermsAndConditions,
     });
     if (aboutMe) {
       updateData.aboutMe = aboutMe;
     }
+    // console.log(docID, updateData);
     this.collection.update(docID, { $set: updateData });
     const profile = this.findDoc(docID);
     const username = profile.username;

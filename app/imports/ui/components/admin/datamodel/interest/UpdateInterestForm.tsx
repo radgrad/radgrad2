@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Form, Header, Segment } from 'semantic-ui-react';
-import { AutoForm, TextField, SelectField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
+import { AutoForm, TextField, SelectField, LongTextField, BoolField, SubmitField, ErrorsField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { InterestTypes } from '../../../../../api/interest/InterestTypeCollection';
@@ -18,7 +18,14 @@ interface UpdateInterestFormProps {
   itemTitleString: (item) => React.ReactNode;
 }
 
-const UpdateInterestForm: React.FC<UpdateInterestFormProps> = ({ interestTypes, collection, id, handleCancel, handleUpdate, itemTitleString }) => {
+const UpdateInterestForm: React.FC<UpdateInterestFormProps> = ({
+  interestTypes,
+  collection,
+  id,
+  handleCancel,
+  handleUpdate,
+  itemTitleString,
+}) => {
   const interestTypeNames = interestTypes.map(docToName);
   const model = collection.findDoc(id);
   model.slug = Slugs.getNameFromID(model.slugID);
@@ -39,19 +46,20 @@ const UpdateInterestForm: React.FC<UpdateInterestFormProps> = ({ interestTypes, 
   return (
     <Segment padded>
       <Header dividing>
-        Update
+                Update
         {collection.getType()}:{itemTitleString(model)}
       </Header>
       <AutoForm schema={formSchema} onSubmit={handleUpdate} showInlineError model={model}>
         <Form.Group widths="equal">
-          <TextField name="slug" disabled />
-          <TextField name="name" />
-          <SelectField name="interestType" />
+          <TextField name="slug" disabled/>
+          <TextField name="name"/>
+          <SelectField name="interestType"/>
         </Form.Group>
-        <LongTextField name="description" />
-        <BoolField name="retired" />
-        <SubmitField inputRef={undefined} value="Update" disabled={false} className="mini basic green" />
+        <LongTextField name="description"/>
+        <BoolField name="retired"/>
+        <SubmitField inputRef={undefined} value="Update" disabled={false} className="mini basic green"/>
         <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
+        <ErrorsField/>
       </AutoForm>
     </Segment>
   );

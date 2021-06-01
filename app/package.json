@@ -1,6 +1,6 @@
 {
   "name": "radgrad2",
-  "version": "2.0.35",
+  "version": "2.0.42",
   "meteor": {
     "mainModule": {
       "client": "client/main.ts",
@@ -27,7 +27,6 @@
     "update-build-version": "npm version patch && npx ts-node ./update-build-version.ts"
   },
   "dependencies": {
-    "@artsy/fresnel": "^1.5.0",
     "@babel/runtime": "^7.14.0",
     "acorn": "^8.2.4",
     "acorn-jsx": "^5.3.1",
@@ -42,6 +41,7 @@
     "react-beautiful-dnd": "^13.1.0",
     "react-content-loader": "^6.0.2",
     "react-datepicker": "^3.8.0",
+    "react-device-detect": "^1.17.0",
     "react-dnd": "^11.1.3",
     "react-dnd-html5-backend": "^11.1.3",
     "react-dom": "^16.14.0",
@@ -101,7 +101,7 @@
     "fast-check": "^2.14.0",
     "gh-pages": "^3.1.0",
     "hosted-git-info": "^4.0.2",
-    "jsdoc": "^3.6.6",
+    "jsdoc": "^3.6.7",
     "mocha": "^8.4.0",
     "prettier": "2.2.1",
     "puppeteer": "^5.5.0",
@@ -167,7 +167,13 @@
       "import/imports-first": "off",
       "import/prefer-default-export": "off",
       "import/no-extraneous-dependencies": "off",
-      "indent": "off",
+      "indent": [
+        "error",
+        2,
+        {
+          "SwitchCase": 1
+        }
+      ],
       "linebreak-style": "off",
       "lines-between-class-members": "off",
       "max-len": "off",

@@ -1,6 +1,7 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
 import { Confirm, Icon } from 'semantic-ui-react';
+import Swal from 'sweetalert2';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { DescriptionPair, Interest, InterestType, InterestUpdate } from '../../../typings/radgrad';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
@@ -14,7 +15,6 @@ import PageLayout from '../PageLayout';
 import {
   handleCancelWrapper,
   handleConfirmDeleteWrapper, handleDeleteWrapper, handleOpenUpdateWrapper,
-  updateCallBack,
 } from './utilities/data-model-page-callbacks';
 
 const collection = Interests; // the collection to use.
@@ -71,9 +71,26 @@ const AdminDataModelInterestsPage: React.FC<AdminDataModelInterestsPageProps> = 
       updateData.interestType = interestTypeNameToId(doc.interestType);
     }
     // console.log(updateData);
-    updateMethod.call({ collectionName, updateData }, updateCallBack(setShowUpdateForm, setId));
+    updateMethod.callPromise({ collectionName, updateData })
+      .catch((error) => {
+        Swal.fire({
+          title: 'Update failed',
+          text: error.message,
+          icon: 'error',
+        });
+        console.error('Error in updating. %o', error);
+      })
+      .then(() => {
+        Swal.fire({
+          title: 'Update succeeded',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setShowUpdateForm(false);
+        setId('');
+      });
   };
-
   const findOptions = {
     sort: { name: 1 }, // determine how you want to sort the items in the list
   };
@@ -81,10 +98,10 @@ const AdminDataModelInterestsPage: React.FC<AdminDataModelInterestsPageProps> = 
     <PageLayout id={PAGEIDS.DATA_MODEL_INTERESTS} headerPaneTitle="Interests">
       {showUpdateFormState ? (
         <UpdateInterestForm collection={collection} id={idState} handleUpdate={handleUpdate}
-                            handleCancel={handleCancel} itemTitleString={itemTitleString}
-                            interestTypes={interestTypes}/>
+          handleCancel={handleCancel} itemTitleString={itemTitleString}
+          interestTypes={interestTypes} />
       ) : (
-        <AddInterestForm interestTypes={interestTypes}/>
+        <AddInterestForm interestTypes={interestTypes} />
       )}
       <ListCollectionWidget
         collection={collection}
@@ -96,7 +113,7 @@ const AdminDataModelInterestsPage: React.FC<AdminDataModelInterestsPageProps> = 
         items={items}
       />
       <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
-               header="Delete Interest?"/>
+        header="Delete Interest?" />
     </PageLayout>
   );
 };

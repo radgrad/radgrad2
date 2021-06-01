@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form, Header, Segment } from 'semantic-ui-react';
-import { AutoForm, TextField, SelectField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
+import Swal from 'sweetalert2';
+import { AutoForm, TextField, SelectField, LongTextField, BoolField, SubmitField, ErrorsField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
@@ -8,7 +9,6 @@ import { Interests } from '../../../../../api/interest/InterestCollection';
 import slugify from '../../../../../api/slug/SlugCollection';
 import { InterestType } from '../../../../../typings/radgrad';
 import { docToName, interestTypeNameToSlug } from '../../../shared/utilities/data-model';
-import { defineCallback } from '../utilities/add-form';
 
 interface AddInterestFormProps {
   interestTypes: InterestType[];
@@ -23,7 +23,24 @@ const AddInterestForm: React.FC<AddInterestFormProps> = ({ interestTypes }) => {
     definitionData.slug = `${slugify(doc.name)}-interests`;
     definitionData.interestType = interestTypeNameToSlug(doc.interestType);
     // console.log(collectionName, definitionData);
-    defineMethod.call({ collectionName, definitionData }, defineCallback(formRef));
+    defineMethod.callPromise({ collectionName, definitionData })
+      .catch((error) => {
+        console.error('Failed adding User', error);
+        Swal.fire({
+          title: 'Failed adding User',
+          text: error.message,
+          icon: 'error',
+        });
+      })
+      .then(() => {
+        Swal.fire({
+          title: 'Add User Succeeded',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        formRef.reset();
+      });
   };
 
 
@@ -47,6 +64,7 @@ const AddInterestForm: React.FC<AddInterestFormProps> = ({ interestTypes }) => {
         <LongTextField name="description" />
         <BoolField name="retired" />
         <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
+        <ErrorsField />
       </AutoForm>
     </Segment>
   );

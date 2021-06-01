@@ -136,8 +136,10 @@ if (Meteor.isServer) {
       defineAcademicTerms();
       const fourYears = RadGradProperties.getQuarterSystem() ? 16 : 12;
       const currentTermNumber = AcademicTerms.getCurrentAcademicTermDoc().termNumber;
+      const startOfAcademicYear = AcademicTerms.getStartOfCurrentAcademicYearTerm().termNumber;
+      const diff = currentTermNumber - startOfAcademicYear;
       const terms = AcademicTerms.getNextYears(4);
-      expect(terms.length).to.equal(fourYears);
+      expect(terms.length).to.equal(fourYears - diff);
       expect(terms[0].termNumber).to.equal(currentTermNumber);
     });
   });

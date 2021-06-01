@@ -1,14 +1,17 @@
 import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Card, Header, Segment } from 'semantic-ui-react';
+import { Card } from 'semantic-ui-react';
 import { Interest } from '../../../typings/radgrad';
 import { Interests } from '../../../api/interest/InterestCollection';
-import LandingExplorerCardContainer from '../../components/landing/explorer/LandingExplorerCard';
 import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
 import LandingExplorerMenuBar from '../../components/landing/explorer/LandingExplorerMenuBar';
 import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 import { Slugs } from '../../../api/slug/SlugCollection';
+import LandingExplorerCard from '../../components/landing/explorer/LandingExplorerCard';
+import { EXPLORER_TYPE } from '../../utilities/ExplorerUtils';
+import RadGradHeader from '../../components/shared/RadGradHeader';
+import RadGradSegment from '../../components/shared/RadGradSegment';
 
 interface InterestsCardExplorerProps {
   interests: Interest[];
@@ -21,29 +24,33 @@ Interests are curated by the faculty to provide information about topic areas im
 
 This public explorer does not provide information about community members.
 `;
+const headerPaneImage = 'header-interests.png';
 
 const LandingInterestsExplorerPage: React.FC<InterestsCardExplorerProps> = ({ interests, count }) => (
   <div>
     <LandingExplorerMenuBar/>
-    <PageLayout id={PAGEIDS.LANDING_INTERESTS_EXPLORER} headerPaneTitle={headerPaneTitle}
-                headerPaneBody={headerPaneBody}>
-      <Segment>
-        <Header as="h4" dividing>
-          <span>INTERESTS</span> ({count})
-        </Header>
-        <Card.Group stackable>
+    <PageLayout id={PAGEIDS.LANDING_INTERESTS_EXPLORER} headerPaneTitle={headerPaneTitle}  headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
+      <RadGradSegment header={<RadGradHeader title="INTERESTS" count={count} dividing />}>
+        <Card.Group stackable itemsPerRow={4} id="browserCardGroup" style={{ margin: '0px' }}>
           {interests.map((interest) => (
-            <LandingExplorerCardContainer key={interest._id} type="interests" item={interest}/>
+            <LandingExplorerCard key={interest._id} type={EXPLORER_TYPE.INTERESTS} item={interest}/>
           ))}
         </Card.Group>
-      </Segment>
+      </RadGradSegment>
     </PageLayout>
   </div>
 );
 
-const LandingInterestsCardExplorerContainer = withTracker(() => ({
-  interests: Interests.findNonRetired({}),
-  count: Interests.countNonRetired(),
-}))(LandingInterestsExplorerPage);
+const LandingInterestsCardExplorerContainer = withTracker(() => {
+  const interests = Interests.findNonRetired({});
+  const count = Interests.countNonRetired();
+  return {
+    interests,
+    count,
+  };
+})(LandingInterestsExplorerPage);
 
-export default withListSubscriptions(LandingInterestsCardExplorerContainer, [Interests.getPublicationName(), Slugs.getPublicationName()]);
+export default withListSubscriptions(LandingInterestsCardExplorerContainer, [
+  Interests.getPublicationName(),
+  Slugs.getPublicationName(),
+]);

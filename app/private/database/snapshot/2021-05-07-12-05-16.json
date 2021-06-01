@@ -1527,6 +1527,7 @@
             "ics_311",
             "ics_314"
           ],
+          "repeatable": true,
           "retired": false
         },
         {
@@ -1544,6 +1545,7 @@
             "ics_311",
             "ics_314"
           ],
+          "repeatable": true,
           "retired": false
         },
         {
@@ -1559,6 +1561,7 @@
             "ics_311",
             "ics_314"
           ],
+          "repeatable": true,
           "retired": false
         },
         {
@@ -2031,6 +2034,7 @@
           "interests": [],
           "corequisites": [],
           "prerequisites": [],
+          "repeatable": true,
           "retired": false
         },
         {
@@ -2043,6 +2047,7 @@
           "interests": [],
           "corequisites": [],
           "prerequisites": [],
+          "repeatable": true,
           "retired": false
         },
         {
@@ -2055,6 +2060,7 @@
           "interests": [],
           "corequisites": [],
           "prerequisites": [],
+          "repeatable": true,
           "retired": false
         },
         {

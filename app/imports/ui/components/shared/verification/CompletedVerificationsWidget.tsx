@@ -5,6 +5,7 @@ import { AcademicTerm, Opportunity, Processed, VerificationRequest } from '../..
 import { VerificationRequests } from '../../../../api/verification/VerificationRequestCollection';
 import { Users } from '../../../../api/user/UserCollection';
 import { verificationRequestsUpdateStatusMethod } from '../../../../api/verification/VerificationRequestCollection.methods';
+import RadGradHeader from '../RadGradHeader';
 
 interface CompletedVerificationsWidgetProps {
   completedVerifications: VerificationRequest[];
@@ -56,7 +57,7 @@ const handleOnClick = (username: string) => (e, { doc }) => {
  */
 const CompletedVerificationsWidget: React.FC<CompletedVerificationsWidgetProps> = ({ completedVerifications, username }) => (
   <Segment>
-    <Header as="h4" dividing content="COMPLETED VERIFICATION REQUESTS" />
+    <RadGradHeader title='completed verification requests' dividing />
     <Container fluid={false} style={{ paddingBottom: '14px' }}>
       {completedVerifications.map((ele: VerificationRequest, i) => (
         <Grid key={ele._id}>

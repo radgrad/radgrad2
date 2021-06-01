@@ -16,7 +16,15 @@ import SimpleSchema from 'simpl-schema';
 import { AcademicTerm, BaseProfile, Interest, OpportunityType } from '../../../../../typings/radgrad';
 import BaseCollection from '../../../../../api/base/BaseCollection';
 import PictureField from '../../../form-fields/PictureField';
-import { academicTermIdToName, academicTermToName, docToName, interestIdToName, opportunityTypeIdToName, profileToName, userIdToName } from '../../../shared/utilities/data-model';
+import {
+  academicTermIdToName,
+  academicTermToName,
+  docToName,
+  interestIdToName,
+  opportunityTypeIdToName,
+  profileToName,
+  userIdToName,
+} from '../../../shared/utilities/data-model';
 import { iceSchema } from '../../../../../api/ice/IceProcessor';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
 
@@ -32,7 +40,17 @@ interface UpdateOpportunityFormProps {
   itemTitleString: (item) => React.ReactNode;
 }
 
-const UpdateOpportunityForm: React.FC<UpdateOpportunityFormProps> = ({ sponsors, opportunityTypes, terms, interests, handleUpdate, handleCancel, itemTitleString, collection, id }) => {
+const UpdateOpportunityForm: React.FC<UpdateOpportunityFormProps> = ({
+  sponsors,
+  opportunityTypes,
+  terms,
+  interests,
+  handleUpdate,
+  handleCancel,
+  itemTitleString,
+  collection,
+  id,
+}) => {
   const model = collection.findDoc(id);
 
   // console.log('collection model = %o', model);
@@ -80,51 +98,51 @@ const UpdateOpportunityForm: React.FC<UpdateOpportunityFormProps> = ({ sponsors,
       <Header dividing>Update Opportunity : {itemTitleString(model)}</Header>
       <AutoForm schema={formSchema} onSubmit={(doc) => handleUpdate(doc)} showInlineError model={model}>
         <Form.Group widths="equal">
-          <TextField name="name" />
+          <TextField name="name"/>
         </Form.Group>
         <Form.Group widths="equal">
-          <SelectField name="opportunityType" />
-          <SelectField name="sponsor" />
+          <SelectField name="opportunityType"/>
+          <SelectField name="sponsor"/>
         </Form.Group>
-        <LongTextField name="description" />
+        <LongTextField name="description"/>
         <Form.Group widths="equal">
-          <MultiSelectField name="terms" />
-          <MultiSelectField name="interests" />
+          <MultiSelectField name="terms"/>
+          <MultiSelectField name="interests"/>
         </Form.Group>
-        <DateField name="eventDate" />
+        <DateField name="eventDate"/>
         <Form.Group widths="equal">
-          <DateField name="eventDate1" />
-          <TextField name="eventDateLabel1" />
-        </Form.Group>
-        <Form.Group widths="equal">
-          <DateField name="eventDate2" />
-          <TextField name="eventDateLabel2" />
+          <DateField name="eventDate1"/>
+          <TextField name="eventDateLabel1"/>
         </Form.Group>
         <Form.Group widths="equal">
-          <DateField name="eventDate3" />
-          <TextField name="eventDateLabel3" />
+          <DateField name="eventDate2"/>
+          <TextField name="eventDateLabel2"/>
         </Form.Group>
         <Form.Group widths="equal">
-          <DateField name="eventDate4" />
-          <TextField name="eventDateLabel4" />
+          <DateField name="eventDate3"/>
+          <TextField name="eventDateLabel3"/>
         </Form.Group>
         <Form.Group widths="equal">
-          <BoolField name="clearEventDate" />
-          <BoolField name="clearEventDate1" />
-          <BoolField name="clearEventDate2" />
-          <BoolField name="clearEventDate3" />
-          <BoolField name="clearEventDate4" />
+          <DateField name="eventDate4"/>
+          <TextField name="eventDateLabel4"/>
         </Form.Group>
         <Form.Group widths="equal">
-          <NumField name="ice.i" />
-          <NumField name="ice.c" />
-          <NumField name="ice.e" />
+          <BoolField name="clearEventDate"/>
+          <BoolField name="clearEventDate1"/>
+          <BoolField name="clearEventDate2"/>
+          <BoolField name="clearEventDate3"/>
+          <BoolField name="clearEventDate4"/>
         </Form.Group>
-        <BoolField name="retired" />
-        <PictureField name="picture" />
-        <ErrorsField />
-        <SubmitField inputRef={undefined} disabled={false} value="Update" className="mini basic green" />
+        <Form.Group widths="equal">
+          <NumField name="ice.i"/>
+          <NumField name="ice.c"/>
+          <NumField name="ice.e"/>
+        </Form.Group>
+        <BoolField name="retired"/>
+        <PictureField name="picture"/>
+        <SubmitField inputRef={undefined} disabled={false} value="Update" className="mini basic green"/>
         <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
+        <ErrorsField/>
       </AutoForm>
     </Segment>
   );

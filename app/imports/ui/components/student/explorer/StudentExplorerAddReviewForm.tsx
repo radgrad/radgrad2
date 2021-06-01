@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 import SimpleSchema from 'simpl-schema';
-import { AutoForm, LongTextField, SelectField, SubmitField } from 'uniforms-semantic/';
+import { AutoForm, ErrorsField, LongTextField, SelectField, SubmitField } from 'uniforms-semantic/';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { Accordion, Form, Icon } from 'semantic-ui-react';
 import { useRouteMatch } from 'react-router-dom';
@@ -45,14 +45,15 @@ const StudentExplorerAddReviewForm: React.FC<StudentExplorerAddReviewFormProps> 
     definitionData.student = username;
     definitionData.reviewType = reviewType as ReviewTypes;
     definitionData.reviewee = itemToReview._id;
-    defineMethod.call({ collectionName, definitionData }, (error) => {
-      if (error) {
+    defineMethod.callPromise({ collectionName, definitionData })
+      .catch((error) => {
         Swal.fire({
           title: 'Add Failed',
           text: error.message,
           icon: 'error',
         });
-      } else {
+      })
+      .then(() => {
         Swal.fire({
           title: 'Review Added',
           icon: 'success',
@@ -61,9 +62,7 @@ const StudentExplorerAddReviewForm: React.FC<StudentExplorerAddReviewFormProps> 
           allowEscapeKey: false,
           allowEnterKey: false,
         });
-        // this.formRef.current.reset();
-      }
-    });
+      });
   };
 
   const academicTerm = (): AcademicTerm[] => {
@@ -139,6 +138,7 @@ const StudentExplorerAddReviewForm: React.FC<StudentExplorerAddReviewFormProps> 
             <LongTextField placeholder="Explain the reasoning behind your rating here." name="comments" />
 
             <SubmitField className="green basic mini" value="ADD" inputRef={undefined} disabled={false} />
+            <ErrorsField />
           </AutoForm>
         </div>
       </Accordion.Content>

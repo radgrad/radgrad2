@@ -3,14 +3,9 @@ import { useRouteMatch, Link } from 'react-router-dom';
 import { Card, Icon, Label } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
 import * as Router from '../../utilities/router';
-import {
-  docToName,
-  docToShortDescription,
-  itemToSlugName,
-} from '../../utilities/data-model';
+import { docToName, docToShortDescription, itemToSlugName } from '../../utilities/data-model';
 import { buildExplorerSlugRoute } from '../../utilities/router';
 import InterestList from '../../InterestList';
-import TermList from './TermList';
 import { EXPLORER_TYPE } from '../../../../utilities/ExplorerUtils';
 
 interface ProfileCardProps {
@@ -35,16 +30,15 @@ const ExplorerCard: React.FC<ProfileCardProps> = ({ item, type, inProfile }) => 
   return (
     <Card>
       <Card.Content>
-        { item.termIDs ? (<TermList item={item} size="small" />) : ''}
         <Card.Header>{itemName}</Card.Header>
         { inProfile ? <Label ribbon='right' color='green'>IN MY PROFILE</Label> : '' }
       </Card.Content>
       <Card.Content>
         <Markdown escapeHtml source={`${itemShortDescription}...`}
-                  renderers={{ link: (localProps) => Router.renderLink(localProps, match) }} />
+          renderers={{ link: (localProps) => Router.renderLink(localProps, match) }} />
         { item.interestIDs ? (<InterestList item={item} size="small" />) : ''}
       </Card.Content>
-      <Link to={buildExplorerSlugRoute(match, type, slugName)} className="ui button">
+      <Link to={buildExplorerSlugRoute(match, type, slugName)} className="ui button" id={`see-details-${slugName}-button`}>
         <Icon name="zoom in" />
           &nbsp; {inProfile ? 'See Details / Remove from Profile' : 'See Details / Add to Profile' || 'View More'}
       </Link>

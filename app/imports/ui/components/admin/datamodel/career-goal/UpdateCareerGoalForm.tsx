@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Header, Segment } from 'semantic-ui-react';
-import { AutoForm, TextField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
+import { AutoForm, TextField, LongTextField, BoolField, SubmitField, ErrorsField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import BaseCollection from '../../../../../api/base/BaseCollection';
@@ -46,16 +46,17 @@ const UpdateCareerGoalForm: React.FC<UpdateCareerGoalFormProps> = ({
   return (
     <Segment padded>
       <Header dividing>
-        Update
+                Update
         {collection.getType()}:{itemTitleString(model)}
       </Header>
       <AutoForm schema={formSchema} onSubmit={handleUpdate} showInlineError model={model}>
-        <TextField name="name" />
-        <LongTextField name="description" />
-        <MultiSelectField name="interests" />
-        <BoolField name="retired" />
-        <p />
-        <SubmitField value="Update" disabled={false} className="mini basic green" />
+        <TextField name="name"/>
+        <LongTextField name="description"/>
+        <MultiSelectField name="interests"/>
+        <BoolField name="retired"/>
+        <p/>
+        <ErrorsField/>
+        <SubmitField value="Update" disabled={false} className="mini basic green"/>
         <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
       </AutoForm>
     </Segment>

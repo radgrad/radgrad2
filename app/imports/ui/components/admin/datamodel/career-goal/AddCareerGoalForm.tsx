@@ -1,6 +1,7 @@
 import React from 'react';
 import { Header, Segment } from 'semantic-ui-react';
-import { AutoForm, TextField, LongTextField, SubmitField } from 'uniforms-semantic';
+import Swal from 'sweetalert2';
+import { AutoForm, TextField, LongTextField, SubmitField, ErrorsField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
@@ -10,7 +11,6 @@ import slugify, { Slugs } from '../../../../../api/slug/SlugCollection';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
 import { Interest } from '../../../../../typings/radgrad';
 import { docToName } from '../../../shared/utilities/data-model';
-import { defineCallback } from '../utilities/add-form';
 
 interface AddCareerGoalFormProps {
   interests: Interest[];
@@ -28,7 +28,24 @@ const AddCareerGoalForm: React.FC<AddCareerGoalFormProps> = ({ interests }) => {
     const definitionData = doc;
     definitionData.interests = slugs;
     definitionData.slug = slugify(doc.name);
-    defineMethod.call({ collectionName, definitionData }, defineCallback(formRef));
+    defineMethod.callPromise({ collectionName, definitionData })
+      .catch((error) => {
+        console.error('Failed adding User', error);
+        Swal.fire({
+          title: 'Failed adding User',
+          text: error.message,
+          icon: 'error',
+        });
+      })
+      .then(() => {
+        Swal.fire({
+          title: 'Add User Succeeded',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        formRef.reset();
+      });
   };
 
   const interestNames = interests.map(docToName);
@@ -53,6 +70,7 @@ const AddCareerGoalForm: React.FC<AddCareerGoalFormProps> = ({ interests }) => {
         <MultiSelectField name="interests" placeholder="Select interest(s)" />
         <LongTextField name="description" placeholder="Describe the Career Goal here" />
         <SubmitField className="mini basic green" value="Add" />
+        <ErrorsField />
       </AutoForm>
     </Segment>
   );

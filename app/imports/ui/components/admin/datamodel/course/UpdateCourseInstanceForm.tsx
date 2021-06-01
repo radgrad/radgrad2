@@ -1,6 +1,15 @@
 import React from 'react';
 import { Button, Form, Header, Segment } from 'semantic-ui-react';
-import { AutoForm, SelectField, AutoField, BoolField, NumField, TextField, SubmitField } from 'uniforms-semantic';
+import {
+  AutoForm,
+  SelectField,
+  AutoField,
+  BoolField,
+  NumField,
+  TextField,
+  SubmitField,
+  ErrorsField,
+} from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { AcademicTerm } from '../../../../../typings/radgrad';
@@ -18,7 +27,14 @@ interface UpdateCourseInstanceFormProps {
   itemTitleString: (item) => React.ReactNode;
 }
 
-const UpdateCourseInstanceForm: React.FC<UpdateCourseInstanceFormProps> = ({ terms, collection, id, handleUpdate, handleCancel, itemTitleString }) => {
+const UpdateCourseInstanceForm: React.FC<UpdateCourseInstanceFormProps> = ({
+  terms,
+  collection,
+  id,
+  handleUpdate,
+  handleCancel,
+  itemTitleString,
+}) => {
   const model = collection.findDoc(id);
   model.academicTerm = academicTermIdToName(model.termID);
   model.creditHours = model.creditHrs;
@@ -48,26 +64,27 @@ const UpdateCourseInstanceForm: React.FC<UpdateCourseInstanceFormProps> = ({ ter
   return (
     <Segment padded>
       <Header dividing>
-        Update
+                Update
         {collection.getType()}:{itemTitleString(model)}
       </Header>
       <AutoForm schema={formSchema} onSubmit={handleUpdate} showInlineError model={model}>
         <Form.Group widths="equal">
-          <SelectField name="academicTerm" />
-          <AutoField name="ice" />
+          <SelectField name="academicTerm"/>
+          <AutoField name="ice"/>
         </Form.Group>
         <Form.Group widths="equal">
-          <BoolField name="verified" />
-          <BoolField name="fromRegistrar" />
+          <BoolField name="verified"/>
+          <BoolField name="fromRegistrar"/>
         </Form.Group>
         <Form.Group>
-          <NumField name="creditHours" />
-          <SelectField name="grade" />
-          <TextField name="note" />
+          <NumField name="creditHours"/>
+          <SelectField name="grade"/>
+          <TextField name="note"/>
         </Form.Group>
-        <BoolField name="retired" />
-        <SubmitField inputRef={undefined} value="Update" disabled={false} className="mini basic green" />
+        <BoolField name="retired"/>
+        <SubmitField inputRef={undefined} value="Update" disabled={false} className="mini basic green"/>
         <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
+        <ErrorsField/>
       </AutoForm>
     </Segment>
   );

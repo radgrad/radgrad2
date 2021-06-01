@@ -82,10 +82,10 @@ const EditInterestButton: React.FC<EditInterestButtonProps> = ({ interest, inter
 
   return (
     <Modal key={`${interest._id}-modal`}
-           onClose={() => setOpen(false)}
-           onOpen={() => setOpen(true)}
-           open={open}
-           trigger={<Button basic color='green' key={`${interest._id}-edit-button`}>EDIT</Button>}>
+      onClose={() => setOpen(false)}
+      onOpen={() => setOpen(true)}
+      open={open}
+      trigger={<Button basic color='green' key={`${interest._id}-edit-button`}>EDIT</Button>}>
       <Modal.Header>{`Edit ${interest.name}`}</Modal.Header>
       <Modal.Content>
         <AutoForm model={model} schema={formSchema} showInlineError onSubmit={(doc) => {
@@ -93,16 +93,16 @@ const EditInterestButton: React.FC<EditInterestButtonProps> = ({ interest, inter
           setOpen(false);
         }}>
           <Form.Group widths="equal">
-            <TextField name="name" />
-            <SelectField name="interestType" />
+            <TextField name="name"/>
+            <SelectField name="interestType"/>
           </Form.Group>
-          <LongTextField name="description" />
-          <BoolField name="retired" />
-          <ErrorsField />
-          <SubmitField />
+          <LongTextField name="description"/>
+          <BoolField name="retired"/>
+          <SubmitField/>
           <Button color='red' onClick={() => setOpen(false)}>
-            Cancel
+                        Cancel
           </Button>
+          <ErrorsField/>
         </AutoForm>
       </Modal.Content>
     </Modal>

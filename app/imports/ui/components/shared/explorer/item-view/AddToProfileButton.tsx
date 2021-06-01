@@ -8,9 +8,11 @@ import { ProfileInterests } from '../../../../../api/user/profile-entries/Profil
 import { ProfileOpportunities } from '../../../../../api/user/profile-entries/ProfileOpportunityCollection';
 import { defineMethod, removeItMethod } from '../../../../../api/base/BaseCollection.methods';
 import { PROFILE_ENTRY_TYPE, IProfileEntryTypes } from '../../../../../api/user/profile-entries/ProfileEntryTypes';
+import { COMPONENTIDS } from '../../../../utilities/ComponentIDs';
 import { createDefinitionData, getCollectionName } from './utilities/profile-button';
 
 type ItemType = CareerGoal | Course | Interest | Opportunity;
+
 export interface AddToProfileButtonProps {
   item: ItemType;
   studentID: string;
@@ -23,8 +25,8 @@ export interface AddToProfileButtonProps {
 const handleAdd = (studentID: string, item: ItemType, type: IProfileEntryTypes) => () => {
   const collectionName = getCollectionName(type);
   const definitionData = createDefinitionData(studentID, item, type);
-  defineMethod.call({ collectionName, definitionData }, (error: MeteorError) => {
-    if (error) {
+  defineMethod.callPromise({ collectionName, definitionData })
+    .catch((error: MeteorError) => {
       Swal.fire({
         title: 'Failed to add to profile',
         icon: 'error',
@@ -33,15 +35,15 @@ const handleAdd = (studentID: string, item: ItemType, type: IProfileEntryTypes) 
         allowEscapeKey: false,
         allowEnterKey: false,
       });
-    } else {
+    })
+    .then(() => {
       Swal.fire({
         title: 'Added to profile',
         icon: 'success',
         showConfirmButton: false,
         timer: 1500,
       });
-    }
-  });
+    });
 };
 
 const handleRemove = (studentID: string, item: ItemType, type: IProfileEntryTypes) => () => {
@@ -76,9 +78,8 @@ const handleRemove = (studentID: string, item: ItemType, type: IProfileEntryType
       console.error(`Bad profile entry type: ${type}`);
       break;
   }
-
-  removeItMethod.call({ collectionName, instance }, (error: MeteorError) => {
-    if (error) {
+  removeItMethod.callPromise({ collectionName, instance })
+    .catch((error) => {
       Swal.fire({
         title: 'Failed to remove from profile',
         icon: 'error',
@@ -87,21 +88,20 @@ const handleRemove = (studentID: string, item: ItemType, type: IProfileEntryType
         allowEscapeKey: false,
         allowEnterKey: false,
       });
-    }
-  });
+    });
 };
 
 const AddToProfileButton: React.FC<AddToProfileButtonProps> = ({ studentID, item, type, added, inverted, floated }) => (
   <React.Fragment>
     {added ? (
-      <Button onClick={handleRemove(studentID, item, type)} size="small" color="teal" floated={floated || 'right'} basic inverted={inverted}>
+      <Button id={COMPONENTIDS.REMOVE_FROM_PROFILE_BUTTON} onClick={handleRemove(studentID, item, type)} size="small" color="teal" floated={floated || 'right'} basic inverted={inverted}>
         <Icon name="user outline" color="grey" inverted={inverted} />
         <Icon name="minus" />
         REMOVE FROM PROFILE
       </Button>
     ) : (
-      <Button size="small" onClick={handleAdd(studentID, item, type)} color="teal" floated={floated || 'right'} basic inverted={inverted}>
-        <Icon name="user" color="grey" inverted={inverted}/>
+      <Button id={COMPONENTIDS.ADD_TO_PROFILE_BUTTON} size="small" onClick={handleAdd(studentID, item, type)} color="teal" floated={floated || 'right'} basic inverted={inverted}>
+        <Icon name="user" color="grey" inverted={inverted} />
         <Icon name="plus" />
         ADD TO PROFILE
       </Button>

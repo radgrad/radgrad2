@@ -1,145 +1,120 @@
 import React from 'react';
-import { useParams, useRouteMatch } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Grid } from 'semantic-ui-react';
-import _ from 'lodash';
+import { Interests } from '../../../../api/interest/InterestCollection';
 import { Reviews } from '../../../../api/review/ReviewCollection';
 import { PAGEIDS } from '../../../utilities/PageIDs';
-import { getMenuWidget } from '../utilities/getMenuWidget';
-import ExplorerMenu from '../../../components/shared/explorer/item-view/ExplorerMenu';
-import { Course, DescriptionPair, ProfileCourse, Review } from '../../../../typings/radgrad';
+import { AcademicTerm, Course, Interest, Profile, ProfileCourse, Review } from '../../../../typings/radgrad';
 import { Courses } from '../../../../api/course/CourseCollection';
 import { ProfileCourses } from '../../../../api/user/profile-entries/ProfileCourseCollection';
 import { Users } from '../../../../api/user/UserCollection';
 import ExplorerCourse from '../../../components/shared/explorer/item-view/course/ExplorerCourse';
-import { Interests } from '../../../../api/interest/InterestCollection';
-import { teaser } from '../../../components/shared/explorer/item-view/utilities/teaser';
-import { isSingleChoice } from '../../../../api/degree-plan/PlanChoiceUtilities';
 import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
-import * as Router from '../../../components/shared/utilities/router';
 import { Slugs } from '../../../../api/slug/SlugCollection';
+import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
+import { ROLE } from '../../../../api/role/Role';
+import AddToProfileButton from '../../../components/shared/explorer/item-view/AddToProfileButton';
+import { PROFILE_ENTRY_TYPE } from '../../../../api/user/profile-entries/ProfileEntryTypes';
+import RelatedInterests from '../../../components/shared/RelatedInterests';
+import RelatedCareerGoals from '../../../components/shared/RelatedCareerGoals';
+import RelatedOpportunities from '../../../components/shared/RelatedOpportunities';
+import PageLayout from '../../PageLayout';
+import { getAssociationRelatedCourses, getAssociationRelatedOpportunities } from '../utilities/getExplorerRelatedMethods';
+import RelatedCourses from '../../../components/shared/RelatedCourses';
 
 interface CourseViewPageProps {
   profileCourses: ProfileCourse[];
   course: Course;
   itemReviews: Review[];
+  profile: Profile;
+  terms: AcademicTerm[];
+  courses: Course[];
+  interests: Interest[];
 }
 
-// TODO this seems very complicated to get the description pairs.
-const passedCourseHelper = (courseSlugName: string, match): string => {
-  let ret = 'Not in plan';
+const isCourseCompleted = (courseSlugName, studentID): boolean => {
+  let courseCompleted = false;
   const theCourse = Courses.findDocBySlug(courseSlugName);
   const ci = CourseInstances.findNonRetired({
-    studentID: Router.getUserIdFromRoute(match),
+    studentID: studentID,
     courseID: theCourse._id,
   });
   ci.forEach((c) => {
     if (c.verified === true) {
-      ret = 'Completed';
-    } else if (ret !== 'Completed') {
-      ret = 'In plan, but not yet complete';
+      courseCompleted = true;
     }
   });
-  return ret;
+  return courseCompleted;
 };
 
-const prerequisiteStatus = (prerequisite: string, match) => {
-  if (isSingleChoice(prerequisite)) {
-    return passedCourseHelper(prerequisite, match);
-  }
-  const slugs = prerequisite.split(',');
-  let ret = 'Not in plan';
-  slugs.forEach((slug) => {
-    const result = passedCourseHelper(slug, match);
-    if (result === 'Completed') {
-      ret = result;
-    } else if (result === 'In plan, but not yet complete') {
-      ret = result;
-    }
-  });
-  return ret;
-};
-
-const prerequisites = (theCourse: Course, match): any[] => {
-  const list = theCourse.prerequisites;
-  const complete = [];
-  const incomplete = [];
-  const notInPlan = [];
-  let itemStatus = '';
-  list.forEach((item) => {
-    itemStatus = prerequisiteStatus(item, match);
-    if (itemStatus === 'Not in plan') {
-      notInPlan.push({ course: item, status: itemStatus });
-    } else if (itemStatus === 'Completed') {
-      complete.push({ course: item, status: itemStatus });
-    } else {
-      incomplete.push({ course: item, status: itemStatus });
-    }
-  });
-  if (complete.length === 0 && incomplete.length === 0 && notInPlan.length === 0) {
-    return null;
-  }
-  return [complete, incomplete, notInPlan];
-};
-
-const descriptionPairsCourses = (theCourse: Course, match): DescriptionPair[] => [
-  { label: 'Course Number', value: theCourse.num },
-  { label: 'Credit Hours', value: theCourse.creditHrs },
-  { label: 'Description', value: theCourse.description },
-  { label: 'Syllabus', value: theCourse.syllabus },
-  { label: 'Interests', value: _.sortBy(Interests.findNames(theCourse.interestIDs)) },
-  { label: 'Prerequisites', value: prerequisites(theCourse, match) },
-  { label: 'Teaser', value: teaser(theCourse) },
-];
-
-const isCourseCompleted = (courseSlugName, match): boolean => {
-  let ret = false;
-  const courseStatus = passedCourseHelper(courseSlugName, match);
-  if (courseStatus === 'Completed') {
-    ret = true;
-  }
-  return ret;
-};
-
-const CourseViewPage: React.FC<CourseViewPageProps> = ({ profileCourses, course, itemReviews }) => {
-  const match = useRouteMatch();
-  const menuAddedList = profileCourses.map((f) => ({
-    item: Courses.findDoc(f.courseID),
-    count: 1,
-  }));
-  const descriptionPairs = descriptionPairsCourses(course, match);
+const CourseViewPage: React.FC<CourseViewPageProps> = ({
+  profileCourses,
+  course,
+  itemReviews,
+  profile,
+  terms,
+  courses,
+  interests,
+}) => {
+  const headerPaneTitle = `${course.name} (${course.num})`;
+  const headerPaneImage = 'header-courses.png';
+  const added = ProfileCourses.findNonRetired({
+    studentID: profile.userID,
+    courseID: course._id,
+  }).length > 0;
+  const relatedOpportunities = getAssociationRelatedOpportunities(Courses.findRelatedOpportunities(course._id), profile.userID);
+  const relatedCareerGoals = Courses.findRelatedCareerGoals(course._id);
+  const headerPaneButton = profile.role === ROLE.STUDENT ?
+    <AddToProfileButton type={PROFILE_ENTRY_TYPE.COURSE} studentID={profile.userID} item={course}
+      added={added} inverted floated="left" /> : undefined;
   const courseSlug = Slugs.getNameFromID(course.slugID);
-  const completed = isCourseCompleted(courseSlug, match);
+  const completed = isCourseCompleted(courseSlug, profile.userID);
+  const relatedCourses = getAssociationRelatedCourses(course.prerequisites.map((c) => Courses.findDocBySlug(c)), profile.userID);
   return (
-    <div id={PAGEIDS.COURSE}>
-      {getMenuWidget(match)}
-      <Grid stackable>
+    <PageLayout id={PAGEIDS.COURSE} headerPaneTitle={headerPaneTitle} headerPaneImage={headerPaneImage}
+      headerPaneButton={headerPaneButton}>
+      <Grid>
         <Grid.Row>
-          <Grid.Column width={3}>
-            <ExplorerMenu menuAddedList={menuAddedList} type="courses" />
+          <Grid.Column width={5}>
+            <RelatedInterests item={course} />
+            <RelatedCourses relatedCourses={relatedCourses} profile={profile} title='prerequisites' />
+            <RelatedCareerGoals careerGoals={relatedCareerGoals} userID={profile.userID} />
+            <RelatedOpportunities relatedOpportunities={relatedOpportunities} profile={profile} />
           </Grid.Column>
-          <Grid.Column width={13}>
-            <ExplorerCourse name={course.name} shortName={course.shortName} descriptionPairs={descriptionPairs}
-                            item={course} completed={completed} itemReviews={itemReviews} />
+          <Grid.Column width={11}>
+            <ExplorerCourse course={course} profile={profile} completed={completed} itemReviews={itemReviews}
+              terms={terms} courses={courses} interests={interests} />
           </Grid.Column>
         </Grid.Row>
       </Grid>
-    </div>
+    </PageLayout>
   );
 };
 
 const CourseViewPageContainer = withTracker(() => {
   const { course, username } = useParams();
-  // console.log(course, username);
   const courseDoc = Courses.findDocBySlug(course);
   const profile = Users.getProfile(username);
   const profileCourses = ProfileCourses.findNonRetired({ studentID: profile.userID });
   const itemReviews = Reviews.findNonRetired({ revieweeID: courseDoc._id });
+  const allTerms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
+  const currentTermNumber = AcademicTerms.getCurrentAcademicTermDoc().termNumber;
+  const after = currentTermNumber - 8;
+  const before = currentTermNumber + 16;
+  const terms = allTerms.filter((t) => t.termNumber >= after && t.termNumber <= before);
+  const courses = Courses.findNonRetired();
+  const interests = Interests.findNonRetired();
   return {
     course: courseDoc,
     profileCourses,
     itemReviews,
+    profile,
+    terms,
+    courses,
+    interests,
   };
 })(CourseViewPage);
 
 export default CourseViewPageContainer;
+

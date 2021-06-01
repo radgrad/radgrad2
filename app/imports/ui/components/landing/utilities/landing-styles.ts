@@ -57,8 +57,8 @@ export default {
   },
   'landing-number-column': {
     textAlign: 'center',
-    paddingRight: 20,
-    paddingLeft: 20,
+    paddingRight: 0,
+    paddingLeft: 0,
     fontSize: '1.3rem',
   },
   'home-number': {
@@ -171,7 +171,6 @@ export default {
     backgroundColor: COLORS.BLACK,
     padding: '2rem 0',
     color: COLORS.WHITE,
-    fontSize: 13,
   },
   'home-number-label a:link': {
     fontWeight: 100,

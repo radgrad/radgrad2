@@ -1,7 +1,8 @@
 import _ from 'lodash';
 import React from 'react';
+import Swal from 'sweetalert2';
 import { Form, Header, Segment } from 'semantic-ui-react';
-import { AutoForm, SelectField, BoolField, SubmitField } from 'uniforms-semantic';
+import { AutoForm, SelectField, BoolField, SubmitField, ErrorsField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
@@ -15,7 +16,6 @@ import {
   docToName, opportunityNameToSlug, profileNameToUsername,
   profileToName,
 } from '../../../shared/utilities/data-model';
-import { defineCallback } from '../utilities/add-form';
 
 interface AddOpportunityInstanceFormProps {
   terms: AcademicTerm[];
@@ -24,7 +24,12 @@ interface AddOpportunityInstanceFormProps {
   sponsors: BaseProfile[];
 }
 
-const AddOpportunityInstanceForm: React.FC<AddOpportunityInstanceFormProps> = ({ terms, opportunities, students, sponsors }) => {
+const AddOpportunityInstanceForm: React.FC<AddOpportunityInstanceFormProps> = ({
+  terms,
+  opportunities,
+  students,
+  sponsors,
+}) => {
   const termNames = terms.map(academicTermToName);
   const currentTermName = AcademicTerms.toString(AcademicTerms.getCurrentTermID(), false);
   const opportunityNames = opportunities.map(docToName);
@@ -75,7 +80,23 @@ const AddOpportunityInstanceForm: React.FC<AddOpportunityInstanceFormProps> = ({
     if (_.isBoolean(doc.retired)) {
       definitionData.retired = doc.retired;
     }
-    defineMethod.call({ collectionName, definitionData }, defineCallback(formRef));
+    defineMethod.callPromise({ collectionName, definitionData })
+      .catch((error) => {
+        Swal.fire({
+          title: 'Add failed',
+          text: error.message,
+          icon: 'error',
+        });
+      })
+      .then(() => {
+        Swal.fire({
+          title: 'Add succeeded',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        formRef.reset();
+      });
   };
 
   // console.log(termNames, courseNames, studentNames);
@@ -97,6 +118,7 @@ const AddOpportunityInstanceForm: React.FC<AddOpportunityInstanceFormProps> = ({
           <BoolField name="retired" />
         </Form.Group>
         <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
+        <ErrorsField />
       </AutoForm>
     </Segment>
   );

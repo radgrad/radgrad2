@@ -4,7 +4,7 @@ import { Dropdown } from 'semantic-ui-react';
 import { useRouteMatch } from 'react-router-dom';
 import * as Router from '../../app/imports/ui/components/shared/utilities/router';
 import { EXPLORER_TYPE } from '../../app/imports/ui/layouts/utilities/route-constants';
-import ExplorerMenuMobileItem from '../../app/imports/ui/components/shared/explorer/item-view/ExplorerMenuMobileItem';
+import ExplorerMenuMobileItem from '../issue-412/ExplorerMenuMobileItem';
 import { ExplorerInterfaces, isType } from './utilities/explorer';
 
 const AppMedia = createMedia({

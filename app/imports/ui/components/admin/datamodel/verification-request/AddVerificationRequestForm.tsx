@@ -2,7 +2,8 @@ import _ from 'lodash';
 import React from 'react';
 import { Header, Segment } from 'semantic-ui-react';
 import SimpleSchema from 'simpl-schema';
-import { AutoForm, SelectField, BoolField, SubmitField } from 'uniforms-semantic';
+import Swal from 'sweetalert2';
+import { AutoForm, SelectField, BoolField, SubmitField, ErrorsField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
 import {
@@ -18,7 +19,6 @@ import {
   opportunityInstanceToName, opportunityNameToSlug, profileNameToUsername,
 } from '../../../shared/utilities/data-model';
 import { VerificationRequests } from '../../../../../api/verification/VerificationRequestCollection';
-import { defineCallback } from '../utilities/add-form';
 
 interface AddVerificationRequestFormProps {
   students: StudentProfile[];
@@ -80,8 +80,23 @@ const AddVerificationRequestForm: React.FC<AddVerificationRequestFormProps> = ({
       definitionData.retired = doc.retired;
     }
     // console.log(collectionName, definitionData);
-    defineMethod.call({ collectionName, definitionData }, defineCallback(formRef));
-
+    defineMethod.callPromise({ collectionName, definitionData })
+      .catch((error) => {
+        Swal.fire({
+          title: 'Add failed',
+          text: error.message,
+          icon: 'error',
+        });
+      })
+      .then(() => {
+        Swal.fire({
+          title: 'Add succeeded',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        formRef.reset();
+      });
   };
 
   return (
@@ -100,6 +115,7 @@ const AddVerificationRequestForm: React.FC<AddVerificationRequestFormProps> = ({
         {/* </Form.Group> */}
         <BoolField name="retired" />
         <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
+        <ErrorsField />
       </AutoForm>
     </Segment>
   );

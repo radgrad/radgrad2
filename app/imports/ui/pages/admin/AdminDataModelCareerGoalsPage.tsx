@@ -2,6 +2,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
 import _ from 'lodash';
 import { Confirm, Icon } from 'semantic-ui-react';
+import Swal from 'sweetalert2';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { Users } from '../../../api/user/UserCollection';
 import { CareerGoal, CareerGoalUpdate, DescriptionPair, Interest } from '../../../typings/radgrad';
@@ -19,7 +20,7 @@ import { PAGEIDS } from '../../utilities/PageIDs';
 import {
   handleCancelWrapper,
   handleConfirmDeleteWrapper,
-  handleDeleteWrapper, handleOpenUpdateWrapper, updateCallBack,
+  handleDeleteWrapper, handleOpenUpdateWrapper,
 } from './utilities/data-model-page-callbacks';
 import PageLayout from '../PageLayout';
 
@@ -28,7 +29,7 @@ const collection = CareerGoals;
 const numReferences = (careerGoal) => {
   let references = 0;
   Users.findProfiles({}, {}).forEach((profile) => {
-    if (_.includes(profileGetCareerGoalIDs(profile), careerGoal._id)) {
+    if ((profileGetCareerGoalIDs(profile)).includes(careerGoal._id)) {
       references += 1;
     }
   });
@@ -77,15 +78,33 @@ const AdminDataModelCareerGoalsPage: React.FC<AdminDataModelCareerGoalsPageProps
     updateData.retired = doc.retired;
     updateData.interests = doc.interests.map(interestNameToId);
     // console.log('updateData = %o', updateData);
-    updateMethod.call({ collectionName, updateData }, updateCallBack(setShowUpdateForm, setId));
+    updateMethod.callPromise({ collectionName, updateData })
+      .catch((error) => {
+        Swal.fire({
+          title: 'Update failed',
+          text: error.message,
+          icon: 'error',
+        });
+        console.error('Error in updating. %o', error);
+      })
+      .then(() => {
+        Swal.fire({
+          title: 'Update succeeded',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setShowUpdateForm(false);
+        setId('');
+      });
   };
 
   return (
     <PageLayout id={PAGEIDS.DATA_MODEL_CAREER_GOALS} headerPaneTitle="Career Goals">
       {showUpdateFormState ? (
         <UpdateCareerGoalForm collection={CareerGoals} id={idState} handleUpdate={handleUpdate}
-                              handleCancel={handleCancel} itemTitleString={itemTitleString}
-                              interests={interests} />
+          handleCancel={handleCancel} itemTitleString={itemTitleString}
+          interests={interests} />
       ) : (
         <AddCareerGoalForm interests={interests} />
       )}
@@ -99,7 +118,7 @@ const AdminDataModelCareerGoalsPage: React.FC<AdminDataModelCareerGoalsPageProps
       />
 
       <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
-               header="Delete Career Goal?" />
+        header="Delete Career Goal?" />
     </PageLayout>
   );
 };

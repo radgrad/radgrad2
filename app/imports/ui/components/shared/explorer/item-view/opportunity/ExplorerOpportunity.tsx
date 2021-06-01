@@ -1,31 +1,24 @@
 import moment from 'moment';
-import React, { useEffect, useState } from 'react';
-import { useRouteMatch } from 'react-router-dom';
-import { Divider, Grid, Header, Segment } from 'semantic-ui-react';
+import React from 'react';
 import Markdown from 'react-markdown';
+import { useRouteMatch } from 'react-router-dom';
+import { Divider, Grid, Segment } from 'semantic-ui-react';
 import { AcademicTerms } from '../../../../../../api/academic-term/AcademicTermCollection';
 import { OpportunityTypes } from '../../../../../../api/opportunity/OpportunityTypeCollection';
-import { getFutureEnrollmentSingleMethod } from '../../../../../../api/utilities/FutureEnrollment.methods';
-import { ENROLLMENT_TYPE, EnrollmentForecast } from '../../../../../../startup/both/RadGradForecasts';
-import {
-  AcademicTerm,
-  BaseProfile,
-  Interest,
-  Opportunity,
-  OpportunityType, Profile,
-  Review,
-} from '../../../../../../typings/radgrad';
-import StudentExplorerReviewWidget from '../../../../student/explorer/StudentExplorerReviewWidget';
 import { Reviews } from '../../../../../../api/review/ReviewCollection';
-import IceHeader from '../../../IceHeader';
-import { Teasers } from '../../../../../../api/teaser/TeaserCollection';
-import DeleteOpportunityButton from '../../../manage/opportunity/DeleteOpportunityButton';
-import EditOpportunityButton from '../../../manage/opportunity/EditOpportunityButton';
-import FutureParticipation from '../../FutureParticipation';
-import TeaserVideo from '../../../TeaserVideo';
-import { Users } from '../../../../../../api/user/UserCollection';
-import ExplorerReviewWidget from '../ExplorerReviewWidget';
 import { ROLE } from '../../../../../../api/role/Role';
+import { Teasers } from '../../../../../../api/teaser/TeaserCollection';
+import { PROFILE_ENTRY_TYPE } from '../../../../../../api/user/profile-entries/ProfileEntryTypes';
+import { Users } from '../../../../../../api/user/UserCollection';
+import { AcademicTerm, BaseProfile, Interest, Opportunity, OpportunityType, Profile, Review } from '../../../../../../typings/radgrad';
+import StudentExplorerReviewWidget from '../../../../student/explorer/StudentExplorerReviewWidget';
+import IceHeader from '../../../IceHeader';
+import DeleteItemButton from '../../../manage/DeleteItemButton';
+import EditOpportunityButton from '../../../manage/opportunity/EditOpportunityButton';
+import RadGradHeader from '../../../RadGradHeader';
+import TeaserVideo from '../../../TeaserVideo';
+import FutureParticipation from '../../FutureParticipation';
+import ExplorerReviewWidget from '../ExplorerReviewWidget';
 
 interface ExplorerOpportunitiesWidgetProps {
   opportunity: Opportunity;
@@ -66,32 +59,7 @@ const ExplorerOpportunity: React.FC<ExplorerOpportunitiesWidgetProps> = ({ oppor
   const hasTeaser = Teasers.findNonRetired({ targetSlugID: opportunity.slugID }).length > 0;
   const isStudent = profile.role === ROLE.STUDENT;
   const isSponsor = profile.userID === opportunity.sponsorID;
-  const [data, setData] = useState<EnrollmentForecast>({});
-  const [fetched, setFetched] = useState(false);
-
-  useEffect(() => {
-    // console.log('check for infinite loop');
-    function fetchData() {
-      getFutureEnrollmentSingleMethod.callPromise({ id: opportunity._id, type: ENROLLMENT_TYPE.OPPORTUNITY })
-        .then((result) => setData(result))
-        .catch((error) => {
-          console.error(error);
-          setData({});
-        });
-    }
-
-    // Only fetch data if it hasn't been fetched before.
-    if (!fetched) {
-      fetchData();
-      setFetched(true);
-    }
-  }, [fetched, opportunity._id]);
-  let academicTerms = [];
-  let scores = [];
-  if (data?.enrollment) {
-    academicTerms = data.enrollment.map((entry) => AcademicTerms.findDoc(entry.termID));
-    scores = data.enrollment.map((entry) => entry.count);
-  }
+  const showManageButtons = isSponsor || profile.role === ROLE.ADMIN;
   const opportunityType = OpportunityTypes.findDoc(opportunity.opportunityTypeID).name;
   const opportunityTermNames = opportunity.termIDs.map((id) => AcademicTerms.toString(id));
   const opportunitySponsorName = Users.getFullName(opportunity.sponsorID);
@@ -136,14 +104,14 @@ const ExplorerOpportunity: React.FC<ExplorerOpportunitiesWidgetProps> = ({ oppor
           <Grid.Row>
             <Markdown allowDangerousHtml source={opportunity.description} />
           </Grid.Row>
-          {isSponsor ? <Grid.Row><EditOpportunityButton opportunity={opportunity} sponsors={sponsors} terms={terms} interests={interests} opportunityTypes={opportunityTypes}/> <DeleteOpportunityButton opportunity={opportunity} /></Grid.Row> : ''}
+          {showManageButtons ? <Grid.Row><EditOpportunityButton opportunity={opportunity} sponsors={sponsors} terms={terms} interests={interests} opportunityTypes={opportunityTypes}/> <DeleteItemButton item={opportunity} type={PROFILE_ENTRY_TYPE.OPPORTUNITY} /></Grid.Row> : ''}
         </Grid>
       </Segment>
 
       <Segment textAlign="center">
-        <Header>STUDENTS PARTICIPATING BY SEMESTER</Header>
+        <RadGradHeader title='students participating by semester' dividing={false} />
         <Divider />
-        <FutureParticipation academicTerms={academicTerms} scores={scores} />
+        <FutureParticipation item={opportunity} />
       </Segment>
 
       {isStudent ? (

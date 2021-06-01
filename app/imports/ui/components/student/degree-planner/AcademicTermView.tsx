@@ -48,12 +48,12 @@ const AcademicTermView: React.FC<AcademicTermViewProps> = ({
           <div ref={provided.innerRef} style={getDroppableListStyle(snapshot.isDraggingOver)}>
             {courseInstancesToShow.map((ci, index) => (
               <DraggableCourseInstancePill key={ci._id} instance={ci} index={index} inPast={inPast}
-                                           handleClickCourseInstance={handleClickCourseInstance} />
+                handleClickCourseInstance={handleClickCourseInstance} />
             ))}
             {opportunityInstancesToShow.map((oi, index) => (
               <DraggableOpportunityInstancePill key={oi._id} instance={oi}
-                                                index={courseInstancesToShow.length + index}
-                                                handleClickOpportunityInstance={handleClickOpportunityInstance} />
+                index={courseInstancesToShow.length + index}
+                handleClickOpportunityInstance={handleClickOpportunityInstance} />
             ))}
             {provided.placeholder}
             <Icon name="plus circle" color="grey" /> Drag Here

@@ -4,7 +4,7 @@ import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
 import Swal from 'sweetalert2';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
-import { AutoForm, LongTextField, SelectField, SubmitField } from 'uniforms-semantic';
+import { AutoForm, ErrorsField, LongTextField, SelectField, SubmitField } from 'uniforms-semantic';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { defineMethod } from '../../../../api/base/BaseCollection.methods';
 import { Courses } from '../../../../api/course/CourseCollection';
@@ -37,7 +37,7 @@ const WriteReviews: React.FC<WriteReviewsProps> = ({ unreviewedCourses, unreview
 
   const handleChoiceChange = (name, value) => {
     // console.log(name, value);
-    const strippedName = value.substring(0, value.indexOf('(') - 1);
+    const strippedName = value.substring(0, value.lastIndexOf('(') - 1);
     setChoiceName(strippedName);
     if (courseNames.includes(strippedName)) {
       setReviewType(Reviews.COURSE);
@@ -72,14 +72,15 @@ const WriteReviews: React.FC<WriteReviewsProps> = ({ unreviewedCourses, unreview
     definitionData.reviewType = reviewType as ReviewTypes;
     definitionData.reviewee = reviewee;
     // console.log(collectionName, definitionData);
-    defineMethod.call({ collectionName, definitionData }, (error) => {
-      if (error) {
+    defineMethod.callPromise({ collectionName, definitionData })
+      .catch((error) => {
         Swal.fire({
           title: 'Add Failed',
           text: error.message,
           icon: 'error',
         });
-      } else {
+      })
+      .then(() => {
         Swal.fire({
           title: 'Review Added',
           icon: 'success',
@@ -90,8 +91,7 @@ const WriteReviews: React.FC<WriteReviewsProps> = ({ unreviewedCourses, unreview
           showConfirmButton: false,
           timer: 1500,
         });
-      }
-    });
+      });
   };
 
   const choiceSchema = new SimpleSchema({
@@ -123,10 +123,12 @@ const WriteReviews: React.FC<WriteReviewsProps> = ({ unreviewedCourses, unreview
   const disabled = choiceName === '';
   return (
     <div>
-      <Header>Please consider writing a review for your <strong>completed Courses or Opportunities.</strong></Header>
+      <Header>Please consider writing a review for your <strong>completed Courses or
+        Opportunities.</strong></Header>
       {/* eslint-disable-next-line no-return-assign */}
       <AutoForm ref={(ref) => choiceFormRef = ref} schema={choiceFormSchema} onChange={handleChoiceChange}>
         <SelectField name='courseOrOpportunityToReview' />
+        <ErrorsField />
       </AutoForm>
       <Segment basic>
         {/* eslint-disable-next-line no-return-assign */}
@@ -145,18 +147,20 @@ const WriteReviews: React.FC<WriteReviewsProps> = ({ unreviewedCourses, unreview
               <RatingField name='rating' disabled={disabled} />
             </Grid.Column>
             <Grid.Column width={6} verticalAlign='middle'>
-              Please provide three or four sentences discussing your experience. Please use language your parents
+              Please provide three or four sentences discussing your experience. Please use language your
+              parents
               would
               find appropriate :)
             </Grid.Column>
             <Grid.Column width={10}>
               <LongTextField name='comments'
-                             disabled={disabled} />
+                disabled={disabled} />
             </Grid.Column>
             <Grid.Column width={6}>
               <SubmitField />
             </Grid.Column>
           </Grid>
+          <ErrorsField />
         </AutoForm>
       </Segment>
     </div>

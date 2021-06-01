@@ -1,6 +1,6 @@
 {
   "cas": { "baseUrl": "https://cas-test.its.hawaii.edu/cas/", "autoClose": true },
-  "databaseRestoreFileName": "database/snapshot/2021-05-07-12-05-16.json",
+  "databaseRestoreFileName": "database/development/2021-05-30-12-31-05.json",
   "termsAndConditionsFileName": "terms-and-conditions/terms-and-conditions.ics.md",
   "env": { "MAIL_URL": "smtps://changeme:changeme@smtp.mailgun.org:465" },
 
@@ -15,7 +15,6 @@
       "three": {"plannedICE": {"i": 0, "c": 0, "e": 0}, "earnedICE": {"i": 1, "c": 24, "e": 1}, "reviews": 0 },
       "two": {"plannedICE": {"i": 0, "c": 0, "e": 0}, "earnedICE": {"i": 0, "c": 12, "e": 0}, "reviews": 0 }
     },
-    "repeatableCourseNums": ["ICS 499"],
     "quarterSystem": false,
     "adminProfile": { "username": "radgrad@hawaii.edu", "firstName": "RadGrad", "lastName": "Admin" },
     "emailDomain": "hawaii.edu",

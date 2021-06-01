@@ -50,7 +50,7 @@ export const alumniEmailsMethod = new ValidatedMethod({
     if (Meteor.isServer) {
       const alumniEmails = emails.split('\n');
       let count = 0;
-      _.forEach(alumniEmails, (e) => {
+      alumniEmails.forEach((e) => {
         // TODO load the names from a config file.
         if (e !== 'samplestudent@hawaii.edu' && e !== 'opq@hawaii.edu' && e !== 'spaek@hawaii.edu' && e !== 'peterleo@hawaii.edu' && e !== '') {
           const profile = StudentProfiles.findDoc({ username: e });
@@ -78,10 +78,13 @@ export const defineMethod = new ValidatedMethod({
   mixins: [CallPromiseMixin],
   validate: null,
   run({ collectionName, definitionData }) {
-    // console.log(collectionName, this.userId, definitionData);
-    const collection = RadGrad.getCollection(collectionName);
-    collection.assertValidRoleForMethod(this.userId);
-    return collection.define(definitionData);
+    if (Meteor.isServer) {
+      // console.log(collectionName, this.userId, definitionData);
+      const collection = RadGrad.getCollection(collectionName);
+      collection.assertValidRoleForMethod(this.userId);
+      return collection.define(definitionData);
+    }
+    return '';
   },
 });
 
@@ -90,11 +93,12 @@ export const updateMethod = new ValidatedMethod({
   mixins: [CallPromiseMixin],
   validate: null,
   run({ collectionName, updateData }) {
-    // console.log('updateMethod(%o, %o)', collectionName, updateData);
-    const collection = RadGrad.getCollection(collectionName);
-    collection.assertValidRoleForMethod(this.userId);
-    collection.update(updateData.id, updateData);
-    return true;
+    if (Meteor.isServer) {
+      // console.log('updateMethod(%o, %o)', collectionName, updateData);
+      const collection = RadGrad.getCollection(collectionName);
+      collection.assertValidRoleForMethod(this.userId);
+      collection.update(updateData.id, updateData);
+    }
   },
 });
 

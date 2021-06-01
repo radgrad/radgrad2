@@ -1,5 +1,4 @@
 import React from 'react';
-import _ from 'lodash';
 import { useRouteMatch } from 'react-router-dom';
 import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
 import { ProfileCareerGoals } from '../../../../api/user/profile-entries/ProfileCareerGoalCollection';
@@ -16,13 +15,14 @@ import { EntityLabel, EntityLabelPublicProps } from './EntityLabel';
 const CareerGoalLabel: React.FC<EntityLabelPublicProps> = ({ slug, userID, size, style, rightside }) => {
   let inProfile = false;
   const match = useRouteMatch();
-  const route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/${slug}`);
+  let route = `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/${slug}`;
   const name = CareerGoals.findDocBySlug(slug).name; // will throw an error if slug is undefined.
   if (userID) {
+    route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/${slug}`);
     // Calculate inProfile and route.
     const profileEntityIDs = ProfileCareerGoals.findNonRetired({ userID: userID });
     const id = CareerGoals.findIdBySlug(slug);
-    inProfile = _.includes(profileEntityIDs.map(doc => doc.careerGoalID), id);
+    inProfile = (profileEntityIDs.map(doc => doc.careerGoalID)).includes(id);
   }
   return (
     <EntityLabel slug={slug} inProfile={inProfile} icon='briefcase' name={name} route={route} size={size} style={style} rightside={rightside}/>

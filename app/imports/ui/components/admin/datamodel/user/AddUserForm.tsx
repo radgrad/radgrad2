@@ -1,7 +1,17 @@
 import _ from 'lodash';
 import React, { useState } from 'react';
 import { Form, Header, Segment } from 'semantic-ui-react';
-import { AutoForm, TextField, SelectField, BoolField, LongTextField, NumField, SubmitField } from 'uniforms-semantic';
+import Swal from 'sweetalert2';
+import {
+  AutoForm,
+  TextField,
+  SelectField,
+  BoolField,
+  LongTextField,
+  NumField,
+  SubmitField,
+  ErrorsField,
+} from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
@@ -18,7 +28,6 @@ import {
   declaredAcademicTermSlugFromName,
   interestSlugFromName,
 } from '../../../shared/utilities/form';
-import { defineCallback } from '../utilities/add-form';
 
 interface AddUserProps {
   interests: Interest[];
@@ -57,7 +66,23 @@ const AddUserForm: React.FC<AddUserProps> = ({ interests, academicTerms, careerG
       }
     }
     // console.log(collectionName, definitionData);
-    defineMethod.call({ collectionName, definitionData }, defineCallback(formRef));
+    defineMethod.callPromise({ collectionName, definitionData })
+      .catch((error) => {
+        Swal.fire({
+          title: 'Add failed',
+          text: error.message,
+          icon: 'error',
+        });
+      })
+      .then(() => {
+        Swal.fire({
+          title: 'Add succeeded',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        formRef.reset();
+      });
   };
 
   const handleModelChange = (model) => {
@@ -127,7 +152,8 @@ const AddUserForm: React.FC<AddUserProps> = ({ interests, academicTerms, careerG
     <Segment padded>
       <Header dividing>Add User</Header>
       {/* eslint-disable-next-line no-return-assign */}
-      <AutoForm schema={formSchema} onSubmit={(doc) => handleAddUser(doc)} ref={(ref) => formRef = ref} showInlineError onChangeModel={handleModelChange}>
+      <AutoForm schema={formSchema} onSubmit={(doc) => handleAddUser(doc)} ref={(ref) => formRef = ref}
+        showInlineError onChangeModel={handleModelChange}>
         <Form.Group widths="equal">
           <TextField name="username" placeholder="johndoe@foo.edu" />
           <SelectField name="role" />
@@ -183,6 +209,7 @@ const AddUserForm: React.FC<AddUserProps> = ({ interests, academicTerms, careerG
           ''
         )}
         <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
+        <ErrorsField />
       </AutoForm>
     </Segment>
   );

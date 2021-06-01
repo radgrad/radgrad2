@@ -4,6 +4,10 @@ import { signinPage } from './signin.page';
 import { landingPage } from './landing.page';
 import {
   adminHomePage,
+  landingInterestExplorerPage,
+  landingCareerGoalExplorerPage,
+  landingCourseExplorerPage,
+  landingOpportunityExplorerPage,
 } from './simple.page';
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
@@ -20,6 +24,20 @@ test('Test that landing page shows up', async (testController) => {
   // Note: landingPage.isDisplayed waits 10 seconds to ensure app comes up---needed for CI mode.
   // You probably want to skip this test during development, but make sure it's enabled before committing to master.
   await landingPage.isDisplayed(testController);
+});
+
+test('Test that the landing explorer pages show up', async (testController) => {
+  await landingPage.gotoCareerGoalsExplorer(testController);
+  await landingCareerGoalExplorerPage.isDisplayed(testController);
+  await landingPage.gotoLanding(testController);
+  await landingPage.gotoInterestsExplorer(testController);
+  await landingInterestExplorerPage.isDisplayed(testController);
+  await landingPage.gotoLanding(testController);
+  await landingPage.gotoCoursesExplorer(testController);
+  await landingCourseExplorerPage.isDisplayed(testController);
+  await landingPage.gotoLanding(testController);
+  await landingPage.gotoOpportunitiesExplorer(testController);
+  await landingOpportunityExplorerPage.isDisplayed(testController);
 });
 
 test('Test admin login', async (testController) => {

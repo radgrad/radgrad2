@@ -9,7 +9,7 @@ import { ViewInExplorerButtonLink } from '../../shared/button/ViewInExplorerButt
 import FutureParticipationButton from '../../shared/FutureParticipationButton';
 import IceHeader from '../../shared/IceHeader';
 import { makeCourseICE } from '../../../../api/ice/IceProcessor';
-import { cardStyle, contentStyle, getInspectorDraggablePillStyle } from './utilities/styles';
+import { cardStyle, contentStyle, getDraggablePillStyle } from './utilities/styles';
 import NamePill from './NamePill';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 
@@ -54,7 +54,7 @@ const ProfileCourseCard: React.FC<ProfileCourseCardProps> = ({ course, courseIns
               <Draggable key={slug} draggableId={slug} index={0}>
                 {(prov, snap) => (
                   <div ref={prov.innerRef} {...prov.draggableProps} {...prov.dragHandleProps}
-                       style={getInspectorDraggablePillStyle(snap.isDragging, prov.draggableProps.style)}>
+                    style={getDraggablePillStyle(snap.isDragging, prov.draggableProps.style)}>
                     <NamePill name={course.num} />
                   </div>
                 )}

@@ -23,11 +23,12 @@ const processStudentStarDefinitions = (advisor, student, definitions) => {
   // console.log(definitions);
   const studentID = Users.getID(student);
   // console.log(student, studentID);
-  const oldInstances = CourseInstances.find({ studentID, fromRegistrar: true }).fetch();
+  const courseInstances = CourseInstances.find({ studentID }).fetch() ;
+  const oldInstances = courseInstances.filter((ci) => CourseInstances.isInCurrentOrPast(ci._id));
   oldInstances.forEach((instance) => {
     CourseInstances.removeIt(instance._id);
   });
-  let numInterstingCourses = 0;
+  let numInterestingCourses = 0;
   // let numOtherCourses = 0;
   // console.log('create new instances');
   const departments = {};
@@ -42,7 +43,7 @@ const processStudentStarDefinitions = (advisor, student, definitions) => {
       } else {
         departments[department] += 1;
       }
-      numInterstingCourses += 1;
+      numInterestingCourses += 1;
       const courseID = Courses.findIdBySlug(definition.course);
       // console.log('courseID', courseID);
       const planning = CourseInstances.find({ studentID, termID, courseID, verified: false }).fetch();
@@ -70,7 +71,7 @@ const processStudentStarDefinitions = (advisor, student, definitions) => {
     }
   }
   text = text.substring(0, text.length - 2);
-  if (numInterstingCourses > 1) {
+  if (numInterestingCourses > 1) {
     text = `${text} courses from STAR.`;
   } else {
     text = `${text} course from STAR.`;
@@ -108,18 +109,22 @@ const processStudentStarJsonData = (advisor, student, jsonData) => {
   processStudentStarDefinitions(advisor, student, defintions);
 };
 
+// TODO archive this method
 /**
  * ValidatedMethod for loading student STAR data.
  * @memberOf api/star
  */
 export const starLoadDataMethod = new ValidatedMethod({
   name: 'StarProcessor.loadStarCsvData',
+  mixins: [CallPromiseMixin],
   validate: null,
   run(data) {
-    if (!this.userId) {
-      throw new Meteor.Error('unauthorized', 'You must be logged in to define Star data.');
+    if (Meteor.isServer) {
+      if (!this.userId) {
+        throw new Meteor.Error('unauthorized', 'You must be logged in to define Star data.');
+      }
+      processStudentStarCsvData(data.advisor, data.student, data.csvData);
     }
-    processStudentStarCsvData(data.advisor, data.student, data.csvData);
   },
 });
 
@@ -129,12 +134,15 @@ export const starLoadDataMethod = new ValidatedMethod({
  */
 export const starLoadJsonDataMethod = new ValidatedMethod({
   name: 'StarProcessor.loadStarJsonData',
+  mixins: [CallPromiseMixin],
   validate: null,
   run(data) {
-    if (!this.userId) {
-      throw new Meteor.Error('unauthorized', 'You must be logged in to define Star data.');
+    if (Meteor.isServer) {
+      if (!this.userId) {
+        throw new Meteor.Error('unauthorized', 'You must be logged in to define Star data.');
+      }
+      processStudentStarJsonData(data.advisor, data.student, data.jsonData);
     }
-    processStudentStarJsonData(data.advisor, data.student, data.jsonData);
   },
 });
 
@@ -197,6 +205,7 @@ const processBulkStarDataJson = (advisor, jsonData) => {
   return processBulkStarDefinitions(advisor, definitions);
 };
 
+// TODO archive this method
 /**
  * ValidatedMethod for loading bulk STAR data.
  * @memberOf api/star
@@ -218,10 +227,13 @@ export const starBulkLoadJsonDataMethod = new ValidatedMethod({
   mixins: [CallPromiseMixin],
   validate: null,
   run(data) {
-    if (!this.userId) {
-      throw new Meteor.Error('unauthorized', 'You must be logged in to define Star data.');
+    if (Meteor.isServer) {
+      if (!this.userId) {
+        throw new Meteor.Error('unauthorized', 'You must be logged in to define Star data.');
+      }
+      // console.log(data);
+      return processBulkStarDataJson(data.advisor, data.jsonData);
     }
-    // console.log(data);
-    return processBulkStarDataJson(data.advisor, data.jsonData);
+    return null;
   },
 });

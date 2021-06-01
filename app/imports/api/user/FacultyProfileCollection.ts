@@ -105,6 +105,8 @@ class FacultyProfileCollection extends BaseProfileCollection {
     sharePicture,
     shareInterests,
     shareCareerGoals,
+    acceptedTermsAndConditions,
+    refusedTermsAndConditions,
     aboutMe,
   }: AdvisorOrFacultyProfileUpdate) {
     this.assertDefined(docID);
@@ -121,6 +123,8 @@ class FacultyProfileCollection extends BaseProfileCollection {
       sharePicture,
       shareInterests,
       shareCareerGoals,
+      acceptedTermsAndConditions,
+      refusedTermsAndConditions,
     });
     if (aboutMe) {
       updateData.aboutMe = aboutMe;

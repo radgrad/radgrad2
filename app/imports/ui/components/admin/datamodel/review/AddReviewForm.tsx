@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Header, Segment } from 'semantic-ui-react';
-import { AutoForm, SelectField, NumField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
+import Swal from 'sweetalert2';
+import { AutoForm, SelectField, NumField, LongTextField, BoolField, SubmitField, ErrorsField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
@@ -14,7 +15,6 @@ import {
   profileToName,
 } from '../../../shared/utilities/data-model';
 import { Reviews } from '../../../../../api/review/ReviewCollection';
-import { defineCallback } from '../utilities/add-form';
 
 interface AddReviewFormProps {
   terms: AcademicTerm[];
@@ -98,15 +98,31 @@ const AddReviewForm: React.FC<AddReviewFormProps> = ({ terms, courses, opportuni
     }
     definitionData.academicTerm = academicTermNameToSlug(doc.academicTerm);
     definitionData.slug = `review-${definitionData.reviewType}-${definitionData.reviewee}-${definitionData.student}`;
-    defineMethod.call({ collectionName, definitionData }, defineCallback(formRef));
+    defineMethod.callPromise({ collectionName, definitionData })
+      .catch((error) => {
+        Swal.fire({
+          title: 'Add failed',
+          text: error.message,
+          icon: 'error',
+        });
+      })
+      .then(() => {
+        Swal.fire({
+          title: 'Add succeeded',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        formRef.reset();
+      });
   };
-  // console.log(reviewType, schema);
+
   return (
     <Segment padded>
       <Header dividing>Add Review</Header>
       {/* eslint-disable-next-line no-return-assign */}
       <AutoForm schema={new SimpleSchema2Bridge(schema)} onSubmit={handleAdd} ref={(ref) => formRef = ref}
-                showInlineError onChangeModel={handleModelChange}>
+        showInlineError onChangeModel={handleModelChange}>
         <Form.Group widths="equal">
           <SelectField name="reviewType" />
           <SelectField name="student" />
@@ -124,6 +140,7 @@ const AddReviewForm: React.FC<AddReviewFormProps> = ({ terms, courses, opportuni
         <LongTextField name="moderatorComments" />
         <BoolField name="retired" />
         <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
+        <ErrorsField />
       </AutoForm>
     </Segment>
   );

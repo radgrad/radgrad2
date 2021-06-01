@@ -204,12 +204,11 @@ class StudentProfileCollection extends BaseProfileCollection {
       const userID = Users.define({ username, role });
       this.collection.update(profileID, { $set: { userID } });
       if (interests) {
-        interests.forEach((interest) => ProfileInterests.define({ interest, share: shareInterests, username }));
+        interests.forEach((interest) => ProfileInterests.define({ interest, username }));
       }
       if (careerGoals) {
         careerGoals.forEach((careerGoal) => ProfileCareerGoals.define({
           careerGoal,
-          share: shareCareerGoals,
           username,
         }));
       }
@@ -299,6 +298,8 @@ class StudentProfileCollection extends BaseProfileCollection {
       sharePicture,
       shareInterests,
       shareCareerGoals,
+      acceptedTermsAndConditions,
+      refusedTermsAndConditions,
     });
     if (declaredAcademicTerm) {
       updateData.declaredAcademicTermID = AcademicTerms.getID(declaredAcademicTerm);

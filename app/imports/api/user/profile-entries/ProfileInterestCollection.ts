@@ -14,7 +14,6 @@ class ProfileInterestCollection extends BaseCollection {
     super('ProfileInterest', new SimpleSchema({
       interestID: SimpleSchema.RegEx.Id,
       userID: SimpleSchema.RegEx.Id,
-      share: Boolean,
       retired: { type: Boolean, optional: true },
     }));
   }
@@ -23,18 +22,17 @@ class ProfileInterestCollection extends BaseCollection {
    * Defines a new ProfileInterest.
    * @param interest the interest slug.
    * @param student the student's username.
-   * @param share {Boolean}, is the interest to be shared? Defaults to false.
    * @param retired the retired status.
    * @returns {void|*|boolean|{}}
    */
-  define({ interest, username, share = false, retired = false }) {
+  define({ interest, username, retired = false }) {
     const interestID = Interests.getID(interest);
     const userID = Users.getID(username);
     const doc = this.collection.findOne({ userID, interestID });
     if (doc) {
       return doc._id;
     }
-    return this.collection.insert({ interestID, userID, share, retired });
+    return this.collection.insert({ interestID, userID, retired });
   }
 
   /**
@@ -42,14 +40,11 @@ class ProfileInterestCollection extends BaseCollection {
    * @param docID the ID of the ProfileInterest.
    * @param retired the new retired value.
    */
-  update(docID, { share, retired }: { share?: boolean, retired?: boolean }) {
+  update(docID, { retired }: { retired?: boolean }) {
     this.assertDefined(docID);
     const updateData: ProfileEntryUpdate = {};
     if (_.isBoolean(retired)) {
       updateData.retired = retired;
-    }
-    if (_.isBoolean(share)) {
-      updateData.share = share;
     }
     this.collection.update(docID, { $set: updateData });
   }
@@ -86,7 +81,7 @@ class ProfileInterestCollection extends BaseCollection {
           return this.ready();
         }
         const profile = Users.getProfile(userID);
-        if (_.includes([ROLE.ADMIN, ROLE.ADVISOR], profile.role)) {
+        if ([ROLE.ADMIN, ROLE.ADVISOR].includes(profile.role)) {
           return collection.find();
         }
         return collection.find({ userID });
@@ -95,8 +90,7 @@ class ProfileInterestCollection extends BaseCollection {
   }
 
   /**
-   * Implementation of assertValidRoleForMethod. Asserts that userId is logged in as an Admin, Advisor or
-   * Student.
+   * Implementation of assertValidRoleForMethod. Asserts that userId is logged in as an Admin, Advisor or Student.
    * This is used in the define, update, and removeIt Meteor methods associated with each class.
    * @param userId The userId of the logged in user. Can be null or undefined
    * @throws { Meteor.Error } If there is no logged in user, or the user is not an Admin or Advisor.
@@ -191,9 +185,8 @@ class ProfileInterestCollection extends BaseCollection {
     const doc = this.findDoc(docID);
     const interest = Interests.findSlugByID(doc.interestID);
     const username = Users.getProfile(doc.userID).username;
-    const share = doc.share;
     const retired = doc.retired;
-    return { interest, username, share, retired };
+    return { interest, username, retired };
   }
 }
 

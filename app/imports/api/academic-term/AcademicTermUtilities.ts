@@ -57,8 +57,8 @@ export const nextAcademicTerm = (termDoc: AcademicTerm): AcademicTerm => {
       term = AcademicTerms.WINTER;
     } else {
       term = AcademicTerms.SPRING;
+      year += 1;
     }
-    year += 1;
   } else if (currentTerm === AcademicTerms.WINTER) {
     term = AcademicTerms.SPRING;
   } else if (currentTerm === AcademicTerms.SPRING) {

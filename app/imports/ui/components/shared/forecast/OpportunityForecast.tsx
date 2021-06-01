@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Grid, Header, Icon, Label, Popup, Segment, Table } from 'semantic-ui-react';
+import { Button, Grid, Header, Icon, Label, Segment, Table } from 'semantic-ui-react';
 import moment from 'moment';
 import { ZipZap } from 'meteor/udondan:zipzap';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
@@ -86,13 +86,13 @@ const OpportunityForecast: React.FC = () => {
                       // eslint-disable-next-line react/no-array-index-key
                       <Table.Row key={`${opportunity._id}`}>
                         <Table.Cell width={1}>
-                          <Popup content={opportunity.name} trigger={<Label>{opportunity.name}</Label>} />
+                          <Label>{opportunity.name}</Label>
                         </Table.Cell>
                         {o.enrollment.map((entry) => {
                           const score = entry.count;
                           return (
-                            <Table.Cell width={1} key={`${opportunity._id}${entry.term}`} negative={score > 0}
-                                        collapsing>
+                            <Table.Cell width={1} key={`${opportunity._id}${entry.termID}`} negative={score > 0}
+                              collapsing>
                               {score > 10 ? <Icon name="attention" /> : ''}
                               {score}
                             </Table.Cell>

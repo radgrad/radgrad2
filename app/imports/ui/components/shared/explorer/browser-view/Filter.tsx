@@ -1,5 +1,5 @@
 import React from 'react';
-import { AutoForm } from 'uniforms-semantic/';
+import { AutoForm, ErrorsField } from 'uniforms-semantic/';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { useStickyState } from '../../../../utilities/StickyState';
@@ -13,7 +13,9 @@ interface FilterProps {
 const Filter: React.FC<FilterProps> = ({ explorerType }) => {
   const [filterChoice, setFilterChoice] = useStickyState(`Filter.${explorerType}`, EXPLORER_FILTER_KEYS.NONE);
 
-  const handleChange = (type, value) => { setFilterChoice(value); };
+  const handleChange = (type, value) => {
+    setFilterChoice(value);
+  };
 
   const explorerFilterValues = (type) => {
     let allowedFilterValues: string[];
@@ -42,7 +44,8 @@ const Filter: React.FC<FilterProps> = ({ explorerType }) => {
   return (
     <div>
       <AutoForm schema={formSchema} model={model} onChange={handleChange}>
-        <RadioField name="filterBy" label="Filter By:" inline />
+        <RadioField name="filterBy" label="Filter By:" inline/>
+        <ErrorsField/>
       </AutoForm>
     </div>
   );
