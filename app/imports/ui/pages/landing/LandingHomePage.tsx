@@ -119,4 +119,12 @@ const LandingHomeContainer = withTracker(() => {
   };
 })(LandingHomePage);
 
-export default withListSubscriptions(LandingHomeContainer, [PublicStats.getPublicationName(), Users.getPublicationName(), AdvisorProfiles.getPublicationName(), FacultyProfiles.getPublicationName(), StudentProfiles.getPublicationName(), AdminProfiles.getPublicationName(), Factoids.getPublicationName()]);
+export default withListSubscriptions(LandingHomeContainer, [
+  PublicStats.getPublicationName(),
+  Users.getPublicationName(),
+  AdvisorProfiles.getPublicationName(),
+  FacultyProfiles.getPublicationName(),
+  StudentProfiles.getPublicationName(),
+  AdminProfiles.getPublicationName(),
+  Factoids.getPublicationName(),
+]);
