@@ -6,7 +6,7 @@ import ModerationReview from './ModerationReview';
 import { Review } from '../../../../typings/radgrad';
 
 interface ModerationColumnProps {
-  handleReview: (item, comment, visible) => any;
+  handleReview: (item, comment, approved) => any;
   reviews: Review[];
   type: string;
 }

@@ -6,10 +6,11 @@ import { Opportunities } from '../../../../api/opportunity/OpportunityCollection
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { Users } from '../../../../api/user/UserCollection';
 import { updateMethod } from '../../../../api/base/BaseCollection.methods';
+import { Review } from '../../../../typings/radgrad';
 
 interface ModerationReviewProps {
-  item: any; // TODO can we type this?
-  handleReview: (item, comment, visible) => any;
+  item: Review;
+  handleReview: (item, comment, approved) => any;
 }
 
 const ModerationReview: React.FC<ModerationReviewProps> = ({ item, handleReview }) => {
@@ -29,7 +30,6 @@ const ModerationReview: React.FC<ModerationReviewProps> = ({ item, handleReview 
     // make handle accept take in the moderator comments
     const update = handleReview(item, moderatorCommentState, true);
     setModeratorComment('');
-    // console.log('handle accept click', update);
     updateMethod.callPromise({ collectionName: update.collectionName, updateData: update.updateInfo })
       .catch((error) => {
         Swal.fire({
@@ -52,7 +52,6 @@ const ModerationReview: React.FC<ModerationReviewProps> = ({ item, handleReview 
   const handleRejectClick = () => {
     const update = handleReview(item, moderatorCommentState, false);
     setModeratorComment('');
-    // console.log('handle accept click', update);
     updateMethod.callPromise({ collectionName: update.collectionName, updateData: update.updateInfo })
       .catch((error) => {
         Swal.fire({
