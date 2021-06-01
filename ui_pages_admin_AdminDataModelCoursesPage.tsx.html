@@ -103,7 +103,7 @@ import {
 } from './utilities/data-model-page-callbacks';
 import { makeMarkdownLink } from './utilities/datamodel';
 import { Interests } from '../../../api/interest/InterestCollection';
-import { courseNameToSlug, courseToName, itemToSlugName, interestNameToId } from '../../components/shared/utilities/data-model';
+import { courseNameToSlug, interestNameToId } from '../../components/shared/utilities/data-model';
 import AddCourseForm from '../../components/admin/datamodel/course/AddCourseForm';
 import UpdateCourseForm from '../../components/admin/datamodel/course/UpdateCourseForm';
 import PageLayout from '../PageLayout';
@@ -131,7 +131,7 @@ const descriptionPairs = (item: Course): DescriptionPair[] => [
  * Returns the title string for the item. Used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const itemTitleString = (item: Course): string => `${courseToName(item)} (${itemToSlugName(item)})`;
+const itemTitleString = (item: Course): string => Courses.getName(item._id);
 
 /**
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.

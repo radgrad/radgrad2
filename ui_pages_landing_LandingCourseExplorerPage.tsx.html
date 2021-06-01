@@ -132,6 +132,7 @@ const LandingCourseExplorerPage: React.FC&lt;CourseExplorerProps> = ({ course })
   const match = useRouteMatch();
   const relatedCareerGoals = Courses.findRelatedCareerGoals(course._id);
   const relatedOpportunities = Courses.findRelatedOpportunities(course._id);
+  const title = Courses.getName(course._id);
   return (
     &lt;div>
       &lt;LandingExplorerMenuBar />
@@ -144,11 +145,9 @@ const LandingCourseExplorerPage: React.FC&lt;CourseExplorerProps> = ({ course })
             &lt;/Grid.Column>
 
             &lt;Grid.Column width={13}>
-              &lt;RadGradSegment header={&lt;RadGradHeader title={course.name} />}>
+              &lt;RadGradSegment header={&lt;RadGradHeader title={title} />}>
                 &lt;Grid columns={2} stackable>
                   &lt;Grid.Column width="six">
-                    &lt;b>Course Number:&lt;/b> {course.num}
-                    &lt;br/>
                     &lt;b>Credit Hours:&lt;/b> {course.creditHrs}
                   &lt;/Grid.Column>
                   &lt;Grid.Column width="ten">
