@@ -73,6 +73,7 @@ const AdminDataModelCareerGoalsPage: React.FC<AdminDataModelCareerGoalsPageProps
     const collectionName = collection.getCollectionName();
     const updateData: CareerGoalUpdate = {};
     updateData.id = doc._id;
+    updateData.picture = doc.picture;
     updateData.name = doc.name;
     updateData.description = doc.description;
     updateData.retired = doc.retired;

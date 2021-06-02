@@ -19,7 +19,7 @@ This page allows you to control what aspects of your Label and Profile are visib
 
 Providing access allows RadGrad to help you find similarly minded community members. You can change your settings at any time.
 `;
-const headerPaneImage = 'header-privacy.png';
+const headerPaneImage = 'images/header-panel/header-privacy.png';
 
 interface StudentVisibilityPageProps {
   profile: StudentProfile;
