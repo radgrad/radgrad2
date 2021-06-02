@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Button, Form, Modal } from 'semantic-ui-react';
-import Swal from 'sweetalert2';
 import SimpleSchema from 'simpl-schema';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import {
@@ -13,6 +12,7 @@ import {
   SubmitField,
   TextField,
 } from 'uniforms-semantic';
+import RadGradAlert from '../../../../utilities/RadGradAlert';
 import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermCollection';
 import { updateMethod } from '../../../../../api/base/BaseCollection.methods';
 import { iceSchema } from '../../../../../api/ice/IceProcessor';
@@ -60,22 +60,8 @@ const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({
     updateData.academicTerms = doc.academicTerms.map((name) => AcademicTerms.getAcademicTermFromToString(name)._id);
     // console.log(collectionName, updateData);
     updateMethod.callPromise({ collectionName, updateData })
-      .then((result) => Swal.fire({
-        title: 'Opportunity Updated',
-        icon: 'success',
-        text: 'Successfully updated opportunity.',
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        allowEnterKey: false,
-        showConfirmButton: false,
-        timer: 1500,
-      }))
-      .catch((error) => Swal.fire({
-        title: 'Update Failed',
-        text: error.message,
-        icon: 'error',
-        // timer: 1500,
-      }));
+      .then((result) => { RadGradAlert.success('Opportunity Updated', result);})
+      .catch((error) => { RadGradAlert.failure('Update Failed', error.message, error);});
   };
 
   const updateSchema = new SimpleSchema({

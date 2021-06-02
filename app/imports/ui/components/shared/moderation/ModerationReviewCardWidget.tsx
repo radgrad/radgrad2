@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Swal from 'sweetalert2';
 import { Segment, Container, Form, Button, Rating } from 'semantic-ui-react';
+import RadGradAlert from '../../../utilities/RadGradAlert';
 import { Courses } from '../../../../api/course/CourseCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
@@ -32,22 +32,8 @@ const ModerationReviewCardWidget: React.FC<ModerationReviewCardWidget> = ({ item
     setModeratorComment('');
     // console.log('handle accept click', update);
     updateMethod.callPromise({ collectionName: update.collectionName, updateData: update.updateInfo })
-      .catch((error) => {
-        Swal.fire({
-          title: 'Update failed',
-          text: error.message,
-          icon: 'error',
-        });
-        console.error('Error in updating. %o', error);
-      })
-      .then(() => {
-        Swal.fire({
-          title: 'Update succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      });
+      .catch((error) => { RadGradAlert.failure('Update Failed', error.message, error);})
+      .then(() => { RadGradAlert.success('Update Succeeded');});
   };
 
   const handleRejectClick = () => {
@@ -55,22 +41,8 @@ const ModerationReviewCardWidget: React.FC<ModerationReviewCardWidget> = ({ item
     setModeratorComment('');
     // console.log('handle accept click', update);
     updateMethod.callPromise({ collectionName: update.collectionName, updateData: update.updateInfo })
-      .catch((error) => {
-        Swal.fire({
-          title: 'Update failed',
-          text: error.message,
-          icon: 'error',
-        });
-        console.error('Error in updating. %o', error);
-      })
-      .then(() => {
-        Swal.fire({
-          title: 'Update succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      });
+      .catch((error) => { RadGradAlert.failure('Update Failed', error.message, error);})
+      .then(() => { RadGradAlert.success('Update Succeeded');});
   };
 
   const handleChange = (event, { value }) => {

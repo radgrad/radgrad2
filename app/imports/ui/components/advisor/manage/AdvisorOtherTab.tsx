@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Button, Input, Segment, Tab } from 'semantic-ui-react';
-import Swal from 'sweetalert2';
 import { ZipZap } from 'meteor/udondan:zipzap';
 import moment from 'moment';
+import RadGradAlert from '../../../utilities/RadGradAlert';
 import { alumniEmailsMethod } from '../../../../api/base/BaseCollection.methods';
 import { starBulkLoadJsonDataMethod } from '../../../../api/star/StarProcessor.methods';
 import { retireAllOldStudentsMethod, updateAllStudentsToAlumniMethod } from '../../../../api/user/StudentProfileCollection.methods';
@@ -38,12 +38,7 @@ const AdvisorOtherTab: React.FC = () => {
         const jsonData = JSON.parse(event.target.result);
         setBulkCourseData(jsonData);
       } catch (error) {
-        Swal.fire({
-          title: 'Error reading data from file',
-          text: 'Please ensure the file you selected is formatted properly',
-          icon: 'error',
-        });
-        console.error(error.message);
+        RadGradAlert.failure('Error reading data from file', 'Please ensure the file you selected is formatted properly', error);
       }
     };
   };
@@ -53,21 +48,9 @@ const AdvisorOtherTab: React.FC = () => {
     setIsUpdateWorking(true);
     updateAllStudentLevelsMethod.call((error, result) => {
       if (error) {
-        Swal.fire({
-          title: 'Error updating students\' levels',
-          text: 'There was an error updating the students\' levels.',
-          icon: 'error',
-        });
-        console.error('There was an error updating the student levels', error);
+        RadGradAlert.failure('Error updating students\' levels', 'There was an error updating the students\' levels', error);
       } else {
-        Swal.fire({
-          title: 'Updates Students\' levels',
-          text: result,
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        // console.log(result);
+        RadGradAlert.success('Updates Students\' levels');
       }
     });
     setIsUpdateWorking(false);
@@ -78,20 +61,9 @@ const AdvisorOtherTab: React.FC = () => {
     const alumniEmails = alumniEmailsState;
     alumniEmailsMethod.call(alumniEmails, (error, result) => {
       if (error) {
-        Swal.fire({
-          title: 'Error loading alumni emails',
-          text: error.message,
-          icon: 'error',
-        });
-        console.error('Error loading alumni emails. %o', error);
+        RadGradAlert.failure('Error loading alumni emails', error.message, error);
       } else {
-        Swal.fire({
-          title: 'Alumni emails loaded successfully',
-          icon: 'success',
-          text: result,
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        RadGradAlert.success('Alumni emails loaded successfully');
         setAlumniEmails('');
       }
       setIsAlumniWorking(false);
@@ -108,22 +80,11 @@ const AdvisorOtherTab: React.FC = () => {
     // console.log(data);
     starBulkLoadJsonDataMethod.callPromise(data)
       .then((result) => {
-        Swal.fire({
-          title: 'Bulk Course Data loaded successfully',
-          icon: 'success',
-          text: result,
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        RadGradAlert.success('Bulk Course Data loaded successfully', result);
         setIsUploadWorking(false);
       })
       .catch((error) => {
-        Swal.fire({
-          title: 'Error loading bulk course data',
-          text: error.message,
-          icon: 'error',
-        });
-        console.error('Error in updating. %o', error);
+        RadGradAlert.failure('Error loading bulk course data', error.message, error);
         setBulkCourseData('');
         setIsUploadWorking(false);
       });
@@ -133,19 +94,9 @@ const AdvisorOtherTab: React.FC = () => {
     setIsEmailWorking(true);
     generateStudentEmailsMethod.call({}, (error, result) => {
       if (error) {
-        Swal.fire({
-          title: 'Error during Generating Student Emails',
-          text: error.message,
-          icon: 'error',
-        });
-        console.error('Error in updating. %o', error);
+        RadGradAlert.failure('Error during Generating Student Emails', error.message, error);
       } else {
-        Swal.fire({
-          title: 'Beginning Download...',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        RadGradAlert.success('Beginning Download...');
         const data: any = {};
         data.name = 'Students';
         data.contents = result.students;
