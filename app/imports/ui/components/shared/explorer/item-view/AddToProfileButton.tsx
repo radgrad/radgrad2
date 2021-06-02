@@ -91,22 +91,24 @@ const handleRemove = (studentID: string, item: ItemType, type: IProfileEntryType
     });
 };
 
-const AddToProfileButton: React.FC<AddToProfileButtonProps> = ({ studentID, item, type, added, inverted, floated }) => (
-  <React.Fragment>
-    {added ? (
-      <Button id={COMPONENTIDS.REMOVE_FROM_PROFILE_BUTTON} onClick={handleRemove(studentID, item, type)} size="small" color="teal" floated={floated || 'right'} basic inverted={inverted}>
-        <Icon name="user outline" color="grey" inverted={inverted} />
-        <Icon name="minus" />
-        REMOVE FROM PROFILE
-      </Button>
-    ) : (
-      <Button id={COMPONENTIDS.ADD_TO_PROFILE_BUTTON} size="small" onClick={handleAdd(studentID, item, type)} color="teal" floated={floated || 'right'} basic inverted={inverted}>
-        <Icon name="user" color="grey" inverted={inverted} />
-        <Icon name="plus" />
-        ADD TO PROFILE
-      </Button>
-    )}
-  </React.Fragment>
-);
+const AddToProfileButton: React.FC<AddToProfileButtonProps> = ({ studentID, item, type, added, inverted, floated }) => {
+  return (
+    <React.Fragment>
+      {added ? (
+        <Button id={COMPONENTIDS.REMOVE_FROM_PROFILE_BUTTON} onClick={handleRemove(studentID, item, type)} size="small" color="teal" floated={floated || 'right'} basic inverted={inverted}>
+          <Icon name="user outline" color="grey" inverted={inverted} />
+          <Icon name="minus" />
+          REMOVE FROM PROFILE
+        </Button>
+      ) : (
+        <Button id={COMPONENTIDS.ADD_TO_PROFILE_BUTTON} size="small" onClick={handleAdd(studentID, item, type)} color="teal" floated={floated || 'right'} basic inverted={inverted}>
+          <Icon name="user" color="grey" inverted={inverted} />
+          <Icon name="plus" />
+          ADD TO PROFILE
+        </Button>
+      )}
+    </React.Fragment>
+  );
+};
 
 export default AddToProfileButton;
