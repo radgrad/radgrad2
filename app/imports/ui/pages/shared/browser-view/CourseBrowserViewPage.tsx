@@ -20,7 +20,7 @@ The RadGrad course explorer provides helpful information about courses, includin
  
 Once they are in your plan, RadGrad can update your Competency points and do a better job of community building. 
 `;
-const headerPaneImage = 'header-courses.png';
+const headerPaneImage = 'images/header-panel/header-courses.png';
 
 
 const CourseBrowserViewPage: React.FC<CourseBrowserViewPageProps> = ({ courses }) => (

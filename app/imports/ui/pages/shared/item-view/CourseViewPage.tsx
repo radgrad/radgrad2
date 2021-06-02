@@ -58,7 +58,7 @@ const CourseViewPage: React.FC<CourseViewPageProps> = ({
   interests,
 }) => {
   const headerPaneTitle = Courses.getName(course._id);
-  const headerPaneImage = 'header-courses.png';
+  const headerPaneImage =  course.picture;
   const added = ProfileCourses.findNonRetired({
     studentID: profile.userID,
     courseID: course._id,
@@ -117,4 +117,3 @@ const CourseViewPageContainer = withTracker(() => {
 })(CourseViewPage);
 
 export default CourseViewPageContainer;
-
