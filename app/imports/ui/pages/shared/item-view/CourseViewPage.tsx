@@ -92,7 +92,7 @@ const CourseViewPage: React.FC<CourseViewPageProps> = ({
   );
 };
 
-const CourseViewPageContainer = withTracker(() => {
+export default withTracker(() => {
   const { course, username } = useParams();
   const courseDoc = Courses.findDocBySlug(course);
   const profile = Users.getProfile(username);
@@ -115,6 +115,4 @@ const CourseViewPageContainer = withTracker(() => {
     interests,
   };
 })(CourseViewPage);
-
-export default CourseViewPageContainer;
 
