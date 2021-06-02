@@ -34,26 +34,10 @@ const headerPaneBody = `
 <p><span class="headerLabel yellowBG">MEDIUM PRIORITY</span> &nbsp; These are requests to review your settings or things that might have changed recently. </p>
 <p><span class="headerLabel greenBG">COMPLETED</span>  &nbsp; All of these look good for now!</p>
 `;
-const headerPaneImage = 'header-home.png';
+const headerPaneImage = 'images/header-panel/header-home.png';
 
-const rolePageID = (role) => {
-  switch (role) {
-    case URL_ROLES.ADMIN:
-      return PAGEIDS.ADMIN_HOME;
-    case URL_ROLES.ADVISOR:
-      return PAGEIDS.ADVISOR_HOME;
-    case URL_ROLES.FACULTY:
-      return PAGEIDS.FACULTY_HOME_PAGE;
-    case URL_ROLES.STUDENT:
-      return PAGEIDS.STUDENT_HOME;
-    default:
-      return '';
-  // do nothing
-  }
-};
-
-const HomePage: React.FC<HomePageProps> = ({ okItems, reviewItems, improveItems, role }) => (
-  <PageLayout id={rolePageID(role)} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
+const HomePage: React.FC<HomePageProps> = ({ okItems, reviewItems, improveItems, pageID }) => (
+  <PageLayout id={pageID} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
     <HomePageChecklistSegment okItems={okItems} reviewItems={reviewItems} improveItems={improveItems} />
   </PageLayout>
 );
@@ -66,31 +50,56 @@ export default withTracker(() => {
   const checklists = [];
   const match = useRouteMatch();
   const role = getRoleByUrl(match);
+  let pageID = '';
   checklists.push(new InterestsChecklist(currentUser));
   checklists.push(new CareerGoalsChecklist(currentUser));
   checklists.push(new VisibilityChecklist(currentUser));
-  if (role === URL_ROLES.ADMIN || role === URL_ROLES.ADVISOR || role === URL_ROLES.FACULTY) {
-    checklists.push(new OutOfDateOpportunitiesChecklist(currentUser));
-    checklists.push(new ManageVerificationRequestsChecklist(currentUser));
-    checklists.push(new ManageOpportunitiesChecklist(currentUser));
-    checklists.push(new ManageReviewsChecklist(currentUser));
-    checklists.push(new ReviewInterestsChecklist(currentUser));
-    checklists.push(new ReviewCareerGoalsChecklist(currentUser));
-  }
-  if (role === URL_ROLES.ADVISOR || role === URL_ROLES.FACULTY) {
-    checklists.push(new InterestsWithoutRelatedChecklists(currentUser));
-    checklists.push(new CareerGoalsWithoutRelatedChecklists(currentUser));
-    checklists.push(new TermsAndConditionsChecklist(currentUser));
+  switch (role)  {
+    case URL_ROLES.ADMIN:
+      pageID = PAGEIDS.ADMIN_HOME;
+      checklists.push(new OutOfDateOpportunitiesChecklist(currentUser));
+      checklists.push(new ManageVerificationRequestsChecklist(currentUser));
+      checklists.push(new ManageOpportunitiesChecklist(currentUser));
+      checklists.push(new ManageReviewsChecklist(currentUser));
+      checklists.push(new ReviewInterestsChecklist(currentUser));
+      checklists.push(new ReviewCareerGoalsChecklist(currentUser));
+      checklists.push(new InterestsWithoutRelatedChecklists(currentUser));
+      checklists.push(new CareerGoalsWithoutRelatedChecklists(currentUser));
+      break;
+    case URL_ROLES.ADVISOR:
+      pageID = PAGEIDS.ADVISOR_HOME;
+      checklists.push(new OutOfDateOpportunitiesChecklist(currentUser));
+      checklists.push(new ManageVerificationRequestsChecklist(currentUser));
+      checklists.push(new ManageOpportunitiesChecklist(currentUser));
+      checklists.push(new ManageReviewsChecklist(currentUser));
+      checklists.push(new ReviewInterestsChecklist(currentUser));
+      checklists.push(new ReviewCareerGoalsChecklist(currentUser));
+      checklists.push(new InterestsWithoutRelatedChecklists(currentUser));
+      checklists.push(new CareerGoalsWithoutRelatedChecklists(currentUser));
+      checklists.push(new TermsAndConditionsChecklist(currentUser));
+      break;
+    case URL_ROLES.FACULTY:
+      pageID = PAGEIDS.FACULTY_HOME_PAGE;
+      checklists.push(new OutOfDateOpportunitiesChecklist(currentUser));
+      checklists.push(new ManageVerificationRequestsChecklist(currentUser));
+      checklists.push(new ManageOpportunitiesChecklist(currentUser));
+      checklists.push(new ManageReviewsChecklist(currentUser));
+      checklists.push(new ReviewInterestsChecklist(currentUser));
+      checklists.push(new ReviewCareerGoalsChecklist(currentUser));
+      checklists.push(new TermsAndConditionsChecklist(currentUser));
+      break;
+    case URL_ROLES.STUDENT:
+      pageID = PAGEIDS.STUDENT_HOME;
+      checklists.push(new CoursesChecklist(currentUser));
+      checklists.push(new OpportunitiesChecklist(currentUser));
+      checklists.push(new ReviewChecklist(currentUser));
+      checklists.push(new VerificationChecklist(currentUser));
+      checklists.push(new LevelChecklist(currentUser));
+      checklists.push(new TermsAndConditionsChecklist(currentUser));
+      break;
+    default:
   }
 
-  if (role === URL_ROLES.STUDENT) {
-    checklists.push(new CoursesChecklist(currentUser));
-    checklists.push(new OpportunitiesChecklist(currentUser));
-    checklists.push(new ReviewChecklist(currentUser));
-    checklists.push(new VerificationChecklist(currentUser));
-    checklists.push(new LevelChecklist(currentUser));
-    checklists.push(new TermsAndConditionsChecklist(currentUser));
-  }
   checklists.forEach((checklist) => {
     switch (checklist.getState()) {
       case CHECKSTATE.IMPROVE:
@@ -111,6 +120,6 @@ export default withTracker(() => {
     okItems,
     reviewItems,
     improveItems,
-    role,
+    pageID,
   };
 })(HomePage);
