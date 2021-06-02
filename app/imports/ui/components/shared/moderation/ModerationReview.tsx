@@ -26,17 +26,8 @@ const ModerationReview: React.FC<ModerationReviewProps> = ({ item, handleReview 
     return reviewee;
   };
 
-  const handleAcceptClick = () => {
-    // make handle accept take in the moderator comments
-    const update = handleReview(item, moderatorCommentState, true);
-    setModeratorComment('');
-    updateMethod.callPromise({ collectionName: update.collectionName, updateData: update.updateInfo })
-      .catch((error) => { RadGradAlert.failure('Update Failed', error.message, error);})
-      .then(() => { RadGradAlert.success('Update Succeeded');});
-  };
-
-  const handleRejectClick = () => {
-    const update = handleReview(item, moderatorCommentState, false);
+  const handleClick = (approved) => {
+    const update = handleReview(item, moderatorCommentState, approved);
     setModeratorComment('');
     updateMethod.callPromise({ collectionName: update.collectionName, updateData: update.updateInfo })
       .catch((error) => { RadGradAlert.failure('Update Failed', error.message, error);})
@@ -70,10 +61,10 @@ const ModerationReview: React.FC<ModerationReviewProps> = ({ item, handleReview 
       <Segment>
         <Form>
           <Form.TextArea label="Moderator Comments" onChange={handleChange} value={moderatorCommentState} />
-          <Button className="ui basic green mini button" onClick={handleAcceptClick}>
+          <Button className="ui basic green mini button" onClick={() => handleClick(true)}>
             ACCEPT
           </Button>
-          <Button className="ui basic red mini button" onClick={handleRejectClick}>
+          <Button className="ui basic red mini button" onClick={() => handleClick(false)}>
             REJECT
           </Button>
         </Form>
