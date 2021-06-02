@@ -26,7 +26,7 @@ This page allows you to set your profile information and make it available to Ra
 
 As faculty, admin, or advisor, it is useful to both fill out your profile and make it available. This makes it easier for students with similar interests to find you. 
 `;
-const headerPaneImage = 'header-privacy.png';
+const headerPaneImage = 'images/header-panel/header-privacy.png';
 
 interface VisibilityPageProps {
   profile: AdvisorOrFacultyProfile | StudentProfile;

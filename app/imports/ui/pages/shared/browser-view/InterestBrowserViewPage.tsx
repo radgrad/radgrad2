@@ -19,7 +19,7 @@ Specify at least three interests so RadGrad can recommend related courses, oppor
 
 If we've missed a disciplinary area of interest to you, please click the button below to ask a RadGrad administrator to add it to the system. 
 `;
-const headerPaneImage = 'header-interests.png';
+const headerPaneImage = 'images/header-panel/header-interests.png';
 
 const InterestBrowserViewPage: React.FC<InterestBrowserViewPageProps> = ({ interests }) => (
   <PageLayout id={PAGEIDS.INTEREST_BROWSER} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}

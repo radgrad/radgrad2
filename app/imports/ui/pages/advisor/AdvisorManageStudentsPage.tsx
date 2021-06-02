@@ -19,7 +19,7 @@ Use this page to add students to RadGrad and/or help them during advising sessio
 
 For more details, please see [RadGrad Advisor User Guide](https://www.radgrad.org/docs/users/advisors/overview)
 `;
-const headerPaneImage = 'header-manage.png';
+const headerPaneImage = 'images/header-panel/header-manage.png';
 
 const AdvisorManageStudentsPage: React.FC<AdvisorManageStudentsProps> = ({
   students,
