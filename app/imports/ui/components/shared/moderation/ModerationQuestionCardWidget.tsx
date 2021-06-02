@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Swal from 'sweetalert2';
 import { Button, Container, Segment, Form } from 'semantic-ui-react';
+import RadGradAlert from '../../../utilities/RadGradAlert';
 import { updateMethod } from '../../../../api/base/BaseCollection.methods';
 
 interface ModerationQuestionCardWidget {
@@ -18,19 +18,9 @@ const ModerationQuestionCardWidget: React.FC<ModerationQuestionCardWidget> = ({ 
     // console.log('handle accept click', update);
     updateMethod.call({ collectionName: update.collectionName, updateData: update.updateInfo }, (error) => {
       if (error) {
-        Swal.fire({
-          title: 'Update failed',
-          text: error.message,
-          icon: 'error',
-        });
-        console.error('Error in updating. %o', error);
+        RadGradAlert.failure('Update failed', error.message, error);
       } else {
-        Swal.fire({
-          title: 'Update succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        RadGradAlert.success('Update succeeded');
       }
     });
   };
@@ -45,19 +35,9 @@ const ModerationQuestionCardWidget: React.FC<ModerationQuestionCardWidget> = ({ 
     // console.log('handle accept click', update);
     updateMethod.call({ collectionName: update.collectionName, updateData: update.updateInfo }, (error) => {
       if (error) {
-        Swal.fire({
-          title: 'Update failed',
-          text: error.message,
-          icon: 'error',
-        });
-        console.error('Error in updating. %o', error);
+        RadGradAlert.failure('Update failed', error.message, error);
       } else {
-        Swal.fire({
-          title: 'Update succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        RadGradAlert.success('Update succeeded');
       }
     });
   };

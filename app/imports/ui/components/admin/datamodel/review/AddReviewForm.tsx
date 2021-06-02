@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Form, Header, Segment } from 'semantic-ui-react';
-import Swal from 'sweetalert2';
 import { AutoForm, SelectField, NumField, LongTextField, BoolField, SubmitField, ErrorsField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
+import RadGradAlert from '../../../../utilities/RadGradAlert';
 import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
 import { AcademicTerm, Course, Opportunity, StudentProfile } from '../../../../../typings/radgrad';
 import {
@@ -99,20 +99,9 @@ const AddReviewForm: React.FC<AddReviewFormProps> = ({ terms, courses, opportuni
     definitionData.academicTerm = academicTermNameToSlug(doc.academicTerm);
     definitionData.slug = `review-${definitionData.reviewType}-${definitionData.reviewee}-${definitionData.student}`;
     defineMethod.callPromise({ collectionName, definitionData })
-      .catch((error) => {
-        Swal.fire({
-          title: 'Add failed',
-          text: error.message,
-          icon: 'error',
-        });
-      })
+      .catch((error) => { RadGradAlert.failure('Add failed', error.message, error);})
       .then(() => {
-        Swal.fire({
-          title: 'Add succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        RadGradAlert.success('Add succeeded');
         formRef.reset();
       });
   };

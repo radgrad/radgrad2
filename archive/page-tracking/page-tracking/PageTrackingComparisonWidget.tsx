@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Dropdown, Grid, Table, Button, Header } from 'semantic-ui-react';
 import DatePicker from 'react-datepicker';
 import { useRouteMatch } from 'react-router-dom';
-import Swal from 'sweetalert2';
 import _ from 'lodash';
 import moment from 'moment';
 import { IPageInterestsCategoryTypes, PageInterestsCategoryTypes } from '../../../../api/page-tracking/PageInterestsCategoryTypes';
@@ -14,11 +13,11 @@ import { Interests } from '../../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
 import { aggregateDailySnapshots, getCategory, getUrlCategory, AggregatedDailySnapshot, parseName, slugIDToSlugName } from './utilities/page-tracking';
 import PageTrackingWidgetMessage from './PageTrackingWidgetMessage';
+import RadGradAlert from "../../../app/imports/ui/utilities/RadGradAlert";
 
 interface PageTrackingComparisonWidgetProps {
   pageInterestsDailySnapshots: PageInterestsDailySnapshot[];
 }
-
 const getOptions = (urlCategory: IPageInterestsCategoryTypes) => {
   switch (urlCategory) {
     case PageInterestsCategoryTypes.CAREERGOAL:
@@ -125,11 +124,7 @@ const PageTrackingComparisonWidget: React.FC<PageTrackingComparisonWidgetProps> 
 
   const handleFilter = (event: React.SyntheticEvent): void => {
     if (startDate === undefined || endDate === undefined) {
-      Swal.fire({
-        title: 'Date Selection Required',
-        text: 'A Start and End Date selection is required.',
-        icon: 'error',
-      });
+      RadGradAlert.failure('Date Selection Required', 'A Start and End Date selection is required.');
       return;
     }
     setItemsToData(event, true);
