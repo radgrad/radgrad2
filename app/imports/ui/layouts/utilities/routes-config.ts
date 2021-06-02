@@ -21,7 +21,6 @@ import AdminDataModelVerificationRequestsPage from '../../pages/admin/AdminDataM
 import AdvisorHomePage from '../../pages/advisor/AdvisorHomePage';
 import AdvisorManageStudentsPage from '../../pages/advisor/AdvisorManageStudentsPage';
 import AlumniHomePage from '../../pages/alumni/AlumniHomePage';
-import OnboardAndrePage from '../../pages/onboard/andre/OnboardAndrePage';
 import CareerGoalBrowserViewPage from '../../pages/shared/browser-view/CareerGoalBrowserViewPage';
 import CareerGoalViewPage from '../../pages/shared/item-view/CareerGoalViewPage';
 import CommunityPage from '../../pages/shared/CommunityPage';
@@ -44,10 +43,6 @@ import LandingOpportunityExplorerPage from '../../pages/landing/LandingOpportuni
 import ManageOpportunitiesPage from '../../pages/shared/ManageOpportunitiesPage';
 import ManageReviewsPage from '../../pages/shared/ManageReviewsPage';
 import ManageVerificationsPage from '../../pages/shared/ManageVerificationsPage';
-import OnboardTreyPage from '../../pages/onboard/trey/OnboardTreyPage';
-import OnboardCalianaPage from '../../pages/onboard/caliana/OnboardCalianaPage';
-import OnboardShinyaPage from '../../pages/onboard/shinya/OnboardShinyaPage';
-import OnboardTimothyPage from '../../pages/onboard/timothy/OnboardTimothyPage';
 import OpportunityBrowserViewPage from '../../pages/shared/browser-view/OpportunityBrowserViewPage';
 import OpportunityViewPage from '../../pages/shared/item-view/OpportunityViewPage';
 import SandboxLabelPage from '../../pages/sandbox/SandboxLabelPage';
@@ -211,11 +206,5 @@ export const routes = {
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/sandbox/segments`, component: SandBoxSegmentPage },
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/sandbox/tabs`, component: SandBoxTabPage },
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/sandbox/stickystate`, component: SandBoxStickyStatePage },
-    // Following sites access the onboarding pages.
-    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/onboard/trey`, component: OnboardTreyPage },
-    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/onboard/shinya`, component: OnboardShinyaPage },
-    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/onboard/caliana`, component: OnboardCalianaPage },
-    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/onboard/timothy`, component: OnboardTimothyPage },
-    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/onboard/andre`, component: OnboardAndrePage },
   ],
 };
