@@ -23,7 +23,7 @@ const headerPaneBody = `
 <p><span class="headerLabel yellowBG">MEDIUM PRIORITY</span> &nbsp; These are requests to review your settings or things that might have changed recently. </p>
 <p><span class="headerLabel greenBG">COMPLETED</span>  &nbsp; All of these look good for now!</p>
 `;
-const headerPaneImage = 'header-home.png';
+const headerPaneImage = 'images/header-panel/header-home.png';
 
 const StudentHomePage: React.FC<HomePageProps> = ({ okItems, reviewItems, improveItems }) => (
   <PageLayout id={PAGEIDS.STUDENT_HOME} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}

@@ -195,7 +195,7 @@ Use this degree planner to map out your courses and opportunities each semester.
 
 Telling RadGrad what you've planned and completed helps the system provide better recommendations and supports community building.
 `;
-const headerPaneImage = 'header-planner.png';
+const headerPaneImage = 'images/header-panel/header-planner.png';
 
 const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({ academicYearInstances, studentID, match, profileCourses, profileOpportunities, courseInstances, opportunityInstances, takenSlugs, verificationRequests }) => {
   const [, setSelectedCiID] = useStickyState(DegreePlannerStateNames.selectedCiID, '');
