@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import _ from 'lodash';
 import { Link, NavLink, useParams } from 'react-router-dom';
 import { Grid, Header, Label, Icon, Form, Segment } from 'semantic-ui-react';
-import Swal from 'sweetalert2';
 import { Users } from '../../../../api/user/UserCollection';
 import { Interests } from '../../../../api/interest/InterestCollection';
 import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
@@ -10,6 +9,7 @@ import { openCloudinaryWidget } from '../../shared/OpenCloudinaryWidget';
 import { updateMethod } from '../../../../api/base/BaseCollection.methods';
 import { AdvisorOrFacultyProfile, FavoriteCareerGoal, FavoriteInterest } from '../../../../typings/radgrad';
 import { AdvisorProfiles } from '../../../../api/user/AdvisorProfileCollection';
+import RadGradAlert from '../../app/imports/ui/utilities/RadGradAlert';
 
 interface FacultyPageAboutMeWidgetProps {
   profile: AdvisorOrFacultyProfile;
@@ -56,20 +56,9 @@ const FacultyAboutMeWidget: React.FC<FacultyPageAboutMeWidgetProps> = ({ profile
     const updateData: { id: string; website: string } = { id: profile._id, website: websiteState };
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
-        Swal.fire({
-          title: 'Update Failed',
-          text: error.message,
-          icon: 'error',
-        });
+        RadGradAlert.failure('Update Failed', error.message, error);
       } else {
-        Swal.fire({
-          title: 'Update Succeeded',
-          icon: 'success',
-          text: 'Your website link has been successfully updated.',
-          allowOutsideClick: false,
-          allowEscapeKey: false,
-          allowEnterKey: false,
-        });
+        RadGradAlert.success('Update Succeeded');
       }
     });
   };
@@ -80,20 +69,9 @@ const FacultyAboutMeWidget: React.FC<FacultyPageAboutMeWidgetProps> = ({ profile
     const updateData: { id: string; aboutMe: string } = { id: profile._id, aboutMe: aboutMeState };
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
-        Swal.fire({
-          title: 'Update Failed',
-          text: error.message,
-          icon: 'error',
-        });
+        RadGradAlert.failure('Update Failed', error.message, error);
       } else {
-        Swal.fire({
-          title: 'Update Succeeded',
-          icon: 'success',
-          text: 'Your about me has been successfully updated.',
-          allowOutsideClick: false,
-          allowEscapeKey: false,
-          allowEnterKey: false,
-        });
+        RadGradAlert.success('Update Succeeded');
       }
     });
   };
@@ -135,33 +113,15 @@ const FacultyAboutMeWidget: React.FC<FacultyPageAboutMeWidgetProps> = ({ profile
         const updateData: { id: string; picture: string } = { id: profile._id, picture: cloudinaryResult.info.secure_url };
         updateMethod.call({ collectionName, updateData }, (error) => {
           if (error) {
-            Swal.fire({
-              title: 'Update Failed',
-              text: error.message,
-              icon: 'error',
-            });
+            RadGradAlert.failure('Update Failed', error.message, error);
           } else {
             setPicture(cloudinaryResult.info.secure_url);
-            Swal.fire({
-              title: 'Update Succeeded',
-              icon: 'success',
-              text: 'Your picture has been successfully updated.',
-              allowOutsideClick: false,
-              allowEscapeKey: false,
-              allowEnterKey: false,
-            });
+            RadGradAlert.success('Update Succeeded');
           }
         });
       }
     } catch (error) {
-      Swal.fire({
-        title: 'Failed to Upload Photo',
-        icon: 'error',
-        text: error.statusText,
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        allowEnterKey: false,
-      });
+      RadGradAlert.failure('Failed to Upload Photo', error.statusText, error);
     }
   };
 

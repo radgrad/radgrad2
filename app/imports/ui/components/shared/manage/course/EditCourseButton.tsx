@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Button, Form, Modal } from 'semantic-ui-react';
 import SimpleSchema from 'simpl-schema';
-import Swal from 'sweetalert2';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { AutoForm, BoolField, ErrorsField, LongTextField, SubmitField, TextField } from 'uniforms-semantic';
+import RadGradAlert from '../../../../utilities/RadGradAlert';
 import { updateMethod } from '../../../../../api/base/BaseCollection.methods';
 import { Courses } from '../../../../../api/course/CourseCollection';
 import { Interests } from '../../../../../api/interest/InterestCollection';
@@ -34,22 +34,8 @@ const EditCourseButton: React.FC<EditCourseButtonProps> = ({ course, courses, in
     updateData.interests = doc.interests.map((name) => Interests.findDoc(name)._id);
     // console.log(collectionName, updateData);
     updateMethod.callPromise({ collectionName, updateData })
-      .then((result) => Swal.fire({
-        title: 'Interest Updated',
-        icon: 'success',
-        text: 'Successfully updated interest.',
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        allowEnterKey: false,
-        showConfirmButton: false,
-        timer: 1500,
-      }))
-      .catch((error) => Swal.fire({
-        title: 'Update Failed',
-        text: error.message,
-        icon: 'error',
-        // timer: 1500,
-      }));
+      .then((result) =>  { RadGradAlert.success('Interest Updated', result);})
+      .catch((error) => { RadGradAlert.failure('Updated Failed', error.message, error);});
   };
 
   const updateSchema = new SimpleSchema({

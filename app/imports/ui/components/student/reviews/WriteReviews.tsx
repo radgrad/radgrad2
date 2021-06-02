@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { Grid, Header, Segment } from 'semantic-ui-react';
 import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
-import Swal from 'sweetalert2';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { AutoForm, ErrorsField, LongTextField, SelectField, SubmitField } from 'uniforms-semantic';
+import RadGradAlert from '../../../utilities/RadGradAlert';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { defineMethod } from '../../../../api/base/BaseCollection.methods';
 import { Courses } from '../../../../api/course/CourseCollection';
@@ -77,25 +77,8 @@ const WriteReviews: React.FC<WriteReviewsProps> = ({ unreviewedCourses, unreview
     definitionData.visible = false;
     // console.log(collectionName, definitionData);
     defineMethod.callPromise({ collectionName, definitionData })
-      .catch((error) => {
-        Swal.fire({
-          title: 'Add Failed',
-          text: error.message,
-          icon: 'error',
-        });
-      })
-      .then(() => {
-        Swal.fire({
-          title: 'Review Added',
-          icon: 'success',
-          text: 'Your review was successfully added.',
-          allowOutsideClick: false,
-          allowEscapeKey: false,
-          allowEnterKey: false,
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      });
+      .catch((error) => { RadGradAlert.failure('Add Failed', error.message, error);})
+      .then(() => { RadGradAlert.success('Review Added');});
   };
 
   const choiceSchema = new SimpleSchema({

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Form, Header, Segment } from 'semantic-ui-react';
-import Swal from 'sweetalert2';
 import { AutoForm, SelectField, NumField, SubmitField, ErrorsField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
@@ -15,6 +14,7 @@ import {
   courseToName, profileNameToUsername,
   profileToName,
 } from '../../../shared/utilities/data-model';
+import RadGradAlert from '../../../../utilities/RadGradAlert';
 
 interface AddCourseInstanceFormProps {
   terms: AcademicTerm[];
@@ -45,21 +45,9 @@ const AddCourseInstanceForm: React.FC<AddCourseInstanceFormProps> = ({ terms, co
     };
     // console.log('definitionData=%o', definitionData);
     defineMethod.callPromise({ collectionName, definitionData })
-      .catch((error) => {
-        console.error('Failed adding Course', error);
-        Swal.fire({
-          title: 'Failed adding course',
-          text: error.message,
-          icon: 'error',
-        });
-      })
+      .catch((error) => { RadGradAlert.failure('Failed adding User', error.message, error);})
       .then(() => {
-        Swal.fire({
-          title: 'Add Course Succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        RadGradAlert.success('Add User Succeeded');
         formRef.reset();
       });
   };

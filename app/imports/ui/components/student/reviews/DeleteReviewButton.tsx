@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Modal } from 'semantic-ui-react';
-import Swal from 'sweetalert2';
+import RadGradAlert from '../../../utilities/RadGradAlert';
 import { removeItMethod } from '../../../../api/base/BaseCollection.methods';
 import { Reviews } from '../../../../api/review/ReviewCollection';
 import { Review } from '../../../../typings/radgrad';
@@ -18,20 +18,9 @@ const DeleteReviewButton: React.FC<DeleteReviewButtonProps> = ({ review }) => {
     const collectionName = Reviews.getCollectionName();
     const instance = review._id;
     removeItMethod.callPromise({ collectionName, instance })
-      .catch((error) => {
-        Swal.fire({
-          title: 'Delete Failed',
-          text: error.message,
-          icon: 'error',
-          timer: 1500,
-        });
-      }).then(() => {
-        Swal.fire({
-          title: 'Review Deleted',
-          icon: 'success',
-          text: 'Your review was successfully deleted.',
-          timer: 1500,
-        });
+      .catch((error) => { RadGradAlert.failure('Delete Failed', error.message, error);})
+      .then(() => {
+        RadGradAlert.success('Review Deleted');
         setOpen(false);
       });
   };
