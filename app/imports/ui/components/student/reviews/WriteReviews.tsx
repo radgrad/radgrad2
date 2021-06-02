@@ -24,7 +24,10 @@ interface WriteReviewsProps {
 const WriteReviews: React.FC<WriteReviewsProps> = ({ unreviewedCourses, unreviewedOpportunities, username }) => {
   const cIDs = unreviewedCourses.map((ci) => ci.courseID);
   const courseNames = Courses.findNames(cIDs);
-  let names = courseNames.map((cName) => `${cName} (Course)`);
+  let names = courseNames.map((cName) => {
+    const courseNum = Courses.findCourseNumberByName(cName);
+    return `${courseNum} ${cName} (Course)`;
+  });
   const oIDs = unreviewedOpportunities.map((oi) => oi.opportunityID);
   const opportunityNames = Opportunities.findNames(oIDs);
   names = names.concat(opportunityNames.map((oName) => `${oName} (Opportunity)`));
