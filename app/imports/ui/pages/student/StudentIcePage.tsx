@@ -71,7 +71,7 @@ const StudentIcePage: React.FC<StudentIcePageProps> = ({
   );
 };
 
-const StudentHomeIcePageContainer = withTracker(() => {
+export default withTracker(() => {
   const { username } = useParams();
   const studentID: string = Users.getProfile(username).userID;
   const earnedICE: Ice = StudentProfiles.getEarnedICE(username);
@@ -93,5 +93,3 @@ const StudentHomeIcePageContainer = withTracker(() => {
     opportunityInstances,
   };
 })(StudentIcePage);
-
-export default StudentHomeIcePageContainer;

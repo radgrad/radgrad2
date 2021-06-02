@@ -116,7 +116,7 @@ const AdminDataModelVerificationRequestsPage: React.FC<AdminDataModelVerificatio
   );
 };
 
-const AdminDataModelVerificationRequestsPageContainer = withTracker(() => {
+export default withTracker(() => {
   const students = StudentProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch();
   const academicTerms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
   const opportunities = Opportunities.find({}, { sort: { name: 1 } }).fetch();
@@ -130,5 +130,3 @@ const AdminDataModelVerificationRequestsPageContainer = withTracker(() => {
     opportunityInstances,
   };
 })(AdminDataModelVerificationRequestsPage);
-
-export default AdminDataModelVerificationRequestsPageContainer;

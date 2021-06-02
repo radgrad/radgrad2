@@ -128,11 +128,9 @@ const AdminDataModelOpportunityTypesPage: React.FC<AdminDataModelOpportunityType
   );
 };
 
-const AdminDataModelOpportunityTypesPageContainer = withTracker(() => {
+export default withTracker(() => {
   const items = OpportunityTypes.find({}).fetch();
   return {
     items,
   };
 })(AdminDataModelOpportunityTypesPage);
-
-export default AdminDataModelOpportunityTypesPageContainer;

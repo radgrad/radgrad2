@@ -39,7 +39,7 @@ const AdvisorManageStudentsPage: React.FC<AdvisorManageStudentsProps> = ({
   </PageLayout>
 );
 
-const AdvisorManageStudentsTracker = withTracker(() => {
+export default withTracker(() => {
   const students = StudentProfiles.find({ isAlumni: false }, { sort: { username: 1 } }).fetch();
   const alumni = StudentProfiles.find({ isAlumni: true }, { sort: { username: 1 } }).fetch();
   const careerGoals = CareerGoals.findNonRetired({}, { sort: { name: 1 } });
@@ -60,5 +60,3 @@ const AdvisorManageStudentsTracker = withTracker(() => {
     profileInterests,
   };
 })(AdvisorManageStudentsPage);
-
-export default AdvisorManageStudentsTracker;

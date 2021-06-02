@@ -145,7 +145,7 @@ const AdminDataModelTeasersPage: React.FC<AdminDataModelTeasersPageProps> = ({ i
   );
 };
 
-const AdminDataModelTeasersPageContainer = withTracker(() => {
+export default withTracker(() => {
   const careerGoals = CareerGoals.find({}, { sort: { name: 1 } }).fetch();
   const courses = Courses.find({}, { sort: { num: 1 } }).fetch();
   const interests = Interests.find({}, { sort: { name: 1 } }).fetch();
@@ -159,5 +159,3 @@ const AdminDataModelTeasersPageContainer = withTracker(() => {
     opportunities,
   };
 })(AdminDataModelTeasersPage);
-
-export default AdminDataModelTeasersPageContainer;

@@ -127,11 +127,9 @@ const AdminDataModelInterestTypesPage: React.FC<AdminDataModelInterestTypesPageP
   );
 };
 
-const AdminDataModelInterestTypesPageContainer = withTracker(() => {
+export default withTracker(() => {
   const items = InterestTypes.find({}).fetch();
   return {
     items,
   };
 })(AdminDataModelInterestTypesPage);
-
-export default AdminDataModelInterestTypesPageContainer;

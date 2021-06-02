@@ -18,9 +18,7 @@ const ManageReviewsPage: React.FC<ModerationWidgetProps> = ({ courseReviews, opp
   </PageLayout>
 );
 
-const ManageReviewsPageContainer = withTracker(() => ({
+export default withTracker(() => ({
   opportunityReviews: Reviews.findNonRetired({ moderated: false, reviewType: 'opportunity' }),
   courseReviews: Reviews.findNonRetired({ moderated: false, reviewType: 'course' }),
 }))(ManageReviewsPage);
-
-export default ManageReviewsPageContainer;

@@ -102,7 +102,7 @@ const OpportunityViewPage: React.FC<OpportunityViewPageProps> = ({
   );
 };
 
-const OpportunityViewPageContainer = withTracker(() => {
+export default withTracker(() => {
   const { opportunity, username } = useParams();
   const profile = Users.getProfile(username);
   const favOpps = ProfileOpportunities.findNonRetired({ studentID: profile.userID });
@@ -134,5 +134,3 @@ const OpportunityViewPageContainer = withTracker(() => {
     opportunities,
   };
 })(OpportunityViewPage);
-
-export default OpportunityViewPageContainer;

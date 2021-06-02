@@ -69,7 +69,7 @@ const CareerGoalViewPage: React.FC<CareerGoalViewPageProps> = ({
   );
 };
 
-const CareerGoalViewPageContainer = withTracker(() => {
+export default withTracker(() => {
   const { careergoal, username } = useParams();
   const profile = Users.getProfile(username);
   const profileCareerGoals = ProfileCareerGoals.findNonRetired({ userID: profile.userID });
@@ -86,5 +86,3 @@ const CareerGoalViewPageContainer = withTracker(() => {
     interests,
   };
 })(CareerGoalViewPage);
-
-export default CareerGoalViewPageContainer;
