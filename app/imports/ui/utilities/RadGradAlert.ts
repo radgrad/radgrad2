@@ -2,8 +2,7 @@ import Swal from 'sweetalert2';
 
 class RadGradAlert {
 
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  static success(title, text?) {
+  static success(title: string, text?: string): void {
     Swal.fire({
       title: title,
       text: text,
@@ -15,8 +14,7 @@ class RadGradAlert {
     });
   }
 
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  static failure(title, text, error?) {
+  static failure(title: string, text: string, error?: string): void {
     if (error === undefined) {
       Swal.fire({
         title: title,
