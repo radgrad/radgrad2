@@ -83,15 +83,11 @@ export const docToSlugNameAndType = (doc: HasSlugID) => `${Slugs.findDoc(doc.slu
 
 export const docToShortName = (doc) => doc.shortName;
 
-export const docToShortDescription = (doc, maxLength = 200) => {
-  let description = doc.description;
-  if (description.length > maxLength) {
-    description = `${description.substring(0, maxLength)}`;
-    if (description.charAt(description.length - 1) === ' ') {
-      description = `${description.substring(0, maxLength - 1)}`;
-    }
-  }
-  return description;
+/** Return the first sentence of the description, or a single space character if we couldn't extract a sentence. */
+export const docToShortDescription = (doc) => {
+  // To understand the following regex, see https://stackoverflow.com/a/33202102/2038293
+  const firstSentenceMatch = doc.description.match(/(^.*?[a-z]{2,}[.!?])\s+\W*[A-Z]/);
+  return firstSentenceMatch ? firstSentenceMatch[1] : ' ';
 };
 
 export const interestIdToName = (id) => Interests.findDoc(id).name;
