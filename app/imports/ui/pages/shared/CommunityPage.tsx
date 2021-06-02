@@ -12,7 +12,7 @@ const headerPaneTitle = 'What\'s happening in RadGrad?';
 const headerPaneBody = `
 Here are the latest updates in RadGrad, plus overviews of the RadGrad community.
 `;
-const headerPaneImage = 'header-community.png';
+const headerPaneImage = 'images/header-panel/header-community.png';
 
 const CommunityPage: React.FC = () => {
   // data will hold the MostPopularEntity information

@@ -82,6 +82,7 @@ const AdminDataModelCoursesPage: React.FC<AdminDataModelCoursesPageProps> = ({ i
     updateData.id = doc._id;
     updateData.prerequisites = doc.prerequisiteNames.map(courseNameToSlug);
     updateData.interests = doc.interests.map(interestNameToId);
+    updateData.picture = doc.picture;
     // console.log(collectionName, updateData);
     updateMethod.callPromise({ collectionName, updateData })
       .catch((error) => {
