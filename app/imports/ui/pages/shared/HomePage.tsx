@@ -54,7 +54,7 @@ export default withTracker(() => {
   checklists.push(new InterestsChecklist(currentUser));
   checklists.push(new CareerGoalsChecklist(currentUser));
   checklists.push(new VisibilityChecklist(currentUser));
-  switch (role)  {
+  switch (role) {
     case URL_ROLES.ADMIN:
       pageID = PAGEIDS.ADMIN_HOME;
       checklists.push(new OutOfDateOpportunitiesChecklist(currentUser));
