@@ -33,7 +33,7 @@ const ReviewItem: React.FC<ReviewItemProps> = ({ review }) => {
                 {review.moderatorComments}
               </Message>
               :
-              <Message warning style={{ marginTop: 10, marginLeft: 16 }}><Icon name='warning' />Your review is currently being reviewed.</Message>}
+              <Message warning style={{ marginTop: 10, marginLeft: 16 }}><Icon name='warning' />Your review will be public once it is accepted by an admin.</Message>}
           </Grid.Row>}
         <Grid.Column width={4}>
           {AcademicTerms.toString(review.termID)}
