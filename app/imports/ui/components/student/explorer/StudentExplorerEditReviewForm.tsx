@@ -41,6 +41,7 @@ const StudentExplorerEditReviewForm: React.FC<StudentExplorerEditReviewWidgetPro
     const updateData: ReviewUpdate = doc;
     updateData.academicTerm = academicTermSlug;
     updateData.moderated = false;
+    updateData.visible = false;
     updateData.id = review._id;
     updateMethod.callPromise({ collectionName, updateData })
       .catch((error) => {
