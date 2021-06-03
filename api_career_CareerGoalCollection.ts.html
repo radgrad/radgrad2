@@ -95,6 +95,7 @@ import { Interests } from '../interest/InterestCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
 import { CareerGoalDefine, CareerGoalUpdate, Course, Opportunity } from '../../typings/radgrad';
 import { ProfileCareerGoals } from '../user/profile-entries/ProfileCareerGoalCollection';
+import { Teasers } from '../teaser/TeaserCollection';
 
 /**
  * CareerGoals represent the professional future(s) that the student wishes to work toward.
@@ -196,6 +197,9 @@ class CareerGoalCollection extends BaseSlugCollection {
       updateData.retired = retired;
       const profileCareerGoals = ProfileCareerGoals.find({ careerGoalID: docID }).fetch();
       profileCareerGoals.forEach((goal) => ProfileCareerGoals.update(goal._id, { retired }));
+      const career = this.findDoc(docID);
+      const teasers = Teasers.find({ targetSlugID: career.slugID }).fetch();
+      teasers.forEach((teaser) => Teasers.update(teaser._id, { retired }));
     }
     // console.log(updateData);
     this.collection.update(docID, { $set: updateData });

@@ -190,6 +190,9 @@ class InterestCollection extends BaseSlugCollection {
       updateData.retired = retired;
       const profileInterests = ProfileInterests.find({ interestID: docID }).fetch();
       profileInterests.forEach((pi) => ProfileInterests.update(pi._id, { retired }));
+      const interest = this.findDoc(docID);
+      const teasers = Teasers.find({ targetSlugID: interest.slugID }).fetch();
+      teasers.forEach((teaser) => Teasers.update(teaser._id, { retired }));
     }
     this.collection.update(docID, { $set: updateData });
     return true;
