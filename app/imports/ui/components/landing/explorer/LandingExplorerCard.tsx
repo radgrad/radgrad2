@@ -34,7 +34,7 @@ const LandingExplorerCard: React.FC<LandingExplorerCardProps> = ({ item, type })
         <div className="header">{title}</div>
       </Card.Content>
       <Card.Content className="content">
-        <Markdown escapeHtml source={`${itemShortDescription}...`} renderers={{ link: (localProps) => Router.renderLink(localProps, match) }} />
+        <Markdown escapeHtml source={itemShortDescription} renderers={{ link: (localProps) => Router.renderLink(localProps, match) }} />
         { item.interestIDs ? (<LandingInterestList interestIDs={item.interestIDs} size="small" />) : ''}
       </Card.Content>
       <Button.Group attached="bottom" className="radgrad-home-buttons ui center aligned three bottom attached {{hidden}} buttons">
