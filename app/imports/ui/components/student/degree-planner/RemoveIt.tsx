@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import Swal from 'sweetalert2';
 import { Button, Icon, Modal } from 'semantic-ui-react';
 import { removeItMethod } from '../../../../api/base/BaseCollection.methods';
 import { DegreePlannerStateNames } from '../../../pages/student/StudentDegreePlannerPage';
 import { useStickyState } from '../../../utilities/StickyState';
 import { TabbedProfileEntryNames } from './TabbedProfileEntries';
+import RadGradAlert from '../../../utilities/RadGradAlert';
 
 interface RemoveItWidgetProps {
   collectionName: string;
@@ -27,23 +27,13 @@ const RemoveIt: React.FC<RemoveItWidgetProps> = ({ collectionName, id, name, cou
     const instance = id;
     removeItMethod.callPromise({ collectionName, instance })
       .then(() => {
-        Swal.fire({
-          title: 'Remove Succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        RadGradAlert.success('Remove Succeeded');
         setSelectedOiID('');
         setSelectedCiID('');
         setSelectedProfileTab(TabbedProfileEntryNames.profileOpportunities);
       })
       .catch((error) => {
-        console.error(`Remove ${collectionName}: ${instance} failed.`, error);
-        Swal.fire({
-          title: `Remove ${collectionName}: ${instance} failed.`,
-          icon: 'error',
-          text: error.message,
-        });
+        RadGradAlert.failure(`Remove ${collectionName}: ${instance} failed.`, error.message, error);
       });
 
   };
