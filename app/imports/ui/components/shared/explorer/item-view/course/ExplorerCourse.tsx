@@ -27,10 +27,7 @@ interface ExplorerCoursesWidgetProps {
 
 const review = (course: Course, profile): Review => {
   const user = StudentProfiles.findByUsername(profile);
-  const reviews = Reviews.findNonRetired({
-    studentID: user.userID,
-    revieweeID: course._id,
-  });
+  const reviews = Reviews.findNonRetired({ studentID: user.userID, revieweeID: course._id });
   if (reviews.length > 0) {
     return reviews[0];
   }

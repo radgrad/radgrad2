@@ -117,7 +117,7 @@ const StudentExplorerAddReviewForm: React.FC<StudentExplorerAddReviewFormProps> 
         <div className="ui padded container" style={paddedContainerStyle}>
           <AutoForm schema={formSchema} onSubmit={handleAdd} ref={formRef}>
             <Form.Group widths="equal">
-              <SelectField name="academicTerm" />
+              {academicTermNames.length <= 1 ? <SelectField name="academicTerm" disabled /> : <SelectField name="academicTerm" />}
               <RatingField name="rating" />
             </Form.Group>
 
