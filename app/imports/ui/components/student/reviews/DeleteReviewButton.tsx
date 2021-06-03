@@ -14,7 +14,7 @@ const DeleteReviewButton: React.FC<DeleteReviewButtonProps> = ({ review }) => {
   const [open, setOpen] = useState(false);
 
   const handleDelete = () => {
-    console.log('handleDelete', review);
+    // console.log('handleDelete', review);
     const collectionName = Reviews.getCollectionName();
     const instance = review._id;
     removeItMethod.callPromise({ collectionName, instance })

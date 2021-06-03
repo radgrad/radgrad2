@@ -48,7 +48,9 @@ const StudentExplorerReviewWidget: React.FC<StudentExplorerReviewWidgetProps> = 
   const currentUserName = userToFullName(Router.getUsername(match));
   let theReviews = itemReviews;
   if (userReview) {
-    theReviews = theReviews.filter((review) => review._id !== userReview._id);
+    theReviews = theReviews.filter((review) => review._id !== userReview._id && review.visible);
+  } else {
+    theReviews = theReviews.filter((review) => review.visible);
   }
   return (
     <div className="ui padded container">
