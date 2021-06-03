@@ -53,8 +53,7 @@ const ProfileCourseCard: React.FC<ProfileCourseCardProps> = ({ course, courseIns
             <div ref={provided.innerRef}>
               <Draggable key={slug} draggableId={slug} index={0}>
                 {(prov, snap) => (
-                  <div ref={prov.innerRef} {...prov.draggableProps} {...prov.dragHandleProps}
-                    style={getDraggablePillStyle(snap.isDragging, prov.draggableProps.style)}>
+                  <div ref={prov.innerRef} {...prov.draggableProps} {...prov.dragHandleProps} style={getDraggablePillStyle(snap.isDragging, prov.draggableProps.style)}>
                     <NamePill name={course.num} />
                   </div>
                 )}

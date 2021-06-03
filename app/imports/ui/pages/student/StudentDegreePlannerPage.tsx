@@ -40,6 +40,8 @@ export enum DegreePlannerStateNames {
   selectedCiID = 'Planner.selectedCiID',
   selectedOiID = 'Planner.selectedOiID',
   selectedProfileTab = 'Planner.selectedProfileTab',
+  draggablePillWidth = 'Planner.draggablePillWidth',
+  draggablePillHeight = 'Planner.draggablePillHeight',
 }
 
 interface StudentDegreePlannerProps {
@@ -197,11 +199,11 @@ const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({ academi
       <PageLayout id={PAGEIDS.STUDENT_DEGREE_PLANNER} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
         <Grid stackable>
           <Grid.Row stretched>
-            <Grid.Column width={10} style={paddedStyle}>
+            <Grid.Column width={11} style={paddedStyle}>
               <DegreeExperiencePlanner academicYearInstances={academicYearInstances} courseInstances={courseInstances} opportunityInstances={opportunityInstances} />
             </Grid.Column>
 
-            <Grid.Column width={6} style={paddedStyle}>
+            <Grid.Column width={5} style={paddedStyle}>
               <TabbedProfileEntries
                 takenSlugs={takenSlugs}
                 profileOpportunities={profileOpportunities}
@@ -236,10 +238,10 @@ export default withTracker(() => {
   // first filter the retired opportunities
   profileOpportunities = profileOpportunities.filter((opp) => !opp.retired);
   // next filter opportunities w/o future academic terms
-  profileOpportunities = profileOpportunities.filter((opp) => {
-    const terms = opp.termIDs.map((term) => AcademicTerms.findDoc(term));
-    return terms.some((term) => AcademicTerms.isUpcomingTerm(term._id));
-  });
+  // profileOpportunities = profileOpportunities.filter((opp) => {
+  //   const terms = opp.termIDs.map((term) => AcademicTerms.findDoc(term));
+  //   return terms.some((term) => AcademicTerms.isUpcomingTerm(term._id));
+  // });
   const courseInstances = CourseInstances.findNonRetired({ studentID: profile.userID });
   const pCourses = ProfileCourses.findNonRetired({ studentID });
   let profileCourses = pCourses.map((f) => Courses.findDoc(f.courseID));
