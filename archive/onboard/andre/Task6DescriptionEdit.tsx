@@ -1,6 +1,6 @@
 import React from 'react';
 import SimpleSchema from 'simpl-schema';
-import Swal from 'sweetalert2';
+import RadGradAlert from '../../../app/imports/ui/utilities/RadGradAlert';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { AutoForm, LongTextField, SubmitField } from 'uniforms-semantic';
 import { updateMethod } from '../../../app/imports/api/base/BaseCollection.methods';
@@ -16,16 +16,9 @@ const Task6EditDescription: React.FC<EditDescriptionProps> = ({ interests }) => 
     const collectionName = Interests.getCollectionName();
     const updateData = doc;
     updateData.id = interests._id;
-    updateMethod.callPromise({ collectionName, updateData }).then(() => Swal.fire({
-      title: 'Description Updated',
-      icon: 'success',
-    }))
-      .catch((error) => Swal.fire({
-        title: 'Update Failed',
-        text: error.message,
-        icon: 'error',
-        timer: 1500,
-      }));
+    updateMethod.callPromise({ collectionName, updateData })
+      .then(() => RadGradAlert.success('Description Updated'))
+      .catch((error) => RadGradAlert.failure('Update Failed', error.message));
   };
 
   const descriptionSchema = new SimpleSchema({
