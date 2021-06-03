@@ -55,7 +55,7 @@ const LandingHomePage: React.FC<LandingHomeProps> = ({ currentUser, opportunitie
     return (<Redirect to={{ pathname: `${location.state.from.pathname}` }} />);
   }
   return (<div id={PAGEIDS.LANDING_HOME}>
-    <LandingNavBar currentUser={currentUser} role={role} instanceName={instanceName} />
+    <LandingNavBar currentUser={currentUser} iconName={iconName} role={role} instanceName={instanceName} />
     <LandingSectionPreRelease/>
     <LandingSection1 tagline={tagline} instanceName={instanceName} careerGoalFactoid={careerGoalFactoid} interestFactoid={interestFactoid} levelFactoid={levelFactoid} opportunityFactoid={opportunityFactoid} reviewFactoid={reviewFactoid} />
     <LandingSection2 careerGoals={careerGoals} interests={interests} opportunities={opportunities} users={users} />
