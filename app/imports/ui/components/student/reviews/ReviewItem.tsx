@@ -24,8 +24,16 @@ const ReviewItem: React.FC<ReviewItemProps> = ({ review }) => {
       <Grid>
         {review.visible ? '' :
           <Grid.Row>
-            <Message error style={{ marginTop: 10, marginLeft: 16 }}><Icon name='flag' />This content violates our
-              policies. Please edit your content to repost.</Message>
+            {review.moderated ?
+              <Message error style={{ marginTop: 10, marginLeft: 16 }}>
+                <Icon name='flag' />
+                This content violates our policies. Please edit your content to repost.
+                <hr/>
+                <Message.Header>Moderator Comments</Message.Header>
+                {review.moderatorComments}
+              </Message>
+              :
+              <Message warning style={{ marginTop: 10, marginLeft: 16 }}><Icon name='warning' />Your review will be public once it is accepted by an admin.</Message>}
           </Grid.Row>}
         <Grid.Column width={4}>
           {AcademicTerms.toString(review.termID)}
@@ -45,8 +53,7 @@ const ReviewItem: React.FC<ReviewItemProps> = ({ review }) => {
         </Grid.Column>
         <Grid.Column width={16}>
           <div style={commentsStyle}>
-            <Markdown escapeHtml source={review.comments}
-              renderers={{ link: (props2) => Router.renderLink(props2, match) }} />
+            <Markdown escapeHtml source={review.comments} renderers={{ link: (props2) => Router.renderLink(props2, match) }} />
           </div>
         </Grid.Column>
       </Grid>

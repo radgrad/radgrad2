@@ -41,6 +41,7 @@ const StudentExplorerEditReviewForm: React.FC<StudentExplorerEditReviewWidgetPro
     const updateData: ReviewUpdate = doc;
     updateData.academicTerm = academicTermSlug;
     updateData.moderated = false;
+    updateData.visible = false;
     updateData.id = review._id;
     updateMethod.callPromise({ collectionName, updateData })
       .catch((error) => { RadGradAlert.failure('Update Failed', error.message, error);})
@@ -147,9 +148,9 @@ const StudentExplorerEditReviewForm: React.FC<StudentExplorerEditReviewWidgetPro
 
       <Accordion.Content active={activeState}>
         <div className="ui padded container" style={paddedContainerStyle}>
-          {review.visible ? (
+          {review.moderated ? (
             <React.Fragment>
-              {review.moderated ? (
+              {review.visible ? (
                 <Message positive>
                   <p>
                     <i className="green checkmark icon" />
@@ -158,18 +159,6 @@ const StudentExplorerEditReviewForm: React.FC<StudentExplorerEditReviewWidgetPro
                   </p>
                 </Message>
               ) : (
-                <Message warning>
-                  <p>
-                    <i className="yellow checkmark icon" />
-                    Your post is visible to the RadGrad community but has not yet been approved by
-                    moderators.
-                  </p>
-                </Message>
-              )}
-            </React.Fragment>
-          ) : (
-            <React.Fragment>
-              {review.moderated ? (
                 <Message negative>
                   <p>
                     <i className="warning red circle icon" />
@@ -178,23 +167,23 @@ const StudentExplorerEditReviewForm: React.FC<StudentExplorerEditReviewWidgetPro
                   <br />
                   <i>{review.moderatorComments}</i>
                 </Message>
-              ) : (
-                <Message warning>
-                  <p>
-                    <i className="warning yellow circle icon" />
-                    Your edited post is waiting for moderator approval. Your post has currently been
-                    hidden by moderators for the following reasons:
-                    <br />
-                    <i>{review.moderatorComments}</i>
-                  </p>
-                </Message>
               )}
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              <Message warning>
+                <p>
+                  <i className="warning yellow circle icon" />
+                  Your review is waiting for moderator approval.
+                  <br />
+                </p>
+              </Message>
             </React.Fragment>
           )}
 
           <AutoForm schema={formSchema} onSubmit={handleUpdate} ref={formRef} model={model}>
             <Form.Group widths="equal">
-              <SelectField name="academicTerm" />
+              {academicTermNames.length <= 1 ? <SelectField name="academicTerm" disabled /> : <SelectField name="academicTerm" />}
               <RatingField name="rating" />
             </Form.Group>
 
@@ -204,8 +193,7 @@ const StudentExplorerEditReviewForm: React.FC<StudentExplorerEditReviewWidgetPro
             <Button basic color="red" size="mini" onClick={handleDelete}>
               DELETE
             </Button>
-            <Confirm open={confirmOpenState} onCancel={handleCancelDelete} onConfirm={handleConfirmDelete}
-              header="Delete Review?" />
+            <Confirm open={confirmOpenState} onCancel={handleCancelDelete} onConfirm={handleConfirmDelete} header="Delete Review?" />
             <ErrorsField />
           </AutoForm>
         </div>

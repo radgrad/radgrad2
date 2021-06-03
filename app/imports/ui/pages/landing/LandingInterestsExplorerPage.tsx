@@ -24,7 +24,7 @@ Interests are curated by the faculty to provide information about topic areas im
 
 This public explorer does not provide information about community members.
 `;
-const headerPaneImage = 'header-interests.png';
+const headerPaneImage = 'images/header-panel/header-interests.png';
 
 const LandingInterestsExplorerPage: React.FC<InterestsCardExplorerProps> = ({ interests, count }) => (
   <div>
