@@ -97,7 +97,7 @@ const CourseViewPageContainer = withTracker(() => {
   const courseDoc = Courses.findDocBySlug(course);
   const profile = Users.getProfile(username);
   const profileCourses = ProfileCourses.findNonRetired({ studentID: profile.userID });
-  const itemReviews = Reviews.findNonRetired({ revieweeID: courseDoc._id });
+  const itemReviews = Reviews.findNonRetired({ revieweeID: courseDoc._id, visible: true });
   const allTerms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
   const currentTermNumber = AcademicTerms.getCurrentAcademicTermDoc().termNumber;
   const after = currentTermNumber - 8;
