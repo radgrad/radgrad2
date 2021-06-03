@@ -126,7 +126,7 @@ const WriteReviews: React.FC<WriteReviewsProps> = ({ unreviewedCourses, unreview
               Select the term you participated in.
             </Grid.Column>
             <Grid.Column width={10}>
-              {termNames.length <= 1 ? <SelectField name='academicTerm' disabled /> :<SelectField name='academicTerm' disabled={disabled} />}
+              {termNames.length <= 1 ? <SelectField name='academicTerm' disabled /> : <SelectField name='academicTerm' disabled={disabled} />}
             </Grid.Column>
             <Grid.Column width={6} verticalAlign='middle'>
               Rate your overall satisfaction.
