@@ -38,7 +38,7 @@ Interests are curated by the faculty to provide information about topic areas im
 
 This public explorer does not provide information about community members.
 `;
-const headerPaneImage = 'header-interests.png';
+const headerPaneImage = 'images/header-panel/header-interests.png';
 
 const LandingInterestExplorerPage: React.FC<InterestExplorerProps> = ({ currentUser, opportunities, courses, interest, careerGoals }) => {
   const match = useRouteMatch();

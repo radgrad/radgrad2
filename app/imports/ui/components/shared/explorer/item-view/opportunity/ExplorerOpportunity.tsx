@@ -1,7 +1,7 @@
 import moment from 'moment';
 import React from 'react';
 import Markdown from 'react-markdown';
-import { useRouteMatch } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Divider, Grid, Segment } from 'semantic-ui-react';
 import { AcademicTerms } from '../../../../../../api/academic-term/AcademicTermCollection';
 import { OpportunityTypes } from '../../../../../../api/opportunity/OpportunityTypeCollection';
@@ -9,6 +9,7 @@ import { Reviews } from '../../../../../../api/review/ReviewCollection';
 import { ROLE } from '../../../../../../api/role/Role';
 import { Teasers } from '../../../../../../api/teaser/TeaserCollection';
 import { PROFILE_ENTRY_TYPE } from '../../../../../../api/user/profile-entries/ProfileEntryTypes';
+import { StudentProfiles } from '../../../../../../api/user/StudentProfileCollection';
 import { Users } from '../../../../../../api/user/UserCollection';
 import { AcademicTerm, BaseProfile, Interest, Opportunity, OpportunityType, Profile, Review } from '../../../../../../typings/radgrad';
 import StudentExplorerReviewWidget from '../../../../student/explorer/StudentExplorerReviewWidget';
@@ -32,9 +33,10 @@ interface ExplorerOpportunitiesWidgetProps {
   opportunities: Opportunity[];
 }
 
-const review = (opportunity: Opportunity, profile: Profile): Review => {
+const review = (opportunity: Opportunity, profile): Review => {
+  const user = StudentProfiles.findByUsername(profile);
   const reviews = Reviews.findNonRetired({
-    studentID: profile.userID,
+    studentID: user.userID,
     revieweeID: opportunity._id,
   });
   if (reviews.length > 0) {
@@ -55,7 +57,7 @@ const ExplorerOpportunity: React.FC<ExplorerOpportunitiesWidgetProps> = ({ oppor
   const segmentStyle = { backgroundColor: 'white' };
   const fiveMarginTopStyle = { marginTop: '5px' };
   const compactRowStyle = { paddingTop: 2, paddingBottom: 2 };
-  const match = useRouteMatch();
+  const { username } = useParams();
   const hasTeaser = Teasers.findNonRetired({ targetSlugID: opportunity.slugID }).length > 0;
   const isStudent = profile.role === ROLE.STUDENT;
   const isSponsor = profile.userID === opportunity.sponsorID;
@@ -116,7 +118,7 @@ const ExplorerOpportunity: React.FC<ExplorerOpportunitiesWidgetProps> = ({ oppor
 
       {isStudent ? (
         <Segment>
-          <StudentExplorerReviewWidget itemToReview={opportunity} userReview={review(opportunity, match)} completed={completed} reviewType="opportunity" itemReviews={itemReviews} />
+          <StudentExplorerReviewWidget itemToReview={opportunity} userReview={review(opportunity, username)} completed={completed} reviewType="opportunity" itemReviews={itemReviews} />
         </Segment>
       ) : (
         <Segment><ExplorerReviewWidget itemReviews={itemReviews} reviewType="opportunity" /></Segment>

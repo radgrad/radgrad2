@@ -28,6 +28,8 @@ const EditReviewButton: React.FC<EditReviewButtonProps> = ({ review }) => {
     updateData.id = review._id;
     updateData.rating = doc.rating;
     updateData.comments = doc.comments;
+    updateData.moderated = false;
+    updateData.visible = false;
     const collectionName = Reviews.getCollectionName();
     updateMethod.callPromise({ collectionName, updateData })
       .catch((error) => { RadGradAlert.failure('Update Failed', error.message, error);})
