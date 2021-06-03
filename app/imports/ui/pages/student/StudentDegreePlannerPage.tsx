@@ -238,10 +238,10 @@ export default withTracker(() => {
   // first filter the retired opportunities
   profileOpportunities = profileOpportunities.filter((opp) => !opp.retired);
   // next filter opportunities w/o future academic terms
-  profileOpportunities = profileOpportunities.filter((opp) => {
-    const terms = opp.termIDs.map((term) => AcademicTerms.findDoc(term));
-    return terms.some((term) => AcademicTerms.isUpcomingTerm(term._id));
-  });
+  // profileOpportunities = profileOpportunities.filter((opp) => {
+  //   const terms = opp.termIDs.map((term) => AcademicTerms.findDoc(term));
+  //   return terms.some((term) => AcademicTerms.isUpcomingTerm(term._id));
+  // });
   const courseInstances = CourseInstances.findNonRetired({ studentID: profile.userID });
   const pCourses = ProfileCourses.findNonRetired({ studentID });
   let profileCourses = pCourses.map((f) => Courses.findDoc(f.courseID));
