@@ -21,7 +21,7 @@ Providing reviews helps future students make the most of their courses and oppor
 
 And, providing reviews is important to reaching higher Levels in RadGrad. 
 `;
-const headerPaneImage = 'header-review.png';
+const headerPaneImage = 'images/header-panel/header-review.png';
 
 const header = <RadGradHeader title='write reviews' icon='edit' />;
 

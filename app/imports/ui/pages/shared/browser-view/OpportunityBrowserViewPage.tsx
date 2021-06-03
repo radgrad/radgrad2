@@ -20,7 +20,7 @@ Your degree experience isn't complete if you don't take advantage of extracurric
  
 Once they are in your plan, RadGrad can update your Innovation and Experience points and do a better job of community building. 
 `;
-const headerPaneImage = 'header-opportunities.png';
+const headerPaneImage = 'images/header-panel/header-opportunities.png';
 
 
 const OpportunityBrowserViewPage: React.FC<OpportunityBrowserViewPageProps> = ({ opportunities }) => (

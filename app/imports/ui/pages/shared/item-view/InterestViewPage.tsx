@@ -47,7 +47,7 @@ const InterestViewPage: React.FC<InterestViewPageProps> = ({
   const relatedOpportunities = getAssociationRelatedOpportunities(Interests.findRelatedOpportunities(interestID), profile.userID);
   const relatedCareerGoals = Interests.findRelatedCareerGoals(interestID);
   const headerPaneTitle = interest.name;
-  const headerPaneImage = 'header-interests.png';
+  const headerPaneImage = interest.picture;
   const added = ProfileInterests.findNonRetired({ userID: profile.userID, interestID }).length > 0;
   return (
     <PageLayout id={PAGEIDS.INTEREST} headerPaneTitle={headerPaneTitle} headerPaneImage={headerPaneImage}

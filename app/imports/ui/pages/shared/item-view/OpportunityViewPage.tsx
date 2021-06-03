@@ -108,7 +108,7 @@ export default withTracker(() => {
   const favOpps = ProfileOpportunities.findNonRetired({ studentID: profile.userID });
   const profileOpportunities = favOpps.map((f) => Opportunities.findDoc(f.opportunityID));
   const opportunityDoc = Opportunities.findDocBySlug(opportunity);
-  const itemReviews = Reviews.findNonRetired({ revieweeID: opportunityDoc._id });
+  const itemReviews = Reviews.findNonRetired({ revieweeID: opportunityDoc._id, visible: true });
   const sponsorID = Users.getProfile(username).userID;
   const opportunities = Opportunities.find({ sponsorID }, { sort: { name: 1 } }).fetch();
   const faculty = FacultyProfiles.find({}).fetch();

@@ -1,7 +1,7 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import React from 'react';
 import { Icon } from 'semantic-ui-react';
-import Swal from 'sweetalert2';
+import RadGradAlert from '../../utilities/RadGradAlert';
 import ListSlugCollectionWidget from '../../components/admin/datamodel/ListSlugCollectionWidget';
 import { DescriptionPair, Slug } from '../../../typings/radgrad';
 import { Slugs } from '../../../api/slug/SlugCollection';
@@ -45,11 +45,7 @@ const AdminDataModelSlugsPage: React.FC<AdminDataModelSlugsPageProps> = ({ items
   const handleDelete = (event) => {
     event.preventDefault();
     // console.log('handleDelete inst=%o', inst);
-    Swal.fire({
-      title: 'Delete failed',
-      text: 'Cannot delete slugs.',
-      icon: 'error',
-    });
+    RadGradAlert.failure('Delete Failed', 'Cannot delete slugs');
   };
 
   const handleOpenUpdate = (evt, inst) => {

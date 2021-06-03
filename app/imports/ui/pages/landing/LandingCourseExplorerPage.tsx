@@ -33,7 +33,7 @@ The RadGrad course explorer provides helpful information about courses, includin
 
 This public explorer does not show reviews or the forecasts for future semesters, but does provide an overview of the courses currently available in the system.
 `;
-const headerPaneImage = 'header-courses.png';
+const headerPaneImage = 'images/header-panel/header-courses.png';
 
 /**
  * The landing course explorer page.

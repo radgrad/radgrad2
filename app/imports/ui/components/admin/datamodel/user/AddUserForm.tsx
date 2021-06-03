@@ -1,7 +1,6 @@
 import _ from 'lodash';
 import React, { useState } from 'react';
 import { Form, Header, Segment } from 'semantic-ui-react';
-import Swal from 'sweetalert2';
 import {
   AutoForm,
   TextField,
@@ -23,6 +22,7 @@ import { ROLE } from '../../../../../api/role/Role';
 import PictureField from '../../../form-fields/PictureField';
 import { academicTermToName, docToName } from '../../../shared/utilities/data-model';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
+import RadGradAlert from '../../../../utilities/RadGradAlert';
 import {
   careerGoalSlugFromName,
   declaredAcademicTermSlugFromName,
@@ -67,20 +67,9 @@ const AddUserForm: React.FC<AddUserProps> = ({ interests, academicTerms, careerG
     }
     // console.log(collectionName, definitionData);
     defineMethod.callPromise({ collectionName, definitionData })
-      .catch((error) => {
-        Swal.fire({
-          title: 'Add failed',
-          text: error.message,
-          icon: 'error',
-        });
-      })
+      .catch((error) => { RadGradAlert.failure('Add failed', error.message, error);})
       .then(() => {
-        Swal.fire({
-          title: 'Add succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        RadGradAlert.success('Add succeeded');
         formRef.reset();
       });
   };

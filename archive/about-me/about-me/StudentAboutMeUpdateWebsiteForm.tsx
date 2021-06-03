@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Form, Grid } from 'semantic-ui-react';
-import Swal from 'sweetalert2';
 import { useRouteMatch } from 'react-router-dom';
 import { updateMethod } from '../../../../api/base/BaseCollection.methods';
 import { getUsername } from '../../shared/utilities/router';
 import { UserInteractionsTypes } from '../../../../api/analytic/UserInteractionsTypes';
 import { userInteractionDefineMethod } from '../../../../api/analytic/UserInteractionCollection.methods';
 import { UserInteractionDefine } from '../../../../typings/radgrad';
+import RadGradAlert from '../../../app/imports/ui/utilities/RadGradAlert';
 
 interface StudentAboutMeUpdateWebsiteFormProps {
   website: string;
@@ -25,20 +25,9 @@ const StudentAboutMeUpdateWebsiteForm: React.FC<StudentAboutMeUpdateWebsiteFormP
 
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
-        Swal.fire({
-          title: 'Update Failed',
-          text: error.message,
-          icon: 'error',
-        });
+        RadGradAlert.failure('Update Failed', error.message, error);
       } else {
-        Swal.fire({
-          title: 'Update Succeeded',
-          icon: 'success',
-          text: 'Your website link has been successfully updated.',
-          allowOutsideClick: false,
-          allowEscapeKey: false,
-          allowEnterKey: false,
-        });
+        RadGradAlert.success('Update Succeeded');
         const username = getUsername(match);
         const interactionData: UserInteractionDefine = {
           username,

@@ -58,7 +58,7 @@ const CourseViewPage: React.FC<CourseViewPageProps> = ({
   interests,
 }) => {
   const headerPaneTitle = Courses.getName(course._id);
-  const headerPaneImage = 'header-courses.png';
+  const headerPaneImage =  course.picture;
   const added = ProfileCourses.findNonRetired({
     studentID: profile.userID,
     courseID: course._id,
@@ -92,12 +92,12 @@ const CourseViewPage: React.FC<CourseViewPageProps> = ({
   );
 };
 
-export default withTracker(() => {
+const CourseViewPageContainer = withTracker(() => {
   const { course, username } = useParams();
   const courseDoc = Courses.findDocBySlug(course);
   const profile = Users.getProfile(username);
   const profileCourses = ProfileCourses.findNonRetired({ studentID: profile.userID });
-  const itemReviews = Reviews.findNonRetired({ revieweeID: courseDoc._id });
+  const itemReviews = Reviews.findNonRetired({ revieweeID: courseDoc._id, visible: true });
   const allTerms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
   const currentTermNumber = AcademicTerms.getCurrentAcademicTermDoc().termNumber;
   const after = currentTermNumber - 8;
@@ -116,3 +116,4 @@ export default withTracker(() => {
   };
 })(CourseViewPage);
 
+export default CourseViewPageContainer;

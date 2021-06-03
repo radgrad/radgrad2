@@ -1,6 +1,5 @@
 import React from 'react';
 import { Form, Header, Segment } from 'semantic-ui-react';
-import Swal from 'sweetalert2';
 import { AutoForm, TextField, NumField, LongTextField, SubmitField, BoolField, ErrorsField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
@@ -8,14 +7,15 @@ import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
 import { Courses } from '../../../../../api/course/CourseCollection';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
 import { Course, CourseDefine, Interest } from '../../../../../typings/radgrad';
+import PictureField from '../../../form-fields/PictureField';
 import { courseNameToSlug, courseToName, docToName } from '../../../shared/utilities/data-model';
 import { interestSlugFromName } from '../../../shared/utilities/form';
+import RadGradAlert from '../../../../utilities/RadGradAlert';
 
 interface AddCourseFormProps {
   interests: Interest[];
   courses: Course[];
 }
-
 const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses }) => {
   let formRef;
   const handleAdd = (doc) => {
@@ -35,24 +35,13 @@ const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses }) => 
     // console.log(collectionName, definitionData);
     defineMethod.callPromise({ collectionName, definitionData })
       .catch((error) => {
-        console.error('Failed adding course', error);
-        Swal.fire({
-          title: 'Failed adding course',
-          text: error.message,
-          icon: 'error',
-        });
+        RadGradAlert.failure('Failed adding User', error.message, error);
       })
       .then(() => {
-        Swal.fire({
-          title: 'Add Course Succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        RadGradAlert.success('Add User Succeeded');
         formRef.reset();
       });
   };
-
 
   const interestNames = interests.map(docToName);
   const courseNames = courses.map(courseToName);
@@ -71,6 +60,7 @@ const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses }) => 
     description: String,
     interests: Array,
     syllabus: { type: String, optional: true },
+    picture: { type: String, optional: true },
     'interests.$': {
       type: String,
       allowedValues: interestNames,
@@ -96,6 +86,7 @@ const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses }) => 
           <TextField name="num" placeholder="DEPT 111" />
         </Form.Group>
         <LongTextField name="description" />
+        <PictureField name="picture" placeholder='https://mywebsite.com/picture.png' />
         <TextField name="syllabus" placeholder="https://dept.foo.edu/dept_111/syllabus.html" />
         <Form.Group widths="equal">
           <MultiSelectField name="interests" placeholder="Select Interest(s)" />

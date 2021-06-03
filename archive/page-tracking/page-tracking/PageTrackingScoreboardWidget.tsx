@@ -3,13 +3,13 @@ import _ from 'lodash';
 import { Grid, Table, Header, Button } from 'semantic-ui-react';
 import DatePicker from 'react-datepicker';
 import { useRouteMatch } from 'react-router-dom';
-import Swal from 'sweetalert2';
 import moment from 'moment';
 import { PageInterestsDailySnapshots } from '../../../../api/page-tracking/PageInterestsDailySnapshotCollection';
 import { PageInterestsDailySnapshot } from '../../../../typings/radgrad';
 import { aggregateDailySnapshots, getCategory, getUrlCategory, AggregatedDailySnapshot, parseName } from './utilities/page-tracking';
 import { IPageInterestsCategoryTypes } from '../../../../api/page-tracking/PageInterestsCategoryTypes';
 import PageTrackingWidgetMessage from './PageTrackingWidgetMessage';
+import RadGradAlert from '../../../app/imports/ui/utilities/RadGradAlert';
 
 interface PageTrackingScoreboardWidgetProps {
   pageInterestsDailySnapshots: PageInterestsDailySnapshot[];
@@ -55,11 +55,7 @@ const PageTrackingScoreboardWidget: React.FC<PageTrackingScoreboardWidgetProps> 
 
   const handleFilter = () => {
     if (startDate === undefined || endDate === undefined) {
-      Swal.fire({
-        title: 'Date Selection Required',
-        text: 'A Start and End Date selection is required.',
-        icon: 'error',
-      });
+      RadGradAlert.failure('Date Selection Required', 'A Start and End Date selection is required.');
       return;
     }
     const filteredDailySnapshots: PageInterestsDailySnapshot[] = PageInterestsDailySnapshots.find({

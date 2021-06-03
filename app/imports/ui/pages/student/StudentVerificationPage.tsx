@@ -25,7 +25,7 @@ This page lists all Opportunities in your Degree Plan from a previous semester. 
 
 If you didn't do it, then please go to the Degree Plan page and delete it.  
 `;
-const headerPaneImage = 'header-verification.png';
+const headerPaneImage = 'images/header-panel/header-verification.png';
 
 interface StudentVerificationPageProps {
   unVerifiedOpportunityInstances: OpportunityInstance[];

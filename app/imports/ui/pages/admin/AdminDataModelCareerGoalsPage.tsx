@@ -2,7 +2,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
 import _ from 'lodash';
 import { Confirm, Icon } from 'semantic-ui-react';
-import Swal from 'sweetalert2';
+import RadGradAlert from '../../utilities/RadGradAlert';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { Users } from '../../../api/user/UserCollection';
 import { CareerGoal, CareerGoalUpdate, DescriptionPair, Interest } from '../../../typings/radgrad';
@@ -73,27 +73,16 @@ const AdminDataModelCareerGoalsPage: React.FC<AdminDataModelCareerGoalsPageProps
     const collectionName = collection.getCollectionName();
     const updateData: CareerGoalUpdate = {};
     updateData.id = doc._id;
+    updateData.picture = doc.picture;
     updateData.name = doc.name;
     updateData.description = doc.description;
     updateData.retired = doc.retired;
     updateData.interests = doc.interests.map(interestNameToId);
     // console.log('updateData = %o', updateData);
     updateMethod.callPromise({ collectionName, updateData })
-      .catch((error) => {
-        Swal.fire({
-          title: 'Update failed',
-          text: error.message,
-          icon: 'error',
-        });
-        console.error('Error in updating. %o', error);
-      })
+      .catch((error) => { RadGradAlert.failure('Update Failed', error.message, error);})
       .then(() => {
-        Swal.fire({
-          title: 'Update succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        RadGradAlert.success('Update Succeeded');
         setShowUpdateForm(false);
         setId('');
       });

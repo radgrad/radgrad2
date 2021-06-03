@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Segment, Grid, Header, Tab, Form, Button, Image, Popup } from 'semantic-ui-react';
-import Swal from 'sweetalert2';
 import { ZipZap } from 'meteor/udondan:zipzap';
 import moment from 'moment';
 import { CareerGoal, Interest, StudentProfile } from '../../../../app/imports/typings/radgrad';
@@ -10,6 +9,7 @@ import { generateStudentEmailsMethod } from '../../../../app/imports/api/user/Us
 import { starBulkLoadJsonDataMethod } from '../../../../app/imports/api/star/StarProcessor.methods';
 import { homeActions } from '../../../redux/advisor/home';
 import { RootState } from '../../../redux/types';
+import RadGradAlert from '../../../../app/imports/ui/utilities/RadGradAlert';
 
 /* global FileReader */
 
@@ -76,12 +76,7 @@ const AdvisorStudentSelectorWidget: React.FC<AdvisorStudentSelectorWidgetProps> 
         const jsonData = JSON.parse(event.target.result);
         setFileData(jsonData);
       } catch (error) {
-        Swal.fire({
-          title: 'Error reading data from file',
-          text: 'Please ensure the file you selected is formatted properly',
-          icon: 'error',
-        });
-        console.error(error.message);
+        RadGradAlert.failure('Error reading data from file', 'Please ensure the file you selected is formatted properly', error);
       }
     };
   };
@@ -92,19 +87,9 @@ const AdvisorStudentSelectorWidget: React.FC<AdvisorStudentSelectorWidgetProps> 
     const jsonData = fileDataState;
     starBulkLoadJsonDataMethod.call({ advisor, jsonData }, (error) => {
       if (error) {
-        Swal.fire({
-          title: 'Error loading bulk STAR data',
-          text: error.message,
-          icon: 'error',
-        });
-        console.error('Error in updating. %o', error);
+        RadGradAlert.failure('Error loading bulk STAR data', error.message, error);
       } else {
-        Swal.fire({
-          title: 'STAR Data loaded successfully',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        RadGradAlert.success('STAR Data loaded successfully');
         setFileData('');
       }
     });
@@ -115,19 +100,9 @@ const AdvisorStudentSelectorWidget: React.FC<AdvisorStudentSelectorWidgetProps> 
     setIsEmailWorking(true);
     generateStudentEmailsMethod.call({}, (error, result) => {
       if (error) {
-        Swal.fire({
-          title: 'Error during Generating Student Emails',
-          text: error.message,
-          icon: 'error',
-        });
-        console.error('Error in updating. %o', error);
+        RadGradAlert.failure('Error during Generating Student Emails', error.message, error);
       } else {
-        Swal.fire({
-          title: 'Beginning Download...',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        RadGradAlert.success('Beginning Download...');
         const data: any = {};
         data.name = 'Students';
         data.contents = result.students;

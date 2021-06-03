@@ -1,7 +1,7 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
 import { Confirm, Icon } from 'semantic-ui-react';
-import Swal from 'sweetalert2';
+import RadGradAlert from '../../utilities/RadGradAlert';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { AcademicTerm, Course, CourseInstance, DescriptionPair, StudentProfile } from '../../../typings/radgrad';
@@ -89,21 +89,9 @@ const AdminDataModelCourseInstancesPage: React.FC<AdminDataModelCourseInstancesP
     updateData.termID = academicTermNameToDoc(doc.academicTerm)._id;
     // console.log(collectionName, updateData);
     updateMethod.callPromise({ collectionName, updateData })
-      .catch((error) => {
-        Swal.fire({
-          title: 'Update failed',
-          text: error.message,
-          icon: 'error',
-        });
-        console.error('Error in updating. %o', error);
-      })
+      .catch((error) => { RadGradAlert.failure('Update Failed', error.message, error);})
       .then(() => {
-        Swal.fire({
-          title: 'Update succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        RadGradAlert.success('Update Succeeded');
         setShowUpdateForm(false);
         setId('');
       });
