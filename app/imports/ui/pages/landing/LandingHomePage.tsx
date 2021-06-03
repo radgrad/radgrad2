@@ -4,12 +4,6 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Redirect } from 'react-router';
 import { Factoids } from '../../../api/factoid/FactoidCollection';
 import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
-import { ROLE } from '../../../api/role/Role';
-import { AdminProfiles } from '../../../api/user/AdminProfileCollection';
-import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
-import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
-import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-import { Users } from '../../../api/user/UserCollection';
 import {
   InterestOrCareerGoalFactoidProps,
   LevelFactoidProps,
@@ -32,9 +26,6 @@ interface LandingHomeProps {
   interests: string;
   opportunities: string;
   users: string;
-  currentUser: string;
-  iconName: string;
-  role: string;
   tagline: string;
   instanceName: string;
   landingSubject: string;
@@ -54,13 +45,15 @@ interface LandingHomeProps {
 }
 
 /* A simple static component to render some text for the landing page. */
-const LandingHomePage: React.FC<LandingHomeProps> = ({ currentUser, opportunities, interests, careerGoals, users, role, iconName, location, tagline, instanceName, landingSubject, userGuideURL, careerGoalFactoid, interestFactoid, levelFactoid, opportunityFactoid, reviewFactoid }) => {
+const LandingHomePage: React.FC<LandingHomeProps> = ({ opportunities, interests, careerGoals, users, location, tagline, instanceName, landingSubject, userGuideURL, careerGoalFactoid, interestFactoid, levelFactoid, opportunityFactoid, reviewFactoid }) => {
+  const role = '';
+  const currentUser = '';
   // CAM: This is set in the Redirect from StudentProtectedRoutes on a reload. We want to go back to the page we came from.
   if (location?.state?.from) {
     return (<Redirect to={{ pathname: `${location.state.from.pathname}` }} />);
   }
   return (<div id={PAGEIDS.LANDING_HOME}>
-    <LandingNavBar currentUser={currentUser} iconName={iconName} role={role} instanceName={instanceName} />
+    <LandingNavBar currentUser={currentUser} role={role} instanceName={instanceName} />
     <LandingSectionPreRelease/>
     <LandingSection1 tagline={tagline} instanceName={instanceName} careerGoalFactoid={careerGoalFactoid} interestFactoid={interestFactoid} levelFactoid={levelFactoid} opportunityFactoid={opportunityFactoid} reviewFactoid={reviewFactoid} />
     <LandingSection2 careerGoals={careerGoals} interests={interests} opportunities={opportunities} users={users} />
@@ -74,18 +67,6 @@ const LandingHomePage: React.FC<LandingHomeProps> = ({ currentUser, opportunitie
 
 /* withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 const LandingHomeContainer = withTracker(() => {
-  let role = 'student';
-  if (Meteor.userId()) {
-    if (Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN])) {
-      role = 'admin';
-    } else if (Roles.userIsInRole(Meteor.userId(), [ROLE.ADVISOR])) {
-      role = 'advisor';
-    } else if (Roles.userIsInRole(Meteor.userId(), [ROLE.FACULTY])) {
-      role = 'faculty';
-    }
-  }
-  const currentUser = Meteor.user() ? Meteor.user().username : '';
-  const iconName = role === 'admin' ? 'user plus' : 'user';
   const careerGoals = PublicStats.getPublicStat(PublicStats.careerGoalsTotalKey);
   const interests = PublicStats.getPublicStat(PublicStats.interestsTotalKey);
   const opportunities = PublicStats.getPublicStat(PublicStats.opportunitiesTotalKey);
@@ -100,9 +81,6 @@ const LandingHomeContainer = withTracker(() => {
   const opportunityFactoid = Factoids.getOpportunityFactoid();
   const reviewFactoid = Factoids.getReviewFactoid();
   return {
-    currentUser,
-    iconName,
-    role,
     careerGoals,
     interests,
     opportunities,
@@ -121,10 +99,5 @@ const LandingHomeContainer = withTracker(() => {
 
 export default withListSubscriptions(LandingHomeContainer, [
   PublicStats.getPublicationName(),
-  Users.getPublicationName(),
-  AdvisorProfiles.getPublicationName(),
-  FacultyProfiles.getPublicationName(),
-  StudentProfiles.getPublicationName(),
-  AdminProfiles.getPublicationName(),
   Factoids.getPublicationName(),
 ]);
