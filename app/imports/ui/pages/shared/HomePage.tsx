@@ -1,6 +1,6 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import React from 'react';
-import { useRouteMatch } from 'react-router';
+import { useRouteMatch, Redirect } from 'react-router';
 import { CareerGoalsChecklist } from '../../components/checklist/CareerGoalsChecklist';
 import { CareerGoalsWithoutRelatedChecklists } from '../../components/checklist/CareerGoalsWithoutRelatedChecklists';
 import { CHECKSTATE } from '../../components/checklist/Checklist';
@@ -35,15 +35,22 @@ const headerPaneBody = `
 <p><span class="headerLabel greenBG">COMPLETED</span>  &nbsp; All of these look good for now!</p>
 `;
 const headerPaneImage = 'images/header-panel/header-home.png';
+let username;
+let refusedTerms;
 
-const HomePage: React.FC<HomePageProps> = ({ okItems, reviewItems, improveItems, pageID }) => (
-  <PageLayout id={pageID} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
+const HomePage: React.FC<HomePageProps> = ({ okItems, reviewItems, improveItems, pageID }) => {
+
+  if (refusedTerms) {
+    return <Redirect to={{ pathname: '/signout-refused' }} key={`${username}-refused-terms`} />;
+  }
+  return <PageLayout id={pageID} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
     <HomePageChecklistSegment okItems={okItems} reviewItems={reviewItems} improveItems={improveItems} />
-  </PageLayout>
-);
+  </PageLayout>;
+};
 
 export default withTracker(() => {
   const currentUser = Meteor.user() ? Meteor.user().username : '';
+  username = currentUser;
   const okItems = [];
   const reviewItems = [];
   const improveItems = [];
@@ -109,6 +116,9 @@ export default withTracker(() => {
         reviewItems.push(checklist.getChecklistItem());
         break;
       case CHECKSTATE.OK:
+        if (checklist.getChecklistItem().key === `${currentUser}-refused-terms`) {
+          refusedTerms = true;
+        }
         okItems.push(checklist.getChecklistItem());
         break;
       default:
