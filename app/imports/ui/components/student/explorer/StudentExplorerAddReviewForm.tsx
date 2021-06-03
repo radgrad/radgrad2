@@ -43,6 +43,7 @@ const StudentExplorerAddReviewForm: React.FC<StudentExplorerAddReviewFormProps> 
     const definitionData: ReviewDefine = doc;
     definitionData.academicTerm = academicTermSlug;
     definitionData.student = username;
+    definitionData.visible = false;
     definitionData.reviewType = reviewType as ReviewTypes;
     definitionData.reviewee = itemToReview._id;
     defineMethod.callPromise({ collectionName, definitionData })
@@ -116,7 +117,7 @@ const StudentExplorerAddReviewForm: React.FC<StudentExplorerAddReviewFormProps> 
         <div className="ui padded container" style={paddedContainerStyle}>
           <AutoForm schema={formSchema} onSubmit={handleAdd} ref={formRef}>
             <Form.Group widths="equal">
-              <SelectField name="academicTerm" />
+              {academicTermNames.length <= 1 ? <SelectField name="academicTerm" disabled /> : <SelectField name="academicTerm" />}
               <RatingField name="rating" />
             </Form.Group>
 
