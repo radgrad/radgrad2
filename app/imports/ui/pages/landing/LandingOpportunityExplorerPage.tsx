@@ -37,7 +37,7 @@ Opportunities are extracurricular activities that relate to this discipline. The
 
 This public explorer does not provide information about community members or the reviews associated with Opportunities.
 `;
-const headerPaneImage = 'header-opportunities.png';
+const headerPaneImage = 'images/header-panel/header-opportunities.png';
 
 const LandingOpportunityExplorerPage: React.FC<OpportunityExplorerProps> = ({ opportunity }) => {
   const match = useRouteMatch();
