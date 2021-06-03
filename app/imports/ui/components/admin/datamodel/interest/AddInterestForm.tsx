@@ -1,13 +1,14 @@
 import React from 'react';
 import { Form, Header, Segment } from 'semantic-ui-react';
-import Swal from 'sweetalert2';
 import { AutoForm, TextField, SelectField, LongTextField, BoolField, SubmitField, ErrorsField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
+import RadGradAlert from '../../../../utilities/RadGradAlert';
 import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
 import { Interests } from '../../../../../api/interest/InterestCollection';
 import slugify from '../../../../../api/slug/SlugCollection';
 import { InterestType } from '../../../../../typings/radgrad';
+import PictureField from '../../../form-fields/PictureField';
 import { docToName, interestTypeNameToSlug } from '../../../shared/utilities/data-model';
 
 interface AddInterestFormProps {
@@ -24,21 +25,9 @@ const AddInterestForm: React.FC<AddInterestFormProps> = ({ interestTypes }) => {
     definitionData.interestType = interestTypeNameToSlug(doc.interestType);
     // console.log(collectionName, definitionData);
     defineMethod.callPromise({ collectionName, definitionData })
-      .catch((error) => {
-        console.error('Failed adding User', error);
-        Swal.fire({
-          title: 'Failed adding User',
-          text: error.message,
-          icon: 'error',
-        });
-      })
-      .then(() => {
-        Swal.fire({
-          title: 'Add User Succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+      .catch((error) => { RadGradAlert.failure('Failed to add User', error.message, error);})
+      .then(() => { 
+        RadGradAlert.success('Add User Succeeded');
         formRef.reset();
       });
   };
@@ -49,6 +38,7 @@ const AddInterestForm: React.FC<AddInterestFormProps> = ({ interestTypes }) => {
     name: String,
     interestType: { type: String, allowedValues: interestTypeNames, defaultValue: interestTypeNames[0] },
     description: String,
+    picture: { type: String, optional: true },
     retired: { type: Boolean, optional: true },
   });
   const formSchema = new SimpleSchema2Bridge(schema);
@@ -61,6 +51,7 @@ const AddInterestForm: React.FC<AddInterestFormProps> = ({ interestTypes }) => {
           <TextField name="name" placeholder="Rust Programming Language" />
           <SelectField name="interestType" />
         </Form.Group>
+        <PictureField name="picture" placeholder='https://mywebsite.com/picture.png' />
         <LongTextField name="description" />
         <BoolField name="retired" />
         <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />

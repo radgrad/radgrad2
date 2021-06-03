@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Button, Grid, Modal } from 'semantic-ui-react';
 import SimpleSchema from 'simpl-schema';
-import Swal from 'sweetalert2';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { AutoForm, ErrorsField, LongTextField, SubmitField } from 'uniforms-semantic';
+import RadGradAlert from '../../../utilities/RadGradAlert';
 import { updateMethod } from '../../../../api/base/BaseCollection.methods';
 import { Reviews } from '../../../../api/review/ReviewCollection';
 import { Review, ReviewUpdate } from '../../../../typings/radgrad';
@@ -30,25 +30,9 @@ const EditReviewButton: React.FC<EditReviewButtonProps> = ({ review }) => {
     updateData.comments = doc.comments;
     const collectionName = Reviews.getCollectionName();
     updateMethod.callPromise({ collectionName, updateData })
-      .catch((error) => {
-        Swal.fire({
-          title: 'Update Failed',
-          text: error.message,
-          icon: 'error',
-          timer: 1500,
-        });
-      })
+      .catch((error) => { RadGradAlert.failure('Update Failed', error.message, error);})
       .then(() => {
-        Swal.fire({
-          title: 'Review Updated',
-          icon: 'success',
-          text: 'Your review was successfully updated.',
-          allowOutsideClick: false,
-          allowEscapeKey: false,
-          allowEnterKey: false,
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        RadGradAlert.success('Review Updated');
         setOpen(false);
       });
   };

@@ -3,6 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import _ from 'lodash';
 import { CareerGoals } from '../career/CareerGoalCollection';
 import { Courses } from '../course/CourseCollection';
+import { Reviews } from '../review/ReviewCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Teasers } from '../teaser/TeaserCollection';
@@ -225,6 +226,11 @@ class OpportunityCollection extends BaseSlugCollection {
       updateData.retired = retired;
       const profileOpportunities = ProfileOpportunities.find({ opportunityID: docID }).fetch();
       profileOpportunities.forEach((po) => ProfileOpportunities.update(po._id, { retired }));
+      const reviews = Reviews.find({ revieweeID: docID }).fetch();
+      reviews.forEach((review) => Reviews.update(review._id, { retired }));
+      const opportunity = this.findDoc(docID);
+      const teasers = Teasers.find({ targetSlugID: opportunity.slugID }).fetch();
+      teasers.forEach((teaser) => Teasers.update(teaser._id, { retired }));
     }
     if (picture) {
       updateData.picture = picture;

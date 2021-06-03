@@ -67,6 +67,7 @@ const AdminDataModelInterestsPage: React.FC<AdminDataModelInterestsPageProps> = 
     const collectionName = collection.getCollectionName();
     const updateData: InterestUpdate = doc;
     updateData.id = doc._id;
+    updateData.picture = doc.picture;
     if (doc.interestType) {
       updateData.interestType = interestTypeNameToId(doc.interestType);
     }

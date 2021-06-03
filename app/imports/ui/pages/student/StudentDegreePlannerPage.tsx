@@ -1,9 +1,9 @@
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import { DragDropContext } from 'react-beautiful-dnd';
-import Swal from 'sweetalert2';
 import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
+import RadGradAlert from '../../utilities/RadGradAlert';
 import DegreeExperiencePlanner from '../../components/student/degree-planner/DegreeExperiencePlanner';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
@@ -76,11 +76,7 @@ const onDragEnd = (onDragEndProps) => (result) => {
 
     if (isCourseDrop) {
       if (isPastDrop) {
-        Swal.fire({
-          title: 'Cannot drop courses in the past.',
-          text: 'You cannot drag courses to a past academic term.',
-          icon: 'error',
-        });
+        RadGradAlert.failure('Cannot drop courses in the past.', 'You cannot drag courses to a past academic term.');
       } else {
         const courseID = Courses.findIdBySlug(slug);
         const course = Courses.findDoc(courseID);
@@ -118,21 +114,13 @@ const onDragEnd = (onDragEndProps) => (result) => {
       }
     } else if (isCourseInstanceDrop) {
       if (isPastDrop) {
-        Swal.fire({
-          title: 'Cannot move a course to the past.',
-          text: 'You cannot drag courses to a past academic term.',
-          icon: 'error',
-        });
+        RadGradAlert.failure('Cannot drop courses in the past.', 'You cannot drag courses to a past academic term.');
       } else {
         const instance = CourseInstances.findDoc(slug);
         const ciTerm = AcademicTerms.findDoc(instance.termID);
         const inPastStart = ciTerm.termNumber < currentTerm.termNumber;
         if (inPastStart) {
-          Swal.fire({
-            title: 'Cannot move a course from the past.',
-            text: 'You cannot drag courses from a past academic term.',
-            icon: 'error',
-          });
+          RadGradAlert.failure('Cannot drop courses in the past.', 'You cannot drag courses to a past academic term.');
         } else {
           const termID = AcademicTerms.findIdBySlug(termSlug);
           const updateData: CourseInstanceUpdate = {};
@@ -197,7 +185,7 @@ Use this degree planner to map out your courses and opportunities each semester.
 
 Telling RadGrad what you've planned and completed helps the system provide better recommendations and supports community building.
 `;
-const headerPaneImage = 'header-planner.png';
+const headerPaneImage = 'images/header-panel/header-planner.png';
 
 const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({ academicYearInstances, studentID, match, profileCourses, profileOpportunities, courseInstances, opportunityInstances, takenSlugs, verificationRequests }) => {
   const [, setSelectedCiID] = useStickyState(DegreePlannerStateNames.selectedCiID, '');

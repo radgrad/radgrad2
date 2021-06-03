@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Card } from 'semantic-ui-react';
 import { useRouteMatch } from 'react-router-dom';
-import Swal from 'sweetalert2';
+import RadGradAlert from '../../../utilities/RadGradAlert';
 import { CourseInstance } from '../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { DegreePlannerStateNames } from '../../../pages/student/StudentDegreePlannerPage';
@@ -31,17 +31,13 @@ const DetailCourseCard: React.FC<DetailCourseCardProps> = ({ instance  }) => {
   const futureP = courseTerm.termNumber >= currentTerm.termNumber;
   const termName = AcademicTerms.getShortName(instance.termID);
   const course = Courses.findDoc(instance.courseID);
+  const courseName = Courses.getName(course._id);
 
   const handleRemove = () => {
     const collectionName = CourseInstances.getCollectionName();
     removeItMethod.callPromise({ collectionName, instance })
       .then(() => {
-        Swal.fire({
-          title: 'Remove succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        RadGradAlert.success('Remove Succeeded');
         setSelectedCiID('');
         setSelectedOiID('');
         setSelectedProfileTab(TabbedProfileEntryNames.profileOpportunities);
@@ -55,9 +51,7 @@ const DetailCourseCard: React.FC<DetailCourseCardProps> = ({ instance  }) => {
         <Card.Content style={contentStyle}>
           <IceHeader ice={instance.ice} />
           <Card.Header>
-            <h4>
-              {course.num}: {course.name}
-            </h4>
+            <h4>{courseName}</h4>
           </Card.Header>
         </Card.Content>
         <Card.Content style={contentStyle}>

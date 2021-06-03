@@ -29,6 +29,7 @@ class InterestCollection extends BaseSlugCollection {
       description: { type: String },
       interestTypeID: { type: SimpleSchema.RegEx.Id },
       retired: { type: Boolean, optional: true },
+      picture: { type: String, optional: true, defaultValue: 'images/header-panel/header-career.png' },
     }));
     this.defineSchema = new SimpleSchema({
       name: String,
@@ -36,6 +37,7 @@ class InterestCollection extends BaseSlugCollection {
       description: String,
       interestType: String,
       retired: { type: Boolean, optional: true },
+      picture: { type: String, optional: true },
     });
     this.updateSchema = new SimpleSchema({
       name: { type: String, optional: true },
@@ -43,6 +45,7 @@ class InterestCollection extends BaseSlugCollection {
       description: { type: String, optional: true },
       interestType: { type: String, optional: true },
       retired: { type: Boolean, optional: true },
+      picture: { type: String, optional: true },
     });
   }
 
@@ -59,14 +62,14 @@ class InterestCollection extends BaseSlugCollection {
    * @throws {Meteor.Error} If the interest definition includes a defined slug or undefined interestType.
    * @returns The newly created docID.
    */
-  public define({ name, slug, description, interestType, retired = false }: InterestDefine): string {
+  public define({ name, slug, description, interestType, retired = false, picture }: InterestDefine): string {
     // console.log(`${this.collectionName}.define(${name}, ${slug}, ${description}, ${interestType}`);
     // Get InterestTypeID, throw error if not found.
     const interestTypeID = InterestTypes.getID(interestType);
     // Get SlugID, throw error if found.
     const slugID = Slugs.define({ name: slug, entityName: this.getType() });
     // Define the Interest and get its ID
-    const interestID = this.collection.insert({ name, description, slugID, interestTypeID, retired });
+    const interestID = this.collection.insert({ name, description, slugID, interestTypeID, retired, picture });
     // Connect the Slug to this Interest
     Slugs.updateEntityID(slugID, interestID);
     return interestID;
@@ -80,14 +83,17 @@ class InterestCollection extends BaseSlugCollection {
    * @param interestType The new interestType slug or ID (optional).
    * @throws { Meteor.Error } If docID is not defined, or if interestType is not valid.
    */
-  public update(docID: string, { name, description, interestType, retired }: InterestUpdate) {
+  public update(docID: string, { name, description, interestType, retired, picture }: InterestUpdate) {
     this.assertDefined(docID);
-    const updateData: { name?: string, description?: string, interestTypeID?: string, retired?: boolean } = {};
+    const updateData: { name?: string, description?: string, interestTypeID?: string, retired?: boolean, picture?:string } = {};
     if (name) {
       updateData.name = name;
     }
     if (description) {
       updateData.description = description;
+    }
+    if (picture) {
+      updateData.picture = picture;
     }
     if (interestType) {
       const interestTypeID = InterestTypes.getID(interestType);
@@ -97,6 +103,9 @@ class InterestCollection extends BaseSlugCollection {
       updateData.retired = retired;
       const profileInterests = ProfileInterests.find({ interestID: docID }).fetch();
       profileInterests.forEach((pi) => ProfileInterests.update(pi._id, { retired }));
+      const interest = this.findDoc(docID);
+      const teasers = Teasers.find({ targetSlugID: interest.slugID }).fetch();
+      teasers.forEach((teaser) => Teasers.update(teaser._id, { retired }));
     }
     this.collection.update(docID, { $set: updateData });
     return true;
@@ -208,9 +217,10 @@ class InterestCollection extends BaseSlugCollection {
     const name = doc.name;
     const slug = Slugs.getNameFromID(doc.slugID);
     const description = doc.description;
+    const picture = doc.picture;
     const interestType = InterestTypes.findSlugByID(doc.interestTypeID);
     const retired = doc.retired;
-    return { name, slug, description, interestType, retired };
+    return { name, slug, description, interestType, retired, picture };
   }
 }
 

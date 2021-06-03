@@ -1,6 +1,5 @@
 import React from 'react';
 import { Header, Segment } from 'semantic-ui-react';
-import Swal from 'sweetalert2';
 import { AutoForm, TextField, LongTextField, SubmitField, ErrorsField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
@@ -10,14 +9,15 @@ import { Interests } from '../../../../../api/interest/InterestCollection';
 import slugify, { Slugs } from '../../../../../api/slug/SlugCollection';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
 import { Interest } from '../../../../../typings/radgrad';
+import PictureField from '../../../form-fields/PictureField';
 import { docToName } from '../../../shared/utilities/data-model';
+import RadGradAlert from '../../../../utilities/RadGradAlert';
 
 interface AddCareerGoalFormProps {
   interests: Interest[];
 }
 
 const AddCareerGoalForm: React.FC<AddCareerGoalFormProps> = ({ interests }) => {
-
   let formRef;
 
   const handleAdd = (doc) => {
@@ -30,20 +30,10 @@ const AddCareerGoalForm: React.FC<AddCareerGoalFormProps> = ({ interests }) => {
     definitionData.slug = slugify(doc.name);
     defineMethod.callPromise({ collectionName, definitionData })
       .catch((error) => {
-        console.error('Failed adding User', error);
-        Swal.fire({
-          title: 'Failed adding User',
-          text: error.message,
-          icon: 'error',
-        });
+        RadGradAlert.failure('Failed adding User', error.message, error);
       })
       .then(() => {
-        Swal.fire({
-          title: 'Add User Succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        RadGradAlert.success('Add User Succeeded');
         formRef.reset();
       });
   };
@@ -59,6 +49,10 @@ const AddCareerGoalForm: React.FC<AddCareerGoalFormProps> = ({ interests }) => {
       type: String,
       allowedValues: interestNames,
     },
+    picture: {
+      type: String,
+      optional: true,
+    },
   });
   const formSchema = new SimpleSchema2Bridge(schema);
   return (
@@ -68,6 +62,7 @@ const AddCareerGoalForm: React.FC<AddCareerGoalFormProps> = ({ interests }) => {
       <AutoForm schema={formSchema} onSubmit={handleAdd} ref={(ref) => formRef = ref} showInlineError>
         <TextField name="name" placeholder="Software Engineer" />
         <MultiSelectField name="interests" placeholder="Select interest(s)" />
+        <PictureField name="picture" placeholder='https://mywebsite.com/picture.png'/>
         <LongTextField name="description" placeholder="Describe the Career Goal here" />
         <SubmitField className="mini basic green" value="Add" />
         <ErrorsField />
