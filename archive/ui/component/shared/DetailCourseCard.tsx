@@ -1,20 +1,20 @@
 import React from 'react';
 import { Button, Card } from 'semantic-ui-react';
 import { useRouteMatch } from 'react-router-dom';
-import RadGradAlert from '../../../utilities/RadGradAlert';
-import { CourseInstance } from '../../../../typings/radgrad';
-import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
-import { DegreePlannerStateNames } from '../../../pages/student/StudentDegreePlannerPage';
-import { useStickyState } from '../../../utilities/StickyState';
-import { ViewInExplorerButtonLink } from '../../shared/button/ViewInExplorerButtonLink';
-import FutureParticipationButton from '../../shared/FutureParticipationButton';
-import IceHeader from '../../shared/IceHeader';
-import { Courses } from '../../../../api/course/CourseCollection';
-import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
-import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
-import { removeItMethod } from '../../../../api/base/BaseCollection.methods';
-import { TabbedProfileEntryNames } from './TabbedProfileEntries';
-import { cardStyle, contentStyle } from './utilities/styles';
+import RadGradAlert from '../../../../app/imports/ui/utilities/RadGradAlert';
+import { CourseInstance } from '../../../../app/imports/typings/radgrad';
+import { AcademicTerms } from '../../../../app/imports/api/academic-term/AcademicTermCollection';
+import { DegreePlannerStateNames } from '../../../../app/imports/ui/pages/student/StudentDegreePlannerPage';
+import { useStickyState } from '../../../../app/imports/ui/utilities/StickyState';
+import { ViewInExplorerButtonLink } from '../../../../app/imports/ui/components/shared/button/ViewInExplorerButtonLink';
+import FutureParticipationButton from '../../../../app/imports/ui/components/shared/FutureParticipationButton';
+import IceHeader from '../../../../app/imports/ui/components/shared/IceHeader';
+import { Courses } from '../../../../app/imports/api/course/CourseCollection';
+import { EXPLORER_TYPE } from '../../../../app/imports/ui/layouts/utilities/route-constants';
+import { CourseInstances } from '../../../../app/imports/api/course/CourseInstanceCollection';
+import { removeItMethod } from '../../../../app/imports/api/base/BaseCollection.methods';
+import { TabbedProfileEntryNames } from '../../../../app/imports/ui/components/student/degree-planner/TabbedProfileEntries';
+import { cardStyle, contentStyle } from '../../../../app/imports/ui/components/student/degree-planner/utilities/styles';
 
 interface DetailCourseCardProps {
   instance: CourseInstance;

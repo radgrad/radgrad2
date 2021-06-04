@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import _ from 'lodash';
+import { instanceIsNowOrFuture } from '../utilities/instance-utilities';
 import { CourseInstances } from './CourseInstanceCollection';
 import { Courses } from './CourseCollection';
 import PreferredChoice from '../degree-plan/PreferredChoice';
@@ -170,4 +171,4 @@ export const getDepartment = (courseSlug: string): string => courseSlug.split('_
  */
 export const getCourseNumber = (courseSlug: string): string => courseSlug.split('_')[1];
 
-export const passedCourse = (ci: CourseInstance): boolean => ci && _.includes(['CR', 'C', 'C+', 'B-', 'B', 'B+', 'A-', 'A', 'A+'], ci.grade) && ci.verified;
+export const passedCourse = (ci: CourseInstance): boolean => ci && ((_.includes(['CR', 'C', 'C+', 'B-', 'B', 'B+', 'A-', 'A', 'A+'], ci.grade) && ci.verified) || instanceIsNowOrFuture(ci));
