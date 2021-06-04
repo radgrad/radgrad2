@@ -87,6 +87,7 @@
         <article>
             <pre class="prettyprint source linenums"><code>import { Meteor } from 'meteor/meteor';
 import _ from 'lodash';
+import { instanceIsNowOrFuture } from '../utilities/instance-utilities';
 import { CourseInstances } from './CourseInstanceCollection';
 import { Courses } from './CourseCollection';
 import PreferredChoice from '../degree-plan/PreferredChoice';
@@ -257,7 +258,7 @@ export const getDepartment = (courseSlug: string): string => courseSlug.split('_
  */
 export const getCourseNumber = (courseSlug: string): string => courseSlug.split('_')[1];
 
-export const passedCourse = (ci: CourseInstance): boolean => ci &amp;&amp; _.includes(['CR', 'C', 'C+', 'B-', 'B', 'B+', 'A-', 'A', 'A+'], ci.grade) &amp;&amp; ci.verified;
+export const passedCourse = (ci: CourseInstance): boolean => ci &amp;&amp; ((_.includes(['CR', 'C', 'C+', 'B-', 'B', 'B+', 'A-', 'A', 'A+'], ci.grade) &amp;&amp; ci.verified) || instanceIsNowOrFuture(ci));
 </code></pre>
         </article>
     </section>
