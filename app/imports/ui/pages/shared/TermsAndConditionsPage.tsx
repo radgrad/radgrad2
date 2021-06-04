@@ -1,6 +1,5 @@
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
-import { Redirect } from 'react-router';
 import { useHistory } from 'react-router-dom';
 import ReactMarkdownWithHtml from 'react-markdown/with-html';
 import Swal from 'sweetalert2';
@@ -85,9 +84,6 @@ const TermsAndConditionsPage: React.FC = () => {
       }
     });
   };
-  if (urlUser.refusedTermsAndConditions) {
-    return <Redirect to={{ pathname: '/signout-refused' }} key={`${currentUser}-refused-terms`} />;
-  }
 
   return (
     <PageLayout id={PAGEIDS.TERMS_AND_CONDITIONS} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
