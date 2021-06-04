@@ -2,9 +2,11 @@ import React from 'react';
 import { Icon, Menu, Segment, Tab } from 'semantic-ui-react';
 import { DegreePlannerStateNames } from '../../../pages/student/StudentDegreePlannerPage';
 import { useStickyState } from '../../../utilities/StickyState';
+import RadGradHeader from '../../shared/RadGradHeader';
+import ProfileInternships from './ProfileInternships';
 import ProfileOpportunities from './ProfileOpportunities';
 import ProfileCourses from './ProfileCourses';
-import DepDetailsCard from './DepDetailsCard';
+import DepDetailsCard from '../../../../../../archive/DepDetailsCard';
 import { Course, CourseInstance, Opportunity, OpportunityInstance, VerificationRequest } from '../../../../typings/radgrad';
 
 export enum TabbedProfileEntryNames {
@@ -68,11 +70,12 @@ const TabbedProfileEntries: React.FC<TabbedProfileEntriesProps> = ({
     {
       menuItem: (
         <Menu.Item key="ProfileOpportunities">
-          <Icon name="user" fitted color="grey" /> OPPS
+          <Icon name="lightbulb" fitted />
         </Menu.Item>
       ),
       pane: (
         <Tab.Pane key="ProfileOpportunitiesPane" active={active(selectedTab) === 0}>
+          <RadGradHeader title="Opportunities" />
           <ProfileOpportunities opportunities={profileOpportunities} studentID={studentID}
             opportunityInstances={opportunityInstances} />
         </Tab.Pane>
@@ -81,20 +84,22 @@ const TabbedProfileEntries: React.FC<TabbedProfileEntriesProps> = ({
     {
       menuItem: (
         <Menu.Item key="ProfileCourses">
-          <Icon name="user" fitted color="grey" /> COURSE
+          <Icon name="book" fitted />
         </Menu.Item>
       ),
       pane: (
         <Tab.Pane key="ProfileCoursesPane" active={active(selectedTab) === 1}>
+          <RadGradHeader title="Courses" />
           <ProfileCourses studentID={studentID} courses={profileCourses} courseInstances={courseInstances} />
         </Tab.Pane>
       ),
     },
     {
-      menuItem: <Menu.Item key="ProfileDetails">DETAILS</Menu.Item>,
+      menuItem: <Menu.Item key="ProfileDetails"><Icon className="user graduate" /></Menu.Item>,
       pane: (
         <Tab.Pane key="ProfileDetailsPane" active={active(selectedTab) === 2}>
-          <DepDetailsCard verificationRequests={verificationRequests} />
+          <RadGradHeader title="Internships" />
+          <ProfileInternships studentID={studentID} />
         </Tab.Pane>
       ),
     },

@@ -1,10 +1,10 @@
 import React from 'react';
-import { Card, Message } from 'semantic-ui-react';
+import { Message } from 'semantic-ui-react';
 import { useRouteMatch } from 'react-router-dom';
 import { Opportunity, OpportunityInstance } from '../../../../typings/radgrad';
 import { ButtonLink } from '../../shared/button/ButtonLink';
 import * as Router from '../../shared/utilities/router';
-import ProfileOpportunityCard from './ProfileOpportunityCard';
+import ProfileOpportunityAccordion from './ProfileOpportunityAccordion';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 
 interface ProfileOpportunitiesProps {
@@ -23,12 +23,7 @@ const ProfileOpportunities: React.FC<ProfileOpportunitiesProps> = ({
   return (
     <div>
       {hasProfileEntries ?
-        <Card.Group itemsPerRow={1}>
-          {opportunities.map((o) => (
-            <ProfileOpportunityCard key={o._id} opportunity={o} studentID={studentID}
-              opportunityInstances={opportunityInstances} />
-          ))}
-        </Card.Group>
+        opportunities.map((opportunity) => <ProfileOpportunityAccordion key={opportunity._id} studentID={studentID} opportunity={opportunity} opportunityInstances={opportunityInstances} />)
         :
         <Message>
           <Message.Header>No Profile Opportunities</Message.Header>

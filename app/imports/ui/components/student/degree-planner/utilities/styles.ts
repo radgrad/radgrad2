@@ -57,6 +57,11 @@ const contentStyle = {
   paddingBottom: 2,
 };
 
+const buttonStyle = {
+  marginTop: 2,
+  marginBottom: 2,
+};
+
 export {
   getDraggablePillStyle,
   getInspectorDraggablePillStyle,
@@ -65,4 +70,5 @@ export {
   getSatisfiedStyle,
   cardStyle,
   contentStyle,
+  buttonStyle,
 };

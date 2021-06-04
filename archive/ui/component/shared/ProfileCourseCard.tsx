@@ -2,17 +2,17 @@ import React from 'react';
 import { Card } from 'semantic-ui-react';
 import { useRouteMatch } from 'react-router-dom';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
-import { Course, CourseInstance } from '../../../../typings/radgrad';
-import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
-import { Slugs } from '../../../../api/slug/SlugCollection';
-import { ViewInExplorerButtonLink } from '../../shared/button/ViewInExplorerButtonLink';
-import FutureParticipationButton from '../../shared/FutureParticipationButton';
-import IceHeader from '../../shared/IceHeader';
-import { makeCourseICE } from '../../../../api/ice/IceProcessor';
-import { cardStyle, contentStyle, getDraggablePillStyle } from './utilities/styles';
-import NamePill from './NamePill';
-import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
-import { Courses } from '../../../../api/course/CourseCollection';
+import { Course, CourseInstance } from '../../../../app/imports/typings/radgrad';
+import { AcademicTerms } from '../../../../app/imports/api/academic-term/AcademicTermCollection';
+import { Slugs } from '../../../../app/imports/api/slug/SlugCollection';
+import { ViewInExplorerButtonLink } from '../../../../app/imports/ui/components/shared/button/ViewInExplorerButtonLink';
+import FutureParticipationButton from '../../../../app/imports/ui/components/shared/FutureParticipationButton';
+import IceHeader from '../../../../app/imports/ui/components/shared/IceHeader';
+import { makeCourseICE } from '../../../../app/imports/api/ice/IceProcessor';
+import { cardStyle, contentStyle, getDraggablePillStyle } from '../../../../app/imports/ui/components/student/degree-planner/utilities/styles';
+import NamePill from '../../../../app/imports/ui/components/student/degree-planner/NamePill';
+import { EXPLORER_TYPE } from '../../../../app/imports/ui/layouts/utilities/route-constants';
+import { Courses } from '../../../../app/imports/api/course/CourseCollection';
 
 interface ProfileCourseCardProps {
   course: Course;
