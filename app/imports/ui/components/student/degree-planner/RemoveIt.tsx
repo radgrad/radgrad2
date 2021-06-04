@@ -3,7 +3,6 @@ import { Button, Icon, Modal } from 'semantic-ui-react';
 import { removeItMethod } from '../../../../api/base/BaseCollection.methods';
 import { DegreePlannerStateNames } from '../../../pages/student/StudentDegreePlannerPage';
 import { useStickyState } from '../../../utilities/StickyState';
-import { TabbedProfileEntryNames } from './TabbedProfileEntries';
 import RadGradAlert from '../../../utilities/RadGradAlert';
 
 interface RemoveItWidgetProps {
@@ -20,7 +19,7 @@ const RemoveIt: React.FC<RemoveItWidgetProps> = ({ collectionName, id, name, cou
   const buttonStyle: React.CSSProperties = { padding: 0 };
   const [, setSelectedCiID] = useStickyState(DegreePlannerStateNames.selectedCiID, '');
   const [, setSelectedOiID] = useStickyState(DegreePlannerStateNames.selectedOiID, '');
-  const [, setSelectedProfileTab] = useStickyState(DegreePlannerStateNames.selectedProfileTab, '');
+  // const [, setSelectedIiID] = useStickyState(DegreePlannerStateNames.selectedIiID, '');
 
   const handleRemoveIt = () => {
     handleClose();
@@ -30,7 +29,7 @@ const RemoveIt: React.FC<RemoveItWidgetProps> = ({ collectionName, id, name, cou
         RadGradAlert.success('Remove Succeeded');
         setSelectedOiID('');
         setSelectedCiID('');
-        setSelectedProfileTab(TabbedProfileEntryNames.profileOpportunities);
+        // setSelectedIiID('');
       })
       .catch((error) => {
         RadGradAlert.failure(`Remove ${collectionName}: ${instance} failed.`, error.message, error);

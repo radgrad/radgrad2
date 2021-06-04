@@ -11,7 +11,7 @@ import { Course, CourseInstance, Opportunity, OpportunityInstance, VerificationR
 export enum TabbedProfileEntryNames {
   profileCourses = 'PROFILE_COURSES',
   profileOpportunities = 'PROFILE_OPPORTUNITIES',
-  profileDetails = 'PROFILE_DETAILS',
+  profileInternships = 'PROFILE_INTERNSHIPS',
 }
 
 interface TabbedProfileEntriesProps {
@@ -30,7 +30,7 @@ const active = (selectedTab) => {
       return 0;
     case TabbedProfileEntryNames.profileCourses:
       return 1;
-    case TabbedProfileEntryNames.profileDetails:
+    case TabbedProfileEntryNames.profileInternships:
       return 2;
     default:
       return 0;
@@ -58,7 +58,7 @@ const TabbedProfileEntries: React.FC<TabbedProfileEntriesProps> = ({
         setSelectedTab(TabbedProfileEntryNames.profileCourses);
         break;
       case 2:
-        setSelectedTab(TabbedProfileEntryNames.profileDetails);
+        setSelectedTab(TabbedProfileEntryNames.profileInternships);
         break;
       default:
         console.error(`Bad tab index: ${activeIndex}`);

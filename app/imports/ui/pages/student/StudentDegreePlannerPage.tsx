@@ -39,6 +39,7 @@ import PageLayout from '../PageLayout';
 export enum DegreePlannerStateNames {
   selectedCiID = 'Planner.selectedCiID',
   selectedOiID = 'Planner.selectedOiID',
+  selectedIiID = 'Planner.selectedIiID', // selected internship instance
   selectedProfileTab = 'Planner.selectedProfileTab',
   draggablePillWidth = 'Planner.draggablePillWidth',
   draggablePillHeight = 'Planner.draggablePillHeight',
@@ -57,7 +58,7 @@ interface StudentDegreePlannerProps {
 }
 
 const onDragEnd = (onDragEndProps) => (result) => {
-  const { match, setSelectedCiID, setSelectedOiID, setSelectedProfileTab } = onDragEndProps;
+  const { match, setSelectedCiID, setSelectedOiID/* , setSelectedIiID */ } = onDragEndProps;
   if (!result.destination) {
     return;
   }
@@ -70,6 +71,8 @@ const onDragEnd = (onDragEndProps) => (result) => {
     const isCourseInstanceDrop = CourseInstances.isDefined(slug);
     const isOppDrop = Opportunities.isDefined(slug);
     const isOppInstDrop = OpportunityInstances.isDefined(slug);
+    // const isIntDrop = Internships.isDefined(slug);
+    // const isIntInstDrop = InternshipInstances.isDefine(slug);
     const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
     const dropTermDoc = AcademicTerms.findDocBySlug(termSlug);
     const isPastDrop = dropTermDoc.termNumber < currentTerm.termNumber;
@@ -106,7 +109,7 @@ const onDragEnd = (onDragEndProps) => (result) => {
           .then((res) => {
             setSelectedCiID(res);
             setSelectedOiID('');
-            setSelectedProfileTab(TabbedProfileEntryNames.profileDetails);
+            // setSelectedIiID('');
           })
           .catch((error) => {
             console.error(error);
@@ -132,7 +135,7 @@ const onDragEnd = (onDragEndProps) => (result) => {
             .then(() => {
               setSelectedCiID(slug);
               setSelectedOiID('');
-              setSelectedProfileTab(TabbedProfileEntryNames.profileDetails);
+              // setSelectedIiID('');
             })
             .catch((error) => console.error(error));
         }
@@ -156,7 +159,7 @@ const onDragEnd = (onDragEndProps) => (result) => {
         .then((res) => {
           setSelectedCiID('');
           setSelectedOiID(res);
-          setSelectedProfileTab(TabbedProfileEntryNames.profileDetails);
+          // setSelectedIiID('');
         })
         .catch((error) => console.error(error));
     } else if (isOppInstDrop) {
@@ -170,7 +173,7 @@ const onDragEnd = (onDragEndProps) => (result) => {
         .then(() => {
           setSelectedCiID('');
           setSelectedOiID(slug);
-          setSelectedProfileTab(TabbedProfileEntryNames.profileDetails);
+          // setSelectedIiID('');
         })
         .catch((error) => console.error(error));
     }
@@ -190,9 +193,9 @@ const headerPaneImage = 'images/header-panel/header-planner.png';
 const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({ academicYearInstances, studentID, match, profileCourses, profileOpportunities, courseInstances, opportunityInstances, takenSlugs, verificationRequests }) => {
   const [, setSelectedCiID] = useStickyState(DegreePlannerStateNames.selectedCiID, '');
   const [, setSelectedOiID] = useStickyState(DegreePlannerStateNames.selectedOiID, '');
-  const [, setSelectedProfileTab] = useStickyState(DegreePlannerStateNames.selectedProfileTab, '');
+  // const [, setSelectedIiID] = useStickyState(DegreePlannerStateNames.selectedIiID, '');
 
-  const onDragEndProps = { match, setSelectedCiID, setSelectedOiID, setSelectedProfileTab };
+  const onDragEndProps = { match, setSelectedCiID, setSelectedOiID/* , setSelectedIiID */ };
   const paddedStyle = { paddingTop: 0, paddingLeft: 10, paddingRight: 20 };
   return (
     <DragDropContext onDragEnd={onDragEnd(onDragEndProps)}>

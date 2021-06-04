@@ -19,7 +19,6 @@ import {
 import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
 import { defineMethod, removeItMethod } from '../../../../api/base/BaseCollection.methods';
-import { TabbedProfileEntryNames } from './TabbedProfileEntries';
 
 interface DePProps {
   academicYearInstances: AcademicYearInstance[];
@@ -30,7 +29,7 @@ interface DePProps {
 const DegreeExperiencePlanner: React.FC<DePProps> = ({ academicYearInstances, courseInstances, opportunityInstances }) => {
   const [, setSelectedCiID] = useStickyState(DegreePlannerStateNames.selectedCiID, '');
   const [, setSelectedOiID] = useStickyState(DegreePlannerStateNames.selectedOiID, '');
-  const [, setSelectedProfileTab] = useStickyState(DegreePlannerStateNames.selectedProfileTab, '');
+  // const [, setSelectedIiID] = useStickyState(DegreePlannerStateNames.selectedIiID, '');
   const { username } = useParams();
   const studentID = Users.getID(username);
 
@@ -57,14 +56,14 @@ const DegreeExperiencePlanner: React.FC<DePProps> = ({ academicYearInstances, co
     event.preventDefault();
     setSelectedCiID(value);
     setSelectedOiID('');
-    setSelectedProfileTab(TabbedProfileEntryNames.profileDetails);
+    // setSelectedIiID('');
   };
 
   const handleClickOpportunityInstance = (event, { value }) => {
     event.preventDefault();
     setSelectedCiID('');
     setSelectedOiID(value);
-    setSelectedProfileTab(TabbedProfileEntryNames.profileDetails);
+    // setSelectedIiID('');
   };
 
   const handleAddYear = (): void => {
