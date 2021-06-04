@@ -9,8 +9,8 @@ import StudentExplorerReviewStarsWidget from './StudentExplorerReviewStarsWidget
 import StudentExplorerEditReviewForm from './StudentExplorerEditReviewForm';
 import StudentExplorerAddReviewForm from './StudentExplorerAddReviewForm';
 import * as Router from '../../shared/utilities/router';
-import { profileIDToPicture, userToFullName, academicTermNameToShortName } from '../../shared/utilities/data-model';
 import { Review } from '../../../../typings/radgrad';
+import UserLabel from '../../shared/profile/UserLabel';
 
 interface StudentExplorerReviewWidgetProps {
   itemToReview: any;
@@ -44,8 +44,7 @@ const StudentExplorerReviewWidget: React.FC<StudentExplorerReviewWidgetProps> = 
   const commentsStyle = { paddingTop: '5px' };
 
   const { name, picture, term, rating, comments } = reviewData(userReview);
-  const currentUserPicture = profileIDToPicture(Router.getUserIdFromRoute(match));
-  const currentUserName = userToFullName(Router.getUsername(match));
+  const currentUserName = Router.getUsername(match);
   let theReviews = itemReviews;
   if (userReview) {
     theReviews = theReviews.filter((review) => review._id !== userReview._id && review.visible);
@@ -82,8 +81,7 @@ const StudentExplorerReviewWidget: React.FC<StudentExplorerReviewWidgetProps> = 
           <List.Item>
             <Grid>
               <Grid.Column width={4}>
-                <Image floated="left" verticalAlign="middle" circular size="mini" src={currentUserPicture} />
-                <b>{currentUserName}</b>
+                <UserLabel username={currentUserName} />
               </Grid.Column>
 
               <Grid.Column width={12}>
@@ -110,10 +108,7 @@ const StudentExplorerReviewWidget: React.FC<StudentExplorerReviewWidgetProps> = 
                 <List.Item key={review._id}>
                   <Grid>
                     <Grid.Column width={4}>
-                      <Image floated="left" verticalAlign="middle" circular size="mini" src={aReview.picture} />
-                      <b>{aReview.name}</b>
-                      <br />
-                      {academicTermNameToShortName(aReview.term)}
+                      <UserLabel username={aReview.username} size='small' />
                     </Grid.Column>
 
                     <Grid.Column width={12}>
