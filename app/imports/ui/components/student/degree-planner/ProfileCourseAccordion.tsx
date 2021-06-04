@@ -4,7 +4,6 @@ import { useRouteMatch } from 'react-router-dom';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { Courses } from '../../../../api/course/CourseCollection';
-import { makeCourseICE } from '../../../../api/ice/IceProcessor';
 import { Slugs } from '../../../../api/slug/SlugCollection';
 import { Course, CourseInstance } from '../../../../typings/radgrad';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
@@ -19,7 +18,7 @@ interface ProfileCourseAccordionProps {
   courseInstances: CourseInstance[];
 }
 
-const ProfileCourseAccorion: React.FC<ProfileCourseAccordionProps> = ({ course, courseInstances, studentID }) => {
+const ProfileCourseAccordion: React.FC<ProfileCourseAccordionProps> = ({ course, courseInstances, studentID }) => {
   const [active, setActive] = useState(false);
 
   const handleClick = () => {
@@ -33,7 +32,6 @@ const ProfileCourseAccorion: React.FC<ProfileCourseAccordionProps> = ({ course, 
   terms.sort((a, b) => a.year - b.year);
   const termNames = terms.map((t) => AcademicTerms.getShortName(t._id)).join(', ');
   const slug = Slugs.findDoc(course.slugID).name;
-  const ice = instances.length > 0 ? makeCourseICE(slug, instances[instances.length - 1].grade) : { i: 0, c: 0, e: 0 };
   const droppableID = `${course._id}`;
   const courseName = Courses.getName(course._id);
 
@@ -72,4 +70,4 @@ const ProfileCourseAccorion: React.FC<ProfileCourseAccordionProps> = ({ course, 
   );
 };
 
-export default ProfileCourseAccorion;
+export default ProfileCourseAccordion;

@@ -3,6 +3,7 @@ import { Grid } from 'semantic-ui-react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
+import { instanceIsInThePast, instanceIsNowOrFuture } from '../../../api/utilities/instance-utilities';
 import RadGradAlert from '../../utilities/RadGradAlert';
 import DegreeExperiencePlanner from '../../components/student/degree-planner/DegreeExperiencePlanner';
 import { Courses } from '../../../api/course/CourseCollection';
@@ -221,7 +222,7 @@ export default withTracker(() => {
   profileCourses = profileCourses.filter((course) => {
     const ci = courseInstances.find((instance) => instance.courseID === course._id);
     if (ci) {
-      // console.log(!passedCourse(ci), courseInstanceIsRepeatable(ci), ci);
+      // console.log(!passedCourse(ci), courseInstanceIsRepeatable(ci), ci.note);
       return !passedCourse(ci) || courseInstanceIsRepeatable(ci);
     }
     return true; // no course instance so it is from profileCourses.
