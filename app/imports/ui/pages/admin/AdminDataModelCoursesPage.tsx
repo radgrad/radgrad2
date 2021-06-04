@@ -124,7 +124,7 @@ const AdminDataModelCoursesPage: React.FC<AdminDataModelCoursesPageProps> = ({ i
   );
 };
 
-const AdminDataModelCoursesPageContainer = withTracker(() => {
+export default withTracker(() => {
   const items = Courses.find({}).fetch();
   const interests = Interests.find({}, { sort: { name: 1 } }).fetch();
   const courses = Courses.find({}, { sort: { num: 1 } }).fetch();
@@ -134,5 +134,3 @@ const AdminDataModelCoursesPageContainer = withTracker(() => {
     courses,
   };
 })(AdminDataModelCoursesPage);
-
-export default AdminDataModelCoursesPageContainer;

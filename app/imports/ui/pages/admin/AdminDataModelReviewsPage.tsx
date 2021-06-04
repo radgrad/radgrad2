@@ -128,7 +128,7 @@ const AdminDataModelReviewsPage: React.FC<AdminDataModelReviewsPageProps> = ({ i
   );
 };
 
-const AdminDataModelReviewsPageContainer = withTracker(() => {
+export default withTracker(() => {
   const terms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
   const courses = Courses.find().fetch();
   const students = StudentProfiles.find({}, { sort: { lastName: 1 } }).fetch();
@@ -142,5 +142,3 @@ const AdminDataModelReviewsPageContainer = withTracker(() => {
     opportunities,
   };
 })(AdminDataModelReviewsPage);
-
-export default AdminDataModelReviewsPageContainer;

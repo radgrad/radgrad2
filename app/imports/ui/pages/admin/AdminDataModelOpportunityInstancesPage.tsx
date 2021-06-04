@@ -131,7 +131,7 @@ const AdminDataModelOpportunityInstancesPage: React.FC<AdminDataModelOpportunity
   );
 };
 
-const AdminDataModelOpportunityInstancesPageContainer = withTracker(() => {
+export default withTracker(() => {
   const terms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
   const opportunities = Opportunities.find({}, { sort: { name: 1 } }).fetch();
   const students = StudentProfiles.find({}, { sort: { lastName: 1 } }).fetch();
@@ -148,5 +148,3 @@ const AdminDataModelOpportunityInstancesPageContainer = withTracker(() => {
     sponsors,
   };
 })(AdminDataModelOpportunityInstancesPage);
-
-export default AdminDataModelOpportunityInstancesPageContainer;

@@ -55,7 +55,7 @@ const StudentLevelsPage: React.FC<StudentLevelsPageProps> = ({ profile, allProfi
   );
 };
 
-const StudentLevelsPageContainer = withTracker(() => {
+export default withTracker(() => {
   const { username } = useParams();
   const profile = StudentProfiles.getProfile(username);
   const allProfiles = StudentProfiles.find().fetch();
@@ -64,6 +64,4 @@ const StudentLevelsPageContainer = withTracker(() => {
     allProfiles,
   };
 })(StudentLevelsPage);
-
-export default StudentLevelsPageContainer;
 

@@ -153,7 +153,7 @@ const AdminDataModelOpportunitiesPage: React.FC<AdminDataModelOpportunitiesPageP
   );
 };
 
-const AdminDataModelOpportunitiesPageContainer = withTracker(() => {
+export default withTracker(() => {
   const interests = Interests.find({}, { sort: { name: 1 } }).fetch();
   const currentTermNumber = AcademicTerms.getCurrentAcademicTermDoc().termNumber;
   const after = currentTermNumber - 8;
@@ -174,5 +174,3 @@ const AdminDataModelOpportunitiesPageContainer = withTracker(() => {
     opportunityTypes,
   };
 })(AdminDataModelOpportunitiesPage);
-
-export default AdminDataModelOpportunitiesPageContainer;
