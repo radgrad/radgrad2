@@ -6,7 +6,6 @@ import RadGradHeader from '../../shared/RadGradHeader';
 import ProfileInternships from './ProfileInternships';
 import ProfileOpportunities from './ProfileOpportunities';
 import ProfileCourses from './ProfileCourses';
-import DepDetailsCard from '../../../../../../archive/DepDetailsCard';
 import { Course, CourseInstance, Opportunity, OpportunityInstance, VerificationRequest } from '../../../../typings/radgrad';
 
 export enum TabbedProfileEntryNames {
