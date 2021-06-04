@@ -3,7 +3,6 @@ import { Grid } from 'semantic-ui-react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
-import { instanceIsInThePast, instanceIsNowOrFuture } from '../../../api/utilities/instance-utilities';
 import RadGradAlert from '../../utilities/RadGradAlert';
 import DegreeExperiencePlanner from '../../components/student/degree-planner/DegreeExperiencePlanner';
 import { Courses } from '../../../api/course/CourseCollection';
