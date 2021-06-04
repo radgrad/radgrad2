@@ -3,6 +3,8 @@ import { Card } from 'semantic-ui-react';
 import { useRouteMatch } from 'react-router-dom';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { AcademicTerm, Opportunity, OpportunityInstance } from '../../../../typings/radgrad';
+// import { DegreePlannerStateNames } from '../../../pages/student/StudentDegreePlannerPage';
+// import { useStickyState } from '../../../utilities/StickyState';
 import { ViewInExplorerButtonLink } from '../../shared/button/ViewInExplorerButtonLink';
 import FutureParticipationButton from '../../shared/FutureParticipationButton';
 import IceHeader from '../../shared/IceHeader';
@@ -31,7 +33,8 @@ const ProfileOpportunityCard: React.FC<ProfileOpportunityCardProps> = ({
   const termNames = terms.map((t) => AcademicTerms.getShortName(t._id)).join(', ');
   const slug = Slugs.findDoc(opportunity.slugID).name;
   const droppableID = `${opportunity._id}`;
-
+  // const [width] = useStickyState(DegreePlannerStateNames.draggablePillWidth, 0);
+  // const [height] = useStickyState(DegreePlannerStateNames.draggablePillHeight, 0);
   return (
     <Card style={cardStyle}>
       <Card.Content style={contentStyle}>

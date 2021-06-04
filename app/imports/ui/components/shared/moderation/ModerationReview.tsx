@@ -6,14 +6,14 @@ import { Opportunities } from '../../../../api/opportunity/OpportunityCollection
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { Users } from '../../../../api/user/UserCollection';
 import { updateMethod } from '../../../../api/base/BaseCollection.methods';
+import { Review } from '../../../../typings/radgrad';
 
-interface ModerationReviewCardWidget {
-  item: any; // TODO can we type this?
-  handleAccept: (item, comment) => any;
-  handleReject: (item, comment) => any;
+interface ModerationReviewProps {
+  item: Review;
+  handleReview: (item, comment, approved) => any;
 }
 
-const ModerationReviewCardWidget: React.FC<ModerationReviewCardWidget> = ({ item, handleAccept, handleReject }) => {
+const ModerationReview: React.FC<ModerationReviewProps> = ({ item, handleReview }) => {
   const [moderatorCommentState, setModeratorComment] = useState('');
 
   const getReviewee = () => {
@@ -26,20 +26,9 @@ const ModerationReviewCardWidget: React.FC<ModerationReviewCardWidget> = ({ item
     return reviewee;
   };
 
-  const handleAcceptClick = () => {
-    // make handle accept take in the moderator comments
-    const update = handleAccept(item, moderatorCommentState);
+  const handleClick = (approved) => {
+    const update = handleReview(item, moderatorCommentState, approved);
     setModeratorComment('');
-    // console.log('handle accept click', update);
-    updateMethod.callPromise({ collectionName: update.collectionName, updateData: update.updateInfo })
-      .catch((error) => { RadGradAlert.failure('Update Failed', error.message, error);})
-      .then(() => { RadGradAlert.success('Update Succeeded');});
-  };
-
-  const handleRejectClick = () => {
-    const update = handleReject(item, moderatorCommentState);
-    setModeratorComment('');
-    // console.log('handle accept click', update);
     updateMethod.callPromise({ collectionName: update.collectionName, updateData: update.updateInfo })
       .catch((error) => { RadGradAlert.failure('Update Failed', error.message, error);})
       .then(() => { RadGradAlert.success('Update Succeeded');});
@@ -72,10 +61,10 @@ const ModerationReviewCardWidget: React.FC<ModerationReviewCardWidget> = ({ item
       <Segment>
         <Form>
           <Form.TextArea label="Moderator Comments" onChange={handleChange} value={moderatorCommentState} />
-          <Button className="ui basic green mini button" onClick={handleAcceptClick}>
+          <Button className="ui basic green mini button" onClick={() => handleClick(true)}>
             ACCEPT
           </Button>
-          <Button className="ui basic red mini button" onClick={handleRejectClick}>
+          <Button className="ui basic red mini button" onClick={() => handleClick(false)}>
             REJECT
           </Button>
         </Form>
@@ -84,4 +73,4 @@ const ModerationReviewCardWidget: React.FC<ModerationReviewCardWidget> = ({ item
   );
 };
 
-export default ModerationReviewCardWidget;
+export default ModerationReview;

@@ -4,9 +4,9 @@ import { Segment, Header, Form, Button } from 'semantic-ui-react';
 import { AutoForm, TextField, LongTextField, BoolField, NumField, ErrorsField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import Swal from 'sweetalert2';
 import { $ } from 'meteor/jquery';
 import Markdown from 'react-markdown';
+import RadGradAlert from '../../utilities/RadGradAlert';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
@@ -469,24 +469,10 @@ const AdminAnalyticsNewsletterPage: React.FC = () => {
       if (sendToStudentsToo) {
         numEmails *= 2;
       }
-      Swal.fire({
-        title: 'Emails Succesfully Sent',
-        icon: 'success',
-        text: `${numEmails} emails sent!`,
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        allowEnterKey: false,
-      });
+      RadGradAlert.success('Emails Successfully Sent', `${numEmails} emails sent!`);
       setTestNewsletterWorking(false);
     } else {
-      Swal.fire({
-        title: 'Subject Line and Input Message Required',
-        icon: 'error',
-        text: 'You forgot to fill out either the Subject Line and/or the Input Message for the Emails!',
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        allowEnterKey: false,
-      });
+      RadGradAlert.failure('Subject Line and Input Message Required', 'You forgot to fill out either the Subject Line and/or the Input Message for the Emails!');
     }
   };
 
@@ -525,24 +511,10 @@ const AdminAnalyticsNewsletterPage: React.FC = () => {
           }
         }, emailDelayMs);
       });
-      Swal.fire({
-        title: 'Emails Succesfully Sent',
-        icon: 'success',
-        text: `${studentEmailsArr.length} emails sent!`,
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        allowEnterKey: false,
-      });
+      RadGradAlert.success('Emails Successfully Sent', `${studentEmailsArr.length} emails sent!`);
       setLevelNewsletterWorking(false);
     } else {
-      Swal.fire({
-        title: 'Subject Line and Input Message Required',
-        icon: 'error',
-        text: 'You forgot to fill out either the Subject Line and/or the Input Message for the Emails!',
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        allowEnterKey: false,
-      });
+      RadGradAlert.failure('Subject Line and Input Message Required', 'You forgot to fill out either the Subject Line and/or the Input Message for the Emails!');
     }
   };
 
@@ -582,24 +554,10 @@ const AdminAnalyticsNewsletterPage: React.FC = () => {
           }
         }, emailDelayMs);
       });
-      Swal.fire({
-        title: 'Emails Succesfully Sent',
-        icon: 'success',
-        text: `${studentEmailsArr.length} emails sent!`,
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        allowEnterKey: false,
-      });
+      RadGradAlert.success('Emails Successfully Sent', `${studentEmailsArr.length} emails sent!`);
       setAllNewsletterWorking(false);
     } else {
-      Swal.fire({
-        title: 'Subject Line and Input Message Required',
-        icon: 'error',
-        text: 'You forgot to fill out either the Subject Line and/or the Input Message for the Emails!',
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        allowEnterKey: false,
-      });
+      RadGradAlert.success('Subject Line and Input Message Required', 'You forgot to fill out either the Subject Line and/or the Input Message for the Emails!');
     }
   };
 
