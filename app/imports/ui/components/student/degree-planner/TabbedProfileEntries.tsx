@@ -1,7 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Icon, Menu, Segment, Tab } from 'semantic-ui-react';
-import { DegreePlannerStateNames } from '../../../pages/student/StudentDegreePlannerPage';
-import { useStickyState } from '../../../utilities/StickyState';
 import RadGradHeader from '../../shared/RadGradHeader';
 import ProfileInternships from './ProfileInternships';
 import ProfileOpportunities from './ProfileOpportunities';
@@ -45,7 +43,7 @@ const TabbedProfileEntries: React.FC<TabbedProfileEntriesProps> = ({
   verificationRequests,
   opportunityInstances,
 }) => {
-  const [selectedTab, setSelectedTab] = useStickyState(DegreePlannerStateNames.selectedProfileTab, TabbedProfileEntryNames.profileOpportunities);
+  const [selectedTab, setSelectedTab] = useState(TabbedProfileEntryNames.profileOpportunities);
 
   const handleTabChange = (event, instance) => {
     const { activeIndex } = instance;

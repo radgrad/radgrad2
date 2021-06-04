@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { DegreePlannerStateNames } from '../../../../pages/student/StudentDegreePlannerPage';
-import { useStickyState } from '../../../../utilities/StickyState';
+import { DegreePlannerStateNames } from '../../../../app/imports/ui/pages/student/StudentDegreePlannerPage';
+import { useStickyState } from '../../../../app/imports/ui/utilities/StickyState';
 
 export const useResize = (myRef) => {
   const [width, setWidth] = useStickyState(DegreePlannerStateNames.draggablePillWidth, 0);
