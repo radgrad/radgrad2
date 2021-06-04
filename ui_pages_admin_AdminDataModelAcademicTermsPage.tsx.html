@@ -204,14 +204,13 @@ const AdminDataModelAcademicTermsPage: React.FC&lt;AdminDataModelAcademicTermsPa
   );
 };
 
-const AdminDataModelAcademicTermsPageContainer = withTracker(() => {
+export default withTracker(() => {
   const items = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
   return {
     items,
   };
 })(AdminDataModelAcademicTermsPage);
 
-export default AdminDataModelAcademicTermsPageContainer;
 </code></pre>
         </article>
     </section>

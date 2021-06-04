@@ -158,14 +158,12 @@ const AdminDataModelSlugsPage: React.FC&lt;AdminDataModelSlugsPageProps> = ({ it
   );
 };
 
-const AdminDataModelSlugsPageContainer = withTracker(() => {
+export default withTracker(() => {
   const items = Slugs.find({}).fetch();
   return {
     items,
   };
 })(AdminDataModelSlugsPage);
-
-export default AdminDataModelSlugsPageContainer;
 </code></pre>
         </article>
     </section>
