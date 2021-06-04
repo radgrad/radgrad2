@@ -80,7 +80,7 @@ const TermsAndConditionsPage: React.FC = () => {
         updateMethod.callPromise({ collectionName, updateData })
           .catch((error) => console.error('Failed to update refusedTermsAndConditions', error));
         urlUser.getChecklistItem();
-        const disagreePath = `/${urlUser.role.toLowerCase()}/${currentUser.toLowerCase()}/home`;
+        const disagreePath = '/signout-refused';
         rejectHistory.push(disagreePath);
       }
     });
