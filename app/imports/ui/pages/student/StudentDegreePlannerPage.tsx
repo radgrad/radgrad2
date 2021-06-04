@@ -221,10 +221,10 @@ export default withTracker(() => {
   profileCourses = profileCourses.filter((course) => {
     const ci = courseInstances.find((instance) => instance.courseID === course._id);
     if (ci) {
-      // console.log(!passedCourse(ci), courseInstanceIsRepeatable(ci), ci.note);
+      // console.log(!passedCourse(ci), courseInstanceIsRepeatable(ci), ci);
       return !passedCourse(ci) || courseInstanceIsRepeatable(ci);
     }
-    return false;
+    return true; // no course instance so it is from profileCourses.
   });
   const academicYearInstances: AcademicYearInstance[] = AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
   const opportunityInstances = OpportunityInstances.findNonRetired({ studentID: profile.userID });
