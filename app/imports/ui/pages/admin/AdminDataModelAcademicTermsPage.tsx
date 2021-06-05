@@ -29,11 +29,6 @@ const numReferences = (term) => {
       }
     });
   });
-  Opportunities.find().fetch().forEach((e) => {
-    if (e.termIDs.includes(term._id)) {
-      references++;
-    }
-  });
   return references;
 };
 

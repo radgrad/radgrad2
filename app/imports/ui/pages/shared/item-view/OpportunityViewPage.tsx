@@ -73,10 +73,7 @@ const OpportunityViewPage: React.FC<OpportunityViewPageProps> = ({
   const completed = isCompleted(opportunity._id, studentID);
   const headerPaneTitle = opportunity.name;
   const headerPaneImage = opportunity.picture;
-  const added = ProfileOpportunities.findNonRetired({
-    studentID: profile.userID,
-    opportunityID: opportunity._id,
-  }).length > 0;
+  const added = profileOpportunities.filter((o) => o._id === opportunity._id).length > 0;
   const relatedCourses : RelatedCoursesOrOpportunities = getAssociationRelatedCourses(Opportunities.findRelatedCourses(opportunity._id), profile.userID);
   const relatedCareerGoals = Opportunities.findRelatedCareerGoals(opportunity._id);
   const headerPaneButton = profile.role === ROLE.STUDENT ? <AddToProfileButton type={PROFILE_ENTRY_TYPE.OPPORTUNITY} studentID={profile.userID}
