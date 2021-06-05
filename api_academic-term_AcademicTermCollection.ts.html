@@ -95,7 +95,6 @@ import { AcademicTerm, AcademicTermDefine, AcademicTermUpdate } from '../../typi
 import { RadGradProperties } from '../radgrad/RadGradProperties';
 import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
 import { CourseInstances } from '../course/CourseInstanceCollection';
-import { Opportunities } from '../opportunity/OpportunityCollection';
 
 /**
  * Represents a specific academicTerm, such as "Spring, 2016", "Fall, 2017", or "Summer, 2015".
@@ -468,13 +467,6 @@ class AcademicTermCollection extends BaseSlugCollection {
     CourseInstances.find().map((courseInstance) => {
       if (courseInstance.termID === docID) {
         throw new Meteor.Error(`AcademicTerm ${instance} referenced by a course instance.`);
-      }
-      return true;
-    });
-    // Check that this term is not referenced by any Opportunity
-    Opportunities.find().map((opportunity) => {
-      if (opportunity.termIDs.includes(docID)) {
-        throw new Meteor.Error(`AcademicTerm ${instance} referenced by an opportunity.`);
       }
       return true;
     });

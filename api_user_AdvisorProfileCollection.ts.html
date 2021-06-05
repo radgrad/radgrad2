@@ -150,7 +150,7 @@ class AdvisorProfileCollection extends BaseProfileCollection {
       this.collection.update(profileID, { $set: { userID } });
       const share = true;
       if (interests) {
-        interests.forEach((interest) => ProfileInterests.define({ interest, share, username, retired }));
+        interests.forEach((interest) => ProfileInterests.define({ interest, username, retired }));
       }
       if (careerGoals) {
         careerGoals.forEach((careerGoal) => ProfileCareerGoals.define({ careerGoal, share, username, retired }));
@@ -217,8 +217,8 @@ class AdvisorProfileCollection extends BaseProfileCollection {
     }
     if (_.isBoolean(retired)) {
       // Need to retire the opportunities that they are the sponsor of?
-      const sposoredOpportunities = Opportunities.find({ sponsorID: profile.userID }).fetch();
-      sposoredOpportunities.forEach((opp) => {
+      const sponsoredOpportunities = Opportunities.find({ sponsorID: profile.userID }).fetch();
+      sponsoredOpportunities.forEach((opp) => {
         const oppID = opp._id;
         const opportunityUpdate = {
           retired,
