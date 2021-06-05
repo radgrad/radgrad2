@@ -3,7 +3,6 @@ import React from 'react';
 import Markdown from 'react-markdown';
 import { useParams } from 'react-router-dom';
 import { Divider, Grid, Segment } from 'semantic-ui-react';
-import { AcademicTerms } from '../../../../../../api/academic-term/AcademicTermCollection';
 import { OpportunityTypes } from '../../../../../../api/opportunity/OpportunityTypeCollection';
 import { Reviews } from '../../../../../../api/review/ReviewCollection';
 import { ROLE } from '../../../../../../api/role/Role';
@@ -63,7 +62,6 @@ const ExplorerOpportunity: React.FC<ExplorerOpportunitiesWidgetProps> = ({ oppor
   const isSponsor = profile.userID === opportunity.sponsorID;
   const showManageButtons = isSponsor || profile.role === ROLE.ADMIN;
   const opportunityType = OpportunityTypes.findDoc(opportunity.opportunityTypeID).name;
-  const opportunityTermNames = opportunity.termIDs.map((id) => AcademicTerms.toString(id));
   const opportunitySponsorName = Users.getFullName(opportunity.sponsorID);
   const dateStrings = [];
   if (opportunity.eventDate1) {
@@ -97,16 +95,13 @@ const ExplorerOpportunity: React.FC<ExplorerOpportunitiesWidgetProps> = ({ oppor
           </Grid.Row>
           <Grid.Row columns="equal" style={compactRowStyle}>
             <Grid.Column>
-              <strong>Academic Terms:</strong>&nbsp; {opportunityTermNames.join(', ')}
-            </Grid.Column>
-            <Grid.Column>
               <strong>Sponsor:</strong>&nbsp;{opportunitySponsorName}
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
             <Markdown allowDangerousHtml source={opportunity.description} />
           </Grid.Row>
-          {showManageButtons ? <Grid.Row><EditOpportunityButton opportunity={opportunity} sponsors={sponsors} terms={terms} interests={interests} opportunityTypes={opportunityTypes}/> <DeleteItemButton item={opportunity} type={PROFILE_ENTRY_TYPE.OPPORTUNITY} /></Grid.Row> : ''}
+          {showManageButtons ? <Grid.Row><EditOpportunityButton opportunity={opportunity} sponsors={sponsors} interests={interests} opportunityTypes={opportunityTypes}/> <DeleteItemButton item={opportunity} type={PROFILE_ENTRY_TYPE.OPPORTUNITY} /></Grid.Row> : ''}
         </Grid>
       </Segment>
 
