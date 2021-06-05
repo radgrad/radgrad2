@@ -30,7 +30,6 @@ import MultiSelectField from '../../../form-fields/MultiSelectField';
 
 interface UpdateOpportunityFormProps {
   sponsors: BaseProfile[];
-  terms: AcademicTerm[];
   interests: Interest[];
   opportunityTypes: OpportunityType[];
   collection: BaseCollection;
@@ -43,7 +42,6 @@ interface UpdateOpportunityFormProps {
 const UpdateOpportunityForm: React.FC<UpdateOpportunityFormProps> = ({
   sponsors,
   opportunityTypes,
-  terms,
   interests,
   handleUpdate,
   handleCancel,
@@ -56,11 +54,9 @@ const UpdateOpportunityForm: React.FC<UpdateOpportunityFormProps> = ({
   // console.log('collection model = %o', model);
   model.opportunityType = opportunityTypeIdToName(model.opportunityTypeID);
   model.interests = model.interestIDs.map(interestIdToName);
-  model.terms = model.termIDs.map(academicTermIdToName);
   model.sponsor = userIdToName(model.sponsorID);
   // console.log(model);
   const sponsorNames = sponsors.map(profileToName);
-  const termNames = terms.map(academicTermToName);
   // console.log(terms, termNames);
   const opportunityTypeNames = opportunityTypes.map(docToName);
   const interestNames = interests.map(docToName);
@@ -70,8 +66,6 @@ const UpdateOpportunityForm: React.FC<UpdateOpportunityFormProps> = ({
     description: { type: String, optional: true },
     opportunityType: { type: String, allowedValues: opportunityTypeNames, optional: true },
     sponsor: { type: String, allowedValues: sponsorNames, optional: true },
-    terms: { type: Array, optional: true },
-    'terms.$': { type: String, allowedValues: termNames },
     interests: { type: Array, optional: true },
     'interests.$': { type: String, allowedValues: interestNames },
     eventDate: { type: Date, optional: true },
@@ -106,10 +100,9 @@ const UpdateOpportunityForm: React.FC<UpdateOpportunityFormProps> = ({
         </Form.Group>
         <LongTextField name="description"/>
         <Form.Group widths="equal">
-          <MultiSelectField name="terms"/>
           <MultiSelectField name="interests"/>
+          <DateField name="eventDate"/>
         </Form.Group>
-        <DateField name="eventDate"/>
         <Form.Group widths="equal">
           <DateField name="eventDate1"/>
           <TextField name="eventDateLabel1"/>
