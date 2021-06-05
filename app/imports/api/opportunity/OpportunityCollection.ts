@@ -5,7 +5,6 @@ import { CareerGoals } from '../career/CareerGoalCollection';
 import { Courses } from '../course/CourseCollection';
 import { Reviews } from '../review/ReviewCollection';
 import { Slugs } from '../slug/SlugCollection';
-import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Teasers } from '../teaser/TeaserCollection';
 import { Interests } from '../interest/InterestCollection';
 import { ROLE } from '../role/Role';
@@ -38,7 +37,6 @@ class OpportunityCollection extends BaseSlugCollection {
       opportunityTypeID: { type: SimpleSchema.RegEx.Id },
       sponsorID: { type: SimpleSchema.RegEx.Id },
       interestIDs: [SimpleSchema.RegEx.Id],
-      termIDs: [SimpleSchema.RegEx.Id],
       // Optional data
       eventDate: { type: Date, optional: true }, // Deprecated
       eventDate1: { type: Date, optional: true },
@@ -65,7 +63,6 @@ class OpportunityCollection extends BaseSlugCollection {
    *                        sponsor: 'philipjohnson',
    *                        ice: { i: 10, c: 0, e: 10},
    *                        interests: ['software-engineering'],
-   *                        academicTerms: ['Fall-2016', 'Spring-2016', 'Summer-2106'],
    *                      });
    * @param { Object } description Object with keys name, slug, description, opportunityType, sponsor, interests,
    * @param name the name of the opportunity.
@@ -73,7 +70,6 @@ class OpportunityCollection extends BaseSlugCollection {
    * @param description the description of the opportunity. Can be markdown.
    * @param opportunityType must be defined slug.
    * @param interests must be a (possibly empty) array of interest slugs or IDs.
-   * @param academicTerms must be a (possibly empty) array of academicTerm slugs or IDs.
    * @param sponsor must be a User with role 'FACULTY', 'ADVISOR', or 'ADMIN'.
    * @param ice must be a valid ICE object.
    * @param eventDate optional date.
@@ -90,7 +86,6 @@ class OpportunityCollection extends BaseSlugCollection {
     opportunityType,
     sponsor,
     interests,
-    academicTerms,
     ice,
     eventDate, // Deprecated
     eventDate1,
@@ -116,10 +111,9 @@ class OpportunityCollection extends BaseSlugCollection {
       return Slugs.getEntityID(slug, this.getType());
     }
     const slugID = Slugs.define({ name: slug, entityName: this.getType() });
-    const termIDs = AcademicTerms.getIDs(academicTerms);
     const opportunityID = this.collection.insert({
       name, slugID, description, opportunityTypeID, sponsorID,
-      interestIDs, termIDs, ice, eventDate, eventDate1, eventDateLabel1, eventDate2, eventDateLabel2,
+      interestIDs, ice, eventDate, eventDate1, eventDateLabel1, eventDate2, eventDateLabel2,
       eventDate3, eventDateLabel3, eventDate4, eventDateLabel4, retired, picture,
     });
     Slugs.updateEntityID(slugID, opportunityID);
@@ -148,7 +142,6 @@ class OpportunityCollection extends BaseSlugCollection {
     opportunityType,
     sponsor,
     interests,
-    academicTerms,
     eventDate,
     eventDate1,
     eventDateLabel1,
@@ -187,9 +180,6 @@ class OpportunityCollection extends BaseSlugCollection {
     }
     if (interests) {
       updateData.interestIDs = Interests.getIDs(interests);
-    }
-    if (academicTerms) {
-      updateData.termIDs = AcademicTerms.getIDs(academicTerms);
     }
     if (eventDate) {
       updateData.eventDate = eventDate;
@@ -325,11 +315,6 @@ class OpportunityCollection extends BaseSlugCollection {
           problems.push(`Bad interestID: ${interestID}`);
         }
       });
-      doc.termIDs.forEach((termID) => {
-        if (!AcademicTerms.isDefined(termID)) {
-          problems.push(`Bad termID: ${termID}`);
-        }
-      });
     });
     return problems;
   }
@@ -396,7 +381,6 @@ class OpportunityCollection extends BaseSlugCollection {
     const description = doc.description;
     const ice = doc.ice;
     const interests = doc.interestIDs.map((interestID) => Interests.findSlugByID(interestID));
-    const academicTerms = doc.termIDs.map((termID) => AcademicTerms.findSlugByID(termID));
     const eventDate = doc.eventDate;
     const retired = doc.retired;
     return {
@@ -407,7 +391,6 @@ class OpportunityCollection extends BaseSlugCollection {
       sponsor,
       ice,
       interests,
-      academicTerms,
       eventDate,
       retired,
     };
