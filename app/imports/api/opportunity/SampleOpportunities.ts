@@ -5,7 +5,6 @@ import { Opportunities } from './OpportunityCollection';
 import { OpportunityInstances } from './OpportunityInstanceCollection';
 import { makeSampleInterestArray } from '../interest/SampleInterests';
 import slugify, { Slugs } from '../slug/SlugCollection';
-import { makeSampleAcademicTermArray } from '../academic-term/SampleAcademicTerms';
 import { makeSampleIce } from '../ice/SampleIce';
 
 /**
@@ -33,9 +32,8 @@ export const makeSampleOpportunity = (sponsor: string): string => {
   const description = faker.lorem.paragraph();
   const opportunityType = makeSampleOpportunityType();
   const interests = makeSampleInterestArray(2);
-  const academicTerms = makeSampleAcademicTermArray();
   const ice = makeSampleIce();
-  return Opportunities.define({ name, slug, description, opportunityType, sponsor, interests, academicTerms, ice });
+  return Opportunities.define({ name, slug, description, opportunityType, sponsor, interests, ice });
 };
 
 /**
