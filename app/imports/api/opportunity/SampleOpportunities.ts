@@ -1,5 +1,6 @@
 import faker from 'faker';
 import moment from 'moment';
+import { makeSampleAcademicTerm } from '../academic-term/SampleAcademicTerms';
 import { OpportunityTypes } from './OpportunityTypeCollection';
 import { Opportunities } from './OpportunityCollection';
 import { OpportunityInstances } from './OpportunityInstanceCollection';
@@ -59,7 +60,7 @@ export const makeSampleOpportunitySlugArray = (sponsor: string, num = 1): string
  */
 export const makeSampleOpportunityInstance = (student: string, sponsor: string): string => {
   const opportunity: string = makeSampleOpportunity(sponsor);
-  const academicTerm = Opportunities.findDoc(opportunity).termIDs[0];
+  const academicTerm = makeSampleAcademicTerm();
   const verified = false;
   return OpportunityInstances.define({ academicTerm, opportunity, sponsor, verified, student });
 };
