@@ -6,7 +6,6 @@ import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
-import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { AcademicTerm, DescriptionPair } from '../../../typings/radgrad';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import AdminDataModelUpdateForm from '../../components/admin/datamodel/AdminDataModelUpdateForm';

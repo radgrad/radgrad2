@@ -13,12 +13,10 @@ import {
 } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import { AcademicTerm, BaseProfile, Interest, OpportunityType } from '../../../../../typings/radgrad';
+import { BaseProfile, Interest, OpportunityType } from '../../../../../typings/radgrad';
 import BaseCollection from '../../../../../api/base/BaseCollection';
 import PictureField from '../../../form-fields/PictureField';
 import {
-  academicTermIdToName,
-  academicTermToName,
   docToName,
   interestIdToName,
   opportunityTypeIdToName,
@@ -34,8 +32,8 @@ interface UpdateOpportunityFormProps {
   opportunityTypes: OpportunityType[];
   collection: BaseCollection;
   id: string;
-  handleUpdate: (doc) => any;
-  handleCancel: (event) => any;
+  handleUpdate: (doc) => void;
+  handleCancel: (event) => void;
   itemTitleString: (item) => React.ReactNode;
 }
 
