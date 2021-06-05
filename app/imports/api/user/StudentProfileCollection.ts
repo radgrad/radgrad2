@@ -213,13 +213,13 @@ class StudentProfileCollection extends BaseProfileCollection {
         }));
       }
       if (profileCourses) {
-        profileCourses.forEach((course) => ProfileCourses.define({ course, student: username }));
+        profileCourses.forEach((course) => ProfileCourses.define({ course, username, retired }));
       }
       if (profileOpportunities) {
         profileOpportunities.forEach((opportunity) =>
           ProfileOpportunities.define({
             opportunity,
-            student: username,
+            username,
           }),
         );
       }
@@ -368,11 +368,11 @@ class StudentProfileCollection extends BaseProfileCollection {
     }
     if (profileCourses) {
       ProfileCourses.removeUser(username);
-      profileCourses.forEach((course) => ProfileCourses.define({ course, student: username, retired }));
+      profileCourses.forEach((course) => ProfileCourses.define({ course, username, retired }));
     }
     if (profileOpportunities) {
       ProfileOpportunities.removeUser(username);
-      profileOpportunities.forEach((opportunity) => ProfileOpportunities.define({ opportunity, student: username, retired }));
+      profileOpportunities.forEach((opportunity) => ProfileOpportunities.define({ opportunity, username, retired }));
     }
     if (_.isBoolean(retired)) {
       const studentID = profile.userID;

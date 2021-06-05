@@ -38,15 +38,15 @@ if (Meteor.isServer) {
     });
 
     it('Can define and removeIt', function test1() {
-      const docID = ProfileOpportunities.define({ opportunity, student });
+      const docID = ProfileOpportunities.define({ opportunity, username });
       expect(ProfileOpportunities.isDefined(docID)).to.be.true;
       ProfileOpportunities.removeIt(docID);
       expect(ProfileOpportunities.isDefined(docID)).to.be.false;
     });
 
     it('Cannot define duplicates', function test2() {
-      const docID1 = ProfileOpportunities.define({ opportunity, student });
-      const docID2 = ProfileOpportunities.define({ opportunity, student });
+      const docID1 = ProfileOpportunities.define({ opportunity, username });
+      const docID2 = ProfileOpportunities.define({ opportunity, username });
       expect(docID1).to.equal(docID2);
       expect(ProfileOpportunities.isDefined(docID2)).to.be.true;
       ProfileOpportunities.removeIt(docID1);
@@ -54,7 +54,7 @@ if (Meteor.isServer) {
     });
 
     it('Can update', function test3(done) {
-      const docID = ProfileOpportunities.define({ opportunity, student });
+      const docID = ProfileOpportunities.define({ opportunity, username });
       fc.assert(
         fc.property(fc.boolean(), (retired) => {
           ProfileOpportunities.update(docID, { retired });
@@ -75,7 +75,7 @@ if (Meteor.isServer) {
       expect(ProfileOpportunities.isDefined(docID)).to.be.true;
       fav = ProfileOpportunities.findDoc(docID);
       expect(fav.opportunityID).to.equal(opportunity);
-      expect(fav.studentID).to.equal(student);
+      expect(fav.userID).to.equal(student);
     });
 
     it('Can checkIntegrity no errors', function test5() {
@@ -84,7 +84,7 @@ if (Meteor.isServer) {
     });
 
     it('Can get docs and slug', function test6() {
-      const docID = ProfileOpportunities.define({ opportunity, student });
+      const docID = ProfileOpportunities.define({ opportunity, username });
       const opportunityDoc = ProfileOpportunities.getOpportunityDoc(docID);
       expect(opportunityDoc).to.exist;
       expect(opportunityDoc.name).to.equal(opportunityName);

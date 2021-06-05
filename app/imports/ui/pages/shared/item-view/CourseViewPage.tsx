@@ -13,7 +13,6 @@ import ExplorerCourse from '../../../components/shared/explorer/item-view/course
 import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
 import { Slugs } from '../../../../api/slug/SlugCollection';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
-import { ROLE } from '../../../../api/role/Role';
 import AddToProfileButton from '../../../components/shared/explorer/item-view/AddToProfileButton';
 import { PROFILE_ENTRY_TYPE } from '../../../../api/user/profile-entries/ProfileEntryTypes';
 import RelatedInterests from '../../../components/shared/RelatedInterests';
@@ -65,9 +64,8 @@ const CourseViewPage: React.FC<CourseViewPageProps> = ({
   }).length > 0;
   const relatedOpportunities = getAssociationRelatedOpportunities(Courses.findRelatedOpportunities(course._id), profile.userID);
   const relatedCareerGoals = Courses.findRelatedCareerGoals(course._id);
-  const headerPaneButton = profile.role === ROLE.STUDENT ?
-    <AddToProfileButton type={PROFILE_ENTRY_TYPE.COURSE} studentID={profile.userID} item={course}
-      added={added} inverted floated="left" /> : undefined;
+  const headerPaneButton = <AddToProfileButton type={PROFILE_ENTRY_TYPE.COURSE} userID={profile.userID} item={course}
+    added={added} inverted floated="left" />;
   const courseSlug = Slugs.getNameFromID(course.slugID);
   const completed = isCourseCompleted(courseSlug, profile.userID);
   const relatedCourses = getAssociationRelatedCourses(course.prerequisites.map((c) => Courses.findDocBySlug(c)), profile.userID);

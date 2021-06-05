@@ -346,13 +346,15 @@ export interface ProfileCareerGoal extends Document {
 
 export interface ProfileCourseDefine extends DumpOne {
   course: string;
-  student: string;
+  username: string;
+  share?: boolean;
   retired?: boolean;
 }
 
 export interface ProfileCourse extends Document {
   courseID: string;
-  studentID: string;
+  userID: string;
+  share: boolean;
   retired: boolean;
 }
 
@@ -366,19 +368,19 @@ export interface ProfileInterestDefine extends DumpOne {
 export interface ProfileInterest extends Document {
   interestID: string;
   userID: string;
-  share: boolean;
   retired: boolean;
 }
 
 export interface ProfileOpportunityDefine extends DumpOne {
   opportunity: string;
-  student: string;
+  username: string;
   retired?: boolean;
+  share?: boolean;
 }
 
 export interface ProfileOpportunity extends Document {
   opportunityID: string;
-  studentID: string;
+  userID: string;
   retired: boolean;
 }
 
@@ -638,6 +640,8 @@ export interface Profile extends Document {
   shareWebsite?: boolean;
   shareInterests?: boolean;
   shareCareerGoals?: boolean;
+  shareCourses?: boolean;
+  shareOpportunities?: boolean;
   retired?: boolean;
   courseExplorerFilter?: string;
   opportunityExplorerSortOrder?: string;
@@ -659,11 +663,15 @@ export interface ProfileDefine extends DumpOne {
   website?: string;
   interests?: string[];
   careerGoals?: string[];
+  opportunities?: string[];
+  courses?: string[];
   retired?: boolean;
   sharePicture?: boolean;
   shareWebsite?: boolean;
   shareInterests?: boolean;
   shareCareerGoals?: boolean;
+  shareOpportunities?: boolean;
+  shareCourses: boolean;
   lastVisited?: Record<string, string>;
   acceptedTermsAndConditions?: string;
   refusedTermsAndConditions?: string;
@@ -671,6 +679,10 @@ export interface ProfileDefine extends DumpOne {
 
 export interface AdvisorOrFacultyProfileDefine extends ProfileDefine {
   aboutMe?: string;
+  profileCourses?: string[];
+  profileOpportunities?: string[];
+  profileCareerGoal?: string[];
+  profileInerests?: string[];
 }
 
 export interface CombinedProfileDefine extends ProfileDefine {
@@ -683,8 +695,6 @@ export interface CombinedProfileDefine extends ProfileDefine {
   level?: number;
   declaredAcademicTerm?: string;
   isAlumni?: boolean;
-  shareCourses?: boolean;
-  shareOpportunities?: boolean;
   shareLevel?: boolean;
   shareICE?: boolean;
 }
@@ -696,6 +706,8 @@ export interface ProfileUpdate extends Update {
   website?: string;
   interests?: string[];
   careerGoals?: string[];
+  opportunities?: string[];
+  courses?: string[];
   retired?: boolean;
   courseExplorerFilter?: string;
   opportunityExplorerSortOrder?: string;
@@ -703,6 +715,8 @@ export interface ProfileUpdate extends Update {
   shareWebsite?: boolean;
   shareInterests?: boolean;
   shareCareerGoals?: boolean;
+  shareCourses?: boolean;
+  shareOpportunities?: boolean;
   lastVisited?: Record<string, string>;
   acceptedTermsAndConditions?: string;
   refusedTermsAndConditions?: string;
@@ -710,14 +724,16 @@ export interface ProfileUpdate extends Update {
 
 export interface AdvisorOrFacultyProfileUpdate extends ProfileUpdate {
   aboutMe?: string;
+  profileCourses?: string[];
+  profileOpportunities?: string[];
+  profileCareerGoal?: string[];
+  profileInerests?: string[];
 }
 
 export interface StudentProfile extends Profile {
   level: number;
   declaredAcademicTermID?: string;
   isAlumni?: boolean;
-  shareCourses?: boolean;
-  shareOpportunities?: boolean;
   shareLevel?: boolean;
   shareICE?: boolean;
   lastRegistrarLoad?: string;
@@ -729,9 +745,9 @@ export interface StudentProfileDefine extends ProfileDefine {
   declaredAcademicTerm?: string;
   profileCourses?: string[];
   profileOpportunities?: string[];
+  profileCareerGoal?: string[];
+  profileInerests?: string[];
   isAlumni?: boolean;
-  shareCourses?: boolean;
-  shareOpportunities?: boolean;
   shareLevel?: boolean;
   shareICE?: boolean;
   lastRegistrarLoad?: string;
@@ -743,6 +759,8 @@ export interface StudentProfileUpdate extends ProfileUpdate {
   declaredAcademicTerm?: string;
   profileCourses?: string[];
   profileOpportunities?: string[];
+  profileCareerGoal?: string[];
+  profileInerests?: string[];
   isAlumni?: boolean;
   shareCourses?: boolean;
   shareOpportunities?: boolean;

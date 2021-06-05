@@ -50,7 +50,7 @@ const CareerGoalViewPage: React.FC<CareerGoalViewPageProps> = ({
   const added = ProfileCareerGoals.findNonRetired({ userID: profile.userID, careerGoalID }).length > 0;
   return (
     <PageLayout id={PAGEIDS.CAREER_GOAL} headerPaneTitle={headerPaneTitle} headerPaneImage={careerPicture}
-      headerPaneButton={<AddToProfileButton type={PROFILE_ENTRY_TYPE.CAREERGOAL} studentID={profile.userID}
+      headerPaneButton={<AddToProfileButton type={PROFILE_ENTRY_TYPE.CAREERGOAL} userID={profile.userID}
         item={careerGoal} added={added} inverted floated="left" />}>
       <Grid stackable>
         <Grid.Row>
@@ -68,6 +68,7 @@ const CareerGoalViewPage: React.FC<CareerGoalViewPageProps> = ({
     </PageLayout>
   );
 };
+
 
 export default withTracker(() => {
   const { careergoal, username } = useParams();

@@ -15,46 +15,46 @@ type ItemType = CareerGoal | Course | Interest | Opportunity;
 
 export interface AddToProfileButtonProps {
   item: ItemType;
-  studentID: string;
+  userID: string;
   type: IProfileEntryTypes;
   added: boolean;
   inverted: boolean;
   floated?: SemanticFLOATS;
 }
 
-const handleAdd = (studentID: string, item: ItemType, type: IProfileEntryTypes) => () => {
+const handleAdd = (userID: string, item: ItemType, type: IProfileEntryTypes) => () => {
   const collectionName = getCollectionName(type);
-  const definitionData = createDefinitionData(studentID, item, type);
+  const definitionData = createDefinitionData(userID, item, type);
   defineMethod.callPromise({ collectionName, definitionData })
-    .catch((error: MeteorError) => { RadGradAlert.failure('Failed to add to profile', error.message, error);})
+    .catch((error: MeteorError) => { RadGradAlert.failure('Failed to add to profile', error.message);})
     .then(() => { RadGradAlert.success('Added to profile');});
 };
 
-const handleRemove = (studentID: string, item: ItemType, type: IProfileEntryTypes) => () => {
+const handleRemove = (userID: string, item: ItemType, type: IProfileEntryTypes) => () => {
   const collectionName = getCollectionName(type);
   let instance;
   switch (type) {
     case PROFILE_ENTRY_TYPE.CAREERGOAL:
       instance = ProfileCareerGoals.findNonRetired({
-        userID: studentID,
+        userID: userID,
         careerGoalID: item._id,
       })[0]._id;
       break;
     case PROFILE_ENTRY_TYPE.COURSE:
       instance = ProfileCourses.findNonRetired({
-        studentID,
+        userID,
         courseID: item._id,
       })[0]._id;
       break;
     case PROFILE_ENTRY_TYPE.INTEREST:
       instance = ProfileInterests.findNonRetired({
-        userID: studentID,
+        userID: userID,
         interestID: item._id,
       })[0]._id;
       break;
     case PROFILE_ENTRY_TYPE.OPPORTUNITY:
       instance = ProfileOpportunities.findNonRetired({
-        studentID,
+        userID,
         opportunityID: item._id,
       })[0]._id;
       break;
@@ -66,16 +66,16 @@ const handleRemove = (studentID: string, item: ItemType, type: IProfileEntryType
     .catch((error) => { RadGradAlert.failure('Failed to remove from profile', error.message, error);});
 };
 
-const AddToProfileButton: React.FC<AddToProfileButtonProps> = ({ studentID, item, type, added, inverted, floated }) => (
+const AddToProfileButton: React.FC<AddToProfileButtonProps> = ({ userID, item, type, added, inverted, floated }) => (
   <React.Fragment>
     {added ? (
-      <Button id={COMPONENTIDS.REMOVE_FROM_PROFILE_BUTTON} onClick={handleRemove(studentID, item, type)} size="small" color="teal" floated={floated || 'right'} basic inverted={inverted}>
+      <Button id={COMPONENTIDS.REMOVE_FROM_PROFILE_BUTTON} onClick={handleRemove(userID, item, type)} size="small" color="teal" floated={floated || 'right'} basic inverted={inverted}>
         <Icon name="user outline" color="grey" inverted={inverted} />
         <Icon name="minus" />
         REMOVE FROM PROFILE
       </Button>
     ) : (
-      <Button id={COMPONENTIDS.ADD_TO_PROFILE_BUTTON} size="small" onClick={handleAdd(studentID, item, type)} color="teal" floated={floated || 'right'} basic inverted={inverted}>
+      <Button id={COMPONENTIDS.ADD_TO_PROFILE_BUTTON} size="small" onClick={handleAdd(userID, item, type)} color="teal" floated={floated || 'right'} basic inverted={inverted}>
         <Icon name="user" color="grey" inverted={inverted} />
         <Icon name="plus" />
         ADD TO PROFILE

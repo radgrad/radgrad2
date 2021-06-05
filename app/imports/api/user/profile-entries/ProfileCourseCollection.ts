@@ -13,7 +13,7 @@ class ProfileCourseCollection extends BaseCollection {
   constructor() {
     super('ProfileCourse', new SimpleSchema({
       courseID: SimpleSchema.RegEx.Id,
-      studentID: SimpleSchema.RegEx.Id,
+      userID: SimpleSchema.RegEx.Id,
       retired: { type: Boolean, optional: true },
     }));
   }
@@ -21,18 +21,18 @@ class ProfileCourseCollection extends BaseCollection {
   /**
    * Defines a new ProfileCourse.
    * @param course the course slug.
-   * @param student the student's username.
+   * @param user the user's username.
    * @param retired the retired status.
    * @returns {void|*|boolean|{}}
    */
-  define({ course, student, retired = false }) {
+  define({ course, username, retired = false }) {
     const courseID = Courses.getID(course);
-    const studentID = Users.getID(student);
-    const doc = this.collection.findOne({ studentID, courseID });
+    const userID = Users.getID(username);
+    const doc = this.collection.findOne({ userID, courseID });
     if (doc) {
       return doc._id;
     }
-    return this.collection.insert({ courseID, studentID, retired });
+    return this.collection.insert({ courseID, userID, retired });
   }
 
   /**
@@ -64,33 +64,33 @@ class ProfileCourseCollection extends BaseCollection {
    * @param user the username.
    */
   removeUser(user) {
-    const studentID = Users.getID(user);
-    this.collection.remove({ studentID });
+    const userID = Users.getID(user);
+    this.collection.remove({ userID });
   }
 
   /**
-   * Publish ProfileCourses. If logged in as ADMIN get all, otherwise only get the ProfileCourses for the studentID.
+   * Publish ProfileCourses. If logged in as ADMIN get all, otherwise only get the ProfileCourses for the userID.
    * Also publishes the ProfileCourses forecast.
    */
   publish() {
     if (Meteor.isServer) {
       const collection = this.collection;
-      Meteor.publish(this.collectionName, function filterStudentID(studentID) { // eslint-disable-line meteor/audit-argument-checks
-        if (_.isNil(studentID)) {
+      Meteor.publish(this.collectionName, function filterStudentID(userID) { // eslint-disable-line meteor/audit-argument-checks
+        if (_.isNil(userID)) {
           return this.ready();
         }
-        const profile = Users.getProfile(studentID);
+        const profile = Users.getProfile(userID);
         if (([ROLE.ADMIN, ROLE.ADVISOR].includes(profile.role))) {
           return collection.find();
         }
-        return collection.find({ studentID });
+        return collection.find({ userID });
       });
     }
   }
 
   /**
    * Implementation of assertValidRoleForMethod. Asserts that userId is logged in as an Admin, Advisor or
-   * Student.
+   * user.
    * This is used in the define, update, and removeIt Meteor methods associated with each class.
    * @param userId The userId of the logged in user. Can be null or undefined
    * @throws { Meteor.Error } If there is no logged in user, or the user is not an Admin or Advisor.
@@ -128,8 +128,8 @@ class ProfileCourseCollection extends BaseCollection {
    * @returns {Array<any>} Interest slugs.
    */
   getCourseSlugs(username) {
-    const studentID = Users.getID(username);
-    const documents = this.collection.find({ studentID, retired: false });
+    const userID = Users.getID(username);
+    const documents = this.collection.find({ userID, retired: false });
     return documents.map(document => Courses.findSlugByID(document.courseID));
   }
 
@@ -142,24 +142,24 @@ class ProfileCourseCollection extends BaseCollection {
   getStudentDoc(instanceID) {
     this.assertDefined(instanceID);
     const instance = this.collection.findOne({ _id: instanceID });
-    return Users.getProfile(instance.studentID);
+    return Users.getProfile(instance.userID);
   }
 
   /**
-   * Returns the username associated with the studentID.
+   * Returns the username associated with the userID.
    * @param instanceID the ProfileCourse id.
    * @returns {*}
    */
   getStudentUsername(instanceID) {
     this.assertDefined(instanceID);
     const instance = this.collection.findOne({ _id: instanceID });
-    return Users.getProfile(instance.studentID).username;
+    return Users.getProfile(instance.userID).username;
   }
 
   /**
    * Returns an array of strings, each one representing an integrity problem with this collection.
    * Returns an empty array if no problems were found.
-   * Checks semesterID, courseID, and studentID.
+   * Checks semesterID, courseID, and userID.
    * @returns {Array} A (possibly empty) array of strings indicating integrity issues.
    */
   checkIntegrity() {
@@ -169,8 +169,8 @@ class ProfileCourseCollection extends BaseCollection {
         if (!Courses.isDefined(doc.courseID)) {
           problems.push(`Bad courseID: ${doc.courseID}`);
         }
-        if (!Users.isDefined(doc.studentID)) {
-          problems.push(`Bad studentID: ${doc.studentID}`);
+        if (!Users.isDefined(doc.userID)) {
+          problems.push(`Bad userID: ${doc.userID}`);
         }
       });
     return problems;
@@ -184,9 +184,9 @@ class ProfileCourseCollection extends BaseCollection {
   dumpOne(docID): ProfileCourseDefine {
     const doc = this.findDoc(docID);
     const course = Courses.findSlugByID(doc.courseID);
-    const student = Users.getProfile(doc.studentID).username;
+    const username = Users.getProfile(doc.userID).username;
     const retired = doc.retired;
-    return { course, student, retired };
+    return { course, username, retired };
   }
 
 }

@@ -37,6 +37,8 @@ interface CheckboxState {
   shareWebsite: boolean;
   shareInterests: boolean;
   shareCareerGoals: boolean;
+  shareOpportunities: boolean;
+  shareCourses: boolean;
 }
 
 const VisibilityPage: React.FC<VisibilityPageProps> = ({ profile }) => {
@@ -69,6 +71,8 @@ const VisibilityPage: React.FC<VisibilityPageProps> = ({ profile }) => {
     shareCareerGoals: profile.shareCareerGoals,
     shareInterests: profile.shareInterests,
     shareWebsite: profile.shareWebsite,
+    shareOpportunities: profile.shareOpportunities,
+    shareCourses: profile.shareCourses,
   });
   const name = `${profile.firstName} ${profile.lastName}`;
   /*
@@ -92,13 +96,19 @@ const VisibilityPage: React.FC<VisibilityPageProps> = ({ profile }) => {
 
   const handleWebsiteChange = (newWebsiteURL) => {
     setPublicProfileData.callPromise({ username: profile.username, fieldName: 'website', fieldValue: newWebsiteURL })
-      .then(result => {setData(result); setWebsiteExists(!!newWebsiteURL); })
+      .then(result => {
+        setData(result);
+        setWebsiteExists(!!newWebsiteURL);
+      })
       .catch(error => { console.error(error); });
   };
 
   const handlePictureChange = (newPictureURL) => {
     setPublicProfileData.callPromise({ username: profile.username, fieldName: 'picture', fieldValue: newPictureURL })
-      .then(result => {setData(result); setPictureExists(!!newPictureURL); })
+      .then(result => {
+        setData(result);
+        setPictureExists(!!newPictureURL);
+      })
       .catch(error => { console.error(error); });
   };
   return (<PageLayout id={PAGEIDS.VISIBILITY} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}
@@ -111,7 +121,7 @@ const VisibilityPage: React.FC<VisibilityPageProps> = ({ profile }) => {
           <Form>
             <Form.Group inline>
               <Form.Checkbox inline name="sharePicture" label="Picture" checked={pictureExists && checkboxState.sharePicture} onChange={handleCheckboxChange} />
-              <SetPictureButton picture={data.picture} handleChange={handlePictureChange}/>
+              <SetPictureButton picture={data.picture} handleChange={handlePictureChange} />
             </Form.Group>
             <Form.Group inline>
               <Form.Checkbox inline name="shareWebsite" label="Website" checked={websiteExists && checkboxState.shareWebsite} onChange={handleCheckboxChange} />
@@ -119,6 +129,8 @@ const VisibilityPage: React.FC<VisibilityPageProps> = ({ profile }) => {
             </Form.Group>
             <Form.Checkbox inline name="shareInterests" label="Interests" checked={checkboxState.shareInterests} onChange={handleCheckboxChange} />
             <Form.Checkbox inline name="shareCareerGoals" label="Career Goals" checked={checkboxState.shareCareerGoals} onChange={handleCheckboxChange} />
+            <Form.Checkbox inline name="shareCourses" label="Interests" checked={checkboxState.shareCourses} onChange={handleCheckboxChange} />
+            <Form.Checkbox inline name="shareOpportunities" label="Opportunities" checked={checkboxState.shareOpportunities} onChange={handleCheckboxChange} />
           </Form>
         </Segment>
       </Grid.Column>
