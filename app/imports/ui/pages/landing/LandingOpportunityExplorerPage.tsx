@@ -5,7 +5,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Grid } from 'semantic-ui-react';
 import moment from 'moment';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
-import { Opportunity } from '../../../typings/radgrad';
+import { CareerGoal, Course, Opportunity } from '../../../typings/radgrad';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
 import { Interests } from '../../../api/interest/InterestCollection';
@@ -18,9 +18,6 @@ import LandingCourseList from '../../components/landing/LandingCourseList';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import * as Router from '../../components/shared/utilities/router';
-import { Users } from '../../../api/user/UserCollection';
-import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
-import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import LandingExplorerMenuBar from '../../components/landing/explorer/LandingExplorerMenuBar';
 import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
@@ -32,6 +29,8 @@ import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollec
 
 interface OpportunityExplorerProps {
   opportunity: Opportunity;
+  relatedCareerGoals: CareerGoal[];
+  relatedCourses: Course[];
 }
 
 const headerPaneTitle = 'The Opportunity Explorer';
@@ -40,16 +39,12 @@ Opportunities are extracurricular activities that relate to this discipline. The
 
 This public explorer does not provide information about community members or the reviews associated with Opportunities.
 `;
-const headerPaneImage = 'header-opportunities.png';
 
-const LandingOpportunityExplorerPage: React.FC<OpportunityExplorerProps> = ({ opportunity }) => {
+const LandingOpportunityExplorerPage: React.FC<OpportunityExplorerProps> = ({ opportunity, relatedCourses, relatedCareerGoals }) => {
   const match = useRouteMatch();
   const teaser = Teasers.findNonRetired({ targetSlugID: opportunity.slugID });
   const hasTeaser = teaser.length > 0;
   const opportunityType = OpportunityTypes.findDoc(opportunity.opportunityTypeID).name;
-  const sponsor = Users.getFullName(opportunity.sponsorID);
-  const relatedCareerGoals = Opportunities.findRelatedCareerGoals(opportunity._id);
-  const relatedCourses  = Opportunities.findRelatedCourses(opportunity._id);
   const opportunityTermNames = opportunity.termIDs.map((id) => AcademicTerms.toString(id));
   const dateStrings = [];
   if (opportunity.eventDate1) {
@@ -64,6 +59,7 @@ const LandingOpportunityExplorerPage: React.FC<OpportunityExplorerProps> = ({ op
   if (opportunity.eventDate4) {
     dateStrings.push(moment(opportunity.eventDate4).format('MM/DD/YYYY'));
   }
+  const headerPaneImage = opportunity.picture;
 
   return (
     <div>
@@ -88,12 +84,9 @@ const LandingOpportunityExplorerPage: React.FC<OpportunityExplorerProps> = ({ op
                         <strong>Date: </strong>&nbsp; {opportunity.eventDate1 ? dateStrings.join(', ') : 'N/A'}
                       </Grid.Column>
                     </Grid.Row>
-                    <Grid.Row columns={2}>
+                    <Grid.Row columns={1}>
                       <Grid.Column>
                         <strong>Academic Terms:</strong>&nbsp; {opportunityTermNames.length > 0 ? (opportunityTermNames.join(', ')) : ('N/A')}
-                      </Grid.Column>
-                      <Grid.Column>
-                        <strong>Sponsor:</strong>&nbsp; { sponsor }
                       </Grid.Column>
                     </Grid.Row>
                   </Grid>
@@ -117,8 +110,12 @@ const LandingOpportunityExplorerContainer = withTracker(() => {
   const { opportunity } = useParams();
   const id = Slugs.getEntityID(opportunity, 'Opportunity');
   const opportunityDoc = Opportunities.findDoc(id);
+  const relatedCareerGoals = Opportunities.findRelatedCareerGoals(opportunityDoc._id);
+  const relatedCourses  = Opportunities.findRelatedCourses(opportunityDoc._id);
   return {
     opportunity: opportunityDoc,
+    relatedCareerGoals,
+    relatedCourses,
   };
 })(LandingOpportunityExplorerPage);
 
@@ -131,7 +128,4 @@ export default withListSubscriptions(LandingOpportunityExplorerContainer, [
   Slugs.getPublicationName(),
   Teasers.getPublicationName(),
   OpportunityTypes.getPublicationName(),
-  FacultyProfiles.getPublicationName(),
-  AdvisorProfiles.getPublicationName(),
-  Users.getPublicationName(),
 ]);

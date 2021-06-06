@@ -1,9 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
-import { Grid, Icon, Popup } from 'semantic-ui-react';
-import { OpportunityInstance } from '../../../../typings/radgrad';
+import { Button, Grid, Modal } from 'semantic-ui-react';
+import { useRouteMatch } from 'react-router-dom';
+import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
+import { removeItMethod } from '../../../../api/base/BaseCollection.methods';
+import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
+import { Users } from '../../../../api/user/UserCollection';
+import { OpportunityInstance, VerificationRequest } from '../../../../typings/radgrad';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
-import { getDraggablePillStyle } from './utilities/styles';
+import { EXPLORER_TYPE, STUDENT_VERIFICATION, URL_ROLES } from '../../../layouts/utilities/route-constants';
+import RadGradAlert from '../../../utilities/RadGradAlert';
+import { ButtonAction } from '../../shared/button/ButtonAction';
+import { ButtonLink } from '../../shared/button/ButtonLink';
+import { ViewInExplorerButtonLink } from '../../shared/button/ViewInExplorerButtonLink';
+import FutureParticipationButton from '../../shared/FutureParticipationButton';
+import { cardStyle, getDraggablePillStyle } from './utilities/styles';
 import NamePill from './NamePill';
 import IceHeader from '../../shared/IceHeader';
 import RemoveIt from './RemoveIt';
@@ -11,14 +22,8 @@ import RemoveIt from './RemoveIt';
 interface OpportunityInstancePillProps {
   instance: OpportunityInstance;
   index: number;
-  handleClickOpportunityInstance: (event, { value }) => any;
+  verificationRequests: VerificationRequest[];
 }
-
-const handleClick = (instance, handleClickOpportunityInstance) => (event) => {
-  event.preventDefault();
-  // console.log(`clicked OI ${props.instance}`);
-  handleClickOpportunityInstance(event, { value: instance._id });
-};
 
 const shortenName = (name: string): string => {
   // console.log(name, name.length);
@@ -28,10 +33,30 @@ const shortenName = (name: string): string => {
   return name;
 };
 
-const DraggableOpportunityInstancePill: React.FC<OpportunityInstancePillProps> = ({ instance, index, handleClickOpportunityInstance }) => {
+const DraggableOpportunityInstancePill: React.FC<OpportunityInstancePillProps> = ({ instance, index, verificationRequests }) => {
   const opp = Opportunities.findDoc(instance.opportunityID);
+  const profile = Users.getProfile(instance.studentID);
+  const [open, setOpen] = useState(false);
+  const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
+  const opportunityTerm = AcademicTerms.findDoc(instance.termID);
+  const futureP = opportunityTerm.termNumber >= currentTerm.termNumber;
+  const termName = AcademicTerms.getShortName(instance.termID);
+  const verificationRequestsToShow = verificationRequests.filter((vr) => vr.opportunityInstanceID === instance._id);
+  const verificationRequested = verificationRequestsToShow.length > 0;
+  const handleRemove = () => {
+    const collectionName = OpportunityInstances.getCollectionName();
+    removeItMethod.callPromise({ collectionName, instance })
+      .then(() => {
+        RadGradAlert.success('Remove succeeded');
+      })
+      .catch((error) => console.error(`Remove opportunity instance ${instance} failed.`, error));
+  };
+  const match = useRouteMatch();
   return (
-    <Popup
+    <Modal
+      onClose={() => setOpen(false)}
+      onOpen={() => setOpen(true)}
+      open={open}
       trigger={
         <div>
           <Draggable key={instance._id} draggableId={instance._id} index={index}>
@@ -40,17 +65,17 @@ const DraggableOpportunityInstancePill: React.FC<OpportunityInstancePillProps> =
                 <Grid>
                   {instance.verified ?
                     <Grid.Row style={{ paddingTop: 7, paddingBottom: 7 }}>
-                      <Grid.Column width={16} onClick={handleClick(instance, handleClickOpportunityInstance)}>
+                      <Grid.Column width={16}>
                         <NamePill name={shortenName(opp.name)} />
                       </Grid.Column>
                     </Grid.Row>
                     :
                     <Grid.Row style={{ paddingTop: 7, paddingBottom: 7 }}>
-                      <Grid.Column width={13} onClick={handleClick(instance, handleClickOpportunityInstance)}>
+                      <Grid.Column width={13}>
                         <NamePill name={shortenName(opp.name)} />
                       </Grid.Column>
                       <Grid.Column width={3} verticalAlign='middle'>
-                        <RemoveIt collectionName="OpportunityInstanceCollection" id={instance._id} name={opp.name} courseNumber="" />
+                        <RemoveIt collectionName='OpportunityInstanceCollection' id={instance._id} name={opp.name} courseNumber='' />
                       </Grid.Column>
                     </Grid.Row>
                   }
@@ -61,11 +86,39 @@ const DraggableOpportunityInstancePill: React.FC<OpportunityInstancePillProps> =
         </div>
       }
     >
-      <Popup.Content>
-        {instance.verified ? <Icon color="green" size="large" name="check circle outline" /> : <Icon color="red" size="large" name="question circle outline" />}
-        <IceHeader ice={opp.ice} />
-      </Popup.Content>
-    </Popup>
+      <Modal.Header>
+        {opp.name} <IceHeader ice={instance.ice} />
+      </Modal.Header>
+      <Modal.Content>
+        {futureP ? (
+          <React.Fragment>
+            <p>
+              <b>Scheduled:</b> {termName}
+            </p>
+            <FutureParticipationButton item={opp} />
+            <ButtonAction onClick={handleRemove} icon='trash alternate outline' label='Remove' style={cardStyle} size='mini' />
+          </React.Fragment>
+        ) : (
+          <React.Fragment>
+            <p>
+              <b>Participated:</b> {termName}
+            </p>
+            {verificationRequested ? (
+              ''
+            ) : (
+              <React.Fragment>
+                <ButtonLink url={`/${URL_ROLES.STUDENT}/${profile.username}/${STUDENT_VERIFICATION}`} label='Verification Page' size='mini' />
+                <ButtonAction onClick={handleRemove} icon='trash alternate outline' label='Remove' style={cardStyle} size='mini' />
+              </React.Fragment>
+            )}
+          </React.Fragment>
+        )}
+        <ViewInExplorerButtonLink match={match} type={EXPLORER_TYPE.OPPORTUNITIES} item={opp} size='mini' />
+      </Modal.Content>
+      <Modal.Actions>
+        <Button onClick={() => setOpen(false)}>Close</Button>
+      </Modal.Actions>
+    </Modal>
   );
 };
 

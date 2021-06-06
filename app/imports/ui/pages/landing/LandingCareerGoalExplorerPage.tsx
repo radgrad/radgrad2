@@ -36,7 +36,6 @@ Registered users can add Career Goals to their profile which enables RadGrad to 
 
 This page provides an overview of the Career Goals currently available in RadGrad. 
 `;
-const headerPaneImage = 'header-career.png';
 
 const LandingCareerGoalExplorerPage: React.FC<CareerGoalExplorerProps> = ({ careerGoal }) => {
   const match = useRouteMatch();
@@ -45,6 +44,7 @@ const LandingCareerGoalExplorerPage: React.FC<CareerGoalExplorerProps> = ({ care
   const relatedOpportunities = CareerGoals.findRelatedOpportunities(careerGoalID);
   const teaser = Teasers.findNonRetired({ targetSlugID: careerGoal.slugID });
   const hasTeaser = teaser.length > 0;
+  const headerPaneImage = careerGoal.picture;
   return (
     <div>
       <LandingExplorerMenuBar />

@@ -43,7 +43,7 @@ class CourseCollection extends BaseSlugCollection {
       'prerequisites.$': String,
       repeatable: { type: Boolean, optional: true },
       retired: { type: Boolean, optional: true },
-      picture: { type: String, optional: true, defaultValue: 'images/header-panel/header-career.png' },
+      picture: { type: String, optional: true, defaultValue: 'images/header-panel/header-courses.png' },
     }));
     this.defineSchema = new SimpleSchema({
       name: String,
@@ -401,6 +401,16 @@ class CourseCollection extends BaseSlugCollection {
     const courseID = this.getID(docIdOrSlug);
     const course =  this.findDoc(courseID);
     return `${course.num} ${course.shortName}`;
+  }
+
+  /**
+   * Returns the course number of the course name
+   * @param {string} name
+   * @returns {string}
+   */
+  public findCourseNumberByName(name: string): string {
+    const course = this.findDoc(name);
+    return course.num;
   }
 }
 

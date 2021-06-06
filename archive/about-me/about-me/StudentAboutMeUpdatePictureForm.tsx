@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Grid, Image, Button } from 'semantic-ui-react';
-import Swal from 'sweetalert2';
 import { useRouteMatch } from 'react-router-dom';
 import { updateMethod } from '../../../../api/base/BaseCollection.methods';
 import { openCloudinaryWidget } from '../../shared/OpenCloudinaryWidget';
@@ -8,6 +7,7 @@ import { getUsername } from '../../shared/utilities/router';
 import { UserInteractionsTypes } from '../../../../api/analytic/UserInteractionsTypes';
 import { userInteractionDefineMethod } from '../../../../api/analytic/UserInteractionCollection.methods';
 import { UserInteractionDefine } from '../../../../typings/radgrad';
+import RadGradAlert from '../../../app/imports/ui/utilities/RadGradAlert';
 
 interface StudentAboutMeUpdatePictureFormProps {
   picture: string;
@@ -26,21 +26,10 @@ const StudentAboutMeUpdatePictureForm: React.FC<StudentAboutMeUpdatePictureFormP
         const updateData: { id: string; picture: string } = { id: docID, picture: cloudinaryResult.info.secure_url };
         updateMethod.call({ collectionName, updateData }, (error) => {
           if (error) {
-            Swal.fire({
-              title: 'Update Failed',
-              text: error.message,
-              icon: 'error',
-            });
+            RadGradAlert.failure('Update Failed', error.message, error);
           } else {
             setPicture(cloudinaryResult.info.secure_url);
-            Swal.fire({
-              title: 'Update Succeeded',
-              icon: 'success',
-              text: 'Your picture has been successfully updated.',
-              allowOutsideClick: false,
-              allowEscapeKey: false,
-              allowEnterKey: false,
-            });
+            RadGradAlert.success('Update Succeeded');
             const username = getUsername(match);
             const interactionData: UserInteractionDefine = {
               username,
@@ -56,14 +45,7 @@ const StudentAboutMeUpdatePictureForm: React.FC<StudentAboutMeUpdatePictureFormP
         });
       }
     } catch (error) {
-      Swal.fire({
-        title: 'Failed to Upload Photo',
-        icon: 'error',
-        text: error.statusText,
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        allowEnterKey: false,
-      });
+      RadGradAlert.failure('Failed to Upload Photo', error.statusText, error);
     }
   };
 

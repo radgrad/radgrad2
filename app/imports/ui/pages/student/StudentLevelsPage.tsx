@@ -6,6 +6,7 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import AllLevelsInfo from '../../components/student/levels/AllLevelsInfo';
 import StudentLevelInfo from '../../components/student/levels/StudentLevelInfo';
 import { StudentProfile } from '../../../typings/radgrad';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 
 interface StudentLevelsPageProps {
@@ -37,7 +38,7 @@ const StudentLevelsPage: React.FC<StudentLevelsPageProps> = ({ profile, allProfi
   const sameLevelStudents = getStudentsAtLevel(profile, profile.level, allProfiles);
 
   return (
-    <PageLayout id="student-levels-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
+    <PageLayout id={PAGEIDS.STUDENT_LEVELS} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
       <Grid>
         <Grid.Row>
           <Grid.Column>
@@ -54,7 +55,7 @@ const StudentLevelsPage: React.FC<StudentLevelsPageProps> = ({ profile, allProfi
   );
 };
 
-const StudentLevelsPageContainer = withTracker(() => {
+export default withTracker(() => {
   const { username } = useParams();
   const profile = StudentProfiles.getProfile(username);
   const allProfiles = StudentProfiles.find().fetch();
@@ -63,6 +64,4 @@ const StudentLevelsPageContainer = withTracker(() => {
     allProfiles,
   };
 })(StudentLevelsPage);
-
-export default StudentLevelsPageContainer;
 

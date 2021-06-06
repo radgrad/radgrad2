@@ -24,57 +24,56 @@ export const loadCollectionNewDataOnly = (collection: BaseCollection, loadJSON, 
     let termID;
     switch (type) {
       case UserInteractions.getType():
-        if (UserInteractions.find({
-          username: definition.username,
-          type: definition.type,
-          typeData: definition.typeData,
-          timestamp: definition.timestamp,
-        }).count() === 0) {
+        if (
+          UserInteractions.find({
+            username: definition.username,
+            type: definition.type,
+            typeData: definition.typeData,
+            timestamp: definition.timestamp,
+          }).count() === 0
+        ) {
           collection.define(definition);
           count++;
         }
         break;
-      case CourseInstances.getType():
-      // console.log(definition.student);
-      // eslint-disable-next-line no-case-declarations
+      case CourseInstances.getType(): {
+        // console.log(definition.student);
         termID = AcademicTerms.getID(definition.academicTerm);
-        // eslint-disable-next-line no-case-declarations
         const courseID = Courses.getID(definition.course);
-        // eslint-disable-next-line no-case-declarations
         studentID = Users.getID(definition.student);
         if (CourseInstances.find({ termID, courseID, studentID }).count() === 0) {
           collection.define(definition);
           count++;
         }
         break;
+      }
       case AcademicYearInstances.getType(): {
         studentID = Users.getID(definition.student);
-        if (AcademicYearInstances.find({ year: definition.year, studentID })
-          .count() === 0) {
+        if (AcademicYearInstances.find({ year: definition.year, studentID }).count() === 0) {
           collection.define(definition);
           count++;
         }
-      }
         break;
-      case OpportunityInstances.getType():
+      }
+      case OpportunityInstances.getType(): {
         termID = AcademicTerms.getID(definition.academicTerm);
         studentID = Users.getID(definition.student);
-        // eslint-disable-next-line no-case-declarations
         const opportunityID = Opportunities.getID(definition.opportunity);
         if (OpportunityInstances.find({ termID, studentID, opportunityID }).count() === 0) {
           collection.define(definition);
         }
         break;
+      }
       case AdvisorProfiles.getType():
       case FacultyProfiles.getType():
       case StudentProfiles.getType():
-        if (collection.find({ username: definition.username })
-          .count() === 0) {
+        if (collection.find({ username: definition.username }).count() === 0) {
           collection.define(definition);
           count++;
         }
         break;
-      default: // Slug collections
+      default:
+        // Slug collections
         if ('slug' in definition) {
           if (!Slugs.isDefined(definition.slug)) {
             collection.define(definition);

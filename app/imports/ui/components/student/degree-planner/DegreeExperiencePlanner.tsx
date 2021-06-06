@@ -1,37 +1,32 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Grid, Segment } from 'semantic-ui-react';
-import Swal from 'sweetalert2';
 import moment from 'moment';
 import _ from 'lodash';
+import RadGradAlert from '../../../utilities/RadGradAlert';
 import { Users } from '../../../../api/user/UserCollection';
 import { AcademicYearInstances } from '../../../../api/degree-plan/AcademicYearInstanceCollection';
-import { DegreePlannerStateNames } from '../../../pages/student/StudentDegreePlannerPage';
-import { useStickyState } from '../../../utilities/StickyState';
 import { ButtonAction } from '../../shared/button/ButtonAction';
 import AcademicYearView from './AcademicYearView';
 import {
   AcademicYearInstance,
   AcademicYearInstanceDefine,
   CourseInstance,
-  OpportunityInstance,
+  OpportunityInstance, VerificationRequest,
 } from '../../../../typings/radgrad';
 import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
 import { defineMethod, removeItMethod } from '../../../../api/base/BaseCollection.methods';
-import { TabbedProfileEntryNames } from './TabbedProfileEntries';
 
 interface DePProps {
   academicYearInstances: AcademicYearInstance[];
   courseInstances: CourseInstance[];
   opportunityInstances: OpportunityInstance[];
+  verificationRequests: VerificationRequest[];
+  // internshipInstances: InternshipInstance[];
 }
 
-const DegreeExperiencePlanner: React.FC<DePProps> = ({ academicYearInstances, courseInstances, opportunityInstances }) => {
-
-  const [, setSelectedCiID] = useStickyState(DegreePlannerStateNames.selectedCiID, '');
-  const [, setSelectedOiID] = useStickyState(DegreePlannerStateNames.selectedOiID, '');
-  const [, setSelectedProfileTab] = useStickyState(DegreePlannerStateNames.selectedProfileTab, '');
+const DegreeExperiencePlanner: React.FC<DePProps> = ({ academicYearInstances, courseInstances, opportunityInstances, verificationRequests /* , internshipInstances */ }) => {
   const { username } = useParams();
   const studentID = Users.getID(username);
 
@@ -54,20 +49,6 @@ const DegreeExperiencePlanner: React.FC<DePProps> = ({ academicYearInstances, co
   }
   let visibleYears = years;
 
-  const handleClickCourseInstance = (event, { value }) => {
-    event.preventDefault();
-    setSelectedCiID(value);
-    setSelectedOiID('');
-    setSelectedProfileTab(TabbedProfileEntryNames.profileDetails);
-  };
-
-  const handleClickOpportunityInstance = (event, { value }) => {
-    event.preventDefault();
-    setSelectedCiID('');
-    setSelectedOiID(value);
-    setSelectedProfileTab(TabbedProfileEntryNames.profileDetails);
-  };
-
   const handleAddYear = (): void => {
     const student = username;
     const numYears = visibleYears.length;
@@ -76,25 +57,13 @@ const DegreeExperiencePlanner: React.FC<DePProps> = ({ academicYearInstances, co
     const collectionName = AcademicYearInstances.getCollectionName();
     defineMethod.callPromise({ collectionName, definitionData })
       .then(() => {
-        Swal.fire({
-          title: 'Added new Academic Year',
-          icon: 'success',
-          text: `Fall ${definitionData.year} - Summer ${definitionData.year + 1}`,
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        RadGradAlert.success('Added new Academic Year', `Fall ${definitionData.year} - Summer ${definitionData.year + 1}`);
         years = AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
         visibleYears = years;
       })
-      .catch((error) =>
-        Swal.fire({
-          title: 'Failed to add a new Academic Year',
-          text: error.message,
-          icon: 'error',
-          allowOutsideClick: false,
-          allowEscapeKey: false,
-          allowEnterKey: false,
-        }));
+      .catch((error) => {
+        RadGradAlert.failure('Failed to add a new Academic Year', error.message, error);
+      });
   };
 
 
@@ -103,26 +72,11 @@ const DegreeExperiencePlanner: React.FC<DePProps> = ({ academicYearInstances, co
     const instance = visibleYears[visibleYears.length - 1]._id;
     removeItMethod.callPromise({ collectionName, instance })
       .then(() => {
-        Swal.fire({
-          title: 'Deleted Academic Year',
-          icon: 'success',
-          text: 'Successfully deleted an empty Academic Year',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        RadGradAlert.success('Deleted Academic Year', 'Successfully deleted an empty Academic Year');
         years = AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
         visibleYears = years;
       })
-      .catch((error) => {
-        Swal.fire({
-          title: 'Failed to delete Academic Year',
-          text: error.message,
-          icon: 'error',
-          allowOutsideClick: false,
-          allowEscapeKey: false,
-          allowEnterKey: false,
-        });
-      });
+      .catch((error) => { RadGradAlert.failure('Failed to delete Academic Year', error.message, error);});
   };
 
   const isTermEmpty = (termID: string): boolean => {
@@ -150,10 +104,10 @@ const DegreeExperiencePlanner: React.FC<DePProps> = ({ academicYearInstances, co
             key={year._id}
             academicYear={year}
             studentID={studentID}
-            handleClickCourseInstance={handleClickCourseInstance}
-            handleClickOpportunityInstance={handleClickOpportunityInstance}
             courseInstances={courseInstances}
             opportunityInstances={opportunityInstances}
+            verificationRequests={verificationRequests}
+            // internshipInstances={internshipInstances}
           />
         ))}
         <Grid.Row textAlign="center">

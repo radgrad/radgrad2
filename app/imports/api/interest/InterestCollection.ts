@@ -29,7 +29,7 @@ class InterestCollection extends BaseSlugCollection {
       description: { type: String },
       interestTypeID: { type: SimpleSchema.RegEx.Id },
       retired: { type: Boolean, optional: true },
-      picture: { type: String, optional: true, defaultValue: 'images/header-panel/header-career.png' },
+      picture: { type: String, optional: true, defaultValue: 'images/header-panel/header-interests.png' },
     }));
     this.defineSchema = new SimpleSchema({
       name: String,
@@ -103,6 +103,9 @@ class InterestCollection extends BaseSlugCollection {
       updateData.retired = retired;
       const profileInterests = ProfileInterests.find({ interestID: docID }).fetch();
       profileInterests.forEach((pi) => ProfileInterests.update(pi._id, { retired }));
+      const interest = this.findDoc(docID);
+      const teasers = Teasers.find({ targetSlugID: interest.slugID }).fetch();
+      teasers.forEach((teaser) => Teasers.update(teaser._id, { retired }));
     }
     this.collection.update(docID, { $set: updateData });
     return true;

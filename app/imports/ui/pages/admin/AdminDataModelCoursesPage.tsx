@@ -2,7 +2,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
 import { Confirm, Icon } from 'semantic-ui-react';
 import _ from 'lodash';
-import Swal from 'sweetalert2';
+import RadGradAlert from '../../utilities/RadGradAlert';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { Course, CourseUpdate, DescriptionPair, Interest } from '../../../typings/radgrad';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
@@ -85,21 +85,9 @@ const AdminDataModelCoursesPage: React.FC<AdminDataModelCoursesPageProps> = ({ i
     updateData.picture = doc.picture;
     // console.log(collectionName, updateData);
     updateMethod.callPromise({ collectionName, updateData })
-      .catch((error) => {
-        Swal.fire({
-          title: 'Update failed',
-          text: error.message,
-          icon: 'error',
-        });
-        console.error('Error in updating. %o', error);
-      })
+      .catch((error) => { RadGradAlert.failure('Update Failed', error.message, error);})
       .then(() => {
-        Swal.fire({
-          title: 'Update succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        RadGradAlert.success('Update Succeeded');
         setShowUpdateForm(false);
         setId('');
       });
@@ -136,7 +124,7 @@ const AdminDataModelCoursesPage: React.FC<AdminDataModelCoursesPageProps> = ({ i
   );
 };
 
-const AdminDataModelCoursesPageContainer = withTracker(() => {
+export default withTracker(() => {
   const items = Courses.find({}).fetch();
   const interests = Interests.find({}, { sort: { name: 1 } }).fetch();
   const courses = Courses.find({}, { sort: { num: 1 } }).fetch();
@@ -146,5 +134,3 @@ const AdminDataModelCoursesPageContainer = withTracker(() => {
     courses,
   };
 })(AdminDataModelCoursesPage);
-
-export default AdminDataModelCoursesPageContainer;

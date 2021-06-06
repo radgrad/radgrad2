@@ -1,7 +1,8 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
-import Swal from 'sweetalert2';
 import { Confirm, Icon } from 'semantic-ui-react';
+import { ReviewTypes } from '../../../api/review/ReviewTypes';
+import RadGradAlert from '../../utilities/RadGradAlert';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { AcademicTerm, Course, DescriptionPair, Opportunity, Review, StudentProfile } from '../../../typings/radgrad';
@@ -31,15 +32,15 @@ const collection = Reviews; // the collection to use.
  */
 const descriptionPairs = (item: Review): DescriptionPair[] => {
   let reviewee;
-  if (item.reviewType === 'course') {
+  if (item.reviewType === ReviewTypes.COURSE) {
     reviewee = Courses.findDoc(item.revieweeID);
-  } else if (item.reviewType === 'opportunity') {
+  } else if (item.reviewType === ReviewTypes.OPPORTUNITY) {
     reviewee = Opportunities.findDoc(item.revieweeID);
   }
   return [
     { label: 'Student', value: Users.getFullName(item.studentID) },
     { label: 'Review Type', value: item.reviewType },
-    { label: 'Reviewee', value: reviewee.name },
+    { label: 'Reviewee', value: reviewee?.name },
     { label: 'Semester', value: AcademicTerms.toString(item.termID, false) },
     { label: 'Rating', value: `${item.rating}` },
     { label: 'Comments', value: item.comments },
@@ -94,21 +95,9 @@ const AdminDataModelReviewsPage: React.FC<AdminDataModelReviewsPageProps> = ({ i
     updateData.academicTerm = academicTermNameToSlug(doc.academicTerm);
     // console.log(collectionName, updateData);
     updateMethod.callPromise({ collectionName, updateData })
-      .catch((error) => {
-        Swal.fire({
-          title: 'Update failed',
-          text: error.message,
-          icon: 'error',
-        });
-        console.error('Error in updating. %o', error);
-      })
+      .catch((error) => { RadGradAlert.failure('Update Failed', error.message, error);})
       .then(() =>{
-        Swal.fire({
-          title: 'Update succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        RadGradAlert.success('Update Succeeded');
         setShowUpdateForm(false);
         setId('');
       });
@@ -140,7 +129,7 @@ const AdminDataModelReviewsPage: React.FC<AdminDataModelReviewsPageProps> = ({ i
   );
 };
 
-const AdminDataModelReviewsPageContainer = withTracker(() => {
+export default withTracker(() => {
   const terms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
   const courses = Courses.find().fetch();
   const students = StudentProfiles.find({}, { sort: { lastName: 1 } }).fetch();
@@ -154,5 +143,3 @@ const AdminDataModelReviewsPageContainer = withTracker(() => {
     opportunities,
   };
 })(AdminDataModelReviewsPage);
-
-export default AdminDataModelReviewsPageContainer;

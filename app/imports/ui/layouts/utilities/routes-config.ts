@@ -1,4 +1,3 @@
-import AdminHomePage from '../../pages/admin/AdminHomePage';
 import AdminAnalyticsBehaviorTablePage from '../../pages/admin/AdminAnalyticsBehaviorTablePage';
 import AdminAnalyticsLoggedInUsersPage from '../../pages/admin/AdminAnalyticsLoggedInUsersPage';
 import AdminDatabaseManagementPage from '../../pages/admin/AdminDatabaseManagementPage';
@@ -18,18 +17,16 @@ import AdminDataModelSlugsPage from '../../pages/admin/AdminDataModelSlugsPage';
 import AdminDataModelTeasersPage from '../../pages/admin/AdminDataModelTeasersPage';
 import AdminDataModelUsersPage from '../../pages/admin/AdminDataModelUsersPage';
 import AdminDataModelVerificationRequestsPage from '../../pages/admin/AdminDataModelVerificationRequestsPage';
-import AdvisorHomePage from '../../pages/advisor/AdvisorHomePage';
 import AdvisorManageStudentsPage from '../../pages/advisor/AdvisorManageStudentsPage';
 import AlumniHomePage from '../../pages/alumni/AlumniHomePage';
-import OnboardAndrePage from '../../pages/onboard/andre/OnboardAndrePage';
 import CareerGoalBrowserViewPage from '../../pages/shared/browser-view/CareerGoalBrowserViewPage';
 import CareerGoalViewPage from '../../pages/shared/item-view/CareerGoalViewPage';
 import CommunityPage from '../../pages/shared/CommunityPage';
 import CourseBrowserViewPage from '../../pages/shared/browser-view/CourseBrowserViewPage';
 import CourseViewPage from '../../pages/shared/item-view/CourseViewPage';
-import FacultyHomePage from '../../pages/faculty/FacultyHomePage';
 import FacultyVerificationPage from '../../pages/faculty/FacultyVerificationPage';
 import ForecastPage from '../../pages/shared/ForecastPage';
+import HomePage from '../../pages/shared/HomePage';
 import InterestBrowserViewPage from '../../pages/shared/browser-view/InterestBrowserViewPage';
 import InterestViewPage from '../../pages/shared/item-view/InterestViewPage';
 import LandingCareerGoalsExplorerPage from '../../pages/landing/LandingCareerGoalsExplorerPage';
@@ -44,10 +41,6 @@ import LandingOpportunityExplorerPage from '../../pages/landing/LandingOpportuni
 import ManageOpportunitiesPage from '../../pages/shared/ManageOpportunitiesPage';
 import ManageReviewsPage from '../../pages/shared/ManageReviewsPage';
 import ManageVerificationsPage from '../../pages/shared/ManageVerificationsPage';
-import OnboardTreyPage from '../../pages/onboard/trey/OnboardTreyPage';
-import OnboardCalianaPage from '../../pages/onboard/caliana/OnboardCalianaPage';
-import OnboardShinyaPage from '../../pages/onboard/shinya/OnboardShinyaPage';
-import OnboardTimothyPage from '../../pages/onboard/timothy/OnboardTimothyPage';
 import OpportunityBrowserViewPage from '../../pages/shared/browser-view/OpportunityBrowserViewPage';
 import OpportunityViewPage from '../../pages/shared/item-view/OpportunityViewPage';
 import SandboxLabelPage from '../../pages/sandbox/SandboxLabelPage';
@@ -55,7 +48,6 @@ import SandBoxSegmentPage from '../../pages/sandbox/SandBoxSegmentPage';
 import SandBoxStickyStatePage from '../../pages/sandbox/SandBoxStickyStatePage';
 import SandBoxTabPage from '../../pages/sandbox/SandBoxTabPage';
 import StudentDegreePlannerPage from '../../pages/student/StudentDegreePlannerPage';
-import StudentHomePage from '../../pages/student/StudentHomePage';
 import StudentIcePage from '../../pages/student/StudentIcePage';
 import StudentLevelsPage from '../../pages/student/StudentLevelsPage';
 import StudentReviewsPage from '../../pages/student/StudentReviewsPage';
@@ -124,7 +116,7 @@ export const routes = {
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${EXPLORER.OPPORTUNITIES_PARAM}`, component: OpportunityViewPage },
 
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${FORECASTS}`, component: ForecastPage },
-    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${HOME}`, component: AdminHomePage },
+    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${HOME}`, component: HomePage },
 
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${MANAGE.REVIEWS}`, component: ManageReviewsPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${MANAGE.STUDENTS}`, component: AdvisorManageStudentsPage },
@@ -145,7 +137,7 @@ export const routes = {
     { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER.OPPORTUNITIES}`, component: OpportunityBrowserViewPage },
     { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER.OPPORTUNITIES_PARAM}`, component: OpportunityViewPage },
     { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${FORECASTS}`, component: ForecastPage },
-    { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${HOME}`, component: AdvisorHomePage },
+    { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${HOME}`, component: HomePage },
     { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${MANAGE.OPPORTUNITIES}`, component: ManageOpportunitiesPage },
     { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${MANAGE.STUDENTS}`, component: AdvisorManageStudentsPage },
     { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${MANAGE.REVIEWS}`, component: ManageReviewsPage },
@@ -168,7 +160,7 @@ export const routes = {
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER.OPPORTUNITIES}`, component: OpportunityBrowserViewPage },
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER.OPPORTUNITIES_PARAM}`, component: OpportunityViewPage },
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${FORECASTS}`, component: ForecastPage },
-    { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${HOME}`, component: FacultyHomePage },
+    { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${HOME}`, component: HomePage },
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${MANAGE.OPPORTUNITIES}`, component: ManageOpportunitiesPage },
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${MANAGE.REVIEWS}`, component: ManageReviewsPage },
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${MANAGE.VERIFICATION}`, component: ManageVerificationsPage },
@@ -199,7 +191,7 @@ export const routes = {
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER.INTERESTS_PARAM}`, component: InterestViewPage },
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER.OPPORTUNITIES}`, component: OpportunityBrowserViewPage },
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER.OPPORTUNITIES_PARAM}`, component: OpportunityViewPage },
-    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${HOME}`, component: StudentHomePage },
+    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${HOME}`, component: HomePage },
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${ICE}`, component: StudentIcePage },
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${LEVELS}`, component: StudentLevelsPage },
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${VISIBILITY}`, component: StudentVisibilityPage },
@@ -211,11 +203,5 @@ export const routes = {
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/sandbox/segments`, component: SandBoxSegmentPage },
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/sandbox/tabs`, component: SandBoxTabPage },
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/sandbox/stickystate`, component: SandBoxStickyStatePage },
-    // Following sites access the onboarding pages.
-    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/onboard/trey`, component: OnboardTreyPage },
-    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/onboard/shinya`, component: OnboardShinyaPage },
-    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/onboard/caliana`, component: OnboardCalianaPage },
-    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/onboard/timothy`, component: OnboardTimothyPage },
-    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/onboard/andre`, component: OnboardAndrePage },
   ],
 };

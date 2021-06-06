@@ -52,7 +52,7 @@ const StudentReviewsPage: React.FC<StudentReviewsPageProps> = ({
   </PageLayout>
 );
 
-const StudentReivewsContainer = withTracker(() => {
+export default withTracker(() => {
   const { username } = useParams();
   const studentID: string = Users.getProfile(username).userID;
   const reviews = Reviews.findNonRetired({ studentID });
@@ -71,4 +71,3 @@ const StudentReivewsContainer = withTracker(() => {
     unreviewedOpportunities,
   };
 })(StudentReviewsPage);
-export default StudentReivewsContainer;

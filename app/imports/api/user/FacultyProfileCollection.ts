@@ -76,7 +76,7 @@ class FacultyProfileCollection extends BaseProfileCollection {
       this.collection.update(profileID, { $set: { userID } });
       const share = true;
       if (interests) {
-        interests.forEach((interest) => ProfileInterests.define({ interest, share, username }));
+        interests.forEach((interest) => ProfileInterests.define({ interest, username }));
       }
       if (careerGoals) {
         careerGoals.forEach((careerGoal) => ProfileCareerGoals.define({ careerGoal, share, username }));

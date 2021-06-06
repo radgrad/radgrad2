@@ -2,7 +2,6 @@ import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
 import { Confirm, Icon } from 'semantic-ui-react';
 import _ from 'lodash';
-import Swal from 'sweetalert2';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
@@ -23,6 +22,7 @@ import UpdateTeaserForm from '../../components/admin/datamodel/teaser/UpdateTeas
 import { itemToSlugName, interestNameToSlug } from '../../components/shared/utilities/data-model';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import PageLayout from '../PageLayout';
+import RadGradAlert from '../../utilities/RadGradAlert';
 
 const collection = Teasers; // the collection to use.
 
@@ -90,20 +90,10 @@ const AdminDataModelTeasersPage: React.FC<AdminDataModelTeasersPageProps> = ({ i
     // console.log(collectionName, updateData);
     updateMethod.callPromise({ collectionName, updateData })
       .catch((error) => {
-        Swal.fire({
-          title: 'Update failed',
-          text: error.message,
-          icon: 'error',
-        });
-        console.error('Error in updating. %o', error);
+        RadGradAlert.failure('Update failed', error.message, error);
       })
       .then(() => {
-        Swal.fire({
-          title: 'Update succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        RadGradAlert.success('Update succeeded');
         setShowUpdateForm(false);
         setId('');
       });
@@ -145,7 +135,7 @@ const AdminDataModelTeasersPage: React.FC<AdminDataModelTeasersPageProps> = ({ i
   );
 };
 
-const AdminDataModelTeasersPageContainer = withTracker(() => {
+export default withTracker(() => {
   const careerGoals = CareerGoals.find({}, { sort: { name: 1 } }).fetch();
   const courses = Courses.find({}, { sort: { num: 1 } }).fetch();
   const interests = Interests.find({}, { sort: { name: 1 } }).fetch();
@@ -159,5 +149,3 @@ const AdminDataModelTeasersPageContainer = withTracker(() => {
     opportunities,
   };
 })(AdminDataModelTeasersPage);
-
-export default AdminDataModelTeasersPageContainer;
