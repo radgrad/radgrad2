@@ -35,7 +35,6 @@ For more information, please see the [Faculty User Guide](https://www.radgrad.or
 
 const ManageVerificationsPage: React.FC<ManageVerificationPageProps> = ({ verificationRequests, eventOpportunities }) => {
   const match = useRouteMatch();
-  console.log(verificationRequests);
 
   return (
     <PageLayout id={PAGEIDS.MANAGE_VERIFICATION} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
@@ -51,10 +50,13 @@ const ManageVerificationPageWithTracker = withTracker(() => {
   const match = useRouteMatch();
   const role = getRoleByUrl(match);
   const userID = Users.getID(username);
+  console.log(userID);
   let linkedOppInstances = OpportunityInstances.findNonRetired({ sponsorID: userID });
+  console.log(linkedOppInstances);
   if (role === URL_ROLES.ADMIN) {
     linkedOppInstances = OpportunityInstances.findNonRetired({});
   }
+  console.log(linkedOppInstances);
   const isLinkedReq = (verReq: VerificationRequest) => !!linkedOppInstances.find((oppI) => verReq.opportunityInstanceID === oppI._id);
   const verificationRequests = VerificationRequests.findNonRetired().filter((ele) => isLinkedReq(ele));
   const eventOpportunities = Opportunities.findNonRetired({ eventDate: { $exists: true } });
