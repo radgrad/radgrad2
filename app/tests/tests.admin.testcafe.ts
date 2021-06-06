@@ -74,6 +74,8 @@ test('Test admin management pages', async (testController) => {
   await adminNavBar.clickFilteredStudentsTabAndVerify(testController);
   await adminNavBar.clickFilteredAlumniTabAndVerify(testController);
   await adminNavBar.clickAddNewTabAndVerify(testController);
+  await adminNavBar.clickOtherTabAndVerify(testController);
+  await adminNavBar.clickMatriculateTabAndVerify(testController);
   await adminNavBar.gotoMenuPageAndVerify(testController, 'manage', 'verification');
   await adminNavBar.gotoMenuPageAndVerify(testController, 'manage', 'reviews');
   await adminNavBar.gotoMenuPageAndVerify(testController, 'manage', 'database');

@@ -85,13 +85,19 @@ class AdminNavBar {
 
   async clickAddNewTabAndVerify(testController) {
     await testController.click(`#${COMPONENTIDS.ADD_NEW_TAB}`);
-    const componentSelector = Selector(`#${COMPONENTIDS.ADD_STUDENT_TAB}`);
+    const componentSelector = Selector(`#${COMPONENTIDS.ADD_STUDENT_TAB_PANE}`);
     await testController.expect(componentSelector.exists).ok();
   }
 
   async clickOtherTabAndVerify(testController) {
     await testController.click(`#${COMPONENTIDS.OTHER_TAB}`);
-    const componentSelector = Selector(`#${COMPONENTIDS.ADVISOR_OTHER_TAB}`);
+    const componentSelector = Selector(`#${COMPONENTIDS.OTHER_TAB_PANE}`);
+    await testController.expect(componentSelector.exists).ok();
+  }
+
+  async clickMatriculateTabAndVerify(testController) {
+    await testController.click(`#${COMPONENTIDS.MATRICULATE_TAB}`);
+    const componentSelector = Selector(`#${COMPONENTIDS.MATRICULATE_STUDENTS_TAB_PANE}`);
     await testController.expect(componentSelector.exists).ok();
   }
 

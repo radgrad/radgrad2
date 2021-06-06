@@ -150,7 +150,7 @@ const AdvisorOtherTab: React.FC = () => {
   </>;
 
   return (
-    <Tab.Pane key={COMPONENTIDS.ADVISOR_OTHER_TAB} id={COMPONENTIDS.ADVISOR_OTHER_TAB}>
+    <Tab.Pane key={COMPONENTIDS.OTHER_TAB_PANE} id={COMPONENTIDS.OTHER_TAB_PANE}>
       <Segment vertical><RadGradTabHeader title='Update all students&apos; levels' icon='sort amount up'
         rightside={<Button size='mini' basic color='green'
           onClick={handleUpdateLevelButton}

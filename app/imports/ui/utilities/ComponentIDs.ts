@@ -34,8 +34,9 @@ export enum COMPONENTIDS {
   ADD_NEW_TAB = 'add-new-tab',
   OTHER_TAB = 'other-tab',
   MATRICULATE_TAB = 'matriculate-tab',
-  ADD_STUDENT_TAB = 'advisor-add-student-tab',
-  ADVISOR_OTHER_TAB = 'advisor-other-tab',
+  ADD_STUDENT_TAB_PANE = 'advisor-add-student-tab',
+  OTHER_TAB_PANE = 'advisor-other-tab',
+  MATRICULATE_STUDENTS_TAB_PANE = 'matriculate-students-tab',
 
   ADVISOR = 'advisor',
   ADVISOR_MENU_HOME = 'advisor-menu-home',

@@ -99,7 +99,7 @@ const AdvisorAddStudentTab: React.FC<AdvisorAddStudentWidgetProps> = ({ interest
   };
 
   return (
-    <Tab.Pane key="new" id={COMPONENTIDS.ADD_STUDENT_TAB}>
+    <Tab.Pane key="new" id={COMPONENTIDS.ADD_STUDENT_TAB_PANE}>
       <Header as="h4" dividing>
         ADD STUDENT
       </Header>
