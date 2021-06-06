@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Segment, Container, Form, Button, Rating } from 'semantic-ui-react';
+import { ReviewTypes } from '../../../../api/review/ReviewTypes';
 import RadGradAlert from '../../../utilities/RadGradAlert';
 import { Courses } from '../../../../api/course/CourseCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
@@ -18,7 +19,7 @@ const ModerationReview: React.FC<ModerationReviewProps> = ({ item, handleReview 
 
   const getReviewee = () => {
     let reviewee;
-    if (item.reviewType === 'course') {
+    if (item.reviewType === ReviewTypes.COURSE) {
       reviewee = Courses.findDoc(item.revieweeID);
     } else {
       reviewee = Opportunities.findDoc(item.revieweeID);

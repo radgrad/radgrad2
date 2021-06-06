@@ -76,7 +76,7 @@ const OpportunityViewPage: React.FC<OpportunityViewPageProps> = ({
     studentID: profile.userID,
     opportunityID: opportunity._id,
   }).length > 0;
-  const relatedCourses : RelatedCoursesOrOpportunities = getAssociationRelatedCourses(Opportunities.findRelatedCourses(opportunity._id), profile.userID);
+  const relatedCourses: RelatedCoursesOrOpportunities = getAssociationRelatedCourses(Opportunities.findRelatedCourses(opportunity._id), profile.userID);
   const relatedCareerGoals = Opportunities.findRelatedCareerGoals(opportunity._id);
 
   return (

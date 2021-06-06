@@ -29,15 +29,6 @@
             "research",
             "security",
             "software-engineering"
-          ],
-          "academicTerms": [
-            "Summer-2015",
-            "Summer-2016",
-            "Summer-2017",
-            "Summer-2018",
-            "Summer-2019",
-            "Summer-2020",
-            "Summer-2021"
           ]
         },
         {
@@ -55,10 +46,6 @@
             "civic-engagement",
             "hci",
             "teaching"
-          ],
-          "academicTerms": [
-            "Spring-2017",
-            "Summer-2017"
           ]
         },
         {
@@ -74,32 +61,6 @@
           },
           "interests": [
             "security"
-          ],
-          "academicTerms": [
-            "Fall-2013",
-            "Spring-2014",
-            "Summer-2014",
-            "Fall-2014",
-            "Spring-2015",
-            "Summer-2015",
-            "Fall-2015",
-            "Spring-2016",
-            "Summer-2016",
-            "Fall-2016",
-            "Spring-2017",
-            "Summer-2017",
-            "Fall-2017",
-            "Spring-2018",
-            "Summer-2018",
-            "Fall-2018",
-            "Spring-2019",
-            "Summer-2019",
-            "Fall-2019",
-            "Spring-2020",
-            "Fall-2020",
-            "Summer-2020",
-            "Spring-2021",
-            "Summer-2021"
           ]
         },
         {
@@ -115,31 +76,6 @@
           },
           "interests": [
             "research"
-          ],
-          "academicTerms": [
-            "Spring-2014",
-            "Summer-2014",
-            "Fall-2014",
-            "Spring-2015",
-            "Summer-2015",
-            "Fall-2015",
-            "Spring-2016",
-            "Summer-2016",
-            "Fall-2016",
-            "Spring-2017",
-            "Summer-2017",
-            "Fall-2017",
-            "Spring-2018",
-            "Summer-2018",
-            "Fall-2018",
-            "Spring-2019",
-            "Summer-2019",
-            "Fall-2019",
-            "Spring-2020",
-            "Fall-2020",
-            "Summer-2020",
-            "Spring-2021",
-            "Summer-2021"
           ]
         },
         {
@@ -155,16 +91,6 @@
           },
           "interests": [
             "data-visualization"
-          ],
-          "academicTerms": [
-            "Summer-2014",
-            "Summer-2015",
-            "Summer-2016",
-            "Summer-2017",
-            "Summer-2018",
-            "Summer-2019",
-            "Summer-2020",
-            "Summer-2012"
           ]
         },
         {
@@ -180,16 +106,6 @@
           },
           "interests": [
             "entrepreneurship"
-          ],
-          "academicTerms": [
-            "Spring-2013",
-            "Spring-2014",
-            "Spring-2015",
-            "Spring-2016",
-            "Spring-2017",
-            "Spring-2018",
-            "Spring-2019",
-            "Spring-2020"
           ]
         }
       ]

@@ -471,7 +471,6 @@ export interface OpportunityDefine extends DumpOne {
   opportunityType: string;
   sponsor: string;
   interests: string[];
-  academicTerms: string[];
   ice: Ice;
   eventDate?: Date; // Deprecated
   eventDate1?: Date;
@@ -492,7 +491,6 @@ export interface OpportunityUpdate extends Update {
   opportunityType?: string;
   sponsor?: string;
   interests?: string[];
-  academicTerms?: string[];
   eventDate?: any; // Deprecated
   eventDate1?: Date;
   eventDateLabel1?: string;
@@ -518,7 +516,6 @@ export interface OpportunityUpdateData {
   opportunityTypeID?: string;
   sponsorID?: string;
   interestIDs?: string[];
-  termIDs?: string[];
   eventDate?: any;
   eventDate1?: Date;
   eventDateLabel1?: string;
