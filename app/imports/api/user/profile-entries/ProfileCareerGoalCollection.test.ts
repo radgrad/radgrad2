@@ -93,5 +93,19 @@ if (Meteor.isServer) {
       expect(studentUsername.startsWith('student')).to.be.true;
       expect(studentUsername).to.equal(username);
     });
+
+    it('Can dumpUser', function test7() {
+      username = makeSampleUser();
+      const numToMake = 10;
+      const existingProfile = ProfileCareerGoals.count();
+      for (let i = 0; i < numToMake; i++) {
+        careerGoal = makeSampleCareerGoal();
+        ProfileCareerGoals.define({ careerGoal, username });
+      }
+      const profileCount = ProfileCareerGoals.count();
+      expect(profileCount).to.equal(existingProfile + numToMake);
+      const dumpUser = ProfileCareerGoals.dumpUser(username);
+      expect(dumpUser.length).to.equal(numToMake);
+    });
   });
 }
