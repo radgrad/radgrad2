@@ -19,7 +19,6 @@ import {
   Review,
 } from '../../../../typings/radgrad';
 import AddToProfileButton from '../../../components/shared/explorer/item-view/AddToProfileButton';
-import IceHeader from '../../../components/shared/IceHeader';
 import RelatedCareerGoals from '../../../components/shared/RelatedCareerGoals';
 import RelatedCourses from '../../../components/shared/RelatedCourses';
 import RelatedInterests from '../../../components/shared/RelatedInterests';
@@ -59,7 +58,17 @@ const isCompleted = (opportunityID: string, studentID: string): boolean => {
   return completed;
 };
 
-const OpportunityViewPage: React.FC<OpportunityViewPageProps> = ({ profileOpportunities, itemReviews, opportunity, profile, sponsors, terms, interests, opportunityTypes, opportunities}) => {
+const OpportunityViewPage: React.FC<OpportunityViewPageProps> = ({
+  profileOpportunities,
+  itemReviews,
+  opportunity,
+  profile,
+  sponsors,
+  terms,
+  interests,
+  opportunityTypes,
+  opportunities,
+}) => {
   const studentID = profile.userID;
   const completed = isCompleted(opportunity._id, studentID);
   const headerPaneTitle = opportunity.name;
@@ -70,9 +79,11 @@ const OpportunityViewPage: React.FC<OpportunityViewPageProps> = ({ profileOpport
   }).length > 0;
   const relatedCourses: RelatedCoursesOrOpportunities = getAssociationRelatedCourses(Opportunities.findRelatedCourses(opportunity._id), profile.userID);
   const relatedCareerGoals = Opportunities.findRelatedCareerGoals(opportunity._id);
-  const headerPaneButton = profile.role === ROLE.STUDENT ? <AddToProfileButton type={PROFILE_ENTRY_TYPE.OPPORTUNITY} studentID={profile.userID} item={opportunity} added={added} inverted floated="left" /> : undefined;
+  const headerPaneButton = profile.role === ROLE.STUDENT ? <AddToProfileButton type={PROFILE_ENTRY_TYPE.OPPORTUNITY} studentID={profile.userID}
+    item={opportunity} added={added} inverted floated="left" /> : undefined;
   return (
-    <PageLayout id={PAGEIDS.OPPORTUNITY} headerPaneTitle={headerPaneTitle} headerPaneImage={headerPaneImage} headerPaneButton={headerPaneButton}>
+    <PageLayout id={PAGEIDS.OPPORTUNITY} headerPaneTitle={headerPaneTitle} headerPaneImage={headerPaneImage}
+      headerPaneButton={headerPaneButton}>
       <Grid>
         <Grid.Row>
           <Grid.Column width={5}>
@@ -81,7 +92,9 @@ const OpportunityViewPage: React.FC<OpportunityViewPageProps> = ({ profileOpport
             <RelatedCourses relatedCourses={relatedCourses} profile={profile} />
           </Grid.Column>
           <Grid.Column width={11}>
-            <ExplorerOpportunity opportunity={opportunity} opportunityTypes={opportunityTypes} opportunities={opportunities} interests={interests} sponsors={sponsors} terms={terms} completed={completed} itemReviews={itemReviews} profile={profile} />
+            <ExplorerOpportunity opportunity={opportunity} opportunityTypes={opportunityTypes}
+              opportunities={opportunities} interests={interests} sponsors={sponsors}
+              terms={terms} completed={completed} itemReviews={itemReviews} profile={profile} />
           </Grid.Column>
         </Grid.Row>
       </Grid>

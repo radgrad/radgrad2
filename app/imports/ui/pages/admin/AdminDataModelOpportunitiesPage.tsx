@@ -6,23 +6,18 @@ import RadGradAlert from '../../utilities/RadGradAlert';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
-import { AcademicTerm, BaseProfile, DescriptionPair, Interest, Opportunity, OpportunityType } from '../../../typings/radgrad';
+import { BaseProfile, DescriptionPair, Interest, Opportunity, OpportunityType, OpportunityUpdate } from '../../../typings/radgrad';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
-import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import AddOpportunityForm from '../../components/admin/datamodel/opportunity/AddOpportunityForm';
 import UpdateOpportunityForm from '../../components/admin/datamodel/opportunity/UpdateOpportunityForm';
-import { academicTermNameToSlug, itemToSlugName, opportunityTypeNameToSlug, profileNameToUsername } from '../../components/shared/utilities/data-model';
+import { itemToSlugName, opportunityTypeNameToSlug, profileNameToUsername } from '../../components/shared/utilities/data-model';
 import { interestSlugFromName } from '../../components/shared/utilities/form';
 import { PAGEIDS } from '../../utilities/PageIDs';
-import {
-  handleCancelWrapper,
-  handleConfirmDeleteWrapper,
-  handleDeleteWrapper, handleOpenUpdateWrapper,
-} from './utilities/data-model-page-callbacks';
+import { handleCancelWrapper, handleConfirmDeleteWrapper, handleDeleteWrapper, handleOpenUpdateWrapper } from './utilities/data-model-page-callbacks';
 import { makeMarkdownLink } from './utilities/datamodel';
 import PageLayout from '../PageLayout';
 
@@ -38,7 +33,6 @@ const descriptionPairs = (item: Opportunity): DescriptionPair[] => {
     { label: 'Opportunity Type', value: OpportunityTypes.findDoc(item.opportunityTypeID).name },
     { label: 'Sponsor', value: Users.getProfile(item.sponsorID).username },
     { label: 'Interests', value: _.sortBy(Interests.findNames(item.interestIDs)) },
-    { label: 'Academic Terms', value: item.termIDs.map((id: string) => AcademicTerms.toString(id, false)) },
     { label: 'ICE', value: `${item.ice.i}, ${item.ice.c}, ${item.ice.e}` },
     { label: 'Picture', value: makeMarkdownLink(item.picture) },
     { label: 'Retired', value: item.retired ? 'True' : 'False' },
@@ -82,12 +76,11 @@ const itemTitle = (item: Opportunity): React.ReactNode => (
 interface AdminDataModelOpportunitiesPageProps {
   items: Opportunity[];
   sponsors: BaseProfile[];
-  terms: AcademicTerm[];
   interests: Interest[];
   opportunityTypes: OpportunityType[];
 }
 
-const AdminDataModelOpportunitiesPage: React.FC<AdminDataModelOpportunitiesPageProps> = ({ items, interests, terms, opportunityTypes, sponsors }) => {
+const AdminDataModelOpportunitiesPage: React.FC<AdminDataModelOpportunitiesPageProps> = ({ items, interests,  opportunityTypes, sponsors }) => {
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
   const [showUpdateFormState, setShowUpdateForm] = useState(false);
@@ -100,15 +93,17 @@ const AdminDataModelOpportunitiesPage: React.FC<AdminDataModelOpportunitiesPageP
   const handleUpdate = (doc) => {
     // console.log('Opportunities.handleUpdate doc=%o', doc);
     const collectionName = collection.getCollectionName();
-    const updateData = doc; // create the updateData object from the doc.
+    const updateData: OpportunityUpdate = doc; // create the updateData object from the doc.
     updateData.id = doc._id;
     updateData.opportunityType = opportunityTypeNameToSlug(doc.opportunityType);
     updateData.sponsor = profileNameToUsername(doc.sponsor);
     updateData.interests = doc.interests.map(interestSlugFromName);
-    updateData.academicTerms = doc.terms.map(academicTermNameToSlug);
     // console.log(collectionName, updateData);
-    updateMethod.callPromise({ collectionName, updateData })
-      .catch((error) => { RadGradAlert.failure('Update Failed', error.message, error);})
+    updateMethod
+      .callPromise({ collectionName, updateData })
+      .catch((error) => {
+        RadGradAlert.failure('Update Failed', error.message, error);
+      })
       .then(() => {
         RadGradAlert.success('Update Succeeded');
         setShowUpdateForm(false);
@@ -122,44 +117,19 @@ const AdminDataModelOpportunitiesPage: React.FC<AdminDataModelOpportunitiesPageP
   return (
     <PageLayout id={PAGEIDS.DATA_MODEL_OPPORTUNITIES} headerPaneTitle="Opportunities">
       {showUpdateFormState ? (
-        <UpdateOpportunityForm
-          collection={collection}
-          id={idState}
-          handleUpdate={handleUpdate}
-          handleCancel={handleCancel}
-          itemTitleString={itemTitleString}
-          sponsors={sponsors}
-          terms={terms}
-          interests={interests}
-          opportunityTypes={opportunityTypes}
-        />
+        <UpdateOpportunityForm collection={collection} id={idState} handleUpdate={handleUpdate} handleCancel={handleCancel} itemTitleString={itemTitleString} sponsors={sponsors} interests={interests} opportunityTypes={opportunityTypes} />
       ) : (
-        <AddOpportunityForm sponsors={sponsors} terms={terms}
-          interests={interests} opportunityTypes={opportunityTypes} />
+        <AddOpportunityForm sponsors={sponsors} interests={interests} opportunityTypes={opportunityTypes} />
       )}
-      <ListCollectionWidget
-        collection={collection}
-        findOptions={findOptions}
-        descriptionPairs={descriptionPairs}
-        itemTitle={itemTitle}
-        handleOpenUpdate={handleOpenUpdate}
-        handleDelete={handleDelete}
-        items={items}
-      />
+      <ListCollectionWidget collection={collection} findOptions={findOptions} descriptionPairs={descriptionPairs} itemTitle={itemTitle} handleOpenUpdate={handleOpenUpdate} handleDelete={handleDelete} items={items} />
 
-      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
-        header="Delete Opportunity?" />
+      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Opportunity?" />
     </PageLayout>
   );
 };
 
 export default withTracker(() => {
   const interests = Interests.find({}, { sort: { name: 1 } }).fetch();
-  const currentTermNumber = AcademicTerms.getCurrentAcademicTermDoc().termNumber;
-  const after = currentTermNumber - 8;
-  const before = currentTermNumber + 16;
-  const allTerms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
-  const terms = allTerms.filter((t) => t.termNumber >= after && t.termNumber <= before);
   const faculty = FacultyProfiles.find({}).fetch();
   const advisors = AdvisorProfiles.find({}).fetch();
   const sponsorDocs = _.union(faculty, advisors);
@@ -168,7 +138,6 @@ export default withTracker(() => {
   const opportunityTypes = OpportunityTypes.find({}).fetch();
   return {
     sponsors,
-    terms,
     items,
     interests,
     opportunityTypes,

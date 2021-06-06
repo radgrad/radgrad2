@@ -8,18 +8,18 @@ import { ROLE } from '../../../../../../api/role/Role';
 import { Teasers } from '../../../../../../api/teaser/TeaserCollection';
 import { PROFILE_ENTRY_TYPE } from '../../../../../../api/user/profile-entries/ProfileEntryTypes';
 import { StudentProfiles } from '../../../../../../api/user/StudentProfileCollection';
+import { Users } from '../../../../../../api/user/UserCollection';
 import { AcademicTerm, BaseProfile, Interest, Opportunity, OpportunityType, Profile, Review } from '../../../../../../typings/radgrad';
 import StudentExplorerReviewWidget from '../../../../student/explorer/StudentExplorerReviewWidget';
 import IceHeader from '../../../IceHeader';
 import DeleteItemButton from '../../../manage/DeleteItemButton';
 import EditOpportunityButton from '../../../manage/opportunity/EditOpportunityButton';
-import UserLabel from '../../../profile/UserLabel';
 import RadGradHeader from '../../../RadGradHeader';
 import TeaserVideo from '../../../TeaserVideo';
 import FutureParticipation from '../../FutureParticipation';
 import ExplorerReviewWidget from '../ExplorerReviewWidget';
 
-interface ExplorerOpportunitiesProps {
+interface ExplorerOpportunitiesWidgetProps {
   opportunity: Opportunity;
   itemReviews: Review[];
   completed: boolean;
@@ -37,16 +37,23 @@ const review = (opportunity: Opportunity, profile): Review => {
     studentID: user.userID,
     revieweeID: opportunity._id,
   });
-  return (reviews.length > 0) ? reviews[0] : null;
+  if (reviews.length > 0) {
+    return reviews[0];
+  }
+  return null;
 };
 
 const teaserUrlHelper = (opportunity: Opportunity): string => {
   const oppTeaser = Teasers.findNonRetired({ targetSlugID: opportunity.slugID });
+  if (oppTeaser.length > 1) { // TODO do we need this?
+    return undefined;
+  }
   return oppTeaser && oppTeaser[0] && oppTeaser[0].url;
 };
 
-const ExplorerOpportunity: React.FC<ExplorerOpportunitiesProps> = ({ opportunity, opportunityTypes, opportunities, terms, interests, sponsors, completed, itemReviews, profile }) => {
+const ExplorerOpportunity: React.FC<ExplorerOpportunitiesWidgetProps> = ({ opportunity, opportunityTypes, opportunities, terms, interests, sponsors, completed, itemReviews, profile }) => {
   const segmentStyle = { backgroundColor: 'white' };
+  const fiveMarginTopStyle = { marginTop: '5px' };
   const compactRowStyle = { paddingTop: 2, paddingBottom: 2 };
   const { username } = useParams();
   const hasTeaser = Teasers.findNonRetired({ targetSlugID: opportunity.slugID }).length > 0;
@@ -71,18 +78,23 @@ const ExplorerOpportunity: React.FC<ExplorerOpportunitiesProps> = ({ opportunity
     <div id="explorerOpportunityWidget">
       <Segment padded className="container" style={segmentStyle}>
         {hasTeaser ? <TeaserVideo id={teaserUrlHelper(opportunity)} /> : ''}
-        <Grid stackable >
-          <Grid.Row>
-            <Markdown allowDangerousHtml source={opportunity.description} />
-          </Grid.Row>
-          <Grid.Row style={compactRowStyle}>
-            <strong>Dates:</strong>&nbsp;{opportunity.eventDate1 ? dateStrings.join(', ') : 'N/A'}
+        <Grid stackable style={fiveMarginTopStyle}>
+          <Grid.Row columns="equal" style={compactRowStyle}>
+            <Grid.Column>
+              <strong>Opportunity Type:</strong>&nbsp; {opportunityType}
+            </Grid.Column>
+            <Grid.Column>
+              <strong>Dates:</strong>&nbsp;{opportunity.eventDate1 ? dateStrings.join(', ') : 'N/A'}
+            </Grid.Column>
+            <Grid.Column>
+              <IceHeader ice={opportunity.ice} size='large' />
+            </Grid.Column>
           </Grid.Row>
           <Grid.Row style={compactRowStyle}>
             <strong>Sponsor:</strong> &nbsp; <UserLabel username={opportunity.sponsorID}/>
           </Grid.Row>
-          <Grid.Row style={compactRowStyle}>
-            <strong>ICE:</strong> &nbsp; <IceHeader ice={opportunity.ice} size='large' />
+          <Grid.Row>
+            <Markdown allowDangerousHtml source={opportunity.description} />
           </Grid.Row>
           {showManageButtons ? <Grid.Row><EditOpportunityButton opportunity={opportunity} sponsors={sponsors} terms={terms} interests={interests} opportunityTypes={opportunityTypes}/> <DeleteItemButton item={opportunity} type={PROFILE_ENTRY_TYPE.OPPORTUNITY} /></Grid.Row> : ''}
         </Grid>

@@ -5,7 +5,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Grid } from 'semantic-ui-react';
 import moment from 'moment';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
-import { Opportunity } from '../../../typings/radgrad';
+import { CareerGoal, Course, Opportunity } from '../../../typings/radgrad';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
 import { Interests } from '../../../api/interest/InterestCollection';
@@ -29,6 +29,8 @@ import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollec
 
 interface OpportunityExplorerProps {
   opportunity: Opportunity;
+  relatedCareerGoals: CareerGoal[];
+  relatedCourses: Course[];
 }
 
 const headerPaneTitle = 'The Opportunity Explorer';
@@ -38,13 +40,11 @@ Opportunities are extracurricular activities that relate to this discipline. The
 This public explorer does not provide information about community members or the reviews associated with Opportunities.
 `;
 
-const LandingOpportunityExplorerPage: React.FC<OpportunityExplorerProps> = ({ opportunity }) => {
+const LandingOpportunityExplorerPage: React.FC<OpportunityExplorerProps> = ({ opportunity, relatedCourses, relatedCareerGoals }) => {
   const match = useRouteMatch();
   const teaser = Teasers.findNonRetired({ targetSlugID: opportunity.slugID });
   const hasTeaser = teaser.length > 0;
   const opportunityType = OpportunityTypes.findDoc(opportunity.opportunityTypeID).name;
-  const relatedCareerGoals = Opportunities.findRelatedCareerGoals(opportunity._id);
-  const relatedCourses  = Opportunities.findRelatedCourses(opportunity._id);
   const opportunityTermNames = opportunity.termIDs.map((id) => AcademicTerms.toString(id));
   const dateStrings = [];
   if (opportunity.eventDate1) {
@@ -110,8 +110,12 @@ const LandingOpportunityExplorerContainer = withTracker(() => {
   const { opportunity } = useParams();
   const id = Slugs.getEntityID(opportunity, 'Opportunity');
   const opportunityDoc = Opportunities.findDoc(id);
+  const relatedCareerGoals = Opportunities.findRelatedCareerGoals(opportunityDoc._id);
+  const relatedCourses  = Opportunities.findRelatedCourses(opportunityDoc._id);
   return {
     opportunity: opportunityDoc,
+    relatedCareerGoals,
+    relatedCourses,
   };
 })(LandingOpportunityExplorerPage);
 
