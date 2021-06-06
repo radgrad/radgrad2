@@ -3,7 +3,10 @@ import { CallPromiseMixin } from 'meteor/didericis:callpromise-mixin';
 import { Meteor } from 'meteor/meteor';
 import { StudentProfile } from '../../typings/radgrad';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
+import { CourseInstances } from '../course/CourseInstanceCollection';
+import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
 import { RadGradProperties } from '../radgrad/RadGradProperties';
+import { Reviews } from '../review/ReviewCollection';
 import { Users } from './UserCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
 import { StudentProfiles } from './StudentProfileCollection';
@@ -246,5 +249,70 @@ export const matriculateStudentMethod = new ValidatedMethod({
       }
       StudentProfiles.removeIt(profile.username);
     }
+  },
+});
+
+const buildStudentDumpObject = (studentUsernameOrID: string) => {
+  const timestamp = new Date();
+  const collections = [];
+  const studentProfileCollection = {
+    name: StudentProfiles.getCollectionName(),
+    contents: [],
+  };
+  const profile = Users.getProfile(studentUsernameOrID);
+  studentProfileCollection.contents.push(profile);
+  collections.push(studentProfileCollection);
+  const courseInstanceCollection = {
+    name: CourseInstances.getCollectionName(),
+    contents: CourseInstances.dumpUser(studentUsernameOrID),
+  };
+  collections.push(courseInstanceCollection);
+  const opportunityInstanceCollection = {
+    name: OpportunityInstances.getCollectionName(),
+    contents: OpportunityInstances.dumpUser(studentUsernameOrID),
+  };
+  collections.push(opportunityInstanceCollection);
+  const profileCareerGoalCollection = {
+    name: ProfileCareerGoals.getCollectionName(),
+    contents: ProfileCareerGoals.dumpUser(studentUsernameOrID),
+  };
+  collections.push(profileCareerGoalCollection);
+  const profileCourseCollection = {
+    name: ProfileCourses.getCollectionName(),
+    contents: ProfileCourses.dumpUser(studentUsernameOrID),
+  };
+  collections.push(profileCourseCollection);
+  const profileInterestCollection = {
+    name: ProfileInterests.getCollectionName(),
+    contents: ProfileInterests.dumpUser(studentUsernameOrID),
+  };
+  collections.push(profileInterestCollection);
+  const profileOpportunityCollection = {
+    name: ProfileOpportunities.getCollectionName(),
+    contents: ProfileOpportunities.dumpUser(studentUsernameOrID),
+  };
+  collections.push(profileOpportunityCollection);
+  const reviewCollection = {
+    name: Reviews.getCollectionName(),
+    contents: Reviews.dumpUser(studentUsernameOrID),
+  };
+  collections.push(reviewCollection);
+  return { timestamp, collections };
+};
+
+export const dumpStudentMethod = new ValidatedMethod({
+  name: 'StudentProfile.dumpStudent',
+  mixins: [CallPromiseMixin],
+  validate: null,
+  run(studentUsernameOrID: string) {
+    if (Meteor.isServer) {
+      StudentProfiles.assertValidRoleForMethod(this.userId);
+      const profile = Users.getProfile(studentUsernameOrID);
+      if (profile.role !== ROLE.STUDENT && profile.role !== ROLE.ALUMNI) {
+        throw new Meteor.Error(`${profile.username} isn't a student`, 'You can only matriculate students.');
+      }
+      return buildStudentDumpObject(studentUsernameOrID);
+    }
+    return {};
   },
 });
