@@ -69,6 +69,7 @@ class AdminNavBar {
   }
 
   async clickFilteredStudentsTabAndVerify(testController) {
+    await testController.click(`#${COMPONENTIDS.UPDATE_TAB}`);
     await testController.click(`#${COMPONENTIDS.FILTERED_STUDENTS_TAB}`);
     const componentSelector = Selector(`#${COMPONENTIDS.FILTERED_STUDENTS_GRID}`);
     await testController.expect(componentSelector.exists).ok();
@@ -76,6 +77,7 @@ class AdminNavBar {
   }
 
   async clickFilteredAlumniTabAndVerify(testController) {
+    await testController.click(`#${COMPONENTIDS.UPDATE_TAB}`);
     await testController.click(`#${COMPONENTIDS.FILTERED_ALUMNI_TAB}`);
     const componentSelector = Selector(`#${COMPONENTIDS.FILTERED_ALUMNI_GRID}`);
     await testController.expect(componentSelector.exists).ok();

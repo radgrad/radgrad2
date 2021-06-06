@@ -30,6 +30,10 @@ export enum COMPONENTIDS {
   FILTERED_STUDENTS_GRID = 'filtered-students-grid',
   FILTERED_ALUMNI_TAB = 'filtered-alumni-tab',
   FILTERED_ALUMNI_GRID = 'filtered-alumni-grid',
+  UPDATE_TAB = 'update-tab',
+  ADD_NEW_TAB = 'add-new-tab',
+  OTHER_TAB = 'other-tab',
+  MATRICULATE_TAB = 'matriculate-tab',
 
   ADVISOR = 'advisor',
   ADVISOR_MENU_HOME = 'advisor-menu-home',
