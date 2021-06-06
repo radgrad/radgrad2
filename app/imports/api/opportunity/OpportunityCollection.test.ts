@@ -9,7 +9,6 @@ import { makeSampleInterestArray } from '../interest/SampleInterests';
 import { makeSampleOpportunity, makeSampleOpportunityType } from './SampleOpportunities';
 import { makeSampleUser } from '../user/SampleUsers';
 import { removeAllEntities } from '../base/BaseUtilities';
-import { makeSampleAcademicTermArray } from '../academic-term/SampleAcademicTerms';
 import { makeSampleIce } from '../ice/SampleIce';
 import { Slugs } from '../slug/SlugCollection';
 import { Opportunity, OpportunityType } from '../../typings/radgrad';
@@ -34,14 +33,12 @@ if (Meteor.isServer) {
           const sponsor = makeSampleUser(ROLE.FACULTY);
           const interests = makeSampleInterestArray(3);
           const opportunityType = makeSampleOpportunityType();
-          const academicTerms = makeSampleAcademicTermArray();
           const ice = makeSampleIce();
           const docID = Opportunities.define({
             name,
             slug,
             description,
             sponsor,
-            academicTerms,
             interests,
             opportunityType,
             ice,
@@ -69,7 +66,6 @@ if (Meteor.isServer) {
       const opportunityType = makeSampleOpportunityType();
       const sponsor = makeSampleUser(ROLE.FACULTY);
       const interests = makeSampleInterestArray(2);
-      const academicTerms = makeSampleAcademicTermArray();
       const docID1 = Opportunities.define({
         name,
         slug,
@@ -77,7 +73,6 @@ if (Meteor.isServer) {
         opportunityType,
         ice,
         sponsor,
-        academicTerms,
         interests,
       });
       const docID2 = Opportunities.define({
@@ -87,7 +82,6 @@ if (Meteor.isServer) {
         opportunityType,
         ice,
         sponsor,
-        academicTerms,
         interests,
       });
       expect(Opportunities.isDefined(slug)).to.be.true;
@@ -109,7 +103,6 @@ if (Meteor.isServer) {
       let opportunityType = makeSampleOpportunityType();
       let sponsor = makeSampleUser(ROLE.FACULTY);
       let interests = makeSampleInterestArray(2);
-      let academicTerms = makeSampleAcademicTermArray();
       const docID = Opportunities.define({
         name,
         slug,
@@ -117,7 +110,6 @@ if (Meteor.isServer) {
         opportunityType,
         ice,
         sponsor,
-        academicTerms,
         interests,
       });
       let doc = Opportunities.findDoc(docID);
@@ -127,11 +119,9 @@ if (Meteor.isServer) {
           opportunityType = makeSampleOpportunityType();
           sponsor = makeSampleUser(ROLE.FACULTY);
           interests = makeSampleInterestArray(2);
-          academicTerms = makeSampleAcademicTermArray();
           Opportunities.update(docID, {
             name: fcName,
             description: fcDescription,
-            academicTerms,
             ice,
             interests,
             sponsor,
@@ -179,7 +169,6 @@ if (Meteor.isServer) {
       const opportunityType = makeSampleOpportunityType();
       const sponsor = makeSampleUser(ROLE.FACULTY);
       const interests = makeSampleInterestArray(2);
-      const academicTerms = makeSampleAcademicTermArray();
       const docID = Opportunities.define({
         name,
         slug,
@@ -187,7 +176,6 @@ if (Meteor.isServer) {
         opportunityType,
         ice,
         sponsor,
-        academicTerms,
         interests,
       });
       const oppTypeDocOrig: OpportunityType = OpportunityTypes.findDoc(opportunityType);

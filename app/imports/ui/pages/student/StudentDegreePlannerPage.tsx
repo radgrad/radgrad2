@@ -23,7 +23,7 @@ import {
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { Users } from '../../../api/user/UserCollection';
-import TabbedProfileEntries, { TabbedProfileEntryNames } from '../../components/student/degree-planner/TabbedProfileEntries';
+import TabbedProfileEntries from '../../components/student/degree-planner/TabbedProfileEntries';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { getUsername, MatchProps } from '../../components/shared/utilities/router';
 import { Slugs } from '../../../api/slug/SlugCollection';
@@ -33,16 +33,7 @@ import { ProfileCourses } from '../../../api/user/profile-entries/ProfileCourseC
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import { passedCourse, courseInstanceIsRepeatable } from '../../../api/course/CourseUtilities';
 import { PAGEIDS } from '../../utilities/PageIDs';
-import { useStickyState } from '../../utilities/StickyState';
 import PageLayout from '../PageLayout';
-
-export enum DegreePlannerStateNames {
-  selectedCiID = 'Planner.selectedCiID',
-  selectedOiID = 'Planner.selectedOiID',
-  selectedProfileTab = 'Planner.selectedProfileTab',
-  draggablePillWidth = 'Planner.draggablePillWidth',
-  draggablePillHeight = 'Planner.draggablePillHeight',
-}
 
 interface StudentDegreePlannerProps {
   takenSlugs: string[];
@@ -57,7 +48,7 @@ interface StudentDegreePlannerProps {
 }
 
 const onDragEnd = (onDragEndProps) => (result) => {
-  const { match, setSelectedCiID, setSelectedOiID, setSelectedProfileTab } = onDragEndProps;
+  const { match } = onDragEndProps;
   if (!result.destination) {
     return;
   }
@@ -70,6 +61,8 @@ const onDragEnd = (onDragEndProps) => (result) => {
     const isCourseInstanceDrop = CourseInstances.isDefined(slug);
     const isOppDrop = Opportunities.isDefined(slug);
     const isOppInstDrop = OpportunityInstances.isDefined(slug);
+    // const isIntDrop = Internships.isDefined(slug);
+    // const isIntInstDrop = InternshipInstances.isDefine(slug);
     const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
     const dropTermDoc = AcademicTerms.findDocBySlug(termSlug);
     const isPastDrop = dropTermDoc.termNumber < currentTerm.termNumber;
@@ -103,11 +96,6 @@ const onDragEnd = (onDragEndProps) => (result) => {
         // Before we define a course instance, check if it already exists first
         defineMethod
           .callPromise({ collectionName, definitionData })
-          .then((res) => {
-            setSelectedCiID(res);
-            setSelectedOiID('');
-            setSelectedProfileTab(TabbedProfileEntryNames.profileDetails);
-          })
           .catch((error) => {
             console.error(error);
           });
@@ -129,11 +117,6 @@ const onDragEnd = (onDragEndProps) => (result) => {
           const collectionName = CourseInstances.getCollectionName();
           updateMethod
             .callPromise({ collectionName, updateData })
-            .then(() => {
-              setSelectedCiID(slug);
-              setSelectedOiID('');
-              setSelectedProfileTab(TabbedProfileEntryNames.profileDetails);
-            })
             .catch((error) => console.error(error));
         }
       }
@@ -153,11 +136,6 @@ const onDragEnd = (onDragEndProps) => (result) => {
        */
       defineMethod
         .callPromise({ collectionName, definitionData })
-        .then((res) => {
-          setSelectedCiID('');
-          setSelectedOiID(res);
-          setSelectedProfileTab(TabbedProfileEntryNames.profileDetails);
-        })
         .catch((error) => console.error(error));
     } else if (isOppInstDrop) {
       const termID = AcademicTerms.findIdBySlug(termSlug);
@@ -167,11 +145,6 @@ const onDragEnd = (onDragEndProps) => (result) => {
       const collectionName = OpportunityInstances.getCollectionName();
       updateMethod
         .callPromise({ collectionName, updateData })
-        .then(() => {
-          setSelectedCiID('');
-          setSelectedOiID(slug);
-          setSelectedProfileTab(TabbedProfileEntryNames.profileDetails);
-        })
         .catch((error) => console.error(error));
     }
   }
@@ -188,11 +161,8 @@ Telling RadGrad what you've planned and completed helps the system provide bette
 const headerPaneImage = 'images/header-panel/header-planner.png';
 
 const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({ academicYearInstances, studentID, match, profileCourses, profileOpportunities, courseInstances, opportunityInstances, takenSlugs, verificationRequests }) => {
-  const [, setSelectedCiID] = useStickyState(DegreePlannerStateNames.selectedCiID, '');
-  const [, setSelectedOiID] = useStickyState(DegreePlannerStateNames.selectedOiID, '');
-  const [, setSelectedProfileTab] = useStickyState(DegreePlannerStateNames.selectedProfileTab, '');
 
-  const onDragEndProps = { match, setSelectedCiID, setSelectedOiID, setSelectedProfileTab };
+  const onDragEndProps = { match };
   const paddedStyle = { paddingTop: 0, paddingLeft: 10, paddingRight: 20 };
   return (
     <DragDropContext onDragEnd={onDragEnd(onDragEndProps)}>
@@ -200,7 +170,7 @@ const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({ academi
         <Grid stackable>
           <Grid.Row stretched>
             <Grid.Column width={11} style={paddedStyle}>
-              <DegreeExperiencePlanner academicYearInstances={academicYearInstances} courseInstances={courseInstances} opportunityInstances={opportunityInstances} />
+              <DegreeExperiencePlanner academicYearInstances={academicYearInstances} courseInstances={courseInstances} opportunityInstances={opportunityInstances} verificationRequests={verificationRequests} />
             </Grid.Column>
 
             <Grid.Column width={5} style={paddedStyle}>
@@ -254,7 +224,7 @@ export default withTracker(() => {
       // console.log(!passedCourse(ci), courseInstanceIsRepeatable(ci), ci.note);
       return !passedCourse(ci) || courseInstanceIsRepeatable(ci);
     }
-    return false;
+    return true; // no course instance so it is from profileCourses.
   });
   const academicYearInstances: AcademicYearInstance[] = AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
   const opportunityInstances = OpportunityInstances.findNonRetired({ studentID: profile.userID });

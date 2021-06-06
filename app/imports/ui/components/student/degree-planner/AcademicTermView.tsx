@@ -1,7 +1,7 @@
 import React from 'react';
 import { Header, Segment, Icon } from 'semantic-ui-react';
 import { Droppable } from 'react-beautiful-dnd';
-import { AcademicTerm, CourseInstance, OpportunityInstance } from '../../../../typings/radgrad';
+import { AcademicTerm, CourseInstance, OpportunityInstance, VerificationRequest } from '../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import DraggableCourseInstancePill from './DraggableCourseInstancePill';
 import DraggableOpportunityInstancePill from './DraggableOpportunityInstancePill';
@@ -11,19 +11,19 @@ import { getDroppableListStyle } from './utilities/styles';
 interface AcademicTermViewProps {
   term: AcademicTerm;
   studentID: string;
-  handleClickCourseInstance: (event, { value }) => any;
-  handleClickOpportunityInstance: (event, { value }) => any;
   courseInstances: CourseInstance[];
   opportunityInstances: OpportunityInstance[];
+  verificationRequests: VerificationRequest[];
+  // internshipInstances: InternshipInstance[];
 }
 
 const AcademicTermView: React.FC<AcademicTermViewProps> = ({
   term,
   studentID,
-  handleClickCourseInstance,
-  handleClickOpportunityInstance,
   courseInstances,
   opportunityInstances,
+  verificationRequests,
+  /* internshipInstances, */
 }) => {
   const termSlug = Slugs.getNameFromID(term.slugID);
   const paddedStyle = {
@@ -47,13 +47,10 @@ const AcademicTermView: React.FC<AcademicTermViewProps> = ({
         {(provided, snapshot) => (
           <div ref={provided.innerRef} style={getDroppableListStyle(snapshot.isDraggingOver)}>
             {courseInstancesToShow.map((ci, index) => (
-              <DraggableCourseInstancePill key={ci._id} instance={ci} index={index} inPast={inPast}
-                handleClickCourseInstance={handleClickCourseInstance} />
+              <DraggableCourseInstancePill key={ci._id} instance={ci} index={index} inPast={inPast} />
             ))}
             {opportunityInstancesToShow.map((oi, index) => (
-              <DraggableOpportunityInstancePill key={oi._id} instance={oi}
-                index={courseInstancesToShow.length + index}
-                handleClickOpportunityInstance={handleClickOpportunityInstance} />
+              <DraggableOpportunityInstancePill key={oi._id} instance={oi} index={courseInstancesToShow.length + index} verificationRequests={verificationRequests} />
             ))}
             {provided.placeholder}
             <Icon name="plus circle" color="grey" /> Drag Here

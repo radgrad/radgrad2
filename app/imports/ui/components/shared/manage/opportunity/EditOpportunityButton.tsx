@@ -13,7 +13,6 @@ import {
   TextField,
 } from 'uniforms-semantic';
 import RadGradAlert from '../../../../utilities/RadGradAlert';
-import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermCollection';
 import { updateMethod } from '../../../../../api/base/BaseCollection.methods';
 import { iceSchema } from '../../../../../api/ice/IceProcessor';
 import { Interests } from '../../../../../api/interest/InterestCollection';
@@ -29,22 +28,18 @@ const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({
   opportunity,
   opportunityTypes,
   interests,
-  terms,
   sponsors,
 }) => {
   const [open, setOpen] = useState(false);
-  // console.log(opportunityTypes, interests, terms, sponsors);
+  // console.log(opportunityTypes, interests, sponsors);
 
   const interestNames = interests.map((interest) => interest.name);
-  const termNames = terms.map((term) => AcademicTerms.toString(term._id));
   const sponsorNames = sponsors.map((profile) => Users.getFullName(profile.userID));
   const opportunityTypeNames = OpportunityTypes.findNonRetired().map((type) => type.name);
 
   const model: OpportunityUpdate = opportunity;
   // convert ids to names
   model.interests = opportunity.interestIDs.map((id) => Interests.findDoc(id).name);
-  model.academicTerms = opportunity.termIDs.map((id) => AcademicTerms.toString(id));
-  model.academicTerms = model.academicTerms.filter((term) => termNames.includes(term));
   model.sponsor = Users.getFullName(opportunity.sponsorID);
   model.opportunityType = OpportunityTypes.findDoc(opportunity.opportunityTypeID).name;
 
@@ -57,7 +52,6 @@ const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({
     updateData.interests = doc.interests.map((name) => Interests.findDoc(name)._id);
     updateData.opportunityType = OpportunityTypes.findDoc(doc.opportunityType)._id;
     updateData.sponsor = Users.getUsernameFromFullName(doc.sponsor);
-    updateData.academicTerms = doc.academicTerms.map((name) => AcademicTerms.getAcademicTermFromToString(name)._id);
     // console.log(collectionName, updateData);
     updateMethod.callPromise({ collectionName, updateData })
       .then((result) => { RadGradAlert.success('Opportunity Updated', result);})
@@ -74,11 +68,6 @@ const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({
       allowedValues: interestNames,
     },
     opportunityType: { type: String, allowedValues: opportunityTypeNames, optional: true },
-    academicTerms: { type: Array, optional: true },
-    'academicTerms.$': {
-      type: String,
-      allowedValues: termNames,
-    },
     name: { type: String, optional: true },
     eventDate: { type: Date, optional: true },
     eventDate1: { type: Date, optional: true },
@@ -112,7 +101,6 @@ const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({
           setOpen(false);
         }}>
           <TextField name="name"/>
-          <MultiSelectField name="academicTerms"/>
           <Form.Group widths="equal">
             <SelectField name="opportunityType"/>
             <SelectField name="sponsor"/>

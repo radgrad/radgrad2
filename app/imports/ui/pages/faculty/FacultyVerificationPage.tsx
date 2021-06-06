@@ -13,6 +13,8 @@ import withAdditionalSubscriptions from '../../layouts/utilities/AdvisorFacultyA
 import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 
+// Technical Debt. We are looking at the Opportunities with the eventData field set. We now have four eventDates.
+
 interface FacultyVerificationPageProps {
   verificationRequests: VerificationRequest[];
   eventOpportunities: Opportunity[];
@@ -48,9 +50,11 @@ const FacultyVerificationPageWithTracker = withTracker(() => {
   const userID = Users.getID(username);
   const linkedOppInstances = OpportunityInstances.findNonRetired({ sponsorID: userID });
   const isLinkedReq = (verReq: VerificationRequest) => !!linkedOppInstances.find((oppI) => verReq.opportunityInstanceID === oppI._id);
+  const verificationRequests = VerificationRequests.findNonRetired().filter((ele) => isLinkedReq(ele));
+  const eventOpportunities = Opportunities.findNonRetired({ eventDate: { $exists: true } }); // TODO: change to eventDate1,2,3,4.
   return {
-    verificationRequests: VerificationRequests.findNonRetired().filter((ele) => isLinkedReq(ele)),
-    eventOpportunities: Opportunities.findNonRetired({ eventDate: { $exists: true } }),
+    verificationRequests,
+    eventOpportunities,
   };
 })(FacultyVerificationPage);
 const FacultyVerificationPageContainer = withAdditionalSubscriptions(FacultyVerificationPageWithTracker);
