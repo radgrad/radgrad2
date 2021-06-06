@@ -89,6 +89,12 @@ class AdminNavBar {
     await testController.expect(componentSelector.exists).ok();
   }
 
+  async clickOtherTabAndVerify(testController) {
+    await testController.click(`#${COMPONENTIDS.OTHER_TAB}`);
+    const componentSelector = Selector(`#${COMPONENTIDS.ADVISOR_OTHER_TAB}`);
+    await testController.expect(componentSelector.exists).ok();
+  }
+
   async gotoMenuPageAndVerify(testController, menu, pageName) {
     await testController.click(`#admin-menu-${menu}`);
     await testController.click(`#admin-menu-${menu}-${pageName}`);

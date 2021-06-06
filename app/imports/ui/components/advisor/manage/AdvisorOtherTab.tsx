@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button, Input, Segment, Tab } from 'semantic-ui-react';
 import { ZipZap } from 'meteor/udondan:zipzap';
 import moment from 'moment';
+import { COMPONENTIDS } from '../../../utilities/ComponentIDs';
 import RadGradAlert from '../../../utilities/RadGradAlert';
 import { alumniEmailsMethod } from '../../../../api/base/BaseCollection.methods';
 import { starBulkLoadJsonDataMethod } from '../../../../api/star/StarProcessor.methods';
@@ -149,7 +150,7 @@ const AdvisorOtherTab: React.FC = () => {
   </>;
 
   return (
-    <Tab.Pane key='advisor-other-tab'>
+    <Tab.Pane key={COMPONENTIDS.ADVISOR_OTHER_TAB} id={COMPONENTIDS.ADVISOR_OTHER_TAB}>
       <Segment vertical><RadGradTabHeader title='Update all students&apos; levels' icon='sort amount up'
         rightside={<Button size='mini' basic color='green'
           onClick={handleUpdateLevelButton}
