@@ -19,7 +19,7 @@ import TeaserVideo from '../../../TeaserVideo';
 import FutureParticipation from '../../FutureParticipation';
 import ExplorerReviewWidget from '../ExplorerReviewWidget';
 
-interface ExplorerOpportunitiesWidgetProps {
+interface ExplorerOpportunitiesProps {
   opportunity: Opportunity;
   itemReviews: Review[];
   completed: boolean;
@@ -51,9 +51,8 @@ const teaserUrlHelper = (opportunity: Opportunity): string => {
   return oppTeaser && oppTeaser[0] && oppTeaser[0].url;
 };
 
-const ExplorerOpportunity: React.FC<ExplorerOpportunitiesWidgetProps> = ({ opportunity, opportunityTypes, opportunities, terms, interests, sponsors, completed, itemReviews, profile }) => {
+const ExplorerOpportunity: React.FC<ExplorerOpportunitiesProps> = ({ opportunity, opportunityTypes, opportunities, terms, interests, sponsors, completed, itemReviews, profile }) => {
   const segmentStyle = { backgroundColor: 'white' };
-  const fiveMarginTopStyle = { marginTop: '5px' };
   const compactRowStyle = { paddingTop: 2, paddingBottom: 2 };
   const { username } = useParams();
   const hasTeaser = Teasers.findNonRetired({ targetSlugID: opportunity.slugID }).length > 0;
@@ -78,20 +77,20 @@ const ExplorerOpportunity: React.FC<ExplorerOpportunitiesWidgetProps> = ({ oppor
     <div id="explorerOpportunityWidget">
       <Segment padded className="container" style={segmentStyle}>
         {hasTeaser ? <TeaserVideo id={teaserUrlHelper(opportunity)} /> : ''}
-        <Grid stackable style={fiveMarginTopStyle}>
+        <Grid stackable>
           <Grid.Row>
             <Markdown allowDangerousHtml source={opportunity.description} />
           </Grid.Row>
           <Grid.Row style={compactRowStyle}>
-            <strong>Dates:</strong>&nbsp;{opportunity.eventDate1 ? dateStrings.join(', ') : 'N/A'}
-          </Grid.Row>
-          <Grid.Row>
-            <IceHeader ice={opportunity.ice} size='large' />
+            <strong style={{ paddingTop: '4px' }}>ICE:</strong>&nbsp;<IceHeader ice={opportunity.ice} size='large' />
           </Grid.Row>
           <Grid.Row style={compactRowStyle}>
-            <strong>Sponsor:</strong> &nbsp; <UserLabel username={opportunity.sponsorID}/>
+            <strong style={{ paddingTop: '5px' }}>Sponsor:</strong> &nbsp; <UserLabel username={opportunity.sponsorID}/>
           </Grid.Row>
-          {showManageButtons ? <Grid.Row><EditOpportunityButton opportunity={opportunity} sponsors={sponsors} terms={terms} interests={interests} opportunityTypes={opportunityTypes}/> <DeleteItemButton item={opportunity} type={PROFILE_ENTRY_TYPE.OPPORTUNITY} /></Grid.Row> : ''}
+          <Grid.Row style={compactRowStyle}>
+            <strong>Dates:</strong>&nbsp;{opportunity.eventDate1 ? dateStrings.join(', ') : 'N/A'}
+          </Grid.Row>
+          {showManageButtons ? <Grid.Row><EditOpportunityButton opportunity={opportunity} sponsors={sponsors} interests={interests} opportunityTypes={opportunityTypes}/> <DeleteItemButton item={opportunity} type={PROFILE_ENTRY_TYPE.OPPORTUNITY} /></Grid.Row> : ''}
         </Grid>
       </Segment>
 
