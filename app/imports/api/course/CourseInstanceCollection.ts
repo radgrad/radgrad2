@@ -475,6 +475,22 @@ class CourseInstanceCollection extends BaseCollection {
     const retired = doc.retired;
     return { academicTerm, course, note, verified, fromRegistrar, creditHrs, grade, student, retired };
   }
+
+  /**
+   * Dumps the CourseInstances for the given usernameOrID.
+   * @param {string} usernameOrID
+   * @return {CourseInstanceDefine[]}
+   */
+  public dumpUser(usernameOrID: string): CourseInstanceDefine[] {
+    const profile = Users.getProfile(usernameOrID);
+    const studentID = profile.userID;
+    const retVal = [];
+    const instances = this.find({ studentID }).fetch();
+    instances.forEach((instance) => {
+      retVal.push(this.dumpOne(instance._id));
+    });
+    return retVal;
+  }
 }
 
 /**

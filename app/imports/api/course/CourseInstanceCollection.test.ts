@@ -108,7 +108,6 @@ if (Meteor.isServer) {
       const ci: CourseInstance = CourseInstances.findOne({});
       const studentID = ci.studentID;
       CourseInstances.removeUser(studentID);
-
       expect(CourseInstances.find({ studentID }).count()).to.equal(0);
     });
 
@@ -131,19 +130,33 @@ if (Meteor.isServer) {
 
       /* getCourseSlug */
       const courseSlug = Slugs.getNameFromID(doc.slugID);
-
       expect(CourseInstances.getCourseSlug(docID)).to.equal(courseSlug);
 
       /* getAcademicTermDoc */
       const termDoc = CourseInstances.getAcademicTermDoc(docID);
-
       expect(tDoc.term).to.equal(termDoc.term);
       expect(tDoc.year).to.equal(termDoc.year);
 
       /* getStudentDoc */
       const studentDoc = CourseInstances.getStudentDoc(docID);
-
       expect(sDoc.username).to.equal(studentDoc.username);
+    });
+
+    it('Can dumpUser', function test8() {
+      const numToMake = 10;
+      const existingInstanceCount = CourseInstances.count();
+      const student = makeSampleUser();
+      // create a bunch of CourseInstances
+      for (let i = 0; i < numToMake; i++) {
+        const course = makeSampleCourse();
+        const academicTerm = makeSampleAcademicTerm();
+        const grade = getRandomGrade();
+        CourseInstances.define({ course, student, academicTerm, grade });
+      }
+      const instanceCount = CourseInstances.count();
+      expect(instanceCount).to.equal(existingInstanceCount + numToMake);
+      const userDump = CourseInstances.dumpUser(student);
+      expect(userDump.length).to.equal(numToMake);
     });
   });
 }
