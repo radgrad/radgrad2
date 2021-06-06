@@ -1,8 +1,8 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
-import Swal from 'sweetalert2';
 import { Confirm, Icon } from 'semantic-ui-react';
 import _ from 'lodash';
+import RadGradAlert from '../../utilities/RadGradAlert';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
@@ -95,20 +95,9 @@ const AdminDataModelOpportunityInstancesPage: React.FC<AdminDataModelOpportunity
     updateData.termID = academicTermNameToDoc(doc.academicTerm)._id;
     // console.log(collectionName, updateData);
     updateMethod.callPromise({ collectionName, updateData })
-      .catch((error) => {
-        Swal.fire({
-          title: 'Update failed',
-          text: error.message,
-          icon: 'error',
-        });
-      })
+      .catch((error) => { RadGradAlert.failure('Update Failed', error.message, error);})
       .then(() => {
-        Swal.fire({
-          title: 'Update succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        RadGradAlert.success('Update Succeeded');
         setShowUpdateForm(false);
         setId('');
       });
@@ -142,7 +131,7 @@ const AdminDataModelOpportunityInstancesPage: React.FC<AdminDataModelOpportunity
   );
 };
 
-const AdminDataModelOpportunityInstancesPageContainer = withTracker(() => {
+export default withTracker(() => {
   const terms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
   const opportunities = Opportunities.find({}, { sort: { name: 1 } }).fetch();
   const students = StudentProfiles.find({}, { sort: { lastName: 1 } }).fetch();
@@ -159,5 +148,3 @@ const AdminDataModelOpportunityInstancesPageContainer = withTracker(() => {
     sponsors,
   };
 })(AdminDataModelOpportunityInstancesPage);
-
-export default AdminDataModelOpportunityInstancesPageContainer;

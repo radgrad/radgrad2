@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Icon, SemanticFLOATS } from 'semantic-ui-react';
-import Swal from 'sweetalert2';
+import RadGradAlert from '../../../../utilities/RadGradAlert';
 import { CareerGoal, Course, Interest, MeteorError, Opportunity } from '../../../../../typings/radgrad';
 import { ProfileCareerGoals } from '../../../../../api/user/profile-entries/ProfileCareerGoalCollection';
 import { ProfileCourses } from '../../../../../api/user/profile-entries/ProfileCourseCollection';
@@ -26,24 +26,8 @@ const handleAdd = (studentID: string, item: ItemType, type: IProfileEntryTypes) 
   const collectionName = getCollectionName(type);
   const definitionData = createDefinitionData(studentID, item, type);
   defineMethod.callPromise({ collectionName, definitionData })
-    .catch((error: MeteorError) => {
-      Swal.fire({
-        title: 'Failed to add to profile',
-        icon: 'error',
-        text: error.message,
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        allowEnterKey: false,
-      });
-    })
-    .then(() => {
-      Swal.fire({
-        title: 'Added to profile',
-        icon: 'success',
-        showConfirmButton: false,
-        timer: 1500,
-      });
-    });
+    .catch((error: MeteorError) => { RadGradAlert.failure('Failed to add to profile', error.message);})
+    .then(() => { RadGradAlert.success('Added to profile');});
 };
 
 const handleRemove = (studentID: string, item: ItemType, type: IProfileEntryTypes) => () => {
@@ -79,16 +63,7 @@ const handleRemove = (studentID: string, item: ItemType, type: IProfileEntryType
       break;
   }
   removeItMethod.callPromise({ collectionName, instance })
-    .catch((error) => {
-      Swal.fire({
-        title: 'Failed to remove from profile',
-        icon: 'error',
-        text: error.message,
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        allowEnterKey: false,
-      });
-    });
+    .catch((error) => { RadGradAlert.failure('Failed to remove from profile', error.message, error);});
 };
 
 const AddToProfileButton: React.FC<AddToProfileButtonProps> = ({ studentID, item, type, added, inverted, floated }) => (

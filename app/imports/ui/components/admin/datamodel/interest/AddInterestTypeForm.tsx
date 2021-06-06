@@ -1,12 +1,10 @@
 import React from 'react';
 import { Form, Header, Segment } from 'semantic-ui-react';
-import Swal from 'sweetalert2';
 import { AutoForm, TextField, LongTextField, BoolField, SubmitField, ErrorsField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
 import { InterestTypes } from '../../../../../api/interest/InterestTypeCollection';
-
-
+import RadGradAlert from '../../../../utilities/RadGradAlert';
 
 const AddInterestTypeForm: React.FC = () => {
   let formRef;
@@ -16,20 +14,10 @@ const AddInterestTypeForm: React.FC = () => {
     const definitionData = doc;
     defineMethod.callPromise({ collectionName, definitionData })
       .catch((error) => {
-        console.error('Failed adding User', error);
-        Swal.fire({
-          title: 'Failed adding User',
-          text: error.message,
-          icon: 'error',
-        });
+        RadGradAlert.failure('Failed adding User', error.message, error);
       })
       .then(() => {
-        Swal.fire({
-          title: 'Add User Succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        RadGradAlert.success('Add User Succeeded');
         formRef.reset();
       });
   };

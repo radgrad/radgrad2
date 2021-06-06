@@ -7,24 +7,24 @@ import { docToName, docToShortDescription, itemToSlugName } from '../../utilitie
 import { buildExplorerSlugRoute } from '../../utilities/router';
 import InterestList from '../../InterestList';
 import { EXPLORER_TYPE } from '../../../../utilities/ExplorerUtils';
+import { Courses } from '../../../../../api/course/CourseCollection';
 
-interface ProfileCardProps {
+interface ExplorerCardProps {
   item: {
     _id: string;
     name: string;
     interestIDs: string[];
     termIDs?:string[];
+    slugID: string,
     num?:string;
   };
   type: string;
   inProfile: boolean;
 }
 
-// TODO Why is this called ExplorerCard? We used to store information about interests, career goals and academic plans in the Profile. We've moved them to the Profile*Collections.
-
-const ExplorerCard: React.FC<ProfileCardProps> = ({ item, type, inProfile }) => {
+const ExplorerCard: React.FC<ExplorerCardProps> = ({ item, type, inProfile }) => {
   const match = useRouteMatch();
-  const itemName = (type === EXPLORER_TYPE.COURSES) ? `${item.name} (${item.num})` : docToName(item);
+  const itemName = (type === EXPLORER_TYPE.COURSES) ? Courses.getName(item._id) : docToName(item);
   const itemShortDescription = docToShortDescription(item);
   const slugName = itemToSlugName(item);
   return (
@@ -34,7 +34,7 @@ const ExplorerCard: React.FC<ProfileCardProps> = ({ item, type, inProfile }) => 
         { inProfile ? <Label ribbon='right' color='green'>IN MY PROFILE</Label> : '' }
       </Card.Content>
       <Card.Content>
-        <Markdown escapeHtml source={`${itemShortDescription}...`}
+        <Markdown escapeHtml source={itemShortDescription}
           renderers={{ link: (localProps) => Router.renderLink(localProps, match) }} />
         { item.interestIDs ? (<InterestList item={item} size="small" />) : ''}
       </Card.Content>

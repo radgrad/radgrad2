@@ -5,6 +5,7 @@ import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { InterestTypes } from '../../../../../api/interest/InterestTypeCollection';
 import { Slugs } from '../../../../../api/slug/SlugCollection';
+import PictureField from '../../../form-fields/PictureField';
 import { docToName } from '../../../shared/utilities/data-model';
 import { InterestType } from '../../../../../typings/radgrad';
 import BaseCollection from '../../../../../api/base/BaseCollection';
@@ -33,6 +34,7 @@ const UpdateInterestForm: React.FC<UpdateInterestFormProps> = ({
   const schema = new SimpleSchema({
     name: { type: String, optional: true },
     slug: { type: String, optional: true },
+    picture: { type: String, optional: true },
     interestType: {
       type: String,
       allowedValues: interestTypeNames,
@@ -46,20 +48,21 @@ const UpdateInterestForm: React.FC<UpdateInterestFormProps> = ({
   return (
     <Segment padded>
       <Header dividing>
-                Update
+        Update
         {collection.getType()}:{itemTitleString(model)}
       </Header>
       <AutoForm schema={formSchema} onSubmit={handleUpdate} showInlineError model={model}>
         <Form.Group widths="equal">
-          <TextField name="slug" disabled/>
-          <TextField name="name"/>
-          <SelectField name="interestType"/>
+          <TextField name="slug" disabled />
+          <TextField name="name" />
+          <SelectField name="interestType" />
         </Form.Group>
-        <LongTextField name="description"/>
-        <BoolField name="retired"/>
-        <SubmitField inputRef={undefined} value="Update" disabled={false} className="mini basic green"/>
+        <PictureField name="picture" placeholder='https://mywebsite.com/picture.png' />
+        <LongTextField name="description" />
+        <BoolField name="retired" />
+        <SubmitField inputRef={undefined} value="Update" disabled={false} className="mini basic green" />
         <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
-        <ErrorsField/>
+        <ErrorsField />
       </AutoForm>
     </Segment>
   );

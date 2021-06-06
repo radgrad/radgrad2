@@ -38,12 +38,12 @@ Interests are curated by the faculty to provide information about topic areas im
 
 This public explorer does not provide information about community members.
 `;
-const headerPaneImage = 'header-interests.png';
 
 const LandingInterestExplorerPage: React.FC<InterestExplorerProps> = ({ currentUser, opportunities, courses, interest, careerGoals }) => {
   const match = useRouteMatch();
   const teaser = Teasers.findNonRetired({ targetSlugID: interest.slugID });
   const hasTeaser = teaser.length > 0;
+  const headerPaneImage = interest.picture;
   return (
     <div>
       <LandingExplorerMenuBar />

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Button, Modal } from 'semantic-ui-react';
 import SimpleSchema from 'simpl-schema';
-import Swal from 'sweetalert2';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { AutoForm, ErrorsField, SubmitField, TextField } from 'uniforms-semantic';
+import RadGradAlert from '../../../utilities/RadGradAlert';
 import { openCloudinaryWidget } from '../OpenCloudinaryWidget';
 
 interface SetPictureButtonProps {
@@ -33,7 +33,7 @@ export const SetPictureButton: React.FC<SetPictureButtonProps> = ({ picture, han
         setOpen(false);
       }
     } catch (error) {
-      Swal.fire({ title: 'Failed to Upload Photo', icon: 'error', text: error.statusText });
+      RadGradAlert.failure('Failed to Upload Photo', error.statusText, error);
     }
   };
 

@@ -8,7 +8,7 @@ export const getRevieweeName = (review: Review): string => {
   switch (review.reviewType) {
     case Reviews.COURSE: {
       const course = Courses.findDoc(review.revieweeID);
-      itemName = `${course.shortName} (${course.name}) | ${course.num}`;
+      itemName = Courses.getName(course._id);
       break;
     }
     case Reviews.OPPORTUNITY: {

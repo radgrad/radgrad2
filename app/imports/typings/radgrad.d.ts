@@ -189,6 +189,7 @@ export interface CareerGoal extends Document {
   description: string;
   interestIDs: string[];
   retired?: boolean;
+  picture?: string;
 }
 
 export interface CareerGoalDefine extends DumpOne {
@@ -197,6 +198,7 @@ export interface CareerGoalDefine extends DumpOne {
   description: string;
   interests: string[];
   retired?: boolean;
+  picture?: string,
 }
 
 export interface CareerGoalUpdate extends Update {
@@ -204,6 +206,7 @@ export interface CareerGoalUpdate extends Update {
   description?: string;
   interests?: string[];
   retired?: boolean;
+  picture?: string,
 }
 
 // CourseInstances
@@ -218,6 +221,7 @@ export interface CourseInstance extends Document {
   studentID: string;
   ice?: Ice;
   retired?: boolean;
+  picture?: string,
 }
 
 export interface CourseInstanceDefine extends DumpOne {
@@ -230,6 +234,7 @@ export interface CourseInstanceDefine extends DumpOne {
   student: string;
   creditHrs?: number;
   retired?: boolean;
+  picture?: string;
 }
 
 export interface CourseInstanceUpdate extends Update {
@@ -241,6 +246,7 @@ export interface CourseInstanceUpdate extends Update {
   note?: string;
   ice?: Ice;
   retired?: boolean;
+  picture?: string;
 }
 
 export interface Forecast {
@@ -262,6 +268,7 @@ export interface Course extends Document {
   prerequisites?: string[];
   repeatable?: boolean;
   retired?: boolean;
+  picture?: string;
 }
 
 export interface CourseDefine extends DumpOne {
@@ -277,6 +284,7 @@ export interface CourseDefine extends DumpOne {
   prerequisites?: string[];
   repeatable?: boolean;
   retired?: boolean;
+  picture?: string,
 }
 
 export interface CourseUpdate extends Update {
@@ -291,6 +299,7 @@ export interface CourseUpdate extends Update {
   syllabus?: string;
   repeatable?: boolean;
   retired?: boolean;
+  picture?: string;
 }
 
 // Factoids
@@ -385,6 +394,7 @@ export interface Interest extends Document {
   description: string;
   interestTypeID: string;
   retired?: boolean;
+  picture?: string,
 }
 
 export interface InterestDefine extends DumpOne {
@@ -393,6 +403,7 @@ export interface InterestDefine extends DumpOne {
   description: string;
   interestType: string;
   retired?: boolean;
+  picture?: string;
 }
 
 export interface InterestUpdate extends Update {
@@ -400,6 +411,7 @@ export interface InterestUpdate extends Update {
   description?: string;
   interestType?: string;
   retired?: boolean;
+  picture?: string;
 }
 
 // InterestTypes
@@ -409,6 +421,7 @@ export interface InterestType extends Document {
   description: string;
   interestTypeID: string;
   retired?: boolean;
+  picture?: string;
 }
 
 export interface TypeDefine extends DumpOne {
@@ -456,7 +469,6 @@ export interface OpportunityDefine extends DumpOne {
   opportunityType: string;
   sponsor: string;
   interests: string[];
-  academicTerms: string[];
   ice: Ice;
   eventDate?: Date; // Deprecated
   eventDate1?: Date;
@@ -477,7 +489,6 @@ export interface OpportunityUpdate extends Update {
   opportunityType?: string;
   sponsor?: string;
   interests?: string[];
-  academicTerms?: string[];
   eventDate?: any; // Deprecated
   eventDate1?: Date;
   eventDateLabel1?: string;
@@ -503,7 +514,6 @@ export interface OpportunityUpdateData {
   opportunityTypeID?: string;
   sponsorID?: string;
   interestIDs?: string[];
-  termIDs?: string[];
   eventDate?: any;
   eventDate1?: Date;
   eventDateLabel1?: string;

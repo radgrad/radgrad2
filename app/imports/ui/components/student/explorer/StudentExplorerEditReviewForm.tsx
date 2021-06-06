@@ -4,7 +4,6 @@ import { AutoForm, ErrorsField, LongTextField, SelectField, SubmitField } from '
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { useRouteMatch } from 'react-router-dom';
-import Swal from 'sweetalert2';
 import { Reviews } from '../../../../api/review/ReviewCollection';
 import { removeItMethod, updateMethod } from '../../../../api/base/BaseCollection.methods';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
@@ -15,6 +14,7 @@ import RatingField from './RatingField';
 import { AcademicTerm, Review, ReviewUpdate } from '../../../../typings/radgrad';
 import { getUsername } from '../../shared/utilities/router';
 import { ReviewTypes } from '../../../../api/review/ReviewTypes';
+import RadGradAlert from '../../../utilities/RadGradAlert';
 
 interface StudentExplorerEditReviewWidgetProps {
   review: Review;
@@ -41,25 +41,11 @@ const StudentExplorerEditReviewForm: React.FC<StudentExplorerEditReviewWidgetPro
     const updateData: ReviewUpdate = doc;
     updateData.academicTerm = academicTermSlug;
     updateData.moderated = false;
+    updateData.visible = false;
     updateData.id = review._id;
     updateMethod.callPromise({ collectionName, updateData })
-      .catch((error) => {
-        Swal.fire({
-          title: 'Update Failed',
-          text: error.message,
-          icon: 'error',
-        });
-      })
-      .then(() => {
-        Swal.fire({
-          title: 'Update Succeeded',
-          icon: 'success',
-          text: 'Your review was successfully edited.',
-          allowOutsideClick: false,
-          allowEscapeKey: false,
-          allowEnterKey: false,
-        });
-      });
+      .catch((error) => { RadGradAlert.failure('Update Failed', error.message, error);})
+      .then(() => { RadGradAlert.success('Update Succeeded');});
   };
 
   const handleDelete = (e: any): void => {
@@ -72,20 +58,8 @@ const StudentExplorerEditReviewForm: React.FC<StudentExplorerEditReviewWidgetPro
     const id = review._id;
     const collectionName = collection.getCollectionName();
     removeItMethod.callPromise({ collectionName, instance: id })
-      .catch((error) => {
-        Swal.fire({
-          title: 'Delete failed',
-          text: error.message,
-          icon: 'error',
-        });
-        console.error('Error deleting Review. %o', error);
-      })
-      .then(() => {
-        Swal.fire({
-          title: 'Delete succeeded',
-          icon: 'success',
-        });
-      });
+      .catch((error) => { RadGradAlert.failure('Delete failed', error.message, error);})
+      .then(() => { RadGradAlert.success('Delete succeeded');});
     setConfirmOpen(false);
   };
 
@@ -174,9 +148,9 @@ const StudentExplorerEditReviewForm: React.FC<StudentExplorerEditReviewWidgetPro
 
       <Accordion.Content active={activeState}>
         <div className="ui padded container" style={paddedContainerStyle}>
-          {review.visible ? (
+          {review.moderated ? (
             <React.Fragment>
-              {review.moderated ? (
+              {review.visible ? (
                 <Message positive>
                   <p>
                     <i className="green checkmark icon" />
@@ -185,18 +159,6 @@ const StudentExplorerEditReviewForm: React.FC<StudentExplorerEditReviewWidgetPro
                   </p>
                 </Message>
               ) : (
-                <Message warning>
-                  <p>
-                    <i className="yellow checkmark icon" />
-                    Your post is visible to the RadGrad community but has not yet been approved by
-                    moderators.
-                  </p>
-                </Message>
-              )}
-            </React.Fragment>
-          ) : (
-            <React.Fragment>
-              {review.moderated ? (
                 <Message negative>
                   <p>
                     <i className="warning red circle icon" />
@@ -205,23 +167,23 @@ const StudentExplorerEditReviewForm: React.FC<StudentExplorerEditReviewWidgetPro
                   <br />
                   <i>{review.moderatorComments}</i>
                 </Message>
-              ) : (
-                <Message warning>
-                  <p>
-                    <i className="warning yellow circle icon" />
-                    Your edited post is waiting for moderator approval. Your post has currently been
-                    hidden by moderators for the following reasons:
-                    <br />
-                    <i>{review.moderatorComments}</i>
-                  </p>
-                </Message>
               )}
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              <Message warning>
+                <p>
+                  <i className="warning yellow circle icon" />
+                  Your review is waiting for moderator approval.
+                  <br />
+                </p>
+              </Message>
             </React.Fragment>
           )}
 
           <AutoForm schema={formSchema} onSubmit={handleUpdate} ref={formRef} model={model}>
             <Form.Group widths="equal">
-              <SelectField name="academicTerm" />
+              {academicTermNames.length <= 1 ? <SelectField name="academicTerm" disabled /> : <SelectField name="academicTerm" />}
               <RatingField name="rating" />
             </Form.Group>
 
@@ -231,8 +193,7 @@ const StudentExplorerEditReviewForm: React.FC<StudentExplorerEditReviewWidgetPro
             <Button basic color="red" size="mini" onClick={handleDelete}>
               DELETE
             </Button>
-            <Confirm open={confirmOpenState} onCancel={handleCancelDelete} onConfirm={handleConfirmDelete}
-              header="Delete Review?" />
+            <Confirm open={confirmOpenState} onCancel={handleCancelDelete} onConfirm={handleConfirmDelete} header="Delete Review?" />
             <ErrorsField />
           </AutoForm>
         </div>

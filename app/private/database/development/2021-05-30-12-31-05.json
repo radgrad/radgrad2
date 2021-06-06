@@ -1065,7 +1065,7 @@
         },
         {
           "name": "Introduction to Data Science",
-          "shortName": "Introduction to Data Science",
+          "shortName": "Intro to Data Science",
           "slug": "ics_102",
           "num": "ICS 102",
           "description": "Overview of the field of data science. Introduction to subjects such as data format, processing, visualization, and storage. Special emphasis on historical and wider context, and simple practical examples.",
@@ -1080,8 +1080,8 @@
           "retired": false
         },
         {
-          "name": "ICS 103 Introduction to Computer Science Principles",
-          "shortName": "ICS 103 Introduction to Computer Science Principles",
+          "name": "Introduction to Computer Science Principles",
+          "shortName": "Intro to CS Principles",
           "slug": "ics_103",
           "num": "ICS 103",
           "description": "General course that provides a broad overview of computer science. Will address abstraction, data and information, algorithms, programming, the Internet and the global impact of computers.",

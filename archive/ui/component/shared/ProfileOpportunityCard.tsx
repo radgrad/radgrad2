@@ -1,0 +1,79 @@
+import React from 'react';
+import { Card } from 'semantic-ui-react';
+import { useRouteMatch } from 'react-router-dom';
+import { Droppable, Draggable } from 'react-beautiful-dnd';
+import { AcademicTerm, Opportunity, OpportunityInstance } from '../../../../app/imports/typings/radgrad';
+// import { DegreePlannerStateNames } from '../../../pages/student/StudentDegreePlannerPage';
+// import { useStickyState } from '../../../utilities/StickyState';
+import { ViewInExplorerButtonLink } from '../../../../app/imports/ui/components/shared/button/ViewInExplorerButtonLink';
+import FutureParticipationButton from '../../../../app/imports/ui/components/shared/FutureParticipationButton';
+import IceHeader from '../../../../app/imports/ui/components/shared/IceHeader';
+import { AcademicTerms } from '../../../../app/imports/api/academic-term/AcademicTermCollection';
+import { EXPLORER_TYPE } from '../../../../app/imports/ui/layouts/utilities/route-constants';
+import { Slugs } from '../../../../app/imports/api/slug/SlugCollection';
+import { cardStyle, contentStyle, getDraggablePillStyle } from '../../../../app/imports/ui/components/student/degree-planner/utilities/styles';
+import NamePill from '../../../../app/imports/ui/components/student/degree-planner/NamePill';
+
+interface ProfileOpportunityCardProps {
+  opportunity: Opportunity;
+  studentID: string;
+  opportunityInstances: OpportunityInstance[];
+}
+
+const ProfileOpportunityCard: React.FC<ProfileOpportunityCardProps> = ({
+  opportunity,
+  opportunityInstances,
+  studentID,
+}) => {
+  const match = useRouteMatch();
+  const instances = opportunityInstances.filter((i) => i.opportunityID === opportunity._id);
+  const terms: AcademicTerm[] = instances.map((i) => AcademicTerms.findDoc(i.termID));
+  // Sort by ascending order
+  terms.sort((a, b) => a.year - b.year);
+  const termNames = terms.map((t) => AcademicTerms.getShortName(t._id)).join(', ');
+  const slug = Slugs.findDoc(opportunity.slugID).name;
+  const droppableID = `${opportunity._id}`;
+  // const [width] = useStickyState(DegreePlannerStateNames.draggablePillWidth, 0);
+  // const [height] = useStickyState(DegreePlannerStateNames.draggablePillHeight, 0);
+  return (
+    <Card style={cardStyle}>
+      <Card.Content style={contentStyle}>
+        <IceHeader ice={opportunity.ice} />
+        <Card.Header>{opportunity.name}</Card.Header>
+      </Card.Content>
+      <Card.Content style={contentStyle}>
+        {instances.length > 0 ? (
+          <React.Fragment>
+            <b>Scheduled:</b> {termNames}
+          </React.Fragment>
+        ) : (
+          <b>Not In Plan (Drag to move)</b>
+        )}
+        <Droppable droppableId={droppableID}>
+          {(provided) => (
+            <div ref={provided.innerRef}>
+              <Draggable key={slug} draggableId={slug} index={0}>
+                {(prov, snap) => (
+                  <div ref={prov.innerRef} {...prov.draggableProps} {...prov.dragHandleProps}
+                    style={getDraggablePillStyle(snap.isDragging, prov.draggableProps.style)}>
+                    <NamePill name={opportunity.name} />
+                  </div>
+                )}
+              </Draggable>
+              {provided.placeholder}
+              Drag into your plan
+            </div>
+          )}
+        </Droppable>
+      </Card.Content>
+      <Card.Content style={contentStyle}>
+        <FutureParticipationButton item={opportunity} />
+      </Card.Content>
+      <Card.Content style={contentStyle}>
+        <ViewInExplorerButtonLink match={match} type={EXPLORER_TYPE.OPPORTUNITIES} item={opportunity} size="mini" />
+      </Card.Content>
+    </Card>
+  );
+};
+
+export default ProfileOpportunityCard;

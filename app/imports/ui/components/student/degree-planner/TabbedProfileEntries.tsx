@@ -1,16 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Icon, Menu, Segment, Tab } from 'semantic-ui-react';
-import { DegreePlannerStateNames } from '../../../pages/student/StudentDegreePlannerPage';
-import { useStickyState } from '../../../utilities/StickyState';
+import RadGradHeader from '../../shared/RadGradHeader';
+import ProfileInternships from './ProfileInternships';
 import ProfileOpportunities from './ProfileOpportunities';
 import ProfileCourses from './ProfileCourses';
-import DepDetailsCard from './DepDetailsCard';
 import { Course, CourseInstance, Opportunity, OpportunityInstance, VerificationRequest } from '../../../../typings/radgrad';
 
 export enum TabbedProfileEntryNames {
   profileCourses = 'PROFILE_COURSES',
   profileOpportunities = 'PROFILE_OPPORTUNITIES',
-  profileDetails = 'PROFILE_DETAILS',
+  profileInternships = 'PROFILE_INTERNSHIPS',
 }
 
 interface TabbedProfileEntriesProps {
@@ -29,7 +28,7 @@ const active = (selectedTab) => {
       return 0;
     case TabbedProfileEntryNames.profileCourses:
       return 1;
-    case TabbedProfileEntryNames.profileDetails:
+    case TabbedProfileEntryNames.profileInternships:
       return 2;
     default:
       return 0;
@@ -44,7 +43,7 @@ const TabbedProfileEntries: React.FC<TabbedProfileEntriesProps> = ({
   verificationRequests,
   opportunityInstances,
 }) => {
-  const [selectedTab, setSelectedTab] = useStickyState(DegreePlannerStateNames.selectedProfileTab, TabbedProfileEntryNames.profileOpportunities);
+  const [selectedTab, setSelectedTab] = useState(TabbedProfileEntryNames.profileOpportunities);
 
   const handleTabChange = (event, instance) => {
     const { activeIndex } = instance;
@@ -57,7 +56,7 @@ const TabbedProfileEntries: React.FC<TabbedProfileEntriesProps> = ({
         setSelectedTab(TabbedProfileEntryNames.profileCourses);
         break;
       case 2:
-        setSelectedTab(TabbedProfileEntryNames.profileDetails);
+        setSelectedTab(TabbedProfileEntryNames.profileInternships);
         break;
       default:
         console.error(`Bad tab index: ${activeIndex}`);
@@ -68,11 +67,12 @@ const TabbedProfileEntries: React.FC<TabbedProfileEntriesProps> = ({
     {
       menuItem: (
         <Menu.Item key="ProfileOpportunities">
-          <Icon name="user" fitted color="grey" /> OPPS
+          <Icon name="lightbulb" fitted />
         </Menu.Item>
       ),
       pane: (
         <Tab.Pane key="ProfileOpportunitiesPane" active={active(selectedTab) === 0}>
+          <RadGradHeader title="Opportunities" />
           <ProfileOpportunities opportunities={profileOpportunities} studentID={studentID}
             opportunityInstances={opportunityInstances} />
         </Tab.Pane>
@@ -81,20 +81,22 @@ const TabbedProfileEntries: React.FC<TabbedProfileEntriesProps> = ({
     {
       menuItem: (
         <Menu.Item key="ProfileCourses">
-          <Icon name="user" fitted color="grey" /> COURSE
+          <Icon name="book" fitted />
         </Menu.Item>
       ),
       pane: (
         <Tab.Pane key="ProfileCoursesPane" active={active(selectedTab) === 1}>
+          <RadGradHeader title="Courses" />
           <ProfileCourses studentID={studentID} courses={profileCourses} courseInstances={courseInstances} />
         </Tab.Pane>
       ),
     },
     {
-      menuItem: <Menu.Item key="ProfileDetails">DETAILS</Menu.Item>,
+      menuItem: <Menu.Item key="ProfileDetails"><Icon className="user graduate" /></Menu.Item>,
       pane: (
         <Tab.Pane key="ProfileDetailsPane" active={active(selectedTab) === 2}>
-          <DepDetailsCard verificationRequests={verificationRequests} />
+          <RadGradHeader title="Internships" />
+          <ProfileInternships studentID={studentID} />
         </Tab.Pane>
       ),
     },

@@ -1,25 +1,25 @@
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
-import { AcademicYearInstance, CourseInstance, OpportunityInstance } from '../../../../typings/radgrad';
+import { AcademicYearInstance, CourseInstance, OpportunityInstance, VerificationRequest } from '../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import AcademicTermView from './AcademicTermView';
 
 interface AcademicYearViewProps {
   academicYear: AcademicYearInstance;
   studentID: string;
-  handleClickCourseInstance: (event, { value }) => any;
-  handleClickOpportunityInstance: (event, { value }) => any;
   courseInstances: CourseInstance[];
   opportunityInstances: OpportunityInstance[];
+  verificationRequests: VerificationRequest[];
+  // internshipInstances: InternshipInstance[];
 }
 
 const AcademicYearView: React.FC<AcademicYearViewProps> = ({
   academicYear,
   studentID,
-  handleClickCourseInstance,
-  handleClickOpportunityInstance,
   courseInstances,
   opportunityInstances,
+  verificationRequests,
+  /* internshipInstances, */
 }) => {
   const termIDs = academicYear.termIDs;
   const terms = termIDs.map((id) => AcademicTerms.findDoc(id));
@@ -39,10 +39,10 @@ const AcademicYearView: React.FC<AcademicYearViewProps> = ({
             key={term._id}
             term={term}
             studentID={studentID}
-            handleClickCourseInstance={handleClickCourseInstance}
-            handleClickOpportunityInstance={handleClickOpportunityInstance}
             courseInstances={courseInstances}
             opportunityInstances={opportunityInstances}
+            verificationRequests={verificationRequests}
+            // internshipInstances={internshipInstances}
           />
         </Grid.Column>
       ))}

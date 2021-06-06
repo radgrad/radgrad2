@@ -47,7 +47,7 @@ const InterestViewPage: React.FC<InterestViewPageProps> = ({
   const relatedOpportunities = getAssociationRelatedOpportunities(Interests.findRelatedOpportunities(interestID), profile.userID);
   const relatedCareerGoals = Interests.findRelatedCareerGoals(interestID);
   const headerPaneTitle = interest.name;
-  const headerPaneImage = 'header-interests.png';
+  const headerPaneImage = interest.picture;
   const added = ProfileInterests.findNonRetired({ userID: profile.userID, interestID }).length > 0;
   return (
     <PageLayout id={PAGEIDS.INTEREST} headerPaneTitle={headerPaneTitle} headerPaneImage={headerPaneImage}
@@ -71,7 +71,7 @@ const InterestViewPage: React.FC<InterestViewPageProps> = ({
   );
 };
 
-const InterestViewPageContainer = withTracker(() => {
+export default withTracker(() => {
   const { interest, username } = useParams();
   const interestDoc = Interests.findDocBySlug(interest);
   const profile = Users.getProfile(username);
@@ -91,5 +91,3 @@ const InterestViewPageContainer = withTracker(() => {
     interests,
   };
 })(InterestViewPage);
-
-export default InterestViewPageContainer;

@@ -46,10 +46,10 @@ const CareerGoalViewPage: React.FC<CareerGoalViewPageProps> = ({
   const relatedCourses = getAssociationRelatedCourses(CareerGoals.findRelatedCourses(careerGoalID), profile.userID);
   const relatedOpportunities = getAssociationRelatedOpportunities(CareerGoals.findRelatedOpportunities(careerGoalID), profile.userID);
   const headerPaneTitle = careerGoal.name;
-  const headerPaneImage = 'header-career.png';
+  const careerPicture = careerGoal.picture;
   const added = ProfileCareerGoals.findNonRetired({ userID: profile.userID, careerGoalID }).length > 0;
   return (
-    <PageLayout id={PAGEIDS.CAREER_GOAL} headerPaneTitle={headerPaneTitle} headerPaneImage={headerPaneImage}
+    <PageLayout id={PAGEIDS.CAREER_GOAL} headerPaneTitle={headerPaneTitle} headerPaneImage={careerPicture}
       headerPaneButton={<AddToProfileButton type={PROFILE_ENTRY_TYPE.CAREERGOAL} studentID={profile.userID}
         item={careerGoal} added={added} inverted floated="left" />}>
       <Grid stackable>
@@ -69,7 +69,7 @@ const CareerGoalViewPage: React.FC<CareerGoalViewPageProps> = ({
   );
 };
 
-const CareerGoalViewPageContainer = withTracker(() => {
+export default withTracker(() => {
   const { careergoal, username } = useParams();
   const profile = Users.getProfile(username);
   const profileCareerGoals = ProfileCareerGoals.findNonRetired({ userID: profile.userID });
@@ -86,5 +86,3 @@ const CareerGoalViewPageContainer = withTracker(() => {
     interests,
   };
 })(CareerGoalViewPage);
-
-export default CareerGoalViewPageContainer;
