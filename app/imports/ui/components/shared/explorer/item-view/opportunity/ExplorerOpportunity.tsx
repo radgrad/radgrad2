@@ -8,12 +8,12 @@ import { ROLE } from '../../../../../../api/role/Role';
 import { Teasers } from '../../../../../../api/teaser/TeaserCollection';
 import { PROFILE_ENTRY_TYPE } from '../../../../../../api/user/profile-entries/ProfileEntryTypes';
 import { StudentProfiles } from '../../../../../../api/user/StudentProfileCollection';
-import { Users } from '../../../../../../api/user/UserCollection';
 import { AcademicTerm, BaseProfile, Interest, Opportunity, OpportunityType, Profile, Review } from '../../../../../../typings/radgrad';
 import StudentExplorerReviewWidget from '../../../../student/explorer/StudentExplorerReviewWidget';
 import IceHeader from '../../../IceHeader';
 import DeleteItemButton from '../../../manage/DeleteItemButton';
 import EditOpportunityButton from '../../../manage/opportunity/EditOpportunityButton';
+import UserLabel from '../../../profile/UserLabel';
 import RadGradHeader from '../../../RadGradHeader';
 import TeaserVideo from '../../../TeaserVideo';
 import FutureParticipation from '../../FutureParticipation';
@@ -79,22 +79,17 @@ const ExplorerOpportunity: React.FC<ExplorerOpportunitiesWidgetProps> = ({ oppor
       <Segment padded className="container" style={segmentStyle}>
         {hasTeaser ? <TeaserVideo id={teaserUrlHelper(opportunity)} /> : ''}
         <Grid stackable style={fiveMarginTopStyle}>
-          <Grid.Row columns="equal" style={compactRowStyle}>
-            <Grid.Column>
-              <strong>Opportunity Type:</strong>&nbsp; {opportunityType}
-            </Grid.Column>
-            <Grid.Column>
-              <strong>Dates:</strong>&nbsp;{opportunity.eventDate1 ? dateStrings.join(', ') : 'N/A'}
-            </Grid.Column>
-            <Grid.Column>
-              <IceHeader ice={opportunity.ice} size='large' />
-            </Grid.Column>
+          <Grid.Row>
+            <Markdown allowDangerousHtml source={opportunity.description} />
+          </Grid.Row>
+          <Grid.Row style={compactRowStyle}>
+            <strong>Dates:</strong>&nbsp;{opportunity.eventDate1 ? dateStrings.join(', ') : 'N/A'}
+          </Grid.Row>
+          <Grid.Row>
+            <IceHeader ice={opportunity.ice} size='large' />
           </Grid.Row>
           <Grid.Row style={compactRowStyle}>
             <strong>Sponsor:</strong> &nbsp; <UserLabel username={opportunity.sponsorID}/>
-          </Grid.Row>
-          <Grid.Row>
-            <Markdown allowDangerousHtml source={opportunity.description} />
           </Grid.Row>
           {showManageButtons ? <Grid.Row><EditOpportunityButton opportunity={opportunity} sponsors={sponsors} terms={terms} interests={interests} opportunityTypes={opportunityTypes}/> <DeleteItemButton item={opportunity} type={PROFILE_ENTRY_TYPE.OPPORTUNITY} /></Grid.Row> : ''}
         </Grid>

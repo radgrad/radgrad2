@@ -26,7 +26,7 @@ const handleAdd = (studentID: string, item: ItemType, type: IProfileEntryTypes) 
   const collectionName = getCollectionName(type);
   const definitionData = createDefinitionData(studentID, item, type);
   defineMethod.callPromise({ collectionName, definitionData })
-    .catch((error: MeteorError) => { RadGradAlert.failure('Failed to add to profile', error.message, error);})
+    .catch((error: MeteorError) => { RadGradAlert.failure('Failed to add to profile', error.message);})
     .then(() => { RadGradAlert.success('Added to profile');});
 };
 
