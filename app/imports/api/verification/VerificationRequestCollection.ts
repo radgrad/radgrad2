@@ -339,6 +339,17 @@ class VerificationRequestCollection extends BaseCollection {
     return { student, academicTerm, opportunity, submittedOn, status, processed, documentation, retired };
   }
 
+  public dumpUser(usernameOrID: string): VerificationRequestDefine[] {
+    const profile = Users.getProfile(usernameOrID);
+    const studentID = profile.userID;
+    const retVal = [];
+    const instances = this.find({ studentID }).fetch();
+    instances.forEach((instance) => {
+      retVal.push(this.dumpOne(instance._id));
+    });
+    return retVal;
+  }
+
   /**
    * Internal helper function to simplify definition of the assertValidRoleForMethod method.
    * @param userId The userID.
