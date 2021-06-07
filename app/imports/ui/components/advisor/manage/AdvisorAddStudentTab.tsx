@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Tab, Header, Form, Radio } from 'semantic-ui-react';
+import { COMPONENTIDS } from '../../../utilities/ComponentIDs';
 import RadGradAlert from '../../../utilities/RadGradAlert';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { defineMethod } from '../../../../api/base/BaseCollection.methods';
@@ -98,7 +99,7 @@ const AdvisorAddStudentTab: React.FC<AdvisorAddStudentWidgetProps> = ({ interest
   };
 
   return (
-    <Tab.Pane key="new">
+    <Tab.Pane key="new" id={COMPONENTIDS.ADD_STUDENT_TAB_PANE}>
       <Header as="h4" dividing>
         ADD STUDENT
       </Header>

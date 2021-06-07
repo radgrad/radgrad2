@@ -5,6 +5,7 @@ import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { AutoFields, AutoForm, ErrorsField, SubmitField } from 'uniforms-semantic';
 import { matriculateStudentMethod } from '../../../../api/user/StudentProfileCollection.methods';
 import { StudentProfile } from '../../../../typings/radgrad';
+import { COMPONENTIDS } from '../../../utilities/ComponentIDs';
 import RadGradHeader from '../../shared/RadGradHeader';
 
 interface MatriculateStudentsTabProps {
@@ -33,7 +34,7 @@ const MatriculateStudentsTab: React.FC<MatriculateStudentsTabProps> = ({ student
     }
   };
   return (
-    <Tab.Pane>
+    <Tab.Pane id={COMPONENTIDS.MATRICULATE_STUDENTS_TAB_PANE}>
       <Message info>You should dump the database before matriculating the students. This will delete their
                 records.</Message>
       <AutoForm schema={formSchema} onSubmit={(model) => {
