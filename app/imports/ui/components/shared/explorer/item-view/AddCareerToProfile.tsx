@@ -1,13 +1,15 @@
 import React from 'react';
-import { Button, Icon, Modal, SemanticFLOATS, Grid } from 'semantic-ui-react';
-import { defineMethod, removeItMethod } from '../../../../../../api/base/BaseCollection.methods';
-import RadGradAlert from '../../../../../utilities/RadGradAlert';
-import { CareerGoal, MeteorError } from '../../../../../../typings/radgrad';
-import { ProfileCareerGoals } from '../../../../../../api/user/profile-entries/ProfileCareerGoalCollection';
-import { PROFILE_ENTRY_TYPE, IProfileEntryTypes } from '../../../../../../api/user/profile-entries/ProfileEntryTypes';
-import { COMPONENTIDS } from '../../../../../utilities/ComponentIDs';
-import RelatedInterests from '../../../RelatedInterests';
-import { createDefinitionData, getCollectionName } from './profile-button';
+import { Button, Icon, Modal, SemanticFLOATS, Grid, Label } from 'semantic-ui-react';
+import { defineMethod, removeItMethod } from '../../../../../api/base/BaseCollection.methods';
+import { Interests } from '../../../../../api/interest/InterestCollection';
+import RadGradAlert from '../../../../utilities/RadGradAlert';
+import { CareerGoal, Interest, MeteorError } from '../../../../../typings/radgrad';
+import { ProfileCareerGoals } from '../../../../../api/user/profile-entries/ProfileCareerGoalCollection';
+import { PROFILE_ENTRY_TYPE, IProfileEntryTypes } from '../../../../../api/user/profile-entries/ProfileEntryTypes';
+import { COMPONENTIDS } from '../../../../utilities/ComponentIDs';
+import InterestLabel from '../../label/InterestLabel';
+import { createDefinitionData, getCollectionName } from './utilities/profile-button';
+
 
 export interface AddToProfileButtonProps {
   careerGoal: CareerGoal;
@@ -26,6 +28,8 @@ const handleAdd = (userID: string, item: CareerGoal, type: IProfileEntryTypes) =
     .then(() => { RadGradAlert.success('Added to profile');});
 };
 
+const addInterest = (userID: string, item: Interest, type: IProfileEntryTypes) => () => {
+};
 const handleRemove = (userID: string, item: CareerGoal, type: IProfileEntryTypes) => () => {
   const collectionName = getCollectionName(type);
   let instance;
@@ -46,6 +50,8 @@ const handleRemove = (userID: string, item: CareerGoal, type: IProfileEntryTypes
 
 const AddToProfileButton: React.FC<AddToProfileButtonProps> = ({ userID, careerGoal, type, added, inverted, floated }) => {
   const [open, setOpen] = React.useState(false);
+  const interestMap = careerGoal.interestIDs.map((id) => Interests.findSlugByID(id));
+
   return (
     <React.Fragment>
       {added ? (
@@ -64,10 +70,13 @@ const AddToProfileButton: React.FC<AddToProfileButtonProps> = ({ userID, careerG
             <Icon name="plus" />
             ADD TO PROFILE
           </Button>}>
-          <Modal.Description>
+          <Modal.Header>Adding The Career To Profile</Modal.Header>
+          <Modal.Description textAlign = 'center'>
             <p> Adding this Career Goal will automatically add the following new Interests to your profile.<br/>
               If you are OK with that, just press OK. </p>
-            <RelatedInterests item={careerGoal}/>
+            <Label.Group size='small'>
+              {interestMap.map((slug) => <InterestLabel key={slug} slug={slug} userID={userID} size='small' />)}
+            </Label.Group>
           </Modal.Description>
           <Modal.Actions>
             <br/>
