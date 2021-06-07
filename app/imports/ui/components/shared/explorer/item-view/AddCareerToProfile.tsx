@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Icon, Modal, SemanticFLOATS, Grid, Label } from 'semantic-ui-react';
+import { Button, Icon, Modal, SemanticFLOATS, Grid, Label, Checkbox } from 'semantic-ui-react';
 import { defineMethod, removeItMethod } from '../../../../../api/base/BaseCollection.methods';
 import { Interests } from '../../../../../api/interest/InterestCollection';
 import RadGradAlert from '../../../../utilities/RadGradAlert';
@@ -77,6 +77,7 @@ const AddToProfileButton: React.FC<AddToProfileButtonProps> = ({ userID, careerG
             <Label.Group size='small'>
               {interestMap.map((slug) => <InterestLabel key={slug} slug={slug} userID={userID} size='small' />)}
             </Label.Group>
+            <Checkbox>{interestMap.map((slug) => <InterestLabel key={slug} slug={slug} userID={userID} size='small' />)}</Checkbox>
           </Modal.Description>
           <Modal.Actions>
             <br/>
