@@ -21,7 +21,7 @@ import {
 
 /** Credentials for sample user(s) defined in settings.development.json. */
 const credentials = {
-  faculty: { userName: 'johnson@hawaii.edu', password: 'foo' },
+  faculty: { userName: 'esb@hawaii.edu', password: 'foo' },
 };
 
 fixture('Faculty UI acceptance tests').page('http://localhost:3200');
