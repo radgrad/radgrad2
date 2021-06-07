@@ -129,7 +129,7 @@ const VisibilityPage: React.FC<VisibilityPageProps> = ({ profile }) => {
             </Form.Group>
             <Form.Checkbox inline name="shareInterests" label="Interests" checked={checkboxState.shareInterests} onChange={handleCheckboxChange} />
             <Form.Checkbox inline name="shareCareerGoals" label="Career Goals" checked={checkboxState.shareCareerGoals} onChange={handleCheckboxChange} />
-            <Form.Checkbox inline name="shareCourses" label="Interests" checked={checkboxState.shareCourses} onChange={handleCheckboxChange} />
+            <Form.Checkbox inline name="shareCourses" label="Courses" checked={checkboxState.shareCourses} onChange={handleCheckboxChange} />
             <Form.Checkbox inline name="shareOpportunities" label="Opportunities" checked={checkboxState.shareOpportunities} onChange={handleCheckboxChange} />
           </Form>
         </Segment>
