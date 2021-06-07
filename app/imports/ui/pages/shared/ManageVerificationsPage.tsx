@@ -54,7 +54,7 @@ const ManageVerificationPageWithTracker = withTracker(() => {
   if (role === URL_ROLES.ADMIN) {
     linkedOppInstances = OpportunityInstances.findNonRetired({});
   } else {
-    linkedOppInstances = OpportunityInstances.findNonRetired({ sponsorID: userID })
+    linkedOppInstances = OpportunityInstances.findNonRetired({ sponsorID: userID });
   }
   const isLinkedReq = (verReq: VerificationRequest) => !!linkedOppInstances.find((oppI) => verReq.opportunityInstanceID === oppI._id);
   const verificationRequests = VerificationRequests.findNonRetired().filter((ele) => isLinkedReq(ele));
