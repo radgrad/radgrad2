@@ -7,6 +7,7 @@ import { CourseInstances } from '../course/CourseInstanceCollection';
 import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
 import { RadGradProperties } from '../radgrad/RadGradProperties';
 import { Reviews } from '../review/ReviewCollection';
+import { VerificationRequests } from '../verification/VerificationRequestCollection';
 import { Users } from './UserCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
 import { StudentProfiles } from './StudentProfileCollection';
@@ -297,6 +298,11 @@ const buildStudentDumpObject = (studentUsernameOrID: string) => {
     contents: Reviews.dumpUser(studentUsernameOrID),
   };
   collections.push(reviewCollection);
+  const verificationCollection = {
+    name: VerificationRequests.getCollectionName(),
+    contents: VerificationRequests.dumpUser(studentUsernameOrID),
+  };
+  collections.push(verificationCollection);
   return { timestamp, collections };
 };
 

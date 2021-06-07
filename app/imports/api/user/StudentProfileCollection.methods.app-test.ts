@@ -60,7 +60,7 @@ if (Meteor.isClient) {
 
     it('Can build student dump object', async function test5() {
       const dump = await dumpStudentMethod.callPromise('betty@hawaii.edu');
-      expect(dump.collections.length).to.equal(8); // StudentProfile, 2 instance, 4 profile, Review
+      expect(dump.collections.length).to.equal(9); // StudentProfile, 2 instance, 4 profile, Review, VerificationRequests
     });
   });
 }
