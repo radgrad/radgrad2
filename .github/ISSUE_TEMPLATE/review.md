@@ -13,6 +13,10 @@ assignees: ''
 
 (Provide an introduction to this review. What are the goals? What should reviewers keep in mind as they do it?)
 
+## UI Demo
+
+(If the code to be reviewed involves the user interface, provide instructions for how to view the relevant part of th user interface here.)
+
 ## Review Branch
 
 (Please indicate the review branch here. It should be named review-xxx, where xxx is this issue number.)
@@ -34,6 +38,7 @@ assignees: ''
 * [JS and TS](https://www.radgrad.org/docs/developers/checklists/js-ts-checklist)
 * [React](https://www.radgrad.org/docs/developers/checklists/react-checklist)
 * [Testing](https://www.radgrad.org/docs/developers/checklists/testing-checklist)
+* [Combined](https://www.radgrad.org/docs/developers/checklists/combined)
 
 ## Due date
 
