@@ -44,7 +44,7 @@ const ExplorerItemView: React.FC<ExplorerItemViewProps> = ({ profile, item, cour
       <SegmentGroup>
         <Segment>
           {hasTeaser ? (<TeaserVideo id={teaser && teaser[0] && teaser[0].url} />) : ''}
-          <Markdown escapeHtml source={item.description} />
+          <Markdown escapeHtml linkTarget="_blank" source={item.description} />
           {isNotStudent ? editButton : ''}
           {isAdmin ? <DeleteItemButton item={item} type={itemType} /> : ''}
         </Segment>
