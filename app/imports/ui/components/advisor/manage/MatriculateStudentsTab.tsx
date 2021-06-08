@@ -1,12 +1,10 @@
+import { ZipZap } from 'meteor/udondan:zipzap';
 import React, { useState } from 'react';
-import { Confirm, Message, Tab } from 'semantic-ui-react';
-import SimpleSchema from 'simpl-schema';
-import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
-import { AutoFields, AutoForm, ErrorsField, SubmitField } from 'uniforms-semantic';
-import { matriculateStudentMethod } from '../../../../api/user/StudentProfileCollection.methods';
+import { Button, Confirm, Message, Tab } from 'semantic-ui-react';
+import { updateAllStudentsStatusMethod } from '../../../../api/user/StudentProfileCollection.methods';
 import { StudentProfile } from '../../../../typings/radgrad';
 import { COMPONENTIDS } from '../../../utilities/ComponentIDs';
-import RadGradHeader from '../../shared/RadGradHeader';
+import RadGradAlert from '../../../utilities/RadGradAlert';
 
 interface MatriculateStudentsTabProps {
   students: StudentProfile[];
@@ -21,33 +19,31 @@ const MatriculateStudentsTab: React.FC<MatriculateStudentsTabProps> = ({ student
   retired.forEach((r) => {
     tempSchema[r.userID] = { type: Boolean, label: r.username, optional: true };
   });
-  const [data, setData] = useState({});
   const [openConfirm, setOpenConfirm] = useState(false);
-  const schema = new SimpleSchema(tempSchema);
-  const formSchema = new SimpleSchema2Bridge(schema);
   const handleSubmit = () => {
     setOpenConfirm(false);
-    for (const [studentID] of Object.entries(data)) {
-      matriculateStudentMethod.callPromise(studentID)
-        .then(() => console.log(`Removed student ${studentID}`))
-        .catch((error) => console.error(error));
-    }
+    updateAllStudentsStatusMethod.callPromise(null)
+      .then(result => {
+        const message = `Updated ${result.alumniCount} students to alumni.
+        Retired ${result.retiredCount} alumni.
+        Matriculated ${result.matriculatedCount} retired alumni.`;
+        RadGradAlert.success('Updated Student Status', message);
+        const zip = new ZipZap();
+        const dir = 'radgrad-student-matriculation';
+        result.studentRecords.forEach((record) => {
+          const fileName = `${dir}/${record.fileName}.json`;
+          zip.file(fileName, JSON.stringify(record.contents, null, 2));
+        });
+        zip.saveAs(`${dir}.zip`);
+      })
+      .catch(error => RadGradAlert.failure('Failed to update student status', error.message));
   };
   return (
     <Tab.Pane id={COMPONENTIDS.MATRICULATE_STUDENTS_TAB_PANE}>
-      <Message info>You should dump the database before matriculating the students. This will delete their
-                records.</Message>
-      <AutoForm schema={formSchema} onSubmit={(model) => {
-        setData(model);
-        setOpenConfirm(true);
-      }}>
-        <RadGradHeader title='Matriculate Retired Students'/>
-        <AutoFields/>
-        <SubmitField/>
-        <ErrorsField/>
-      </AutoForm>
+      <Message info>Pressing the Update Student Matriculation Status button will update the students&apos; status.</Message>
+      <Button onClick={() => setOpenConfirm(true)} label="Update Student Matriculation Status" color="red" />
       <Confirm onConfirm={handleSubmit} onCancel={() => setOpenConfirm(false)} open={openConfirm}
-        content='Are you sure you want to matriculate these students?'/>
+        content='Are you sure you want to update the students status?'/>
     </Tab.Pane>
   );
 };
