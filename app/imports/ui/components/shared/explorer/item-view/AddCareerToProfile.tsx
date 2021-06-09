@@ -1,13 +1,13 @@
-import React from 'react';
-import { Button, Icon, Modal, SemanticFLOATS, Grid, Label, Checkbox, Form } from 'semantic-ui-react';
+import { uuid } from 'fast-check';
+import React, { useContext, useState } from 'react';
+import { Button, Icon, Modal, SemanticFLOATS, Grid, Form } from 'semantic-ui-react';
 import { defineMethod, removeItMethod } from '../../../../../api/base/BaseCollection.methods';
 import { Interests } from '../../../../../api/interest/InterestCollection';
 import RadGradAlert from '../../../../utilities/RadGradAlert';
-import { CareerGoal, Interest, MeteorError } from '../../../../../typings/radgrad';
+import { CareerGoal, MeteorError } from '../../../../../typings/radgrad';
 import { ProfileCareerGoals } from '../../../../../api/user/profile-entries/ProfileCareerGoalCollection';
 import { PROFILE_ENTRY_TYPE, IProfileEntryTypes } from '../../../../../api/user/profile-entries/ProfileEntryTypes';
 import { COMPONENTIDS } from '../../../../utilities/ComponentIDs';
-import InterestLabel from '../../label/InterestLabel';
 import { createDefinitionData, getCollectionName } from './utilities/profile-button';
 
 
@@ -48,10 +48,8 @@ const handleRemove = (userID: string, item: CareerGoal, type: IProfileEntryTypes
 
 const AddToProfileButton: React.FC<AddToProfileButtonProps> = ({ userID, careerGoal, type, added, inverted, floated }) => {
   const [open, setOpen] = React.useState(false);
-  const relatedInterest = [];
-  const interestMap = careerGoal.interestIDs.map((id) => Interests.findSlugByID(id));
-  relatedInterest.push(interestMap);
   const interestSlugs = careerGoal.interestIDs.map((id) => Interests.findSlugByID(id));
+
   return (
     <React.Fragment>
       {added ? (
@@ -76,7 +74,7 @@ const AddToProfileButton: React.FC<AddToProfileButtonProps> = ({ userID, careerG
               If you are OK with that, just press OK. </p>
             <Form>
               <Form.Group widths={2}>
-                {interestSlugs.map((slug, index) => <Form.Checkbox key={`${slug}-checkbox`} label={`${interestSlugs[index]}`}/>)}
+                {interestSlugs.map((slug, index) => <Form.Checkbox key={`${slug}-checkbox`} radio label={`${interestSlugs[index]}`}/>)}
               </Form.Group>
             </Form>
           </Modal.Description>
