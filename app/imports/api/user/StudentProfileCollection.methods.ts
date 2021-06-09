@@ -262,7 +262,7 @@ const buildStudentDumpObject = (studentUsernameOrID: string) => {
     contents: [],
   };
   const profile = Users.getProfile(studentUsernameOrID);
-  studentProfileCollection.contents.push(profile);
+  studentProfileCollection.contents.push(StudentProfiles.dumpOne(profile._id));
   collections.push(studentProfileCollection);
   const courseInstanceCollection = {
     name: CourseInstances.getCollectionName(),
@@ -375,7 +375,7 @@ export const updateAllStudentsStatusMethod = new ValidatedMethod({
   run() {
     if (Meteor.isServer) {
       StudentProfiles.assertValidRoleForMethod(this.userId);
-      const students = StudentProfiles.find({ isAlumni: false }).fetch();
+      const students = StudentProfiles.find({}).fetch();
       let alumniCount = 0;
       let retiredCount = 0;
       let matriculatedCount = 0;
@@ -390,10 +390,10 @@ export const updateAllStudentsStatusMethod = new ValidatedMethod({
         }
         if (shouldMatriculate(student)) {
           matriculatedCount++;
-          const fileName = `${student}-${mDate}`;
+          const fileName = `${student.username}-${mDate}`;
           const record = {
             fileName,
-            contents: buildStudentDumpObject(student),
+            contents: buildStudentDumpObject(student.username),
           };
           studentRecords.push(record);
           StudentProfiles.removeIt(student);
