@@ -16,7 +16,6 @@ import { ProfileCareerGoals } from '../../../../api/user/profile-entries/Profile
 import { Courses } from '../../../../api/course/CourseCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
 import PageLayout from '../../PageLayout';
-import AddToProfileButton from '../../../components/shared/explorer/item-view/AddToProfileButton';
 import AddCareerToProfile from '../../../components/shared/explorer/item-view/AddCareerToProfile';
 import { PROFILE_ENTRY_TYPE } from '../../../../api/user/profile-entries/ProfileEntryTypes';
 import { getAssociationRelatedCourses, getAssociationRelatedOpportunities } from '../utilities/getExplorerRelatedMethods';

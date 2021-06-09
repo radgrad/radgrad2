@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Icon, Modal, SemanticFLOATS, Grid, Label, Checkbox } from 'semantic-ui-react';
+import { Button, Icon, Modal, SemanticFLOATS, Grid, Label, Checkbox, Form } from 'semantic-ui-react';
 import { defineMethod, removeItMethod } from '../../../../../api/base/BaseCollection.methods';
 import { Interests } from '../../../../../api/interest/InterestCollection';
 import RadGradAlert from '../../../../utilities/RadGradAlert';
@@ -28,8 +28,6 @@ const handleAdd = (userID: string, item: CareerGoal, type: IProfileEntryTypes) =
     .then(() => { RadGradAlert.success('Added to profile');});
 };
 
-const addInterest = (userID: string, item: Interest, type: IProfileEntryTypes) => () => {
-};
 const handleRemove = (userID: string, item: CareerGoal, type: IProfileEntryTypes) => () => {
   const collectionName = getCollectionName(type);
   let instance;
@@ -50,8 +48,10 @@ const handleRemove = (userID: string, item: CareerGoal, type: IProfileEntryTypes
 
 const AddToProfileButton: React.FC<AddToProfileButtonProps> = ({ userID, careerGoal, type, added, inverted, floated }) => {
   const [open, setOpen] = React.useState(false);
+  const relatedInterest = [];
   const interestMap = careerGoal.interestIDs.map((id) => Interests.findSlugByID(id));
-
+  relatedInterest.push(interestMap);
+  const interestSlugs = careerGoal.interestIDs.map((id) => Interests.findSlugByID(id));
   return (
     <React.Fragment>
       {added ? (
@@ -74,10 +74,11 @@ const AddToProfileButton: React.FC<AddToProfileButtonProps> = ({ userID, careerG
           <Modal.Description textAlign = 'center'>
             <p> Adding this Career Goal will automatically add the following new Interests to your profile.<br/>
               If you are OK with that, just press OK. </p>
-            <Label.Group size='small'>
-              {interestMap.map((slug) => <InterestLabel key={slug} slug={slug} userID={userID} size='small' />)}
-            </Label.Group>
-            <Checkbox>{interestMap.map((slug) => <InterestLabel key={slug} slug={slug} userID={userID} size='small' />)}</Checkbox>
+            <Form>
+              <Form.Group widths={2}>
+                {interestSlugs.map((slug, index) => <Form.Checkbox key={`${slug}-checkbox`} label={`${interestSlugs[index]}`}/>)}
+              </Form.Group>
+            </Form>
           </Modal.Description>
           <Modal.Actions>
             <br/>
