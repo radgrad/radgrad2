@@ -971,3 +971,18 @@ export interface RelatedCoursesOrOpportunities {
   inPlan: string[];
   notInPlan: string[];
 }
+
+export interface InternshipDefine {
+  urls: string[];
+  position: string;
+  description: string;
+  lastUploaded?: Date;
+  missedUploads?: number;
+  interests: string[];
+  careerGoals: string[];
+  company?: string;
+  location?: Object;
+  contact?: string;
+  posted?: string;
+  due?: string;
+}
