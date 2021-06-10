@@ -63,7 +63,7 @@ const ExplorerCourse: React.FC<ExplorerCoursesWidgetProps> = ({ course, courses,
             <strong>Syllabus:</strong>&nbsp; {course.syllabus ? <a href={course.syllabus } target="_blank" rel="noreferrer" style={linkStyle}>{course.syllabus}</a> : 'N/A'}
           </Grid.Row>
           <Grid.Row>
-            <Markdown allowDangerousHtml source={course.description} />
+            <Markdown allowDangerousHtml linkTarget="_blank" source={course.description} />
           </Grid.Row>
           {isStudent ? '' : <EditCourseButton course={course} courses={courses} interests={interests} />}
           {isAdmin ? <DeleteItemButton item={course} type={PROFILE_ENTRY_TYPE.COURSE} /> : ''}

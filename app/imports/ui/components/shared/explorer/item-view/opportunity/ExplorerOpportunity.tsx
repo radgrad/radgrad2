@@ -79,7 +79,7 @@ const ExplorerOpportunity: React.FC<ExplorerOpportunitiesProps> = ({ opportunity
         {hasTeaser ? <TeaserVideo id={teaserUrlHelper(opportunity)} /> : ''}
         <Grid stackable>
           <Grid.Row>
-            <Markdown allowDangerousHtml source={opportunity.description} />
+            <Markdown allowDangerousHtml linkTarget="_blank" source={opportunity.description} />
           </Grid.Row>
           <Grid.Row style={compactRowStyle}>
             <strong style={{ paddingTop: '4px' }}>ICE:</strong>&nbsp;<IceHeader ice={opportunity.ice} size='large' />
