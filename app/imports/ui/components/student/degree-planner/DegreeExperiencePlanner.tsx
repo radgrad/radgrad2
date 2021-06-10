@@ -6,31 +6,27 @@ import _ from 'lodash';
 import RadGradAlert from '../../../utilities/RadGradAlert';
 import { Users } from '../../../../api/user/UserCollection';
 import { AcademicYearInstances } from '../../../../api/degree-plan/AcademicYearInstanceCollection';
-import { DegreePlannerStateNames } from '../../../pages/student/StudentDegreePlannerPage';
-import { useStickyState } from '../../../utilities/StickyState';
 import { ButtonAction } from '../../shared/button/ButtonAction';
 import AcademicYearView from './AcademicYearView';
 import {
   AcademicYearInstance,
   AcademicYearInstanceDefine,
   CourseInstance,
-  OpportunityInstance,
+  OpportunityInstance, VerificationRequest,
 } from '../../../../typings/radgrad';
 import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
 import { defineMethod, removeItMethod } from '../../../../api/base/BaseCollection.methods';
-import { TabbedProfileEntryNames } from './TabbedProfileEntries';
 
 interface DePProps {
   academicYearInstances: AcademicYearInstance[];
   courseInstances: CourseInstance[];
   opportunityInstances: OpportunityInstance[];
+  verificationRequests: VerificationRequest[];
+  // internshipInstances: InternshipInstance[];
 }
 
-const DegreeExperiencePlanner: React.FC<DePProps> = ({ academicYearInstances, courseInstances, opportunityInstances }) => {
-  const [, setSelectedCiID] = useStickyState(DegreePlannerStateNames.selectedCiID, '');
-  const [, setSelectedOiID] = useStickyState(DegreePlannerStateNames.selectedOiID, '');
-  const [, setSelectedProfileTab] = useStickyState(DegreePlannerStateNames.selectedProfileTab, '');
+const DegreeExperiencePlanner: React.FC<DePProps> = ({ academicYearInstances, courseInstances, opportunityInstances, verificationRequests /* , internshipInstances */ }) => {
   const { username } = useParams();
   const studentID = Users.getID(username);
 
@@ -52,20 +48,6 @@ const DegreeExperiencePlanner: React.FC<DePProps> = ({ academicYearInstances, co
     years = AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
   }
   let visibleYears = years;
-
-  const handleClickCourseInstance = (event, { value }) => {
-    event.preventDefault();
-    setSelectedCiID(value);
-    setSelectedOiID('');
-    setSelectedProfileTab(TabbedProfileEntryNames.profileDetails);
-  };
-
-  const handleClickOpportunityInstance = (event, { value }) => {
-    event.preventDefault();
-    setSelectedCiID('');
-    setSelectedOiID(value);
-    setSelectedProfileTab(TabbedProfileEntryNames.profileDetails);
-  };
 
   const handleAddYear = (): void => {
     const student = username;
@@ -122,10 +104,10 @@ const DegreeExperiencePlanner: React.FC<DePProps> = ({ academicYearInstances, co
             key={year._id}
             academicYear={year}
             studentID={studentID}
-            handleClickCourseInstance={handleClickCourseInstance}
-            handleClickOpportunityInstance={handleClickOpportunityInstance}
             courseInstances={courseInstances}
             opportunityInstances={opportunityInstances}
+            verificationRequests={verificationRequests}
+            // internshipInstances={internshipInstances}
           />
         ))}
         <Grid.Row textAlign="center">

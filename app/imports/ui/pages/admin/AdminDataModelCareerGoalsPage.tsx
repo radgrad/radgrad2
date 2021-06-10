@@ -112,7 +112,7 @@ const AdminDataModelCareerGoalsPage: React.FC<AdminDataModelCareerGoalsPageProps
   );
 };
 
-const AdminDataModelCareerGoalsPageContainer = withTracker(() => {
+export default withTracker(() => {
   const items = CareerGoals.find({}).fetch();
   const interests = Interests.find({}).fetch();
   return {
@@ -120,5 +120,3 @@ const AdminDataModelCareerGoalsPageContainer = withTracker(() => {
     interests,
   };
 })(AdminDataModelCareerGoalsPage);
-
-export default AdminDataModelCareerGoalsPageContainer;

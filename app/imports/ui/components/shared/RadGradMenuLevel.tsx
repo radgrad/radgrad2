@@ -1,5 +1,7 @@
 import React from 'react';
 import { Popup } from 'semantic-ui-react';
+import { Link, useRouteMatch } from 'react-router-dom';
+import { buildRouteName } from './utilities/router';
 
 interface RadGradMenuLevelProps {
   level: number;
@@ -20,8 +22,10 @@ const RadGradMenuLevel: React.FC<RadGradMenuLevelProps> = ({ level }) => {
     backgroundSize: '100% 100%',
     display: 'flex',
   };
+  const match = useRouteMatch();
+  const routeToLevelsPage = buildRouteName(match, '/levels');
   return (
-    <Popup trigger={<div style={iconStyle}/>} content={`Level ${level}`}/>
+    <Popup trigger={<Link to={routeToLevelsPage}> <div style={iconStyle}/> </Link>} content={`Level ${level}`}/>
   );
 };
 

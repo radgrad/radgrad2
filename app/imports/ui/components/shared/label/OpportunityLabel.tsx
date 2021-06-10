@@ -19,7 +19,7 @@ const OpportunityLabel: React.FC<EntityLabelPublicProps> = ({ slug, userID, size
   const opportunity = Opportunities.findDocBySlug(slug);
   const name = opportunity.name; // will throw an error if slug is undefined.
   if (userID) {
-    route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${slug}`);
+    route = Router.buildRouteName(match, route);
     // Calculate inProfile.
     const profileEntityIDs = ProfileOpportunities.findNonRetired({ studentID: userID });
     const id = opportunity._id;

@@ -1,12 +1,12 @@
 import React from 'react';
 import { Message } from 'semantic-ui-react';
-import { DegreePlannerStateNames } from '../../../pages/student/StudentDegreePlannerPage';
-import { useStickyState } from '../../../utilities/StickyState';
+import { DegreePlannerStateNames } from '../../../../app/imports/ui/pages/student/StudentDegreePlannerPage';
+import { useStickyState } from '../../../../app/imports/ui/utilities/StickyState';
 import DetailCourseCard from './DetailCourseCard';
-import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
-import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
+import { CourseInstances } from '../../../../app/imports/api/course/CourseInstanceCollection';
+import { OpportunityInstances } from '../../../../app/imports/api/opportunity/OpportunityInstanceCollection';
 import DetailOpportunityCard from './DetailOpportunityCard';
-import { CourseInstance, OpportunityInstance, VerificationRequest } from '../../../../typings/radgrad';
+import { CourseInstance, OpportunityInstance, VerificationRequest } from '../../../../app/imports/typings/radgrad';
 
 interface DepDetailsWidgetProps {
   verificationRequests: VerificationRequest[];

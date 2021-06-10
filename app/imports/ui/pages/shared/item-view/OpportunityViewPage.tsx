@@ -72,12 +72,12 @@ const OpportunityViewPage: React.FC<OpportunityViewPageProps> = ({
   const studentID = profile.userID;
   const completed = isCompleted(opportunity._id, studentID);
   const headerPaneTitle = opportunity.name;
-  const headerPaneImage = 'header-opportunities.png';
+  const headerPaneImage = opportunity.picture;
   const added = ProfileOpportunities.findNonRetired({
     studentID: profile.userID,
     opportunityID: opportunity._id,
   }).length > 0;
-  const relatedCourses : RelatedCoursesOrOpportunities = getAssociationRelatedCourses(Opportunities.findRelatedCourses(opportunity._id), profile.userID);
+  const relatedCourses: RelatedCoursesOrOpportunities = getAssociationRelatedCourses(Opportunities.findRelatedCourses(opportunity._id), profile.userID);
   const relatedCareerGoals = Opportunities.findRelatedCareerGoals(opportunity._id);
   const headerPaneButton = profile.role === ROLE.STUDENT ? <AddToProfileButton type={PROFILE_ENTRY_TYPE.OPPORTUNITY} studentID={profile.userID}
     item={opportunity} added={added} inverted floated="left" /> : undefined;
@@ -102,7 +102,7 @@ const OpportunityViewPage: React.FC<OpportunityViewPageProps> = ({
   );
 };
 
-const OpportunityViewPageContainer = withTracker(() => {
+export default withTracker(() => {
   const { opportunity, username } = useParams();
   const profile = Users.getProfile(username);
   const favOpps = ProfileOpportunities.findNonRetired({ studentID: profile.userID });
@@ -134,5 +134,3 @@ const OpportunityViewPageContainer = withTracker(() => {
     opportunities,
   };
 })(OpportunityViewPage);
-
-export default OpportunityViewPageContainer;

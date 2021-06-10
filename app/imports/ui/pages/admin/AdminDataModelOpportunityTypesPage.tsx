@@ -24,7 +24,7 @@ const collection = OpportunityTypes; // the collection to use.
 const numReferences = (opportunityType) => {
   let references = 0;
   Opportunities.find().forEach((doc) => {
-    if ((doc.opportunityTypeID).includes(opportunityType._id)) {
+    if ((doc.opportunityTypeID).includes(opportunityType._id)) { // TODO: Why is this using .includes instead of ===?
       references += 1;
     }
   });
@@ -116,11 +116,9 @@ const AdminDataModelOpportunityTypesPage: React.FC<AdminDataModelOpportunityType
   );
 };
 
-const AdminDataModelOpportunityTypesPageContainer = withTracker(() => {
+export default withTracker(() => {
   const items = OpportunityTypes.find({}).fetch();
   return {
     items,
   };
 })(AdminDataModelOpportunityTypesPage);
-
-export default AdminDataModelOpportunityTypesPageContainer;

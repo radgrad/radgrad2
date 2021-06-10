@@ -71,7 +71,7 @@ const InterestViewPage: React.FC<InterestViewPageProps> = ({
   );
 };
 
-const InterestViewPageContainer = withTracker(() => {
+export default withTracker(() => {
   const { interest, username } = useParams();
   const interestDoc = Interests.findDocBySlug(interest);
   const profile = Users.getProfile(username);
@@ -91,5 +91,3 @@ const InterestViewPageContainer = withTracker(() => {
     interests,
   };
 })(InterestViewPage);
-
-export default InterestViewPageContainer;

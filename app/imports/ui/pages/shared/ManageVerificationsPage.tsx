@@ -48,9 +48,11 @@ const ManageVerificationPageWithTracker = withTracker(() => {
   const userID = Users.getID(username);
   const linkedOppInstances = OpportunityInstances.findNonRetired({ sponsorID: userID });
   const isLinkedReq = (verReq: VerificationRequest) => !!linkedOppInstances.find((oppI) => verReq.opportunityInstanceID === oppI._id);
+  const verificationRequests = VerificationRequests.findNonRetired().filter((ele) => isLinkedReq(ele));
+  const eventOpportunities = Opportunities.findNonRetired({ eventDate: { $exists: true } });
   return {
-    verificationRequests: VerificationRequests.findNonRetired().filter((ele) => isLinkedReq(ele)),
-    eventOpportunities: Opportunities.findNonRetired({ eventDate: { $exists: true } }),
+    verificationRequests,
+    eventOpportunities,
   };
 })(ManageVerificationsPage);
 const ManageVerificationPageContainer = withAdditionalSubscriptions(ManageVerificationPageWithTracker);

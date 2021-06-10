@@ -15,35 +15,38 @@ interface RelatedOpportunitiesProps {
 
 const RelatedOpportunities: React.FC<RelatedOpportunitiesProps> = ({ relatedOpportunities, profile }) => {
   const header = <RadGradHeader title='related opportunities' icon={EXPLORER_TYPE_ICON.OPPORTUNITY} />;
+  const style = { paddingBottom: '0', textAlign: 'center' };
   return (
     <RadGradSegment header={header}>
       {profile.role === ROLE.STUDENT ? (
         <Grid stackable padded>
-          <Grid.Row textAlign="center">
+          <Grid.Row style={style}>
             <Header as="h4">
               <Icon name="checkmark" color="green" />
               Completed
             </Header>
           </Grid.Row>
-          <Grid.Row>
+          <Grid.Row style={{ paddingTop: '0.5rem' }}>
             <OpportunityList opportunities={relatedOpportunities.completed.map((id) => Opportunities.findDoc(id))} size="medium" keyStr="completedOpp" userID={profile.userID} />
           </Grid.Row>
-          <Grid.Row textAlign="center">
+          <hr style={{ width: '100%' }}/>
+          <Grid.Row style={style}>
             <Header as="h4">
               <Icon name="warning sign" color="yellow" />
-                In Plan (Not Yet Completed)
+              In Plan (Not Yet Completed)
             </Header>
           </Grid.Row>
-          <Grid.Row>
+          <Grid.Row style={{ paddingTop: '0.5rem' }}>
             <OpportunityList opportunities={relatedOpportunities.inPlan.map((id) => Opportunities.findDoc(id))} size="medium" keyStr="oppInPlan" userID={profile.userID} />
           </Grid.Row>
-          <Grid.Row textAlign="center">
+          <hr style={{ width: '100%' }}/>
+          <Grid.Row style={style}>
             <Header as="h4">
               <Icon name="warning circle" color="red" />
               Not In Plan
             </Header>
           </Grid.Row>
-          <Grid.Row>
+          <Grid.Row style={{ paddingTop: '0.5rem' }}>
             <OpportunityList opportunities={relatedOpportunities.notInPlan.map((id) => Opportunities.findDoc(id))} size="medium" keyStr="oppNotInPlan" userID={profile.userID} />
           </Grid.Row>
         </Grid>

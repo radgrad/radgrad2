@@ -107,7 +107,7 @@ const AdminDataModelAcademicYearsPage: React.FC<AdminDataModelAcademicYearsPageP
   );
 };
 
-const AdminDataModelAcademicYearsPageContainer = withTracker(() => {
+export default withTracker(() => {
   const items = AcademicYearInstances.find({}).fetch();
   const students = StudentProfiles.find({ isAlumni: false }).fetch();
   return {
@@ -116,4 +116,3 @@ const AdminDataModelAcademicYearsPageContainer = withTracker(() => {
   };
 })(AdminDataModelAcademicYearsPage);
 
-export default AdminDataModelAcademicYearsPageContainer;

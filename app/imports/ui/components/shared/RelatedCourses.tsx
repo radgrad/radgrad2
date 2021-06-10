@@ -16,35 +16,38 @@ interface RelatedCoursesProps {
 
 const RelatedCourses: React.FC<RelatedCoursesProps> = ({ relatedCourses, profile, title }) => {
   const header = <RadGradHeader title= {title || 'related courses'} icon={EXPLORER_TYPE_ICON.COURSE} />;
+  const style = { paddingBottom: '0', textAlign: 'center' };
   return (
     <RadGradSegment header={header}>
       {profile.role === ROLE.STUDENT ? (
         <Grid stackable padded>
-          <Grid.Row textAlign="center">
+          <Grid.Row style={style}>
             <Header as="h4">
               <Icon name="check circle" color="green" />
               Completed
             </Header>
           </Grid.Row>
-          <Grid.Row>
+          <Grid.Row style={{ paddingTop: '0.5rem' }}>
             <CourseList courses={relatedCourses.completed.map((id) => Courses.findDoc(id))} keyStr="completed" size="medium" userID={profile.userID} />
           </Grid.Row>
-          <Grid.Row textAlign="center">
+          <hr style={{ width: '100%' }}/>
+          <Grid.Row style={style}>
             <Header as="h4">
               <Icon name="warning sign" color="yellow" />
               In Plan (Not Yet Completed)
             </Header>
           </Grid.Row>
-          <Grid.Row>
+          <Grid.Row style={{ paddingTop: '0.5rem' }}>
             <CourseList courses={relatedCourses.inPlan.map((id) => Courses.findDoc(id))} keyStr="inPlan" size="medium" userID={profile.userID} />
           </Grid.Row>
-          <Grid.Row textAlign="center">
+          <hr style={{ width: '100%' }}/>
+          <Grid.Row style={style}>
             <Header as="h4">
               <Icon name="warning circle" color="red" />
               Not In Plan
             </Header>
           </Grid.Row>
-          <Grid.Row>
+          <Grid.Row style={{ paddingTop: '0.5rem' }}>
             <CourseList courses={relatedCourses.notInPlan.map((id) => Courses.findDoc(id))} keyStr="notInPlan" size="medium" userID={profile.userID} />
           </Grid.Row>
         </Grid>

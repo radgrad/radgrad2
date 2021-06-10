@@ -76,4 +76,5 @@ export const EXPLORER_TYPE = {
   INTERESTS: 'interests',
   OPPORTUNITIES: 'opportunities',
   FACULTY: 'faculty',
+  INTERNSHIPS: 'internships',
 };

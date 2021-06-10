@@ -2,17 +2,17 @@ import React from 'react';
 import { Card } from 'semantic-ui-react';
 import { useRouteMatch } from 'react-router-dom';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
-import { AcademicTerm, Opportunity, OpportunityInstance } from '../../../../typings/radgrad';
+import { AcademicTerm, Opportunity, OpportunityInstance } from '../../../../app/imports/typings/radgrad';
 // import { DegreePlannerStateNames } from '../../../pages/student/StudentDegreePlannerPage';
 // import { useStickyState } from '../../../utilities/StickyState';
-import { ViewInExplorerButtonLink } from '../../shared/button/ViewInExplorerButtonLink';
-import FutureParticipationButton from '../../shared/FutureParticipationButton';
-import IceHeader from '../../shared/IceHeader';
-import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
-import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
-import { Slugs } from '../../../../api/slug/SlugCollection';
-import { cardStyle, contentStyle, getDraggablePillStyle } from './utilities/styles';
-import NamePill from './NamePill';
+import { ViewInExplorerButtonLink } from '../../../../app/imports/ui/components/shared/button/ViewInExplorerButtonLink';
+import FutureParticipationButton from '../../../../app/imports/ui/components/shared/FutureParticipationButton';
+import IceHeader from '../../../../app/imports/ui/components/shared/IceHeader';
+import { AcademicTerms } from '../../../../app/imports/api/academic-term/AcademicTermCollection';
+import { EXPLORER_TYPE } from '../../../../app/imports/ui/layouts/utilities/route-constants';
+import { Slugs } from '../../../../app/imports/api/slug/SlugCollection';
+import { cardStyle, contentStyle, getDraggablePillStyle } from '../../../../app/imports/ui/components/student/degree-planner/utilities/styles';
+import NamePill from '../../../../app/imports/ui/components/student/degree-planner/NamePill';
 
 interface ProfileOpportunityCardProps {
   opportunity: Opportunity;

@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+import { OpportunityDefine } from '../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../base/BaseCollection.methods';
 import { Opportunities } from './OpportunityCollection';
 import { defineTestFixturesMethod, withRadGradSubscriptions, withLoggedInUser } from '../test/test-utilities';
@@ -9,7 +10,7 @@ import { defineTestFixturesMethod, withRadGradSubscriptions, withLoggedInUser } 
 if (Meteor.isClient) {
   describe('OpportunityCollection Meteor Methods ', function test() {
     const collectionName = Opportunities.getCollectionName();
-    const definitionData = {
+    const definitionData: OpportunityDefine = {
       name: 'name',
       slug: 'opportunity-slug-example',
       description: 'description',
@@ -17,7 +18,6 @@ if (Meteor.isClient) {
       sponsor: 'radgrad@hawaii.edu',
       ice: { i: 5, c: 5, e: 5 },
       interests: ['algorithms'],
-      academicTerms: ['Spring-2017'],
     };
 
     before(function (done) {
