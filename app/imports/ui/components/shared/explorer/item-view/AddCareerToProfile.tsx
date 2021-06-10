@@ -1,5 +1,5 @@
-import { uuid } from 'fast-check';
-import React, { useContext, useState } from 'react';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import React, { useState } from 'react';
 import { Button, Icon, Modal, SemanticFLOATS, Grid, Form } from 'semantic-ui-react';
 import { defineMethod, removeItMethod } from '../../../../../api/base/BaseCollection.methods';
 import { Interests } from '../../../../../api/interest/InterestCollection';
@@ -11,7 +11,7 @@ import { COMPONENTIDS } from '../../../../utilities/ComponentIDs';
 import { createDefinitionData, getCollectionName } from './utilities/profile-button';
 
 
-export interface AddToProfileButtonProps {
+export interface AddCareerToProfileProps {
   careerGoal: CareerGoal;
   userID: string;
   type: IProfileEntryTypes;
@@ -46,8 +46,10 @@ const handleRemove = (userID: string, item: CareerGoal, type: IProfileEntryTypes
     .catch((error) => { RadGradAlert.failure('Failed to remove from profile', error.message, error);});
 };
 
-const AddToProfileButton: React.FC<AddToProfileButtonProps> = ({ userID, careerGoal, type, added, inverted, floated }) => {
+const AddCareerToProfile: React.FC<AddCareerToProfileProps> = ({ userID, careerGoal, type, added, inverted, floated }) => {
   const [open, setOpen] = React.useState(false);
+  const [check, setChecked] = React.useState(true);
+
   const interestSlugs = careerGoal.interestIDs.map((id) => Interests.findSlugByID(id));
 
   return (
@@ -95,4 +97,4 @@ const AddToProfileButton: React.FC<AddToProfileButtonProps> = ({ userID, careerG
   );
 };
 
-export default AddToProfileButton;
+export default AddCareerToProfile;
