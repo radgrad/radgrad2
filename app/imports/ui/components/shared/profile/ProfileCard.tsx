@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, Icon, Image, Tab } from 'semantic-ui-react';
+import { COMPONENTIDS } from '../../../utilities/ComponentIDs';
 import ProfileIceCircle from './ProfileIceCircle';
 import CareerGoalLabel from '../label/CareerGoalLabel';
 import { Users } from '../../../../api/user/UserCollection';
@@ -41,7 +42,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ name, email, image, website, 
   return (
     <Card fluid={fluid} style={fluid ? {} : { minWidth: '500px' }}>
       <Card.Content>
-        {image ? <Image floated='left' size='tiny' src={image}/> : ''}
+        {image ? <Image id={COMPONENTIDS.PROFILE_PICTURE} floated='left' size='tiny' src={image}/> : ''}
         <Card.Header>{name}</Card.Header>
         <Card.Meta><Icon name="mail"/>&nbsp;<a href={`mailto:${email}`}>{email}</a></Card.Meta>
         {website ? <Card.Meta><Icon name='linkify'/><a href={website}>{website}</a></Card.Meta> : ''}

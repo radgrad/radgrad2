@@ -98,4 +98,11 @@ export enum COMPONENTIDS {
 
   ADD_TO_PROFILE_BUTTON = 'add-to-profile-button',
   REMOVE_FROM_PROFILE_BUTTON = 'remove-from-profile-button',
+
+  SHARE_PICTURE = 'share-picture',
+  SHARE_WEBSITE = 'share-website',
+  SHARE_INTERESTS = 'share-interests',
+  SHARE_CAREER_GOALS = 'share-career-goals',
+  PROFILE_PICTURE = 'profile-picture',
+
 }
