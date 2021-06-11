@@ -972,7 +972,7 @@ export interface RelatedCoursesOrOpportunities {
   notInPlan: string[];
 }
 
-export interface InternshipDefine {
+export interface InternshipDefine extends DumpOne {
   urls: string[];
   position: string;
   description: string;
