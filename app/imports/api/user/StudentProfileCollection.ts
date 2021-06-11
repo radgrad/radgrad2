@@ -512,6 +512,10 @@ class StudentProfileCollection extends BaseProfileCollection {
         lastAcademicTerm = term;
       }
     });
+    // there were no course or opportunity instances
+    if (lastAcademicTerm.termNumber === 0) {
+      lastAcademicTerm = AcademicTerms.getCurrentAcademicTermDoc();
+    }
     return lastAcademicTerm;
   }
 

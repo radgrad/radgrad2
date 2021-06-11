@@ -2,14 +2,16 @@ import React, { useState } from 'react';
 import { Button, Input, Segment, Tab } from 'semantic-ui-react';
 import { ZipZap } from 'meteor/udondan:zipzap';
 import moment from 'moment';
+import { findOddStudentsMethod } from '../../../../api/user/StudentProfileCollection.methods';
 import { COMPONENTIDS } from '../../../utilities/ComponentIDs';
 import RadGradAlert from '../../../utilities/RadGradAlert';
 import { alumniEmailsMethod } from '../../../../api/base/BaseCollection.methods';
 import { starBulkLoadJsonDataMethod } from '../../../../api/star/StarProcessor.methods';
-import { retireAllOldStudentsMethod, updateAllStudentsToAlumniMethod } from '../../../../api/user/StudentProfileCollection.methods';
 import { generateStudentEmailsMethod } from '../../../../api/user/UserCollection.methods';
+import ProfileLabel from '../../shared/profile/ProfileLabel';
 import RadGradTabHeader from '../../shared/RadGradTabHeader';
 import { updateAllStudentLevelsMethod } from '../../../../api/level/LevelProcessor.methods';
+import { Users } from '../../../../api/user/UserCollection';
 
 const AdvisorOtherTab: React.FC = () => {
   const [bulkCourseDataState, setBulkCourseData] = useState('');
@@ -19,6 +21,7 @@ const AdvisorOtherTab: React.FC = () => {
   const [isUploadWorkingState, setIsUploadWorking] = useState(false);
   const [isUpdateWorkingState, setIsUpdateWorking] = useState(false);
   const [isUpdateOldWorkingState, setIsUpdateOldWorking] = useState(false);
+  const [oddStudents, setOddStudents] = useState([]);
 
   const readAlumniFile = (e) => {
     const files = e.target.files;
@@ -113,14 +116,11 @@ const AdvisorOtherTab: React.FC = () => {
     setIsEmailWorking(false);
   };
 
-  const handleUpdateStudentStatus = () => {
+  const handleFindOddStudents = () => {
     setIsUpdateOldWorking(true);
-    updateAllStudentsToAlumniMethod.callPromise({})
-      .then((result) => console.log(result))
-      .catch((error) => console.error(error));
-    retireAllOldStudentsMethod.callPromise({})
-      .then((result) => console.log(result))
-      .catch((error) => console.error(error));
+    findOddStudentsMethod.callPromise(null)
+      .then(result => setOddStudents(result))
+      .catch(error => RadGradAlert.failure('Failed to get odd students.', error.message));
     setIsUpdateOldWorking(false);
   };
 
@@ -164,11 +164,11 @@ const AdvisorOtherTab: React.FC = () => {
         rightside={bulkUploadRightSide} /></Segment>
       <Segment vertical><RadGradTabHeader title='Bulk alumni data upload' icon='upload'
         rightside={alumniEmailsUploadRightSide} /></Segment>
-      <Segment vertical><RadGradTabHeader title='Update old student status' icon='highlighter'
-        rightside={<Button basic color='green' onClick={handleUpdateStudentStatus} size='mini'
+      <Segment vertical><RadGradTabHeader title='Find odd students' icon='highlighter'
+        rightside={<Button basic color='green' onClick={handleFindOddStudents} size='mini'
           loading={isUpdateOldWorkingState}
-          disabled={isUpdateOldWorkingState}>UPDATE
-                                            STATUS</Button>} /></Segment>
+          disabled={isUpdateOldWorkingState}>FIND ODD STUDENTS</Button>} />
+      {oddStudents.length > 0 ? oddStudents.map((s) => <ProfileLabel name={Users.getFullName(s.userID)} level={s.level} size='mini' />) : 'No odd students'}</Segment>
     </Tab.Pane>
   );
 };

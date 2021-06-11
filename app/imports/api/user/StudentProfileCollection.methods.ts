@@ -409,3 +409,26 @@ export const updateAllStudentsStatusMethod = new ValidatedMethod({
     return {};
   },
 });
+
+export const findOddStudentsMethod = new ValidatedMethod({
+  name: 'StudentProfiles.findOddStudents',
+  mixins: [CallPromiseMixin],
+  validate: null,
+  run() {
+    const retVal = [];
+    if (Meteor.isServer) {
+      StudentProfiles.assertValidRoleForMethod(this.userId);
+      const students = StudentProfiles.find({}).fetch();
+      students.forEach((student) => {
+        const studentID = student.userID;
+        const cis = CourseInstances.find({ studentID }).fetch();
+        const ois = OpportunityInstances.find({ studentID }).fetch();
+        if (cis.length === 0 && ois.length === 0) {
+          retVal.push(student);
+        }
+      });
+      return retVal;
+    }
+    return retVal;
+  },
+});

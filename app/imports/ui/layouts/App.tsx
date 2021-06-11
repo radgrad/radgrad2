@@ -27,7 +27,7 @@ window.addEventListener('storage', (event) => {
 
 /** Default to scroll to top for new pages. */
 const ScrollToTop = () => {
-  console.log('scrolling to top');
+  // console.log('scrolling to top');
   const { pathname } = useLocation();
   useEffect(() => {
     window.scrollTo(0, 0);
