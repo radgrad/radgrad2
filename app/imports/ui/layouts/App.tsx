@@ -1,7 +1,8 @@
 import { Roles } from 'meteor/alanning:roles';
 import { Meteor } from 'meteor/meteor';
-import React from 'react';
+import React, { useEffect } from 'react';
 import _ from 'lodash';
+import { useLocation } from 'react-router';
 import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import '/public/semantic.min.css';
 import 'semantic-ui-css/components/rating.css';
@@ -24,9 +25,20 @@ window.addEventListener('storage', (event) => {
   }
 });
 
+/** Default to scroll to top for new pages. */
+const ScrollToTop = () => {
+  console.log('scrolling to top');
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+};
+
 /* Top-level layout component for this application. Called in imports/startup/client/startup.tsx. */
 const App: React.FC = () => (
   <Router>
+    <ScrollToTop/>
     <Switch>
       {routes.LANDING.map((route) => (
         <Route key={route.path} {..._.defaults(route, { exact: true })} />

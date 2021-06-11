@@ -12,6 +12,8 @@ import CompletedVerificationsWidget from '../../components/shared/verification/C
 import withAdditionalSubscriptions from '../../layouts/utilities/AdvisorFacultyAdditionalSubscriptionsHOC';
 import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
+import { getRoleByUrl } from '../../components/shared/utilities/router';
+import { URL_ROLES } from '../../layouts/utilities/route-constants';
 
 interface ManageVerificationPageProps {
   verificationRequests: VerificationRequest[];
@@ -45,8 +47,15 @@ const ManageVerificationsPage: React.FC<ManageVerificationPageProps> = ({ verifi
 
 const ManageVerificationPageWithTracker = withTracker(() => {
   const { username } = useParams();
+  const match = useRouteMatch();
+  const role = getRoleByUrl(match);
   const userID = Users.getID(username);
-  const linkedOppInstances = OpportunityInstances.findNonRetired({ sponsorID: userID });
+  let linkedOppInstances = [];
+  if (role === URL_ROLES.ADMIN) {
+    linkedOppInstances = OpportunityInstances.findNonRetired({});
+  } else {
+    linkedOppInstances = OpportunityInstances.findNonRetired({ sponsorID: userID });
+  }
   const isLinkedReq = (verReq: VerificationRequest) => !!linkedOppInstances.find((oppI) => verReq.opportunityInstanceID === oppI._id);
   const verificationRequests = VerificationRequests.findNonRetired().filter((ele) => isLinkedReq(ele));
   const eventOpportunities = Opportunities.findNonRetired({ eventDate: { $exists: true } });
