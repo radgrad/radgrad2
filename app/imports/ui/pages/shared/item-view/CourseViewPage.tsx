@@ -32,11 +32,11 @@ interface CourseViewPageProps {
   interests: Interest[];
 }
 
-const isCourseCompleted = (courseSlugName, studentID): boolean => {
+const isCourseCompleted = (courseSlugName, userID): boolean => {
   let courseCompleted = false;
   const theCourse = Courses.findDocBySlug(courseSlugName);
   const ci = CourseInstances.findNonRetired({
-    studentID: studentID,
+    studentID: userID,
     courseID: theCourse._id,
   });
   ci.forEach((c) => {

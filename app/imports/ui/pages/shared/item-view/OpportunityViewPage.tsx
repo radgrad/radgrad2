@@ -68,8 +68,8 @@ const OpportunityViewPage: React.FC<OpportunityViewPageProps> = ({
   opportunityTypes,
   opportunities,
 }) => {
-  const studentID = profile.userID;
-  const completed = isCompleted(opportunity._id, studentID);
+  const userID = profile.userID;
+  const completed = isCompleted(opportunity._id, userID);
   const headerPaneTitle = opportunity.name;
   const headerPaneImage = opportunity.picture;
   const added = ProfileOpportunities.findNonRetired({
