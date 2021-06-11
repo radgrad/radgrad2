@@ -92,10 +92,11 @@ test('Test advisor manage student page', async (testController) => {
   await signinPage.signin(testController, credentials.advisor);
 
   await advisorNavBar.gotoManageStudentsPage(testController);
-  await managePages.clickFilteredStudentsTabAndVerify(testController);
-  await managePages.clickFilteredAlumniTabAndVerify(testController);
   await managePages.clickAddNewTabAndVerify(testController);
   await managePages.addNewStudent(testController);
+  await managePages.clickFilteredStudentsTabAndVerify(testController);
+  await managePages.testStudentFilter(testController);
+  await managePages.clickFilteredAlumniTabAndVerify(testController);
   await managePages.clickOtherTabAndVerify(testController);
   await managePages.clickMatriculateTabAndVerify(testController);
 });

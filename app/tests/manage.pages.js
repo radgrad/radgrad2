@@ -42,6 +42,13 @@ class ManagePages {
     await testController.typeText(`#${COMPONENTIDS.ADVISOR_ADD_USERNAME}`, 'johndoe@hawaii.edu');
     await testController.click(`#${COMPONENTIDS.ADVISOR_ADD_STUDENT_BUTTON}`);
   }
+
+  async testStudentFilter(testController) {
+    await testController.typeText(`#${COMPONENTIDS.ADVISOR_FILTER_FIRST_NAME}`, 'John');
+    await testController.typeText(`#${COMPONENTIDS.ADVISOR_FILTER_LAST_NAME}`, 'Doe');
+    const componentSelector = Selector(`#${COMPONENTIDS.MANAGE_STUDENT_ITEM}`).count;
+    await testController.expect(componentSelector).eql(1);
+  }
 }
 
 export const managePages = new ManagePages();
