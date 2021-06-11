@@ -986,3 +986,16 @@ export interface InternshipDefine extends DumpOne {
   posted?: string;
   due?: string;
 }
+
+export interface InternshipUpdate extends Update {
+  urls?: string[];
+  position?: string;
+  description?: string;
+  interests?: string[];
+  careerGoals?: string[];
+  company?: string;
+  location?: Object;
+  contact?: string;
+  posted?: string;
+  due?: string;
+}
