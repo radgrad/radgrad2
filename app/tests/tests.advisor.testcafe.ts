@@ -95,6 +95,7 @@ test('Test advisor manage student page', async (testController) => {
   await managePages.clickFilteredStudentsTabAndVerify(testController);
   await managePages.clickFilteredAlumniTabAndVerify(testController);
   await managePages.clickAddNewTabAndVerify(testController);
+  await managePages.addNewStudent(testController);
   await managePages.clickOtherTabAndVerify(testController);
   await managePages.clickMatriculateTabAndVerify(testController);
 });

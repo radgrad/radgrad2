@@ -1,5 +1,5 @@
-import { COMPONENTIDS } from '../imports/ui/utilities/ComponentIDs';
 import { Selector } from 'testcafe';
+import { COMPONENTIDS } from '../imports/ui/utilities/ComponentIDs';
 
 class ManagePages {
 
@@ -34,6 +34,13 @@ class ManagePages {
     await testController.click(`#${COMPONENTIDS.MATRICULATE_TAB}`);
     const componentSelector = Selector(`#${COMPONENTIDS.MATRICULATE_STUDENTS_TAB_PANE}`);
     await testController.expect(componentSelector.exists).ok();
+  }
+
+  async addNewStudent(testController) {
+    await testController.typeText(`#${COMPONENTIDS.ADVISOR_ADD_FIRST_NAME}`, 'John');
+    await testController.typeText(`#${COMPONENTIDS.ADVISOR_ADD_LAST_NAME}`, 'Doe');
+    await testController.typeText(`#${COMPONENTIDS.ADVISOR_ADD_USERNAME}`, 'johndoe@hawaii.edu');
+    await testController.click(`#${COMPONENTIDS.ADVISOR_ADD_STUDENT_BUTTON}`);
   }
 }
 
