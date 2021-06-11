@@ -127,17 +127,13 @@ class AdvisorProfileCollection extends BaseProfileCollection {
       sharePicture,
       shareInterests,
       shareCareerGoals,
+      shareOpportunities,
+      shareCourses,
       acceptedTermsAndConditions,
       refusedTermsAndConditions,
     });
     if (aboutMe) {
       updateData.aboutMe = aboutMe;
-    }
-    if (_.isBoolean(shareCourses)) {
-      updateData.shareCourses = shareCourses;
-    }
-    if (_.isBoolean(shareOpportunities)) {
-      updateData.shareOpportunities = shareOpportunities;
     }
     // console.log(docID, updateData);
     this.collection.update(docID, { $set: updateData });
@@ -145,11 +141,11 @@ class AdvisorProfileCollection extends BaseProfileCollection {
     const username = profile.username;
     if (interests) {
       ProfileInterests.removeUser(username);
-      interests.forEach((interest) => ProfileInterests.define({ interest, username }));
+      interests.forEach((interest) => ProfileInterests.define({ interest, username, retired }));
     }
     if (careerGoals) {
       ProfileCareerGoals.removeUser(username);
-      careerGoals.forEach((careerGoal) => ProfileCareerGoals.define({ careerGoal, username }));
+      careerGoals.forEach((careerGoal) => ProfileCareerGoals.define({ careerGoal, username, retired }));
     }
     if (profileCourses) {
       ProfileCourses.removeUser(username);
@@ -216,9 +212,9 @@ class AdvisorProfileCollection extends BaseProfileCollection {
     const interests = favInterests.map((fav) => Interests.findSlugByID(fav.interestID));
     const favCareerGoals = ProfileCareerGoals.findNonRetired({ userID });
     const careerGoals = favCareerGoals.map((fav) => CareerGoals.findSlugByID(fav.careerGoalID));
-    const favCourses = ProfileCourses.findNonRetired({ studentID: userID });
+    const favCourses = ProfileCourses.findNonRetired({ userID: userID });
     const profileCourses = favCourses.map((fav) => Courses.findSlugByID(fav.courseID));
-    const favOpps = ProfileOpportunities.findNonRetired({ studentID: userID });
+    const favOpps = ProfileOpportunities.findNonRetired({ userID: userID });
     const profileOpportunities = favOpps.map((fav) => Opportunities.findSlugByID(fav.opportunityID));
     const aboutMe = doc.aboutMe;
     const retired = doc.retired;

@@ -49,6 +49,8 @@ class BaseProfileCollection extends BaseSlugCollection {
       shareWebsite: { type: Boolean, optional: true },
       shareInterests: { type: Boolean, optional: true },
       shareCareerGoals: { type: Boolean, optional: true },
+      shareOpportunities: { type: Boolean, optional: true },
+      shareCourses: { type: Boolean, optional: true },
       courseExplorerFilter: { type: String, optional: true },
       opportunityExplorerSortOrder: { type: String, optional: true },
       lastVisited: { type: Object, optional: true, blackbox: true },
@@ -237,7 +239,7 @@ class BaseProfileCollection extends BaseSlugCollection {
    */
   protected updateCommonFields(updateData, {
     firstName, lastName, picture, website, retired, courseExplorerFilter, opportunityExplorerSortOrder, shareWebsite,
-    sharePicture, shareInterests, shareCareerGoals, acceptedTermsAndConditions, refusedTermsAndConditions,
+    sharePicture, shareInterests, shareCareerGoals, shareOpportunities, shareCourses, acceptedTermsAndConditions, refusedTermsAndConditions,
   }) {
     // console.log('updateCommonFields', firstName, lastName, picture, website, retired, courseExplorerFilter, opportunityExplorerSortOrder, shareWebsite, sharePicture, shareInterests, shareCareerGoals, acceptedTermsAndConditions, refusedTermsAndConditions);
     if (firstName) {
@@ -266,6 +268,12 @@ class BaseProfileCollection extends BaseSlugCollection {
     }
     if (_.isBoolean(shareInterests)) {
       updateData.shareInterests = shareInterests; // eslint-disable-line no-param-reassign
+    }
+    if (_.isBoolean(shareOpportunities)) {
+      updateData.shareOpportunities = shareOpportunities; // eslint-disable-line no-param-reassign
+    }
+    if (_.isBoolean(shareCourses)) {
+      updateData.shareCourses = shareCourses; // eslint-disable-line no-param-reassign
     }
     if (_.isBoolean(sharePicture)) {
       updateData.sharePicture = sharePicture; // eslint-disable-line no-param-reassign

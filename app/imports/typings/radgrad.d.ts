@@ -342,6 +342,7 @@ export interface ProfileCareerGoal extends Document {
   careerGoalID: string;
   userID: string;
   retired: boolean;
+  share: boolean;
 }
 
 export interface ProfileCourseDefine extends DumpOne {
@@ -369,6 +370,7 @@ export interface ProfileInterest extends Document {
   interestID: string;
   userID: string;
   retired: boolean;
+  share: boolean;
 }
 
 export interface ProfileOpportunityDefine extends DumpOne {
@@ -382,6 +384,7 @@ export interface ProfileOpportunity extends Document {
   opportunityID: string;
   userID: string;
   retired: boolean;
+  share: boolean;
 }
 
 export interface ProfileEntryUpdate extends Update {

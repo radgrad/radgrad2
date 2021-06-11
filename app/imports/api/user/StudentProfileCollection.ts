@@ -298,6 +298,8 @@ class StudentProfileCollection extends BaseProfileCollection {
       sharePicture,
       shareInterests,
       shareCareerGoals,
+      shareCourses,
+      shareOpportunities,
       acceptedTermsAndConditions,
       refusedTermsAndConditions,
     });
@@ -329,12 +331,6 @@ class StudentProfileCollection extends BaseProfileCollection {
       if (_.isBoolean(retired)) {
         updateData.retired = retired;
       }
-    }
-    if (_.isBoolean(shareCourses)) {
-      updateData.shareCourses = shareCourses;
-    }
-    if (_.isBoolean(shareOpportunities)) {
-      updateData.shareOpportunities = shareOpportunities;
     }
     if (_.isBoolean(shareLevel)) {
       updateData.shareLevel = shareLevel;
