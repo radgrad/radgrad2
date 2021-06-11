@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Grid, Icon } from 'semantic-ui-react';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
-// import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import { getLastAcademicTermMethod } from '../../../../api/user/StudentProfileCollection.methods';
-import { getWhatsNew } from '../../../../api/whats-new/WhatsNew.methods';
+import { COMPONENTIDS } from '../../../utilities/ComponentIDs';
 import { ButtonLink } from '../../shared/button/ButtonLink';
 import RadGradMenuLevel from '../../shared/RadGradMenuLevel';
 import EditStudentButton from './EditStudentButton';
@@ -41,7 +40,7 @@ const ManageStudentItem: React.FC<ManageStudentProps> = ({
   // const updatedOnStr = `Updated on ${moment(updatedOn).format('MM/DD/YYYY')}`;
 
   return (
-    <Grid.Row>
+    <Grid.Row id={COMPONENTIDS.MANAGE_STUDENT_ITEM}>
       <Grid.Column width={3}>
         {student.retired ? <Icon name='eye slash'/> : ''}
         {name}
