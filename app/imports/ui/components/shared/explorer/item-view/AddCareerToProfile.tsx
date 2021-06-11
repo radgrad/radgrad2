@@ -20,16 +20,6 @@ export interface AddCareerToProfileProps {
   floated?: SemanticFLOATS;
 }
 
-const interestBox = ({ id, value, checked, onChange }) => (
-  <input id = {id}
-    type = "checkbox"
-    name = "inputNames"
-    checked ={checked}
-    onChange = {onChange}
-    value = {value}
-  />
-);
-
 const handleAdd = (userID: string, item: CareerGoal, type: IProfileEntryTypes) => () => {
   const collectionName = getCollectionName(type);
   const definitionData = createDefinitionData(userID, item, type);
@@ -56,21 +46,23 @@ const handleRemove = (userID: string, item: CareerGoal, type: IProfileEntryTypes
     .catch((error) => { RadGradAlert.failure('Failed to remove from profile', error.message, error);});
 };
 
+const InteresetCheckList = ({ id, value, checked, onChange }) => (
+  <input id = {id}
+    type = 'checkbox'
+    name = 'inputNames'
+    checked = {checked}
+    onChange = {onChange}
+    value = {value}
+  />
+);
+
 const AddCareerToProfile: React.FC<AddCareerToProfileProps> = ({ userID, careerGoal, type, added, inverted, floated }) => {
   const [open, setOpen] = React.useState(false);
 
-  const [check, setCheck] = React.useState({});
+  const [check, setCheck] = useState({});
 
-  const handleCheck = e => {
-    setCheck({ ...check, [e.target._id]: e.target.check });
-    console.log('checkedItems:', check);
-  };
-
-  const submitInterest = e => {
-    e.preventDefault();
-    const dataPushArray = Object.entries(check).reduce((pre,[key, value])=>{
-      value && pre.push(key)
-      return pre
+  const hanleChange = e => {
+    setCheck
   }
 
   const interestSlugs = careerGoal.interestIDs.map((id) => Interests.findSlugByID(id));
@@ -99,7 +91,7 @@ const AddCareerToProfile: React.FC<AddCareerToProfileProps> = ({ userID, careerG
               If you are OK with that, just press OK. </p>
             <Form>
               <Form.Group widths={2}>
-                {interestSlugs.map((slug, index) => <Form.Checkbox key={`${slug}-checkbox`} radio label={`${interestSlugs[index]}`} onClick={handleCheck}/>)}
+                {interestSlugs.map((slug, index) => <Form.Checkbox id={`id_${slug}`} key={`${slug}-checkbox`} radio label={`${interestSlugs[index]}`}/>)}
               </Form.Group>
             </Form>
           </Modal.Description>
