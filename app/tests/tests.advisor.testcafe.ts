@@ -1,5 +1,6 @@
 import { landingNavBar } from './navbar.landing.component';
 import { advisorNavBar } from './navbar.advisor.component';
+import { managePages } from './manage.pages';
 import { signinPage } from './signin.page';
 import { explorerPages } from './explorer.pages';
 import {
@@ -86,3 +87,14 @@ test('Test adding and removing interests and careers to advisor profile', async 
   await explorerPages.testAddAndRemove(testController, 'game-developer');
 });
 
+test('Test advisor manage student page', async (testController) => {
+  await landingNavBar.gotoAdvisorLogin(testController);
+  await signinPage.signin(testController, credentials.advisor);
+
+  await advisorNavBar.gotoManageStudentsPage(testController);
+  await managePages.clickFilteredStudentsTabAndVerify(testController);
+  await managePages.clickFilteredAlumniTabAndVerify(testController);
+  await managePages.clickAddNewTabAndVerify(testController);
+  await managePages.clickOtherTabAndVerify(testController);
+  await managePages.clickMatriculateTabAndVerify(testController);
+});
