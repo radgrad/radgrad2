@@ -1,16 +1,16 @@
 import React from 'react';
 import { useRouteMatch } from 'react-router-dom';
-import { Grid, Image, List } from 'semantic-ui-react';
+import { Grid, List } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
 import { Users } from '../../../../api/user/UserCollection';
-import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
+
 import RadGradHeader from '../../shared/RadGradHeader';
 import StudentExplorerReviewStarsWidget from './StudentExplorerReviewStarsWidget';
 import StudentExplorerEditReviewForm from './StudentExplorerEditReviewForm';
 import StudentExplorerAddReviewForm from './StudentExplorerAddReviewForm';
 import * as Router from '../../shared/utilities/router';
-import { profileIDToPicture, userToFullName, academicTermNameToShortName } from '../../shared/utilities/data-model';
 import { Review } from '../../../../typings/radgrad';
+import UserLabel from '../../shared/profile/UserLabel';
 
 interface StudentExplorerReviewWidgetProps {
   itemToReview: any;
@@ -43,12 +43,13 @@ const StudentExplorerReviewWidget: React.FC<StudentExplorerReviewWidgetProps> = 
   const match = useRouteMatch();
   const commentsStyle = { paddingTop: '5px' };
 
-  const { name, picture, term, rating, comments } = reviewData(userReview);
-  const currentUserPicture = profileIDToPicture(Router.getUserIdFromRoute(match));
-  const currentUserName = userToFullName(Router.getUsername(match));
+  const {  rating, comments, username } = reviewData(userReview);
+  const currentUserName = Router.getUsername(match);
   let theReviews = itemReviews;
   if (userReview) {
-    theReviews = theReviews.filter((review) => review._id !== userReview._id);
+    theReviews = theReviews.filter((review) => review._id !== userReview._id && review.visible);
+  } else {
+    theReviews = theReviews.filter((review) => review.visible);
   }
   return (
     <div className="ui padded container">
@@ -58,14 +59,11 @@ const StudentExplorerReviewWidget: React.FC<StudentExplorerReviewWidgetProps> = 
         {userReview ? (
           <List.Item>
             <Grid>
-              <Grid.Column width={4}>
-                <Image floated="left" verticalAlign="middle" circular size="mini" src={picture} />
-                <b>{name}</b>
-                <br />
-                {AcademicTerms.getShortName(term)}
+              <Grid.Column width={5}>
+                <UserLabel username={username} size='medium' />
               </Grid.Column>
 
-              <Grid.Column width={12}>
+              <Grid.Column width={11}>
                 <StudentExplorerReviewStarsWidget rating={rating} />
                 <br />
                 <div style={commentsStyle}>
@@ -79,12 +77,11 @@ const StudentExplorerReviewWidget: React.FC<StudentExplorerReviewWidgetProps> = 
         ) : (
           <List.Item>
             <Grid>
-              <Grid.Column width={4}>
-                <Image floated="left" verticalAlign="middle" circular size="mini" src={currentUserPicture} />
-                <b>{currentUserName}</b>
+              <Grid.Column width={5}>
+                <UserLabel username={currentUserName} size='medium' />
               </Grid.Column>
 
-              <Grid.Column width={12}>
+              <Grid.Column width={11}>
                 {completed ? (
                   <p>
                     <i>You have not reviewed this yet.</i>
@@ -107,14 +104,11 @@ const StudentExplorerReviewWidget: React.FC<StudentExplorerReviewWidgetProps> = 
               return (
                 <List.Item key={review._id}>
                   <Grid>
-                    <Grid.Column width={4}>
-                      <Image floated="left" verticalAlign="middle" circular size="mini" src={aReview.picture} />
-                      <b>{aReview.name}</b>
-                      <br />
-                      {academicTermNameToShortName(aReview.term)}
+                    <Grid.Column width={5}>
+                      <UserLabel username={aReview.username} size='medium' />
                     </Grid.Column>
 
-                    <Grid.Column width={12}>
+                    <Grid.Column width={11}>
                       <StudentExplorerReviewStarsWidget rating={aReview.rating} />
                       <br />
                       <div style={commentsStyle}>

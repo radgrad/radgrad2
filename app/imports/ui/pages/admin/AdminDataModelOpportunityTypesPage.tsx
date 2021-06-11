@@ -1,7 +1,7 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
 import { Confirm, Icon } from 'semantic-ui-react';
-import Swal from 'sweetalert2';
+import RadGradAlert from '../../utilities/RadGradAlert';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { DescriptionPair, OpportunityType } from '../../../typings/radgrad';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
@@ -24,7 +24,7 @@ const collection = OpportunityTypes; // the collection to use.
 const numReferences = (opportunityType) => {
   let references = 0;
   Opportunities.find().forEach((doc) => {
-    if ((doc.opportunityTypeID).includes(opportunityType._id)) {
+    if ((doc.opportunityTypeID).includes(opportunityType._id)) { // TODO: Why is this using .includes instead of ===?
       references += 1;
     }
   });
@@ -82,21 +82,9 @@ const AdminDataModelOpportunityTypesPage: React.FC<AdminDataModelOpportunityType
     const updateData = doc;
     updateData.id = doc._id;
     updateMethod.callPromise({ collectionName, updateData })
-      .catch((error) => {
-        Swal.fire({
-          title: 'Update failed',
-          text: error.message,
-          icon: 'error',
-        });
-        console.error('Error in updating. %o', error);
-      })
+      .catch((error) => { RadGradAlert.failure('Update Failed', error.message, error);})
       .then(() => {
-        Swal.fire({
-          title: 'Update succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        RadGradAlert.success('Update Succeeded');
         setShowUpdateForm(false);
         setId('');
       });
@@ -128,11 +116,9 @@ const AdminDataModelOpportunityTypesPage: React.FC<AdminDataModelOpportunityType
   );
 };
 
-const AdminDataModelOpportunityTypesPageContainer = withTracker(() => {
+export default withTracker(() => {
   const items = OpportunityTypes.find({}).fetch();
   return {
     items,
   };
 })(AdminDataModelOpportunityTypesPage);
-
-export default AdminDataModelOpportunityTypesPageContainer;

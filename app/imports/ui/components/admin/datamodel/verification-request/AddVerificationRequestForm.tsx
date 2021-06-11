@@ -2,9 +2,9 @@ import _ from 'lodash';
 import React from 'react';
 import { Header, Segment } from 'semantic-ui-react';
 import SimpleSchema from 'simpl-schema';
-import Swal from 'sweetalert2';
 import { AutoForm, SelectField, BoolField, SubmitField, ErrorsField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
+import RadGradAlert from '../../../../utilities/RadGradAlert';
 import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
 import {
   AcademicTerm,
@@ -81,20 +81,9 @@ const AddVerificationRequestForm: React.FC<AddVerificationRequestFormProps> = ({
     }
     // console.log(collectionName, definitionData);
     defineMethod.callPromise({ collectionName, definitionData })
-      .catch((error) => {
-        Swal.fire({
-          title: 'Add failed',
-          text: error.message,
-          icon: 'error',
-        });
-      })
+      .catch((error) => { RadGradAlert.failure('Add failed', error.message, error);})
       .then(() => {
-        Swal.fire({
-          title: 'Add succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        RadGradAlert.success('Add succeeded');
         formRef.reset();
       });
   };

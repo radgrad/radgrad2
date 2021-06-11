@@ -8,6 +8,7 @@ import { Interests } from '../interest/InterestCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
 import { CareerGoalDefine, CareerGoalUpdate, Course, Opportunity } from '../../typings/radgrad';
 import { ProfileCareerGoals } from '../user/profile-entries/ProfileCareerGoalCollection';
+import { Teasers } from '../teaser/TeaserCollection';
 
 /**
  * CareerGoals represent the professional future(s) that the student wishes to work toward.
@@ -26,12 +27,14 @@ class CareerGoalCollection extends BaseSlugCollection {
       description: { type: String },
       interestIDs: [SimpleSchema.RegEx.Id],
       retired: { type: Boolean, optional: true },
+      picture: { type: String, optional: true, defaultValue: 'images/header-panel/header-career.png' },
     }));
     this.defineSchema = new SimpleSchema({
       name: { type: String },
       slug: { type: String },
       description: { type: String },
       interests: [String],
+      picture: { type: String, optional: true, defaultValue: 'images/header-panel/header-career.png' },
     });
     // name, description, interests
     this.updateSchema = new SimpleSchema({
@@ -40,6 +43,7 @@ class CareerGoalCollection extends BaseSlugCollection {
       interests: { type: Array, optional: true },
       'interests.$': String,
       retired: { type: Boolean, optional: true },
+      picture: { type: String, optional: true },
     });
   }
 
@@ -57,16 +61,16 @@ class CareerGoalCollection extends BaseSlugCollection {
    * @throws { Meteor.Error } If the slug already exists.
    * @returns The newly created docID.
    */
-  public define({ name, slug, description, interests, retired = false }: CareerGoalDefine) {
+  public define({ name, slug, description, interests, retired = false, picture }: CareerGoalDefine) {
     // Get Interests, throw error if any of them are not found.
     const interestIDs = Interests.getIDs(interests);
-    const doc = this.collection.findOne({ name, description, interestIDs, retired });
+    const doc = this.collection.findOne({ name, description, interestIDs, retired, picture });
     if (doc) {
       return doc._id;
     }
     // Get SlugID, throw error if found.
     const slugID = Slugs.define({ name: slug, entityName: this.getType() });
-    const docID = this.collection.insert({ name, slugID, description, interestIDs, retired });
+    const docID = this.collection.insert({ name, slugID, description, interestIDs, retired, picture });
     // Connect the Slug to this Interest
     Slugs.updateEntityID(slugID, docID);
     return docID;
@@ -80,19 +84,23 @@ class CareerGoalCollection extends BaseSlugCollection {
    * @param interests A new list of interest slugs or IDs. (optional).
    * @throws { Meteor.Error } If docID is not defined, or if any interest is not a defined slug or ID.
    */
-  public update(docID: string, { name, description, interests, retired }: CareerGoalUpdate): void {
+  public update(docID: string, { name, description, interests, retired, picture }: CareerGoalUpdate): void {
     this.assertDefined(docID);
     const updateData: {
       name?: string;
       description?: string;
       interestIDs?: string[];
       retired?: boolean;
+      picture?: string;
     } = {};
     if (name) {
       updateData.name = name;
     }
     if (description) {
       updateData.description = description;
+    }
+    if (picture) {
+      updateData.picture = picture;
     }
     if (interests) {
       const interestIDs = Interests.getIDs(interests);
@@ -102,6 +110,9 @@ class CareerGoalCollection extends BaseSlugCollection {
       updateData.retired = retired;
       const profileCareerGoals = ProfileCareerGoals.find({ careerGoalID: docID }).fetch();
       profileCareerGoals.forEach((goal) => ProfileCareerGoals.update(goal._id, { retired }));
+      const career = this.findDoc(docID);
+      const teasers = Teasers.find({ targetSlugID: career.slugID }).fetch();
+      teasers.forEach((teaser) => Teasers.update(teaser._id, { retired }));
     }
     // console.log(updateData);
     this.collection.update(docID, { $set: updateData });
@@ -132,7 +143,6 @@ class CareerGoalCollection extends BaseSlugCollection {
   public findNames(instanceIDs: string[]) {
     return instanceIDs.map((instanceID) => this.findDoc(instanceID).name);
   }
-
   /**
    * Returns a list of Courses that have common interests.
    * @param {string} docIdOrSlug an interest ID or slug.
@@ -201,9 +211,10 @@ class CareerGoalCollection extends BaseSlugCollection {
     const name = doc.name;
     const slug = Slugs.getNameFromID(doc.slugID);
     const description = doc.description;
+    const picture = doc.picture;
     const interests = doc.interestIDs.map((interestID) => Interests.findSlugByID(interestID));
     const retired = doc.retired;
-    return { name, slug, interests, description, retired };
+    return { name, slug, interests, description, retired, picture };
   }
 }
 

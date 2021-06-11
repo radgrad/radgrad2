@@ -9,8 +9,6 @@ import {SimpleSchema2Bridge} from 'uniforms-bridge-simple-schema-2';
 // @ts-ignore
 import SimpleSchema from 'simpl-schema';
 // @ts-ignore
-import Swal from 'sweetalert2';
-// @ts-ignore
 import {StudentProfiles} from '../../../../api/user/StudentProfileCollection';
 // @ts-ignore
 import {updateMethod} from '../../../../api/base/BaseCollection.methods';
@@ -20,6 +18,7 @@ import {StudentProfile, UserInteractionDefine} from '../../../../typings/radgrad
 import {UserInteractionsTypes} from '../../../../api/analytic/UserInteractionsTypes';
 // @ts-ignore
 import {userInteractionDefineMethod} from '../../../../api/analytic/UserInteractionCollection.methods';
+import RadGradAlert from '../../../app/imports/ui/utilities/RadGradAlert';
 
 interface StudentShareInfoWidgetProps {
     profile: StudentProfile;
@@ -32,20 +31,9 @@ const handleUpdateInformation = (doc): void => {
     const username = doc.username;
     updateMethod.call({collectionName, updateData}, (error) => {
         if (error) {
-            Swal.fire({
-                title: 'Update Failed',
-                text: error.message,
-                icon: 'error',
-            });
+            RadGradAlert.failure('Update Failed', error.message, error);
         } else {
-            Swal.fire({
-                title: 'Update Succeeded',
-                icon: 'success',
-                text: 'Your share information was successfully updated.',
-                allowOutsideClick: false,
-                allowEscapeKey: false,
-                allowEnterKey: false,
-            });
+            RadGradAlert.success('Update Succeeded');
             // Define a user interaction that describes a user updating their share information
             const keys = ['shareUsername', 'sharePicture', 'shareWebsite', 'shareInterests', 'shareCareerGoals', 'shareCourses', 'shareOpportunities', 'shareLevel'];
             const modifiedList = [];

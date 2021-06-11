@@ -21,6 +21,8 @@ import LandingCareerGoalList from '../../components/landing/LandingCareerGoalLis
 import RadGradSegment from '../../components/shared/RadGradSegment';
 import RadGradHeader from '../../components/shared/RadGradHeader';
 import { EXPLORER_TYPE_ICON } from '../../utilities/ExplorerUtils';
+import { Teasers } from '../../../api/teaser/TeaserCollection';
+import TeaserVideo from '../../components/shared/TeaserVideo';
 
 interface InterestExplorerProps {
   currentUser: string;
@@ -39,10 +41,13 @@ This public explorer does not provide information about community members.
 
 const LandingInterestExplorerPage: React.FC<InterestExplorerProps> = ({ currentUser, opportunities, courses, interest, careerGoals }) => {
   const match = useRouteMatch();
+  const teaser = Teasers.findNonRetired({ targetSlugID: interest.slugID });
+  const hasTeaser = teaser.length > 0;
+  const headerPaneImage = interest.picture;
   return (
     <div>
       <LandingExplorerMenuBar />
-      <PageLayout id={PAGEIDS.LANDING_INTEREST_EXPLORER} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
+      <PageLayout id={PAGEIDS.LANDING_INTEREST_EXPLORER} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
         <Grid stackable>
           <Grid.Row>
             <Grid.Column width={3}>
@@ -50,15 +55,15 @@ const LandingInterestExplorerPage: React.FC<InterestExplorerProps> = ({ currentU
             </Grid.Column>
             <Grid.Column width={13}>
               <RadGradSegment header={<RadGradHeader title={interest.name} dividing />}>
-                <b>Description:</b>
+                {hasTeaser ? (<TeaserVideo id={teaser && teaser[0] && teaser[0].url} />) : ''}
                 <Markdown escapeHtml source={interest.description} renderers={{ link: (localProps) => Router.renderLink(localProps, match) }} />
+              </RadGradSegment>
+              <RadGradSegment header={<RadGradHeader title="Related Career Goals" icon={EXPLORER_TYPE_ICON.CAREERGOAL} dividing />}>
+                {careerGoals.length > 0 ? <LandingCareerGoalList careerGoals={careerGoals} size='small' /> : 'N/A'}
               </RadGradSegment>
               <RadGradSegment header={<RadGradHeader title="Related Courses" icon={EXPLORER_TYPE_ICON.COURSE} dividing />}>{courses.length > 0 ? <LandingCourseList courses={courses} size='small' /> : 'N/A'}</RadGradSegment>
               <RadGradSegment header={<RadGradHeader title="Related Opportunities" icon={EXPLORER_TYPE_ICON.OPPORTUNITY} dividing />}>
                 {opportunities.length > 0 ? <LandingOpportunityList opportunities={opportunities} size='small' /> : 'N/A'}
-              </RadGradSegment>
-              <RadGradSegment header={<RadGradHeader title="Related Career Goals" icon={EXPLORER_TYPE_ICON.CAREERGOAL} dividing />}>
-                {careerGoals.length > 0 ? <LandingCareerGoalList careerGoals={careerGoals} size='small' /> : 'N/A'}
               </RadGradSegment>
             </Grid.Column>
           </Grid.Row>
@@ -83,4 +88,11 @@ const LandingInterestExplorerContainer = withTracker(() => {
   };
 })(LandingInterestExplorerPage);
 
-export default withListSubscriptions(LandingInterestExplorerContainer, [Courses.getPublicationName(), Interests.getPublicationName(), Opportunities.getPublicationName(), Slugs.getPublicationName()]);
+export default withListSubscriptions(LandingInterestExplorerContainer, [
+  Courses.getPublicationName(),
+  Interests.getPublicationName(),
+  Opportunities.getPublicationName(),
+  CareerGoals.getPublicationName(),
+  Slugs.getPublicationName(),
+  Teasers.getPublicationName(),
+]);

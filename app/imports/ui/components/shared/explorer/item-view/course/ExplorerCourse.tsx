@@ -1,11 +1,12 @@
 import React from 'react';
 import Markdown from 'react-markdown';
-import { useRouteMatch } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Divider, Grid, Header, Segment } from 'semantic-ui-react';
 import { Reviews } from '../../../../../../api/review/ReviewCollection';
 import { ROLE } from '../../../../../../api/role/Role';
 import { Teasers } from '../../../../../../api/teaser/TeaserCollection';
 import { PROFILE_ENTRY_TYPE } from '../../../../../../api/user/profile-entries/ProfileEntryTypes';
+import { StudentProfiles } from '../../../../../../api/user/StudentProfileCollection';
 import { AcademicTerm, Course, Interest, Profile, Review } from '../../../../../../typings/radgrad';
 import StudentExplorerReviewWidget from '../../../../student/explorer/StudentExplorerReviewWidget';
 import EditCourseButton from '../../../manage/course/EditCourseButton';
@@ -24,11 +25,9 @@ interface ExplorerCoursesWidgetProps {
   interests: Interest[];
 }
 
-const review = (course: Course, profile: Profile): Review => {
-  const reviews = Reviews.findNonRetired({
-    studentID: profile.userID,
-    revieweeID: course._id,
-  });
+const review = (course: Course, profile): Review => {
+  const user = StudentProfiles.findByUsername(profile);
+  const reviews = Reviews.findNonRetired({ studentID: user.userID, revieweeID: course._id });
   if (reviews.length > 0) {
     return reviews[0];
   }
@@ -48,7 +47,7 @@ const ExplorerCourse: React.FC<ExplorerCoursesWidgetProps> = ({ course, courses,
   const fiveMarginTopStyle = { marginTop: '5px' };
   const compactRowStyle = { paddingTop: 2, paddingBottom: 2 };
   const linkStyle = {  textDecoration: 'underline' };
-  const match = useRouteMatch();
+  const { username } = useParams();
   const hasTeaser = Teasers.findNonRetired({ targetSlugID: course.slugID }).length > 0;
   const isStudent = profile.role === ROLE.STUDENT;
   const isAdmin = profile.role === ROLE.ADMIN;
@@ -64,7 +63,7 @@ const ExplorerCourse: React.FC<ExplorerCoursesWidgetProps> = ({ course, courses,
             <strong>Syllabus:</strong>&nbsp; {course.syllabus ? <a href={course.syllabus } target="_blank" rel="noreferrer" style={linkStyle}>{course.syllabus}</a> : 'N/A'}
           </Grid.Row>
           <Grid.Row>
-            <Markdown allowDangerousHtml source={course.description} />
+            <Markdown allowDangerousHtml linkTarget="_blank" source={course.description} />
           </Grid.Row>
           {isStudent ? '' : <EditCourseButton course={course} courses={courses} interests={interests} />}
           {isAdmin ? <DeleteItemButton item={course} type={PROFILE_ENTRY_TYPE.COURSE} /> : ''}
@@ -79,7 +78,7 @@ const ExplorerCourse: React.FC<ExplorerCoursesWidgetProps> = ({ course, courses,
 
       {isStudent ? (
         <Segment>
-          <StudentExplorerReviewWidget itemToReview={course} userReview={review(course, match)} completed={completed} reviewType="course" itemReviews={itemReviews} />
+          <StudentExplorerReviewWidget itemToReview={course} userReview={review(course, username)} completed={completed} reviewType="course" itemReviews={itemReviews} />
         </Segment>
       ) : (
         <Segment><ExplorerReviewWidget itemReviews={itemReviews} reviewType="course" /></Segment>

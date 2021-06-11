@@ -57,8 +57,8 @@ const CourseViewPage: React.FC<CourseViewPageProps> = ({
   courses,
   interests,
 }) => {
-  const headerPaneTitle = `${course.name} (${course.num})`;
-  const headerPaneImage = 'header-courses.png';
+  const headerPaneTitle = Courses.getName(course._id);
+  const headerPaneImage =  course.picture;
   const added = ProfileCourses.findNonRetired({
     studentID: profile.userID,
     courseID: course._id,
@@ -71,6 +71,8 @@ const CourseViewPage: React.FC<CourseViewPageProps> = ({
   const courseSlug = Slugs.getNameFromID(course.slugID);
   const completed = isCourseCompleted(courseSlug, profile.userID);
   const relatedCourses = getAssociationRelatedCourses(course.prerequisites.map((c) => Courses.findDocBySlug(c)), profile.userID);
+  const combinedArrays = relatedCourses.inPlan.concat(relatedCourses.notInPlan, relatedCourses.completed);
+
   return (
     <PageLayout id={PAGEIDS.COURSE} headerPaneTitle={headerPaneTitle} headerPaneImage={headerPaneImage}
       headerPaneButton={headerPaneButton}>
@@ -78,7 +80,7 @@ const CourseViewPage: React.FC<CourseViewPageProps> = ({
         <Grid.Row>
           <Grid.Column width={5}>
             <RelatedInterests item={course} />
-            <RelatedCourses relatedCourses={relatedCourses} profile={profile} title='prerequisites' />
+            {combinedArrays.length !== 0 ? <RelatedCourses relatedCourses={relatedCourses} profile={profile} title='prerequisites' /> : null}
             <RelatedCareerGoals careerGoals={relatedCareerGoals} userID={profile.userID} />
             <RelatedOpportunities relatedOpportunities={relatedOpportunities} profile={profile} />
           </Grid.Column>
@@ -92,12 +94,12 @@ const CourseViewPage: React.FC<CourseViewPageProps> = ({
   );
 };
 
-const CourseViewPageContainer = withTracker(() => {
+export default withTracker(() => {
   const { course, username } = useParams();
   const courseDoc = Courses.findDocBySlug(course);
   const profile = Users.getProfile(username);
   const profileCourses = ProfileCourses.findNonRetired({ studentID: profile.userID });
-  const itemReviews = Reviews.findNonRetired({ revieweeID: courseDoc._id });
+  const itemReviews = Reviews.findNonRetired({ revieweeID: courseDoc._id, visible: true });
   const allTerms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
   const currentTermNumber = AcademicTerms.getCurrentAcademicTermDoc().termNumber;
   const after = currentTermNumber - 8;
@@ -115,6 +117,3 @@ const CourseViewPageContainer = withTracker(() => {
     interests,
   };
 })(CourseViewPage);
-
-export default CourseViewPageContainer;
-

@@ -26,6 +26,17 @@ export enum COMPONENTIDS {
   ADMIN_MENU_MANAGE_VERIFICATION = 'admin-menu-manage-verification',
   ADMIN_MENU_MANAGE_REVIEW = 'admin-menu-manage-review',
   FIRST_MENU_USERNAME = 'first-menu-username',
+  FILTERED_STUDENTS_TAB = 'filtered-students-tab',
+  FILTERED_STUDENTS_GRID = 'filtered-students-grid',
+  FILTERED_ALUMNI_TAB = 'filtered-alumni-tab',
+  FILTERED_ALUMNI_GRID = 'filtered-alumni-grid',
+  UPDATE_TAB = 'update-tab',
+  ADD_NEW_TAB = 'add-new-tab',
+  OTHER_TAB = 'other-tab',
+  MATRICULATE_TAB = 'matriculate-tab',
+  ADD_STUDENT_TAB_PANE = 'advisor-add-student-tab',
+  OTHER_TAB_PANE = 'advisor-other-tab',
+  MATRICULATE_STUDENTS_TAB_PANE = 'matriculate-students-tab',
 
   ADVISOR = 'advisor',
   ADVISOR_MENU_HOME = 'advisor-menu-home',
@@ -76,4 +87,7 @@ export enum COMPONENTIDS {
   SIGNIN_FORM_EMAIL = 'signin-form-email',
   SIGNIN_FORM_PASSWORD = 'signin-form-password',
   SIGNIN_FORM_SUBMIT = 'signin-form-submit',
+
+  ADD_TO_PROFILE_BUTTON = 'add-to-profile-button',
+  REMOVE_FROM_PROFILE_BUTTON = 'remove-from-profile-button',
 }

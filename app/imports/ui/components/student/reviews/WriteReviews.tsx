@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { Grid, Header, Segment } from 'semantic-ui-react';
 import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
-import Swal from 'sweetalert2';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { AutoForm, ErrorsField, LongTextField, SelectField, SubmitField } from 'uniforms-semantic';
+import RadGradAlert from '../../../utilities/RadGradAlert';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { defineMethod } from '../../../../api/base/BaseCollection.methods';
 import { Courses } from '../../../../api/course/CourseCollection';
@@ -24,7 +24,10 @@ interface WriteReviewsProps {
 const WriteReviews: React.FC<WriteReviewsProps> = ({ unreviewedCourses, unreviewedOpportunities, username }) => {
   const cIDs = unreviewedCourses.map((ci) => ci.courseID);
   const courseNames = Courses.findNames(cIDs);
-  let names = courseNames.map((cName) => `${cName} (Course)`);
+  let names = courseNames.map((cName) => {
+    const courseNum = Courses.findCourseNumberByName(cName);
+    return `${cName} (Course) (${courseNum})`;
+  });
   const oIDs = unreviewedOpportunities.map((oi) => oi.opportunityID);
   const opportunityNames = Opportunities.findNames(oIDs);
   names = names.concat(opportunityNames.map((oName) => `${oName} (Opportunity)`));
@@ -37,7 +40,7 @@ const WriteReviews: React.FC<WriteReviewsProps> = ({ unreviewedCourses, unreview
 
   const handleChoiceChange = (name, value) => {
     // console.log(name, value);
-    const strippedName = value.substring(0, value.lastIndexOf('(') - 1);
+    const strippedName = value.substring(0, value.indexOf('(') - 1);
     setChoiceName(strippedName);
     if (courseNames.includes(strippedName)) {
       setReviewType(Reviews.COURSE);
@@ -71,27 +74,11 @@ const WriteReviews: React.FC<WriteReviewsProps> = ({ unreviewedCourses, unreview
     definitionData.student = username;
     definitionData.reviewType = reviewType as ReviewTypes;
     definitionData.reviewee = reviewee;
+    definitionData.visible = false;
     // console.log(collectionName, definitionData);
     defineMethod.callPromise({ collectionName, definitionData })
-      .catch((error) => {
-        Swal.fire({
-          title: 'Add Failed',
-          text: error.message,
-          icon: 'error',
-        });
-      })
-      .then(() => {
-        Swal.fire({
-          title: 'Review Added',
-          icon: 'success',
-          text: 'Your review was successfully added.',
-          allowOutsideClick: false,
-          allowEscapeKey: false,
-          allowEnterKey: false,
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      });
+      .catch((error) => { RadGradAlert.failure('Add Failed', error.message, error);})
+      .then(() => { RadGradAlert.success('Review Added');});
   };
 
   const choiceSchema = new SimpleSchema({
@@ -106,6 +93,7 @@ const WriteReviews: React.FC<WriteReviewsProps> = ({ unreviewedCourses, unreview
     academicTerm: {
       type: String,
       allowedValues: termNames,
+      defaultValue: termNames[0],
     },
     rating: {
       type: SimpleSchema.Integer,
@@ -138,7 +126,7 @@ const WriteReviews: React.FC<WriteReviewsProps> = ({ unreviewedCourses, unreview
               Select the term you participated in.
             </Grid.Column>
             <Grid.Column width={10}>
-              <SelectField name='academicTerm' disabled={disabled} />
+              {termNames.length <= 1 ? <SelectField name='academicTerm' disabled /> : <SelectField name='academicTerm' disabled={disabled} />}
             </Grid.Column>
             <Grid.Column width={6} verticalAlign='middle'>
               Rate your overall satisfaction.

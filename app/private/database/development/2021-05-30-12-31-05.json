@@ -825,34 +825,6 @@
           "shareCareerGoals": true,
           "profileOpportunities": [],
           "profileCourses": []
-        },
-        {
-          "username": "johnson@hawaii.edu",
-          "firstName": "Philip",
-          "lastName": "Johnson",
-          "picture": "/images/mockup/johnson.jpg",
-          "website": "http://philipmjohnson.org",
-          "interests": [
-            "civic-engagement",
-            "research",
-            "software-engineering",
-            "sustainability"
-          ],
-          "careerGoals": [
-            "devops-engineer",
-            "full-stack-developer",
-            "software-developer",
-            "startup-cofounder",
-            "research-scientist",
-            "teacher"
-          ],
-          "retired": false,
-          "shareInterests": true,
-          "sharePicture": true,
-          "shareWebsite": true,
-          "shareCareerGoals": true,
-          "profileOpportunities": [],
-          "profileCourses": []
         }
       ]
     },
@@ -1093,7 +1065,7 @@
         },
         {
           "name": "Introduction to Data Science",
-          "shortName": "Introduction to Data Science",
+          "shortName": "Intro to Data Science",
           "slug": "ics_102",
           "num": "ICS 102",
           "description": "Overview of the field of data science. Introduction to subjects such as data format, processing, visualization, and storage. Special emphasis on historical and wider context, and simple practical examples.",
@@ -1108,8 +1080,8 @@
           "retired": false
         },
         {
-          "name": "ICS 103 Introduction to Computer Science Principles",
-          "shortName": "ICS 103 Introduction to Computer Science Principles",
+          "name": "Introduction to Computer Science Principles",
+          "shortName": "Intro to CS Principles",
           "slug": "ics_103",
           "num": "ICS 103",
           "description": "General course that provides a broad overview of computer science. Will address abstraction, data and information, algorithms, programming, the Internet and the global impact of computers.",
@@ -3761,11 +3733,39 @@
             "research-scientist",
             "startup-cofounder"
           ],
-          "retired": false,
+          "retired": true,
           "shareWebsite": true,
           "shareInterests": true,
           "shareCareerGoals": true,
           "sharePicture": true,
+          "profileOpportunities": [],
+          "profileCourses": []
+        },
+        {
+          "username": "johnson@hawaii.edu",
+          "firstName": "Philip",
+          "lastName": "Johnson",
+          "picture": "/images/mockup/johnson.jpg",
+          "website": "http://philipmjohnson.org",
+          "interests": [
+            "civic-engagement",
+            "research",
+            "software-engineering",
+            "sustainability"
+          ],
+          "careerGoals": [
+            "devops-engineer",
+            "full-stack-developer",
+            "software-developer",
+            "startup-cofounder",
+            "research-scientist",
+            "teacher"
+          ],
+          "retired": false,
+          "shareInterests": true,
+          "sharePicture": true,
+          "shareWebsite": true,
+          "shareCareerGoals": true,
           "profileOpportunities": [],
           "profileCourses": []
         },
@@ -3788,13 +3788,13 @@
             "startup-cofounder",
             "teacher"
           ],
-          "retired": false,
           "shareWebsite": true,
           "shareInterests": true,
           "shareCareerGoals": true,
           "sharePicture": true,
           "profileOpportunities": [],
-          "profileCourses": []
+          "profileCourses": [],
+          "retired": true
         },
         {
           "username": "leighj@hawaii.edu",
@@ -4006,13 +4006,13 @@
             "research-scientist",
             "teacher"
           ],
-          "retired": false,
           "shareWebsite": true,
           "shareInterests": true,
           "shareCareerGoals": true,
           "sharePicture": true,
           "profileOpportunities": [],
-          "profileCourses": []
+          "profileCourses": [],
+          "retired": true
         },
         {
           "username": "sstill@hawaii.edu",
@@ -4027,13 +4027,13 @@
           "careerGoals": [
             "research-scientist"
           ],
-          "retired": false,
           "shareWebsite": true,
           "shareInterests": true,
           "shareCareerGoals": true,
           "sharePicture": true,
           "profileOpportunities": [],
-          "profileCourses": []
+          "profileCourses": [],
+          "retired": true
         }
       ]
     },
@@ -5121,7 +5121,7 @@
             "Fall-2019",
             "Spring-2020"
           ],
-          "retired": false
+          "retired": true
         },
         {
           "name": "Gen Cyber Internship",
@@ -7559,7 +7559,7 @@
             "data-visualization"
           ],
           "targetSlug": "flip-flop",
-          "retired": false
+          "retired": true
         },
         {
           "title": "Day at Work: Video Game Designer",

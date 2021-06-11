@@ -1,21 +1,12 @@
-import Swal from 'sweetalert2';
+import RadGradAlert from '../../../utilities/RadGradAlert';
 import { removeItMethod } from '../../../../api/base/BaseCollection.methods';
+
 
 export const updateCallBack = (setShowUpdateForm, setId) => (error) => {
   if (error) {
-    Swal.fire({
-      title: 'Update failed',
-      text: error.message,
-      icon: 'error',
-    });
-    console.error('Error in updating. %o', error);
+    RadGradAlert.failure('Update failed', error.message, error);
   } else {
-    Swal.fire({
-      title: 'Update succeeded',
-      icon: 'success',
-      showConfirmButton: false,
-      timer: 1500,
-    });
+    RadGradAlert.success('Update succeeded');
     setShowUpdateForm(false);
     setId('');
   }
@@ -23,20 +14,9 @@ export const updateCallBack = (setShowUpdateForm, setId) => (error) => {
 
 export const removeItCallback = (setShowUpdateForm, setId, setConfirmOpen) => (error) => {
   if (error) {
-    Swal.fire({
-      title: 'Delete failed',
-      text: error.message,
-      icon: 'error',
-    });
-    console.error('Error deleting. %o', error);
+    RadGradAlert.failure('Delete failed', error.message, error);
   } else {
-    Swal.fire({
-      title: 'Delete succeeded',
-      icon: 'success',
-      showConfirmButton: false,
-      timer: 1500,
-    });
-
+    RadGradAlert.success('Delete succeeded');
   }
   setShowUpdateForm(false);
   setId('');
@@ -67,4 +47,9 @@ export const handleOpenUpdateWrapper = (setShowUpdateForm, setId) => (evt, inst)
   // console.log('handleOpenUpdate inst=%o', evt, inst);
   setShowUpdateForm(true);
   setId(inst.id);
+  scrollToTop();
+};
+
+export const scrollToTop = () => {
+  window.scroll({ top: 0, left: 0, behavior: 'smooth' });
 };

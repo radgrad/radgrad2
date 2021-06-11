@@ -8,9 +8,13 @@ import { Course } from '../../../typings/radgrad';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
 import { Interests } from '../../../api/interest/InterestCollection';
+import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
+import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
 import LandingInterestList from '../../components/landing/LandingInterestList';
 import LandingPrerequisiteList from '../../components/landing/LandingPrerequisiteList';
+import LandingCareerGoalList from '../../components/landing/LandingCareerGoalList';
+import LandingOpportunityList from '../../components/landing/LandingOpportunityList';
 import * as Router from '../../components/shared/utilities/router';
 import LandingExplorerMenuBar from '../../components/landing/explorer/LandingExplorerMenuBar';
 import { PAGEIDS } from '../../utilities/PageIDs';
@@ -38,11 +42,15 @@ This public explorer does not show reviews or the forecasts for future semesters
  */
 const LandingCourseExplorerPage: React.FC<CourseExplorerProps> = ({ course }) => {
   const match = useRouteMatch();
+  const relatedCareerGoals = Courses.findRelatedCareerGoals(course._id);
+  const relatedOpportunities = Courses.findRelatedOpportunities(course._id);
+  const title = Courses.getName(course._id);
+  const headerPaneImage = course.picture;
   return (
     <div>
       <LandingExplorerMenuBar />
       <PageLayout id={PAGEIDS.LANDING_COURSE_EXPLORER} headerPaneTitle={headerPaneTitle}
-        headerPaneBody={headerPaneBody}>
+        headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
         <Grid stackable>
           <Grid.Row>
             <Grid.Column width={3}>
@@ -50,11 +58,9 @@ const LandingCourseExplorerPage: React.FC<CourseExplorerProps> = ({ course }) =>
             </Grid.Column>
 
             <Grid.Column width={13}>
-              <RadGradSegment header={<RadGradHeader title={course.name} />}>
+              <RadGradSegment header={<RadGradHeader title={title} />}>
                 <Grid columns={2} stackable>
                   <Grid.Column width="six">
-                    <b>Course Number:</b> {course.num}
-                    <br/>
                     <b>Credit Hours:</b> {course.creditHrs}
                   </Grid.Column>
                   <Grid.Column width="ten">
@@ -76,6 +82,12 @@ const LandingCourseExplorerPage: React.FC<CourseExplorerProps> = ({ course }) =>
                   <LandingPrerequisiteList prerequisites={course.prerequisites} size='small' /> : 'N/A'}
               </RadGradSegment>
               <RadGradSegment header={<RadGradHeader title='Related Interests' icon={EXPLORER_TYPE_ICON.INTEREST} dividing/>}>{course.interestIDs.length > 0 ? <LandingInterestList interestIDs={course.interestIDs} size='small' /> : 'N/A'}</RadGradSegment>
+              <RadGradSegment header={<RadGradHeader title="Related Career Goals" icon={EXPLORER_TYPE_ICON.CAREERGOAL} dividing />}>
+                {relatedCareerGoals.length > 0 ? <LandingCareerGoalList careerGoals={relatedCareerGoals} size='small' /> : 'N/A'}
+              </RadGradSegment>
+              <RadGradSegment header={<RadGradHeader title="Related Opportunities" icon={EXPLORER_TYPE_ICON.OPPORTUNITY} dividing />}>
+                {relatedOpportunities.length > 0 ? <LandingOpportunityList opportunities={relatedOpportunities} size='small' /> : 'N/A'}
+              </RadGradSegment>
             </Grid.Column>
           </Grid.Row>
         </Grid>
@@ -93,4 +105,10 @@ const LandingCourseExplorerContainer = withTracker(() => {
   };
 })(LandingCourseExplorerPage);
 
-export default withListSubscriptions(LandingCourseExplorerContainer, [Courses.getPublicationName(), Slugs.getPublicationName(), Interests.getPublicationName()]);
+export default withListSubscriptions(LandingCourseExplorerContainer, [
+  Courses.getPublicationName(),
+  Slugs.getPublicationName(),
+  Interests.getPublicationName(),
+  CareerGoals.getPublicationName(),
+  Opportunities.getPublicationName(),
+]);

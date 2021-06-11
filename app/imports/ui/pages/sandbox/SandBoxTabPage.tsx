@@ -7,7 +7,7 @@ import PageLayout from '../PageLayout';
 
 const headerPaneTitle = 'SandBox: Tabs Design';
 const headerPaneBody = 'Examples of RadGradTabHeader. (April, 2021)';
-const headerPaneImage = 'header-sandbox.png';
+const headerPaneImage = 'images/header-panel/header-sandbox.png';
 
 enum SortValues {
   ALPHA = 'Alphabetic',

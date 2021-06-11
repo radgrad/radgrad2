@@ -5,11 +5,6 @@ import { Redirect } from 'react-router';
 import { Factoids } from '../../../api/factoid/FactoidCollection';
 import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
 import { ROLE } from '../../../api/role/Role';
-import { AdminProfiles } from '../../../api/user/AdminProfileCollection';
-import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
-import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
-import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-import { Users } from '../../../api/user/UserCollection';
 import {
   InterestOrCareerGoalFactoidProps,
   LevelFactoidProps,
@@ -119,4 +114,7 @@ const LandingHomeContainer = withTracker(() => {
   };
 })(LandingHomePage);
 
-export default withListSubscriptions(LandingHomeContainer, [PublicStats.getPublicationName(), Users.getPublicationName(), AdvisorProfiles.getPublicationName(), FacultyProfiles.getPublicationName(), StudentProfiles.getPublicationName(), AdminProfiles.getPublicationName(), Factoids.getPublicationName()]);
+export default withListSubscriptions(LandingHomeContainer, [
+  PublicStats.getPublicationName(),
+  Factoids.getPublicationName(),
+]);

@@ -19,7 +19,7 @@ Use this page to add students to RadGrad and/or help them during advising sessio
 
 For more details, please see [RadGrad Advisor User Guide](https://www.radgrad.org/docs/users/advisors/overview)
 `;
-const headerPaneImage = 'header-manage.png';
+const headerPaneImage = 'images/header-panel/header-manage.png';
 
 const AdvisorManageStudentsPage: React.FC<AdvisorManageStudentsProps> = ({
   students,
@@ -39,7 +39,7 @@ const AdvisorManageStudentsPage: React.FC<AdvisorManageStudentsProps> = ({
   </PageLayout>
 );
 
-const AdvisorManageStudentsTracker = withTracker(() => {
+export default withTracker(() => {
   const students = StudentProfiles.find({ isAlumni: false }, { sort: { username: 1 } }).fetch();
   const alumni = StudentProfiles.find({ isAlumni: true }, { sort: { username: 1 } }).fetch();
   const careerGoals = CareerGoals.findNonRetired({}, { sort: { name: 1 } });
@@ -60,5 +60,3 @@ const AdvisorManageStudentsTracker = withTracker(() => {
     profileInterests,
   };
 })(AdvisorManageStudentsPage);
-
-export default AdvisorManageStudentsTracker;
