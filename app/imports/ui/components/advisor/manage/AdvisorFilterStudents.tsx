@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form } from 'semantic-ui-react';
+import { COMPONENTIDS } from '../../../utilities/ComponentIDs';
 import RadGradHeader from '../../shared/RadGradHeader';
 import RadGradSegment from '../../shared/RadGradSegment';
 
@@ -45,13 +46,13 @@ const AdvisorFilterStudents: React.FC<AdvisorFilterStudentsProps> = ({
       <Form onSubmit={clearFilter}>
         <Form.Group inline>
           <Form.Field>
-            <Form.Input name="firstName" label={{ basic: 'true', children: 'First Name:' }} value={firstName} onChange={handleChangeFirstName} />
+            <Form.Input id={COMPONENTIDS.ADVISOR_FILTER_FIRST_NAME} name="firstName" label={{ basic: 'true', children: 'First Name:' }} value={firstName} onChange={handleChangeFirstName} />
           </Form.Field>
           <Form.Field>
-            <Form.Input name="lastName" label={{ basic: 'true', children: 'Last Name:' }} value={lastName} onChange={handleChangeLastName} />
+            <Form.Input id={COMPONENTIDS.ADVISOR_FILTER_LAST_NAME} name="lastName" label={{ basic: 'true', children: 'Last Name:' }} value={lastName} onChange={handleChangeLastName} />
           </Form.Field>
           <Form.Field>
-            <Form.Input name="userName" label={{ basic: 'true', children: 'Username:' }} value={username} onChange={handleChangeUserName} />
+            <Form.Input id={COMPONENTIDS.ADVISOR_FILTER_USERNAME} name="userName" label={{ basic: 'true', children: 'Username:' }} value={username} onChange={handleChangeUserName} />
           </Form.Field>
           <Form.Button basic color="green" content="Clear Filter" />
         </Form.Group>

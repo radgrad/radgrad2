@@ -107,17 +107,17 @@ const AdvisorAddStudentTab: React.FC<AdvisorAddStudentWidgetProps> = ({ interest
       <Form widths="equal" onSubmit={onSubmit}>
         <Form.Group>
           <Form.Field>
-            <Form.Input name="firstName" label="First Name" value={firstName} onChange={handleFormChange}
+            <Form.Input id={COMPONENTIDS.ADVISOR_ADD_FIRST_NAME} name="firstName" label="First Name" value={firstName} onChange={handleFormChange}
               required />
           </Form.Field>
           <Form.Field>
-            <Form.Input name="lastName" label="Last Name" value={lastName} onChange={handleFormChange}
+            <Form.Input id={COMPONENTIDS.ADVISOR_ADD_LAST_NAME} name="lastName" label="Last Name" value={lastName} onChange={handleFormChange}
               required />
           </Form.Field>
         </Form.Group>
         <Form.Group>
           <Form.Field>
-            <Form.Input name="username" label="Username" value={username} onChange={handleFormChange}
+            <Form.Input id={COMPONENTIDS.ADVISOR_ADD_USERNAME} name="username" label="Username" value={username} onChange={handleFormChange}
               required />
           </Form.Field>
           <Form.Field>
@@ -195,7 +195,7 @@ const AdvisorAddStudentTab: React.FC<AdvisorAddStudentWidgetProps> = ({ interest
             />
           </Form.Field>
         </Form.Group>
-        <Form.Button basic color="green" content="Add" type="Submit" />
+        <Form.Button id={COMPONENTIDS.ADVISOR_ADD_STUDENT_BUTTON} basic color="green" content="Add" type="Submit" />
       </Form>
     </Tab.Pane>
   );

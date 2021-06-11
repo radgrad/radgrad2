@@ -2,6 +2,7 @@ import React from 'react';
 import { Grid, Icon } from 'semantic-ui-react';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
+import { COMPONENTIDS } from '../../../utilities/ComponentIDs';
 import { ButtonLink } from '../../shared/button/ButtonLink';
 import RadGradMenuLevel from '../../shared/RadGradMenuLevel';
 import EditStudentButton from './EditStudentButton';
@@ -22,7 +23,7 @@ const ManageStudentItem: React.FC<ManageStudentProps> = ({
   // const updatedOnStr = `Updated on ${moment(updatedOn).format('MM/DD/YYYY')}`;
   const lastTerm = StudentProfiles.getLastAcademicTerm(student.username);
   return (
-    <Grid.Row>
+    <Grid.Row id={COMPONENTIDS.MANAGE_STUDENT_ITEM}>
       <Grid.Column width={3}>
         {student.retired ? <Icon name='eye slash'/> : ''}
         {name}
