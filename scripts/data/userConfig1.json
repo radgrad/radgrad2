@@ -892,6 +892,12 @@
           "verified": true
         },
         {
+          "slug": "icspark",
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "verified": true
+        },
+        {
           "slug": "acm-manoa",
           "academicYearOffset": -1,
           "termNum": 1,
@@ -901,12 +907,6 @@
           "slug": "acm-manoa",
           "academicYearOffset": -1,
           "termNum": 0,
-          "verified": true
-        },
-        {
-          "slug": "eworld-internship",
-          "academicYearOffset": -1,
-          "termNum": 1,
           "verified": true
         },
         {
@@ -945,17 +945,17 @@
         },
         {
           "academicYearOffset": -2,
+          "termNum": 2,
+          "reviewee": "icspark",
+          "rating": 4,
+          "comments": "Helping high school students learn about computer science is very rewarding. Paying it forward to help Hawaii kids find their passion."
+        },
+        {
+          "academicYearOffset": -2,
           "termNum": 1,
           "reviewee": "ics_331",
           "rating": 5,
           "comments": "The ICS 331 Machine programming course teaches students how to read and use binary and hex-based coding. The assignments are very interesting because you get to mess around with a program that allows you to make and manipulate a virtual circuit. The downside is unless you plan on working with low level language code, the material you learn in this class may be irrelevant to what you will do in the future. That being said, I did enjoy the class and the assignments, and I advise that you should take the time to learn about binary and hex coding anyway."
-        },
-        {
-          "academicYearOffset": -1,
-          "termNum": 1,
-          "reviewee": "eworld-internship",
-          "rating": 4,
-          "comments": "I'm currently an intern at eWorldES and have recently accepted a return offer to work full-time. Being at eWorldES exposed me to a couple programs I have never worked with before (Vue, SpringBoot, mySQL) and it honestly was a fun experience building something for a real client. I got to work on both FE and BE issues and I enjoy the team I was placed on.\\n\\nOutside of actual programming, I learned so many things about agile software development and got to work with JIRA, Bitbucket, and SourceTree. I learned how sprints were organized and the QA process. The project I worked on had 10+ developers (both present and old) so it solidified good coding practices and showed the importance of good PR reviews.\\n\\nMy experience was all remote due to covid but it was still amazing. I definitely recommend interning here."
         },
         {
           "academicYearOffset": -1,

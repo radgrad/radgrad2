@@ -39,7 +39,7 @@ export interface IDataDump {
 const databaseFileDateFormat = 'YYYY-MM-DD-HH-mm-ss';
 const copyCollectionNames = [RadGradCollectionName.ACADEMIC_TERMS, RadGradCollectionName.ADMIN_PROFILES, RadGradCollectionName.ADVISOR_PROFILES, RadGradCollectionName.CAREER_GOALS, RadGradCollectionName.COURSES, RadGradCollectionName.FACULTY_PROFILES, RadGradCollectionName.INTERESTS, RadGradCollectionName.INTEREST_TYPES, RadGradCollectionName.OPPORTUNITIES, RadGradCollectionName.OPPORTUNITY_TYPES, RadGradCollectionName.TEASERS];
 
-const buildCourseInstanceCollection = (studentConfig: StudentConfig, academicTerms: AcademicTermCollection): ICollection => {
+const buildCourseInstanceCollection = (studentConfig: StudentConfig, academicTerms: AcademicTermCollection, courses: RadGradCollection): ICollection => {
   const result = {
     name: RadGradCollectionName.COURSE_INSTANCES,
     contents: [],
@@ -47,13 +47,17 @@ const buildCourseInstanceCollection = (studentConfig: StudentConfig, academicTer
   studentConfig.studentPlans.forEach((plan) => {
     const student = plan.username;
     plan.courses.forEach((p) => {
-      result.contents.push(generateCourseInstance(student, p, academicTerms));
+      if (courses.isDefinedSlug(p.slug)) {
+        result.contents.push(generateCourseInstance(student, p, academicTerms));
+      } else {
+        throw new Error(`Student ${plan.username} has a course instance ${p.slug} that is not a defined course.`);
+      }
     });
   });
   return result;
 };
 
-const buildOpportunityInstanceCollection = (studentConfig: StudentConfig, academicTerms: AcademicTermCollection): ICollection => {
+const buildOpportunityInstanceCollection = (studentConfig: StudentConfig, academicTerms: AcademicTermCollection, opportunities: RadGradCollection): ICollection => {
   const result = {
     name: RadGradCollectionName.OPPORTUNITY_INSTANCES,
     contents: [],
@@ -63,13 +67,17 @@ const buildOpportunityInstanceCollection = (studentConfig: StudentConfig, academ
   studentConfig.studentPlans.forEach((plan) => {
     const student = plan.username;
     plan.opportunities.forEach((p) => {
-      result.contents.push(generateOpportunityInstance(student, p, currentTerm, quarters));
+      if (opportunities.isDefinedSlug(p.slug)) {
+        result.contents.push(generateOpportunityInstance(student, p, currentTerm, quarters));
+      } else {
+        throw new Error(`Student ${plan.username} has an opportunity instance ${p.slug} that is not a defined opportunity slug.`);
+      }
     });
   });
   return result;
 };
 
-const buildReviewsCollection = (studentConfig: StudentConfig, academicTerms: AcademicTermCollection, opportunities: RadGradCollection): ICollection => {
+const buildReviewsCollection = (studentConfig: StudentConfig, academicTerms: AcademicTermCollection, opportunities: RadGradCollection, courses: RadGradCollection): ICollection => {
   const result = {
     name: RadGradCollectionName.REVIEWS,
     contents: [],
@@ -79,7 +87,11 @@ const buildReviewsCollection = (studentConfig: StudentConfig, academicTerms: Aca
   studentConfig.studentPlans.forEach((plan) => {
     const student = plan.username;
     plan.reviews.forEach((p) => {
-      result.contents.push(generateReview(student, p, academicTerms, opportunities));
+      if (opportunities.isDefinedSlug(p.reviewee) || courses.isDefinedSlug(p.reviewee)) {
+        result.contents.push(generateReview(student, p, academicTerms, opportunities));
+      } else {
+        throw new Error(`Student ${plan.username} has a review of ${p.reviewee} which is not a defined course or opportunity`);
+      }
     });
   });
 
@@ -151,12 +163,19 @@ const createFixture = (radgradDump: IDataDump, studentConfig: StudentConfig, aca
     }
   });
   // Build the course instance collection
-  const ciCollection: ICollection = buildCourseInstanceCollection(studentConfig, academicTerms);
+  const courses = new RadGradCollection(RadGradCollectionName.COURSES, getNonRetiredCollectionData(radgradDump, RadGradCollectionName.COURSES));
+  const ciCollection: ICollection = buildCourseInstanceCollection(studentConfig, academicTerms, courses);
   result.collections.push(ciCollection);
+  // Build the student profile collection
   const studentProfileCollection: ICollection = buildStudentProfileCollection(studentConfig);
   result.collections.push(studentProfileCollection);
-  const oiCollection: ICollection = buildOpportunityInstanceCollection(studentConfig, academicTerms);
+  // Build the opportunity instance collection
+  // Need the opportunities to build the opportunity instances
+  const opportunities = new RadGradCollection(RadGradCollectionName.OPPORTUNITIES, getNonRetiredCollectionData(radgradDump, RadGradCollectionName.OPPORTUNITIES));
+  const oiCollection: ICollection = buildOpportunityInstanceCollection(studentConfig, academicTerms, opportunities);
   result.collections.push(oiCollection);
+  result.collections.push(buildVerificationRequestCollection(oiCollection));
+  result.collections.push(buildReviewsCollection(studentConfig, academicTerms, opportunities, courses));
   // Empty collections so we can load. Will fill in later
   result.collections.push({
     name: RadGradCollectionName.PROFILE_CAREER_GOALS,
@@ -178,9 +197,6 @@ const createFixture = (radgradDump: IDataDump, studentConfig: StudentConfig, aca
     name: RadGradCollectionName.USER_INTERACTIONS,
     contents: [],
   });
-  result.collections.push(buildVerificationRequestCollection(oiCollection));
-  const opportunities = new RadGradCollection(RadGradCollectionName.OPPORTUNITIES, getNonRetiredCollectionData(radgradDump, RadGradCollectionName.OPPORTUNITIES));
-  result.collections.push(buildReviewsCollection(studentConfig, academicTerms, opportunities));
   // sort the collections
   result.collections.sort((entry1, entry2) => compareCollections(entry1, entry2));
   validateFixture(result);
