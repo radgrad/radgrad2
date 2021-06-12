@@ -1,4 +1,5 @@
 import { Selector } from 'testcafe';
+import { COMPONENTIDS } from '../imports/ui/utilities/ComponentIDs';
 
 class VisibilityPage {
 
@@ -18,6 +19,12 @@ class VisibilityPage {
       componentSelector = Selector(componentSelectorID);
       await testController.expect(componentSelector.exists).ok();
     }
+  }
+
+  async addWebsite(testController) {
+    await testController.click(`#${COMPONENTIDS.SET_WEBSITE_BUTTON}`);
+    await testController.typeText(`#${COMPONENTIDS.SET_WEBSITE_TEXT}`, 'https://www.mywebsite.com');
+    await testController.click(`#${COMPONENTIDS.SUBMIT_WEBSITE_BUTTON}`);
   }
 
 }

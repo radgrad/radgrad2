@@ -1,5 +1,6 @@
 /** Define IDs to identify components in the system. This is used for testing. */
 export enum COMPONENTIDS {
+
   LANDING_EXPLORER_MENU = 'landing-explorer-menu',
   LANDING_EXPLORER_BUTTONS = 'landing-explorer-buttons',
   LANDING_CAREER_GOALS_EXPLORER = 'landing-career-goals-explorer',
@@ -109,5 +110,8 @@ export enum COMPONENTIDS {
   PROFILE_CAREER_GOALS = 'profile-career-goals',
   PROFILE_COURSES = 'profile-courses',
   PROFILE_OPPORTUNITIES = 'profile-opportunities',
+  SET_WEBSITE_BUTTON = 'set-website-button',
+  SUBMIT_WEBSITE_BUTTON = 'submit-website-button',
+  SET_WEBSITE_TEXT = 'set-website-text',
 
 }
