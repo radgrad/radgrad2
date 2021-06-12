@@ -68,39 +68,6 @@ class AdminNavBar {
     await testController.click(`#${COMPONENTIDS.ADMIN_MENU_MANAGE_REVIEW}`);
   }
 
-  async clickFilteredStudentsTabAndVerify(testController) {
-    await testController.click(`#${COMPONENTIDS.UPDATE_TAB}`);
-    await testController.click(`#${COMPONENTIDS.FILTERED_STUDENTS_TAB}`);
-    const componentSelector = Selector(`#${COMPONENTIDS.FILTERED_STUDENTS_GRID}`);
-    await testController.expect(componentSelector.exists).ok();
-
-  }
-
-  async clickFilteredAlumniTabAndVerify(testController) {
-    await testController.click(`#${COMPONENTIDS.UPDATE_TAB}`);
-    await testController.click(`#${COMPONENTIDS.FILTERED_ALUMNI_TAB}`);
-    const componentSelector = Selector(`#${COMPONENTIDS.FILTERED_ALUMNI_GRID}`);
-    await testController.expect(componentSelector.exists).ok();
-  }
-
-  async clickAddNewTabAndVerify(testController) {
-    await testController.click(`#${COMPONENTIDS.ADD_NEW_TAB}`);
-    const componentSelector = Selector(`#${COMPONENTIDS.ADD_STUDENT_TAB_PANE}`);
-    await testController.expect(componentSelector.exists).ok();
-  }
-
-  async clickOtherTabAndVerify(testController) {
-    await testController.click(`#${COMPONENTIDS.OTHER_TAB}`);
-    const componentSelector = Selector(`#${COMPONENTIDS.OTHER_TAB_PANE}`);
-    await testController.expect(componentSelector.exists).ok();
-  }
-
-  async clickMatriculateTabAndVerify(testController) {
-    await testController.click(`#${COMPONENTIDS.MATRICULATE_TAB}`);
-    const componentSelector = Selector(`#${COMPONENTIDS.MATRICULATE_STUDENTS_TAB_PANE}`);
-    await testController.expect(componentSelector.exists).ok();
-  }
-
   async gotoMenuPageAndVerify(testController, menu, pageName) {
     await testController.click(`#admin-menu-${menu}`);
     await testController.click(`#admin-menu-${menu}-${pageName}`);
