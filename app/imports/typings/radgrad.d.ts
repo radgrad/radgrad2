@@ -671,7 +671,7 @@ export interface ProfileDefine extends DumpOne {
   shareInterests?: boolean;
   shareCareerGoals?: boolean;
   shareOpportunities?: boolean;
-  shareCourses: boolean;
+  shareCourses?: boolean;
   lastVisited?: Record<string, string>;
   acceptedTermsAndConditions?: string;
   refusedTermsAndConditions?: string;
