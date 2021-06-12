@@ -45,6 +45,8 @@ class AdminProfileCollection extends BaseProfileCollection {
     shareWebsite = true,
     shareInterests = true,
     shareCareerGoals = true,
+    shareCourses = true,
+    shareOpportunities = true,
     lastVisited = {},
   }: ProfileDefine) {
     if (Meteor.isServer) {
@@ -102,6 +104,8 @@ class AdminProfileCollection extends BaseProfileCollection {
     sharePicture,
     shareInterests,
     shareCareerGoals,
+    shareOpportunities,
+    shareCourses,
     acceptedTermsAndConditions,
     refusedTermsAndConditions,
   }: ProfileUpdate) {
@@ -119,6 +123,8 @@ class AdminProfileCollection extends BaseProfileCollection {
       sharePicture,
       shareInterests,
       shareCareerGoals,
+      shareOpportunities,
+      shareCourses,
       acceptedTermsAndConditions,
       refusedTermsAndConditions,
     });
@@ -184,8 +190,10 @@ class AdminProfileCollection extends BaseProfileCollection {
     const shareWebsite = doc.shareWebsite;
     const shareInterests = doc.shareInterests;
     const shareCareerGoals = doc.shareCareerGoals;
+    const shareCourses = doc.shareCourses;
+    const shareOpportunities = doc.shareOpportunities;
 
-    return { username, firstName, lastName, picture, website, interests, careerGoals, retired, shareWebsite, shareInterests, shareCareerGoals, sharePicture };
+    return { username, firstName, lastName, picture, website, interests, careerGoals, retired, shareWebsite, shareCourses, shareOpportunities, shareInterests, shareCareerGoals, sharePicture };
   }
 }
 
