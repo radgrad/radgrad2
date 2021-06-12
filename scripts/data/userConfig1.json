@@ -108,7 +108,7 @@
         "profileOpportunities": [
           "acm-manoa",
           "code-for-hawaii",
-          "booz-allen-internship",
+          "google-summer-of-code",
           "att-iot-hackathon",
           "shidler-bpc",
           "hacc"
@@ -542,7 +542,7 @@
           "verified": true
         },
         {
-          "slug": "booz-allen-internship",
+          "slug": "google-summer-of-code",
           "academicYearOffset": -1,
           "termNum": 2,
           "verified": true
@@ -566,7 +566,7 @@
           "verified": false
         },
         {
-          "slug": "booz-allen-internship",
+          "slug": "google-summer-of-code",
           "academicYearOffset": 0,
           "termNum": 2,
           "verified": false
@@ -893,12 +893,6 @@
         },
         {
           "slug": "acm-manoa",
-          "academicYearOffset": -1,
-          "termNum": 1,
-          "verified": true
-        },
-        {
-          "slug": "chi-2020-student-volunteer",
           "academicYearOffset": -1,
           "termNum": 1,
           "verified": true
