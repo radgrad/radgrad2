@@ -46,7 +46,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ name, email, image, website, 
         <Card.Header>{name}</Card.Header>
         <Card.Meta><Icon name="mail"/>&nbsp;<a href={`mailto:${email}`}>{email}</a></Card.Meta>
         {website ? <Card.Meta><Icon name='linkify'/><a id={COMPONENTIDS.PROFILE_WEBSITE} href={website}>{website}</a></Card.Meta> : ''}
-        {level ? <Image size='mini' src={levelIconURL}/> : ''}
+        {level ? <Image id={COMPONENTIDS.PROFILE_LEVEL} size='mini' src={levelIconURL}/> : ''}
         {ice ? <ProfileIceCircle i={ice.i} c={ice.c} e={ice.e}/> : ''}
       </Card.Content>
       { (tabPanes.length > 0) ? <Card.Content extra><Tab panes={tabPanes}/></Card.Content> : ''}

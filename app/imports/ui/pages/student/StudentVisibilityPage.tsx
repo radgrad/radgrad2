@@ -11,6 +11,7 @@ import { SetWebsiteButton } from '../../components/shared/privacy/SetWebsiteButt
 import ProfileCard from '../../components/shared/profile/ProfileCard';
 import ProfileLabel from '../../components/shared/profile/ProfileLabel';
 import RadGradHeader from '../../components/shared/RadGradHeader';
+import { COMPONENTIDS } from '../../utilities/ComponentIDs';
 import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 
@@ -112,19 +113,19 @@ const StudentVisibilityPage: React.FC<StudentVisibilityPageProps> = ({ profile }
             <p>Control what data appears in your Label and Profile:</p>
             <Form>
               <Form.Group inline>
-                <Form.Checkbox inline name="sharePicture" label="Picture" checked={pictureExists && checkboxState.sharePicture} onChange={handleCheckboxChange} />
+                <Form.Checkbox id={COMPONENTIDS.SHARE_PICTURE} inline name="sharePicture" label="Picture" checked={pictureExists && checkboxState.sharePicture} onChange={handleCheckboxChange} />
                 <SetPictureButton picture={data.picture} handleChange={handlePictureChange}/>
               </Form.Group>
               <Form.Group inline>
-                <Form.Checkbox inline name="shareWebsite" label="Website" checked={websiteExists && checkboxState.shareWebsite} onChange={handleCheckboxChange} />
+                <Form.Checkbox id={COMPONENTIDS.SHARE_WEBSITE} inline name="shareWebsite" label="Website" checked={websiteExists && checkboxState.shareWebsite} onChange={handleCheckboxChange} />
                 <SetWebsiteButton website={data.website} handleChange={handleWebsiteChange} />
               </Form.Group>
-              <Form.Checkbox inline name="shareInterests" label="Interests" checked={checkboxState.shareInterests} onChange={handleCheckboxChange} />
-              <Form.Checkbox inline name="shareCareerGoals" label="Career Goals" checked={checkboxState.shareCareerGoals} onChange={handleCheckboxChange} />
-              <Form.Checkbox inline name="shareOpportunities" label="Opportunities" checked={checkboxState.shareOpportunities} onChange={handleCheckboxChange} />
-              <Form.Checkbox inline name="shareCourses" label="Courses" checked={checkboxState.shareCourses} onChange={handleCheckboxChange} />
-              <Form.Checkbox inline name="shareLevel" label="Level" checked={checkboxState.shareLevel} onChange={handleCheckboxChange} />
-              <Form.Checkbox inline name="shareICE" label="ICE" checked={checkboxState.shareICE} onChange={handleCheckboxChange} />
+              <Form.Checkbox id={COMPONENTIDS.SHARE_INTERESTS} inline name="shareInterests" label="Interests" checked={checkboxState.shareInterests} onChange={handleCheckboxChange} />
+              <Form.Checkbox id={COMPONENTIDS.SHARE_CAREER_GOALS} inline name="shareCareerGoals" label="Career Goals" checked={checkboxState.shareCareerGoals} onChange={handleCheckboxChange} />
+              <Form.Checkbox id={COMPONENTIDS.SHARE_OPPORTUNITIES} inline name="shareOpportunities" label="Opportunities" checked={checkboxState.shareOpportunities} onChange={handleCheckboxChange} />
+              <Form.Checkbox id={COMPONENTIDS.SHARE_COURSES} inline name="shareCourses" label="Courses" checked={checkboxState.shareCourses} onChange={handleCheckboxChange} />
+              <Form.Checkbox id={COMPONENTIDS.SHARE_LEVEL} inline name="shareLevel" label="Level" checked={checkboxState.shareLevel} onChange={handleCheckboxChange} />
+              <Form.Checkbox id={COMPONENTIDS.SHARE_ICE} inline name="shareICE" label="ICE" checked={checkboxState.shareICE} onChange={handleCheckboxChange} />
             </Form>
           </Segment>
         </Grid.Column>
