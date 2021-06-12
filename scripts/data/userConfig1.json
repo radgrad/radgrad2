@@ -108,7 +108,7 @@
         "profileOpportunities": [
           "acm-manoa",
           "code-for-hawaii",
-          "booz-allen-internship",
+          "google-summer-of-code",
           "att-iot-hackathon",
           "shidler-bpc",
           "hacc"
@@ -198,10 +198,10 @@
         "shareICE": false
       },
       {
-        "username": "ella@hawaii.edu",
-        "firstName": "Ella",
-        "lastName": "Zwick",
-        "picture": "/images/mockup/ella.jpg",
+        "username": "dora@hawaii.edu",
+        "firstName": "Dora",
+        "lastName": "Velasquez",
+        "picture": "/images/people/shaziney.jpg",
         "interests": [
           "civic-engagement",
           "web-development",
@@ -211,6 +211,45 @@
         "careerGoals": [
           "full-stack-developer"
         ],
+        "level": 6,
+        "profileCourses": [
+          "ics_111",
+          "ics_141",
+          "ics_211",
+          "ics_241",
+          "ics_311",
+          "ics_314",
+          "ics_212",
+          "ics_321",
+          "ics_313",
+          "ics_331",
+          "ics_332",
+          "ics_464",
+          "ics_431",
+          "ics_425",
+          "ics_426",
+          "ics_414"
+        ],
+        "profileOpportunities": [],
+        "isAlumni": false,
+        "retired": false,
+        "sharePicture": true,
+        "shareWebsite": false,
+        "shareInterests": true,
+        "shareCareerGoals": true,
+        "shareOpportunities": false,
+        "shareCourses": false,
+        "shareLevel": true,
+        "shareICE": true,
+        "acceptedTermsAndConditions": true
+      },
+      {
+        "username": "ella@hawaii.edu",
+        "firstName": "Ella",
+        "lastName": "Zwick",
+        "picture": "/images/mockup/ella.jpg",
+        "interests": [],
+        "careerGoals": [],
         "level": 2,
         "profileCourses": [
           "ics_111",
@@ -231,7 +270,7 @@
           "ics_414"
         ],
         "profileOpportunities": [],
-        "isAlumni": true,
+        "isAlumni": false,
         "retired": false,
         "sharePicture": false,
         "shareWebsite": false,
@@ -503,7 +542,7 @@
           "verified": true
         },
         {
-          "slug": "booz-allen-internship",
+          "slug": "google-summer-of-code",
           "academicYearOffset": -1,
           "termNum": 2,
           "verified": true
@@ -527,7 +566,7 @@
           "verified": false
         },
         {
-          "slug": "booz-allen-internship",
+          "slug": "google-summer-of-code",
           "academicYearOffset": 0,
           "termNum": 2,
           "verified": false
@@ -698,101 +737,338 @@
       "reviews": []
     },
     {
-      "username": "ella@hawaii.edu",
+      "username": "dora@hawaii.edu",
       "courses": [
         {
           "slug" : "ics_111",
-          "academicYearOffset": -5,
+          "academicYearOffset": -4,
           "termNum": 0,
           "grade": "A"
         },
         {
           "slug" : "ics_141",
-          "academicYearOffset": -5,
+          "academicYearOffset": -4,
           "termNum": 0,
           "grade": "A"
         },
         {
           "slug" : "ics_211",
-          "academicYearOffset": -5,
+          "academicYearOffset": -3,
           "termNum": 1,
           "grade": "A"
         },
         {
           "slug" : "ics_241",
-          "academicYearOffset": -5,
+          "academicYearOffset": -3,
           "termNum": 1,
           "grade": "A"
         },
         {
           "slug" : "ics_311",
-          "academicYearOffset": -4,
+          "academicYearOffset": -3,
           "termNum": 0,
           "grade": "A"
         },
         {
           "slug" : "ics_314",
-          "academicYearOffset": -4,
+          "academicYearOffset": -3,
           "termNum": 0,
           "grade": "A"
         },
         {
           "slug" : "ics_212",
-          "academicYearOffset": -4,
+          "academicYearOffset": -2,
           "termNum": 1,
           "grade": "A"
         },
         {
           "slug" : "ics_321",
-          "academicYearOffset": -4,
+          "academicYearOffset": -2,
           "termNum": 1,
           "grade": "A"
         },
         {
           "slug" : "ics_313",
-          "academicYearOffset": -3,
+          "academicYearOffset": -2,
           "termNum": 0,
           "grade": "A"
         },
         {
           "slug" : "ics_331",
-          "academicYearOffset": -3,
+          "academicYearOffset": -2,
           "termNum": 0,
           "grade": "A"
         },
         {
           "slug" : "ics_332",
-          "academicYearOffset": -3,
+          "academicYearOffset": -1,
           "termNum": 1,
           "grade": "A"
         },
         {
           "slug" : "ics_464",
-          "academicYearOffset": -3,
+          "academicYearOffset": -1,
           "termNum": 1,
           "grade": "A"
         },
         {
           "slug" : "ics_431",
-          "academicYearOffset": -2,
+          "academicYearOffset": -1,
           "termNum": 0,
           "grade": "A"
         },
         {
           "slug" : "ics_425",
-          "academicYearOffset": -2,
+          "academicYearOffset": -1,
           "termNum": 0,
           "grade": "A"
         },
         {
           "slug" : "ics_426",
-          "academicYearOffset": -2,
+          "academicYearOffset": 0,
           "termNum": 1,
           "grade": "A"
         },
         {
           "slug" : "ics_414",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "grade": "B+"
+        }
+      ],
+      "opportunities": [
+        {
+          "slug": "acm-manoa",
+          "academicYearOffset": -4,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "acm-manoa",
+          "academicYearOffset": -3,
+          "termNum": 1,
+          "verified": true
+        },
+        {
+          "slug": "google-summer-of-code",
+          "academicYearOffset": -3,
+          "termNum": 2,
+          "verified": true
+        },
+        {
+          "slug": "acm-manoa",
+          "academicYearOffset": -3,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "hacc",
+          "academicYearOffset": -3,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "acm-manoa",
           "academicYearOffset": -2,
+          "termNum": 1,
+          "verified": true
+        },
+        {
+          "slug": "google-summer-of-code",
+          "academicYearOffset": -2,
+          "termNum": 2,
+          "verified": true
+        },
+        {
+          "slug": "acm-manoa",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "hacc",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "icspark",
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "verified": true
+        },
+        {
+          "slug": "acm-manoa",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "verified": true
+        },
+        {
+          "slug": "acm-manoa",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "gen-cyber-internship",
+          "academicYearOffset": -1,
+          "termNum": 2,
+          "verified": true
+        },
+        {
+          "slug": "hacc",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "acm-manoa",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "verified": true
+        }
+      ],
+      "reviews": [
+        {
+          "academicYearOffset": -3,
+          "termNum": 1,
+          "reviewee": "ics_111",
+          "rating": 4,
+          "comments": "The course was very fun in learning how to do the projects we did in ICS 111. The projects weren't hard for beginner programmers and were interesting to get them to have more fun with programming. The only downside was that the class didn't fully prepare you for ICS 211 where the fun little projects became assignments focused on the next stage of programming. There isn't much new students can do in terms of preparing for ICS 211 from ICS 111 since it is based on what you learn, but the things that you do learn may prove useful."
+        },
+        {
+          "academicYearOffset": -2,
+          "termNum": 2,
+          "reviewee": "ics_321",
+          "rating": 5,
+          "comments": "The main thing one can learn from this course is Server Query Language or SQL. This is a great language to learn since it is the most common programming language used to manipulate or manage a database.  Knowing SQL can be a useful skill since it is sought after by employers in positions and fields that are not strictly ICS related.  For example, any business that uses a database to function requires it, including retailers, hospitals, banks, et cetera. With that said, I highly recommend taking this course to learn this invaluable language. One nice thing about taking this course is that the professor records his in-class lectures.  Bear in mind that the purpose of this is not to encourage students to get lazy and not attend his class.  I would not recommend this since there are times when his recordings do not cover solutions that he explains exclusively to those who attend his class.  Instead, the advantage of having these recordings available will allow one to rewatch the lecture in case he or she gets stuck and has a \\\"How do I do this again?\\\" moment."
+        },
+        {
+          "academicYearOffset": -2,
+          "termNum": 2,
+          "reviewee": "icspark",
+          "rating": 4,
+          "comments": "Helping high school students learn about computer science is very rewarding. Paying it forward to help Hawaii kids find their passion."
+        },
+        {
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "reviewee": "ics_331",
+          "rating": 5,
+          "comments": "The ICS 331 Machine programming course teaches students how to read and use binary and hex-based coding. The assignments are very interesting because you get to mess around with a program that allows you to make and manipulate a virtual circuit. The downside is unless you plan on working with low level language code, the material you learn in this class may be irrelevant to what you will do in the future. That being said, I did enjoy the class and the assignments, and I advise that you should take the time to learn about binary and hex coding anyway."
+        },
+        {
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "reviewee": "hacc",
+          "rating": 4,
+          "comments": "I participated in several HACC events. As others have mentioned, this hackathon differs in the way that it offers participants an entire month to flesh out their ideas and develop their apps, so judges really do expect a lot more and have higher standards when evaluating our final submissions. I would recommend everyone to participate in this challenge to get the feel of competing in a hackathon without the pressure to finish in only a few days. It’s also a great opportunity to go outside of your comfort zone to find the best solution for your challenge, even if it’s not a language or framework that you’re intimately familiar with. My favorite part of this event is seeing all the amazing apps that teams have developed at the end of the month. It’s extremely inspiring and motivating to see everyone’s finished product and encourages me to start my own side projects."
+        },
+        {
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "reviewee": "acm-manoa",
+          "rating": 5,
+          "comments": "ACM Manoa is an excellent club to join. You can meet other ICS students, ask questions, get help on courses. The several interest groups are great. It is a real help for your undergraduate experience."
+        }
+      ]
+    },
+    {
+      "username": "ella@hawaii.edu",
+      "courses": [
+        {
+          "slug" : "ics_111",
+          "academicYearOffset": -4,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_141",
+          "academicYearOffset": -4,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_211",
+          "academicYearOffset": -3,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_241",
+          "academicYearOffset": -3,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_311",
+          "academicYearOffset": -3,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_314",
+          "academicYearOffset": -3,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_212",
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_321",
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_313",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_331",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_332",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_464",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_431",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_425",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_426",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_414",
+          "academicYearOffset": 0,
           "termNum": 1,
           "grade": "B+"
         }
