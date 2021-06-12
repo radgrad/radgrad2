@@ -11,6 +11,12 @@ class VisibilityPage {
       await testController.click(checkboxSelectorID);
       componentSelector = Selector(componentSelectorID);
       await testController.expect(componentSelector.exists).notOk();
+    } else {
+      let componentSelector = Selector(componentSelectorID);
+      await testController.expect(componentSelector.exists).notOk();
+      await testController.click(checkboxSelectorID);
+      componentSelector = Selector(componentSelectorID);
+      await testController.expect(componentSelector.exists).ok();
     }
   }
 

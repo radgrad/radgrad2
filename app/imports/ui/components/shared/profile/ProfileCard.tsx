@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Icon, Image, Tab } from 'semantic-ui-react';
+import { Card, Icon, Image, Tab, Menu } from 'semantic-ui-react';
 import { COMPONENTIDS } from '../../../utilities/ComponentIDs';
 import ProfileIceCircle from './ProfileIceCircle';
 import CareerGoalLabel from '../label/CareerGoalLabel';
@@ -28,16 +28,16 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ name, email, image, website, 
   const userID = Users.getID(email);
   const tabPanes = [];
   if (interests) {
-    tabPanes.push({ menuItem: 'Interests', render: () => interests.map(interest => <InterestLabel key={interest} slug={interest} userID={userID} size='small'/>) });
+    tabPanes.push({ menuItem: <Menu.Item id={COMPONENTIDS.PROFILE_INTERESTS}>Interests</Menu.Item>, render: () => interests.map(interest => <InterestLabel key={interest} slug={interest} userID={userID} size='small'/>) });
   }
   if (careerGoals) {
-    tabPanes.push({ menuItem: 'Careers', render: () => careerGoals.map(careerGoal => <CareerGoalLabel key={careerGoal} slug={careerGoal} userID={userID} size='small'/>) });
+    tabPanes.push({ menuItem: <Menu.Item id={COMPONENTIDS.PROFILE_CAREER_GOALS}>Careers</Menu.Item>, render: () => careerGoals.map(careerGoal => <CareerGoalLabel key={careerGoal} slug={careerGoal} userID={userID} size='small'/>) });
   }
   if (courses) {
-    tabPanes.push({ menuItem: 'Courses', render: () => courses.map(course => <CourseLabel key={course} slug={course} userID={userID} size='small'/>) });
+    tabPanes.push({ menuItem: <Menu.Item id={COMPONENTIDS.PROFILE_COURSES}>Courses</Menu.Item>, render: () => courses.map(course => <CourseLabel key={course} slug={course} userID={userID} size='small'/>) });
   }
   if (opportunities) {
-    tabPanes.push({ menuItem: 'Opportunities', render: () => opportunities.map(opportunity => <OpportunityLabel key={opportunity} slug={opportunity} userID={userID} size='small'/>) });
+    tabPanes.push({ menuItem: <Menu.Item id={COMPONENTIDS.PROFILE_OPPORTUNITIES}>Opportunities</Menu.Item>, render: () => opportunities.map(opportunity => <OpportunityLabel key={opportunity} slug={opportunity} userID={userID} size='small'/>) });
   }
   return (
     <Card fluid={fluid} style={fluid ? {} : { minWidth: '500px' }}>
@@ -45,7 +45,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ name, email, image, website, 
         {image ? <Image id={COMPONENTIDS.PROFILE_PICTURE} floated='left' size='tiny' src={image}/> : ''}
         <Card.Header>{name}</Card.Header>
         <Card.Meta><Icon name="mail"/>&nbsp;<a href={`mailto:${email}`}>{email}</a></Card.Meta>
-        {website ? <Card.Meta><Icon name='linkify'/><a href={website}>{website}</a></Card.Meta> : ''}
+        {website ? <Card.Meta><Icon name='linkify'/><a id={COMPONENTIDS.PROFILE_WEBSITE} href={website}>{website}</a></Card.Meta> : ''}
         {level ? <Image size='mini' src={levelIconURL}/> : ''}
         {ice ? <ProfileIceCircle i={ice.i} c={ice.c} e={ice.e}/> : ''}
       </Card.Content>

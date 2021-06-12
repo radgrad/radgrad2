@@ -104,5 +104,10 @@ export enum COMPONENTIDS {
   SHARE_INTERESTS = 'share-interests',
   SHARE_CAREER_GOALS = 'share-career-goals',
   PROFILE_PICTURE = 'profile-picture',
+  PROFILE_WEBSITE = 'profile-website',
+  PROFILE_INTERESTS = 'profile-interests',
+  PROFILE_CAREER_GOALS = 'profile-career-goals',
+  PROFILE_COURSES = 'profile-courses',
+  PROFILE_OPPORTUNITIES = 'profile-opportunities',
 
 }
