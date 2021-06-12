@@ -131,7 +131,7 @@ export const updateLevelMethod = new ValidatedMethod({
       } else if (!Roles.userIsInRole(this.userId, [ROLE.ADMIN, ROLE.ADVISOR])) {
         throw new Meteor.Error('unauthorized', 'You must be logged in as ADMIN or ADVISOR to calculate Levels.');
       }
-      updateStudentLevel(this.userId, studentID);
+      updateStudentLevel(studentID);
     }
   },
 });
