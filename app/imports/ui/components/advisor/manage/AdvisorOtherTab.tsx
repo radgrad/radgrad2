@@ -8,6 +8,7 @@ import RadGradAlert from '../../../utilities/RadGradAlert';
 import { alumniEmailsMethod } from '../../../../api/base/BaseCollection.methods';
 import { starBulkLoadJsonDataMethod } from '../../../../api/star/StarProcessor.methods';
 import { generateStudentEmailsMethod } from '../../../../api/user/UserCollection.methods';
+import { useStickyState } from '../../../utilities/StickyState';
 import ProfileLabel from '../../shared/profile/ProfileLabel';
 import RadGradTabHeader from '../../shared/RadGradTabHeader';
 import { updateAllStudentLevelsMethod } from '../../../../api/level/LevelProcessor.methods';
@@ -21,7 +22,7 @@ const AdvisorOtherTab: React.FC = () => {
   const [isUploadWorkingState, setIsUploadWorking] = useState(false);
   const [isUpdateWorkingState, setIsUpdateWorking] = useState(false);
   const [isUpdateOldWorkingState, setIsUpdateOldWorking] = useState(false);
-  const [oddStudents, setOddStudents] = useState([]);
+  const [oddStudents, setOddStudents] = useStickyState('ManageStudents.oddStudents', []);
 
   const readAlumniFile = (e) => {
     const files = e.target.files;
@@ -119,9 +120,11 @@ const AdvisorOtherTab: React.FC = () => {
   const handleFindOddStudents = () => {
     setIsUpdateOldWorking(true);
     findOddStudentsMethod.callPromise(null)
-      .then(result => setOddStudents(result))
+      .then(result => {
+        setOddStudents(result);
+        setIsUpdateOldWorking(false);
+      })
       .catch(error => RadGradAlert.failure('Failed to get odd students.', error.message));
-    setIsUpdateOldWorking(false);
   };
 
   const bulkUploadRightSide = <><Input type='file' onChange={readFile} size='mini' label={{
@@ -165,10 +168,10 @@ const AdvisorOtherTab: React.FC = () => {
       <Segment vertical><RadGradTabHeader title='Bulk alumni data upload' icon='upload'
         rightside={alumniEmailsUploadRightSide} /></Segment>
       <Segment vertical><RadGradTabHeader title='Find odd students' icon='highlighter'
-        rightside={<Button basic color='green' onClick={handleFindOddStudents} size='mini'
+        rightside={<Button basic color='green' onClick={() => {setIsUpdateOldWorking(true); handleFindOddStudents();}} size='mini'
           loading={isUpdateOldWorkingState}
           disabled={isUpdateOldWorkingState}>FIND ODD STUDENTS</Button>} />
-      {oddStudents.length > 0 ? oddStudents.map((s) => <ProfileLabel name={Users.getFullName(s.userID)} level={s.level} size='mini' />) : 'No odd students'}</Segment>
+      {oddStudents.length > 0 ? oddStudents.map((s) => <ProfileLabel key={s.userID} name={Users.getFullName(s.userID)} level={s.level} size='mini' />) : 'No odd students'}</Segment>
     </Tab.Pane>
   );
 };
