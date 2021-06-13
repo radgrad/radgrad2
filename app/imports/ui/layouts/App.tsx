@@ -25,12 +25,14 @@ window.addEventListener('storage', (event) => {
   }
 });
 
-/** Default to scroll to top for new pages. */
+/** Scroll to top when navigating to non-Explorer pages. */
 const ScrollToTop = () => {
-  console.log('scrolling to top');
   const { pathname } = useLocation();
+  // Disable scroll to top when we are returning to an explorer page so we hold our prior position.
+  const doScroll = () => !pathname.endsWith('explorer/opportunities')
+    && !pathname.endsWith('explorer/courses')  && !pathname.endsWith('explorer/interests') && !pathname.endsWith('explorer/career-goals');
   useEffect(() => {
-    window.scrollTo(0, 0);
+    doScroll() && window.scrollTo(0, 0);
   }, [pathname]);
   return null;
 };
