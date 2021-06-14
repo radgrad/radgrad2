@@ -36,7 +36,7 @@ const isCourseCompleted = (courseSlugName, userID): boolean => {
   let courseCompleted = false;
   const theCourse = Courses.findDocBySlug(courseSlugName);
   const ci = CourseInstances.findNonRetired({
-    studentID: userID,
+    userID,
     courseID: theCourse._id,
   });
   ci.forEach((c) => {
@@ -94,7 +94,7 @@ export default withTracker(() => {
   const { course, username } = useParams();
   const courseDoc = Courses.findDocBySlug(course);
   const profile = Users.getProfile(username);
-  const profileCourses = ProfileCourses.findNonRetired({ studentID: profile.userID });
+  const profileCourses = ProfileCourses.findNonRetired({ userID: profile.userID });
   const itemReviews = Reviews.findNonRetired({ revieweeID: courseDoc._id, visible: true });
   const allTerms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
   const currentTermNumber = AcademicTerms.getCurrentAcademicTermDoc().termNumber;
