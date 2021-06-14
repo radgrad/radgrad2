@@ -1,6 +1,6 @@
 import SimpleSchema from 'simpl-schema';
 import BaseCollection from '../base/BaseCollection';
-import {InternshipDefine, InternshipUpdate} from '../../typings/radgrad';
+import { InternshipDefine, InternshipUpdate } from '../../typings/radgrad';
 import { Interests } from '../interest/InterestCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
 
@@ -101,7 +101,7 @@ class InternshipCollection extends BaseCollection {
     // Generates guid using the exact time of internship definition
     const defineTime = new Date();
     const guid = `${internshipTitle}-${defineTime}`;
-    const internshipID = this.collection.insert({
+    return this.collection.insert({
       urls,
       position,
       description,
@@ -116,11 +116,24 @@ class InternshipCollection extends BaseCollection {
       due,
       guid,
     });
-    return internshipID;
   }
 
-  public update(instance: string, { urls, position, description, interests, careerGoals, company, location, contact, posted, due }: InternshipUpdate) {
-    const docID = this.getID(instance);
+  /**
+   * Update an Internship
+   * @param guid the unique ID associated to an internship.
+   * @param urls optional
+   * @param position optional
+   * @param description optional
+   * @param interests optional
+   * @param careerGoals optional
+   * @param company optional
+   * @param location object with city, state, zip code (optional)
+   * @param contact optional
+   * @param posted optional
+   * @param due optional
+   */
+  public update(guid: string, { urls, position, description, interests, careerGoals, company, location, contact, posted, due }: InternshipUpdate) {
+    this.assertDefined(guid);
     const updateData: {
       urls?: string[];
       position?: string;
@@ -174,6 +187,39 @@ class InternshipCollection extends BaseCollection {
     if (due) {
       updateData.due = due;
     }
+    this.collection.update(guid, { $set: updateData });
+  }
+
+  /**
+   * Remove the Internship.
+   * @param guid the unique ID of the internship to be removed
+   * @
+   */
+  public removeIt(guid: string) {
+    Interests.find().map((interest) => {
+      if (interest.guid === guid) {
+        throw new Meteor.Error(`Internship ${guid} is referenced by a internship instance ${interest}`);
+      }
+      return true;
+    });
+    return super.removeIt(guid);
+  }
+
+  public dumpOne(docID: string): InternshipDefine {
+    const doc = this.findDoc(docID);
+    const urls = doc.urls;
+    const position = doc.position;
+    const description = doc.description;
+    const lastUploaded = doc.lastUploaded;
+    const missedUploads = doc.missedUploads;
+    const interests = doc.interestIDs;
+    const careerGoals = doc.careerGoalIDs;
+    const company = doc.company;
+    const location = doc.location;
+    const contact = doc.contact;
+    const posted = doc.posted;
+    const due = doc.due;
+    return { urls, position, description, lastUploaded, missedUploads, interests, careerGoals, company, location, contact, posted, due };
   }
 }
 
