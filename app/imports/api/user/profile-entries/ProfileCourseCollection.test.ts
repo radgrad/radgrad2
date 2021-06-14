@@ -64,14 +64,14 @@ if (Meteor.isServer) {
     it('Can dumpOne, removeIt, and restoreOne', function test4() {
       let fav = ProfileCourses.findOne({});
       let docID = fav._id;
-      const dumbObject = ProfileCourses.dumpOne(docID);
+      const dumpObject = ProfileCourses.dumpOne(docID);
       ProfileCourses.removeIt(docID);
       expect(ProfileCourses.isDefined(docID)).to.be.false;
-      docID = ProfileCourses.restoreOne(dumbObject);
+      docID = ProfileCourses.restoreOne(dumpObject);
       expect(ProfileCourses.isDefined(docID)).to.be.true;
       fav = ProfileCourses.findDoc(docID);
-      expect(fav.studentID).to.equal(userID);
       expect(fav.courseID).to.equal(course);
+      expect(fav.userID).to.equal(userID);
     });
 
     it('Can checkIntegrity no errors', function test5() {
