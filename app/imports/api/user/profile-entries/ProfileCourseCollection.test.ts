@@ -68,6 +68,7 @@ if (Meteor.isServer) {
       ProfileCourses.removeIt(docID);
       expect(ProfileCourses.isDefined(docID)).to.be.false;
       docID = ProfileCourses.restoreOne(dumbObject);
+      expect(ProfileCourses.isDefined(docID)).to.be.true;
       fav = ProfileCourses.findDoc(docID);
       expect(fav.studentID).to.equal(userID);
       expect(fav.courseID).to.equal(course);
