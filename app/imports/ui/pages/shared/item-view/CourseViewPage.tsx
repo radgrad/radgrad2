@@ -59,7 +59,7 @@ const CourseViewPage: React.FC<CourseViewPageProps> = ({
   const headerPaneTitle = Courses.getName(course._id);
   const headerPaneImage =  course.picture;
   const added = ProfileCourses.findNonRetired({
-    studentID: profile.userID,
+    userID: profile.userID,
     courseID: course._id,
   }).length > 0;
   const relatedOpportunities = getAssociationRelatedOpportunities(Courses.findRelatedOpportunities(course._id), profile.userID);
