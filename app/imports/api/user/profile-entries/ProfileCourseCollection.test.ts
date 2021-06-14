@@ -16,15 +16,17 @@ if (Meteor.isServer) {
   describe('ProfileCourseCollection', function testSuite() {
     let course;
     let courseName;
-    let student;
+    let userID;
+    let username;
     let firstName;
 
     before(function setup() {
       removeAllEntities();
       course = makeSampleCourse();
       courseName = Courses.findDoc(course).name;
-      student = makeSampleUser();
-      firstName = Users.getProfile(student).firstName;
+      userID = makeSampleUser();
+      username = Users.getProfile(userID).username;
+      firstName = Users.getProfile(username).firstName;
     });
 
     after(function teardown() {
@@ -32,15 +34,15 @@ if (Meteor.isServer) {
     });
 
     it('Can define and removeIt', function test1() {
-      const docID = ProfileCourses.define({ course, student });
+      const docID = ProfileCourses.define({ course, username });
       expect(ProfileCourses.isDefined(docID)).to.be.true;
       ProfileCourses.removeIt(docID);
       expect(ProfileCourses.isDefined(docID)).to.be.false;
     });
 
     it('Cannot define duplicates', function test2() {
-      const docID1 = ProfileCourses.define({ course, student });
-      const docID2 = ProfileCourses.define({ course, student });
+      const docID1 = ProfileCourses.define({ course, username });
+      const docID2 = ProfileCourses.define({ course, username });
       expect(docID1).to.equal(docID2);
       expect(ProfileCourses.isDefined(docID1)).to.be.true;
       ProfileCourses.removeIt(docID2);
@@ -48,7 +50,7 @@ if (Meteor.isServer) {
     });
 
     it('Can update', function test3(done) {
-      const docID = ProfileCourses.define({ course, student });
+      const docID = ProfileCourses.define({ course, username });
       fc.assert(
         fc.property(fc.boolean(), (retired) => {
           ProfileCourses.update(docID, { retired });
@@ -67,7 +69,7 @@ if (Meteor.isServer) {
       expect(ProfileCourses.isDefined(docID)).to.be.false;
       docID = ProfileCourses.restoreOne(dumbObject);
       fav = ProfileCourses.findDoc(docID);
-      expect(fav.studentID).to.equal(student);
+      expect(fav.studentID).to.equal(userID);
       expect(fav.courseID).to.equal(course);
     });
 
@@ -77,7 +79,7 @@ if (Meteor.isServer) {
     });
 
     it('Can get docs and slug', function test6() {
-      const docID = ProfileCourses.define({ course, student });
+      const docID = ProfileCourses.define({ course, username });
       const courseDoc = ProfileCourses.getCourseDoc(docID);
       expect(courseDoc).to.exist;
       expect(courseDoc.name).to.equal(courseName);

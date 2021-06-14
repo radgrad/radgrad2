@@ -17,7 +17,7 @@ if (Meteor.isServer) {
   describe('ProfileOpportunityCollection', function testSuite() {
     let opportunity;
     let opportunityName;
-    let student;
+    let userID;
     let sponsor;
     let username;
     let firstName;
@@ -27,8 +27,8 @@ if (Meteor.isServer) {
       sponsor = makeSampleUser(ROLE.FACULTY);
       opportunity = makeSampleOpportunity(sponsor);
       opportunityName = Opportunities.findDoc(opportunity).name;
-      student = makeSampleUser();
-      const profile = Users.getProfile(student);
+      userID = makeSampleUser();
+      const profile = Users.getProfile(userID);
       username = profile.username;
       firstName = profile.firstName;
     });
@@ -75,7 +75,7 @@ if (Meteor.isServer) {
       expect(ProfileOpportunities.isDefined(docID)).to.be.true;
       fav = ProfileOpportunities.findDoc(docID);
       expect(fav.opportunityID).to.equal(opportunity);
-      expect(fav.userID).to.equal(student);
+      expect(fav.userID).to.equal(userID);
     });
 
     it('Can checkIntegrity no errors', function test5() {
