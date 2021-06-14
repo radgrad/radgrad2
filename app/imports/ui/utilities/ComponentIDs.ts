@@ -91,6 +91,8 @@ export enum COMPONENTIDS {
   STUDENT_MENU_REVIEWS = 'student-menu-reviews',
   STUDENT_MENU_COMMUNITY = 'student-menu-community',
   STUDENT_MENU_SIGNOUT = 'student-menu-signout',
+  STUDENT_REQUEST_VERIFICATION_BUTTON = 'student-request-verification-button',
+  STUDENT_REQUEST_VERIFICATION_INPUT = 'uniforms-0000-0000',
 
   SIGNIN_FORM_EMAIL = 'signin-form-email',
   SIGNIN_FORM_PASSWORD = 'signin-form-password',
