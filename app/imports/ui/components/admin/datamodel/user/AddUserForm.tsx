@@ -39,7 +39,7 @@ const AddUserForm: React.FC<AddUserProps> = ({ interests, academicTerms, careerG
   const [role, setRole] = useState<string>('');
   let formRef;
 
-  const handleAdd = (doc) => {
+  const handleAdd = (doc: CombinedProfileDefine) => {
     // console.log('handleAdd(%o)', doc);
     const definitionData: CombinedProfileDefine = doc;
     if (doc.interests) {
