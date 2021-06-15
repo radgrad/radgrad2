@@ -194,7 +194,7 @@ class UserCollection {
 
   /**
    * Returns true if user is referenced by other "public" entities. Specifically:
-   *   * The user is a faculty member as has sponsored an opportunity.
+   * The user is a faculty member as has sponsored an opportunity.
    * Used to determine if this user can be deleted.
    * Note this doesn't test for references to CourseInstances, etc. These are "private" and will be deleted
    * implicitly if this user is deleted.
