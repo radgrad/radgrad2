@@ -3,6 +3,7 @@ import { expect } from 'chai';
 import { defineMethod, removeItMethod, updateMethod } from '../base/BaseCollection.methods';
 import { StudentProfiles } from './StudentProfileCollection';
 import { defineTestFixturesMethod, withRadGradSubscriptions, withLoggedInUser } from '../test/test-utilities';
+import { dumpStudentMethod } from './StudentProfileCollection.methods';
 
 /* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
@@ -26,7 +27,7 @@ if (Meteor.isClient) {
     const level = 6;
 
     before(function (done) {
-      defineTestFixturesMethod.call(['minimal', 'abi.student'], done);
+      defineTestFixturesMethod.call(['minimal', 'abi.student', 'extended.courses.interests', 'betty.student', 'betty.level1', 'betty.level2', 'opportunities', 'extended.opportunities', 'betty.level3'], done);
     });
 
     it('Define Method', async function () {
@@ -55,6 +56,11 @@ if (Meteor.isClient) {
       // const profile = StudentProfiles.findDoc({ username });
       // console.log(instance, profile);
       await removeItMethod.callPromise({ collectionName, instance });
+    });
+
+    it('Can build student dump object', async function test5() {
+      const dump = await dumpStudentMethod.callPromise('betty@hawaii.edu');
+      expect(dump.collections.length).to.equal(9); // StudentProfile, 2 instance, 4 profile, Review, VerificationRequests
     });
   });
 }

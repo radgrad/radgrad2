@@ -189,6 +189,21 @@ class ProfileOpportunityCollection extends BaseCollection {
     return { opportunity, student, retired };
   }
 
+  /**
+   * Dumps all the ProfileOpportunites for the given usernameOrID.
+   * @param {string} usernameOrID
+   * @return {ProfileOpportunityDefine[]}
+   */
+  dumpUser(usernameOrID: string): ProfileOpportunityDefine[] {
+    const profile = Users.getProfile(usernameOrID);
+    const studentID = profile.userID;
+    const retVal = [];
+    const instances = this.find({ studentID }).fetch();
+    instances.forEach((instance) => {
+      retVal.push(this.dumpOne(instance._id));
+    });
+    return retVal;
+  }
 }
 
 export const ProfileOpportunities = new ProfileOpportunityCollection();

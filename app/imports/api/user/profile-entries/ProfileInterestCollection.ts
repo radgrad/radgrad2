@@ -188,6 +188,22 @@ class ProfileInterestCollection extends BaseCollection {
     const retired = doc.retired;
     return { interest, username, retired };
   }
+
+  /**
+   * Dumps all the ProfileInterests for the given usernameOrID.
+   * @param {string} usernameOrID
+   * @return {ProfileInterestDefine[]}
+   */
+  dumpUser(usernameOrID: string): ProfileInterestDefine[] {
+    const profile = Users.getProfile(usernameOrID);
+    const userID = profile.userID;
+    const retVal = [];
+    const instances = this.find({ userID }).fetch();
+    instances.forEach((instance) => {
+      retVal.push(this.dumpOne(instance._id));
+    });
+    return retVal;
+  }
 }
 
 export const ProfileInterests = new ProfileInterestCollection();
