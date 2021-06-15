@@ -152,7 +152,7 @@ class ProfileCareerGoalCollection extends BaseCollection {
    * Removes all the ProfileCareerGoals for the user.
    * @param user the username.
    */
-  removeUser(user) {
+  removeUser(user: string) {
     const userID = Users.getID(user);
     this.collection.remove({ userID });
   }
@@ -275,6 +275,22 @@ class ProfileCareerGoalCollection extends BaseCollection {
     const username = Users.getProfile(doc.userID).username;
     const retired = doc.retired;
     return { careerGoal, username, retired };
+  }
+
+  /**
+   * Dumps all the ProfileCareerGoals for the given usernameOrID.
+   * @param {string} usernameOrID
+   * @return {ProfileCareerGoalDefine[]}
+   */
+  dumpUser(usernameOrID: string): ProfileCareerGoalDefine[] {
+    const profile = Users.getProfile(usernameOrID);
+    const userID = profile.userID;
+    const retVal = [];
+    const instances = this.find({ userID }).fetch();
+    instances.forEach((instance) => {
+      retVal.push(this.dumpOne(instance._id));
+    });
+    return retVal;
   }
 }
 

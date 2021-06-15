@@ -276,6 +276,21 @@ class ProfileCourseCollection extends BaseCollection {
     return { course, student, retired };
   }
 
+  /**
+   * Dumps all the ProfileCourses for the given usernameOrID.
+   * @param {string} usernameOrID
+   * @return {ProfileCourseDefine[]}
+   */
+  dumpUser(usernameOrID: string): ProfileCourseDefine[] {
+    const profile = Users.getProfile(usernameOrID);
+    const studentID = profile.userID;
+    const retVal = [];
+    const instances = this.find({ studentID }).fetch();
+    instances.forEach((instance) => {
+      retVal.push(this.dumpOne(instance._id));
+    });
+    return retVal;
+  }
 }
 
 export const ProfileCourses = new ProfileCourseCollection();

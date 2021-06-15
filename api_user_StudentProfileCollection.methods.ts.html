@@ -88,9 +88,14 @@
             <pre class="prettyprint source linenums"><code>import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { CallPromiseMixin } from 'meteor/didericis:callpromise-mixin';
 import { Meteor } from 'meteor/meteor';
+import moment from 'moment';
 import { StudentProfile } from '../../typings/radgrad';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
+import { CourseInstances } from '../course/CourseInstanceCollection';
+import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
 import { RadGradProperties } from '../radgrad/RadGradProperties';
+import { Reviews } from '../review/ReviewCollection';
+import { VerificationRequests } from '../verification/VerificationRequestCollection';
 import { Users } from './UserCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
 import { StudentProfiles } from './StudentProfileCollection';
@@ -107,14 +112,14 @@ import { Opportunities } from '../opportunity/OpportunityCollection';
 import { ROLE } from '../role/Role';
 
 export interface PublicProfileData {
-  website?: string,
-  picture?: string,
-  level?: number,
-  ice?: { i, c, e },
-  careerGoals?: string[],
-  interests?: string[],
-  courses?: string[],
-  opportunities?: string[]
+  website?: string;
+  picture?: string;
+  level?: number;
+  ice?: { i; c; e };
+  careerGoals?: string[];
+  interests?: string[];
+  courses?: string[];
+  opportunities?: string[];
 }
 
 /**
@@ -144,22 +149,22 @@ const generatePublicProfileDataObject = (username) => {
     }
     if (profile.shareCareerGoals) {
       const profileDocs = ProfileCareerGoals.findNonRetired({ userID });
-      const careerGoalSlugs = profileDocs.map(doc => CareerGoals.findSlugByID(doc.careerGoalID));
+      const careerGoalSlugs = profileDocs.map((doc) => CareerGoals.findSlugByID(doc.careerGoalID));
       publicData.careerGoals = CareerGoals.sort(careerGoalSlugs);
     }
     if (profile.shareInterests) {
       const profileDocs = ProfileInterests.findNonRetired({ userID });
-      const interestSlugs = profileDocs.map(doc => Interests.findSlugByID(doc.interestID));
+      const interestSlugs = profileDocs.map((doc) => Interests.findSlugByID(doc.interestID));
       publicData.interests = Interests.sort(interestSlugs);
     }
     if (profile.shareCourses) {
       const profileDocs = ProfileCourses.findNonRetired({ studentID: userID });
-      const courseSlugs = profileDocs.map(doc => Courses.findSlugByID(doc.courseID));
+      const courseSlugs = profileDocs.map((doc) => Courses.findSlugByID(doc.courseID));
       publicData.courses = Courses.sort(courseSlugs);
     }
     if (profile.shareOpportunities) {
       const profileDocs = ProfileOpportunities.findNonRetired({ studentID: userID });
-      const opportunitySlugs = profileDocs.map(doc => Opportunities.findSlugByID(doc.opportunityID));
+      const opportunitySlugs = profileDocs.map((doc) => Opportunities.findSlugByID(doc.opportunityID));
       publicData.opportunities = Opportunities.sort(opportunitySlugs);
     }
   }
@@ -333,6 +338,185 @@ export const matriculateStudentMethod = new ValidatedMethod({
       }
       StudentProfiles.removeIt(profile.username);
     }
+  },
+});
+
+const buildStudentDumpObject = (studentUsernameOrID: string) => {
+  const timestamp = new Date();
+  const collections = [];
+  const studentProfileCollection = {
+    name: StudentProfiles.getCollectionName(),
+    contents: [],
+  };
+  const profile = Users.getProfile(studentUsernameOrID);
+  studentProfileCollection.contents.push(StudentProfiles.dumpOne(profile._id));
+  collections.push(studentProfileCollection);
+  const courseInstanceCollection = {
+    name: CourseInstances.getCollectionName(),
+    contents: CourseInstances.dumpUser(studentUsernameOrID),
+  };
+  collections.push(courseInstanceCollection);
+  const opportunityInstanceCollection = {
+    name: OpportunityInstances.getCollectionName(),
+    contents: OpportunityInstances.dumpUser(studentUsernameOrID),
+  };
+  collections.push(opportunityInstanceCollection);
+  const profileCareerGoalCollection = {
+    name: ProfileCareerGoals.getCollectionName(),
+    contents: ProfileCareerGoals.dumpUser(studentUsernameOrID),
+  };
+  collections.push(profileCareerGoalCollection);
+  const profileCourseCollection = {
+    name: ProfileCourses.getCollectionName(),
+    contents: ProfileCourses.dumpUser(studentUsernameOrID),
+  };
+  collections.push(profileCourseCollection);
+  const profileInterestCollection = {
+    name: ProfileInterests.getCollectionName(),
+    contents: ProfileInterests.dumpUser(studentUsernameOrID),
+  };
+  collections.push(profileInterestCollection);
+  const profileOpportunityCollection = {
+    name: ProfileOpportunities.getCollectionName(),
+    contents: ProfileOpportunities.dumpUser(studentUsernameOrID),
+  };
+  collections.push(profileOpportunityCollection);
+  const reviewCollection = {
+    name: Reviews.getCollectionName(),
+    contents: Reviews.dumpUser(studentUsernameOrID),
+  };
+  collections.push(reviewCollection);
+  const verificationCollection = {
+    name: VerificationRequests.getCollectionName(),
+    contents: VerificationRequests.dumpUser(studentUsernameOrID),
+  };
+  collections.push(verificationCollection);
+  return { timestamp, collections };
+};
+
+export const dumpStudentMethod = new ValidatedMethod({
+  name: 'StudentProfile.dumpStudent',
+  mixins: [CallPromiseMixin],
+  validate: null,
+  run(studentUsernameOrID: string) {
+    if (Meteor.isServer) {
+      StudentProfiles.assertValidRoleForMethod(this.userId);
+      const profile = Users.getProfile(studentUsernameOrID);
+      if (profile.role !== ROLE.STUDENT &amp;&amp; profile.role !== ROLE.ALUMNI) {
+        throw new Meteor.Error(`${profile.username} isn't a student`, 'You can only dump students.');
+      }
+      return buildStudentDumpObject(studentUsernameOrID);
+    }
+    return {};
+  },
+});
+
+const shouldMatriculate = (studentProfile: StudentProfile): boolean => {
+  const threeYearInTerms = RadGradProperties.getQuarterSystem() ? 12 : 9;
+  const currentTermNumber = AcademicTerms.getCurrentAcademicTermNumber();
+  const studentLastTermNumber = StudentProfiles.getLastAcademicTerm(studentProfile.username).termNumber;
+  return currentTermNumber > studentLastTermNumber + threeYearInTerms;
+};
+
+const getStudentsToMatriculate = (): string[] => {
+  const students = StudentProfiles.find({}).fetch();
+  const threeYearInTerms = RadGradProperties.getQuarterSystem() ? 12 : 9;
+  const currentTermNumber = AcademicTerms.getCurrentAcademicTermNumber();
+  const retVal = [];
+  students.forEach((student) => {
+    const studentLastTermNumber = StudentProfiles.getLastAcademicTerm(student.username).termNumber;
+    if (currentTermNumber > studentLastTermNumber + threeYearInTerms) {
+      retVal.push(student.username);
+    }
+  });
+  return retVal;
+};
+
+export const matriculateAllOldStudentsMethod = new ValidatedMethod({
+  name: 'StudentProfiles.matriculateAllOldStudents',
+  mixins: [CallPromiseMixin],
+  validate: null,
+  run() {
+    if (Meteor.isServer) {
+      StudentProfiles.assertValidRoleForMethod(this.userId);
+      const studentsToMatriculate = getStudentsToMatriculate();
+      const retVal = [];
+      const mDate = moment().format('YYYY-MM-DD');
+      studentsToMatriculate.forEach((student) => {
+        const fileName = `${student}-${mDate}`;
+        const record = {
+          fileName,
+          contents: buildStudentDumpObject(student),
+        };
+        retVal.push(record);
+        StudentProfiles.removeIt(student);
+      });
+    }
+  },
+});
+
+export const updateAllStudentsStatusMethod = new ValidatedMethod({
+  name: 'StudentProfiles.updateAllStudentsStatus',
+  mixins: [CallPromiseMixin],
+  validate: null,
+  run() {
+    if (Meteor.isServer) {
+      StudentProfiles.assertValidRoleForMethod(this.userId);
+      const students = StudentProfiles.find({}).fetch();
+      let alumniCount = 0;
+      let retiredCount = 0;
+      let matriculatedCount = 0;
+      const studentRecords = [];
+      const mDate = moment().format('YYYY-MM-DD');
+      students.forEach((student) => {
+        if (updateStudentToAlumni(student)) {
+          alumniCount++;
+        }
+        if (retireOldStudent(student)) {
+          retiredCount++;
+        }
+        if (shouldMatriculate(student)) {
+          matriculatedCount++;
+          const fileName = `${student.username}-${mDate}`;
+          const record = {
+            fileName,
+            contents: buildStudentDumpObject(student.username),
+          };
+          studentRecords.push(record);
+          StudentProfiles.removeIt(student);
+        }
+      });
+      return {
+        alumniCount,
+        retiredCount,
+        matriculatedCount,
+        studentRecords,
+      };
+    }
+    return {};
+  },
+});
+
+export const findOddStudentsMethod = new ValidatedMethod({
+  name: 'StudentProfiles.findOddStudents',
+  mixins: [CallPromiseMixin],
+  validate: null,
+  run() {
+    const retVal = [];
+    if (Meteor.isServer) {
+      StudentProfiles.assertValidRoleForMethod(this.userId);
+      const students = StudentProfiles.find({}).fetch();
+      students.forEach((student) => {
+        const studentID = student.userID;
+        const cis = CourseInstances.find({ studentID }).fetch();
+        const ois = OpportunityInstances.find({ studentID }).fetch();
+        if (cis.length === 0 &amp;&amp; ois.length === 0) {
+          retVal.push(student);
+        }
+      });
+      return retVal;
+    }
+    return retVal;
   },
 });
 </code></pre>

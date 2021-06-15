@@ -582,8 +582,9 @@ class StudentProfileCollection extends BaseProfileCollection {
   }
 
   public getLastAcademicTerm(user: string): AcademicTerm {
+    // console.log('getLastAcademicTerm', user);
     const studentID = Users.getID(user);
-    let lastAcademicTerm = AcademicTerms.find({ termNumber: 13 }).fetch()[0];
+    let lastAcademicTerm = AcademicTerms.find({ termNumber: 0 }).fetch()[0];
     const cis = CourseInstances.find({ studentID }).fetch();
     cis.forEach((ci) => {
       const term = AcademicTerms.findDoc(ci.termID);

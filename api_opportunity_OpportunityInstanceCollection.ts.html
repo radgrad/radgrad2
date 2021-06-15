@@ -468,6 +468,22 @@ class OpportunityInstanceCollection extends BaseCollection {
     const retired = doc.retired;
     return { academicTerm, opportunity, verified, student, sponsor, retired };
   }
+
+  /**
+   * Dumps the OpportunityInstances for the given usernameOrID.
+   * @param {string} usernameOrID
+   * @return {OpportunityInstanceDefine[]}
+   */
+  public dumpUser(usernameOrID: string): OpportunityInstanceDefine[] {
+    const profile = Users.getProfile(usernameOrID);
+    const studentID = profile.userID;
+    const retVal = [];
+    const instances = this.find({ studentID }).fetch();
+    instances.forEach((instance) => {
+      retVal.push(this.dumpOne(instance._id));
+    });
+    return retVal;
+  }
 }
 
 /**
