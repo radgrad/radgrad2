@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
 import { defineMethod, removeItMethod, updateMethod } from '../base/BaseCollection.methods';
 import { StudentProfiles } from './StudentProfileCollection';
-import { defineTestFixturesMethod, withRadGradSubscriptions, withLoggedInUser, defineTestFixtures } from '../test/test-utilities';
+import { defineTestFixturesMethod, withRadGradSubscriptions, withLoggedInUser } from '../test/test-utilities';
 import { dumpStudentMethod } from './StudentProfileCollection.methods';
 
 /* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
@@ -27,7 +27,7 @@ if (Meteor.isClient) {
     const level = 6;
 
     before(function (done) {
-      defineTestFixturesMethod.call(['minimal', 'extended.courses.interests', 'betty.student', 'betty.level1', 'betty.level2', 'opportunities', 'extended.opportunities', 'betty.level3'], done);
+      defineTestFixturesMethod.call(['minimal', 'abi.student', 'extended.courses.interests', 'betty.student', 'betty.level1', 'betty.level2', 'opportunities', 'extended.opportunities', 'betty.level3'], done);
     });
 
     it('Define Method', async function () {
