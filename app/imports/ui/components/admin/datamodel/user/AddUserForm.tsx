@@ -39,14 +39,17 @@ const AddUserForm: React.FC<AddUserProps> = ({ interests, academicTerms, careerG
   const [role, setRole] = useState<string>('');
   let formRef;
 
-  const handleAdd = (doc: CombinedProfileDefine) => {
+  const handleAdd = (doc) => {
     // console.log('handleAdd(%o)', doc);
     const definitionData: CombinedProfileDefine = doc;
-    if (doc.interests) {
-      definitionData.interests = doc.interests.map((interest) => interestSlugFromName(interest));
-    } else {
-      definitionData.interests = [];
-    }
+    const docInterests = doc.interests;
+    const slugs = docInterests.map((interest) => interestSlugFromName(interest));
+    definitionData.interests = slugs;
+    // if (doc.interests) {
+    //   definitionData.interests = doc.interests.map((interest) => interestSlugFromName(interest));
+    // } else {
+    //   definitionData.interests = [];
+    // }
     if (doc.careerGoals) {
       definitionData.careerGoals = doc.careerGoals.map((goal) => careerGoalSlugFromName(goal));
     } else {
@@ -79,9 +82,10 @@ const AddUserForm: React.FC<AddUserProps> = ({ interests, academicTerms, careerG
   };
 
   // Hacky way of resetting pictureURL to be empty
-  const handleAddUser = (doc) => {
-    handleAdd(doc);
-  };
+  // const handleAddUser = (doc, fRef) => {
+  //   const model = doc;
+  //   handleAdd(model, fRef);
+  // };
 
   const interestNames = interests.map(docToName);
   const careerGoalNames = careerGoals.map(docToName);
@@ -141,7 +145,7 @@ const AddUserForm: React.FC<AddUserProps> = ({ interests, academicTerms, careerG
     <Segment padded>
       <Header dividing>Add User</Header>
       {/* eslint-disable-next-line no-return-assign */}
-      <AutoForm schema={formSchema} onSubmit={(doc) => handleAddUser(doc)} ref={(ref) => formRef = ref}
+      <AutoForm schema={formSchema} ref={(ref) => formRef = ref} onSubmit={handleAdd}
         showInlineError onChangeModel={handleModelChange}>
         <Form.Group widths="equal">
           <TextField name="username" placeholder="johndoe@foo.edu" />
@@ -197,7 +201,7 @@ const AddUserForm: React.FC<AddUserProps> = ({ interests, academicTerms, careerG
         ) : (
           ''
         )}
-        <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
+        <SubmitField className="mini basic green" value="Add" />
         <ErrorsField />
       </AutoForm>
     </Segment>
