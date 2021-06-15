@@ -162,5 +162,22 @@ if (Meteor.isServer) {
       expect(OpportunityInstances.find({ studentID }).count()).to.equal(0);
       expect(OpportunityInstances.isDefined(docID)).to.be.false;
     });
+
+    it('Can dumpUser', function test8() {
+      const numToMake = 10;
+      const existingInstances = OpportunityInstances.count();
+      const student = makeSampleUser();
+      for (let i = 0; i < numToMake; i++) {
+        const academicTerm = makeSampleAcademicTerm();
+        const sponsor = makeSampleUser(ROLE.FACULTY);
+        const opportunity = makeSampleOpportunity(sponsor);
+        const verified = false;
+        OpportunityInstances.define({ opportunity, academicTerm, student, sponsor, verified });
+      }
+      const numInstances = OpportunityInstances.count();
+      expect(numInstances).to.equal(existingInstances + numToMake);
+      const userDump = OpportunityInstances.dumpUser(student);
+      expect(userDump.length).to.equal(numToMake);
+    });
   });
 }
