@@ -5,7 +5,6 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Grid } from 'semantic-ui-react';
 import { Interests } from '../../../../api/interest/InterestCollection';
 import { Reviews } from '../../../../api/review/ReviewCollection';
-import { ROLE } from '../../../../api/role/Role';
 import { AdvisorProfiles } from '../../../../api/user/AdvisorProfileCollection';
 import { FacultyProfiles } from '../../../../api/user/FacultyProfileCollection';
 import { PROFILE_ENTRY_TYPE } from '../../../../api/user/profile-entries/ProfileEntryTypes';
@@ -79,8 +78,8 @@ const OpportunityViewPage: React.FC<OpportunityViewPageProps> = ({
   }).length > 0;
   const relatedCourses: RelatedCoursesOrOpportunities = getAssociationRelatedCourses(Opportunities.findRelatedCourses(opportunity._id), profile.userID);
   const relatedCareerGoals = Opportunities.findRelatedCareerGoals(opportunity._id);
-  const headerPaneButton = profile.role === ROLE.STUDENT ? <AddToProfileButton type={PROFILE_ENTRY_TYPE.OPPORTUNITY} userID={profile.userID}
-    item={opportunity} added={added} inverted floated="left" /> : undefined;
+  const headerPaneButton = <AddToProfileButton type={PROFILE_ENTRY_TYPE.OPPORTUNITY} userID={profile.userID}
+    item={opportunity} added={added} inverted floated="left" />;
   return (
     <PageLayout id={PAGEIDS.OPPORTUNITY} headerPaneTitle={headerPaneTitle} headerPaneImage={headerPaneImage}
       headerPaneButton={headerPaneButton}>
