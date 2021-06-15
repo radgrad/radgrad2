@@ -197,7 +197,7 @@ const AddUserForm: React.FC<AddUserProps> = ({ interests, academicTerms, careerG
         ) : (
           ''
         )}
-        <SubmitField className="mini basic green" value="Add" />
+        <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
         <ErrorsField />
       </AutoForm>
     </Segment>
