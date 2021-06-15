@@ -79,9 +79,9 @@ export const defineMethod = new ValidatedMethod({
   validate: null,
   run({ collectionName, definitionData }) {
     if (Meteor.isServer) {
-      // console.log(collectionName, this.userId, definitionData);
       const collection = RadGrad.getCollection(collectionName);
       collection.assertValidRoleForMethod(this.userId);
+      console.log(collectionName, this.userId, definitionData);
       return collection.define(definitionData);
     }
     return '';

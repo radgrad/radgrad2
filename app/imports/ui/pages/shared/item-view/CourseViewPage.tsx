@@ -30,6 +30,7 @@ interface CourseViewPageProps {
   terms: AcademicTerm[];
   courses: Course[];
   interests: Interest[];
+  added: boolean,
 }
 
 const isCourseCompleted = (courseSlugName, userID): boolean => {
