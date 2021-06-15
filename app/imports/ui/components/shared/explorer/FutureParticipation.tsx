@@ -54,6 +54,18 @@ const FutureParticipation: React.FC<FutureParticipationProps> = ({ item }) => {
       tableData[label1].unshift('N/A');
     }
   }
+
+  const totalArrays = tableData[label1].concat(tableData[label2], tableData[label3]);
+  const numParticipants = totalArrays.reduce((total, participant) => {
+    if (typeof (participant) === 'number') {
+      return total + participant;
+    }
+    return total;
+  }, 0);
+
+  if (numParticipants === 0) {
+    return <p>No one has planned to take this course in the next two years yet.</p>;
+  }
   if (termsPerYear === 4) {
     return (
       <Table celled>
