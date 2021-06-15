@@ -89,5 +89,19 @@ if (Meteor.isServer) {
       const studentUsername = ProfileCourses.getStudentUsername(docID);
       expect(studentUsername.startsWith('student')).to.be.true;
     });
+
+    it('Can dumpUser', function test7() {
+      const numToMake = 10;
+      const existingCount = ProfileCourses.count();
+      student = makeSampleUser();
+      for (let i = 0; i < numToMake; i++) {
+        course = makeSampleCourse();
+        ProfileCourses.define({ course, student });
+      }
+      const profileCount = ProfileCourses.count();
+      expect(profileCount).to.equal(existingCount + numToMake);
+      const userDump = ProfileCourses.dumpUser(student);
+      expect(userDump.length).to.equal(numToMake);
+    });
   });
 }
