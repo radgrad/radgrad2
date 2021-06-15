@@ -47,8 +47,8 @@ interface OpportunityViewPageProps {
   opportunities: Opportunity[];
 }
 
-const isCompleted = (opportunityID: string, studentID: string): boolean => {
-  const ois = OpportunityInstances.findNonRetired({ opportunityID, studentID });
+const isCompleted = (opportunityID: string, userID: string): boolean => {
+  const ois = OpportunityInstances.findNonRetired({ opportunityID, userID });
   let completed = false;
   ois.forEach((oi) => {
     if (oi.verified === true) {
@@ -69,17 +69,17 @@ const OpportunityViewPage: React.FC<OpportunityViewPageProps> = ({
   opportunityTypes,
   opportunities,
 }) => {
-  const studentID = profile.userID;
-  const completed = isCompleted(opportunity._id, studentID);
+  const userID = profile.userID;
+  const completed = isCompleted(opportunity._id, userID);
   const headerPaneTitle = opportunity.name;
   const headerPaneImage = opportunity.picture;
   const added = ProfileOpportunities.findNonRetired({
-    studentID: profile.userID,
+    userID: profile.userID,
     opportunityID: opportunity._id,
   }).length > 0;
   const relatedCourses: RelatedCoursesOrOpportunities = getAssociationRelatedCourses(Opportunities.findRelatedCourses(opportunity._id), profile.userID);
   const relatedCareerGoals = Opportunities.findRelatedCareerGoals(opportunity._id);
-  const headerPaneButton = profile.role === ROLE.STUDENT ? <AddToProfileButton type={PROFILE_ENTRY_TYPE.OPPORTUNITY} studentID={profile.userID}
+  const headerPaneButton = profile.role === ROLE.STUDENT ? <AddToProfileButton type={PROFILE_ENTRY_TYPE.OPPORTUNITY} userID={profile.userID}
     item={opportunity} added={added} inverted floated="left" /> : undefined;
   return (
     <PageLayout id={PAGEIDS.OPPORTUNITY} headerPaneTitle={headerPaneTitle} headerPaneImage={headerPaneImage}
@@ -105,7 +105,7 @@ const OpportunityViewPage: React.FC<OpportunityViewPageProps> = ({
 export default withTracker(() => {
   const { opportunity, username } = useParams();
   const profile = Users.getProfile(username);
-  const favOpps = ProfileOpportunities.findNonRetired({ studentID: profile.userID });
+  const favOpps = ProfileOpportunities.findNonRetired({ userID: profile.userID });
   const profileOpportunities = favOpps.map((f) => Opportunities.findDoc(f.opportunityID));
   const opportunityDoc = Opportunities.findDocBySlug(opportunity);
   const itemReviews = Reviews.findNonRetired({ revieweeID: opportunityDoc._id, visible: true });
