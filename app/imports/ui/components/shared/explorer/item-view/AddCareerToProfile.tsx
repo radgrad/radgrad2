@@ -9,7 +9,6 @@ import { PROFILE_ENTRY_TYPE, IProfileEntryTypes } from '../../../../../api/user/
 import { COMPONENTIDS } from '../../../../utilities/ComponentIDs';
 import { createDefinitionData, getCollectionName } from './utilities/profile-button';
 
-
 export interface AddCareerToProfileProps {
   careerGoal: CareerGoal;
   userID: string;
@@ -45,24 +44,9 @@ const handleRemove = (userID: string, item: CareerGoal, type: IProfileEntryTypes
     .catch((error) => { RadGradAlert.failure('Failed to remove from profile', error.message, error);});
 };
 
-const InteresetCheckList = ({ id, value, checked, onChange }) => (
-  <input id = {id}
-    type = 'checkbox'
-    name = 'inputNames'
-    checked = {checked}
-    onChange = {onChange}
-    value = {value}
-  />
-);
 
 const AddCareerToProfile: React.FC<AddCareerToProfileProps> = ({ userID, careerGoal, type, added, inverted, floated }) => {
-  const [open, setOpen] = React.useState(false);
-
-  const [check, setCheck] = useState({});
-
-  const hanleChange = e => {
-    setCheck
-  }
+  const [open, setOpen] = useState(false);
 
   const interestSlugs = careerGoal.interestIDs.map((id) => Interests.findSlugByID(id));
 
