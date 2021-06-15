@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, { useState } from 'react';
 import { Button, Icon, Modal, SemanticFLOATS, Grid, Form } from 'semantic-ui-react';
 import { defineMethod, removeItMethod } from '../../../../../api/base/BaseCollection.methods';
