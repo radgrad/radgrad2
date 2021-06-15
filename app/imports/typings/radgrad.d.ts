@@ -342,18 +342,21 @@ export interface ProfileCareerGoal extends Document {
   careerGoalID: string;
   userID: string;
   retired: boolean;
+  share:boolean;
 }
 
 export interface ProfileCourseDefine extends DumpOne {
   course: string;
-  student: string;
+  username: string;
   retired?: boolean;
+  share?: boolean;
 }
 
 export interface ProfileCourse extends Document {
   courseID: string;
-  studentID: string;
+  userID: string;
   retired: boolean;
+  share:boolean;
 }
 
 export interface ProfileInterestDefine extends DumpOne {
@@ -372,14 +375,16 @@ export interface ProfileInterest extends Document {
 
 export interface ProfileOpportunityDefine extends DumpOne {
   opportunity: string;
-  student: string;
+  username: string;
   retired?: boolean;
+  share?:boolean;
 }
 
 export interface ProfileOpportunity extends Document {
   opportunityID: string;
-  studentID: string;
+  userID: string;
   retired: boolean;
+  share: boolean;
 }
 
 export interface ProfileEntryUpdate extends Update {
@@ -646,6 +651,10 @@ export interface Profile extends Document {
 // Advisor and Faculty Profiles
 export interface AdvisorOrFacultyProfile extends Profile {
   aboutMe?: string;
+  profileCourses?: string[];
+  profileOpportunities?: string[];
+  shareCourses?: boolean;
+  shareOpportunities?: boolean;
 }
 
 export interface ProfileDefine extends DumpOne {
@@ -668,6 +677,10 @@ export interface ProfileDefine extends DumpOne {
 
 export interface AdvisorOrFacultyProfileDefine extends ProfileDefine {
   aboutMe?: string;
+  profileCourses?: string[];
+  profileOpportunities?: string[];
+  shareCourses?: boolean;
+  shareOpportunities?: boolean;
 }
 
 export interface CombinedProfileDefine extends ProfileDefine {
@@ -707,6 +720,10 @@ export interface ProfileUpdate extends Update {
 
 export interface AdvisorOrFacultyProfileUpdate extends ProfileUpdate {
   aboutMe?: string;
+  profileCourses?: string[];
+  profileOpportunities?: string[];
+  shareCourses?: boolean;
+  shareOpportunities?: boolean;
 }
 
 export interface StudentProfile extends Profile {

@@ -213,13 +213,13 @@ class StudentProfileCollection extends BaseProfileCollection {
         }));
       }
       if (profileCourses) {
-        profileCourses.forEach((course) => ProfileCourses.define({ course, student: username }));
+        profileCourses.forEach((course) => ProfileCourses.define({ course, username }));
       }
       if (profileOpportunities) {
         profileOpportunities.forEach((opportunity) =>
           ProfileOpportunities.define({
             opportunity,
-            student: username,
+            username,
           }),
         );
       }
@@ -368,22 +368,22 @@ class StudentProfileCollection extends BaseProfileCollection {
     }
     if (profileCourses) {
       ProfileCourses.removeUser(username);
-      profileCourses.forEach((course) => ProfileCourses.define({ course, student: username, retired }));
+      profileCourses.forEach((course) => ProfileCourses.define({ course, username, retired }));
     }
     if (profileOpportunities) {
       ProfileOpportunities.removeUser(username);
-      profileOpportunities.forEach((opportunity) => ProfileOpportunities.define({ opportunity, student: username, retired }));
+      profileOpportunities.forEach((opportunity) => ProfileOpportunities.define({ opportunity, username, retired }));
     }
     if (_.isBoolean(retired)) {
-      const studentID = profile.userID;
+      const userID = profile.userID;
       // retire the CourseInstances, OpportunityInstances, Reviews, and VerificationRequests
-      const cis = CourseInstances.find({ studentID }).fetch();
+      const cis = CourseInstances.find({ userID }).fetch();
       cis.forEach((ci) => CourseInstances.update(ci._id, { retired }));
-      const ois = OpportunityInstances.find({ studentID }).fetch();
+      const ois = OpportunityInstances.find({ userID }).fetch();
       ois.forEach((oi) => OpportunityInstances.update(oi._id, { retired }));
-      const reviews = Reviews.find({ studentID }).fetch();
+      const reviews = Reviews.find({ userID }).fetch();
       reviews.forEach((review) => Reviews.update(review._id, { retired }));
-      const vrs = VerificationRequests.find({ studentID }).fetch();
+      const vrs = VerificationRequests.find({ userID }).fetch();
       vrs.forEach((vr) => VerificationRequests.update(vr._id, { retired }));
     }
   }
@@ -454,9 +454,9 @@ class StudentProfileCollection extends BaseProfileCollection {
    * @throws {Meteor.Error} If userID is not defined.
    */
   public getEarnedICE(user: string) {
-    const studentID = Users.getID(user);
-    const courseDocs = CourseInstances.findNonRetired({ studentID });
-    const oppDocs = OpportunityInstances.findNonRetired({ studentID });
+    const userID = Users.getID(user);
+    const courseDocs = CourseInstances.findNonRetired({ userID });
+    const oppDocs = OpportunityInstances.findNonRetired({ userID });
     return getEarnedICE(courseDocs.concat(oppDocs));
   }
 
@@ -466,9 +466,9 @@ class StudentProfileCollection extends BaseProfileCollection {
    * @throws {Meteor.Error} If user is not defined.
    */
   public getProjectedICE(user: string) {
-    const studentID = Users.getID(user);
-    const courseDocs = CourseInstances.findNonRetired({ studentID });
-    const oppDocs = OpportunityInstances.findNonRetired({ studentID });
+    const userID = Users.getID(user);
+    const courseDocs = CourseInstances.findNonRetired({ userID });
+    const oppDocs = OpportunityInstances.findNonRetired({ userID });
     return getProjectedICE(courseDocs.concat(oppDocs));
   }
 
@@ -484,27 +484,27 @@ class StudentProfileCollection extends BaseProfileCollection {
 
   /**
    * Returns an array of courseIDs that this user has taken (or plans to take) based on their courseInstances.
-   * @param studentID The studentID.
+   * @param userID The userID.
    */
   public getCourseIDs(user: string) {
-    const studentID = Users.getID(user);
-    const courseInstanceDocs = CourseInstances.findNonRetired({ studentID });
+    const userID = Users.getID(user);
+    const courseInstanceDocs = CourseInstances.findNonRetired({ userID });
     const courseIDs = courseInstanceDocs.map((doc) => doc.courseID);
     return courseIDs; // allow for multiple 491 or 499 classes.
     // return _.uniq(courseIDs);
   }
 
   public getLastAcademicTerm(user: string): AcademicTerm {
-    const studentID = Users.getID(user);
+    const userID = Users.getID(user);
     let lastAcademicTerm = AcademicTerms.find({ termNumber: 13 }).fetch()[0];
-    const cis = CourseInstances.find({ studentID }).fetch();
+    const cis = CourseInstances.find({ userID }).fetch();
     cis.forEach((ci) => {
       const term = AcademicTerms.findDoc(ci.termID);
       if (term.termNumber > lastAcademicTerm.termNumber) {
         lastAcademicTerm = term;
       }
     });
-    const ois = OpportunityInstances.find({ studentID }).fetch();
+    const ois = OpportunityInstances.find({ userID }).fetch();
     ois.forEach((oi) => {
       const term = AcademicTerms.findDoc(oi.termID);
       if (term.termNumber > lastAcademicTerm.termNumber) {
@@ -615,9 +615,9 @@ class StudentProfileCollection extends BaseProfileCollection {
     const favCareerGoals = ProfileCareerGoals.findNonRetired({ userID });
     const careerGoals = favCareerGoals.map((fav) => CareerGoals.findSlugByID(fav.careerGoalID));
     const level = doc.level;
-    const favCourses = ProfileCourses.findNonRetired({ studentID: userID });
+    const favCourses = ProfileCourses.findNonRetired({ userID });
     const profileCourses = favCourses.map((fav) => Courses.findSlugByID(fav.courseID));
-    const favOpps = ProfileOpportunities.findNonRetired({ studentID: userID });
+    const favOpps = ProfileOpportunities.findNonRetired({ userID });
     const profileOpportunities = favOpps.map((fav) => Opportunities.findSlugByID(fav.opportunityID));
     const declaredAcademicTerm = doc.declaredAcademicTermID && AcademicTerms.findSlugByID(doc.declaredAcademicTermID);
     const isAlumni = doc.isAlumni;
