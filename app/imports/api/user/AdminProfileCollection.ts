@@ -52,7 +52,7 @@ class AdminProfileCollection extends BaseProfileCollection {
       // console.log(`AdminProfile.define ${user}`);
       if (!user) {
         const role = ROLE.ADMIN;
-        Slugs.define({ name: username, entityName: this.getType() });
+        // Slugs.define({ name: username, entityName: this.getType() });
         const profileID = this.collection.insert({
           username,
           firstName,
