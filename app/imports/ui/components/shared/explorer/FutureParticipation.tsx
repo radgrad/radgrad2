@@ -64,7 +64,7 @@ const FutureParticipation: React.FC<FutureParticipationProps> = ({ item }) => {
   }, 0);
 
   if (numParticipants === 0) {
-    return <p>No one has planned to take this course in the next two years yet.</p>;
+    return <p>No one has planned to take this {type} in the next two years yet.</p>;
   }
   if (termsPerYear === 4) {
     return (
