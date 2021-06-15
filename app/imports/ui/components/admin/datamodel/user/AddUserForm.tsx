@@ -42,14 +42,11 @@ const AddUserForm: React.FC<AddUserProps> = ({ interests, academicTerms, careerG
   const handleAdd = (doc) => {
     // console.log('handleAdd(%o)', doc);
     const definitionData: CombinedProfileDefine = doc;
-    const docInterests = doc.interests;
-    const slugs = docInterests.map((interest) => interestSlugFromName(interest));
-    definitionData.interests = slugs;
-    // if (doc.interests) {
-    //   definitionData.interests = doc.interests.map((interest) => interestSlugFromName(interest));
-    // } else {
-    //   definitionData.interests = [];
-    // }
+    if (doc.interests) {
+      definitionData.interests = doc.interests.map((interest) => interestSlugFromName(interest));
+    } else {
+      definitionData.interests = [];
+    }
     if (doc.careerGoals) {
       definitionData.careerGoals = doc.careerGoals.map((goal) => careerGoalSlugFromName(goal));
     } else {
@@ -73,7 +70,6 @@ const AddUserForm: React.FC<AddUserProps> = ({ interests, academicTerms, careerG
       .catch((error) => { RadGradAlert.failure('Add failed', error.message, error);})
       .then(() => {
         RadGradAlert.success('Add succeeded');
-        formRef.reset();
       });
   };
 
@@ -82,10 +78,10 @@ const AddUserForm: React.FC<AddUserProps> = ({ interests, academicTerms, careerG
   };
 
   // Hacky way of resetting pictureURL to be empty
-  // const handleAddUser = (doc, fRef) => {
-  //   const model = doc;
-  //   handleAdd(model, fRef);
-  // };
+  const handleAddUser = (doc, fRef) => {
+    fRef.reset();
+    handleAdd(doc);
+  };
 
   const interestNames = interests.map(docToName);
   const careerGoalNames = careerGoals.map(docToName);
@@ -145,7 +141,7 @@ const AddUserForm: React.FC<AddUserProps> = ({ interests, academicTerms, careerG
     <Segment padded>
       <Header dividing>Add User</Header>
       {/* eslint-disable-next-line no-return-assign */}
-      <AutoForm schema={formSchema} ref={(ref) => formRef = ref} onSubmit={handleAdd}
+      <AutoForm schema={formSchema} ref={(ref) => formRef = ref} onSubmit={doc => handleAddUser(doc, formRef)}
         showInlineError onChangeModel={handleModelChange}>
         <Form.Group widths="equal">
           <TextField name="username" placeholder="johndoe@foo.edu" />
