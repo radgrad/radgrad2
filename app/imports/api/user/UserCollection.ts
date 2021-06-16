@@ -56,7 +56,7 @@ class UserCollection {
    * @returns { String } The docID of the newly created user.
    * @throws { Meteor.Error } If the user exists.
    */
-  public define({ username, role }: { username: string; role: string }) {
+  public define({ username, role }: { username: string; role: string; }) {
     if (Meteor.isServer) {
       Roles.createRole(role, { unlessExists: true });
       // In test Meteor.settings is not set from settings.development.json so we use _.get to see if it is set.
@@ -67,12 +67,12 @@ class UserCollection {
         console.log(`Defining ${role} ${username} with password ${credential}`);
         return userID;
       }
-      if (role === ROLE.STUDENT || role === ROLE.FACULTY || role === ROLE.ADVISOR || role === ROLE.ALUMNI) {
+      if ((role === ROLE.STUDENT) || (role === ROLE.FACULTY) || (role === ROLE.ADVISOR || (role === ROLE.ALUMNI))) {
         // Define this user with a CAS login.
         const userWithoutHost = username.split('@')[0];
         const result = { id: userWithoutHost };
         const options = { profile: { name: userWithoutHost } };
-        const casReturn: { userId: string } = Accounts.updateOrCreateUserFromExternalService('cas', result, options);
+        const casReturn: { userId: string; } = Accounts.updateOrCreateUserFromExternalService('cas', result, options);
         const userID2 = casReturn.userId;
         Meteor.users.update(userID2, { $set: { username } });
         Roles.addUsersToRoles(userID2, [role]);
@@ -124,22 +124,12 @@ class UserCollection {
     const userID = this.getID(user);
     const profile = this.getProfile(userID);
     if (Array.isArray(role)) {
-      if (!role.includes(profile.role)) {
+      if (!(role.includes(profile.role))) {
         throw new Meteor.Error(`${userID} (${this.getProfile(userID).username}) is not in role ${role}.`);
       }
     } else if (profile.role !== role) {
       throw new Meteor.Error(`${userID} (${this.getProfile(userID).username}) is not in role ${role}.`);
     }
-  }
-
-  private checkProfileID(user) {
-    const userDoc = AdminProfiles.findOne({ userID: user }) || AdvisorProfiles.findOne({ userID: user }) || FacultyProfiles.findOne({ userID: user }) || StudentProfiles.findOne({ userID: user });
-    return userDoc;
-  }
-
-  private checkProfileUsername(user) {
-    const userDoc = AdminProfiles.findOne({ username: user }) || AdvisorProfiles.findOne({ username: user }) || FacultyProfiles.findOne({ username: user }) || StudentProfiles.findOne({ username: user });
-    return userDoc;
   }
 
   /**
@@ -148,7 +138,7 @@ class UserCollection {
    * @returns { boolean } True if user is defined, false otherwise.
    */
   public isDefined(user) {
-    const userDoc = this.checkProfileID(user) || this.checkProfileUsername(user);
+    const userDoc = (Meteor.users.findOne({ _id: user })) || (Meteor.users.findOne({ username: user }));
     return userDoc;
   }
 
@@ -159,11 +149,11 @@ class UserCollection {
    * @throws { Meteor.Error } If user is not a defined username or userID.
    */
   public getID(user) {
-    const userDoc = this.isDefined(user);
-    // if (!userDoc) {
-    // console.error('Error: user is not defined: ', user);
-    // }
-    return userDoc?.userID;
+    const userDoc = (Meteor.users.findOne({ _id: user })) || (Meteor.users.findOne({ username: user }));
+    if (!userDoc) {
+      console.error('Error: user is not defined: ', user);
+    }
+    return userDoc._id;
   }
 
   /**
@@ -175,7 +165,7 @@ class UserCollection {
   public getIDs(users) {
     let ids;
     try {
-      ids = users ? users.map((instance) => this.getID(instance)) : [];
+      ids = (users) ? users.map((instance) => this.getID(instance)) : [];
     } catch (err) {
       throw new Meteor.Error(`Error in getIDs(): Failed to convert one of ${users} to an ID.`);
     }
@@ -204,7 +194,7 @@ class UserCollection {
 
   /**
    * Returns true if user is referenced by other "public" entities. Specifically:
-   * The user is a faculty member as has sponsored an opportunity.
+   *   * The user is a faculty member as has sponsored an opportunity.
    * Used to determine if this user can be deleted.
    * Note this doesn't test for references to CourseInstances, etc. These are "private" and will be deleted
    * implicitly if this user is deleted.
@@ -215,7 +205,7 @@ class UserCollection {
   public isReferenced(user) {
     const userID = this.getID(user);
     const hasOpportunities = Opportunities.findNonRetired({ sponsorID: userID }).length > 0;
-    return hasOpportunities;
+    return (hasOpportunities);
   }
 
   /**
@@ -226,7 +216,8 @@ class UserCollection {
    */
   public hasProfile(user) {
     const userID = this.getID(user);
-    return StudentProfiles.hasProfile(userID) || FacultyProfiles.hasProfile(userID) || AdvisorProfiles.hasProfile(userID) || AdminProfiles.hasProfile(userID);
+    return StudentProfiles.hasProfile(userID) || FacultyProfiles.hasProfile(userID)
+      || AdvisorProfiles.hasProfile(userID) || AdminProfiles.hasProfile(userID);
   }
 
   public getProfileCollection(user) {
@@ -253,7 +244,8 @@ class UserCollection {
    * @returns The profile document, or null if not found.
    */
   public findProfileFromUsername(username) {
-    return StudentProfiles.findByUsername(username) || FacultyProfiles.findByUsername(username) || AdvisorProfiles.findByUsername(username);
+    return StudentProfiles.findByUsername(username) || FacultyProfiles.findByUsername(username)
+      || AdvisorProfiles.findByUsername(username);
   }
 
   public count() {
@@ -275,14 +267,28 @@ class UserCollection {
    */
   private getAdminID() {
     const username = this.adminUsername();
-    let adminDoc = AdminProfiles.findOne({ username });
+    let adminDoc = Meteor.users.findOne({ username });
     // The admin is user is not created by the startup code during unit testing.
     // This is kind of a hack to implicitly define the admin user during unit tests.
     if (!adminDoc && Meteor.isServer && Meteor.isTest) {
-      AdminProfiles.define({ username, firstName: 'RadGrad', lastName: 'Admin' });
-      adminDoc = AdminProfiles.findOne({ username });
+      const userID = Accounts.createUser({ username, email: username, password: 'foo' });
+      Roles.createRole(ROLE.ADMIN, { unlessExists: true });
+      Roles.addUsersToRoles(userID, ROLE.ADMIN);
+      adminDoc = Meteor.users.findOne({ username });
     }
-    return adminDoc.userID;
+    return adminDoc._id;
+  }
+
+  /**
+   * There is only one admin and there is no collection for them. (This might be a mistake).
+   * Anyway, this function returns an object that serves as their profile.
+   * @returns The admin profile.
+   * @private
+   */
+  private getAdminProfile() {
+    const adminUsername = this.adminUsername();
+    const adminID = Meteor.users.findOne({ username: adminUsername })._id;
+    return { username: adminUsername, firstName: 'RadGrad', lastName: 'Admin', role: ROLE.ADMIN, userID: adminID };
   }
 
   /**
@@ -341,7 +347,7 @@ class UserCollection {
    * @returns { Array } An array of documents matching the selector and options.
    */
   public findProfiles(selector, options) {
-    const theSelector = typeof selector === 'undefined' ? {} : selector;
+    const theSelector = (typeof selector === 'undefined') ? {} : selector;
     let profiles = [];
     profiles = profiles.concat(StudentProfiles.findNonRetired(theSelector, options));
     profiles = profiles.concat(AdvisorProfiles.findNonRetired(theSelector, options));
@@ -358,7 +364,7 @@ class UserCollection {
    * @returns { Array } An array of documents matching the selector and options.
    */
   public findProfilesWithRole(role, selector, options) {
-    const theSelector = typeof selector === 'undefined' ? {} : selector;
+    const theSelector = (typeof selector === 'undefined') ? {} : selector;
     if (role === ROLE.STUDENT) {
       theSelector.isAlumni = false;
       return StudentProfiles.findNonRetired(theSelector, options);
@@ -374,7 +380,7 @@ class UserCollection {
       return FacultyProfiles.findNonRetired(theSelector, options);
     }
     if (role === ROLE.ADMIN) {
-      return AdminProfiles.findNonRetired(theSelector, options);
+      return [this.getAdminProfile()];
     }
     console.log(`Unknown role: ${role}`);
     throw new Meteor.Error(`Unknown role: ${role}`);
@@ -461,18 +467,13 @@ class UserCollection {
    */
   public publish() {
     if (Meteor.isServer) {
-      Meteor.publish(this.collectionName, () =>
-        Meteor.users.find(
-          {},
-          {
-            fields: {
-              username: 1,
-              roles: 1,
-              status: 1,
-            },
-          },
-        ),
-      );
+      Meteor.publish(this.collectionName, () => Meteor.users.find({}, {
+        fields: {
+          username: 1,
+          roles: 1,
+          status: 1,
+        },
+      }));
     }
   }
 
