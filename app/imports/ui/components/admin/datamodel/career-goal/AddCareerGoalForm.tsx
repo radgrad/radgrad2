@@ -30,10 +30,10 @@ const AddCareerGoalForm: React.FC<AddCareerGoalFormProps> = ({ interests }) => {
     definitionData.slug = slugify(doc.name);
     defineMethod.callPromise({ collectionName, definitionData })
       .catch((error) => {
-        RadGradAlert.failure('Failed adding User', error.message, error);
+        RadGradAlert.failure('Failed adding Career Goal', error.message, error);
       })
       .then(() => {
-        RadGradAlert.success('Add User Succeeded');
+        RadGradAlert.success('Add Career Goal Succeeded');
         formRef.reset();
       });
   };
