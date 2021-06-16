@@ -142,11 +142,10 @@ const WriteReviews: React.FC<WriteReviewsProps> = ({ unreviewedCourses, unreview
               find appropriate :)
             </Grid.Column>
             <Grid.Column width={10}>
-              <LongTextField name='comments'
-                disabled={disabled} />
+              <LongTextField name='comments' disabled={disabled} id={COMPONENTIDS.STUDENT_REVIEW_COMMENT} />
             </Grid.Column>
             <Grid.Column width={6}>
-              <SubmitField />
+              <SubmitField id={COMPONENTIDS.STUDENT_REVIEW_SUBMIT} />
             </Grid.Column>
           </Grid>
           <ErrorsField />

@@ -96,6 +96,9 @@ export enum COMPONENTIDS {
   STUDENT_REQUEST_VERIFICATION_INPUT = 'student-request-verification-input',
   STUDENT_REQUEST_VERIFICATION_SUBMIT = 'student-request-verification-submit',
   STUDENT_COURSE_OR_OPPORTUNITY = 'student-course-or-opportunity',
+  STUDENT_REVIEW_COMMENT = 'student-review-comment',
+  STUDENT_REVIEW_SUBMIT = 'student-review-submit',
+  STUDENT_REVIEW_ITEM = 'student-review-item',
 
   SIGNIN_FORM_EMAIL = 'signin-form-email',
   SIGNIN_FORM_PASSWORD = 'signin-form-password',
