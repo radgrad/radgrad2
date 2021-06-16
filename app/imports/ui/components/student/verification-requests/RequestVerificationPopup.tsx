@@ -2,8 +2,9 @@ import React from 'react';
 import SimpleSchema from 'simpl-schema';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { Popup, SemanticSIZES } from 'semantic-ui-react';
-import { AutoForm } from 'uniforms-semantic';
+import { AutoForm, SubmitField, TextField } from 'uniforms-semantic';
 import { useRouteMatch } from 'react-router-dom';
+import { COMPONENTIDS } from '../../../utilities/ComponentIDs';
 import RadGradAlert from '../../../utilities/RadGradAlert';
 import { defineMethod } from '../../../../api/base/BaseCollection.methods';
 import { VerificationRequests } from '../../../../api/verification/VerificationRequestCollection';
@@ -45,7 +46,7 @@ const RequestVerificationPopup: React.FC<RequestVerificationPopupProps> = ({ opp
       trigger={
         <ButtonAction onClick={() => true} label='Request Verification' icon='hand point up outline' size={size} />
       }
-      content={<AutoForm schema={formSchema} onSubmit={handleVerificationRequest(opportunityInstance, match)} />}
+      content={<AutoForm schema={formSchema} onSubmit={handleVerificationRequest(opportunityInstance, match)} ><TextField name='documentation' id={COMPONENTIDS.STUDENT_REQUEST_VERIFICATION_INPUT} /><SubmitField id={COMPONENTIDS.STUDENT_REQUEST_VERIFICATION_SUBMIT} /></AutoForm>}
       on='click'
       header='Describe how you participated'
     />

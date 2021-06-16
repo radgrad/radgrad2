@@ -4,6 +4,7 @@ import { signinPage } from './signin.page';
 import { studentHomePage } from './student.home.page';
 import { studentNavBar } from './navbar.student.component';
 import { explorerPages } from './explorer.pages';
+import { managePages } from './manage.pages';
 import { visibilityPage } from './visibility.page';
 import { reviewPage } from './review.page';
 import {
@@ -94,6 +95,14 @@ test('Test adding and removing interests, careers, courses, and opportunities to
 
   await studentNavBar.gotoOpportunitiesPage(testController);
   await explorerPages.testAddAndRemove(testController, 'allnet');
+});
+
+test('Test student verification for opportunities', async (testController) => {
+  await landingNavBar.gotoStudentLogin(testController);
+  await signinPage.signin(testController, credentials.student.abi);
+
+  await studentNavBar.gotoVerificationPage(testController);
+  await managePages.studentRequestVerification(testController);
 });
 
 test('Test student visibility page', async (testController) => {

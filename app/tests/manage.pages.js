@@ -48,6 +48,14 @@ class ManagePages {
     const componentSelector = Selector(`#${COMPONENTIDS.MANAGE_STUDENT_ITEM}`).count;
     await testController.expect(componentSelector).eql(1);
   }
+
+  async studentRequestVerification(testController) {
+    await testController.click(`#${COMPONENTIDS.STUDENT_REQUEST_VERIFICATION_BUTTON}`);
+    await testController.typeText(`#${COMPONENTIDS.STUDENT_REQUEST_VERIFICATION_INPUT}`, 'Attended meetings');
+    await testController.click(`#${COMPONENTIDS.STUDENT_REQUEST_VERIFICATION_SUBMIT}`);
+    const componentSelector = Selector(`#${COMPONENTIDS.STUDENT_REQUEST_VERIFICATION_BUTTON}`);
+    await testController.expect(componentSelector.exists).notOk();
+  }
 }
 
 export const managePages = new ManagePages();
