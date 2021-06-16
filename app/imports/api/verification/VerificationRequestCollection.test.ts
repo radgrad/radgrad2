@@ -121,5 +121,21 @@ if (Meteor.isServer) {
       expect(opportunityDoc.sponsorID).to.equal(sponsorDoc.userID);
       expect(opportunityInstanceDoc.opportunityID).to.equal(opportunityDoc._id);
     });
+
+    it('Can dumpUser', function test7() {
+      const numToMake = 10;
+      const existingCount = VerificationRequests.count();
+      const student: string = makeSampleUser();
+      for (let i = 0; i < numToMake; i++) {
+        const sponsor = makeSampleUser(ROLE.FACULTY);
+        const oiID = makeSampleOpportunityInstance(student, sponsor);
+        const documentation = faker.lorem.sentence();
+        VerificationRequests.define({ student, opportunityInstance: oiID, documentation });
+      }
+      const vrCount = VerificationRequests.count();
+      expect(vrCount).to.equal(existingCount + numToMake);
+      const userDump = VerificationRequests.dumpUser(student);
+      expect(userDump.length).to.equal(numToMake);
+    });
   });
 }

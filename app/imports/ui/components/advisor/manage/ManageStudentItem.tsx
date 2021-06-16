@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Grid, Icon } from 'semantic-ui-react';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
-import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
+import { getLastAcademicTermMethod } from '../../../../api/user/StudentProfileCollection.methods';
 import { COMPONENTIDS } from '../../../utilities/ComponentIDs';
 import { ButtonLink } from '../../shared/button/ButtonLink';
 import RadGradMenuLevel from '../../shared/RadGradMenuLevel';
@@ -19,9 +19,26 @@ const ManageStudentItem: React.FC<ManageStudentProps> = ({
   profileInterests,
 }) => {
   const name = `${student.lastName}, ${student.firstName}`;
+  const startTerm = AcademicTerms.findDoc({ termNumber: 0 });
+  const [lastTerm, setLastTerm] = useState(startTerm);
+  const [fetched, setFetched] = useState(false);
+
+  useEffect(() => {
+    // console.log('check for infinite loop');
+    const fetchData = () => {
+      getLastAcademicTermMethod.callPromise(student.username)
+        .then(result => setLastTerm(result));
+    };
+    // Only fetch data if it hasn't been fetched before.
+    if (!fetched) {
+      fetchData();
+      setFetched(true);
+    }
+  }, [fetched]);
+
   // const updatedOn = student.updatedAt ? student.updatedAt : student.createdAt;
   // const updatedOnStr = `Updated on ${moment(updatedOn).format('MM/DD/YYYY')}`;
-  const lastTerm = StudentProfiles.getLastAcademicTerm(student.username);
+
   return (
     <Grid.Row id={COMPONENTIDS.MANAGE_STUDENT_ITEM}>
       <Grid.Column width={3}>
@@ -40,7 +57,7 @@ const ManageStudentItem: React.FC<ManageStudentProps> = ({
       </Grid.Column>
       <Grid.Column width={3}>
         {/* updatedOnStr */}
-        {AcademicTerms.toString(lastTerm._id)}
+        {lastTerm ? AcademicTerms.toString(lastTerm._id) : ''}
       </Grid.Column>
       <Grid.Column width={2}>
         <RadGradMenuLevel level={student.level} />

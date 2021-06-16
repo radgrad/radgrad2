@@ -94,5 +94,19 @@ if (Meteor.isServer) {
       expect(studentUsername.startsWith('student')).to.be.true;
       expect(studentUsername).to.equal(username);
     });
+
+    it('Can dumpUser', function test7() {
+      username = makeSampleUser();
+      const numToMake = 10;
+      const existing = ProfileInterests.count();
+      for (let i = 0; i < numToMake; i++) {
+        interest = makeSampleInterest();
+        ProfileInterests.define({ interest, username });
+      }
+      const profileCount = ProfileInterests.count();
+      expect(profileCount).to.equal(existing + numToMake);
+      const userDump = ProfileInterests.dumpUser(username);
+      expect(userDump.length).to.equal(numToMake);
+    });
   });
 }

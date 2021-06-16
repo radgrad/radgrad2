@@ -95,9 +95,9 @@ if (Meteor.isServer) {
       let doc = Reviews.findOne({});
       const docID = doc._id;
       fc.assert(
-        fc.property(fc.integer(1, 5), fc.lorem(10), fc.boolean(), fc.boolean(), fc.lorem(10), fc.boolean(), (rating, comments, moderated, visible, moderatorComments, retired) => {
+        fc.property(fc.integer(1, 5), fc.lorem(10), fc.boolean(), fc.boolean(), fc.lorem(10), fc.boolean(), (ratingNum, comments, moderated, visible, moderatorComments, retired) => {
           const academicTerm = makeSampleAcademicTerm();
-          // @ts-ignore
+          const rating: ReviewRatings = ratingNum as ReviewRatings;
           Reviews.update(docID, { academicTerm, comments, moderated, visible, rating, retired, moderatorComments });
           doc = Reviews.findDoc(docID);
           expect(doc.comments).to.equal(comments);
@@ -130,6 +130,26 @@ if (Meteor.isServer) {
     it('Can checkIntegrity no errors', function test5() {
       const problems = Reviews.checkIntegrity();
       expect(problems.length).to.equal(0);
+    });
+
+    it('Can dumpUser', function test6() {
+      const numToMake = 10;
+      const existingReviewCount = Reviews.count();
+      const student: string = makeSampleUser();
+      for (let i = 0; i < numToMake; i++) {
+        const reviewType = ReviewTypes.OPPORTUNITY;
+        const faculty: string = makeSampleUser(ROLE.FACULTY);
+        const reviewee: string = makeSampleOpportunity(faculty);
+        const academicTerm = makeSampleAcademicTerm();
+        const rating: ReviewRatings = Math.floor(Math.random() * 5 + 1) as ReviewRatings;
+        const comments = faker.lorem.paragraph();
+        const slug = `review-${student}-${reviewee}-${rating}`;
+        Reviews.define({ slug, student, reviewType, reviewee, academicTerm, rating, comments });
+      }
+      const reviewCount = Reviews.count();
+      expect(reviewCount).to.equal(existingReviewCount + numToMake);
+      const userDump = Reviews.dumpUser(student);
+      expect(userDump.length).to.equal(numToMake);
     });
   });
 }
