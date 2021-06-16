@@ -14,7 +14,6 @@ import { Opportunities } from '../opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Users } from './UserCollection';
-import { Slugs } from '../slug/SlugCollection';
 import { ROLE } from '../role/Role';
 import { getProjectedICE, getEarnedICE } from '../ice/IceProcessor';
 import { AcademicTerm, StudentProfileDefine, StudentProfileUpdate, StudentProfileUpdateData } from '../../typings/radgrad';
@@ -171,6 +170,10 @@ class StudentProfileCollection extends BaseProfileCollection {
       this.assertValidLevel(level);
       if (!_.isBoolean(isAlumni)) {
         throw new Meteor.Error(`Invalid isAlumni: ${isAlumni}`);
+      }
+      const doc = this.findOne({ username });
+      if (doc) {
+        throw new Meteor.Error(`Attempt to redefine user: ${username}`);
       }
 
       // Slugs.define({ name: username, entityName: this.getType() });

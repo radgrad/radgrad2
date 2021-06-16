@@ -7,7 +7,6 @@ import { AcademicYearInstances } from '../degree-plan/AcademicYearInstanceCollec
 import { CourseInstances } from '../course/CourseInstanceCollection';
 import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
 import { Reviews } from '../review/ReviewCollection';
-import { Slugs } from '../slug/SlugCollection';
 import { Users } from './UserCollection';
 import { ROLE } from '../role/Role';
 import { VerificationRequests } from '../verification/VerificationRequestCollection';
@@ -201,9 +200,6 @@ class BaseProfileCollection extends BaseSlugCollection {
    */
   protected checkIntegrityCommonFields(doc) {
     const problems = [];
-    if (!Slugs.isDefined(doc.username)) {
-      problems.push(`Bad username: ${doc.username}`);
-    }
     if (!Users.isDefined(doc.userID)) {
       problems.push(`Bad userID: ${doc.userID}`);
     }
@@ -224,7 +220,6 @@ class BaseProfileCollection extends BaseSlugCollection {
       [CourseInstances, OpportunityInstances, AcademicYearInstances, VerificationRequests, ProfileCareerGoals, ProfileCourses, ProfileInterests,
         ProfileOpportunities, Reviews].forEach((collection) => collection.removeUser(userID));
       Meteor.users.remove({ _id: userID });
-      Slugs.getCollection().remove({ name: profile.username });
       return super.removeIt(profileID);
     }
     throw new Meteor.Error(`User ${profile.username} is a sponsor of un-retired Opportunities.`);

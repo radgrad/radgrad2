@@ -6,7 +6,6 @@ import BaseProfileCollection, { defaultProfilePicture } from './BaseProfileColle
 import { Users } from './UserCollection';
 import { Interests } from '../interest/InterestCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
-import { Slugs } from '../slug/SlugCollection';
 import { ROLE } from '../role/Role';
 import { AdvisorOrFacultyProfileDefine, AdvisorOrFacultyProfileUpdate } from '../../typings/radgrad';
 import { ProfileInterests } from './profile-entries/ProfileInterestCollection';
@@ -55,6 +54,10 @@ class FacultyProfileCollection extends BaseProfileCollection {
   }: AdvisorOrFacultyProfileDefine) {
     if (Meteor.isServer) {
       const role = ROLE.FACULTY;
+      const doc = this.findOne({ username });
+      if (doc) {
+        throw new Meteor.Error(`Attempt to redefine user: ${username}`);
+      }
       // Slugs.define({ name: username, entityName: this.getType() });
       const profileID = this.collection.insert({
         username,

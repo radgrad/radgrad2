@@ -4,7 +4,6 @@ import BaseProfileCollection, { defaultProfilePicture } from './BaseProfileColle
 import { Users } from './UserCollection';
 import { Interests } from '../interest/InterestCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
-import { Slugs } from '../slug/SlugCollection';
 import { ROLE } from '../role/Role';
 import { ProfileDefine, ProfileUpdate } from '../../typings/radgrad';
 import { ProfileInterests } from './profile-entries/ProfileInterestCollection';
