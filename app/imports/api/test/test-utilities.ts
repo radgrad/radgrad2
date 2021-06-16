@@ -93,7 +93,7 @@ export const defineTestFixturesMethod = new ValidatedMethod({
 export const withRadGradSubscriptions = (userID?: string) => new Promise((resolve) => {
   const handles = [];
   RadGrad.collections.forEach((collection) => handles.push(collection.subscribe(userID)));
-  handles.push(Users.subscribe());
+  // handles.push(Users.subscribe());
   const poll = Meteor.setInterval(() => {
     if (DDP._allSubscriptionsReady()) {
       Meteor.clearInterval(poll);

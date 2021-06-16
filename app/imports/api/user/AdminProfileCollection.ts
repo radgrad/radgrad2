@@ -47,7 +47,7 @@ class AdminProfileCollection extends BaseProfileCollection {
     lastVisited = {},
   }: ProfileDefine) {
     if (Meteor.isServer) {
-      const user = Meteor.users.findOne({ username });
+      const user = this.findOne({ username });
       // console.log(`AdminProfile.define ${user}`);
       if (!user) {
         const role = ROLE.ADMIN;
