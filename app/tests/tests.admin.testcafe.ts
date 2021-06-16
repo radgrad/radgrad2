@@ -1,8 +1,10 @@
+import { COMPONENTIDS } from '../imports/ui/utilities/ComponentIDs';
 import { landingNavBar } from './navbar.landing.component';
 import { adminNavBar } from './navbar.admin.component';
 import { signinPage } from './signin.page';
 import { landingPage } from './landing.page';
 import { managePages } from './manage.pages';
+import { visibilityPage } from './visibility.page';
 import {
   adminHomePage,
   landingInterestExplorerPage,
@@ -101,6 +103,18 @@ test('Test admin data model pages', async (testController) => {
   await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'teasers');
   await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'users');
   await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'verification-requests');
+});
+
+test('Test admin visibility page', async (testController) => {
+  await adminNavBar.gotoAdminLogin(testController);
+  await signinPage.signin(testController, credentials.admin);
+
+  await adminNavBar.gotoVisibilityPage(testController);
+  await visibilityPage.testVisibility(testController, `#${COMPONENTIDS.SHARE_PICTURE}`, `#${COMPONENTIDS.PROFILE_PICTURE}`);
+  await visibilityPage.addWebsite(testController);
+  await visibilityPage.testVisibility(testController, `#${COMPONENTIDS.SHARE_WEBSITE}`, `#${COMPONENTIDS.PROFILE_WEBSITE}`);
+  await visibilityPage.testVisibility(testController, `#${COMPONENTIDS.SHARE_INTERESTS}`, `#${COMPONENTIDS.PROFILE_INTERESTS}`);
+  await visibilityPage.testVisibility(testController, `#${COMPONENTIDS.SHARE_CAREER_GOALS}`, `#${COMPONENTIDS.PROFILE_CAREER_GOALS}`);
 });
 
 test('Test admin ensure logout', async (testController) => {
