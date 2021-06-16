@@ -8,6 +8,7 @@ import { removeAllEntities } from '../../api/base/BaseUtilities';
 import { updateFactoids } from '../../api/factoid/Factoids';
 import { PublicStats } from '../../api/public-stats/PublicStatsCollection';
 import { whatsNew } from '../../api/whats-new/WhatsNew';
+import { RadGradForecasts } from '../both/RadGradForecasts';
 import { defineAdminUser, defineTestAdminUser, loadDatabase } from './initialize-db';
 
 /* eslint-disable no-console */
@@ -56,6 +57,8 @@ const normalInitialization = () => {
   userInteractionManager.initialize();
   console.log('  * Initializing cron jobs');
   SyncedCron.start();
+  console.log('  * Initializing forecasts');
+  RadGradForecasts.updateForecasts();
   // Finally, run the daily update to simplify development:
   userInteractionManager.dailyUpdate();
 };

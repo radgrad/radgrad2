@@ -1,7 +1,9 @@
+import { COMPONENTIDS } from '../imports/ui/utilities/ComponentIDs';
 import { landingNavBar } from './navbar.landing.component';
 import { facultyNavBar } from './navbar.faculty.component';
 import { signinPage } from './signin.page';
 import { explorerPages } from './explorer.pages';
+import { visibilityPage } from './visibility.page';
 import {
   facultyHomePage,
   manageOpportunitiesPage,
@@ -81,4 +83,16 @@ test('Test adding and removing interests and careers to faculty profile', async 
 
   await facultyNavBar.gotoCareerGoalsExplorerPage(testController);
   await explorerPages.testAddAndRemove(testController, 'game-developer');
+});
+
+test('Test faculty visibility page', async (testController) => {
+  await landingNavBar.gotoFacultyLogin(testController);
+  await signinPage.signin(testController, credentials.faculty);
+
+  await facultyNavBar.gotoVisibilityPage(testController);
+  await visibilityPage.testVisibility(testController, `#${COMPONENTIDS.SHARE_PICTURE}`, `#${COMPONENTIDS.PROFILE_PICTURE}`);
+  await visibilityPage.addWebsite(testController);
+  await visibilityPage.testVisibility(testController, `#${COMPONENTIDS.SHARE_WEBSITE}`, `#${COMPONENTIDS.PROFILE_WEBSITE}`);
+  await visibilityPage.testVisibility(testController, `#${COMPONENTIDS.SHARE_INTERESTS}`, `#${COMPONENTIDS.PROFILE_INTERESTS}`);
+  await visibilityPage.testVisibility(testController, `#${COMPONENTIDS.SHARE_CAREER_GOALS}`, `#${COMPONENTIDS.PROFILE_CAREER_GOALS}`);
 });
