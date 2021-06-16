@@ -1,8 +1,10 @@
+import { COMPONENTIDS } from '../imports/ui/utilities/ComponentIDs';
 import { landingNavBar } from './navbar.landing.component';
 import { signinPage } from './signin.page';
 import { studentHomePage } from './student.home.page';
 import { studentNavBar } from './navbar.student.component';
 import { explorerPages } from './explorer.pages';
+import { visibilityPage } from './visibility.page';
 import {
   studentDegreePlannerPage,
   studentICEPointsPage,
@@ -91,4 +93,20 @@ test('Test adding and removing interests, careers, courses, and opportunities to
 
   await studentNavBar.gotoOpportunitiesPage(testController);
   await explorerPages.testAddAndRemove(testController, 'allnet');
+});
+
+test('Test student visibility page', async (testController) => {
+  await landingNavBar.gotoStudentLogin(testController);
+  await signinPage.signin(testController, credentials.student.abi);
+
+  await studentNavBar.gotoVisibilityPage(testController);
+  await visibilityPage.testVisibility(testController, `#${COMPONENTIDS.SHARE_PICTURE}`, `#${COMPONENTIDS.PROFILE_PICTURE}`);
+  await visibilityPage.addWebsite(testController);
+  await visibilityPage.testVisibility(testController, `#${COMPONENTIDS.SHARE_WEBSITE}`, `#${COMPONENTIDS.PROFILE_WEBSITE}`);
+  await visibilityPage.testVisibility(testController, `#${COMPONENTIDS.SHARE_INTERESTS}`, `#${COMPONENTIDS.PROFILE_INTERESTS}`);
+  await visibilityPage.testVisibility(testController, `#${COMPONENTIDS.SHARE_CAREER_GOALS}`, `#${COMPONENTIDS.PROFILE_CAREER_GOALS}`);
+  await visibilityPage.testVisibility(testController, `#${COMPONENTIDS.SHARE_OPPORTUNITIES}`, `#${COMPONENTIDS.PROFILE_OPPORTUNITIES}`);
+  await visibilityPage.testVisibility(testController, `#${COMPONENTIDS.SHARE_COURSES}`, `#${COMPONENTIDS.PROFILE_COURSES}`);
+  await visibilityPage.testVisibility(testController, `#${COMPONENTIDS.SHARE_LEVEL}`, `#${COMPONENTIDS.PROFILE_LEVEL}`);
+  await visibilityPage.testVisibility(testController, `#${COMPONENTIDS.SHARE_ICE}`, `#${COMPONENTIDS.PROFILE_ICE}`);
 });

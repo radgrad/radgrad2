@@ -70,7 +70,6 @@ const AddUserForm: React.FC<AddUserProps> = ({ interests, academicTerms, careerG
       .catch((error) => { RadGradAlert.failure('Add failed', error.message, error);})
       .then(() => {
         RadGradAlert.success('Add succeeded');
-        formRef.reset();
       });
   };
 
@@ -79,7 +78,8 @@ const AddUserForm: React.FC<AddUserProps> = ({ interests, academicTerms, careerG
   };
 
   // Hacky way of resetting pictureURL to be empty
-  const handleAddUser = (doc) => {
+  const handleAddUser = (doc, fRef) => {
+    fRef.reset();
     handleAdd(doc);
   };
 
@@ -141,7 +141,7 @@ const AddUserForm: React.FC<AddUserProps> = ({ interests, academicTerms, careerG
     <Segment padded>
       <Header dividing>Add User</Header>
       {/* eslint-disable-next-line no-return-assign */}
-      <AutoForm schema={formSchema} onSubmit={(doc) => handleAddUser(doc)} ref={(ref) => formRef = ref}
+      <AutoForm schema={formSchema} ref={(ref) => formRef = ref} onSubmit={doc => handleAddUser(doc, formRef)}
         showInlineError onChangeModel={handleModelChange}>
         <Form.Group widths="equal">
           <TextField name="username" placeholder="johndoe@foo.edu" />
