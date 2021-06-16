@@ -10,6 +10,7 @@ import { ROLE } from '../role/Role';
 import { AdvisorOrFacultyProfileDefine, AdvisorOrFacultyProfileUpdate } from '../../typings/radgrad';
 import { ProfileInterests } from './profile-entries/ProfileInterestCollection';
 import { ProfileCareerGoals } from './profile-entries/ProfileCareerGoalCollection';
+import { checkUsername } from './utilities/profile-utilities';
 
 /**
  * Represents a Advisor Profile.
@@ -54,10 +55,7 @@ class AdvisorProfileCollection extends BaseProfileCollection {
   }: AdvisorOrFacultyProfileDefine) {
     if (Meteor.isServer) {
       const role = ROLE.ADVISOR;
-      const doc = this.findOne({ username });
-      if (doc) {
-        throw new Meteor.Error(`Attempt to redefine user: ${username}`);
-      }
+      checkUsername(username);
       // Slugs.define({ name: username, entityName: this.getType() });
       const profileID = this.collection.insert({
         username, firstName, lastName, role, picture, website, userID: this.getFakeUserId(), aboutMe, retired, sharePicture, shareWebsite, shareInterests, shareCareerGoals, lastVisited,

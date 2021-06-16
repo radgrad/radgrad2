@@ -21,6 +21,7 @@ import { ProfileInterests } from './profile-entries/ProfileInterestCollection';
 import { ProfileCareerGoals } from './profile-entries/ProfileCareerGoalCollection';
 import { ProfileCourses } from './profile-entries/ProfileCourseCollection';
 import { ProfileOpportunities } from './profile-entries/ProfileOpportunityCollection';
+import { checkUsername } from './utilities/profile-utilities';
 
 /**
  * Represents a Student Profile.
@@ -171,10 +172,7 @@ class StudentProfileCollection extends BaseProfileCollection {
       if (!_.isBoolean(isAlumni)) {
         throw new Meteor.Error(`Invalid isAlumni: ${isAlumni}`);
       }
-      const doc = this.findOne({ username });
-      if (doc) {
-        throw new Meteor.Error(`Attempt to redefine user: ${username}`);
-      }
+      checkUsername(username);
 
       // Slugs.define({ name: username, entityName: this.getType() });
       const role = isAlumni ? ROLE.ALUMNI : ROLE.STUDENT;
