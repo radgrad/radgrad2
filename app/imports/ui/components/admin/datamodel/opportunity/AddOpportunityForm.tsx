@@ -42,10 +42,10 @@ const AddOpportunityForm: React.FC<AddOpportunityFormProps> = ({ sponsors, inter
     defineMethod
       .callPromise({ collectionName, definitionData })
       .catch((error) => {
-        RadGradAlert.failure('Failed adding User', error.message, error);
+        RadGradAlert.failure('Failed adding Opportunity', error.message, error);
       })
       .then(() => {
-        RadGradAlert.success('Add User Succeeded');
+        RadGradAlert.success('Add Opportunity Succeeded');
         formRef.reset();
       });
   };

@@ -45,9 +45,9 @@ const AddCourseInstanceForm: React.FC<AddCourseInstanceFormProps> = ({ terms, co
     };
     // console.log('definitionData=%o', definitionData);
     defineMethod.callPromise({ collectionName, definitionData })
-      .catch((error) => { RadGradAlert.failure('Failed adding User', error.message, error);})
+      .catch((error) => { RadGradAlert.failure('Failed adding Course Instance', error.message, error);})
       .then(() => {
-        RadGradAlert.success('Add User Succeeded');
+        RadGradAlert.success('Add Course Instance Succeeded');
         formRef.reset();
       });
   };

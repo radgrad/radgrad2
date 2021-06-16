@@ -14,10 +14,10 @@ const AddInterestTypeForm: React.FC = () => {
     const definitionData = doc;
     defineMethod.callPromise({ collectionName, definitionData })
       .catch((error) => {
-        RadGradAlert.failure('Failed adding User', error.message, error);
+        RadGradAlert.failure('Failed adding Interest Type', error.message, error);
       })
       .then(() => {
-        RadGradAlert.success('Add User Succeeded');
+        RadGradAlert.success('Add Interest Type Succeeded');
         formRef.reset();
       });
   };
