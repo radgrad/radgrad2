@@ -57,12 +57,12 @@ export enum COMPONENTIDS {
   ADVISOR_ADD_FIRST_NAME = 'advisor-add-first-name',
   ADVISOR_ADD_LAST_NAME = 'advisor-add-last-name',
   ADVISOR_ADD_USERNAME = 'advisor-add-username',
-  ADVISOR_EDIT_OPPORTUNITIES_BUTTON = 'advisor-edit-opportunities-button',
   ADVISOR_ADD_STUDENT_BUTTON = 'advisor-add-student-button',
   ADVISOR_FILTER_FIRST_NAME = 'advisor-filter-first-name',
   ADVISOR_FILTER_LAST_NAME = 'advisor-filter-last-name',
   ADVISOR_FILTER_USERNAME = 'advisor-filter-username',
   MANAGE_STUDENT_ITEM = 'manage-student-item',
+  EDIT_OPPORTUNITY_BUTTON = 'edit-opportunity-button',
 
   FACULTY = 'faculty',
   FACULTY_MENU_HOME = 'faculty-menu-home',

@@ -51,8 +51,8 @@ class ManagePages {
   }
 
   async clickEditOpportunities(testController) {
-    await testController.click(`#${COMPONENTIDS.ADVISOR_EDIT_OPPORTUNITIES_BUTTON}`);
-    const componentSelector = Selector(`#${COMPONENTIDS.ADVISOR_EDIT_OPPORTUNITIES_BUTTON}`);
+    await testController.click(`#${COMPONENTIDS.EDIT_OPPORTUNITY_BUTTON}`);
+    const componentSelector = Selector(`#${COMPONENTIDS.EDIT_OPPORTUNITY_BUTTON}`);
     await testController.expect(componentSelector.exists).ok();
   }
 }

@@ -109,6 +109,7 @@ test('Test advisor manage opportunities page', async (testController) => {
 
   await advisorNavBar.gotoManageOpportunitiesPage(testController);
   await managePages.clickEditOpportunities(testController);
+});
 
 test('Test advisor visibility page', async (testController) => {
   await landingNavBar.gotoAdvisorLogin(testController);
