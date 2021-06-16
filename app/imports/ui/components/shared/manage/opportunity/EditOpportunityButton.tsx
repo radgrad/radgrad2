@@ -23,6 +23,7 @@ import { OpportunityUpdate } from '../../../../../typings/radgrad';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
 import PictureField from '../../../form-fields/PictureField';
 import { ManageOpportunityProps } from './ManageOpportunityProps';
+import { COMPONENTIDS } from '../../../../utilities/ComponentIDs';
 
 const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({
   opportunity,
@@ -93,7 +94,7 @@ const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
       open={open}
-      trigger={<Button basic color='green' key={`${opportunity._id}-edit-button`}>EDIT</Button>}>
+      trigger={<Button basic color='green' id={COMPONENTIDS.ADVISOR_EDIT_OPPORTUNITIES_BUTTON} key={`${opportunity._id}-edit-button`}>EDIT</Button>}>
       <Modal.Header>{`Edit ${opportunity.name}`}</Modal.Header>
       <Modal.Content>
         <AutoForm model={model} schema={updateFormSchema} showInlineError onSubmit={(doc) => {

@@ -49,6 +49,12 @@ class ManagePages {
     const componentSelector = Selector(`#${COMPONENTIDS.MANAGE_STUDENT_ITEM}`).count;
     await testController.expect(componentSelector).eql(1);
   }
+
+  async clickEditOpportunities(testController) {
+    await testController.click(`#${COMPONENTIDS.ADVISOR_EDIT_OPPORTUNITIES_BUTTON}`);
+    const componentSelector = Selector(`#${COMPONENTIDS.ADVISOR_EDIT_OPPORTUNITIES_BUTTON}`);
+    await testController.expect(componentSelector.exists).ok();
+  }
 }
 
 export const managePages = new ManagePages();
