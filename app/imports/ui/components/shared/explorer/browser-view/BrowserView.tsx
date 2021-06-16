@@ -134,25 +134,6 @@ const BrowserView: React.FC<BrowserViewProps> = ({ items, explorerType }) => {
     }
   }
 
-  // We want to scroll the page down to the element we just clicked on.
-  // Unfortunately, the following code does not work.
-  //
-  // const cardGroupElement: HTMLElement = document.getElementById('browserCardGroup');
-  // useEffect(() => {
-  //   const savedScrollPosition = scrollPosition;
-  //   if (savedScrollPosition && cardGroupElement) {
-  //     console.log('scrolling to saved position', savedScrollPosition);
-  //     cardGroupElement.scrollTo(0, savedScrollPosition);
-  //   }
-  //   return () => {
-  //     if (cardGroupElement) {
-  //       const currentScrollPosition = cardGroupElement.scrollTop;
-  //       console.log('setting scroll position', currentScrollPosition);
-  //       setScrollPosition(currentScrollPosition);
-  //     }
-  //   };
-  // }, [cardGroupElement, scrollPosition, setScrollPosition]);
-
   let icon;
   switch (explorerType) {
     case EXPLORER_TYPE.INTERESTS:

@@ -72,9 +72,9 @@ const AdvisorAddStudentTab: React.FC<AdvisorAddStudentWidgetProps> = ({ interest
     definitionData.careerGoals = careerGoalsState;
     definitionData.interests = userInterests;
     defineMethod.callPromise({ collectionName, definitionData })
-      .catch((error) => { RadGradAlert.failure('Failed to add User', error.message, error);})
+      .catch((error) => { RadGradAlert.failure('Failed to add Student', error.message, error);})
       .then(() => {
-        RadGradAlert.success('Add User Succeeded');
+        RadGradAlert.success('Add Student Succeeded');
         setFirstName('');
         setLastName('');
         setUsername('');

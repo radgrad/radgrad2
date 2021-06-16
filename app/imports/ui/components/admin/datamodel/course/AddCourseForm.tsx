@@ -35,10 +35,10 @@ const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses }) => 
     // console.log(collectionName, definitionData);
     defineMethod.callPromise({ collectionName, definitionData })
       .catch((error) => {
-        RadGradAlert.failure('Failed adding User', error.message, error);
+        RadGradAlert.failure('Failed adding Course', error.message, error);
       })
       .then(() => {
-        RadGradAlert.success('Add User Succeeded');
+        RadGradAlert.success('Add Course Succeeded');
         formRef.reset();
       });
   };
