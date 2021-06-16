@@ -12,6 +12,7 @@ interface FutureParticipationProps {
   item: Course | Opportunity;
 }
 
+// Future participation data is updated once a day at midnight
 const FutureParticipation: React.FC<FutureParticipationProps> = ({ item }) => {
   const isCourse = Courses.isDefined(item._id);
   const type = isCourse ? ENROLLMENT_TYPE.COURSE : ENROLLMENT_TYPE.OPPORTUNITY;
@@ -68,12 +69,53 @@ const FutureParticipation: React.FC<FutureParticipationProps> = ({ item }) => {
   }
   if (termsPerYear === 4) {
     return (
+      <div>
+        <p>* Note: Updated once a day at midnight.</p>
+        <Table celled>
+          <Table.Header>
+            <Table.Row>
+              <Table.HeaderCell>Academic Year</Table.HeaderCell>
+              <Table.HeaderCell>Fall</Table.HeaderCell>
+              <Table.HeaderCell>Winter</Table.HeaderCell>
+              <Table.HeaderCell>Spring</Table.HeaderCell>
+              <Table.HeaderCell>Summer</Table.HeaderCell>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
+            <Table.Row>
+              <Table.Cell>{label1}</Table.Cell>
+              <Table.Cell>{tableData[label1][0]}</Table.Cell>
+              <Table.Cell>{tableData[label1][1]}</Table.Cell>
+              <Table.Cell>{tableData[label1][2]}</Table.Cell>
+              <Table.Cell>{tableData[label1][3]}</Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell>{label2}</Table.Cell>
+              <Table.Cell>{tableData[label2][0]}</Table.Cell>
+              <Table.Cell>{tableData[label2][1]}</Table.Cell>
+              <Table.Cell>{tableData[label2][2]}</Table.Cell>
+              <Table.Cell>{tableData[label2][3]}</Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell>{label3}</Table.Cell>
+              <Table.Cell>{tableData[label3][0]}</Table.Cell>
+              <Table.Cell>{tableData[label3][1]}</Table.Cell>
+              <Table.Cell>{tableData[label3][2]}</Table.Cell>
+              <Table.Cell>{tableData[label3][3]}</Table.Cell>
+            </Table.Row>
+          </Table.Body>
+        </Table>
+      </div>
+    );
+  }
+  return (
+    <div>
+      <p>* Note: Updated once a day at midnight.</p>
       <Table celled>
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>Academic Year</Table.HeaderCell>
             <Table.HeaderCell>Fall</Table.HeaderCell>
-            <Table.HeaderCell>Winter</Table.HeaderCell>
             <Table.HeaderCell>Spring</Table.HeaderCell>
             <Table.HeaderCell>Summer</Table.HeaderCell>
           </Table.Row>
@@ -84,57 +126,22 @@ const FutureParticipation: React.FC<FutureParticipationProps> = ({ item }) => {
             <Table.Cell>{tableData[label1][0]}</Table.Cell>
             <Table.Cell>{tableData[label1][1]}</Table.Cell>
             <Table.Cell>{tableData[label1][2]}</Table.Cell>
-            <Table.Cell>{tableData[label1][3]}</Table.Cell>
           </Table.Row>
           <Table.Row>
             <Table.Cell>{label2}</Table.Cell>
             <Table.Cell>{tableData[label2][0]}</Table.Cell>
             <Table.Cell>{tableData[label2][1]}</Table.Cell>
             <Table.Cell>{tableData[label2][2]}</Table.Cell>
-            <Table.Cell>{tableData[label2][3]}</Table.Cell>
           </Table.Row>
           <Table.Row>
             <Table.Cell>{label3}</Table.Cell>
             <Table.Cell>{tableData[label3][0]}</Table.Cell>
             <Table.Cell>{tableData[label3][1]}</Table.Cell>
             <Table.Cell>{tableData[label3][2]}</Table.Cell>
-            <Table.Cell>{tableData[label3][3]}</Table.Cell>
           </Table.Row>
         </Table.Body>
       </Table>
-    );
-  }
-  return (
-    <Table celled>
-      <Table.Header>
-        <Table.Row>
-          <Table.HeaderCell>Academic Year</Table.HeaderCell>
-          <Table.HeaderCell>Fall</Table.HeaderCell>
-          <Table.HeaderCell>Spring</Table.HeaderCell>
-          <Table.HeaderCell>Summer</Table.HeaderCell>
-        </Table.Row>
-      </Table.Header>
-      <Table.Body>
-        <Table.Row>
-          <Table.Cell>{label1}</Table.Cell>
-          <Table.Cell>{tableData[label1][0]}</Table.Cell>
-          <Table.Cell>{tableData[label1][1]}</Table.Cell>
-          <Table.Cell>{tableData[label1][2]}</Table.Cell>
-        </Table.Row>
-        <Table.Row>
-          <Table.Cell>{label2}</Table.Cell>
-          <Table.Cell>{tableData[label2][0]}</Table.Cell>
-          <Table.Cell>{tableData[label2][1]}</Table.Cell>
-          <Table.Cell>{tableData[label2][2]}</Table.Cell>
-        </Table.Row>
-        <Table.Row>
-          <Table.Cell>{label3}</Table.Cell>
-          <Table.Cell>{tableData[label3][0]}</Table.Cell>
-          <Table.Cell>{tableData[label3][1]}</Table.Cell>
-          <Table.Cell>{tableData[label3][2]}</Table.Cell>
-        </Table.Row>
-      </Table.Body>
-    </Table>
+    </div>
   );
 };
 
