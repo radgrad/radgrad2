@@ -8,7 +8,6 @@ class ManagePages {
     await testController.click(`#${COMPONENTIDS.FILTERED_STUDENTS_TAB}`);
     const componentSelector = Selector(`#${COMPONENTIDS.FILTERED_STUDENTS_GRID}`);
     await testController.expect(componentSelector.exists).ok();
-
   }
 
   async clickFilteredAlumniTabAndVerify(testController) {

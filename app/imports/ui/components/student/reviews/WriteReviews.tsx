@@ -4,6 +4,7 @@ import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { AutoForm, ErrorsField, LongTextField, SelectField, SubmitField } from 'uniforms-semantic';
+import { COMPONENTIDS } from '../../../utilities/ComponentIDs';
 import RadGradAlert from '../../../utilities/RadGradAlert';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { defineMethod } from '../../../../api/base/BaseCollection.methods';
@@ -115,7 +116,7 @@ const WriteReviews: React.FC<WriteReviewsProps> = ({ unreviewedCourses, unreview
         Opportunities.</strong></Header>
       {/* eslint-disable-next-line no-return-assign */}
       <AutoForm ref={(ref) => choiceFormRef = ref} schema={choiceFormSchema} onChange={handleChoiceChange}>
-        <SelectField name='courseOrOpportunityToReview' />
+        <SelectField name='courseOrOpportunityToReview' id={COMPONENTIDS.STUDENT_COURSE_OR_OPPORTUNITY} />
         <ErrorsField />
       </AutoForm>
       <Segment basic>
