@@ -3,6 +3,7 @@ import { Roles } from 'meteor/alanning:roles';
 import { Factoids } from '../../api/factoid/FactoidCollection';
 import { RadGrad } from '../../api/radgrad/RadGrad';
 import { ROLE } from '../../api/role/Role';
+import { Users } from '../../api/user/UserCollection';
 
 // Publish all RadGrad collections.
 RadGrad.collections.forEach((collection) => {
@@ -11,7 +12,7 @@ RadGrad.collections.forEach((collection) => {
 });
 
 // User collection is not part of RadGrad collections, so publish it separately.
-// Users.publish();
+Users.publish();
 
 // Factoid collection is not part of RadGrad collections, we don't want to dump them or restore them.
 Factoids.publish();
