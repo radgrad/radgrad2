@@ -201,9 +201,6 @@ class BaseProfileCollection extends BaseSlugCollection {
    */
   protected checkIntegrityCommonFields(doc) {
     const problems = [];
-    if (!Slugs.isDefined(doc.username)) {
-      problems.push(`Bad username: ${doc.username}`);
-    }
     if (!Users.isDefined(doc.userID)) {
       problems.push(`Bad userID: ${doc.userID}`);
     }

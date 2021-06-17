@@ -1,8 +1,10 @@
+import { COMPONENTIDS } from '../imports/ui/utilities/ComponentIDs';
 import { landingNavBar } from './navbar.landing.component';
 import { advisorNavBar } from './navbar.advisor.component';
 import { managePages } from './manage.pages';
 import { signinPage } from './signin.page';
 import { explorerPages } from './explorer.pages';
+import { visibilityPage } from './visibility.page';
 import {
   advisorHomePage,
   advisorFacultyVisibilityPage,
@@ -99,4 +101,16 @@ test('Test advisor manage student page', async (testController) => {
   await managePages.clickFilteredAlumniTabAndVerify(testController);
   await managePages.clickOtherTabAndVerify(testController);
   await managePages.clickMatriculateTabAndVerify(testController);
+});
+
+test('Test advisor visibility page', async (testController) => {
+  await landingNavBar.gotoAdvisorLogin(testController);
+  await signinPage.signin(testController, credentials.advisor);
+
+  await advisorNavBar.gotoVisibilityPage(testController);
+  await visibilityPage.testVisibility(testController, `#${COMPONENTIDS.SHARE_PICTURE}`, `#${COMPONENTIDS.PROFILE_PICTURE}`);
+  await visibilityPage.addWebsite(testController);
+  await visibilityPage.testVisibility(testController, `#${COMPONENTIDS.SHARE_WEBSITE}`, `#${COMPONENTIDS.PROFILE_WEBSITE}`);
+  await visibilityPage.testVisibility(testController, `#${COMPONENTIDS.SHARE_INTERESTS}`, `#${COMPONENTIDS.PROFILE_INTERESTS}`);
+  await visibilityPage.testVisibility(testController, `#${COMPONENTIDS.SHARE_CAREER_GOALS}`, `#${COMPONENTIDS.PROFILE_CAREER_GOALS}`);
 });

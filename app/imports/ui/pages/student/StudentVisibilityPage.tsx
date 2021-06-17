@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Grid, Header, Icon, Segment, Form } from 'semantic-ui-react';
+import { Grid, Segment, Form } from 'semantic-ui-react';
 import { getPublicProfileData, PublicProfileData, setPublicProfileData } from '../../../api/user/StudentProfileCollection.methods';
 import { Users } from '../../../api/user/UserCollection';
 import { StudentProfile } from '../../../typings/radgrad';
@@ -10,6 +10,8 @@ import { SetPictureButton } from '../../components/shared/privacy/SetPictureButt
 import { SetWebsiteButton } from '../../components/shared/privacy/SetWebsiteButton';
 import ProfileCard from '../../components/shared/profile/ProfileCard';
 import ProfileLabel from '../../components/shared/profile/ProfileLabel';
+import RadGradHeader from '../../components/shared/RadGradHeader';
+import { COMPONENTIDS } from '../../utilities/ComponentIDs';
 import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 
@@ -107,35 +109,35 @@ const StudentVisibilityPage: React.FC<StudentVisibilityPageProps> = ({ profile }
       <Grid stackable>
         <Grid.Column width={4}>
           <Segment>
-            <Header dividing><Icon name="eye" /> VISIBILITY</Header>
+            <RadGradHeader title="visibility" icon="eye" dividing />
             <p>Control what data appears in your Label and Profile:</p>
             <Form>
               <Form.Group inline>
-                <Form.Checkbox inline name="sharePicture" label="Picture" checked={pictureExists && checkboxState.sharePicture} onChange={handleCheckboxChange} />
+                <Form.Checkbox id={COMPONENTIDS.SHARE_PICTURE} inline name="sharePicture" label="Picture" checked={pictureExists && checkboxState.sharePicture} onChange={handleCheckboxChange} />
                 <SetPictureButton picture={data.picture} handleChange={handlePictureChange}/>
               </Form.Group>
               <Form.Group inline>
-                <Form.Checkbox inline name="shareWebsite" label="Website" checked={websiteExists && checkboxState.shareWebsite} onChange={handleCheckboxChange} />
+                <Form.Checkbox id={COMPONENTIDS.SHARE_WEBSITE} inline name="shareWebsite" label="Website" checked={websiteExists && checkboxState.shareWebsite} onChange={handleCheckboxChange} />
                 <SetWebsiteButton website={data.website} handleChange={handleWebsiteChange} />
               </Form.Group>
-              <Form.Checkbox inline name="shareInterests" label="Interests" checked={checkboxState.shareInterests} onChange={handleCheckboxChange} />
-              <Form.Checkbox inline name="shareCareerGoals" label="Career Goals" checked={checkboxState.shareCareerGoals} onChange={handleCheckboxChange} />
-              <Form.Checkbox inline name="shareOpportunities" label="Opportunities" checked={checkboxState.shareOpportunities} onChange={handleCheckboxChange} />
-              <Form.Checkbox inline name="shareCourses" label="Courses" checked={checkboxState.shareCourses} onChange={handleCheckboxChange} />
-              <Form.Checkbox inline name="shareLevel" label="Level" checked={checkboxState.shareLevel} onChange={handleCheckboxChange} />
-              <Form.Checkbox inline name="shareICE" label="ICE" checked={checkboxState.shareICE} onChange={handleCheckboxChange} />
+              <Form.Checkbox id={COMPONENTIDS.SHARE_INTERESTS} inline name="shareInterests" label="Interests" checked={checkboxState.shareInterests} onChange={handleCheckboxChange} />
+              <Form.Checkbox id={COMPONENTIDS.SHARE_CAREER_GOALS} inline name="shareCareerGoals" label="Career Goals" checked={checkboxState.shareCareerGoals} onChange={handleCheckboxChange} />
+              <Form.Checkbox id={COMPONENTIDS.SHARE_OPPORTUNITIES} inline name="shareOpportunities" label="Opportunities" checked={checkboxState.shareOpportunities} onChange={handleCheckboxChange} />
+              <Form.Checkbox id={COMPONENTIDS.SHARE_COURSES} inline name="shareCourses" label="Courses" checked={checkboxState.shareCourses} onChange={handleCheckboxChange} />
+              <Form.Checkbox id={COMPONENTIDS.SHARE_LEVEL} inline name="shareLevel" label="Level" checked={checkboxState.shareLevel} onChange={handleCheckboxChange} />
+              <Form.Checkbox id={COMPONENTIDS.SHARE_ICE} inline name="shareICE" label="ICE" checked={checkboxState.shareICE} onChange={handleCheckboxChange} />
             </Form>
           </Segment>
         </Grid.Column>
         <Grid.Column width={12}>
           <Segment>
-            <Header dividing><Icon name="user" />YOUR LABEL</Header>
+            <RadGradHeader title="your label" icon="user" />
             <p>Your Label appears in pages relevant to your public data: </p>
             <ProfileLabel name={name} image={checkboxState.sharePicture && data.picture}
               level={checkboxState.shareLevel && data.level} />
           </Segment>
           <Segment>
-            <Header dividing><Icon name="user" />YOUR PROFILE</Header>
+            <RadGradHeader title="your profile" icon="user" />
             <p>Your Profile pops up when a user clicks on your Label: </p>
             <ProfileCard email={profile.username} name={name} careerGoals={data.careerGoals} interests={data.interests} courses={data.courses} ice={data.ice} image={data.picture} level={data.level} opportunities={data.opportunities}
               website={data.website} key={profile.username} fluid />

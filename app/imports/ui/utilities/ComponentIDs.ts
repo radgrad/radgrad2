@@ -1,5 +1,6 @@
 /** Define IDs to identify components in the system. This is used for testing. */
 export enum COMPONENTIDS {
+
   LANDING_EXPLORER_MENU = 'landing-explorer-menu',
   LANDING_EXPLORER_BUTTONS = 'landing-explorer-buttons',
   LANDING_CAREER_GOALS_EXPLORER = 'landing-career-goals-explorer',
@@ -91,6 +92,9 @@ export enum COMPONENTIDS {
   STUDENT_MENU_REVIEWS = 'student-menu-reviews',
   STUDENT_MENU_COMMUNITY = 'student-menu-community',
   STUDENT_MENU_SIGNOUT = 'student-menu-signout',
+  STUDENT_REQUEST_VERIFICATION_BUTTON = 'student-request-verification-button',
+  STUDENT_REQUEST_VERIFICATION_INPUT = 'student-request-verification-input',
+  STUDENT_REQUEST_VERIFICATION_SUBMIT = 'student-request-verification-submit',
 
   SIGNIN_FORM_EMAIL = 'signin-form-email',
   SIGNIN_FORM_PASSWORD = 'signin-form-password',
@@ -98,4 +102,25 @@ export enum COMPONENTIDS {
 
   ADD_TO_PROFILE_BUTTON = 'add-to-profile-button',
   REMOVE_FROM_PROFILE_BUTTON = 'remove-from-profile-button',
+
+  SHARE_PICTURE = 'share-picture',
+  SHARE_WEBSITE = 'share-website',
+  SHARE_INTERESTS = 'share-interests',
+  SHARE_CAREER_GOALS = 'share-career-goals',
+  SHARE_OPPORTUNITIES = 'share-opportunities',
+  SHARE_COURSES = 'share-courses',
+  SHARE_LEVEL = 'share-level',
+  SHARE_ICE = 'share-ice',
+  PROFILE_PICTURE = 'profile-picture',
+  PROFILE_WEBSITE = 'profile-website',
+  PROFILE_INTERESTS = 'profile-interests',
+  PROFILE_CAREER_GOALS = 'profile-career-goals',
+  PROFILE_COURSES = 'profile-courses',
+  PROFILE_OPPORTUNITIES = 'profile-opportunities',
+  PROFILE_LEVEL = 'profile-level',
+  PROFILE_ICE = 'profile-ice',
+  SET_WEBSITE_BUTTON = 'set-website-button',
+  SUBMIT_WEBSITE_BUTTON = 'submit-website-button',
+  SET_WEBSITE_TEXT = 'set-website-text',
+
 }

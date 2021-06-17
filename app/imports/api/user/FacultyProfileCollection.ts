@@ -9,11 +9,11 @@ import { ProfileOpportunities } from './profile-entries/ProfileOpportunityCollec
 import { Users } from './UserCollection';
 import { Interests } from '../interest/InterestCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
-import { Slugs } from '../slug/SlugCollection';
 import { ROLE } from '../role/Role';
 import { AdvisorOrFacultyProfileDefine, AdvisorOrFacultyProfileUpdate } from '../../typings/radgrad';
 import { ProfileInterests } from './profile-entries/ProfileInterestCollection';
 import { ProfileCareerGoals } from './profile-entries/ProfileCareerGoalCollection';
+import { checkUsername } from './utilities/profile';
 
 /**
  * Represents a Faculty Profile.
@@ -62,7 +62,7 @@ class FacultyProfileCollection extends BaseProfileCollection {
   }: AdvisorOrFacultyProfileDefine) {
     if (Meteor.isServer) {
       const role = ROLE.FACULTY;
-      Slugs.define({ name: username, entityName: this.getType() });
+      checkUsername(username);
       const profileID = this.collection.insert({
         username,
         firstName,

@@ -18,7 +18,7 @@ const ProfileInternships: React.FC<ProfileInternshipsProps> = ({ studentID }) =>
       <Message.Header>Place holder</Message.Header>
       <Message.Content>
         <p>You can add internships to your profile in the explorer.</p>
-        <ButtonLink url={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERNSHIPS}`)} label="View in Explorer" rel="noopener noreferrer" target="_blank" size="medium" />
+        <ButtonLink url={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERNSHIPS}`)} label="View in Explorer" rel="noopener noreferrer" size="medium" />
       </Message.Content>
     </Message>
   );
