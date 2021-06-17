@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Grid } from 'semantic-ui-react';
+import { complexChoiceToArray } from '../../../../api/degree-plan/PlanChoiceUtilities';
 import { Interests } from '../../../../api/interest/InterestCollection';
 import { Reviews } from '../../../../api/review/ReviewCollection';
 import { PAGEIDS } from '../../../utilities/PageIDs';
@@ -70,7 +71,8 @@ const CourseViewPage: React.FC<CourseViewPageProps> = ({
       added={added} inverted floated="left" /> : undefined;
   const courseSlug = Slugs.getNameFromID(course.slugID);
   const completed = isCourseCompleted(courseSlug, profile.userID);
-  const relatedCourses = getAssociationRelatedCourses(course.prerequisites.map((c) => Courses.findDocBySlug(c)), profile.userID);
+  const relatedSlugs = Courses.getPrerequisiteSlugs(course._id);
+  const relatedCourses = getAssociationRelatedCourses(relatedSlugs.map((c) => Courses.findDocBySlug(c)), profile.userID);
   const combinedArrays = relatedCourses.inPlan.concat(relatedCourses.notInPlan, relatedCourses.completed);
 
   return (

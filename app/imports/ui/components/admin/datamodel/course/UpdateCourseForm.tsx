@@ -4,6 +4,7 @@ import { AutoForm, TextField, NumField, LongTextField, BoolField, SubmitField, E
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import BaseCollection from '../../../../../api/base/BaseCollection';
+import { Courses } from '../../../../../api/course/CourseCollection';
 import { Course, Interest } from '../../../../../typings/radgrad';
 import PictureField from '../../../form-fields/PictureField';
 import { courseSlugToName, courseToName, docToName, interestIdToName } from '../../../shared/utilities/data-model';
@@ -31,7 +32,8 @@ const UpdateCourseForm: React.FC<UpdateCourseFormProps> = ({
   const model = id ? collection.findDoc(id) : undefined;
   const courseName = itemTitleString(model);
   model.interests = model.interestIDs.map(interestIdToName);
-  model.prerequisiteNames = model.prerequisites.map(courseSlugToName);
+  const prerequisiteSlugs = Courses.getPrerequisiteSlugs(id);
+  model.prerequisiteNames = prerequisiteSlugs.map(courseSlugToName);
   const interestNames = interests.map(docToName);
   const courseNames = courses.map(courseToName);
   const schema = new SimpleSchema({
