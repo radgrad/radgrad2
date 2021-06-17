@@ -2,7 +2,6 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Grid } from 'semantic-ui-react';
-import { complexChoiceToArray } from '../../../../api/degree-plan/PlanChoiceUtilities';
 import { Interests } from '../../../../api/interest/InterestCollection';
 import { Reviews } from '../../../../api/review/ReviewCollection';
 import { PAGEIDS } from '../../../utilities/PageIDs';
