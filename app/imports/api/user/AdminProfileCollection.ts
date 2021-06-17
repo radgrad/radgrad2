@@ -78,7 +78,7 @@ class AdminProfileCollection extends BaseProfileCollection {
         }
         return profileID;
       }
-      return this.collection.findOne({ username })._id;
+      return user._id;
     }
     return undefined;
   }
