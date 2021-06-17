@@ -160,6 +160,14 @@ class OpportunityCollection extends BaseSlugCollection {
    * @param sponsor must be a User with role 'FACULTY', 'ADVISOR', or 'ADMIN'.
    * @param ice must be a valid ICE object.
    * @param eventDate optional date.
+   * @param eventDate1
+   * @param eventDateLabel1
+   * @param eventDate2
+   * @param eventDateLabel2
+   * @param eventDate3
+   * @param eventDateLabel3
+   * @param eventDate4
+   * @param eventDateLabel4
    * @param picture The URL to the opportunity picture. (optional, defaults to a default picture.)
    * @param retired optional, true if the opportunity is retired.
    * @throws {Meteor.Error} If the definition includes a defined slug or undefined interest, sponsor, opportunityType,
@@ -336,9 +344,9 @@ class OpportunityCollection extends BaseSlugCollection {
   }
 
   /**
-   * Remove the Course.
+   * Remove the Opportunity.
    * @param instance The docID or slug of the entity to be removed.
-   * @throws { Meteor.Error } If docID is not a Course, or if this course has any associated course instances.
+   * @throws { Meteor.Error } If docID is not a Opportunity, or if this Opportunity has any associated opportunity instances.
    */
   public removeIt(instance: string) {
     // console.log('OpportunityCollection.removeIt', instance);
@@ -469,6 +477,15 @@ class OpportunityCollection extends BaseSlugCollection {
     const ice = doc.ice;
     const interests = doc.interestIDs.map((interestID) => Interests.findSlugByID(interestID));
     const eventDate = doc.eventDate;
+    const eventDate1 = doc.eventDate1;
+    const eventDate2 = doc.eventDate2;
+    const eventDate3 = doc.eventDate3;
+    const eventDate4 = doc.eventDate4;
+    const eventDateLabel1 = doc.eventDateLabel1;
+    const eventDateLabel2 = doc.eventDateLabel2;
+    const eventDateLabel3 = doc.eventDateLabel3;
+    const eventDateLabel4 = doc.eventDateLabel4;
+    const picture = doc.picture;
     const retired = doc.retired;
     return {
       name,
@@ -479,6 +496,15 @@ class OpportunityCollection extends BaseSlugCollection {
       ice,
       interests,
       eventDate,
+      eventDate1,
+      eventDate2,
+      eventDate3,
+      eventDate4,
+      eventDateLabel1,
+      eventDateLabel2,
+      eventDateLabel3,
+      eventDateLabel4,
+      picture,
       retired,
     };
   }
