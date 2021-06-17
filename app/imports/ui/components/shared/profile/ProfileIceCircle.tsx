@@ -1,4 +1,5 @@
 import React from 'react';
+import { COMPONENTIDS } from '../../../utilities/ComponentIDs';
 
 interface ProfileIceCircleProps {
   i: number;
@@ -7,7 +8,7 @@ interface ProfileIceCircleProps {
 }
 
 const ProfileIceCircle: React.FC<ProfileIceCircleProps> = ({ i, c, e }) => (
-  <span style={{ paddingTop: '10px', display: 'inline-block' }}>
+  <span id={COMPONENTIDS.PROFILE_ICE} style={{ paddingTop: '10px', display: 'inline-block' }}>
     &nbsp;
     <span style={{ paddingTop: '2px' }} className='profileICEi'>{i}</span>
     &nbsp;

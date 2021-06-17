@@ -24,7 +24,7 @@ const ProfileCourses: React.FC<ProfileCoursesProps> = ({ studentID, courses, cou
         <Message>
           <Message.Header>No Profile Courses</Message.Header>
           <p>You can add courses to your profile in the explorer.</p>
-          <ButtonLink url={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}`)} label="View in Explorer" rel="noopener noreferrer" target="_blank" size="medium" />
+          <ButtonLink url={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}`)} label="View in Explorer" rel="noopener noreferrer" size="medium" />
         </Message>
       )}
     </div>

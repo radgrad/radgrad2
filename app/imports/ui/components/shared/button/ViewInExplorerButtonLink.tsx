@@ -23,5 +23,5 @@ export const ViewInExplorerButtonLink: React.FC<ViewInExplorerButtonLinkProps> =
   } else {
     url = Router.buildExplorerRoute(match, type);
   }
-  return (<ButtonLink url={url} label='View In Explorer'  rel='noopener noreferrer' target='_blank'  size={size} color={color} style={style} />);
+  return (<ButtonLink url={url} label='View In Explorer'  rel='noopener noreferrer' size={size} color={color} style={style} />);
 };

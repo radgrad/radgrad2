@@ -25,9 +25,9 @@ const AddInterestForm: React.FC<AddInterestFormProps> = ({ interestTypes }) => {
     definitionData.interestType = interestTypeNameToSlug(doc.interestType);
     // console.log(collectionName, definitionData);
     defineMethod.callPromise({ collectionName, definitionData })
-      .catch((error) => { RadGradAlert.failure('Failed to add User', error.message, error);})
+      .catch((error) => { RadGradAlert.failure('Failed to add Interest', error.message, error);})
       .then(() => { 
-        RadGradAlert.success('Add User Succeeded');
+        RadGradAlert.success('Add Interest Succeeded');
         formRef.reset();
       });
   };
