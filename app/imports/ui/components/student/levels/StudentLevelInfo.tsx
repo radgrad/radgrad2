@@ -7,7 +7,7 @@ import { StudentProfile } from '../../../../typings/radgrad';
 import { ICE, URL_ROLES } from '../../../layouts/utilities/route-constants';
 import { getUsername } from '../../shared/utilities/router';
 import { getLevelColor } from './LevelInfoTab';
-import OtherStudentsAtLevel from './OtherStudentsAtLevel';
+import VisibleStudentsAtLevel from './VisibleStudentsAtLevel';
 import { LevelChecklist } from '../../checklist/LevelChecklist';
 import { CHECKSTATE } from '../../checklist/Checklist';
 import RadGradSegment from '../../shared/RadGradSegment';
@@ -76,7 +76,7 @@ const StudentLevelInfo: React.FC<StudentLevelInfoProps> = ({ profile, students }
               <Link to={`/${URL_ROLES.STUDENT}/${username}/${ICE}`} style={linkStyle}>Visit the ICE page for more details</Link>
             </Message.Content>
           </Message>
-          <OtherStudentsAtLevel students={students} profile={profile} />
+          <VisibleStudentsAtLevel students={students} level={profile.level} />
         </Grid.Column>
       </Grid>
     </RadGradSegment>
