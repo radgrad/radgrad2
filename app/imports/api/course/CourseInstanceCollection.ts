@@ -143,7 +143,7 @@ class CourseInstanceCollection extends BaseCollection {
       creditHrs = Courses.findDoc(courseID).creditHrs;
     }
     // TODO need to talk about this.
-    ProfileCourses.define({ course, student, retired });
+    ProfileCourses.define({ course, username:student, retired });
     // Define and return the CourseInstance
     return this.collection.insert({
       termID,

@@ -100,7 +100,7 @@ class OpportunityInstanceCollection extends BaseCollection {
       return this.findOpportunityInstanceDoc(academicTerm, opportunity, student)._id;
     }
     const ice = Opportunities.findDoc(opportunityID).ice;
-    ProfileOpportunities.define({ opportunity, student, retired });
+    ProfileOpportunities.define({ opportunity, username:student, retired });
     // Define and return the new OpportunityInstance
     // console.log(termID, opportunityID, verified, studentID, sponsorID, ice, retired);
     const opportunityInstanceID = this.collection.insert({
