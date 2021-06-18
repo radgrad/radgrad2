@@ -1,7 +1,8 @@
 import React from 'react';
-import { Card, Grid, Header, Icon, Image, Tab } from 'semantic-ui-react';
+import { Grid, Header, Image, Tab } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
 import { StudentProfile } from '../../../../typings/radgrad';
+import VisibleStudentsAtLevel from './VisibleStudentsAtLevel';
 
 interface LevelInfoTabProps {
   level: number;
@@ -27,16 +28,6 @@ export const getLevelColor = (level) => {
   }
 
 };
-const getStudentsAtLevel = (profiles, level) => {
-  const students = [];
-  profiles.forEach((profile) => {
-    if (profile.level === level) {
-      students.push(profile);
-    }
-  });
-  return students.length;
-};
-
 
 const getLevelExplanation = (level) => {
   let result = '';
@@ -104,7 +95,6 @@ const LevelInfoTab: React.FC<LevelInfoTabProps> = ({ level, students }) => {
   const color = getLevelColor(level);
   const levelExplanation = getLevelExplanation(level);
   const imageHolderStyle = { textAlign: 'center' } as React.CSSProperties;
-  const numOfStudentsStyle = { paddingTop: '20px' };
   return (
     <Tab.Pane>
       <Grid>
@@ -117,10 +107,8 @@ const LevelInfoTab: React.FC<LevelInfoTabProps> = ({ level, students }) => {
           </Grid.Column>
           <Grid.Column width={13}>
             <Header as='h2' color='grey'>LEVEL {level}</Header>
-            <Card.Description>
-              <Markdown source={levelExplanation} />
-              <Header as='h3' color='grey' style={numOfStudentsStyle}><Icon name='user circle' /> {getStudentsAtLevel(students, level)} Students at Level {level}</Header>
-            </Card.Description>
+            <Markdown source={levelExplanation} />
+            <VisibleStudentsAtLevel students={students} level={level} />
           </Grid.Column>
         </Grid.Row>
       </Grid>

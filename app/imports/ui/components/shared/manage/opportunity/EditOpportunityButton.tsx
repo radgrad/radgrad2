@@ -59,16 +59,16 @@ const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({
   };
 
   const updateSchema = new SimpleSchema({
+    name: { type: String, optional: true },
     description: { type: String, optional: true },
-    picture: { type: String, optional: true },
+    opportunityType: { type: String, allowedValues: opportunityTypeNames, optional: true },
     sponsor: { type: String, allowedValues: sponsorNames, optional: true },
     interests: { type: Array, optional: true },
     'interests.$': {
       type: String,
       allowedValues: interestNames,
     },
-    opportunityType: { type: String, allowedValues: opportunityTypeNames, optional: true },
-    name: { type: String, optional: true },
+    picture: { type: String, optional: true },
     eventDate: { type: Date, optional: true },
     eventDate1: { type: Date, optional: true },
     eventDateLabel1: { type: String, optional: true },
@@ -110,7 +110,6 @@ const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({
             <PictureField name="picture"/>
             <MultiSelectField name="interests"/>
           </Form.Group>
-          <DateField name="eventDate"/>
           <Form.Group widths="equal">
             <DateField name="eventDate1"/>
             <TextField name="eventDateLabel1"/>

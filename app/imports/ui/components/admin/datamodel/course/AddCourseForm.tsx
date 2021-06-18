@@ -29,6 +29,9 @@ const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses }) => 
       definitionData.shortName = doc.name;
     }
     definitionData.interests = docInterests;
+    if (doc.corequisites) {
+      definitionData.corequisites = doc.corequisites.map(courseNameToSlug);
+    }
     if (doc.prerequisites) {
       definitionData.prerequisites = doc.prerequisites.map(courseNameToSlug);
     }
@@ -66,6 +69,8 @@ const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses }) => 
       allowedValues: interestNames,
       // optional: true, CAM: not sure if we want this to be optional
     },
+    corequisites: { type: Array, optional: true },
+    'corequisites.$': { type: String, allowedValues: courseNames },
     prerequisites: { type: Array, optional: true },
     'prerequisites.$': { type: String, allowedValues: courseNames },
     repeatable: { type: Boolean, optional: true },
@@ -90,6 +95,7 @@ const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses }) => 
         <TextField name="syllabus" placeholder="https://dept.foo.edu/dept_111/syllabus.html" />
         <Form.Group widths="equal">
           <MultiSelectField name="interests" placeholder="Select Interest(s)" />
+          <MultiSelectField name="corequisites" placeholder="Select Corequisite(s)" />
           <MultiSelectField name="prerequisites" placeholder="Select Prerequisite(s)" />
         </Form.Group>
         <BoolField name="repeatable" />
