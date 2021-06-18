@@ -5,7 +5,7 @@ module.exports = {
     name: 'radgrad',
     path: '../',
     servers: { one: {}},
-    buildOptions: { serverOnly: true, debug: true },
+    buildOptions: { serverOnly: true, debug: true }, // to avoid react production error, set debug: false
     env: {
       ROOT_URL: 'https://CHANGME.EDU',
       MONGO_URL: 'mongodb://mongodb/meteor',
