@@ -9,6 +9,7 @@ import { CareerGoals } from '../../../../../api/career/CareerGoalCollection';
 import { Interests } from '../../../../../api/interest/InterestCollection';
 import { CareerGoal, CareerGoalUpdate, Interest } from '../../../../../typings/radgrad';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
+import PictureField from '../../../form-fields/PictureField';
 
 interface EditCareerGoalButtonProps {
   careerGoal: CareerGoal;
@@ -47,6 +48,7 @@ const EditCareerGoalButton: React.FC<EditCareerGoalButtonProps> = ({ careerGoal,
       allowedValues: interestNames,
     },
     retired: { type: Boolean, optional: true },
+    picture: { type: String, optional: true, defaultValue: 'header-career.png' },
   });
   const formSchema = new SimpleSchema2Bridge(updateSchema);
 
@@ -65,6 +67,7 @@ const EditCareerGoalButton: React.FC<EditCareerGoalButtonProps> = ({ careerGoal,
           <TextField name="name"/>
           <LongTextField name="description"/>
           <MultiSelectField name="interests"/>
+          <PictureField name="picture" placeholder='https://mywebsite.com/picture.png'/>
           <BoolField name="retired"/>
           <p/>
           <SubmitField/>
