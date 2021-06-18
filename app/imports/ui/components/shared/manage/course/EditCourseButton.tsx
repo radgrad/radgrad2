@@ -23,6 +23,10 @@ const EditCourseButton: React.FC<EditCourseButtonProps> = ({ course, courses, in
 
   const model: CourseUpdate = course;
   model.interests = course.interestIDs.map((id) => Interests.findDoc(id).name);
+  const coreqSlugs = Courses.getCorequisiteSlugs(course._id);
+  model.corequisites = coreqSlugs;
+  const prereqSlugs = Courses.getPrerequisiteSlugs(course._id);
+  model.prerequisites = prereqSlugs;
   const courseName = Courses.getName(course._id);
 
   const handleSubmit = (doc) => {
