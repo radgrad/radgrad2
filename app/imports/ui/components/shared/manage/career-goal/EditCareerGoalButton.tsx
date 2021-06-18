@@ -32,7 +32,7 @@ const EditCareerGoalButton: React.FC<EditCareerGoalButtonProps> = ({ careerGoal,
     updateData.interests = doc.interests.map((name) => Interests.findDoc(name)._id);
     // console.log(collectionName, updateData);
     updateMethod.callPromise({ collectionName, updateData })
-      .then((result) => { RadGradAlert.success('Interest Updated', result);})
+      .then((result) => { RadGradAlert.success('Career Goal Updated', result);})
       .catch((error) => { RadGradAlert.failure('Update Failed', error.message, error);});
   };
 
