@@ -80,7 +80,7 @@ class ProfileOpportunityCollection extends BaseCollection {
           return this.ready();
         }
         const profile = Users.getProfile(userID);
-        if ([ROLE.ADMIN, ROLE.ADVISOR].includes( profile.role)) {
+        if ([ROLE.ADMIN, ROLE.FACULTY, ROLE.ADVISOR].includes( profile.role)) {
           return collection.find();
         }
         return collection.find({ userID });

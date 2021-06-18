@@ -504,7 +504,7 @@ class StudentProfileCollection extends BaseProfileCollection {
         lastAcademicTerm = term;
       }
     });
-    const ois = OpportunityInstances.find({ userID }).fetch();
+    const ois = OpportunityInstances.find({ studentID }).fetch();
     ois.forEach((oi) => {
       const term = AcademicTerms.findDoc(oi.termID);
       if (term.termNumber > lastAcademicTerm.termNumber) {

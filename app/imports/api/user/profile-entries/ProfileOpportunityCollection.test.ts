@@ -100,17 +100,17 @@ if (Meteor.isServer) {
     });
 
     it('Can dumpUser', function test7() {
-      student = makeSampleUser();
+      username = makeSampleUser();
       const numToMake = 10;
       const existing = ProfileOpportunities.count();
       for (let i = 0; i < numToMake; i++) {
         sponsor = makeSampleUser(ROLE.FACULTY);
         opportunity = makeSampleOpportunity(sponsor);
-        ProfileOpportunities.define({ opportunity, student });
+        ProfileOpportunities.define({ opportunity, username });
       }
       const profileCount = ProfileOpportunities.count();
       expect(profileCount).to.equal(existing + numToMake);
-      const userDump = ProfileOpportunities.dumpUser(student);
+      const userDump = ProfileOpportunities.dumpUser(username);
       expect(userDump.length).to.equal(numToMake);
     });
   });
