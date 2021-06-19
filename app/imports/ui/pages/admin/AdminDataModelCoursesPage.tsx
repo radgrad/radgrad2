@@ -80,9 +80,14 @@ const AdminDataModelCoursesPage: React.FC<AdminDataModelCoursesPageProps> = ({ i
     const collectionName = collection.getCollectionName();
     const updateData: CourseUpdate = doc; // create the updateData object from the doc.
     updateData.id = doc._id;
-    updateData.prerequisites = doc.prerequisiteNames.map(courseNameToSlug);
     updateData.interests = doc.interests.map(interestNameToId);
     updateData.picture = doc.picture;
+    if (doc.corequisites) {
+      updateData.corequisites = doc.corequisites.map(courseNameToSlug);
+    }
+    if (doc.prerequisites) {
+      updateData.prerequisites = doc.prerequisites.map(courseNameToSlug);
+    }
     // console.log(collectionName, updateData);
     updateMethod.callPromise({ collectionName, updateData })
       .catch((error) => { RadGradAlert.failure('Update Failed', error.message, error);})

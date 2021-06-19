@@ -403,6 +403,28 @@ class CourseCollection extends BaseSlugCollection {
     return `${course.num} ${course.shortName}`;
   }
 
+  public getPrerequisiteSlugs(docIdOrSlug: string): string[] {
+    const courseID = this.getID(docIdOrSlug);
+    const course =  this.findDoc(courseID);
+    const prerequisiteSlugs = [];
+    course.prerequisites.forEach((choice) => {
+      const courseArr = complexChoiceToArray(choice);
+      courseArr.forEach((slug) => prerequisiteSlugs.push(slug));
+    });
+    return prerequisiteSlugs;
+  }
+
+  public getCorequisiteSlugs(docIdOrSlug: string): string[] {
+    const courseID = this.getID(docIdOrSlug);
+    const course =  this.findDoc(courseID);
+    const corequisiteSlugs = [];
+    course.corequisites.forEach((choice) => {
+      const courseArr = complexChoiceToArray(choice);
+      courseArr.forEach((slug) => corequisiteSlugs.push(slug));
+    });
+    return corequisiteSlugs;
+  }
+
   /**
    * Returns the course number of the course name
    * @param {string} name
