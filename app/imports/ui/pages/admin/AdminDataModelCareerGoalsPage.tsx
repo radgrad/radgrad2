@@ -42,7 +42,7 @@ const descriptionPairs = (careerGoal: CareerGoal): DescriptionPair[] => [
   { label: 'References', value: `Users: ${numReferences(careerGoal)}` },
 ];
 
-const itemTitleString = (careerGoal: CareerGoal): string => `${careerGoal.name} (${itemToSlugName(careerGoal)})`;
+const itemTitleString = (careerGoal: CareerGoal): string => (CareerGoals.isDefined(careerGoal._id) ? `${careerGoal.name} (${itemToSlugName(careerGoal)})` : '');
 
 const itemTitle = (careerGoal: CareerGoal): React.ReactNode => (
   <React.Fragment>

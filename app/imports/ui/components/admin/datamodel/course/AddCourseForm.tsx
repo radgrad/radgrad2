@@ -19,7 +19,7 @@ interface AddCourseFormProps {
 const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses }) => {
   let formRef;
   const handleAdd = (doc) => {
-    // console.log('CoursePage.handleAdd(%o)', doc);
+    console.log('CoursePage.handleAdd(%o)', doc);
     const collectionName = Courses.getCollectionName();
     const definitionData: CourseDefine = doc; // create the definitionData may need to modify doc's values
     const docInterests = doc.interests.map(interestSlugFromName);
@@ -47,7 +47,9 @@ const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses }) => 
   };
 
   const interestNames = interests.map(docToName);
+
   const courseNames = courses.map(courseToName);
+  // console.log(interestNames, courseNames);
   const schema = new SimpleSchema({
     slug: String,
     name: String,
@@ -61,9 +63,9 @@ const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses }) => 
     },
     num: String,
     description: String,
-    interests: Array,
     syllabus: { type: String, optional: true },
     picture: { type: String, optional: true },
+    interests: Array,
     'interests.$': {
       type: String,
       allowedValues: interestNames,
