@@ -20,7 +20,7 @@ interface AddCourseFormProps {
 const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses }) => {
   let formRef;
   const handleAdd = (doc) => {
-    console.log('CoursePage.handleAdd(%o)', doc);
+    // console.log('CoursePage.handleAdd(%o)', doc);
     const collectionName = Courses.getCollectionName();
     const definitionData: CourseDefine = doc; // create the definitionData may need to modify doc's values
     const docInterests = doc.interests.map(interestSlugFromName);

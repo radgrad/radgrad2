@@ -20,39 +20,45 @@ class CoursePage {
     const syllabusSelect = Selector(`#${COMPONENTIDS.DATA_MODEL_SYLLABUS}`);
     const interestsSelect = Selector(`#${COMPONENTIDS.DATA_MODEL_INTERESTS}`);
     const interestsOption = interestsSelect.find('option');
-    const coreq = 'ics_211';
-    const coreqsSelect = Selector(`#${COMPONENTIDS.DATA_MODEL_COREQUISITES}`);
-    const prereq = 'ics_111';
-    const prereqsSelect = Selector(`#${COMPONENTIDS.DATA_MODEL_PREREQUISITES}`);
+    // const coreq = 'ics_211';
+    // const coreqsSelect = Selector(`#${COMPONENTIDS.DATA_MODEL_COREQUISITES}`);
+    // const prereq = 'ics_111';
+    // const prereqsSelect = Selector(`#${COMPONENTIDS.DATA_MODEL_PREREQUISITES}`);
     // fill the form
     await t
       .typeText(slugSelect, slug)
+      .expect(slugSelect.value).eql(slug);
+    await t
       .typeText(nameSelect, name)
+      .expect(nameSelect.value).eql(name);
+    await t
       .typeText(shortNameSelect, shortName)
+      .expect(shortNameSelect.value).eql(shortName);
+    await t
       .selectText(creditHoursSelect)
       .typeText(creditHoursSelect, '6')
+      .expect(creditHoursSelect.value).eql('6');
+    await t
       .typeText(numSelect, num)
+      .expect(numSelect.value).eql(num);
+    await t
       .typeText(descriptionSelect, description)
+      .expect(descriptionSelect.value).eql(description);
+    await t
       .typeText(pictureSelect, picture)
+      .expect(pictureSelect.value).eql(picture);
+    await t
       .typeText(syllabusSelect, syllabus)
+      .expect(syllabusSelect.value).eql(syllabus);
+    await t
       .click(interestsSelect)
       .click(interestsOption.withText('.NET'))
-      .click(interestsOption.withText('C#'))
-      .typeText(coreqsSelect, coreq)
-      .typeText(prereqsSelect, prereq);
-    // check the form
+      .click(interestsOption.withText('C#'));
+    // submit the form
+    await t.click(`#${COMPONENTIDS.DATA_MODEL_SUBMIT}`);
+    // check the reset form
     await t
-      .expect(slugSelect.value).eql(slug)
-      .expect(nameSelect.value).eql(name)
-      .expect(shortNameSelect.value).eql(shortName)
-      .expect(creditHoursSelect.value).eql('6')
-      .expect(numSelect.value).eql(num)
-      .expect(descriptionSelect.value).eql(description)
-      .expect(pictureSelect.value).eql(picture)
-      .expect(syllabusSelect.value).eql(syllabus)
-      .expect(coreqsSelect.value).eql(coreq)
-      .expect(prereqsSelect.value).eql(prereq)
-      .expect(interestsSelect.value).eql(['.NET', 'C#']);
+      .expect(slugSelect.value).eql('');
   }
 }
 

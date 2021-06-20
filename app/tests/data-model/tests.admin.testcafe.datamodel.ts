@@ -15,13 +15,20 @@ const credentials = {
 
 fixture('Data model UI acceptance tests').page('http://localhost:3200');
 
-test('Test admin data model pages', async (testController) => {
+test('Test admin data model academic year page', async (testController) => {
   await adminNavBar.gotoAdminLogin(testController);
   await signinPage.signin(testController, credentials.admin);
   await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'academic-year-instances');
   await academicYearPage.addAcademicYearInstance(testController);
   // test the academic year update
   // test the academic year delete
+});
+
+test('Test admin data model course page', async (testController) => {
+  await adminNavBar.gotoAdminLogin(testController);
+  await signinPage.signin(testController, credentials.admin);
   await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'courses');
   coursePage.addCourse(testController);
+  // test course update
+  // test course delete
 });
