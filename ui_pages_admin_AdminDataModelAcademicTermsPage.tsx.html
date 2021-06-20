@@ -125,13 +125,18 @@ const descriptionPairs = (term: AcademicTerm): DescriptionPair[] => ([
   { label: 'Retired', value: term.retired ? 'True' : 'False' },
 ]);
 
-const itemTitle = (term: AcademicTerm): React.ReactNode => (
-  &lt;React.Fragment>
-    {term.retired ? &lt;Icon name="eye slash" /> : ''}
-    &lt;Icon name="dropdown" />
-    {AcademicTerms.toString(term._id, false)}
-  &lt;/React.Fragment>
-);
+const itemTitle = (term: AcademicTerm): React.ReactNode => {
+  if (AcademicTerms.isDefined(term._id)) {
+    return (
+      &lt;React.Fragment>
+        {term.retired ? &lt;Icon name="eye slash" /> : ''}
+        &lt;Icon name="dropdown" />
+        {AcademicTerms.toString(term._id, false)}
+      &lt;/React.Fragment>
+    );
+  }
+  return &lt;React.Fragment />;
+};
 
 const itemTitleString = (term) => AcademicTerms.toString(term._id, false);
 

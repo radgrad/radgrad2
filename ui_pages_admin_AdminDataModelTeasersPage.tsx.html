@@ -132,9 +132,12 @@ const descriptionPairs = (item: Teaser): DescriptionPair[] => [
  * @param item an item from the collection.
  */
 const itemTitleString = (item: Teaser): string => {
-  const slugName = itemToSlugName(item);
-  const title = `${item.title} (${slugName})`;
-  return title;
+  if (Teasers.isDefined(item._id)) {
+    const slugName = itemToSlugName(item);
+    const title = `${item.title} (${slugName})`;
+    return title;
+  }
+  return '';
 };
 
 /**

@@ -131,7 +131,7 @@ const descriptionPairs = (item: Course): DescriptionPair[] => [
  * Returns the title string for the item. Used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const itemTitleString = (item: Course): string => Courses.getName(item._id);
+const itemTitleString = (item: Course): string => (Courses.isDefined(item._id) ? Courses.getName(item._id) : '');
 
 /**
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.
