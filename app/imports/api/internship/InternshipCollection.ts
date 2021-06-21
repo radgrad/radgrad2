@@ -193,18 +193,17 @@ class InternshipCollection extends BaseCollection {
   /**
    * Remove the Internship.
    * @param guid the unique ID of the internship to be removed
-   * @
    */
   public removeIt(guid: string) {
-    Interests.find().map((interest) => {
-      if (interest.guid === guid) {
-        throw new Meteor.Error(`Internship ${guid} is referenced by a internship instance ${interest}`);
-      }
-      return true;
-    });
+    this.assertDefined(guid);
     return super.removeIt(guid);
   }
 
+  /**
+   * Returns an object representing the Internship docID in a format acceptable to define().
+   * @param docID the docID of an Internship.
+   * @returns { object } An object representing the definition of docID.
+   */
   public dumpOne(docID: string): InternshipDefine {
     const doc = this.findDoc(docID);
     const urls = doc.urls;
