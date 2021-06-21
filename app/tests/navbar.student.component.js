@@ -21,7 +21,6 @@ class StudentNavBar {
   }
 
   async gotoCourseExplorerPage(testController) {
-    await testController.click(`#${COMPONENTIDS.STUDENT_MENU_EXPLORERS}`);
     await testController.click(`#${COMPONENTIDS.STUDENT_MENU_COURSES}`);
   }
 
