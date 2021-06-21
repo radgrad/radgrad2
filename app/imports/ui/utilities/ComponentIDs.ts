@@ -80,6 +80,7 @@ export enum COMPONENTIDS {
 
   STUDENT = 'student',
   STUDENT_MENU_HOME = 'student-menu-home',
+  STUDENT_MENU_EXPLORERS = 'student-menu-explorers',
   STUDENT_MENU_INTERESTS = 'student-menu-interests',
   STUDENT_MENU_COURSES = 'student-menu-courses',
   STUDENT_MENU_CAREERS = 'student-menu-careers',
