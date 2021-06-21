@@ -196,9 +196,9 @@ class ProfileOpportunityCollection extends BaseCollection {
    */
   dumpUser(usernameOrID: string): ProfileOpportunityDefine[] {
     const profile = Users.getProfile(usernameOrID);
-    const studentID = profile.userID;
+    const userID = profile.userID;
     const retVal = [];
-    const instances = this.find({ studentID }).fetch();
+    const instances = this.find({ userID }).fetch();
     instances.forEach((instance) => {
       retVal.push(this.dumpOne(instance._id));
     });
