@@ -19,6 +19,8 @@ import FirstMenu from '../shared/FirstMenu';
 import { getUsername } from '../shared/utilities/router';
 import { COMPONENTIDS } from '../../utilities/ComponentIDs';
 
+const convertLabelToId = (prefix, label) => `${prefix}-${label.replaceAll(' ', '-').toLowerCase()}`;
+
 const StudentPageMenu: React.FC = () => {
   const match = useRouteMatch();
   const username = getUsername(match);
@@ -53,13 +55,13 @@ const StudentPageMenu: React.FC = () => {
     <div>
       <FirstMenu profile={profile} displayLevelAndIce earnedICE={earnedIce} projectedICE={projectedIce} instanceName={instanceName} />
       <Menu borderless inverted stackable id="secondMenu" attached="top" style={{ paddingLeft: '10px', marginTop: '0px' }}>
-        <Menu.Item key={homeItem[0].label} id={`student-menu-${homeItem[0].label.toLowerCase()}`} as={NavLink} exact to={homeItem[0].to}>{homeItem[0].label}</Menu.Item>
+        <Menu.Item key={homeItem[0].label} id={convertLabelToId('student-menu', homeItem[0].label)} as={NavLink} exact to={homeItem[0].to}>{homeItem[0].label}</Menu.Item>
         <Dropdown item text="Explore..." id={COMPONENTIDS.STUDENT_MENU_EXPLORERS}>
           <Dropdown.Menu>
-            {explorerDropdownItems.map(item => <Menu.Item key={item.label} id={`student-menu-${item.label.toLowerCase()}`} as={NavLink} exact to={item.to}>{item.label}</Menu.Item>)}
+            {explorerDropdownItems.map(item => <Menu.Item key={item.label} id={convertLabelToId('student-menu', item.label)} as={NavLink} exact to={item.to}>{item.label}</Menu.Item>)}
           </Dropdown.Menu>
         </Dropdown>
-        {menuItems.map(item => <Menu.Item key={item.label} id={`student-menu-${item.label.toLowerCase()}`} as={NavLink} exact to={item.to}>{item.label}</Menu.Item>)}
+        {menuItems.map(item => <Menu.Item key={item.label} id={convertLabelToId('student-menu', item.label)} as={NavLink} exact to={item.to}>{item.label}</Menu.Item>)}
       </Menu>
     </div>
   );
