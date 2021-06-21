@@ -11,6 +11,7 @@ import PictureField from '../../../form-fields/PictureField';
 import { courseNameToSlug, courseToName, docToName } from '../../../shared/utilities/data-model';
 import { interestSlugFromName } from '../../../shared/utilities/form';
 import RadGradAlert from '../../../../utilities/RadGradAlert';
+import { COMPONENTIDS } from '../../../../utilities/ComponentIDs';
 
 interface AddCourseFormProps {
   interests: Interest[];
@@ -47,7 +48,9 @@ const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses }) => 
   };
 
   const interestNames = interests.map(docToName);
+
   const courseNames = courses.map(courseToName);
+  // console.log(interestNames, courseNames);
   const schema = new SimpleSchema({
     slug: String,
     name: String,
@@ -61,9 +64,9 @@ const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses }) => 
     },
     num: String,
     description: String,
-    interests: Array,
     syllabus: { type: String, optional: true },
     picture: { type: String, optional: true },
+    interests: Array,
     'interests.$': {
       type: String,
       allowedValues: interestNames,
@@ -82,23 +85,23 @@ const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses }) => 
       {/* eslint-disable-next-line no-return-assign */}
       <AutoForm schema={formSchema} onSubmit={handleAdd} ref={(ref) => formRef = ref} showInlineError>
         <Form.Group widths="equal">
-          <TextField name="slug" placeholder="dept_111" />
-          <TextField name="name" placeholder="Introduction to Science" />
+          <TextField id={COMPONENTIDS.DATA_MODEL_SLUG} name="slug" placeholder="dept_111" />
+          <TextField id={COMPONENTIDS.DATA_MODEL_NAME} name="name" placeholder="Introduction to Science" />
         </Form.Group>
         <Form.Group widths="equal">
-          <TextField name="shortName" placeholder="Introduction to Science" />
-          <NumField name="creditHours" />
-          <TextField name="num" placeholder="DEPT 111" />
+          <TextField id={COMPONENTIDS.DATA_MODEL_SHORT_NAME} name="shortName" placeholder="Introduction to Science" />
+          <NumField id={COMPONENTIDS.DATA_MODEL_CREDIT_HOURS} name="creditHours" />
+          <TextField id={COMPONENTIDS.DATA_MODEL_NUM} name="num" placeholder="DEPT 111" />
         </Form.Group>
         <LongTextField name="description" />
-        <PictureField name="picture" placeholder='https://mywebsite.com/picture.png' />
-        <TextField name="syllabus" placeholder="https://dept.foo.edu/dept_111/syllabus.html" />
+        <PictureField id={COMPONENTIDS.DATA_MODEL_PICTURE} name="picture" placeholder='https://mywebsite.com/picture.png' />
+        <TextField id={COMPONENTIDS.DATA_MODEL_SYLLABUS} name="syllabus" placeholder="https://dept.foo.edu/dept_111/syllabus.html" />
         <Form.Group widths="equal">
-          <MultiSelectField name="interests" placeholder="Select Interest(s)" />
-          <MultiSelectField name="corequisites" placeholder="Select Corequisite(s)" />
-          <MultiSelectField name="prerequisites" placeholder="Select Prerequisite(s)" />
+          <MultiSelectField id={COMPONENTIDS.DATA_MODEL_INTERESTS} name="interests" placeholder="Select Interest(s)" />
+          <MultiSelectField id={COMPONENTIDS.DATA_MODEL_COREQUISITES} name="corequisites" placeholder="Select Corequisite(s)" />
+          <MultiSelectField id={COMPONENTIDS.DATA_MODEL_PREREQUISITES} name="prerequisites" placeholder="Select Prerequisite(s)" />
         </Form.Group>
-        <BoolField name="repeatable" />
+        <BoolField id={COMPONENTIDS.DATA_MODEL_REPEATABLE} name="repeatable" />
         <SubmitField className="mini basic green" value="Add" />
         <ErrorsField />
       </AutoForm>
