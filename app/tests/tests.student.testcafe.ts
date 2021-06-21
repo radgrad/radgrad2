@@ -45,17 +45,17 @@ test('Test all student top-level pages', async (testController) => {
   await studentNavBar.gotoHomePage(testController);
   await studentHomePage.isDisplayed(testController);
 
-  await studentNavBar.gotoCareerGoalsExplorerPage(testController);
-  await careerGoalExplorerPage.isDisplayed(testController);
-
-  await studentNavBar.gotoCourseExplorerPage(testController);
-  await courseExplorerPage.isDisplayed(testController);
-
   await studentNavBar.gotoInterestsExplorerPage(testController);
   await interestExplorerPage.isDisplayed(testController);
 
+  await studentNavBar.gotoCareerGoalsExplorerPage(testController);
+  await careerGoalExplorerPage.isDisplayed(testController);
+
   await studentNavBar.gotoOpportunitiesPage(testController);
   await opportunityExplorerPage.isDisplayed(testController);
+
+  await studentNavBar.gotoCourseExplorerPage(testController);
+  await courseExplorerPage.isDisplayed(testController);
 
   await studentNavBar.gotoDegreePlannerPage(testController);
   await studentDegreePlannerPage.isDisplayed(testController);
@@ -83,17 +83,17 @@ test('Test adding and removing interests, careers, courses, and opportunities to
   await landingNavBar.gotoStudentLogin(testController);
   await signinPage.signin(testController, credentials.student.abi);
 
-  await studentNavBar.gotoCareerGoalsExplorerPage(testController);
-  await explorerPages.testAddAndRemove(testController, 'game-developer');
-
-  await studentNavBar.gotoCourseExplorerPage(testController);
-  await explorerPages.testAddAndRemove(testController, 'ics_102');
-
   await studentNavBar.gotoInterestsExplorerPage(testController);
   await explorerPages.testAddAndRemove(testController, 'angular');
 
+  await studentNavBar.gotoCareerGoalsExplorerPage(testController);
+  await explorerPages.testAddAndRemove(testController, 'game-developer');
+
   await studentNavBar.gotoOpportunitiesPage(testController);
   await explorerPages.testAddAndRemove(testController, 'allnet');
+
+  await studentNavBar.gotoCourseExplorerPage(testController);
+  await explorerPages.testAddAndRemove(testController, 'ics_102');
 });
 
 test('Test student verification for opportunities', async (testController) => {
