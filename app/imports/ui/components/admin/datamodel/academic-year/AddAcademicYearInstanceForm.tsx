@@ -7,6 +7,7 @@ import SimpleSchema from 'simpl-schema';
 import moment from 'moment';
 import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
 import { AcademicYearInstances } from '../../../../../api/degree-plan/AcademicYearInstanceCollection';
+import { COMPONENTIDS } from '../../../../utilities/ComponentIDs';
 import { profileToUsername } from '../../../shared/utilities/data-model';
 import RadGradAlert from '../../../../utilities/RadGradAlert';
 
@@ -41,9 +42,9 @@ const AddAcademicYearInstanceForm: React.FC<AddAcademicYearInstanceProps> = ({ s
       <Header dividing>Add Academic Year Instance</Header>
       {/* eslint-disable-next-line no-return-assign */}
       <AutoForm schema={formSchema} onSubmit={handleAdd} ref={(ref) => formRef = ref} showInlineError>
-        <NumField name="year" />
-        <SelectField name="student" />
-        <SubmitField className="mini basic green" value="Add" />
+        <NumField id={COMPONENTIDS.DATA_MODEL_YEAR} name="year" />
+        <SelectField id={COMPONENTIDS.DATA_MODEL_STUDENT} name="student" />
+        <SubmitField id={COMPONENTIDS.DATA_MODEL_SUBMIT} className="mini basic green" value="Add" />
         <ErrorsField />
       </AutoForm>
     </Segment>

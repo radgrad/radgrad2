@@ -55,7 +55,7 @@ const descriptionPairs = (item: Review): DescriptionPair[] => {
  * Returns the title string for the item. Used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const itemTitleString = (item: Review): string => `(${Slugs.getNameFromID(item.slugID)})`;
+const itemTitleString = (item: Review): string => (Reviews.isDefined(item._id) ? `(${Slugs.getNameFromID(item.slugID)})` : '');
 
 /**
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.
