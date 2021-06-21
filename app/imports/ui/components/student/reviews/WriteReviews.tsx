@@ -68,7 +68,12 @@ const WriteReviews: React.FC<WriteReviewsProps> = ({ unreviewedCourses, unreview
     reviewFormRef.reset();
     setChoiceName('');
     const collectionName = Reviews.getCollectionName();
-    const academicTermDoc = AcademicTerms.getAcademicTermFromToString(model.academicTerm);
+    let academicTermDoc;
+    if (termNames.length === 1) {
+      academicTermDoc = AcademicTerms.getAcademicTermFromToString(termNames[0]);
+    } else {
+      academicTermDoc = AcademicTerms.getAcademicTermFromToString(model.academicTerm);
+    }
     const academicTermSlug = AcademicTerms.findSlugByID(academicTermDoc._id);
     const definitionData: ReviewDefine = model;
     definitionData.academicTerm = academicTermSlug;
