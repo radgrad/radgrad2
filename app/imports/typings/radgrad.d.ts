@@ -788,7 +788,6 @@ export interface Review extends Document {
 }
 
 export interface ReviewDefine extends DumpOne {
-  slug?: string;
   student: string;
   reviewType: IReviewTypes;
   reviewee: string;
