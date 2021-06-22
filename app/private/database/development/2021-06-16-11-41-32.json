@@ -2565,7 +2565,7 @@
           "interests": [],
           "corequisites": [],
           "prerequisites": [
-            "ics_464,ics_465,ics_664,ics_665"
+            "ics_464,ics_465,ics_664"
           ],
           "retired": false
         },

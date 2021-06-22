@@ -66,6 +66,7 @@ const UpdateOpportunityForm: React.FC<UpdateOpportunityFormProps> = ({
     sponsor: { type: String, allowedValues: sponsorNames, optional: true },
     interests: { type: Array, optional: true },
     'interests.$': { type: String, allowedValues: interestNames },
+    picture: { type: String, optional: true },
     eventDate: { type: Date, optional: true },
     eventDate1: { type: Date, optional: true },
     eventDateLabel1: { type: String, optional: true },
@@ -82,7 +83,6 @@ const UpdateOpportunityForm: React.FC<UpdateOpportunityFormProps> = ({
     clearEventDate4: { type: Boolean, optional: true },
     ice: { type: iceSchema, optional: true },
     retired: { type: Boolean, optional: true },
-    picture: { type: String, optional: true },
   });
   const formSchema = new SimpleSchema2Bridge(schema);
   return (
@@ -98,8 +98,8 @@ const UpdateOpportunityForm: React.FC<UpdateOpportunityFormProps> = ({
         </Form.Group>
         <LongTextField name="description"/>
         <Form.Group widths="equal">
+          <PictureField name="picture"/>
           <MultiSelectField name="interests"/>
-          <DateField name="eventDate"/>
         </Form.Group>
         <Form.Group widths="equal">
           <DateField name="eventDate1"/>
@@ -130,7 +130,6 @@ const UpdateOpportunityForm: React.FC<UpdateOpportunityFormProps> = ({
           <NumField name="ice.e"/>
         </Form.Group>
         <BoolField name="retired"/>
-        <PictureField name="picture"/>
         <SubmitField inputRef={undefined} disabled={false} value="Update" className="mini basic green"/>
         <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
         <ErrorsField/>

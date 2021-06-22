@@ -17,6 +17,7 @@ import { updateMethod } from '../../../../../api/base/BaseCollection.methods';
 import { Interests } from '../../../../../api/interest/InterestCollection';
 import { InterestTypes } from '../../../../../api/interest/InterestTypeCollection';
 import { Interest, InterestType, InterestUpdate } from '../../../../../typings/radgrad';
+import PictureField from '../../../form-fields/PictureField';
 
 interface EditInterestButtonProps {
   interest: Interest;
@@ -32,6 +33,7 @@ const EditInterestButton: React.FC<EditInterestButtonProps> = ({ interest, inter
   const interestTypeNames = interestTypes.map((type) => type.name);
   const schema = new SimpleSchema({
     name: { type: String, optional: true },
+    picture: { type: String, optional: true },
     interestType: {
       type: String,
       allowedValues: interestTypeNames,
@@ -81,6 +83,7 @@ const EditInterestButton: React.FC<EditInterestButtonProps> = ({ interest, inter
             <TextField name="name"/>
             <SelectField name="interestType"/>
           </Form.Group>
+          <PictureField name="picture" placeholder='https://mywebsite.com/picture.png' />
           <LongTextField name="description"/>
           <BoolField name="retired"/>
           <SubmitField/>

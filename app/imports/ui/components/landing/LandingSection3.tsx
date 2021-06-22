@@ -15,7 +15,7 @@ const LandingSection3: React.FC<LandingSection3Props> = ({ instanceName, landing
       <Header as="h1" style={styles['header-text']} textAlign="center">
         Why Use{' '}
         <span style={styles['green-text']}>
-          <RadGradLogoText style={headerStyle} instanceName={instanceName} />?
+          <RadGradLogoText style={headerStyle} />?
         </span>
       </Header>
       <p style={styles['header-description']}>

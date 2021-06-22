@@ -44,7 +44,7 @@ const descriptionPairs = (item: Course): DescriptionPair[] => [
  * Returns the title string for the item. Used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const itemTitleString = (item: Course): string => Courses.getName(item._id);
+const itemTitleString = (item: Course): string => (Courses.isDefined(item._id) ? Courses.getName(item._id) : '');
 
 /**
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.
@@ -80,9 +80,14 @@ const AdminDataModelCoursesPage: React.FC<AdminDataModelCoursesPageProps> = ({ i
     const collectionName = collection.getCollectionName();
     const updateData: CourseUpdate = doc; // create the updateData object from the doc.
     updateData.id = doc._id;
-    updateData.prerequisites = doc.prerequisiteNames.map(courseNameToSlug);
     updateData.interests = doc.interests.map(interestNameToId);
     updateData.picture = doc.picture;
+    if (doc.corequisites) {
+      updateData.corequisites = doc.corequisites.map(courseNameToSlug);
+    }
+    if (doc.prerequisites) {
+      updateData.prerequisites = doc.prerequisites.map(courseNameToSlug);
+    }
     // console.log(collectionName, updateData);
     updateMethod.callPromise({ collectionName, updateData })
       .catch((error) => { RadGradAlert.failure('Update Failed', error.message, error);})
