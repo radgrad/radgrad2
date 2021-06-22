@@ -453,9 +453,9 @@ class StudentProfileCollection extends BaseProfileCollection {
    * @throws {Meteor.Error} If userID is not defined.
    */
   public getEarnedICE(user: string) {
-    const userID = Users.getID(user);
-    const courseDocs = CourseInstances.findNonRetired({ userID });
-    const oppDocs = OpportunityInstances.findNonRetired({ userID });
+    const studentID = Users.getID(user);
+    const courseDocs = CourseInstances.findNonRetired({ studentID });
+    const oppDocs = OpportunityInstances.findNonRetired({ studentID });
     return getEarnedICE(courseDocs.concat(oppDocs));
   }
 
@@ -465,9 +465,9 @@ class StudentProfileCollection extends BaseProfileCollection {
    * @throws {Meteor.Error} If user is not defined.
    */
   public getProjectedICE(user: string) {
-    const userID = Users.getID(user);
-    const courseDocs = CourseInstances.findNonRetired({ userID });
-    const oppDocs = OpportunityInstances.findNonRetired({ userID });
+    const studentID = Users.getID(user);
+    const courseDocs = CourseInstances.findNonRetired({ studentID });
+    const oppDocs = OpportunityInstances.findNonRetired({ studentID });
     return getProjectedICE(courseDocs.concat(oppDocs));
   }
 
