@@ -1,7 +1,7 @@
 import React from 'react';
 import Markdown from 'react-markdown';
 import { useParams } from 'react-router-dom';
-import { Grid, Segment } from 'semantic-ui-react';
+import { Divider, Grid, Segment } from 'semantic-ui-react';
 import { Reviews } from '../../../../../../api/review/ReviewCollection';
 import { ROLE } from '../../../../../../api/role/Role';
 import { Teasers } from '../../../../../../api/teaser/TeaserCollection';
@@ -72,7 +72,8 @@ const ExplorerCourse: React.FC<ExplorerCoursesWidgetProps> = ({ course, courses,
       </Segment>
 
       <Segment>
-        <RadGradHeader title='STUDENTS PARTICIPATING BY SEMESTER' />
+        <RadGradHeader icon="users" title='STUDENTS PARTICIPATING BY SEMESTER' dividing={false} />
+        <Divider />
         <FutureParticipation item={course} />
       </Segment>
 

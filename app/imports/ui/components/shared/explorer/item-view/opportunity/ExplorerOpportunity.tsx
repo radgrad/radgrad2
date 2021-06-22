@@ -94,7 +94,7 @@ const ExplorerOpportunity: React.FC<ExplorerOpportunitiesProps> = ({ opportunity
       </Segment>
 
       <Segment>
-        <RadGradHeader title='students participating by semester' dividing={false} />
+        <RadGradHeader icon="users" title='STUDENTS PARTICIPATING BY SEMESTER' dividing={false} />
         <Divider />
         <FutureParticipation item={opportunity} />
       </Segment>
