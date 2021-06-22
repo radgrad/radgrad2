@@ -50,11 +50,14 @@ const descriptionPairs = (item: OpportunityInstance): DescriptionPair[] => [
  * @param item an item from the collection.
  */
 const itemTitleString = (item: OpportunityInstance): string => {
-  const oppName = Opportunities.findDoc(item.opportunityID).name;
-  // console.log('itemTitleString');
-  const username = Users.getProfile(item.studentID).username;
-  const semester = AcademicTerms.toString(item.termID, true);
-  return `${username}-${oppName}-${semester}`;
+  if (OpportunityInstances.isDefined(item._id)) {
+    const oppName = Opportunities.findDoc(item.opportunityID).name;
+    // console.log('itemTitleString');
+    const username = Users.getProfile(item.studentID).username;
+    const semester = AcademicTerms.toString(item.termID, true);
+    return `${username}-${oppName}-${semester}`;
+  }
+  return '';
 };
 
 /**

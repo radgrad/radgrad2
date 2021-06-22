@@ -12,7 +12,7 @@ const PageFooter: React.FC = () => (
         <Grid>
           <Grid.Row columns={2}>
             <Grid.Column>
-              {instanceName} {`${buildVersion.version}`} (Deployed on {`${buildVersion.bugFix}`})
+              RadGrad ({instanceName}) {`${buildVersion.version}`} (Deployed on {`${buildVersion.bugFix}`})
             </Grid.Column>
             <Grid.Column textAlign="right">
               <List bulleted horizontal>

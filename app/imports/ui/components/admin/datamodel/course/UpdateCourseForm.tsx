@@ -4,6 +4,7 @@ import { AutoForm, TextField, NumField, LongTextField, BoolField, SubmitField, E
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import BaseCollection from '../../../../../api/base/BaseCollection';
+import { Courses } from '../../../../../api/course/CourseCollection';
 import { Course, Interest } from '../../../../../typings/radgrad';
 import PictureField from '../../../form-fields/PictureField';
 import { courseSlugToName, courseToName, docToName, interestIdToName } from '../../../shared/utilities/data-model';
@@ -28,10 +29,13 @@ const UpdateCourseForm: React.FC<UpdateCourseFormProps> = ({
   handleUpdate,
   itemTitleString,
 }) => {
-  const model = id ? collection.findDoc(id) : undefined;
+  const model = collection.findDoc(id);
   const courseName = itemTitleString(model);
   model.interests = model.interestIDs.map(interestIdToName);
-  model.prerequisiteNames = model.prerequisites.map(courseSlugToName);
+  const corequisiteSlugs = Courses.getCorequisiteSlugs(id);
+  model.corequisites = corequisiteSlugs.map(courseSlugToName);
+  const prerequisiteSlugs = Courses.getPrerequisiteSlugs(id);
+  model.prerequisites = prerequisiteSlugs.map(courseSlugToName);
   const interestNames = interests.map(docToName);
   const courseNames = courses.map(courseToName);
   const schema = new SimpleSchema({
@@ -53,8 +57,10 @@ const UpdateCourseForm: React.FC<UpdateCourseFormProps> = ({
       type: String,
       allowedValues: interestNames,
     },
-    prerequisiteNames: { type: Array, optional: true },
-    'prerequisiteNames.$': { type: String, allowedValues: courseNames },
+    corequisites: { type: Array, optional: true },
+    'corequisites.$': { type: String, allowedValues: courseNames },
+    prerequisites: { type: Array, optional: true },
+    'prerequisites.$': { type: String, allowedValues: courseNames },
     repeatable: { type: Boolean, optional: true },
     retired: { type: Boolean, optional: true },
   });
@@ -75,13 +81,14 @@ const UpdateCourseForm: React.FC<UpdateCourseFormProps> = ({
           <TextField name="num" />
         </Form.Group>
         <LongTextField name="description" />
+        <MultiSelectField name="interests" />
         <PictureField name="picture" placeholder='https://mywebsite.com/picture.png' />
         <TextField name="syllabus" />
         <Form.Group widths="equal">
-          <MultiSelectField name="interests" />
-          <MultiSelectField name="prerequisiteNames" />
+          <MultiSelectField name="corequisites" />
+          <MultiSelectField name="prerequisites" />
         </Form.Group>
-        <Form.Group widths="equal">
+        <Form.Group>
           <BoolField name="repeatable" />
           <BoolField name="retired" />
         </Form.Group>

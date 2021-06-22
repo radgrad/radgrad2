@@ -49,24 +49,24 @@ const ExplorerProfiles: React.FC<ExplorerProfileWidgetProps> = ({ item, explorer
 
   return (
     <Segment>
-      <Header as="h5" textAlign="center">
+      <Header as="h5">
         (VISIBLE) STUDENTS <WidgetHeaderNumber inputValue={numberOfStudents[ROLE.STUDENT].length} />
       </Header>
       {visibleUsers[ROLE.STUDENT].slice(0, visibleStudents).map(username => <UserLabel key={username} username={username} />)}
       {visibleUsers[ROLE.STUDENT].length > 10 &&
       <Grid>
-        <Grid.Column textAlign='center'>
+        <Grid.Column>
           <Button onClick={handleClick}>{buttonText}</Button>
         </Grid.Column>
       </Grid>
       }
       <Divider />
-      <Header as="h5" textAlign="center">
+      <Header as="h5">
         (RELATED) FACULTY MEMBERS <WidgetHeaderNumber inputValue={visibleUsers[ROLE.FACULTY].length} />
       </Header>
       {visibleUsers[ROLE.FACULTY].map(username => <UserLabel key={username} username={username} />)}
       <Divider />
-      <Header as="h5" textAlign="center">
+      <Header as="h5">
         (RELATED) ADVISORS <WidgetHeaderNumber inputValue={visibleUsers[ROLE.ADVISOR].length} />
       </Header>
       {visibleUsers[ROLE.ADVISOR].map(username => <UserLabel key={username} username={username} />)}

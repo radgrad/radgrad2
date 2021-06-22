@@ -70,7 +70,8 @@ const CourseViewPage: React.FC<CourseViewPageProps> = ({
       added={added} inverted floated="left" /> : undefined;
   const courseSlug = Slugs.getNameFromID(course.slugID);
   const completed = isCourseCompleted(courseSlug, profile.userID);
-  const relatedCourses = getAssociationRelatedCourses(course.prerequisites.map((c) => Courses.findDocBySlug(c)), profile.userID);
+  const relatedSlugs = Courses.getPrerequisiteSlugs(course._id);
+  const relatedCourses = getAssociationRelatedCourses(relatedSlugs.map((c) => Courses.findDocBySlug(c)), profile.userID);
   const combinedArrays = relatedCourses.inPlan.concat(relatedCourses.notInPlan, relatedCourses.completed);
 
   return (
