@@ -134,6 +134,7 @@ export enum COMPONENTIDS {
   DATA_MODEL_MODERATOR_COMMENTS = 'data-model-moderator-comments',
   DATA_MODEL_NAME = 'data-model-name',
   DATA_MODEL_NUM = 'data-model-num',
+  DATA_MODEL_PAGINATION_LAST = 'data-model-pagination-last',
   DATA_MODEL_PICTURE = 'data-model-picture',
   DATA_MODEL_PREREQUISITES = 'data-model-prerequisites',
   DATA_MODEL_RATING = 'data-model-rating',
