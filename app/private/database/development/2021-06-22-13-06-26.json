@@ -1,5 +1,5 @@
 {
-  "timestamp": "2021-06-13-09-20-15",
+  "timestamp": "2021-06-22-13-06-26",
   "collections": [
     {
       "name": "AcademicTermCollection",
@@ -781,54 +781,6 @@
           "profileCourses": []
         },
         {
-          "username": "hsaito2@hawaii.edu",
-          "firstName": "Heather",
-          "lastName": "Saito",
-          "picture": "https://res.cloudinary.com/radgrad/image/upload/v1538616370/lxl4a8klk7ipy13ok9ap.jpg",
-          "website": "https://www.hawaii.edu/natsci/advising/advisors/heather-saito/",
-          "interests": [
-            "psychology",
-            "research",
-            "social-computing",
-            "teaching"
-          ],
-          "careerGoals": [
-            "teacher"
-          ],
-          "retired": false,
-          "shareInterests": true,
-          "sharePicture": true,
-          "shareWebsite": true,
-          "shareCareerGoals": true,
-          "profileOpportunities": [],
-          "profileCourses": []
-        },
-        {
-          "username": "glau@hawaii.edu",
-          "firstName": "Gerald",
-          "lastName": "Lau",
-          "picture": "/images/mockup/glau.jpg",
-          "website": null,
-          "interests": [
-            "application-development",
-            "it-management",
-            "security",
-            "teaching"
-          ],
-          "careerGoals": [
-            "graduate-school",
-            "information-security-analyst",
-            "teacher"
-          ],
-          "retired": false,
-          "shareInterests": true,
-          "sharePicture": true,
-          "shareWebsite": true,
-          "shareCareerGoals": true,
-          "profileOpportunities": [],
-          "profileCourses": []
-        },
-        {
           "username": "johnson@hawaii.edu",
           "firstName": "Philip",
           "lastName": "Johnson",
@@ -846,6 +798,26 @@
             "software-developer",
             "startup-cofounder",
             "research-scientist",
+            "teacher"
+          ],
+          "retired": false,
+          "shareInterests": true,
+          "sharePicture": true,
+          "shareWebsite": true,
+          "shareCareerGoals": true,
+          "profileOpportunities": [],
+          "profileCourses": []
+        },
+        {
+          "username": "kennydq@hawaii.edu",
+          "firstName": "Kenny",
+          "lastName": "Quibilan",
+          "picture": "https://kudos.coe.hawaii.edu/attachments/kapa/persons/photos/000/000/767/original.png?1583806901",
+          "interests": [
+            "application-development",
+            "teaching"
+          ],
+          "careerGoals": [
             "teacher"
           ],
           "retired": false,
@@ -936,7 +908,9 @@
           "interests": [
             "databases",
             "networks",
-            "security"
+            "security",
+            "cryptography",
+            "blockchain"
           ],
           "description": "Information Security Analyst covers a variety of security-related positions, including Analysts, Architects, Developers, Engineers, and Cryptographers. \n\nSecurity professionals range from \"ethical hackers\" who probe and exploit security vulnerabilities in web-based applications and network systems to cryptographers who analyze and decrypt hidden information from cyber-terrorists. There are jobs in security in virtually every industry, as well as in government. \n\nThe ICS degree  program offers many opportunities to develop security-related expertise.  We offer the [Security Science Focus](http://www.ics.hawaii.edu/academics/undergraduate-degree-programs/) which includes [ICS 355](/explorer/courses/ics_355), [ICS 455](/explorer/courses/ics_455), and (for motivated undergraduates) ICS 655.  We offer two courses related to Information Assurance ([ICS 425](/explorer/courses/ics_425) and [ICS 426](/explorer/courses/ics_426)).  You will also want to take at least one course in networking and one course in databases.\n\nIf you are interested in a career in security, we also recommend that you participate in [ICS GreyHats](http://www.ics.hawaii.edu/community/community-profile-the-ics-grey-hats/), a student club providing a venue for networking with industry and government, performing community service, and practical application of security skills in a supportive environment.\n\nFinally, the ICS Department sponsors a variety of security-related hackathons and contests every year. These also provide important learning opportunities in security.\n\nInformation Security Analyst was named [one of the top 20 best tech jobs for 2020](https://careerkarma.com/blog/best-tech-jobs/).",
           "retired": false
@@ -1023,7 +997,38 @@
           "slug": "software-developer",
           "interests": [
             "application-development",
-            "software-engineering"
+            "software-engineering",
+            "android",
+            "angular",
+            "apache-spark",
+            "aws",
+            "azure",
+            "c",
+            "c-sharp",
+            "django",
+            "dotNet",
+            "flutter",
+            "ios",
+            "java",
+            "javascript",
+            "jupyter",
+            "kotlin",
+            "laravel",
+            "linux",
+            "lisp",
+            "nodejs",
+            "perl",
+            "prolog",
+            "python",
+            "r",
+            "ruby",
+            "rust",
+            "sql",
+            "typescript",
+            "unity",
+            "assembler",
+            "geographic-information-systems",
+            "hpc"
           ],
           "description": "Software Developers include position titles such as Developer, Software Engineer, Programmer, Coder, Software Architect, Business Application Programmer, and Programmer Analyst.\n\nBecause of their popularity and because they require specialized software development skills, RadGrad also defines more specialized career goals that are related to Software Developer: [Mobile App Developer](/explorer/career-goals/mobile-app-developer), [Game Developer](/explorer/career-goals/game-developer), and [Full Stack Developer](/explorer/career-goals/full-stack-developer). If you're not sure what kind of development you want to do, then Software Developer is a good bet.\n\nIn general, software developers are responsible for designing computing programs, applications, and support systems. They meet with clients to discuss technological needs, and then develop software to addresses those demands.  Once initially implemented, software developers must modify and maintain the systems as business requirements for the software change.\n\nTo prepare for the software developer, you need strong programming and software engineering skills which is guaranteed by any of the ICS degree programs.  Beyond the classroom, you should participate in programming-related events like coding competitions and hackathons.  You should also consider a summer internship doing software development for a business in order to gain \"real-world\" experience prior to graduation.\n\nSoftware Engineer was named [one of the top 20 best tech jobs for 2020](https://careerkarma.com/blog/best-tech-jobs/).",
           "retired": false
@@ -1077,13 +1082,35 @@
       "name": "CourseCollection",
       "contents": [
         {
+          "name": "Computational Media Systems",
+          "shortName": "Computational Media",
+          "slug": "ICS_369",
+          "num": "ICS 369",
+          "description": "Intermediate object-oriented programming within the context of interactive media systems and video game development. Topics: classes, objects, inheritance, polymorphism, abstract classes, interfaces, event-driven programming, vectors, geometric primitives, game mechanics, and relevant design patterns.",
+          "creditHrs": 3,
+          "interests": [
+            "application-development",
+            "computer-graphics",
+            "game-design",
+            "software-engineering"
+          ],
+          "corequisites": [],
+          "prerequisites": [
+            "ics_111"
+          ],
+          "repeatable": false,
+          "retired": false
+        },
+        {
           "name": "Digital Tools for the Information World",
           "shortName": "Digital Tools",
           "slug": "ics_101",
           "num": "ICS 101",
           "description": "Fundamental information technology concepts and computing terminology, productivity software for problem solving, computer technology trends and impact on individuals and society. Emphasizes the utilization of operating systems and the production of professional documents, spreadsheets, etc.",
           "creditHrs": 4,
-          "interests": [],
+          "interests": [
+            "application-development"
+          ],
           "corequisites": [],
           "prerequisites": [],
           "retired": false
@@ -1137,7 +1164,7 @@
           "shortName": "Comp Sci I",
           "slug": "ics_111",
           "num": "ICS 111",
-          "description": "Overview of computer science, including Java programming, control structures, subroutines, objects and classes, GUI programming, arrays, and recursion.",
+          "description": "Overview of computer science, including Java programming, control structures, subroutines, objects and classes, GUI programming, arrays, and recursion.\n\nfo",
           "creditHrs": 4,
           "interests": [
             "java"
@@ -1241,7 +1268,7 @@
           "shortName": "Comp Sci Concepts",
           "slug": "ics_222",
           "num": "ICS 222",
-          "description": "What is computer science about? What is the difference between computers and other machines? What are the limits of computation? Are there computers that are not machines? Understand the basic issues of computability, complexity, and network effects, and learn to apply them in the practice of computation.",
+          "description": "Understand the basic models of computation and the concepts of computability, complexity, and network computation, and learn to use them in practice.\n\nWhat is computer science about? What is the difference between computers and other machines? What are the limits of computation? Are there computers that are not machines?",
           "creditHrs": 3,
           "interests": [
             "theory-of-computation"
@@ -1510,6 +1537,21 @@
           "retired": false
         },
         {
+          "name": "Computational Media Systems",
+          "shortName": "Computational Media",
+          "slug": "ics_369",
+          "num": "ICS 369",
+          "description": "Intermediate object-oriented programming within the context of interactive media systems and video game development. Topics: classes, objects, inheritance, polymorphism, abstract classes, interfaces, event-driven programming, vectors, geometric primitives, game mechanics, and relevant design patterns.",
+          "creditHrs": 3,
+          "interests": [
+            "software-engineering"
+          ],
+          "corequisites": [],
+          "prerequisites": [],
+          "repeatable": false,
+          "retired": false
+        },
+        {
           "name": "Computing Ethics for Lab Assistants",
           "shortName": "Ethics for LAs",
           "slug": "ics_390",
@@ -1693,6 +1735,23 @@
           "retired": false
         },
         {
+          "name": "Programming Approaches to Software Quality Assurance",
+          "shortName": "Software Quality Assurance",
+          "slug": "ics_427",
+          "num": "ICS 427",
+          "description": "Examination of best practices associated with developing and supporting software applications with respect to potential security risks. Will augment software engineering practices learned in other courses with the basic principles of cybersecurity.",
+          "creditHrs": 3,
+          "interests": [
+            "software-engineering"
+          ],
+          "corequisites": [],
+          "prerequisites": [
+            "ics_111"
+          ],
+          "repeatable": false,
+          "retired": false
+        },
+        {
           "name": "Digital Forensics",
           "shortName": "Digital Forensics",
           "slug": "ics_428",
@@ -1785,6 +1844,25 @@
             "ics_311",
             "ics_314"
           ],
+          "retired": false
+        },
+        {
+          "name": "Big Data Analytics",
+          "shortName": "Big Data Analytics",
+          "slug": "ics_438",
+          "num": "ICS 438",
+          "description": "Concepts, tools, and techniques for analyzing and mining massive data sets. Data cleaning and pre-processing. Data analysis and mining techniques. Big Data platforms. Big Data visualization.",
+          "creditHrs": 3,
+          "interests": [
+            "data-mining",
+            "data-visualization",
+            "databases"
+          ],
+          "corequisites": [],
+          "prerequisites": [
+            "ics_321"
+          ],
+          "repeatable": false,
           "retired": false
         },
         {
@@ -2170,13 +2248,30 @@
           "retired": false
         },
         {
+          "name": "Virtual and Augmented Reality Programming",
+          "shortName": "VR/AR Programming",
+          "slug": "ics_486",
+          "num": "ICS 486",
+          "description": "Students will learn to develop virtual reality and augmented reality applications with turnkey tools as well as through programming. Prior programming experience is not required for this course.",
+          "creditHrs": 3,
+          "interests": [
+            "virtual-reality"
+          ],
+          "corequisites": [],
+          "prerequisites": [],
+          "repeatable": false,
+          "retired": false
+        },
+        {
           "name": "Special Topics",
           "shortName": "Special Topics",
           "slug": "ics_491",
           "num": "ICS 491",
           "description": "Reflects special interests of faculty. Oriented toward juniors and seniors. Repeatable one time for BS/CS students.",
           "creditHrs": 3,
-          "interests": [],
+          "interests": [
+            "research"
+          ],
           "corequisites": [],
           "prerequisites": [
             "ics_311",
@@ -2202,18 +2297,41 @@
           "retired": false
         },
         {
+          "name": "Capstone Project",
+          "shortName": "Capstone Project",
+          "slug": "ics_496",
+          "num": "ICS 496",
+          "description": "Project-based course where students work in teams on a software project. Knowledge acquired in the computer science curriculum will be applied to design and implement a software product with potential real-world applicability.",
+          "creditHrs": 3,
+          "interests": [
+            "application-development",
+            "software-engineering",
+            "social-computing"
+          ],
+          "corequisites": [],
+          "prerequisites": [
+            "ics_311",
+            "ics_314"
+          ],
+          "repeatable": true,
+          "retired": false
+        },
+        {
           "name": "Computer Project",
           "shortName": "Independent Study",
           "slug": "ics_499",
           "num": "ICS 499",
           "description": "Individual or small-group projects in system design or application under faculty supervision.",
           "creditHrs": 3,
-          "interests": [],
+          "interests": [
+            "research"
+          ],
           "corequisites": [],
           "prerequisites": [
             "ics_311",
             "ics_314"
           ],
+          "repeatable": true,
           "retired": false
         },
         {
@@ -2235,7 +2353,9 @@
           "num": "ICS 606",
           "description": "Theory, methods and practical applications of autonomous agent systems, including common applications of both software and hardware (robotic) agents. In-depth practical experience with autonomous agents through programming assignments and projects.",
           "creditHrs": 3,
-          "interests": [],
+          "interests": [
+            "artificial-intelligence"
+          ],
           "corequisites": [],
           "prerequisites": [
             "ics_313"
@@ -2249,7 +2369,11 @@
           "num": "ICS 611",
           "description": "Design and implementation of compilers, syntactic and semantic descriptions of programming languages, algorithms for syntactic analysis and object code generation",
           "creditHrs": 3,
-          "interests": [],
+          "interests": [
+            "assembler",
+            "computer-architecture",
+            "operating-systems"
+          ],
           "corequisites": [],
           "prerequisites": [
             "ics_312"
@@ -2263,7 +2387,9 @@
           "num": "ICS 612",
           "description": "Advanced study in operating systems theory and design with emphasis on case studies and distributed systems.",
           "creditHrs": 3,
-          "interests": [],
+          "interests": [
+            "operating-systems"
+          ],
           "corequisites": [],
           "prerequisites": [],
           "retired": false
@@ -2275,23 +2401,13 @@
           "num": "ICS 613",
           "description": "Fundamental software engineering procedures, including planning, estimation, design, testing, process definition and improvement, and software quality assurance. Measurement techniques are used to support empirically-driven software process improvement throughout the course.",
           "creditHrs": 3,
-          "interests": [],
+          "interests": [
+            "software-engineering"
+          ],
           "corequisites": [],
           "prerequisites": [
             "ics_414"
           ],
-          "retired": false
-        },
-        {
-          "name": "Medical Informatics I",
-          "shortName": "Medical Informatics I",
-          "slug": "ics_614",
-          "num": "ICS 614",
-          "description": "Introduction to the field of medical informatics, which is found at the intersection of clinical science, public health, information science, computer technology and communications technology. Concentration on current issues.",
-          "creditHrs": 3,
-          "interests": [],
-          "corequisites": [],
-          "prerequisites": [],
           "retired": false
         },
         {
@@ -2301,7 +2417,11 @@
           "num": "ICS 616",
           "description": "User-centered design of websites; survey Information Architecture (IA) systems (organization, navigation, labeling, searching); gain experience in methodologies for creating IA, tools for IA, web standards and usability tests. ICS and LIS majors only. A-F only.",
           "creditHrs": 3,
-          "interests": [],
+          "interests": [
+            "application-development",
+            "hci",
+            "software-engineering"
+          ],
           "corequisites": [],
           "prerequisites": [],
           "retired": false
@@ -2313,7 +2433,9 @@
           "num": "ICS 621",
           "description": "Analysis and design of algorithms: modeling, comparison, measures, applications.",
           "creditHrs": 3,
-          "interests": [],
+          "interests": [
+            "algorithms"
+          ],
           "corequisites": [],
           "prerequisites": [
             "ics_311"
@@ -2327,7 +2449,9 @@
           "num": "ICS 622",
           "description": "Modeling human-made and natural systems as networks to understand their structure and dynamics. Computational and statistical methods and research results they enabled. Use of network analysis software. Applications to topics of interest to students.",
           "creditHrs": 3,
-          "interests": [],
+          "interests": [
+            "algorithms"
+          ],
           "corequisites": [],
           "prerequisites": [],
           "retired": false
@@ -2339,7 +2463,9 @@
           "num": "ICS 623",
           "description": "Taxonomy of security properties: methods for defining and proving security. Randomness, pseudorandomness, and indistinguishability. Functional encryption and obfuscation. Zero knowledge.",
           "creditHrs": 3,
-          "interests": [],
+          "interests": [
+            "security"
+          ],
           "corequisites": [],
           "prerequisites": [
             "ics_423",
@@ -2354,10 +2480,13 @@
           "num": "ICS 624",
           "description": "Exploration of information retrieval and object-relational tools and methods for the management of distributed multimedia database systems.",
           "creditHrs": 3,
-          "interests": [],
+          "interests": [
+            "databases"
+          ],
           "corequisites": [],
           "prerequisites": [
-            "ics_321,ics_421"
+            "ics_321",
+            "ics_421"
           ],
           "retired": false
         },
@@ -2368,7 +2497,9 @@
           "num": "ICS 632",
           "description": "Principles of high performance computing for single-processor and parallel architectures. Detailed coverage of parallel architectures and exposure to shared-memory, distributed-memory, and hybrid parallelism. Hands-on experience with message-passing and multi-threaded programming. A-F only.",
           "creditHrs": 3,
-          "interests": [],
+          "interests": [
+            "hpc"
+          ],
           "corequisites": [],
           "prerequisites": [],
           "retired": false
@@ -2380,7 +2511,10 @@
           "num": "ICS 635",
           "description": "Introduction to key theoretical concepts of machine learning. Practical experience with decision free methods, artificial neural networks. Bayesian belief networks and contemporary statistical methods including regression, clustering and classification.",
           "creditHrs": 3,
-          "interests": [],
+          "interests": [
+            "artificial-intelligence",
+            "machine-learning"
+          ],
           "corequisites": [],
           "prerequisites": [],
           "retired": false
@@ -2392,9 +2526,29 @@
           "num": "ICS 636",
           "description": "Basics of information processing and learning in the brain; neural networks; learning algorithms based on information maximization; applications in molecular biology and bioinformatics. A-F only.",
           "creditHrs": 3,
-          "interests": [],
+          "interests": [
+            "machine-learning"
+          ],
           "corequisites": [],
           "prerequisites": [],
+          "retired": false
+        },
+        {
+          "name": "Deep Learning with Neural Networks",
+          "shortName": "Deep Learning",
+          "slug": "ics_637",
+          "num": "ICS 637",
+          "description": "Deep Learning with Neural Networks provides practical techniques for modeling image, video, text, and graph data with supervised, unsupervised, and reinforcement learning approaches. Includes instruction in the latest software frameworks.",
+          "creditHrs": 3,
+          "interests": [
+            "artificial-intelligence",
+            "machine-learning"
+          ],
+          "corequisites": [],
+          "prerequisites": [
+            "ics_435"
+          ],
+          "repeatable": false,
           "retired": false
         },
         {
@@ -2404,7 +2558,10 @@
           "num": "ICS 641",
           "description": "Advanced topics in formal languages, automata, computability, computational complexity.",
           "creditHrs": 3,
-          "interests": [],
+          "interests": [
+            "algorithms",
+            "theory-of-computation"
+          ],
           "corequisites": [],
           "prerequisites": [
             "ics_441"
@@ -2418,7 +2575,10 @@
           "num": "ICS 643",
           "description": "Design and analysis of parallel algorithms, with emphasis on advanced techniques and latest advances in parallel algorithms.",
           "creditHrs": 3,
-          "interests": [],
+          "interests": [
+            "algorithms",
+            "hpc"
+          ],
           "corequisites": [],
           "prerequisites": [
             "ics_311"
@@ -2432,7 +2592,9 @@
           "num": "ICS 651",
           "description": "Elementary principles of modern computer networking. Detailed coverage of overall architecture and the physical, data link, and network layers, with emphasis on the network layer.",
           "creditHrs": 3,
-          "interests": [],
+          "interests": [
+            "networks"
+          ],
           "corequisites": [],
           "prerequisites": [
             "ics_451"
@@ -2446,7 +2608,9 @@
           "num": "ICS 655",
           "description": "Tools and methods for security managers. Tools and methods to secure and monetize services and applications. Network as a computer and as a market. Problems of cyber war, cyber crime, cyber bullying.",
           "creditHrs": 3,
-          "interests": [],
+          "interests": [
+            "security"
+          ],
           "corequisites": [],
           "prerequisites": [],
           "retired": false
@@ -2458,7 +2622,9 @@
           "num": "ICS 660",
           "description": "Models of computation, high-performance processors, pipelined machines, RISC processors, VLIW, superscalar and fine-grain parallel machines. Data-flow architectures. Hardware/software tradeoffs.",
           "creditHrs": 3,
-          "interests": [],
+          "interests": [
+            "computer-architecture"
+          ],
           "corequisites": [],
           "prerequisites": [],
           "retired": false
@@ -2470,7 +2636,9 @@
           "num": "ICS 661",
           "description": "Current issues in artificial intelligence, including expert systems, knowledge representation, logic programming, learning, natural language processing.",
           "creditHrs": 3,
-          "interests": [],
+          "interests": [
+            "artificial-intelligence"
+          ],
           "corequisites": [],
           "prerequisites": [
             "ics_461"
@@ -2484,7 +2652,9 @@
           "num": "ICS 663",
           "description": "Nature of the problem in pattern recognition and clustering; explanation of various algorithms.",
           "creditHrs": 3,
-          "interests": [],
+          "interests": [
+            "artificial-intelligence"
+          ],
           "corequisites": [],
           "prerequisites": [],
           "retired": false
@@ -2496,24 +2666,12 @@
           "num": "ICS 664",
           "description": "Studies of human performance in designing and using information systems. Emphasizes concepts and methodologies from human factors, psychology, and software engineering relating to human performance.",
           "creditHrs": 3,
-          "interests": [],
+          "interests": [
+            "hci"
+          ],
           "corequisites": [],
           "prerequisites": [
             "ics_464"
-          ],
-          "retired": false
-        },
-        {
-          "name": "User Interfaces and Hypermedia",
-          "shortName": "User Interfaces and Hypermedia",
-          "slug": "ics_665",
-          "num": "ICS 665",
-          "description": "Advanced concepts in construction of interfaces between computers and their users. Hypermedia information structures, guidelines, problems, and tradeoffs. Discussion of selected readings, implementation of prototypes.",
-          "creditHrs": 3,
-          "interests": [],
-          "corequisites": [],
-          "prerequisites": [
-            "ics_465"
           ],
           "retired": false
         },
@@ -2524,10 +2682,13 @@
           "num": "ICS 667",
           "description": "Advanced analytical and empirical methods for the design and evaluation of usable, useful, and robust human-computer interfaces. Students will apply selected methodologies to a major system design project.",
           "creditHrs": 3,
-          "interests": [],
+          "interests": [
+            "hci"
+          ],
           "corequisites": [],
           "prerequisites": [
-            "ics_464,ics_465"
+            "ics_464",
+            "ics_465"
           ],
           "retired": false
         },
@@ -2541,7 +2702,7 @@
           "interests": [],
           "corequisites": [],
           "prerequisites": [
-            "ics_464,ics_465,ics_664,ics_665"
+            "ics_464,ics_465,ics_664"
           ],
           "retired": false
         },
@@ -2552,24 +2713,12 @@
           "num": "ICS 669",
           "description": "Participative analysis of online communities and user-generated content collections. Theoretical and practical aspects of online interaction, identity, trust, and virtual social capital. A-F only.",
           "creditHrs": 3,
-          "interests": [],
+          "interests": [
+            "hci",
+            "social-computing"
+          ],
           "corequisites": [],
           "prerequisites": [],
-          "retired": false
-        },
-        {
-          "name": "Evolutionary Computation I: Survey of Methods",
-          "shortName": "Evolutionary Computation I",
-          "slug": "ics_674",
-          "num": "ICS 674",
-          "description": "Evolutionary computation surveys in the field to prepare students for research. Topics include diverse engineering applications, theory, and concepts including search spaces, representation, objective functions, variation operators, selection, and population based search.",
-          "creditHrs": 3,
-          "interests": [],
-          "corequisites": [],
-          "prerequisites": [
-            "ics_211",
-            "ics_241"
-          ],
           "retired": false
         },
         {
@@ -2579,7 +2728,9 @@
           "num": "ICS 675",
           "description": "To expose students to bioinformatics at the biological sequences analysis level (DNA, RNA, proteins). Several bioinformatics methods and algorithms are introduced. Students are required to present one paper and to participate in a small group project. A-F only.",
           "creditHrs": 3,
-          "interests": [],
+          "interests": [
+            "bioinformatics"
+          ],
           "corequisites": [],
           "prerequisites": [
             "ics_475"
@@ -2593,7 +2744,9 @@
           "num": "ICS 676",
           "description": "Introduction to the basic principles of biology relevant for microarray gene expression data and to Bioconductor. Collaborative open-source project to develop a modular general framework for the analysis of cDNA arrays and gene chips. A-F only. (Once a year)",
           "creditHrs": 3,
-          "interests": [],
+          "interests": [
+            "bioinformatics"
+          ],
           "corequisites": [],
           "prerequisites": [
             "ics_311"
@@ -2607,7 +2760,9 @@
           "num": "ICS 681",
           "description": "Selected advanced topics in computer graphics. Substantial project required.",
           "creditHrs": 3,
-          "interests": [],
+          "interests": [
+            "computer-graphics"
+          ],
           "corequisites": [],
           "prerequisites": [
             "ics_481"
@@ -2621,7 +2776,9 @@
           "num": "ICS 682",
           "description": "Selected topics in numerical analysis, mathematical software, and scientific computation; examples include sparse matrix methods, finite element methods, mathematical programming.",
           "creditHrs": 3,
-          "interests": [],
+          "interests": [
+            "algorithms"
+          ],
           "corequisites": [],
           "prerequisites": [],
           "retired": false
@@ -2633,7 +2790,9 @@
           "num": "ICS 683",
           "description": "Fundamental problems and core concepts and techniques in computer vision, covering both theoretical and practical issues in the field. A-F only. (Once a year)",
           "creditHrs": 3,
-          "interests": [],
+          "interests": [
+            "computer-vision"
+          ],
           "corequisites": [],
           "prerequisites": [
             "ics_483"
@@ -2647,7 +2806,9 @@
           "num": "ICS 685",
           "description": "Students will learn the science, engineering, art, and applications of virtual reality and augmented reality, with an emphasis on the construction of working virtual environments. Graduate students only. (Fall only)",
           "creditHrs": 3,
-          "interests": [],
+          "interests": [
+            "virtual-reality"
+          ],
           "corequisites": [],
           "prerequisites": [],
           "retired": false
@@ -2659,7 +2820,9 @@
           "num": "ICS 686",
           "description": "Principles and techniques of technical and context analysis of digital video information. Video capture and editing tools, compression and analysis algorithms, visual culture, narrative structure, juxtaposition of multimedia elements and their effects on information transmission. Pre: graduate standing or consent. (Alt. years)",
           "creditHrs": 3,
-          "interests": [],
+          "interests": [
+            "computer-graphics"
+          ],
           "corequisites": [],
           "prerequisites": [],
           "retired": false
@@ -2685,7 +2848,9 @@
           "num": "ICS 691",
           "description": "Reflects special interests of faculty in various areas of computer science. (B) area 1; (C) area 2; (D) area 3; (E) area 4; (G) general. Repeatable unlimited times in different topics and different areas. Pre: consent.",
           "creditHrs": 3,
-          "interests": [],
+          "interests": [
+            "research"
+          ],
           "corequisites": [],
           "prerequisites": [],
           "retired": false
@@ -2697,7 +2862,9 @@
           "num": "ICS 695",
           "description": "Current topics and upcoming issues relevant to the field of information assurance and cyber security. Repeatable unlimited times. (Alt. years: spring)",
           "creditHrs": 3,
-          "interests": [],
+          "interests": [
+            "security"
+          ],
           "corequisites": [],
           "prerequisites": [],
           "retired": false
@@ -2709,7 +2876,9 @@
           "num": "ICS 699",
           "description": "Repeatable unlimited times. Pre: graduate standing and consent.",
           "creditHrs": 3,
-          "interests": [],
+          "interests": [
+            "research"
+          ],
           "corequisites": [],
           "prerequisites": [],
           "retired": false
@@ -2721,7 +2890,9 @@
           "num": "ICS 700",
           "description": "Research for master’s thesis. Repeatable unlimited times.",
           "creditHrs": 3,
-          "interests": [],
+          "interests": [
+            "research"
+          ],
           "corequisites": [],
           "prerequisites": [],
           "retired": false
@@ -2733,7 +2904,9 @@
           "num": "ICS 800",
           "description": "Research for doctoral dissertation. Repeatable eight times. Pre: candidacy for PhD in computer science.",
           "creditHrs": 3,
-          "interests": [],
+          "interests": [
+            "research"
+          ],
           "corequisites": [],
           "prerequisites": [],
           "retired": false
@@ -3859,27 +4032,6 @@
           "profileCourses": []
         },
         {
-          "username": "sugihara@hawaii.edu",
-          "firstName": "Kazuo",
-          "lastName": "Sugihara",
-          "picture": "/images/default-profile-picture.png",
-          "website": null,
-          "interests": [
-            "research",
-            "robotics"
-          ],
-          "careerGoals": [
-            "research-scientist"
-          ],
-          "retired": false,
-          "shareWebsite": true,
-          "shareInterests": true,
-          "shareCareerGoals": true,
-          "sharePicture": true,
-          "profileOpportunities": [],
-          "profileCourses": []
-        },
-        {
           "username": "depengli@hawaii.edu",
           "firstName": "Depeng",
           "lastName": "Li",
@@ -3918,27 +4070,6 @@
           "careerGoals": [
             "graduate-school",
             "network-engineer",
-            "research-scientist"
-          ],
-          "retired": false,
-          "shareWebsite": true,
-          "shareInterests": true,
-          "shareCareerGoals": true,
-          "sharePicture": true,
-          "profileOpportunities": [],
-          "profileCourses": []
-        },
-        {
-          "username": "sstill@hawaii.edu",
-          "firstName": "Suzanne",
-          "lastName": "Still",
-          "picture": "/images/people/sstill.jpg",
-          "website": "http://www2.hawaii.edu/~sstill/",
-          "interests": [
-            "machine-learning",
-            "research"
-          ],
-          "careerGoals": [
             "research-scientist"
           ],
           "retired": false,
@@ -4434,7 +4565,7 @@
         {
           "name": "Research",
           "slug": "research",
-          "description": "Research comprises creative work undertaken on a systematic basis in order to increase the stock of knowledge, including knowledge of humans, culture and society.\n\nLearn more [here.](https://en.wikipedia.org/wiki/Research)",
+          "description": "To dramatically improve your chances of a great job after graduation, consider participating in a research project as an undergraduate. \n\nAll professors in the ICS Department have at least one research project, and most of them welcome undergraduate participation. To find at least some of the research projects available to you, add this as one of your interests. You won't be sorry!",
           "interestType": "cs-disciplines",
           "retired": false
         },
@@ -4574,7 +4705,7 @@
         {
           "name": "ACM ICPC",
           "slug": "acm-icpc",
-          "description": "Improve your portfolio and sharpen your programming skills by participating in the ACM International Collegiate Programming Contest (ICPC), the oldest and arguably most prestigious international programming competition for undergraduates. The contest involves a global network of universities hosting regional competitions that advance teams to the ACM-ICPC World Finals. Participation has grown to several tens of thousands of the finest students and faculty in computing disciplines at almost 2,736 universities from over 102 countries on six continents. \n\nThe contest fosters creativity, teamwork, and innovation in building new software programs, and enables students to test their ability to perform under pressure. Quite simply, it is the oldest, largest, and most prestigious programming contest in the world. \n\nFor more details, see the [home page](https://icpc.baylor.edu/) or the [Wikipedia entry](https://en.wikipedia.org/wiki/ACM_International_Collegiate_Programming_Contest).\n\nICPC occurs every Fall semester. \n\nContact [Nodari Sitchinava](mailto:nodari@hawaii.edu) early in the Fall semester if you would like to participate. \n\nVerification Criteria: After participating, request verification and the admin will confirm with Nodari that you participated.",
+          "description": "Improve your portfolio and sharpen your programming skills by participating in the ACM International Collegiate Programming Contest (ICPC), the oldest and arguably most prestigious international programming competition for undergraduates. The contest involves a global network of universities hosting regional competitions that advance teams to the ACM-ICPC World Finals. Participation has grown to several tens of thousands of the finest students and faculty in computing disciplines at almost 2,736 universities from over 102 countries on six continents. \n\nThe contest fosters creativity, teamwork, and innovation in building new software programs, and enables students to test their ability to perform under pressure. Quite simply, it is the oldest, largest, and most prestigious programming contest in the world. \n\nFor more details, see the [home page](https://icpc.baylor.edu/) or the [Wikipedia entry](https://en.wikipedia.org/wiki/ACM_International_Collegiate_Programming_Contest).\n\nICPC occurs every Fall semester. \n\nContact [Nodari Sitchinava](mailto:nodari@hawaii.edu) early in the Fall semester if you would like to participate.",
           "opportunityType": "event",
           "sponsor": "nodari@hawaii.edu",
           "ice": {
@@ -4586,12 +4717,13 @@
             "algorithms",
             "application-development"
           ],
+          "picture": "https://upload.wikimedia.org/wikipedia/en/1/1d/ICPC_International_Collegiate_Programming_Contest_logo%2C_Aug_2018.png",
           "retired": false
         },
         {
           "name": "ACM Manoa",
           "slug": "acm-manoa",
-          "description": "Make friends and find folks with similar interests by joining ACM Manoa, the UH student chapter of the Association for Computing Machinery and most popular undergraduate computer science club. We are a Registered Independent Organization (RIO) focused on providing opportunities and resources for our members’ personal and professional advancement.  ACM Manoa currently sponsors three special interest groups: GreyHats (security), Algorithms for Competitions and Interviews, and Data Science.\n\nACM Manoa has 3 pillars: social, professional, and technical.\n\n  * We hold social activities for our members to have fun as well as develop and strengthen their interpersonal relationships.\n\n  * We strive to connect our members to professionals in the industry, abroad and within the Honolulu community.\n\n  * We are largely comprised of aspiring professionals in the computing industry; accordingly, members in ACM Manoa are encouraged to join and create Special Interest Groups (SIG) and Playgrounds where they can collaborate on interesting projects. \n\nFor more information, go to [http://acmanoa.github.io/](http://acmanoa.github.io/)\n\nVerification Criteria: Take a selfie at two different meetings on two different days. When it is over, show the pictures to this Opportunity's sponsor, or your advisor as evidence of your attendance.",
+          "description": "Make friends and find folks with similar interests by joining ACM Manoa, the UH student chapter of the Association for Computing Machinery and most popular undergraduate computer science club. We are a Registered Independent Organization (RIO) focused on providing opportunities and resources for our members’ personal and professional advancement.  ACM Manoa currently sponsors three special interest groups: GreyHats (security), Algorithms for Competitions and Interviews, and Data Science.\n\nACM Manoa has 3 pillars: social, professional, and technical.\n\n  * We hold social activities for our members to have fun as well as develop and strengthen their interpersonal relationships.\n\n  * We strive to connect our members to professionals in the industry, abroad and within the Honolulu community.\n\n  * We are largely comprised of aspiring professionals in the computing industry; accordingly, members in ACM Manoa are encouraged to join and create Special Interest Groups (SIG) and Playgrounds where they can collaborate on interesting projects. \n\nFor more information, go to [http://acmanoa.github.io/](http://acmanoa.github.io/)",
           "opportunityType": "club",
           "sponsor": "johnson@hawaii.edu",
           "ice": {
@@ -4609,14 +4741,23 @@
             "security",
             "software-engineering"
           ],
+          "eventDate1": "2021-06-23T09:02:00.000Z",
+          "eventDate2": "2021-07-01T09:03:00.000Z",
+          "eventDate3": "2021-07-06T09:03:00.000Z",
+          "eventDate4": "2021-07-01T09:04:00.000Z",
+          "eventDateLabel1": "June General Meeting",
+          "eventDateLabel2": "July General Meeting",
+          "eventDateLabel3": "July GreyHats Meeting",
+          "eventDateLabel4": "July PANDAs meeting",
+          "picture": "https://pbs.twimg.com/profile_images/866551769576243200/Sn5pGh8F_400x400.jpg",
           "retired": false
         },
         {
           "name": "AFCEA Hawaii",
           "slug": "afcea-hawaii",
-          "description": "Make professional connections in the local security community by attending meetings of the Hawaii chapter of the Armed Forces Communication and Electronics Association, which provides services to security professionals in the military, federal government, and industry.  Though we may have diverse backgrounds, our unified goal is to support the mission of AFCEA and ultimately, the security of our great nation.\n\nBeing a member of AFCEA is important for professionals in the global security community. Benefits include:\n\n* Connect with great ideas, vital solutions, and innovative people\n* Enhance your resume by being part of the rich heritage of AFCEA\n* Help advance the global security mission\n* Receive SIGNAL magazine, AFCEA’s award winning monthly professional journal.\n* AFCEA members receive discounts on training, certifications and degree programs.\n\nFor more details, see [https://www.afcea-hawaii.org/](https://www.afcea-hawaii.org/).\n\n\nVerification criteria: See the sponsor of this opportunity for verification.",
+          "description": "Make professional connections in the local security community by attending meetings of the Hawaii chapter of the Armed Forces Communication and Electronics Association, which provides services to security professionals in the military, federal government, and industry.  Though we may have diverse backgrounds, our unified goal is to support the mission of AFCEA and ultimately, the security of our great nation.\n\nBeing a member of AFCEA is important for professionals in the global security community. Benefits include:\n\n* Connect with great ideas, vital solutions, and innovative people\n* Enhance your resume by being part of the rich heritage of AFCEA\n* Help advance the global security mission\n* Receive SIGNAL magazine, AFCEA’s award winning monthly professional journal.\n* AFCEA members receive discounts on training, certifications and degree programs.\n\nFor more details, see [https://www.afcea-hawaii.org/](https://www.afcea-hawaii.org/).",
           "opportunityType": "club",
-          "sponsor": "glau@hawaii.edu",
+          "sponsor": "johnson@hawaii.edu",
           "ice": {
             "i": 0,
             "c": 0,
@@ -4625,12 +4766,13 @@
           "interests": [
             "security"
           ],
+          "picture": "https://www.hsta.org/wp-content/uploads/2020/11/img-AFCEA-Hawaii-Logo-16x9-1.png",
           "retired": false
         },
         {
           "name": "AllNet",
           "slug": "allnet",
-          "description": "Gain proficiency with low-level programming, networking, and app development by participating in the AllNet research project led by Professor Edo Biagioni, which is developing software to allow cellphones to interact directly with each other without the intermediary of a phone company.  \n\nMy cellphone has a radio that can easily communicate with the radio in your cellphone.  To date, such capability has only been used for limited purposes, including contact tracing and the exchange of pictures.\n\nThe AllNet project aims to support general interpersonal communications directly between devices, even in the absence of cellular or Internet service.\n\nWe are looking for students who want to learn how to get different devices, both computers and cellphones/mobiles, to talk directly with each other. We are also interested in students who think they can adapt the current code to run as an app on their favorite mobile device.\n\nHere are some current projects we are working on:\n\n*AllNet Apps:* The xchat peer-to-peer app for allnet has been developed for iOS, and a preliminary implementation exists for Android. More work needs to be done on both, but especially the Android app must be brought up to date and given more complete functionality.\n\n*A portable peer-to-peer library:* AllNet is designed to work both with the regular network infrastructure -- wired, cellular, and WiFi links -- and without it, using peer-to-peer (p2p) communications.  Some of the p2p has been implemented, specifically wifi ad-hoc mode between Linux systems and multipeer connectivity between apple system.  More work needs to be done to include Android and Windows systems and to provide cross-platform connectivity.\n\nTo apply:  Send email to esb@hawaii.edu.  Please include a brief description of what you hope to get out of the internship, what skills you might bring to the project, and how much time you are likely to be able to commit to it.\n\nLearn more at: [http://alnt.org/](http://alnt.org/).\n\nVerification Criteria: Submit for verification with a brief summary of what you accomplished during the semester on this project.",
+          "description": "Gain proficiency with low-level programming, networking, and app development by participating in the AllNet research project led by Professor Edo Biagioni, which is developing software to allow cellphones to interact directly with each other without the intermediary of a phone company.  \n\nMy cellphone has a radio that can easily communicate with the radio in your cellphone.  To date, such capability has only been used for limited purposes, including contact tracing and the exchange of pictures.\n\nThe AllNet project aims to support general interpersonal communications directly between devices, even in the absence of cellular or Internet service.\n\nWe are looking for students who want to learn how to get different devices, both computers and cellphones/mobiles, to talk directly with each other. We are also interested in students who think they can adapt the current code to run as an app on their favorite mobile device.\n\nHere are some current projects we are working on:\n\n*AllNet Apps:* The xchat peer-to-peer app for allnet has been developed for iOS, and a preliminary implementation exists for Android. More work needs to be done on both, but especially the Android app must be brought up to date and given more complete functionality.\n\n*A portable peer-to-peer library:* AllNet is designed to work both with the regular network infrastructure -- wired, cellular, and WiFi links -- and without it, using peer-to-peer (p2p) communications.  Some of the p2p has been implemented, specifically wifi ad-hoc mode between Linux systems and multipeer connectivity between apple system.  More work needs to be done to include Android and Windows systems and to provide cross-platform connectivity.\n\nTo apply:  Send email to esb@hawaii.edu.  Please include a brief description of what you hope to get out of the internship, what skills you might bring to the project, and how much time you are likely to be able to commit to it.\n\nLearn more at: [http://alnt.org/](http://alnt.org/).",
           "opportunityType": "project",
           "sponsor": "esb@hawaii.edu",
           "ice": {
@@ -4644,6 +4786,7 @@
             "networks",
             "research"
           ],
+          "picture": "http://alnt.org/logo-top-half.png",
           "retired": false
         },
         {
@@ -4661,14 +4804,15 @@
             "application-development",
             "research"
           ],
+          "picture": "https://images.squarespace-cdn.com/content/5fdefd24d610986319770ca6/1608449505838-B8LKOD7D4NV3TX2U5TSF/HI-SEAS_logo_3500px_no_url.png",
           "retired": false
         },
         {
           "name": "ASECOLab",
           "slug": "asecolab",
-          "description": "Participate in research involving algorithmic aspects of security by joining the Adaptive Security and Economics Lab, headed by Professor Dusko Pavlovic.\n\nWe study how security is achieved through adaptation, and how  fortifications give an illusion of security. This has to do with economics, but also with cryptography.  Our research is thus more “interdisciplinary”, and perhaps riskier than most people like; but it’s huge fun.\n\nLearn more at: [http://www.asecolab.org/](http://www.asecolab.org/).\n\n\nVerification Criteria: At the conclusion of the semester, ask this Opportunity's sponsor to verify your participation by logging into RadGrad.",
+          "description": "Participate in research involving algorithmic aspects of security by joining the Adaptive Security and Economics Lab, headed by Professor Dusko Pavlovic.\n\nWe study how security is achieved through adaptation, and how  fortifications give an illusion of security. This has to do with economics, but also with cryptography.  Our research is thus more “interdisciplinary”, and perhaps riskier than most people like; but it’s huge fun.\n\nLearn more at: [http://www.asecolab.org/](http://www.asecolab.org/).",
           "opportunityType": "project",
-          "sponsor": "johnson@hawaii.edu",
+          "sponsor": "dusko@hawaii.edu",
           "ice": {
             "i": 25,
             "c": 0,
@@ -4678,12 +4822,13 @@
             "research",
             "security"
           ],
+          "picture": "https://www.ics.hawaii.edu/wp-content/uploads/2013/08/asecologo.jpeg",
           "retired": false
         },
         {
           "name": "Asteroid Detection",
           "slug": "asteroid-detection",
-          "description": "Help prevent humans from dying out just like the dinosaurs by participating in a research project of AlgoPARC and ATLAS to improve the speed and accuracy of asteroid detection algorithms. \n\nThis project involves using geometric data structures to organize the data in the images of the sky for efficient processing and detection of moving objects. This project is an awesome opportunity to apply what you’ve learned in ICS 311, ICS 621 and ICS 691 C. \n\n\nThis project is sponsored by the [AlgoPARC](http://algoparc.ics.hawaii.edu/) research group, and there is REU funding so there is the possibility of being paid for your work. \n\nVerification criteria: For verification, please contact [Professor Nodari Sitchinava](http://algoparc.ics.hawaii.edu/nodari/index.html) after the semester is over.",
+          "description": "Help prevent humans from dying out just like the dinosaurs by participating in a research project of AlgoPARC and ATLAS to improve the speed and accuracy of asteroid detection algorithms. \n\nThis project involves using geometric data structures to organize the data in the images of the sky for efficient processing and detection of moving objects. This project is an awesome opportunity to apply what you’ve learned in ICS 311, ICS 621 and ICS 691 C. \n\n\nThis project is sponsored by the [AlgoPARC](http://algoparc.ics.hawaii.edu/) research group, and there is REU funding so there is the possibility of being paid for your work.",
           "opportunityType": "project",
           "sponsor": "nodari@hawaii.edu",
           "ice": {
@@ -4695,14 +4840,15 @@
             "algorithms",
             "research"
           ],
+          "picture": "https://algoparc.ics.hawaii.edu/assets/img/algoparc-logo-tiny-square-transparent.svg",
           "retired": false
         },
         {
           "name": "AT&T Hackathon",
           "slug": "att-iot-hackathon",
-          "description": "Make connections and learn about leading edge technologies by participating in an AT&T hackathon, which has previously focused on topics including machine learning, IoT, and block chain.\n\nFor information about prior AT&T Hackathons, see their [developer blog](https://developer.att.com/blog/category/hackathon). \n\nFor this opportunity, participate in an AT&T hackathon during a semester.  \n\nVerification Criteria: After the hackathon is over, show this Opportunity's sponsor evidence of your participation. This can include the code you developed and its commit history, and/or your hackathon registration, and/or selfies of you attending the event.",
+          "description": "Make connections and learn about leading edge technologies by participating in an AT&T hackathon, which has previously focused on topics including machine learning, IoT, and block chain.\n\nFor information about prior AT&T Hackathons, see their [developer blog](https://developer.att.com/blog/category/hackathon). \n\nFor this opportunity, participate in an AT&T hackathon during a semester.",
           "opportunityType": "event",
-          "sponsor": "glau@hawaii.edu",
+          "sponsor": "johnson@hawaii.edu",
           "ice": {
             "i": 15,
             "c": 0,
@@ -4713,12 +4859,21 @@
             "artificial-intelligence"
           ],
           "eventDate": "2016-11-18T00:00:00.000Z",
+          "eventDate1": "2021-07-01T09:05:00.000Z",
+          "eventDate2": "2021-07-08T09:05:00.000Z",
+          "eventDate3": "2021-07-15T09:05:00.000Z",
+          "eventDate4": "2021-07-21T09:06:00.000Z",
+          "eventDateLabel1": "Kickoff Meeting",
+          "eventDateLabel2": "Pitch Competition",
+          "eventDateLabel3": "Product Review",
+          "eventDateLabel4": "Finals and Rewards Banquet",
+          "picture": "https://www.hawaii.edu/its/wp-content/uploads/sites/2/2018/03/ATT_9796-768x512.jpg",
           "retired": false
         },
         {
           "name": "Cache-efficient parallel algorithms",
           "slug": "cache-efficient-parallel-algorithms",
-          "description": "If you want to learn more about parallel programming, you can join this research project led by Professor Nodari Sitchinava to develop new parallel algorithms to efficiently utilize caches.\n\nModern multicore systems come with up to a TB of RAM these days. However, such large memory comes at the cost of slow access, compared to the speed of individual cores. To hide the latency of access to slow RAM, modern multicore processors come with faster, but much smaller caches. Thus, for optimal performance, it is very important to intelligently utilize these limited faster caches.\n\nIn this project we develop and implement new parallel algorithms which efficiently utilize available caches. We also study the limits of parallel computation in the presence of caches. Knowledge of parallel programming is a plus, but is NOT a prerequisite to start working on this project.\n\nRelevant courses: ICS 311, ICS 432, ICS 443, ICS 621, ICS 643, ICS 691C.\n\nThis project is sponsored by the [AlgoPARC](http://algoparc.ics.hawaii.edu/) research group, and there is REU funding so there is the possibility of being paid for your work. \n\nVerification criteria: For verification, please contact [Professor Nodari Sitchinava](http://algoparc.ics.hawaii.edu/nodari/index.html) after the semester is over.",
+          "description": "If you want to learn more about parallel programming, you can join this research project led by Professor Nodari Sitchinava to develop new parallel algorithms to efficiently utilize caches.\n\nModern multicore systems come with up to a TB of RAM these days. However, such large memory comes at the cost of slow access, compared to the speed of individual cores. To hide the latency of access to slow RAM, modern multicore processors come with faster, but much smaller caches. Thus, for optimal performance, it is very important to intelligently utilize these limited faster caches.\n\nIn this project we develop and implement new parallel algorithms which efficiently utilize available caches. We also study the limits of parallel computation in the presence of caches. Knowledge of parallel programming is a plus, but is NOT a prerequisite to start working on this project.\n\nRelevant courses: ICS 311, ICS 432, ICS 443, ICS 621, ICS 643, ICS 691C.\n\nThis project is sponsored by the [AlgoPARC](http://algoparc.ics.hawaii.edu/) research group, and there is REU funding so there is the possibility of being paid for your work.",
           "opportunityType": "project",
           "sponsor": "nodari@hawaii.edu",
           "ice": {
@@ -4732,14 +4887,15 @@
             "parallel-programming",
             "research"
           ],
+          "picture": "https://algoparc.ics.hawaii.edu/assets/img/algoparc-logo-tiny-borderless.svg",
           "retired": false
         },
         {
           "name": "CCDC",
           "slug": "ccdc",
-          "description": "Gain valuable, practical security skills and meet other undergraduates by participating in the annual Collegiate Cyber Defense Competition, the largest cyber defense competition in the United States.\n\nThe teams that make it past the at-large regionals, usually held in March, go on to compete at the National Collegiate Cyber Defense Competition (NCCDC). The University of Texas, Austin, hosts this competition. The [at-large regionals](http://www.nationalccdc.org/index.php/competition/competitors/ccdc-regionals) are generally held in March. \n\nIn 2011, the ICS department fielded a team that took 2nd place at the regional level, which is the best finish in department history. \n\nContact the GreyHats if you want to go for the gold on the largest national stage for collegiate cyber defense programs.\n\n\nVerification criteria: At the conclusion of the event, request verification. You should be able to supply evidence of team participation.",
+          "description": "Gain valuable, practical security skills and meet other undergraduates by participating in the annual Collegiate Cyber Defense Competition, the largest cyber defense competition in the United States.\n\nThe teams that make it past the at-large regionals, usually held in March, go on to compete at the National Collegiate Cyber Defense Competition (NCCDC). The University of Texas, Austin, hosts this competition. The [at-large regionals](http://www.nationalccdc.org/index.php/competition/competitors/ccdc-regionals) are generally held in March. \n\nIn 2011, the ICS department fielded a team that took 2nd place at the regional level, which is the best finish in department history. \n\nContact the GreyHats if you want to go for the gold on the largest national stage for collegiate cyber defense programs.",
           "opportunityType": "event",
-          "sponsor": "glau@hawaii.edu",
+          "sponsor": "johnson@hawaii.edu",
           "ice": {
             "i": 0,
             "c": 0,
@@ -4748,12 +4904,13 @@
           "interests": [
             "security"
           ],
+          "picture": "/images/radgrad_logo.png",
           "retired": false
         },
         {
           "name": "Cloud Honolulu",
           "slug": "cloud-honolulu",
-          "description": "If you want to learn about cloud computing and network with local developers, then you'll want to join the Cloud HNL Meetup Group!\n\nWe are just a group of GCP/AWS (and cloud) enthusiasts, which means we do not work for AWS or GCP nor get commissions from them. We won't be pitching you into buying stuff. All we want is to share our knowledge about cloud computing and create a space where all Hawaiians can reach out with cloud-related topics.\n\nOur intent is to spread the voice out, create working sessions, share our expertise, and, of course, have a good time, and share some beers and pizza!\n\nOur Mission is to, as a group, create a space where anyone in the state of Hawaii can find answers and guidance on how to leverage the world's largest public cloud providers.\n\nYou really don't need to be an expert about cloud computing to participate. We invite folks from any kind of background and seniority to join us. Whether you are a student at UH/HPU, a businessman with a startup idea, or an experienced Software Engineer we encourage you to join our group and we will thrive to make your cloud experience as smooth as possible. Although it is not strictly necessary to have an IT background, be prepared to get in-depth from time to time!\n\nThe initial intent for our meetings is to have one or two working sessions where members can share cool AWS related stuff they are working on, introduce new services, troubleshoot problems participants may have, or architecture cloud-native applications. Last but not last...have a couple of beers and pizza!\n\nFor more information, see the [Cloud Honolulu Meetup Page](https://www.meetup.com/cloudhonolulu/)\n\nVerification: Attend at least two meetings during the semester, then request verification.",
+          "description": "If you want to learn about cloud computing and network with local developers, then you'll want to join the Cloud HNL Meetup Group!\n\nWe are just a group of GCP/AWS (and cloud) enthusiasts, which means we do not work for AWS or GCP nor get commissions from them. We won't be pitching you into buying stuff. All we want is to share our knowledge about cloud computing and create a space where all Hawaiians can reach out with cloud-related topics.\n\nOur intent is to spread the voice out, create working sessions, share our expertise, and, of course, have a good time, and share some beers and pizza!\n\nOur Mission is to, as a group, create a space where anyone in the state of Hawaii can find answers and guidance on how to leverage the world's largest public cloud providers.\n\nYou really don't need to be an expert about cloud computing to participate. We invite folks from any kind of background and seniority to join us. Whether you are a student at UH/HPU, a businessman with a startup idea, or an experienced Software Engineer we encourage you to join our group and we will thrive to make your cloud experience as smooth as possible. Although it is not strictly necessary to have an IT background, be prepared to get in-depth from time to time!\n\nThe initial intent for our meetings is to have one or two working sessions where members can share cool AWS related stuff they are working on, introduce new services, troubleshoot problems participants may have, or architecture cloud-native applications. Last but not last...have a couple of beers and pizza!\n\nFor more information, see the [Cloud Honolulu Meetup Page](https://www.meetup.com/cloudhonolulu/)",
           "opportunityType": "club",
           "sponsor": "johnson@hawaii.edu",
           "ice": {
@@ -4768,12 +4925,13 @@
             "cloud-computing",
             "software-engineering"
           ],
+          "picture": "https://secure.meetupstatic.com/photos/event/5/6/9/b/600_488422171.jpeg",
           "retired": false
         },
         {
           "name": "Code for Hawaii",
           "slug": "code-for-hawaii",
-          "description": "If you would like to apply technology to solve community problems, then please consider joining Code for Hawaii, a Code for America Brigade. \n\nWe are volunteers interested in open data, open knowledge, civic apps, data visualization, APIs and the application of technology to make our community better. We encourage civic engagement and collaboration with our local government. We hold weekly project nights (and a monthly all-hands meeting) to see how we can help make a difference in Hawaii. \n\nOur projects range from events like National Day of Civic Hacking, to transit apps that help navigate Hawaii, submit FOIA requests, or adopt your local siren. \n\nIf you're passionate about civic technology, this is the meetup for you! \n\nYou can learn more at [http://www.codeforhawaii.org/](http://www.codeforhawaii.org/), our website.\n\nVerification criteria: Take selfies at least two meetings during the semester, then contact this Opportunity's sponsor to login to RadGrad to verify your participation.",
+          "description": "If you would like to apply technology to solve community problems, then please consider joining Code for Hawaii, a Code for America Brigade. \n\nWe are volunteers interested in open data, open knowledge, civic apps, data visualization, APIs and the application of technology to make our community better. We encourage civic engagement and collaboration with our local government. We hold weekly project nights (and a monthly all-hands meeting) to see how we can help make a difference in Hawaii. \n\nOur projects range from events like National Day of Civic Hacking, to transit apps that help navigate Hawaii, submit FOIA requests, or adopt your local siren. \n\nIf you're passionate about civic technology, this is the meetup for you! \n\nYou can learn more at [http://www.codeforhawaii.org/](http://www.codeforhawaii.org/), our website.",
           "opportunityType": "club",
           "sponsor": "johnson@hawaii.edu",
           "ice": {
@@ -4785,6 +4943,7 @@
             "application-development",
             "civic-engagement"
           ],
+          "picture": "http://www.codeforhawaii.org/img/logo.transparent.800.png",
           "retired": false
         },
         {
@@ -4801,6 +4960,7 @@
           "interests": [
             "application-development"
           ],
+          "picture": "https://www.hawaiical.com/wp-content/uploads/2020/09/UH-College-of-Engineering.png",
           "retired": false
         },
         {
@@ -4818,6 +4978,7 @@
             "data-science",
             "databases"
           ],
+          "picture": "https://s3.amazonaws.com/coursera_assets/meta_images/generated/XDP/XDP~SPECIALIZATION!~big-data/XDP~SPECIALIZATION!~big-data.jpeg",
           "retired": false
         },
         {
@@ -4835,6 +4996,7 @@
             "data-science",
             "r"
           ],
+          "picture": "https://www.r-project.org/logo/Rlogo.svg",
           "retired": false
         },
         {
@@ -4857,12 +5019,13 @@
             "databases",
             "software-engineering"
           ],
+          "picture": "https://www.crackingthecodinginterview.com/uploads/6/5/2/8/6528028/header_images/1435811621.jpg",
           "retired": false
         },
         {
           "name": "CS-related job",
           "slug": "cs-job",
-          "description": "If you have a job involving software development, you can use this opportunity to indicate your job in the Degree Plan and earn points for each semester you are employed.\n\n[Learn more here.](https://www.indeed.com/q-Computer-Science-l-Hawaii-jobs.html)\n\nVerification criteria: At the conclusion of each semester, request this Opportunity's sponsor to login to RadGrad to verify your participation. You should be able to supply evidence of your work and how it directly relates to computer science.",
+          "description": "If you have a job involving software development, you can use this opportunity to indicate your job in the Degree Plan and earn points for each semester you are employed.",
           "opportunityType": "internship",
           "sponsor": "johnson@hawaii.edu",
           "ice": {
@@ -4873,6 +5036,7 @@
           "interests": [
             "application-development"
           ],
+          "picture": "/images/radgrad_logo.png",
           "retired": false
         },
         {
@@ -4890,6 +5054,11 @@
             "security",
             "teaching"
           ],
+          "eventDate1": "2021-06-14T09:33:00.000Z",
+          "eventDate2": "2021-06-21T09:33:00.000Z",
+          "eventDateLabel1": "Virtual Camp 2",
+          "eventDateLabel2": "Virtual Camp 3",
+          "picture": "https://gencyber-hi.org/events/assets/img/logo.png",
           "retired": false
         },
         {
@@ -4907,6 +5076,7 @@
             "game-design",
             "application-development"
           ],
+          "picture": "https://s3-us-west-1.amazonaws.com/ggj/site/site-images/GGJ00_Logo_Dark.png",
           "retired": false
         },
         {
@@ -4926,12 +5096,13 @@
             "mobile",
             "software-engineering"
           ],
+          "picture": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/GSoC-icon.svg/1200px-GSoC-icon.svg.png",
           "retired": false
         },
         {
           "name": "GPU Algorithms",
           "slug": "gpu-algorithms",
-          "description": "Learn about graphics processing units and low-level hardware caching by participating in the GPU Algorithms research project, led by Professor Nodari Sitchinava. \n\nGraphics processing units provide a lot of parallelism and computational power. A lot of GPU research is via trial and error. We are looking at modeling GPUs to be able to predict which algorithms and techniques will lead to efficient implementations.\n\nGPUs also utilize faster caches. Thus, the techniques developed as part of the \"Cache-efficient Parallel Algorithms\" project are also applicable here.\n\nThe research in this project involves developing new parallel algorithms and implementing them on NVIDIA GPUs using CUDA programming language. Knowledge of CUDA is a plus, but is NOT a prerequisite to start working on this project.\n\nRelevant courses: ICS 311, ICS 432, ICS 443, ICS 621, ICS 643, ICS 691C.\n\nThis project is sponsored by the [AlgoPARC](http://algoparc.ics.hawaii.edu/) research group, and there is REU funding so there is the possibility of being paid for your work. \n\nVerification criteria: For verification, please contact [Professor Nodari Sitchinava](http://algoparc.ics.hawaii.edu/nodari/index.html) after the semester is over.",
+          "description": "Learn about graphics processing units and low-level hardware caching by participating in the GPU Algorithms research project, led by Professor Nodari Sitchinava. \n\nGraphics processing units provide a lot of parallelism and computational power. A lot of GPU research is via trial and error. We are looking at modeling GPUs to be able to predict which algorithms and techniques will lead to efficient implementations.\n\nGPUs also utilize faster caches. Thus, the techniques developed as part of the \"Cache-efficient Parallel Algorithms\" project are also applicable here.\n\nThe research in this project involves developing new parallel algorithms and implementing them on NVIDIA GPUs using CUDA programming language. Knowledge of CUDA is a plus, but is NOT a prerequisite to start working on this project.\n\nRelevant courses: ICS 311, ICS 432, ICS 443, ICS 621, ICS 643, ICS 691C.\n\nThis project is sponsored by the [AlgoPARC](http://algoparc.ics.hawaii.edu/) research group, and there is REU funding so there is the possibility of being paid for your work.",
           "opportunityType": "project",
           "sponsor": "nodari@hawaii.edu",
           "ice": {
@@ -4945,6 +5116,7 @@
             "parallel-programming",
             "research"
           ],
+          "picture": "https://www.ics.hawaii.edu/wp-content/uploads/2017/12/algoparc-logo-tiny-square.png",
           "retired": false
         },
         {
@@ -4964,6 +5136,7 @@
             "social-computing",
             "teaching"
           ],
+          "picture": "http://s3-us-west-2.amazonaws.com/thecube-prod/landingPage/0befc1f8-eb95-435d-95b1-048205bd473c.png",
           "retired": false
         },
         {
@@ -4981,6 +5154,7 @@
             "graphql",
             "react"
           ],
+          "picture": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/GraphQL_Logo.svg/1200px-GraphQL_Logo.svg.png",
           "retired": false
         },
         {
@@ -5001,6 +5175,7 @@
             "social-computing",
             "sustainability"
           ],
+          "picture": "https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/challenge_photos/000/528/490/datas/full_width.png",
           "retired": false
         },
         {
@@ -5017,6 +5192,7 @@
           "interests": [
             "machine-learning"
           ],
+          "picture": "/images/radgrad_logo.png",
           "retired": false
         },
         {
@@ -5033,6 +5209,7 @@
           "interests": [
             "entrepreneurship"
           ],
+          "picture": "https://secure.meetupstatic.com/photos/event/5/4/a/a/600_478221674.jpeg",
           "retired": false
         },
         {
@@ -5052,6 +5229,7 @@
             "social-computing",
             "teaching"
           ],
+          "picture": "https://hourofcode.com/us/en/images/hour-of-code-logo.png",
           "retired": false
         },
         {
@@ -5068,6 +5246,7 @@
           "interests": [
             "hpc"
           ],
+          "picture": "/images/radgrad_logo.png",
           "retired": false
         },
         {
@@ -5087,6 +5266,7 @@
             "teaching",
             "social-computing"
           ],
+          "picture": "/images/radgrad_logo.png",
           "retired": false
         },
         {
@@ -5105,6 +5285,7 @@
             "entrepreneurship",
             "it-management"
           ],
+          "picture": "http://www.itmahawaii.com/wp-content/uploads/2019/09/cropped-ITMA-Text-Logo-2019.png",
           "retired": false
         },
         {
@@ -5121,6 +5302,7 @@
           "interests": [
             "javascript"
           ],
+          "picture": "https://www.jsconfhi.com/android-chrome-512x512.png",
           "retired": false
         },
         {
@@ -5142,6 +5324,7 @@
             "python",
             "teaching"
           ],
+          "picture": "https://datascience.foundation/backend/web/uploads/blog/Working-with-Python-on-Cloud.png",
           "retired": false
         },
         {
@@ -5164,6 +5347,7 @@
             "r",
             "research"
           ],
+          "picture": "https://upload.wikimedia.org/wikipedia/commons/7/7c/Kaggle_logo.png",
           "retired": false
         },
         {
@@ -5183,6 +5367,7 @@
             "research",
             "virtual-reality"
           ],
+          "picture": "https://www.hawaii.edu/news/wp-content/uploads/2020/05/manoa-nsf-jason-leigh-2.jpg",
           "retired": false
         },
         {
@@ -5202,6 +5387,15 @@
             "cryptography",
             "security"
           ],
+          "eventDate1": "2021-08-23T15:40:00.000Z",
+          "eventDate2": "2021-10-11T15:41:00.000Z",
+          "eventDate3": "2021-10-22T15:41:00.000Z",
+          "eventDate4": "2021-11-05T15:41:00.000Z",
+          "eventDateLabel1": "Registration Opens",
+          "eventDateLabel2": "Preseason Game",
+          "eventDateLabel3": "Individual Game",
+          "eventDateLabel4": "Team Game",
+          "picture": "https://images.squarespace-cdn.com/content/5e13a4b584a68c775e362068/1607517723861-XBVA0ONKL21ZROH9C44C/NCL+Powered+By+Cyber+Skyline+Monotone+Logo+copy.png?content-type=image%2Fpng",
           "retired": false
         },
         {
@@ -5220,6 +5414,7 @@
             "parallel-programming",
             "research"
           ],
+          "picture": "https://algoparc.ics.hawaii.edu/assets/img/algoparc-logo-tiny-borderless.svg",
           "retired": false
         },
         {
@@ -5238,6 +5433,7 @@
             "sustainability",
             "teaching"
           ],
+          "picture": "https://purplemaia.org/wp-content/uploads/2017/04/pmlogo-1.png",
           "retired": false
         },
         {
@@ -5254,6 +5450,7 @@
           "interests": [
             "python"
           ],
+          "picture": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Python.svg/768px-Python.svg.png",
           "retired": false
         },
         {
@@ -5273,6 +5470,7 @@
             "python",
             "web-development"
           ],
+          "picture": "https://www.djangoproject.com/m/img/logos/django-logo-positive.png",
           "retired": false
         },
         {
@@ -5293,6 +5491,7 @@
             "research",
             "software-engineering"
           ],
+          "picture": "/images/radgrad_logo.png",
           "retired": false
         },
         {
@@ -5312,6 +5511,7 @@
             "it-management",
             "social-computing"
           ],
+          "picture": "data:image/png;base64,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",
           "retired": false
         },
         {
@@ -5319,7 +5519,7 @@
           "slug": "sadowski-lab-research-assistant",
           "description": "If you're interested in machine learning and/or data science, consider joining Professor Peter Sadowski's research group to work on interdisciplinary projects including astronomy, high-energy physics, oceanography, climate science, and cancer screening through medical imaging. \n\nUndergraduates who are interested in machine learning and data science are encouraged to ask Dr. Sadowski about opportunities, which could include summer research (UROP), suggestions for class projects, or guidance on a Kaggle competition. Our group values skills in Python programming, data analysis in Jupyter, math/statistics coursework, Linux systems, and High-Performance Computing. \n\nFor more information, see [https://www2.hawaii.edu/~psadow/](https://www2.hawaii.edu/~psadow/).",
           "opportunityType": "internship",
-          "sponsor": "johnson@hawaii.edu",
+          "sponsor": "psadow@hawaii.edu",
           "ice": {
             "i": 25,
             "c": 0,
@@ -5332,12 +5532,13 @@
             "machine-learning",
             "research"
           ],
+          "picture": "https://www.ics.hawaii.edu/wp-content/uploads/2018/08/peter-sadowski_300x300.jpg",
           "retired": false
         },
         {
           "name": "Business Plan Competition",
           "slug": "shidler-bpc",
-          "description": "Connect with undergraduates from the business school and develop your entrepreneurial chops by participating in the annual Shidler Business Plan competition, an intense and unique semester-long learning opportunity for UH students who aspire to pursue a business venture. \n\nThe competition provides mentorship, training and resources. Winners walk away with a wealth of business savvy and substantial cash prizes. \n\nLearn more at: [http://pace.shidler.hawaii.edu/bpc](http://pace.shidler.hawaii.edu/bpc).\n\nVerification criteria: At the conclusion of the competition, request this Opportunity's sponsor to login to RadGrad to verify your participation. Provide your business plan and selfies at two meetings to verify your participation.",
+          "description": "Connect with undergraduates from the business school and develop your entrepreneurial chops by participating in the annual Shidler Business Plan competition, an intense and unique semester-long learning opportunity for UH students who aspire to pursue a business venture. \n\nThe competition provides mentorship, training and resources. Winners walk away with a wealth of business savvy and substantial cash prizes. \n\nLearn more at: [http://pace.shidler.hawaii.edu/bpc](http://pace.shidler.hawaii.edu/bpc).",
           "opportunityType": "event",
           "sponsor": "johnson@hawaii.edu",
           "ice": {
@@ -5349,12 +5550,13 @@
             "entrepreneurship",
             "application-development"
           ],
+          "picture": "https://shidler.hawaii.edu/sites/shidler.hawaii.edu/files/styles/large_1280/public/2017/09/news_2017_bpc_0.png",
           "retired": false
         },
         {
           "name": "Society of Women Engineers at UH Manoa",
           "slug": "swe-uhm",
-          "description": "Join the Society of Women Engineers collegiate section at the University of Hawaii at Manoa with both female and male engineering students who promote women in engineering. \n\nThrough SWE events, SWE members build community, network with local professional female engineers, demonstrate the value of diversity and expand the image of the engineering profession as a positive force in the quality of life.\n\nFor more information, see [http://uhm.swe.org/](http://uhm.swe.org/)",
+          "description": "People of all genders are invited to join the UHM Society of Women Engineers to promote women in engineering. \n\nThrough SWE events, SWE members build community, network with local professional female engineers, demonstrate the value of diversity and expand the image of the engineering profession as a positive force in the quality of life.\n\nFor more information, see [http://uhm.swe.org/](http://uhm.swe.org/)",
           "opportunityType": "club",
           "sponsor": "johnson@hawaii.edu",
           "ice": {
@@ -5367,6 +5569,7 @@
             "civic-engagement",
             "research"
           ],
+          "picture": "/images/radgrad_logo.png",
           "retired": false
         },
         {
@@ -5384,12 +5587,13 @@
             "civic-engagement",
             "social-computing"
           ],
+          "picture": "https://switch-uhm.github.io/images/about-hero.png",
           "retired": false
         },
         {
           "name": "Teaching or Tutoring",
           "slug": "teaching-or-tutoring",
-          "description": "There are opportunities to be a [lab assistant in the ICS Department](http://courses.ics.hawaii.edu/syllabuses/ICS390.html), or serve as a tutor in the [Nat Sci Learning emporium](http://natsci.manoa.hawaii.edu/learningemporium.php).  If you want to gain experience teaching or tutoring, this opportunity is for you! \n\nLearn more about the benefits of teaching as an undergraduate at [http://cacm.acm.org/blogs/blog-cacm/189498-top-10-myths-about-teaching-computer-science/fulltext](http://cacm.acm.org/blogs/blog-cacm/189498-top-10-myths-about-teaching-computer-science/fulltext).\n\n#### Verification criteria\nAt the conclusion of the internship, request that this Opportunity's sponsor login to RadGrad to verify your participation. You should be able to supply evidence of participation, and contact details for your supervisor at the organization.",
+          "description": "If you want to get teaching experience while you are an undergraduate, this opportunity involves being a lab assistant in the ICS Department (through ICS 390) or serving as a tutor in the Nat Sci Learning Emporium.\n\nFor more details,  see [http://courses.ics.hawaii.edu/syllabuses/ICS390.html](http://courses.ics.hawaii.edu/syllabuses/ICS390.html), or  [http://natsci.manoa.hawaii.edu/learningemporium.php](http://natsci.manoa.hawaii.edu/learningemporium.php).  \n\nLearn more about the benefits of teaching as an undergraduate at [http://cacm.acm.org/blogs/blog-cacm/189498-top-10-myths-about-teaching-computer-science/fulltext](http://cacm.acm.org/blogs/blog-cacm/189498-top-10-myths-about-teaching-computer-science/fulltext).",
           "opportunityType": "project",
           "sponsor": "johnson@hawaii.edu",
           "ice": {
@@ -5400,6 +5604,7 @@
           "interests": [
             "teaching"
           ],
+          "picture": "/images/radgrad_logo.png",
           "retired": false
         },
         {
@@ -5417,6 +5622,7 @@
             "databases",
             "linux"
           ],
+          "picture": "/images/radgrad_logo.png",
           "retired": false
         },
         {
@@ -5435,14 +5641,15 @@
             "unity",
             "virtual-reality"
           ],
+          "picture": "/images/radgrad_logo.png",
           "retired": false
         },
         {
           "name": "Career Fair",
           "slug": "uh-career-fair",
-          "description": "Whether you are a freshman or a senior, attending the UH Career Fair is a hugely valuable way to learn about future employment (both locally and on the mainland) and meet face-to-face with recruiters in a relaxed setting.\n\nThe purpose of this career fair is to provide students with the tools and resources to make important and valuable career decisions. During the Career Fair, you will take your “first steps” toward meaningful employment by meeting with employers face to face to exchange information. \n\nLearn more at: [http://manoa.hawaii.edu/careercenter/students/career-fair/](http://manoa.hawaii.edu/careercenter/students/career-fair/)\n\nVerification criteria: Take a selfie at this event and submit to this Opportunity's sponsor as evidence of your participation.",
+          "description": "Whether you are a freshman or a senior, attending the UH Career Fair is a hugely valuable way to learn about future employment (both locally and on the mainland) and meet face-to-face with recruiters in a relaxed setting.\n\nThe purpose of this career fair is to provide students with the tools and resources to make important and valuable career decisions. During the Career Fair, you will take your “first steps” toward meaningful employment by meeting with employers face to face to exchange information. \n\nLearn more at: [http://manoa.hawaii.edu/careercenter/students/career-fair/](http://manoa.hawaii.edu/careercenter/students/career-fair/)",
           "opportunityType": "event",
-          "sponsor": "glau@hawaii.edu",
+          "sponsor": "johnson@hawaii.edu",
           "ice": {
             "i": 0,
             "c": 0,
@@ -5452,13 +5659,14 @@
             "application-development"
           ],
           "eventDate": "2016-10-11T00:00:00.000Z",
+          "picture": "/images/radgrad_logo.png",
           "retired": false
         },
         {
           "name": "WRENCH Project",
           "slug": "wrench-project",
-          "description": "The [WRENCH project](https://wrench-project.org/) is  an open-source C++ framework to aid in the development of simulators of distributed computing systems. Version 1.6 of the software is planned to be released in early  May 2020. WRENCH developers employ standard software engineering practices and tools (github, continuous integration with Travis and Docker, testing with Google Test, code coverage with Codecov, code quality measures with  Codacy, and many more).  \n\nThis project, although  not very  large yet (10,000 lines of C++ code) is relatively complex. Because of the typical drive-to-publish-result constraint, although the code is reasonably well-implemented  (and very well documents), it could be vastly improved in terms of code re-use, modularity, C++-ness, templating, development of examples, high-level documentation, code coverage, etc.  Because this is a research project (funded by the NSF), the project participants are constantly pushing the research agenda and cannot invest too much time in the software itself (they still do  too much of it, which is why the code is as good as it is, but not enough). \n\n#### Virtual Internship (Potentially paid, ICS 499)\n\nThis is a pure development internship in which the intern would come in as a \"C++ ninja\" and would make series of suggestions, improvements, and contributions to the source code. An applicant that already has great C++ chops would be ideal, but a motivated applicant that would see this as an opportunity to gain great C++ chops will of course be considered. It is also expected that the intern would learn about WRENCH and what it is used for, contribute to ongoing WRENCH development efforts, and also contribute to various projects that are currently developing extensions to WRENCH and/or simulators that use WRENCH.\n\nApply by e-mailing Prof. Casanova at henric@hawaii.edu mentioning \"Development internship\"",
-          "opportunityType": "internship",
+          "description": "Hone your C++, distributed systems, and software engineering chops by participating in the WRENCH research project, led by Professor Henri Casanova. WRENCH is  an open-source C++ framework to aid in the development of simulators of distributed computing systems. Version 1.6 of the software is planned to be released in early  May 2020. WRENCH developers employ standard software engineering practices and tools (github, continuous integration with Travis and Docker, testing with Google Test, code coverage with Codecov, code quality measures with  Codacy, and many more).  \n\nThis project, although  not very  large yet (10,000 lines of C++ code) is relatively complex. Because of the typical drive-to-publish-result constraint, although the code is reasonably well-implemented  (and very well documents), it could be vastly improved in terms of code re-use, modularity, C++-ness, templating, development of examples, high-level documentation, code coverage, etc.  Because this is a research project (funded by the NSF), the project participants are constantly pushing the research agenda and cannot invest too much time in the software itself (they still do  too much of it, which is why the code is as good as it is, but not enough). \n\nMore details are available at: [https://wrench-project.org/](https://wrench-project.org/).\n\n\nThis is a pure development situation in which the student would come in as a \"C++ ninja\" and would make series of suggestions, improvements, and contributions to the source code. An applicant that already has great C++ chops would be ideal, but a motivated applicant that would see this as an opportunity to gain great C++ chops will of course be considered. It is also expected that the student would learn about WRENCH and what it is used for, contribute to ongoing WRENCH development efforts, and also contribute to various projects that are currently developing extensions to WRENCH and/or simulators that use WRENCH.\n\nApply by e-mailing Prof. Casanova at henric@hawaii.edu mentioning \"Wrench Project\"",
+          "opportunityType": "project",
           "sponsor": "henric@hawaii.edu",
           "ice": {
             "i": 25,
@@ -5471,6 +5679,7 @@
             "c",
             "hpc"
           ],
+          "picture": "/images/radgrad_logo.png",
           "retired": false
         }
       ]
@@ -5734,7 +5943,7 @@
           "academicTerm": "Spring-2020",
           "rating": 5,
           "comments": "Lecture can be boring. Tests can be tricky... so pay attention and read the questions and answers twice before answering them. Lab is were all the fun is. If you're not an ICS major or don't like programing, you probably shouldn't take the course.",
-          "moderated": true
+          "moderated": false
         },
         {
           "slug": "review-abi-acm-manoa-Summer-2020",
@@ -5744,7 +5953,7 @@
           "academicTerm": "Summer-2020",
           "rating": 4,
           "comments": "ACM Manoa is a great all in one club that gives students a place to meet other computer science majors and enthusiasts. Joining ACM’s Discord is the best way to stay informed. Underneath ACM are Special Interest Groups such as Grey Hats, Game Dev, and Algorithms. If any of these interest you, this is definitely the place to go.",
-          "moderated": false
+          "moderated": true
         },
         {
           "slug": "review-alfred-ics_241-Spring-2019",
@@ -5754,7 +5963,7 @@
           "academicTerm": "Spring-2019",
           "rating": 3,
           "comments": "I understand how Discrete Math relates to Information and Computer Science, but I still didn't enjoy this course-- the content, that is. Initially the homework problems were, to me, difficult. Fortunately, the professor tried very hard to teach the concepts well, and I received a lot of help from the TA and the professor during office hours.",
-          "moderated": true
+          "moderated": false
         },
         {
           "slug": "review-alfred-ics_311-Summer-2019",
@@ -5764,7 +5973,7 @@
           "academicTerm": "Summer-2019",
           "rating": 4,
           "comments": "I've heard a lot about how this course is the bottleneck for progressing through the ICS program. Compared to all the courses I've taken before, this has to be the most time consuming. It's not that the concepts are difficult to understand nor is the courseload that heavy, but I found myself having to put more time to review and understand everything. The class structure for this was inverted, so we watched video lectures in our own time and used class time to do actual problems. I thought it was a better use of class time.",
-          "moderated": true
+          "moderated": false
         },
         {
           "slug": "review-dora-ics_111-Spring-2018",
@@ -5774,7 +5983,7 @@
           "academicTerm": "Spring-2018",
           "rating": 4,
           "comments": "The course was very fun in learning how to do the projects we did in ICS 111. The projects weren't hard for beginner programmers and were interesting to get them to have more fun with programming. The only downside was that the class didn't fully prepare you for ICS 211 where the fun little projects became assignments focused on the next stage of programming. There isn't much new students can do in terms of preparing for ICS 211 from ICS 111 since it is based on what you learn, but the things that you do learn may prove useful.",
-          "moderated": true
+          "moderated": false
         },
         {
           "slug": "review-dora-ics_321-Summer-2019",
@@ -5784,7 +5993,7 @@
           "academicTerm": "Summer-2019",
           "rating": 5,
           "comments": "The main thing one can learn from this course is Server Query Language or SQL. This is a great language to learn since it is the most common programming language used to manipulate or manage a database.  Knowing SQL can be a useful skill since it is sought after by employers in positions and fields that are not strictly ICS related.  For example, any business that uses a database to function requires it, including retailers, hospitals, banks, et cetera. With that said, I highly recommend taking this course to learn this invaluable language. One nice thing about taking this course is that the professor records his in-class lectures.  Bear in mind that the purpose of this is not to encourage students to get lazy and not attend his class.  I would not recommend this since there are times when his recordings do not cover solutions that he explains exclusively to those who attend his class.  Instead, the advantage of having these recordings available will allow one to rewatch the lecture in case he or she gets stuck and has a \\\"How do I do this again?\\\" moment.",
-          "moderated": true
+          "moderated": false
         },
         {
           "slug": "review-dora-icspark-Summer-2019",
@@ -5794,7 +6003,7 @@
           "academicTerm": "Summer-2019",
           "rating": 4,
           "comments": "Helping high school students learn about computer science is very rewarding. Paying it forward to help Hawaii kids find their passion.",
-          "moderated": true
+          "moderated": false
         },
         {
           "slug": "review-dora-ics_331-Spring-2019",
@@ -5804,7 +6013,7 @@
           "academicTerm": "Spring-2019",
           "rating": 5,
           "comments": "The ICS 331 Machine programming course teaches students how to read and use binary and hex-based coding. The assignments are very interesting because you get to mess around with a program that allows you to make and manipulate a virtual circuit. The downside is unless you plan on working with low level language code, the material you learn in this class may be irrelevant to what you will do in the future. That being said, I did enjoy the class and the assignments, and I advise that you should take the time to learn about binary and hex coding anyway.",
-          "moderated": false
+          "moderated": true
         },
         {
           "slug": "review-dora-hacc-Spring-2020",
