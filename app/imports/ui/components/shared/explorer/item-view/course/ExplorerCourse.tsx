@@ -45,7 +45,7 @@ const teaserUrlHelper = (course: Course): string => {
 
 const ExplorerCourse: React.FC<ExplorerCoursesWidgetProps> = ({ course, courses, completed, itemReviews, profile, terms, interests }) => {
   const segmentStyle = { backgroundColor: 'white' };
-  const fiveMarginTopStyle = { marginTop: '5px' };
+  const gridStyle = { marginTop: '5px', paddingLeft: 16 };
   const compactRowStyle = { paddingTop: 2, paddingBottom: 2 };
   const linkStyle = {  textDecoration: 'underline' };
   const { username } = useParams();
@@ -54,9 +54,9 @@ const ExplorerCourse: React.FC<ExplorerCoursesWidgetProps> = ({ course, courses,
   const isAdmin = profile.role === ROLE.ADMIN;
   return (
     <div id="explorerCourseWidget">
-      <Segment padded className="container" style={segmentStyle}>
+      <Segment className="container" style={segmentStyle}>
         {hasTeaser ? <TeaserVideo id={teaserUrlHelper(course)} /> : ''}
-        <Grid stackable style={fiveMarginTopStyle}>
+        <Grid stackable style={gridStyle}>
           <Grid.Row style={compactRowStyle}>
             <strong>Credit Hours:</strong>&nbsp; {course.creditHrs}
           </Grid.Row>
@@ -71,7 +71,7 @@ const ExplorerCourse: React.FC<ExplorerCoursesWidgetProps> = ({ course, courses,
         </Grid>
       </Segment>
 
-      <Segment textAlign="center">
+      <Segment>
         <RadGradHeader title='STUDENTS PARTICIPATING BY SEMESTER' />
         <FutureParticipation item={course} />
       </Segment>
