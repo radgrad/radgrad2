@@ -1,8 +1,9 @@
 import SimpleSchema from 'simpl-schema';
 import BaseCollection from '../base/BaseCollection';
-import { InternshipDefine, InternshipUpdate } from '../../typings/radgrad';
+import { InternshipDefine, InternshipUpdate, InternshipUpdateData } from '../../typings/radgrad';
 import { Interests } from '../interest/InterestCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
+import slugify from '../slug/SlugCollection';
 
 /**
  * Creates the Internship collection
@@ -16,10 +17,10 @@ class InternshipCollection extends BaseCollection {
       description: String,
       lastUploaded: { type: Date, optional: true },
       missedUploads: Number,
-      interests: { type: Array },
-      'interests.$': String,
-      careerGoals: { type: Array },
-      'careerGoals.$': String,
+      interestIDs: { type: Array },
+      'interestIDs.$': String,
+      careerGoalIDs: { type: Array },
+      'careerGoalIDs.$': String,
       company: { type: String, optional: true },
       location: { type: Object, optional: true },
       contact: { type: String, optional: true },
@@ -63,13 +64,13 @@ class InternshipCollection extends BaseCollection {
   /**
    * Defines a new Internship.
    * @example
-   * Internship.define({ urls: 'https://jobs.acm.org/jobs/data-analyst-internship-it-intern',
+   * Internship.define({ urls: ['https://jobs.acm.org/jobs/data-analyst-internship-it-intern'],
    *                     position: 'Data Analyst Internship',
    *                     description: 'Internship for upcoming Data Analysts',
-   *                     lastUploaded: '2021-06-09T20:18:23.067Z'
+   *                     lastUploaded: 2021-06-09T20:18:23.067Z
    *                     missedUploads: 3,
-   *                     interests: ['machine learning', 'python', 'software engineering'],
-   *                     careerGoals: ['Data Scientist', 'Software Developer'],
+   *                     interests: ['machine-learning', 'python', 'software-engineering'],
+   *                     careerGoals: ['data-scientist', 'software-developer'],
    *                     company: 'Hutington Ingalls Industries, Inc.',
    *                     location: {
    *                       'city': 'Honolulu',
@@ -85,8 +86,8 @@ class InternshipCollection extends BaseCollection {
    * @param description is the description of internship.
    * @param lastUploaded is the timestamp of when internship was found through scraping. If added manually, field is either absent or set to a falsy value.
    * @param missedUploads is an indicator of listing status. A value of 0-3 is "active", 4-7 is "expired", and 8+ is "retired."
-   * @param interests is a list of Interest slugIDs matching this description.
-   * @param careerGoals is a list of Career Goal slugIDs matching this description.
+   * @param interests is a list of Interest slugs matching this internship.
+   * @param careerGoals is a list of Career Goal slugs matching this internship.
    * @param company is the internship company.
    * @param location is the object containing location information.
    * @param contact is the name, email, url, etc. of contact person.
@@ -97,7 +98,7 @@ class InternshipCollection extends BaseCollection {
     const interestIDs = Interests.getIDs(interests);
     const careerGoalIDs = CareerGoals.getIDs(careerGoals);
     // Removes spaces and lowercases position
-    const internshipTitle = position.replace(/\s+/g, '-').toLowerCase();
+    const internshipTitle = slugify(position);
     // Generates guid using the exact time of internship definition
     const defineTime = new Date();
     const guid = `${internshipTitle}-${defineTime}`;
@@ -120,7 +121,7 @@ class InternshipCollection extends BaseCollection {
 
   /**
    * Update an Internship
-   * @param guid the unique ID associated to an internship.
+   * @param docID the ID of the internship document.
    * @param urls optional
    * @param position optional
    * @param description optional
@@ -132,20 +133,9 @@ class InternshipCollection extends BaseCollection {
    * @param posted optional
    * @param due optional
    */
-  public update(guid: string, { urls, position, description, interests, careerGoals, company, location, contact, posted, due }: InternshipUpdate) {
-    this.assertDefined(guid);
-    const updateData: {
-      urls?: string[];
-      position?: string;
-      description?: string;
-      interests?: string[];
-      careerGoals?: string[];
-      company?: string;
-      location?: Record<string, unknown>;
-      contact?: string;
-      posted?: string;
-      due?: string;
-    } = {};
+  public update(docID: string, { urls, position, description, interests, careerGoals, company, location, contact, posted, due }: InternshipUpdate) {
+    this.assertDefined(docID);
+    const updateData: InternshipUpdateData = {};
     if (urls) {
       if (!Array.isArray(urls)) {
         throw new Meteor.Error(`Urls ${urls} is not an Array. `);
@@ -162,13 +152,13 @@ class InternshipCollection extends BaseCollection {
       if (!Array.isArray(interests)) {
         throw new Meteor.Error(`Interests ${interests} is not an Array`);
       }
-      updateData.interests = interests;
+      updateData.interestIDs = Interests.getIDs(interests);
     }
     if (careerGoals) {
       if (!Array.isArray(careerGoals)) {
         throw new Meteor.Error(`Interests ${careerGoals} is not an Array`);
       }
-      updateData.careerGoals = careerGoals;
+      updateData.careerGoalIDs = CareerGoals.getIDs(careerGoals);
     }
     if (company) {
       updateData.company = company;
@@ -187,7 +177,7 @@ class InternshipCollection extends BaseCollection {
     if (due) {
       updateData.due = due;
     }
-    this.collection.update(guid, { $set: updateData });
+    this.collection.update(docID, { $set: updateData });
   }
 
   /**
@@ -211,8 +201,8 @@ class InternshipCollection extends BaseCollection {
     const description = doc.description;
     const lastUploaded = doc.lastUploaded;
     const missedUploads = doc.missedUploads;
-    const interests = doc.interestIDs;
-    const careerGoals = doc.careerGoalIDs;
+    const interests = doc.interestIDs.map((id) => Interests.findSlugByID(id));
+    const careerGoals = doc.careerGoalIDs.map((id) => CareerGoals.findSlugByID(id));
     const company = doc.company;
     const location = doc.location;
     const contact = doc.contact;

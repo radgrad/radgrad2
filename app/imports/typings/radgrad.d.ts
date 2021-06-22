@@ -972,6 +972,13 @@ export interface RelatedCoursesOrOpportunities {
   notInPlan: string[];
 }
 
+export interface Location {
+  city?: string;
+  country?: string;
+  state?: string;
+  zip?: string;
+}
+
 export interface InternshipDefine extends DumpOne {
   urls: string[];
   position: string;
@@ -981,7 +988,7 @@ export interface InternshipDefine extends DumpOne {
   interests: string[];
   careerGoals: string[];
   company?: string;
-  location?: Object;
+  location?: Location;
   contact?: string;
   posted?: string;
   due?: string;
@@ -994,7 +1001,20 @@ export interface InternshipUpdate extends Update {
   interests?: string[];
   careerGoals?: string[];
   company?: string;
-  location?: Object;
+  location?: Location;
+  contact?: string;
+  posted?: string;
+  due?: string;
+}
+
+export interface InternshipUpdateData extends Update {
+  urls?: string[];
+  position?: string;
+  description?: string;
+  interestIDs?: string[];
+  careerGoalIDs?: string[];
+  company?: string;
+  location?: Location;
   contact?: string;
   posted?: string;
   due?: string;
