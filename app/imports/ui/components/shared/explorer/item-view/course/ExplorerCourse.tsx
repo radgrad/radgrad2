@@ -1,7 +1,7 @@
 import React from 'react';
 import Markdown from 'react-markdown';
 import { useParams } from 'react-router-dom';
-import { Divider, Grid, Header, Segment } from 'semantic-ui-react';
+import { Grid, Segment } from 'semantic-ui-react';
 import { Reviews } from '../../../../../../api/review/ReviewCollection';
 import { ROLE } from '../../../../../../api/role/Role';
 import { Teasers } from '../../../../../../api/teaser/TeaserCollection';
@@ -11,6 +11,7 @@ import { AcademicTerm, Course, Interest, Profile, Review } from '../../../../../
 import StudentExplorerReviewWidget from '../../../../student/explorer/StudentExplorerReviewWidget';
 import EditCourseButton from '../../../manage/course/EditCourseButton';
 import DeleteItemButton from '../../../manage/DeleteItemButton';
+import RadGradHeader from '../../../RadGradHeader';
 import TeaserVideo from '../../../TeaserVideo';
 import FutureParticipation from '../../FutureParticipation';
 import ExplorerReviewWidget from '../ExplorerReviewWidget';
@@ -63,7 +64,7 @@ const ExplorerCourse: React.FC<ExplorerCoursesWidgetProps> = ({ course, courses,
             <strong>Syllabus:</strong>&nbsp; {course.syllabus ? <a href={course.syllabus } target="_blank" rel="noreferrer" style={linkStyle}>{course.syllabus}</a> : 'N/A'}
           </Grid.Row>
           <Grid.Row>
-            <Markdown allowDangerousHtml source={course.description} />
+            <Markdown allowDangerousHtml linkTarget="_blank" source={course.description} />
           </Grid.Row>
           {isStudent ? '' : <EditCourseButton course={course} courses={courses} interests={interests} />}
           {isAdmin ? <DeleteItemButton item={course} type={PROFILE_ENTRY_TYPE.COURSE} /> : ''}
@@ -71,8 +72,7 @@ const ExplorerCourse: React.FC<ExplorerCoursesWidgetProps> = ({ course, courses,
       </Segment>
 
       <Segment textAlign="center">
-        <Header>STUDENTS PARTICIPATING BY SEMESTER</Header>
-        <Divider />
+        <RadGradHeader title='STUDENTS PARTICIPATING BY SEMESTER' />
         <FutureParticipation item={course} />
       </Segment>
 

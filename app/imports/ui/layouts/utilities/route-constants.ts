@@ -61,6 +61,7 @@ export const EXPLORER = {
   CAREERGOALS: 'explorer/career-goals',
   COURSES: 'explorer/courses',
   INTERESTS: 'explorer/interests',
+  INTERNSHIPS: 'explorer/internships',
   OPPORTUNITIES: 'explorer/opportunities',
   CAREERGOALS_PARAM: 'explorer/career-goals/:careergoal',
   COURSES_PARAM: 'explorer/courses/:course',

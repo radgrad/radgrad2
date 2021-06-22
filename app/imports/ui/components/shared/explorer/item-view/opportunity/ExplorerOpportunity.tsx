@@ -54,6 +54,7 @@ const teaserUrlHelper = (opportunity: Opportunity): string => {
 const ExplorerOpportunity: React.FC<ExplorerOpportunitiesProps> = ({ opportunity, opportunityTypes, opportunities, terms, interests, sponsors, completed, itemReviews, profile }) => {
   const segmentStyle = { backgroundColor: 'white' };
   const compactRowStyle = { paddingTop: 2, paddingBottom: 2 };
+  const gridStyle = { paddingLeft: 17, paddingTop: 10, paddingBottom: 17 };
   const { username } = useParams();
   const hasTeaser = Teasers.findNonRetired({ targetSlugID: opportunity.slugID }).length > 0;
   const isStudent = profile.role === ROLE.STUDENT;
@@ -75,12 +76,10 @@ const ExplorerOpportunity: React.FC<ExplorerOpportunitiesProps> = ({ opportunity
   // console.log(profile.userID, opportunity._id, opportunity.name);
   return (
     <div id="explorerOpportunityWidget">
-      <Segment padded className="container" style={segmentStyle}>
+      <Segment className="container" style={segmentStyle}>
         {hasTeaser ? <TeaserVideo id={teaserUrlHelper(opportunity)} /> : ''}
-        <Grid stackable>
-          <Grid.Row>
-            <Markdown allowDangerousHtml source={opportunity.description} />
-          </Grid.Row>
+        <Markdown escapeHtml linkTarget="_blank" source={opportunity.description} />
+        <Grid stackable style={gridStyle}>
           <Grid.Row style={compactRowStyle}>
             <strong style={{ paddingTop: '4px' }}>ICE:</strong>&nbsp;<IceHeader ice={opportunity.ice} size='large' />
           </Grid.Row>

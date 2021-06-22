@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import _ from 'lodash';
 import { Card, Grid } from 'semantic-ui-react';
 import { useRouteMatch } from 'react-router';
@@ -32,7 +32,7 @@ const BrowserView: React.FC<BrowserViewProps> = ({ items, explorerType }) => {
   const defaultSortChoice = (explorerType === EXPLORER_TYPE.COURSES) ? EXPLORER_SORT_KEYS.NUMBER
     : EXPLORER_SORT_KEYS.ALPHABETIC;
   const [sortChoice] = useStickyState(`Sort.${explorerType}`, defaultSortChoice);
-  const [scrollPosition, setScrollPosition] = useStickyState(`Scroll.${explorerType}`, 0);
+  // const [scrollPosition, setScrollPosition] = useStickyState(`Scroll.${explorerType}`, 0);
   const match = useRouteMatch();
   const userID = Router.getUserIdFromRoute(match);
   const profileEntries = ProfileInterests.findNonRetired({ userID });
@@ -133,20 +133,6 @@ const BrowserView: React.FC<BrowserViewProps> = ({ items, explorerType }) => {
       explorerItems = _.sortBy(explorerItems, (item: any) => item.name);
     }
   }
-
-  const cardGroupElement: HTMLElement = document.getElementById('browserCardGroup');
-  useEffect(() => {
-    const savedScrollPosition = scrollPosition;
-    if (savedScrollPosition && cardGroupElement) {
-      cardGroupElement.scrollTo(0, savedScrollPosition);
-    }
-    return () => {
-      if (cardGroupElement) {
-        const currentScrollPosition = cardGroupElement.scrollTop;
-        setScrollPosition(currentScrollPosition);
-      }
-    };
-  }, [cardGroupElement, scrollPosition, setScrollPosition]);
 
   let icon;
   switch (explorerType) {

@@ -14,7 +14,6 @@ import { Opportunities } from '../opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Users } from './UserCollection';
-import { Slugs } from '../slug/SlugCollection';
 import { ROLE } from '../role/Role';
 import { getProjectedICE, getEarnedICE } from '../ice/IceProcessor';
 import { AcademicTerm, StudentProfileDefine, StudentProfileUpdate, StudentProfileUpdateData } from '../../typings/radgrad';
@@ -22,6 +21,7 @@ import { ProfileInterests } from './profile-entries/ProfileInterestCollection';
 import { ProfileCareerGoals } from './profile-entries/ProfileCareerGoalCollection';
 import { ProfileCourses } from './profile-entries/ProfileCourseCollection';
 import { ProfileOpportunities } from './profile-entries/ProfileOpportunityCollection';
+import { checkUsername } from './utilities/profile';
 
 /**
  * Represents a Student Profile.
@@ -172,8 +172,7 @@ class StudentProfileCollection extends BaseProfileCollection {
       if (!_.isBoolean(isAlumni)) {
         throw new Meteor.Error(`Invalid isAlumni: ${isAlumni}`);
       }
-
-      Slugs.define({ name: username, entityName: this.getType() });
+      checkUsername(username);
       const role = isAlumni ? ROLE.ALUMNI : ROLE.STUDENT;
       const profileID = this.collection.insert({
         username,
@@ -495,8 +494,9 @@ class StudentProfileCollection extends BaseProfileCollection {
   }
 
   public getLastAcademicTerm(user: string): AcademicTerm {
+    // console.log('getLastAcademicTerm', user);
     const studentID = Users.getID(user);
-    let lastAcademicTerm = AcademicTerms.find({ termNumber: 13 }).fetch()[0];
+    let lastAcademicTerm = AcademicTerms.find({ termNumber: 0 }).fetch()[0];
     const cis = CourseInstances.find({ studentID }).fetch();
     cis.forEach((ci) => {
       const term = AcademicTerms.findDoc(ci.termID);

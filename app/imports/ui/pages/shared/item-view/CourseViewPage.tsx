@@ -70,7 +70,10 @@ const CourseViewPage: React.FC<CourseViewPageProps> = ({
       added={added} inverted floated="left" /> : undefined;
   const courseSlug = Slugs.getNameFromID(course.slugID);
   const completed = isCourseCompleted(courseSlug, profile.userID);
-  const relatedCourses = getAssociationRelatedCourses(course.prerequisites.map((c) => Courses.findDocBySlug(c)), profile.userID);
+  const relatedSlugs = Courses.getPrerequisiteSlugs(course._id);
+  const relatedCourses = getAssociationRelatedCourses(relatedSlugs.map((c) => Courses.findDocBySlug(c)), profile.userID);
+  const combinedArrays = relatedCourses.inPlan.concat(relatedCourses.notInPlan, relatedCourses.completed);
+
   return (
     <PageLayout id={PAGEIDS.COURSE} headerPaneTitle={headerPaneTitle} headerPaneImage={headerPaneImage}
       headerPaneButton={headerPaneButton}>
@@ -78,7 +81,7 @@ const CourseViewPage: React.FC<CourseViewPageProps> = ({
         <Grid.Row>
           <Grid.Column width={5}>
             <RelatedInterests item={course} />
-            <RelatedCourses relatedCourses={relatedCourses} profile={profile} title='prerequisites' />
+            {combinedArrays.length !== 0 ? <RelatedCourses relatedCourses={relatedCourses} profile={profile} title='prerequisites' /> : null}
             <RelatedCareerGoals careerGoals={relatedCareerGoals} userID={profile.userID} />
             <RelatedOpportunities relatedOpportunities={relatedOpportunities} profile={profile} />
           </Grid.Column>

@@ -23,7 +23,7 @@ export const defaultCalcLevel = (studentID: string): number => {
     .fetch());
   const earnedICE: Ice = getEarnedICE(instances);
   const plannedICE: Ice = getProjectedICE(instances);
-  const numReviews: number = Reviews.find({ studentID, reviewType: 'course', moderated: true, visible: true })
+  const numReviews: number = Reviews.find({ studentID, visible: true })
     .count();
   // console.log('defaultCalcLevel', earnedICE, plannedICE, numReviews);
   let level = 1;

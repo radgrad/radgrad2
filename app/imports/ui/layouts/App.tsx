@@ -1,7 +1,8 @@
 import { Roles } from 'meteor/alanning:roles';
 import { Meteor } from 'meteor/meteor';
-import React from 'react';
+import React, { useEffect } from 'react';
 import _ from 'lodash';
+import { useLocation } from 'react-router';
 import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import '/public/semantic.min.css';
 import 'semantic-ui-css/components/rating.css';
@@ -24,9 +25,22 @@ window.addEventListener('storage', (event) => {
   }
 });
 
+/** Scroll to top when navigating to non-Explorer pages. */
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+  // Disable scroll to top when we are returning to an explorer page so we hold our prior position.
+  const doScroll = () => !pathname.endsWith('explorer/opportunities')
+    && !pathname.endsWith('explorer/courses')  && !pathname.endsWith('explorer/interests') && !pathname.endsWith('explorer/career-goals');
+  useEffect(() => {
+    doScroll() && window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+};
+
 /* Top-level layout component for this application. Called in imports/startup/client/startup.tsx. */
 const App: React.FC = () => (
   <Router>
+    <ScrollToTop/>
     <Switch>
       {routes.LANDING.map((route) => (
         <Route key={route.path} {..._.defaults(route, { exact: true })} />

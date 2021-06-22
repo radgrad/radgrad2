@@ -4,7 +4,6 @@ import { AutoForm, TextField, SelectField, LongTextField, BoolField, SubmitField
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { InterestTypes } from '../../../../../api/interest/InterestTypeCollection';
-import { Slugs } from '../../../../../api/slug/SlugCollection';
 import PictureField from '../../../form-fields/PictureField';
 import { docToName } from '../../../shared/utilities/data-model';
 import { InterestType } from '../../../../../typings/radgrad';
@@ -29,11 +28,9 @@ const UpdateInterestForm: React.FC<UpdateInterestFormProps> = ({
 }) => {
   const interestTypeNames = interestTypes.map(docToName);
   const model = collection.findDoc(id);
-  model.slug = Slugs.getNameFromID(model.slugID);
   model.interestType = InterestTypes.findDoc(model.interestTypeID).name;
   const schema = new SimpleSchema({
     name: { type: String, optional: true },
-    slug: { type: String, optional: true },
     picture: { type: String, optional: true },
     interestType: {
       type: String,
@@ -53,7 +50,6 @@ const UpdateInterestForm: React.FC<UpdateInterestFormProps> = ({
       </Header>
       <AutoForm schema={formSchema} onSubmit={handleUpdate} showInlineError model={model}>
         <Form.Group widths="equal">
-          <TextField name="slug" disabled />
           <TextField name="name" />
           <SelectField name="interestType" />
         </Form.Group>

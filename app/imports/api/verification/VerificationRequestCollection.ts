@@ -237,7 +237,7 @@ class VerificationRequestCollection extends BaseCollection {
           return collection.find({ retired: { $not: { $eq: true } } });
         }
         if (profile.role === ROLE.FACULTY) {
-          return collection.find({ sponsorID: studentID, retired: { $not: { $eq: true } } });
+          return collection.find({ retired: { $not: { $eq: true } } });
         }
         return collection.find({ studentID, retired: { $not: { $eq: true } } });
       });
@@ -337,6 +337,17 @@ class VerificationRequestCollection extends BaseCollection {
     const documentation = doc.documentation;
     const retired = doc.retired;
     return { student, academicTerm, opportunity, submittedOn, status, processed, documentation, retired };
+  }
+
+  public dumpUser(usernameOrID: string): VerificationRequestDefine[] {
+    const profile = Users.getProfile(usernameOrID);
+    const studentID = profile.userID;
+    const retVal = [];
+    const instances = this.find({ studentID }).fetch();
+    instances.forEach((instance) => {
+      retVal.push(this.dumpOne(instance._id));
+    });
+    return retVal;
   }
 
   /**

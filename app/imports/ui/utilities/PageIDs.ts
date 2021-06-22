@@ -60,6 +60,7 @@ export enum PAGEIDS {
 
   CAREER_GOAL = 'career-goal-page',
   CAREER_GOAL_BROWSER = 'career-goal-browser-view-page',
+  INTERNSHIP_BROWSER = 'internship-browser-view-page',
   COMMUNITY = 'community-page',
   COURSE = 'course-page',
   COURSE_BROWSER = 'course-browser-view-page',

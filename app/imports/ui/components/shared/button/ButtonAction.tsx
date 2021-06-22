@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, SemanticCOLORS, SemanticSIZES } from 'semantic-ui-react';
+import { COMPONENTIDS } from '../../../utilities/ComponentIDs';
 
 interface ButtonActionProps {
   onClick: () => void,
@@ -11,5 +12,5 @@ interface ButtonActionProps {
 }
 
 export const ButtonAction: React.FC<ButtonActionProps> = ({ onClick, label, icon  = 'thumbs up outline', size = 'large', color, style = {} }) => (
-  <Button style={style} size={size} color={color} onClick={onClick} content={label} labelPosition='right' icon={icon}/>
+  <Button id={COMPONENTIDS.STUDENT_REQUEST_VERIFICATION_BUTTON} style={style} size={size} color={color} onClick={onClick} content={label} labelPosition='right' icon={icon}/>
 );

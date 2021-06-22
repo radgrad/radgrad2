@@ -59,7 +59,7 @@ const descriptionPairs = (item: Opportunity): DescriptionPair[] => {
  * Returns the title string for the item. Used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const itemTitleString = (item: Opportunity): string => `${item.name} (${itemToSlugName(item)})`;
+const itemTitleString = (item: Opportunity): string => (Opportunities.isDefined(item._id) ? `${item.name} (${itemToSlugName(item)})` : '');
 
 /**
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.
