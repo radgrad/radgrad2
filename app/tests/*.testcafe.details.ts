@@ -1,6 +1,8 @@
+import { PAGEIDS } from '../imports/ui/utilities/PageIDs';
 import { landingNavBar } from './navbar.landing.component';
 import { signinPage } from './signin.page';
 import { studentNavBar } from './navbar.student.component';
+import { detailsPage } from './details.page';
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 /* global fixture:false, test:false */
@@ -19,4 +21,5 @@ test('Test the student interests details pages', async (testController) => {
   await signinPage.signin(testController, credentials.student.abi);
 
   await studentNavBar.gotoInterestsExplorerPage(testController);
+  await detailsPage.gotoViewPageAndVerify(testController, 'dotNet', PAGEIDS.INTEREST);
 });
