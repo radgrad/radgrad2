@@ -73,8 +73,5 @@ if (Meteor.isServer) {
       expect(orig.position).to.equal(doc.position);
       expect(orig.description).to.equal(doc.description);
     });
-
-
-
   });
 }
