@@ -5,7 +5,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> api/role</title>
+  <title> InternshipCollection</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -73,8 +73,8 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Namespace</p>
-                    <h1>api/role</h1>
+                    <p>Class</p>
+                    <h1>InternshipCollection</h1>
                 </header>
                 
 
@@ -85,7 +85,9 @@
 
 <header>
     
-        <h2>api/role</h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>InternshipCollection<span class="signature">()</span><span class="type-signature"></span></h2>
+        
+            <div class="class-description"><p>Creates the Internship collection</p></div>
         
     
 </header>
@@ -94,8 +96,40 @@
     <div class="container-overview">
     
         
+            <div class='vertical-section'>
+                <div class="members">
+                    <div class="member">
+                        <div class=name>
+                            <span class="tag">Constructor</span>
+                        </div>
+                        
 
+
+    
+    <h4 class="name" id="InternshipCollection">
+        <a class="href-link" href="#InternshipCollection">#</a>
         
+        <span class="code-name">
+            
+                new InternshipCollection<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
 
 
 <dl class="details">
@@ -131,15 +165,38 @@
 
     
         <p class="tag-source">
-            <a href="api_role_index.ts.html" class="button">View Source</a>
+            <a href="api_internship_InternshipCollection.ts.html" class="button">View Source</a>
             <span>
-                <a href="api_role_index.ts.html">api/role/index.ts</a>, <a href="api_role_index.ts.html#line2">line 2</a>
+                <a href="api_internship_InternshipCollection.ts.html">api/internship/InternshipCollection.ts</a>, <a href="api_internship_InternshipCollection.ts.html#line10">line 10</a>
             </span>
         </p>
     
 </dl>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
         
     
     </div>
@@ -157,32 +214,306 @@
     
 
     
+
+    
         <div class='vertical-section'>
-            <h1>Members</h1>
+            <h1>Methods</h1>
             <div class="members">
             
                 <div class="member">
 
-<h4 class="name" id=".exports.assertRole">
-    <a class="href-link" href="#.exports.assertRole">#</a>
+
     
+    <h4 class="name" id="define">
+        <a class="href-link" href="#define">#</a>
         
-            <span class='tag'>static</span>
-        
-            <span class='tag'>constant</span>
-        
+        <span class="code-name">
+            
+                define<span class="signature">(urls, position, description, lastUploaded, missedUploads, interests, careerGoals, company, location, contact, posted, due)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
     
-    <span class="code-name">
-        exports.assertRole
-    </span>
+
     
-</h4>
+    
+    <div class="description">
+        <p>Defines a new Internship.</p>
+    </div>
+    
 
 
 
 
-<div class="description">
-    <p>Ensures that role(s) are valid roles.</p>
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>urls</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>is the list of URLs to the pages in the sites with a full description of this internship.</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>position</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>is the internship title.</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>description</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>is the description of internship.</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>lastUploaded</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>is the timestamp of when internship was found through scraping. If added manually, field is either absent or set to a falsy value.</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>missedUploads</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>is an indicator of listing status. A value of 0-3 is &quot;active&quot;, 4-7 is &quot;expired&quot;, and 8+ is &quot;retired.&quot;</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>interests</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>is a list of Interest slugs matching this internship.</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>careerGoals</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>is a list of Career Goal slugs matching this internship.</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>company</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>is the internship company.</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>location</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>is the object containing location information.</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>contact</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>is the name, email, url, etc. of contact person.</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>posted</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>is when internship was posted. Should be in YYYY-MM-DD format.</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>due</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>is optional, defaults to false.</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
 </div>
 
 
@@ -222,13 +553,362 @@
 
     
         <p class="tag-source">
-            <a href="api_role_Role.ts.html" class="button">View Source</a>
+            <a href="api_internship_InternshipCollection.ts.html" class="button">View Source</a>
             <span>
-                <a href="api_role_Role.ts.html">api/role/Role.ts</a>, <a href="api_role_Role.ts.html#line37">line 37</a>
+                <a href="api_internship_InternshipCollection.ts.html">api/internship/InternshipCollection.ts</a>, <a href="api_internship_InternshipCollection.ts.html#line95">line 95</a>
             </span>
         </p>
     
 </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    
+        <pre class="prettyprint"><code>Internship.define({ urls: ['https://jobs.acm.org/jobs/data-analyst-internship-it-intern'],
+                    position: 'Data Analyst Internship',
+                    description: 'Internship for upcoming Data Analysts',
+                    lastUploaded: 2021-06-09T20:18:23.067Z
+                    missedUploads: 3,
+                    interests: ['machine-learning', 'python', 'software-engineering'],
+                    careerGoals: ['data-scientist', 'software-developer'],
+                    company: 'Hutington Ingalls Industries, Inc.',
+                    location: {
+                      'city': 'Honolulu',
+                      'state': 'Hawaii',
+                      'zip': '96823'
+                    },
+                    contact: 'johndoe@foo.com',
+                    posted: '2021-06-07T19:24:32.529Z',
+                    due: '2021-06-28' });</code></pre>
+    
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="dumpOne">
+        <a class="href-link" href="#dumpOne">#</a>
+        
+        <span class="code-name">
+            
+                dumpOne<span class="signature">(docID)</span><span class="type-signature"> &rarr; {object}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Returns an object representing the Internship docID in a format acceptable to define().</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>docID</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>the docID of an Internship.</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="api_internship_InternshipCollection.ts.html" class="button">View Source</a>
+            <span>
+                <a href="api_internship_InternshipCollection.ts.html">api/internship/InternshipCollection.ts</a>, <a href="api_internship_InternshipCollection.ts.html#line192">line 192</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>An object representing the definition of docID.</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<span class="param-type">object</span>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="removeIt">
+        <a class="href-link" href="#removeIt">#</a>
+        
+        <span class="code-name">
+            
+                removeIt<span class="signature">(guid)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Remove the Internship.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>guid</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>the unique ID of the internship to be removed</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="api_internship_InternshipCollection.ts.html" class="button">View Source</a>
+            <span>
+                <a href="api_internship_InternshipCollection.ts.html">api/internship/InternshipCollection.ts</a>, <a href="api_internship_InternshipCollection.ts.html#line183">line 183</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -238,192 +918,278 @@
             
                 <div class="member">
 
-<h4 class="name" id=".exports.isRole">
-    <a class="href-link" href="#.exports.isRole">#</a>
+
     
+    <h4 class="name" id="update">
+        <a class="href-link" href="#update">#</a>
         
-            <span class='tag'>static</span>
-        
-            <span class='tag'>constant</span>
-        
-    
-    <span class="code-name">
-        exports.isRole
-    </span>
-    
-</h4>
-
-
-
-
-<div class="description">
-    <p>Predicate for determining if a string is a defined ROLE.</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="api_role_Role.ts.html" class="button">View Source</a>
-            <span>
-                <a href="api_role_Role.ts.html">api/role/Role.ts</a>, <a href="api_role_Role.ts.html#line30">line 30</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-</div>
+        <span class="code-name">
             
-                <div class="member">
-
-    <span class="method-parameter is-pulled-right">
-        <label>Type:</label>
-        
-<span class="param-type">Object</span>
-
-
-    </span>
-
-<h4 class="name" id=".exports.ROLE">
-    <a class="href-link" href="#.exports.ROLE">#</a>
-    
-        
-            <span class='tag'>static</span>
-        
-            <span class='tag'>constant</span>
-        
-    
-    <span class="code-name">
-        exports.ROLE
-    </span>
-    
-</h4>
-
-
-
-
-<div class="description">
-    <p>ROLE Provides ROLE.FACULTY, ROLE.STUDENT, ROLE.ADMIN, ROLE.ALUMNI.</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="api_role_Role.ts.html" class="button">View Source</a>
-            <span>
-                <a href="api_role_Role.ts.html">api/role/Role.ts</a>, <a href="api_role_Role.ts.html#line11">line 11</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-</div>
+                update<span class="signature">(docID, urls, position, description, interests, careerGoals, company, location, contact, posted, due)</span><span class="type-signature"></span>
             
-                <div class="member">
-
-    <span class="method-parameter is-pulled-right">
-        <label>Type:</label>
-        
-<span class="param-type">Array</span>
-
-
-    </span>
-
-<h4 class="name" id=".exports.ROLES">
-    <a class="href-link" href="#.exports.ROLES">#</a>
+        </span>
+    </h4>
     
-        
-            <span class='tag'>static</span>
-        
-            <span class='tag'>constant</span>
-        
+
     
-    <span class="code-name">
-        exports.ROLES
-    </span>
     
-</h4>
+    <div class="description">
+        <p>Update an Internship</p>
+    </div>
+    
 
 
 
 
-<div class="description">
-    <p>The valid Roles in RadGrad.</p>
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>docID</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>the ID of the internship document.</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>urls</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>optional</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>position</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>optional</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>description</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>optional</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>interests</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>optional</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>careerGoals</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>optional</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>company</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>optional</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>location</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>object with city, state, zip code (optional)</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>contact</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>optional</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>posted</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>optional</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>due</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>optional</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
 </div>
 
 
@@ -463,13 +1229,29 @@
 
     
         <p class="tag-source">
-            <a href="api_role_Role.ts.html" class="button">View Source</a>
+            <a href="api_internship_InternshipCollection.ts.html" class="button">View Source</a>
             <span>
-                <a href="api_role_Role.ts.html">api/role/Role.ts</a>, <a href="api_role_Role.ts.html#line23">line 23</a>
+                <a href="api_internship_InternshipCollection.ts.html">api/internship/InternshipCollection.ts</a>, <a href="api_internship_InternshipCollection.ts.html#line133">line 133</a>
             </span>
         </p>
     
 </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -479,8 +1261,6 @@
             
             </div>
         </div>
-    
-
     
 
     
