@@ -8,7 +8,6 @@ class ManagePages {
     await testController.click(`#${COMPONENTIDS.FILTERED_STUDENTS_TAB}`);
     const componentSelector = Selector(`#${COMPONENTIDS.FILTERED_STUDENTS_GRID}`);
     await testController.expect(componentSelector.exists).ok();
-
   }
 
   async clickFilteredAlumniTabAndVerify(testController) {
@@ -48,6 +47,12 @@ class ManagePages {
     await testController.typeText(`#${COMPONENTIDS.ADVISOR_FILTER_LAST_NAME}`, 'Doe');
     const componentSelector = Selector(`#${COMPONENTIDS.MANAGE_STUDENT_ITEM}`).count;
     await testController.expect(componentSelector).eql(1);
+  }
+
+  async clickEditOpportunities(testController) {
+    await testController.click(`#${COMPONENTIDS.EDIT_OPPORTUNITY_BUTTON}`);
+    const componentSelector = Selector(`#${COMPONENTIDS.EDIT_OPPORTUNITY_BUTTON}`);
+    await testController.expect(componentSelector.exists).ok();
   }
 
   async studentRequestVerification(testController) {

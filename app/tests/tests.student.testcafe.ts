@@ -6,6 +6,7 @@ import { studentNavBar } from './navbar.student.component';
 import { explorerPages } from './explorer.pages';
 import { managePages } from './manage.pages';
 import { visibilityPage } from './visibility.page';
+import { reviewPage } from './review.page';
 import {
   studentDegreePlannerPage,
   studentICEPointsPage,
@@ -51,11 +52,11 @@ test('Test all student top-level pages', async (testController) => {
   await studentNavBar.gotoCareerGoalsExplorerPage(testController);
   await careerGoalExplorerPage.isDisplayed(testController);
 
-  await studentNavBar.gotoCourseExplorerPage(testController);
-  await courseExplorerPage.isDisplayed(testController);
-
   await studentNavBar.gotoOpportunitiesPage(testController);
   await opportunityExplorerPage.isDisplayed(testController);
+
+  await studentNavBar.gotoCourseExplorerPage(testController);
+  await courseExplorerPage.isDisplayed(testController);
 
   await studentNavBar.gotoDegreePlannerPage(testController);
   await studentDegreePlannerPage.isDisplayed(testController);
@@ -89,11 +90,11 @@ test('Test adding and removing interests, careers, courses, and opportunities to
   await studentNavBar.gotoCareerGoalsExplorerPage(testController);
   await explorerPages.testAddAndRemove(testController, 'game-developer');
 
-  await studentNavBar.gotoCourseExplorerPage(testController);
-  await explorerPages.testAddAndRemove(testController, 'ics_102');
-
   await studentNavBar.gotoOpportunitiesPage(testController);
   await explorerPages.testAddAndRemove(testController, 'allnet');
+
+  await studentNavBar.gotoCourseExplorerPage(testController);
+  await explorerPages.testAddAndRemove(testController, 'ics_102');
 });
 
 test('Test student verification for opportunities', async (testController) => {
@@ -118,4 +119,12 @@ test('Test student visibility page', async (testController) => {
   await visibilityPage.testVisibility(testController, `#${COMPONENTIDS.SHARE_COURSES}`, `#${COMPONENTIDS.PROFILE_COURSES}`);
   await visibilityPage.testVisibility(testController, `#${COMPONENTIDS.SHARE_LEVEL}`, `#${COMPONENTIDS.PROFILE_LEVEL}`);
   await visibilityPage.testVisibility(testController, `#${COMPONENTIDS.SHARE_ICE}`, `#${COMPONENTIDS.PROFILE_ICE}`);
+});
+
+test('Test student adding a review', async (testController) => {
+  await landingNavBar.gotoStudentLogin(testController);
+  await signinPage.signin(testController, credentials.student.abi);
+
+  await studentNavBar.gotoReviewsPage(testController);
+  await reviewPage.testWriteReview(testController);
 });

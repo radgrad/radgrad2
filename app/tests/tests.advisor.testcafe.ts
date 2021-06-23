@@ -103,6 +103,14 @@ test('Test advisor manage student page', async (testController) => {
   await managePages.clickMatriculateTabAndVerify(testController);
 });
 
+test('Test advisor manage opportunities page', async (testController) => {
+  await landingNavBar.gotoAdvisorLogin(testController);
+  await signinPage.signin(testController, credentials.advisor);
+
+  await advisorNavBar.gotoManageOpportunitiesPage(testController);
+  await managePages.clickEditOpportunities(testController);
+});
+
 test('Test advisor visibility page', async (testController) => {
   await landingNavBar.gotoAdvisorLogin(testController);
   await signinPage.signin(testController, credentials.advisor);

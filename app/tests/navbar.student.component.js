@@ -16,20 +16,22 @@ class StudentNavBar {
   }
 
   async gotoInterestsExplorerPage(testController) {
+    await testController.click(`#${COMPONENTIDS.STUDENT_MENU_EXPLORERS}`);
     await testController.click(`#${COMPONENTIDS.STUDENT_MENU_INTERESTS}`);
   }
 
   async gotoCourseExplorerPage(testController) {
-    await testController.click('#student-menu-courses');
     await testController.click(`#${COMPONENTIDS.STUDENT_MENU_COURSES}`);
   }
 
   async gotoCareerGoalsExplorerPage(testController) {
+    await testController.click(`#${COMPONENTIDS.STUDENT_MENU_EXPLORERS}`);
     await testController.click(`#${COMPONENTIDS.STUDENT_MENU_CAREERS}`);
 
   }
 
   async gotoOpportunitiesPage(testController) {
+    await testController.click(`#${COMPONENTIDS.STUDENT_MENU_EXPLORERS}`);
     await testController.click(`#${COMPONENTIDS.STUDENT_MENU_OPPORTUNITIES}`);
 
   }
