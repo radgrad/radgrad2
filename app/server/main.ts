@@ -7,6 +7,7 @@ import '../imports/api/email';
 import '../imports/api/factoid';
 import '../imports/api/ice';
 import '../imports/api/integrity';
+import '../imports/api/internship';
 import '../imports/api/interest';
 import '../imports/api/level';
 import '../imports/api/opportunity';
