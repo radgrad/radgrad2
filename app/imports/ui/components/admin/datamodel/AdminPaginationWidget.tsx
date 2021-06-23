@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Grid, Icon, Message } from 'semantic-ui-react';
 import BaseCollection from '../../../../api/base/BaseCollection';
+import { COMPONENTIDS } from '../../../utilities/ComponentIDs';
 import { useStickyState } from '../../../utilities/StickyState';
 
 interface AdminPaginationWidgetProps {
@@ -41,7 +42,7 @@ const AdminPaginationWidget: React.FC<AdminPaginationWidgetProps> = ({ collectio
       <Button basic color="green" disabled={lastDisabled} onClick={handleNextClick} style={heightStyle}>
         <Icon name="step forward" /> Next
       </Button>
-      <Button basic color="green" onClick={handleLastClick} style={heightStyle}>
+      <Button id={COMPONENTIDS.DATA_MODEL_PAGINATION_LAST} basic color="green" onClick={handleLastClick} style={heightStyle}>
         <Icon name="fast forward" /> Last
       </Button>
       {/* <Dropdown selection={true} options={options} className="jsNum"/> */}

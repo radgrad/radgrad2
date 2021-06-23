@@ -30,14 +30,14 @@ if (Meteor.isClient) {
     });
 
     it('Update Method', async function () {
-      const id = Reviews.findIdBySlug('review-course-ics_111-abi@hawaii.edu');
+      const id = Reviews.findOne({});
       const rating = 5;
       const comments = 'new comments';
       await updateMethod.callPromise({ collectionName, updateData: { id, rating, comments } });
     });
 
     it('Remove Method', async function () {
-      const id = Reviews.findIdBySlug('review-course-ics_111-abi@hawaii.edu');
+      const id = Reviews.findOne({});
       await removeItMethod.callPromise({ collectionName, instance: id });
     });
   });
