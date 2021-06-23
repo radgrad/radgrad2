@@ -25,7 +25,7 @@ import {
 
 /** Credentials for sample user(s) defined in settings.development.json. */
 const credentials = {
-  advisor: { userName: 'glau@hawaii.edu', password: 'foo' },
+  advisor: { userName: 'kennydq@hawaii.edu', password: 'foo' },
 };
 
 fixture('Advisor UI acceptance tests').page('http://localhost:3200');
