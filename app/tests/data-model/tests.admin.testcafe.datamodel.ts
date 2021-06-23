@@ -4,6 +4,7 @@ import { adminNavBar } from '../navbar.admin.component';
 import { signinPage } from '../signin.page';
 import { academicYearPage } from './academicYear.page';
 import { coursePage } from './course.page';
+import { reviewPage } from './review.page';
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 /* global fixture:false, test:false */
@@ -31,4 +32,13 @@ test('Test admin data model course page', async (testController) => {
   coursePage.addCourse(testController);
   // test course update
   // test course delete
+});
+
+test('Test admin data model reviews page', async (testController) => {
+  await adminNavBar.gotoAdminLogin(testController);
+  await signinPage.signin(testController, credentials.admin);
+  await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'reviews');
+  await reviewPage.addReview(testController);
+  // test review update
+  // test review delete
 });

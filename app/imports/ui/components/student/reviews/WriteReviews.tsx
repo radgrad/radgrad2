@@ -4,6 +4,7 @@ import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { AutoForm, ErrorsField, LongTextField, SelectField, SubmitField } from 'uniforms-semantic';
+import { COMPONENTIDS } from '../../../utilities/ComponentIDs';
 import RadGradAlert from '../../../utilities/RadGradAlert';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { defineMethod } from '../../../../api/base/BaseCollection.methods';
@@ -67,7 +68,12 @@ const WriteReviews: React.FC<WriteReviewsProps> = ({ unreviewedCourses, unreview
     reviewFormRef.reset();
     setChoiceName('');
     const collectionName = Reviews.getCollectionName();
-    const academicTermDoc = AcademicTerms.getAcademicTermFromToString(model.academicTerm);
+    let academicTermDoc;
+    if (termNames.length === 1) {
+      academicTermDoc = AcademicTerms.getAcademicTermFromToString(termNames[0]);
+    } else {
+      academicTermDoc = AcademicTerms.getAcademicTermFromToString(model.academicTerm);
+    }
     const academicTermSlug = AcademicTerms.findSlugByID(academicTermDoc._id);
     const definitionData: ReviewDefine = model;
     definitionData.academicTerm = academicTermSlug;
@@ -115,7 +121,7 @@ const WriteReviews: React.FC<WriteReviewsProps> = ({ unreviewedCourses, unreview
         Opportunities.</strong></Header>
       {/* eslint-disable-next-line no-return-assign */}
       <AutoForm ref={(ref) => choiceFormRef = ref} schema={choiceFormSchema} onChange={handleChoiceChange}>
-        <SelectField name='courseOrOpportunityToReview' />
+        <SelectField name='courseOrOpportunityToReview' id={COMPONENTIDS.STUDENT_COURSE_OR_OPPORTUNITY} />
         <ErrorsField />
       </AutoForm>
       <Segment basic>
@@ -141,11 +147,10 @@ const WriteReviews: React.FC<WriteReviewsProps> = ({ unreviewedCourses, unreview
               find appropriate :)
             </Grid.Column>
             <Grid.Column width={10}>
-              <LongTextField name='comments'
-                disabled={disabled} />
+              <LongTextField name='comments' disabled={disabled} id={COMPONENTIDS.STUDENT_REVIEW_COMMENT} />
             </Grid.Column>
             <Grid.Column width={6}>
-              <SubmitField />
+              <SubmitField id={COMPONENTIDS.STUDENT_REVIEW_SUBMIT} />
             </Grid.Column>
           </Grid>
           <ErrorsField />

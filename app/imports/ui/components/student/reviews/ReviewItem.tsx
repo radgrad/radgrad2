@@ -4,6 +4,7 @@ import Markdown from 'react-markdown';
 import { Divider, Grid, Header, Icon, List, Message } from 'semantic-ui-react';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { Review } from '../../../../typings/radgrad';
+import { COMPONENTIDS } from '../../../utilities/ComponentIDs';
 import * as Router from '../../shared/utilities/router';
 import StudentExplorerReviewStarsWidget from '../explorer/StudentExplorerReviewStarsWidget';
 import DeleteReviewButton from './DeleteReviewButton';
@@ -21,7 +22,7 @@ const ReviewItem: React.FC<ReviewItemProps> = ({ review }) => {
 
   return (
     <List.Item key={review._id}>
-      <Grid>
+      <Grid id={COMPONENTIDS.STUDENT_REVIEW_ITEM}>
         {review.visible ? '' :
           <Grid.Row>
             {review.moderated ?
