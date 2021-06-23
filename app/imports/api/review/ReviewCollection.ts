@@ -2,20 +2,19 @@ import { Meteor } from 'meteor/meteor';
 import _ from 'lodash';
 import SimpleSchema from 'simpl-schema';
 import { ROLE } from '../role/Role';
-import { Slugs } from '../slug/SlugCollection';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Opportunities } from '../opportunity/OpportunityCollection';
 import { Users } from '../user/UserCollection';
 import { Courses } from '../course/CourseCollection';
-import BaseSlugCollection from '../base/BaseSlugCollection';
 import { ReviewDefine, ReviewUpdate, ReviewUpdateData } from '../../typings/radgrad';
+import BaseCollection from '../base/BaseCollection';
 
 /**
  * Represents a course or opportunity review by a student.
  * @extends api/base.BaseSlugCollection
  * @memberOf api/review
  */
-class ReviewCollection extends BaseSlugCollection {
+class ReviewCollection extends BaseCollection {
   public COURSE: string;
 
   public OPPORTUNITY: string;
@@ -25,7 +24,6 @@ class ReviewCollection extends BaseSlugCollection {
    */
   constructor() {
     super('Review', new SimpleSchema({
-      slugID: { type: SimpleSchema.RegEx.Id },
       studentID: { type: SimpleSchema.RegEx.Id },
       reviewType: { type: String },
       revieweeID: { type: SimpleSchema.RegEx.Id },
@@ -40,7 +38,6 @@ class ReviewCollection extends BaseSlugCollection {
     this.COURSE = 'course';
     this.OPPORTUNITY = 'opportunity';
     this.defineSchema = new SimpleSchema({
-      slug: String,
       student: String,
       reviewType: String,
       reviewee: String,
@@ -66,8 +63,7 @@ class ReviewCollection extends BaseSlugCollection {
   /**
    * Defines a new Review.
    * @example
-   * Review.define({ slug: 'review-course-ics_111-abi',
-   *                 student: 'abi@hawaii.edu',
+   * Review.define({ student: 'abi@hawaii.edu',
    *                 reviewType: 'course',
    *                 reviewee: 'ics_111',
    *                 academicTerm: 'Fall-2016',
@@ -79,7 +75,6 @@ class ReviewCollection extends BaseSlugCollection {
    *                 retired: false});
    * @param { Object } description Object with keys slug, student, reviewee,
    * reviewType,academicTerm, rating, comments, moderated, public, and moderatorComments.
-   * Slug is optional. If supplied, must not be previously defined.
    * Student must be a user with role 'STUDENT.'
    * ReviewType must be either 'course' or 'opportunity'.
    * Reviewee must be a defined course or opportunity slug, depending upon reviewType.
@@ -91,7 +86,7 @@ class ReviewCollection extends BaseSlugCollection {
    * undefined reviewee, undefined academicTerm, or invalid rating.
    * @returns The newly created docID.
    */
-  public define({ slug, student, reviewType, reviewee, academicTerm, rating = 3, comments, moderated = false, visible = true, moderatorComments, retired = false }: ReviewDefine) {
+  public define({ student, reviewType, reviewee, academicTerm, rating = 3, comments, moderated = false, visible = true, moderatorComments, retired = false }: ReviewDefine) {
     // Validate student, get studentID.
     const studentID = Users.getID(student);
     Users.assertInRole(studentID, [ROLE.STUDENT, ROLE.ALUMNI]);
@@ -100,14 +95,8 @@ class ReviewCollection extends BaseSlugCollection {
     let revieweeID;
     if (reviewType === this.COURSE) {
       revieweeID = Courses.getID(reviewee);
-      if (!slug) {
-        slug = `review-course-${Courses.findSlugByID(revieweeID)}-${Users.getProfile(studentID).username}`; // eslint-disable-line no-param-reassign
-      }
     } else if (reviewType === this.OPPORTUNITY) {
       revieweeID = Opportunities.getID(reviewee);
-      if (!slug) {
-        slug = `review-opportunity-${Opportunities.findSlugByID(revieweeID)}-${Users.getProfile(studentID).username}`; // eslint-disable-line no-param-reassign
-      }
     }
     // Validate academicTerm, get termID.
     const termID = AcademicTerms.getID(academicTerm);
@@ -116,11 +105,13 @@ class ReviewCollection extends BaseSlugCollection {
     // Guarantee that moderated and public are booleans.
     moderated = !!moderated; // eslint-disable-line no-param-reassign
     visible = !!visible; // eslint-disable-line no-param-reassign
-    // Get SlugID, throw error if found.
-    const slugID = Slugs.define({ name: slug, entityName: this.getType() });
-    // Define the new Review and its Slug.
+    // Check to see if the review exists.
+    const doc = this.collection.findOne({ studentID, reviewType, revieweeID, termID });
+    if (doc) {
+      throw new Meteor.Error(`Cannot create two reviews for ${reviewee} in the same term.`);
+    }
+    // Define the new Review.
     const reviewID = this.collection.insert({
-      slugID,
       studentID,
       reviewType,
       revieweeID,
@@ -132,7 +123,6 @@ class ReviewCollection extends BaseSlugCollection {
       moderatorComments,
       retired,
     });
-    Slugs.updateEntityID(slugID, reviewID);
     // Return the id to the newly created Review.
     return reviewID;
   }
@@ -228,9 +218,6 @@ class ReviewCollection extends BaseSlugCollection {
   public checkIntegrity() {
     const problems = [];
     this.find().forEach((doc) => {
-      if (!Slugs.isDefined(doc.slugID)) {
-        problems.push(`Bad slugID: ${doc.slugID}`);
-      }
       if (!Users.isDefined(doc.studentID)) {
         problems.push(`Bad studentID: ${doc.studentID}`);
       }
@@ -264,7 +251,6 @@ class ReviewCollection extends BaseSlugCollection {
    */
   public dumpOne(docID: string): ReviewDefine {
     const doc = this.findDoc(docID);
-    const slug = Slugs.getNameFromID(doc.slugID);
     const student = Users.getProfile(doc.studentID).username;
     const reviewType = doc.reviewType;
     let reviewee;
@@ -281,7 +267,6 @@ class ReviewCollection extends BaseSlugCollection {
     const moderatorComments = doc.moderatorComments;
     const retired = doc.retired;
     return {
-      slug,
       student,
       reviewType,
       reviewee,
