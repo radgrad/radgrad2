@@ -805,7 +805,6 @@ export interface Review extends Document {
 }
 
 export interface ReviewDefine extends DumpOne {
-  slug?: string;
   student: string;
   reviewType: IReviewTypes;
   reviewee: string;
@@ -987,4 +986,52 @@ export interface RelatedCoursesOrOpportunities {
   completed: string[];
   inPlan: string[];
   notInPlan: string[];
+}
+
+export interface Location {
+  city?: string;
+  country?: string;
+  state?: string;
+  zip?: string;
+}
+
+export interface InternshipDefine extends DumpOne {
+  urls: string[];
+  position: string;
+  description: string;
+  lastUploaded?: Date;
+  missedUploads?: number;
+  interests: string[];
+  careerGoals: string[];
+  company?: string;
+  location?: Location;
+  contact?: string;
+  posted?: string;
+  due?: string;
+}
+
+export interface InternshipUpdate extends Update {
+  urls?: string[];
+  position?: string;
+  description?: string;
+  interests?: string[];
+  careerGoals?: string[];
+  company?: string;
+  location?: Location;
+  contact?: string;
+  posted?: string;
+  due?: string;
+}
+
+export interface InternshipUpdateData extends Update {
+  urls?: string[];
+  position?: string;
+  description?: string;
+  interestIDs?: string[];
+  careerGoalIDs?: string[];
+  company?: string;
+  location?: Location;
+  contact?: string;
+  posted?: string;
+  due?: string;
 }
