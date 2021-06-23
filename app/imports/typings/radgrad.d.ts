@@ -448,7 +448,6 @@ export interface Opportunity extends Document {
   termIDs: string[];
   timestamp: Date;
   // Optional data
-  eventDate?: Date;
   eventDate1?: Date;
   eventDateLabel1?: string;
   eventDate2?: Date;
@@ -470,7 +469,6 @@ export interface OpportunityDefine extends DumpOne {
   sponsor: string;
   interests: string[];
   ice: Ice;
-  eventDate?: Date; // Deprecated
   eventDate1?: Date;
   eventDateLabel1?: string;
   eventDate2?: Date;
@@ -489,10 +487,8 @@ export interface OpportunityUpdate extends Update {
   opportunityType?: string;
   sponsor?: string;
   interests?: string[];
-  eventDate?: any; // Deprecated
   eventDate1?: Date;
   eventDateLabel1?: string;
-  clearEventDate?: boolean;
   clearEventDate1?: boolean;
   clearEventDate2?: boolean;
   clearEventDate3?: boolean;

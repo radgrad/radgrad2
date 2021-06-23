@@ -38,7 +38,6 @@ class OpportunityCollection extends BaseSlugCollection {
       sponsorID: { type: SimpleSchema.RegEx.Id },
       interestIDs: [SimpleSchema.RegEx.Id],
       // Optional data
-      eventDate: { type: Date, optional: true }, // Deprecated
       eventDate1: { type: Date, optional: true },
       eventDateLabel1: { type: String, optional: true },
       eventDate2: { type: Date, optional: true },
@@ -72,7 +71,6 @@ class OpportunityCollection extends BaseSlugCollection {
    * @param interests must be a (possibly empty) array of interest slugs or IDs.
    * @param sponsor must be a User with role 'FACULTY', 'ADVISOR', or 'ADMIN'.
    * @param ice must be a valid ICE object.
-   * @param eventDate optional date.
    * @param eventDate1
    * @param eventDateLabel1
    * @param eventDate2
@@ -95,7 +93,6 @@ class OpportunityCollection extends BaseSlugCollection {
     sponsor,
     interests,
     ice,
-    eventDate, // Deprecated
     eventDate1,
     eventDateLabel1,
     eventDate2,
@@ -121,7 +118,7 @@ class OpportunityCollection extends BaseSlugCollection {
     const slugID = Slugs.define({ name: slug, entityName: this.getType() });
     const opportunityID = this.collection.insert({
       name, slugID, description, opportunityTypeID, sponsorID,
-      interestIDs, ice, eventDate, eventDate1, eventDateLabel1, eventDate2, eventDateLabel2,
+      interestIDs, ice, eventDate1, eventDateLabel1, eventDate2, eventDateLabel2,
       eventDate3, eventDateLabel3, eventDate4, eventDateLabel4, retired, picture,
     });
     Slugs.updateEntityID(slugID, opportunityID);
@@ -150,7 +147,6 @@ class OpportunityCollection extends BaseSlugCollection {
     opportunityType,
     sponsor,
     interests,
-    eventDate,
     eventDate1,
     eventDateLabel1,
     eventDate2,
@@ -159,7 +155,6 @@ class OpportunityCollection extends BaseSlugCollection {
     eventDateLabel3,
     eventDate4,
     eventDateLabel4,
-    clearEventDate,
     clearEventDate1,
     clearEventDate2,
     clearEventDate3,
@@ -188,9 +183,6 @@ class OpportunityCollection extends BaseSlugCollection {
     }
     if (interests) {
       updateData.interestIDs = Interests.getIDs(interests);
-    }
-    if (eventDate) {
-      updateData.eventDate = eventDate;
     }
     if (eventDate1) {
       updateData.eventDate1 = eventDate1;
@@ -232,9 +224,6 @@ class OpportunityCollection extends BaseSlugCollection {
     }
     if (picture) {
       updateData.picture = picture;
-    }
-    if (clearEventDate) {
-      updateData.eventDate = null;
     }
     if (clearEventDate1) {
       updateData.eventDate1 = null;
@@ -389,7 +378,6 @@ class OpportunityCollection extends BaseSlugCollection {
     const description = doc.description;
     const ice = doc.ice;
     const interests = doc.interestIDs.map((interestID) => Interests.findSlugByID(interestID));
-    const eventDate = doc.eventDate;
     const eventDate1 = doc.eventDate1;
     const eventDate2 = doc.eventDate2;
     const eventDate3 = doc.eventDate3;
@@ -408,7 +396,6 @@ class OpportunityCollection extends BaseSlugCollection {
       sponsor,
       ice,
       interests,
-      eventDate,
       eventDate1,
       eventDate2,
       eventDate3,
