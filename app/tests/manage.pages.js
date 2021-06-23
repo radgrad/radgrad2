@@ -49,6 +49,12 @@ class ManagePages {
     await testController.expect(componentSelector).eql(1);
   }
 
+  async clickEditOpportunities(testController) {
+    await testController.click(`#${COMPONENTIDS.EDIT_OPPORTUNITY_BUTTON}`);
+    const componentSelector = Selector(`#${COMPONENTIDS.EDIT_OPPORTUNITY_BUTTON}`);
+    await testController.expect(componentSelector.exists).ok();
+  }
+
   async studentRequestVerification(testController) {
     await testController.click(`#${COMPONENTIDS.STUDENT_REQUEST_VERIFICATION_BUTTON}`);
     await testController.typeText(`#${COMPONENTIDS.STUDENT_REQUEST_VERIFICATION_INPUT}`, 'Attended meetings');
