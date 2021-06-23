@@ -6,6 +6,7 @@ import { studentNavBar } from './navbar.student.component';
 import { explorerPages } from './explorer.pages';
 import { managePages } from './manage.pages';
 import { visibilityPage } from './visibility.page';
+import { reviewPage } from './review.page';
 import {
   studentDegreePlannerPage,
   studentICEPointsPage,
@@ -118,4 +119,12 @@ test('Test student visibility page', async (testController) => {
   await visibilityPage.testVisibility(testController, `#${COMPONENTIDS.SHARE_COURSES}`, `#${COMPONENTIDS.PROFILE_COURSES}`);
   await visibilityPage.testVisibility(testController, `#${COMPONENTIDS.SHARE_LEVEL}`, `#${COMPONENTIDS.PROFILE_LEVEL}`);
   await visibilityPage.testVisibility(testController, `#${COMPONENTIDS.SHARE_ICE}`, `#${COMPONENTIDS.PROFILE_ICE}`);
+});
+
+test('Test student adding a review', async (testController) => {
+  await landingNavBar.gotoStudentLogin(testController);
+  await signinPage.signin(testController, credentials.student.abi);
+
+  await studentNavBar.gotoReviewsPage(testController);
+  await reviewPage.testWriteReview(testController);
 });
