@@ -98,7 +98,6 @@ import { Courses } from '../../../api/course/CourseCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
-import { Slugs } from '../../../api/slug/SlugCollection';
 import { Reviews } from '../../../api/review/ReviewCollection';
 import AddReviewForm from '../../components/admin/datamodel/review/AddReviewForm';
 import UpdateReviewForm from '../../components/admin/datamodel/review/UpdateReviewForm';
@@ -128,7 +127,7 @@ const descriptionPairs = (item: Review): DescriptionPair[] => {
     { label: 'Student', value: Users.getFullName(item.studentID) },
     { label: 'Review Type', value: item.reviewType },
     { label: 'Reviewee', value: reviewee?.name },
-    { label: 'Semester', value: AcademicTerms.toString(item.termID, false) },
+    { label: 'Academic Term', value: AcademicTerms.toString(item.termID, false) },
     { label: 'Rating', value: `${item.rating}` },
     { label: 'Comments', value: item.comments },
     { label: 'Moderated', value: item.moderated ? 'True' : 'False' },
@@ -142,7 +141,21 @@ const descriptionPairs = (item: Review): DescriptionPair[] => {
  * Returns the title string for the item. Used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const itemTitleString = (item: Review): string => (Reviews.isDefined(item._id) ? `(${Slugs.getNameFromID(item.slugID)})` : '');
+const itemTitleString = (item: Review): string => {
+  if (Reviews.isDefined(item._id)) {
+    const student = StudentProfiles.findDoc({ userID: item.studentID });
+    let reviewee;
+    if (item.reviewType === ReviewTypes.COURSE) {
+      reviewee = Courses.findDoc(item.revieweeID);
+    } else if (item.reviewType === ReviewTypes.OPPORTUNITY) {
+      reviewee = Opportunities.findDoc(item.revieweeID);
+    }
+    const term = AcademicTerms.toString(item.termID, false);
+    return `${student.username}, ${reviewee.name}, ${term}`;
+
+  }
+  return '';
+};
 
 /**
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.
