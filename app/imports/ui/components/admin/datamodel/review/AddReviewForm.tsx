@@ -3,6 +3,7 @@ import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, SelectField, NumField, LongTextField, BoolField, SubmitField, ErrorsField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
+import { COMPONENTIDS } from '../../../../utilities/ComponentIDs';
 import RadGradAlert from '../../../../utilities/RadGradAlert';
 import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
 import { AcademicTerm, Course, Opportunity, StudentProfile } from '../../../../../typings/radgrad';
@@ -97,7 +98,6 @@ const AddReviewForm: React.FC<AddReviewFormProps> = ({ terms, courses, opportuni
       definitionData.reviewee = opportunityNameToSlug(doc.reviewee);
     }
     definitionData.academicTerm = academicTermNameToSlug(doc.academicTerm);
-    definitionData.slug = `review-${definitionData.reviewType}-${definitionData.reviewee}-${definitionData.student}`;
     defineMethod.callPromise({ collectionName, definitionData })
       .catch((error) => { RadGradAlert.failure('Add failed', error.message, error);})
       .then(() => {
@@ -113,22 +113,22 @@ const AddReviewForm: React.FC<AddReviewFormProps> = ({ terms, courses, opportuni
       <AutoForm schema={new SimpleSchema2Bridge(schema)} onSubmit={handleAdd} ref={(ref) => formRef = ref}
         showInlineError onChangeModel={handleModelChange}>
         <Form.Group widths="equal">
-          <SelectField name="reviewType" />
-          <SelectField name="student" />
-          <SelectField name="reviewee" />
+          <SelectField id={COMPONENTIDS.DATA_MODEL_REVIEW_TYPE} name="reviewType" />
+          <SelectField id={COMPONENTIDS.DATA_MODEL_STUDENT} name="student" />
+          <SelectField id={COMPONENTIDS.DATA_MODEL_REVIEWEE} name="reviewee" />
         </Form.Group>
         <Form.Group widths="equal">
-          <SelectField name="academicTerm" />
-          <NumField name="rating" />
+          <SelectField id={COMPONENTIDS.DATA_MODEL_ACADEMIC_TERM} name="academicTerm" />
+          <NumField id={COMPONENTIDS.DATA_MODEL_RATING} name="rating" />
         </Form.Group>
-        <LongTextField name="comments" />
+        <LongTextField id={COMPONENTIDS.DATA_MODEL_COMMENTS} name="comments" />
         <Form.Group>
-          <BoolField name="moderated" />
-          <BoolField name="visible" />
+          <BoolField id={COMPONENTIDS.DATA_MODEL_MODERATED} name="moderated" />
+          <BoolField id={COMPONENTIDS.DATA_MODEL_VISIBLE} name="visible" />
         </Form.Group>
-        <LongTextField name="moderatorComments" />
-        <BoolField name="retired" />
-        <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
+        <LongTextField id={COMPONENTIDS.DATA_MODEL_MODERATOR_COMMENTS} name="moderatorComments" />
+        <BoolField id={COMPONENTIDS.DATA_MODEL_RETIRED} name="retired" />
+        <SubmitField id={COMPONENTIDS.DATA_MODEL_SUBMIT} className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
         <ErrorsField />
       </AutoForm>
     </Segment>
