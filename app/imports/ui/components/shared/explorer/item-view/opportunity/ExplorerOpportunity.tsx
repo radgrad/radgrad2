@@ -63,20 +63,36 @@ const ExplorerOpportunity: React.FC<ExplorerOpportunitiesProps> = ({ opportunity
   const dateStrings = [];
 
   if (opportunity.eventDate1) {
-    dateStrings.push({"event": "Event 1:", "date": (moment(opportunity.eventDate1).format('MM/DD/YYYY'))});
+    if (opportunity.eventDateLabel1){
+      dateStrings.push({"event": opportunity.eventDateLabel1, "date": (moment(opportunity.eventDate1).format('MM/DD/YYYY'))});
+    } else {
+      dateStrings.push({"event": "Event 1", "date": (moment(opportunity.eventDate1).format('MM/DD/YYYY'))});
+    }
   }
   if (opportunity.eventDate2) {
-    dateStrings.push({"event": "Event 2:", "date": (moment(opportunity.eventDate2).format('MM/DD/YYYY'))});
+    if (opportunity.eventDateLabel2){
+      dateStrings.push({"event": opportunity.eventDateLabel2, "date": (moment(opportunity.eventDate1).format('MM/DD/YYYY'))});
+    } else {
+      dateStrings.push({"event": "Event 2", "date": (moment(opportunity.eventDate2).format('MM/DD/YYYY'))});
+    }
   }
   if (opportunity.eventDate3) {
-    dateStrings.push({"event": "Event 3:", "date": (moment(opportunity.eventDate3).format('MM/DD/YYYY'))});
+    if (opportunity.eventDateLabel3){
+      dateStrings.push({"event": opportunity.eventDateLabel3, "date": (moment(opportunity.eventDate1).format('MM/DD/YYYY'))});
+    } else {
+      dateStrings.push({"event": "Event 3", "date": (moment(opportunity.eventDate3).format('MM/DD/YYYY'))});
+    }
   }
   if (opportunity.eventDate4) {
-    dateStrings.push({"event": "Event 4:", "date": (moment(opportunity.eventDate4).format('MM/DD/YYYY'))});
+    if (opportunity.eventDateLabel4){
+      dateStrings.push({"event": opportunity.eventDateLabel4, "date": (moment(opportunity.eventDate1).format('MM/DD/YYYY'))});
+    } else {
+      dateStrings.push({"event": "Event 4", "date": (moment(opportunity.eventDate4).format('MM/DD/YYYY'))});
+    }
   }
 
-  const listItems = dateStrings.map((d) => <li key={`${d.date+d.event}`}>{d.event} {d.date}</li>);
-  console.log(dateStrings, listItems);
+  const listItems = dateStrings.map((d) => <li key={`${d.date+d.event}`}>{d.event + " :"} {d.date}</li>);
+  console.log(dateStrings, listItems, opportunity.eventDateLabel1 );
   // console.log(profile.userID, opportunity._id, opportunity.name);
   return (
     <div id="explorerOpportunityWidget">
