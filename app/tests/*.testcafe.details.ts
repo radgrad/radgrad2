@@ -21,5 +21,5 @@ test('Test the student interests details pages', async (testController) => {
   await signinPage.signin(testController, credentials.student.abi);
 
   await studentNavBar.gotoInterestsExplorerPage(testController);
-  await detailsPage.gotoViewPageAndVerify(testController, 'dotNet', PAGEIDS.INTEREST);
+  await detailsPage.gotoViewPageAndVerify(testController, PAGEIDS.INTEREST);
 });
