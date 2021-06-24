@@ -3,10 +3,12 @@ import { Button, Icon, Modal, SemanticFLOATS, Grid, Form } from 'semantic-ui-rea
 import { defineMethod, removeItMethod } from '../../../../../api/base/BaseCollection.methods';
 import { Interests } from '../../../../../api/interest/InterestCollection';
 import RadGradAlert from '../../../../utilities/RadGradAlert';
-import { CareerGoal, Interest, MeteorError } from '../../../../../typings/radgrad';
+import { CareerGoal, MeteorError } from '../../../../../typings/radgrad';
 import { ProfileCareerGoals } from '../../../../../api/user/profile-entries/ProfileCareerGoalCollection';
 import { PROFILE_ENTRY_TYPE, IProfileEntryTypes } from '../../../../../api/user/profile-entries/ProfileEntryTypes';
 import { COMPONENTIDS } from '../../../../utilities/ComponentIDs';
+import InterestList from '../../InterestList';
+import { EntityLabel } from '../../label/EntityLabel';
 import { createDefinitionData, getCollectionName } from './utilities/profile-button';
 
 export interface AddCareerToProfileProps {
@@ -44,15 +46,6 @@ const handleRemove = (userID: string, item: CareerGoal, type: IProfileEntryTypes
     .catch((error) => { RadGradAlert.failure('Failed to remove from profile', error.message, error);});
 };
 
-const handleCheck = (userID: string, item: Interest, type: IProfileEntryTypes) => () => {
-  const collectionName = getCollectionName(type);
-  const definitionData = createDefinitionData(userID, item, type);
-  defineMethod.callPromise({ collectionName, definitionData })
-    .catch((error: MeteorError) => { RadGradAlert.failure('Failed to add interests to profile', error.message);})
-    .then(() => { RadGradAlert.success('Added to profile');});
-};
-
-
 const AddCareerToProfile: React.FC<AddCareerToProfileProps> = ({ userID, careerGoal, type, added, inverted, floated }) => {
   const [open, setOpen] = useState(false);
 
@@ -81,8 +74,9 @@ const AddCareerToProfile: React.FC<AddCareerToProfileProps> = ({ userID, careerG
             <p> Adding this Career Goal will automatically add the following new Interests to your profile.<br/>
               If you are OK with that, just press OK. </p>
             <Form>
+              <InterestList item={careerGoal} size="small"/>
               <Form.Group widths={2}>
-                {interestSlugs.map((slug, index) => <Form.Checkbox id={`id_${slug}`} key={`${slug}-checkbox`} radio label={`${interestSlugs[index]}`} onChange={handleCheck(userID, `${interestSlugs[index]}`, type)}/>)}
+                {interestSlugs.map((slug, index) => <Form.Checkbox id={`id_${slug}`} key={`${slug}-checkbox`} radio label={`${interestSlugs[index]}`}/>)}
               </Form.Group>
             </Form>
           </Modal.Description>
