@@ -8,10 +8,16 @@ class DetailsPage {
     const linkCount = await linkSelector.count;
 
     for (let i = 0; i < linkCount; i++) {
+      const failed = await linkSelector.nth(i).getAttribute('href');
       await testController.click(linkSelector.nth(i));
-      const pageIdSelector = await Selector(`#${pageName}`);
-      await testController.expect(pageIdSelector.exists).ok();
-      await navbarFunction(testController);
+      try {
+        const pageIdSelector = await Selector(`#${pageName}`);
+        await testController.expect(pageIdSelector.exists).ok();
+        await navbarFunction(testController);
+      } catch {
+        throw new Error(`${failed} failed to load.`);
+      }
+
     }
   }
 
