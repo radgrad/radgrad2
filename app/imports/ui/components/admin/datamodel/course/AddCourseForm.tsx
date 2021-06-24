@@ -22,14 +22,13 @@ const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses }) => 
   const handleAdd = (doc) => {
     // console.log('CoursePage.handleAdd(%o)', doc);
     const collectionName = Courses.getCollectionName();
-    const definitionData: CourseDefine = doc; // create the definitionData may need to modify doc's values
-    const docInterests = doc.interests.map(interestSlugFromName);
+    const definitionData: CourseDefine = { name: doc.name, slug: doc.slug, num: doc.num, description: doc.description }; // create the definitionData may need to modify doc's values
+    definitionData.interests = doc.interests.map(interestSlugFromName);
     if (doc.shortName) {
       definitionData.shortName = doc.shortName;
     } else {
       definitionData.shortName = doc.name;
     }
-    definitionData.interests = docInterests;
     if (doc.corequisites) {
       definitionData.corequisites = doc.corequisites.map(courseNameToSlug);
     }
@@ -72,7 +71,7 @@ const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses }) => 
     'interests.$': {
       type: String,
       allowedValues: interestNames,
-      optional: true,
+      // optional: true,
     },
     corequisites: { type: Array, optional: true },
     'corequisites.$': { type: String, allowedValues: courseNames },
