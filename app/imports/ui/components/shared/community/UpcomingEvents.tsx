@@ -8,10 +8,12 @@ import { Opportunities } from '../../../../api/opportunity/OpportunityCollection
 import UpComingEventsCard from './UpComingEventsCard';
 
 interface eventsProp{
+  id: string,
   name: string,
   picture: string,
   date: string,
   label: string,
+  interestIDs: string[];
 }
 
 interface UpcomingEventsProp {
@@ -42,28 +44,28 @@ export default withTracker(() => {
     if (opportunity.eventDate1) {
       const temp = moment(opportunity.eventDate1).format('MM/DD/YYYY');
       if (moment(temp).isBetween(currentDate, threeMonths)) {
-        upComingEventsList.push({ name: opportunity.name, picture: opportunity.picture, date: moment(opportunity.eventDate1).format('MM/DD/YYYY'), label: opportunity.eventDateLabel1 });
+        upComingEventsList.push({ id: opportunity._id, name: opportunity.name, picture: opportunity.picture, date: moment(opportunity.eventDate1).format('MM/DD/YYYY'), label: opportunity.eventDateLabel1, interestIDs: opportunity.interestIDs  });
       }
     }
 
     if (opportunity.eventDate2 ) {
       const temp = moment(opportunity.eventDate2).format('MM/DD/YYYY');
       if (moment(temp).isBetween(currentDate, threeMonths)) {
-        upComingEventsList.push({ name: opportunity.name, picture: opportunity.picture, date: moment(opportunity.eventDate2).format('MM/DD/YYYY'), label: opportunity.eventDateLabel2 });
+        upComingEventsList.push({ id: opportunity._id, name: opportunity.name, picture: opportunity.picture, date: moment(opportunity.eventDate2).format('MM/DD/YYYY'), label: opportunity.eventDateLabel2, interestIDs: opportunity.interestIDs });
       }
     }
 
     if (opportunity.eventDate3) {
       const temp = moment(opportunity.eventDate3).format('MM/DD/YYYY');
       if (moment(temp).isBetween(currentDate, threeMonths)) {
-        upComingEventsList.push({ name: opportunity.name, picture: opportunity.picture, date: moment(opportunity.eventDate3).format('MM/DD/YYYY'), label: opportunity.eventDateLabel3 });
+        upComingEventsList.push({ id: opportunity._id,  name: opportunity.name, picture: opportunity.picture, date: moment(opportunity.eventDate3).format('MM/DD/YYYY'), label: opportunity.eventDateLabel3, interestIDs: opportunity.interestIDs  });
       }
     }
 
     if (opportunity.eventDate4) {
       const temp = moment(opportunity.eventDate4).format('MM/DD/YYYY');
       if (moment(temp).isBetween(currentDate, threeMonths)) {
-        upComingEventsList.push({ name: opportunity.name, picture: opportunity.picture, date: moment(opportunity.eventDate4).format('MM/DD/YYYY'), label: opportunity.eventDateLabel4 });
+        upComingEventsList.push({ id: opportunity._id,  name: opportunity.name, picture: opportunity.picture, date: moment(opportunity.eventDate4).format('MM/DD/YYYY'), label: opportunity.eventDateLabel4, interestIDs: opportunity.interestIDs  });
       }
     }
   });
