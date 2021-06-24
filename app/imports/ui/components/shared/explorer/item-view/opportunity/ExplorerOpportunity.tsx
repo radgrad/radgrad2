@@ -106,7 +106,7 @@ const ExplorerOpportunity: React.FC<ExplorerOpportunitiesProps> = ({ opportunity
             <strong style={{ paddingTop: '5px' }}>Sponsor:</strong> &nbsp; <UserLabel username={opportunity.sponsorID}/>
           </Grid.Row>
           <Grid.Row style={compactRowStyle}>
-            <strong>Dates:</strong>&nbsp;
+            <strong>Dates:</strong> &nbsp;
           </Grid.Row>
           {opportunity.eventDate1 ? listDateStrings : 'N/A'}
           {showManageButtons ? <Grid.Row><EditOpportunityButton opportunity={opportunity} sponsors={sponsors} interests={interests} opportunityTypes={opportunityTypes}/> <DeleteItemButton item={opportunity} type={PROFILE_ENTRY_TYPE.OPPORTUNITY} /></Grid.Row> : ''}
