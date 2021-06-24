@@ -8,7 +8,6 @@ import { ProfileCareerGoals } from '../../../../../api/user/profile-entries/Prof
 import { PROFILE_ENTRY_TYPE, IProfileEntryTypes } from '../../../../../api/user/profile-entries/ProfileEntryTypes';
 import { COMPONENTIDS } from '../../../../utilities/ComponentIDs';
 import InterestList from '../../InterestList';
-import { EntityLabel } from '../../label/EntityLabel';
 import { createDefinitionData, getCollectionName } from './utilities/profile-button';
 
 export interface AddCareerToProfileProps {
