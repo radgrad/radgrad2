@@ -24,8 +24,10 @@ class CoursePage {
     // const coreqsSelect = Selector(`#${COMPONENTIDS.DATA_MODEL_COREQUISITES}`);
     // const prereq = 'ics_111';
     // const prereqsSelect = Selector(`#${COMPONENTIDS.DATA_MODEL_PREREQUISITES}`);
+    const submitSelect = Selector(`#${COMPONENTIDS.DATA_MODEL_SUBMIT}`);
     // fill the form
     await t
+      .click(slugSelect)
       .typeText(slugSelect, slug)
       .expect(slugSelect.value).eql(slug);
     await t
@@ -55,7 +57,7 @@ class CoursePage {
       .click(interestsOption.withText('.NET'))
       .click(interestsOption.withText('C#'));
     // submit the form
-    await t.click(`#${COMPONENTIDS.DATA_MODEL_SUBMIT}`);
+    await t.click(submitSelect);
     // check the reset form
     await t
       .expect(slugSelect.value).eql('');

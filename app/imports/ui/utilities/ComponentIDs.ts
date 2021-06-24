@@ -62,6 +62,7 @@ export enum COMPONENTIDS {
   ADVISOR_FILTER_LAST_NAME = 'advisor-filter-last-name',
   ADVISOR_FILTER_USERNAME = 'advisor-filter-username',
   MANAGE_STUDENT_ITEM = 'manage-student-item',
+  EDIT_OPPORTUNITY_BUTTON = 'edit-opportunity-button',
 
   FACULTY = 'faculty',
   FACULTY_MENU_HOME = 'faculty-menu-home',
@@ -80,9 +81,10 @@ export enum COMPONENTIDS {
 
   STUDENT = 'student',
   STUDENT_MENU_HOME = 'student-menu-home',
+  STUDENT_MENU_EXPLORERS = 'student-menu-explorers',
   STUDENT_MENU_INTERESTS = 'student-menu-interests',
   STUDENT_MENU_COURSES = 'student-menu-courses',
-  STUDENT_MENU_CAREERS = 'student-menu-careers',
+  STUDENT_MENU_CAREERS = 'student-menu-career-goals',
   STUDENT_MENU_OPPORTUNITIES = 'student-menu-opportunities',
   STUDENT_MENU_PLANNER = 'student-menu-planner',
   STUDENT_MENU_VERIFICATION = 'student-menu-verification',
@@ -95,6 +97,10 @@ export enum COMPONENTIDS {
   STUDENT_REQUEST_VERIFICATION_BUTTON = 'student-request-verification-button',
   STUDENT_REQUEST_VERIFICATION_INPUT = 'student-request-verification-input',
   STUDENT_REQUEST_VERIFICATION_SUBMIT = 'student-request-verification-submit',
+  STUDENT_COURSE_OR_OPPORTUNITY = 'student-course-or-opportunity',
+  STUDENT_REVIEW_COMMENT = 'student-review-comment',
+  STUDENT_REVIEW_SUBMIT = 'student-review-submit',
+  STUDENT_REVIEW_ITEM = 'student-review-item',
 
   SIGNIN_FORM_EMAIL = 'signin-form-email',
   SIGNIN_FORM_PASSWORD = 'signin-form-password',
@@ -102,7 +108,6 @@ export enum COMPONENTIDS {
 
   ADD_TO_PROFILE_BUTTON = 'add-to-profile-button',
   REMOVE_FROM_PROFILE_BUTTON = 'remove-from-profile-button',
-
   SHARE_PICTURE = 'share-picture',
   SHARE_WEBSITE = 'share-website',
   SHARE_INTERESTS = 'share-interests',
@@ -124,20 +129,29 @@ export enum COMPONENTIDS {
   SET_WEBSITE_TEXT = 'set-website-text',
 
   // Data model form ids.
+  DATA_MODEL_ACADEMIC_TERM = 'data-model-academic-term',
+  DATA_MODEL_COMMENTS = 'data-model-comments',
   DATA_MODEL_COREQUISITES = 'data-model-corequisites',
   DATA_MODEL_CREDIT_HOURS = 'data-model-credit-hours',
   DATA_MODEL_DESCRIPTION = 'data-model-description',
   DATA_MODEL_INTERESTS = 'data-model-interests',
+  DATA_MODEL_MODERATED = 'data-model-moderated',
+  DATA_MODEL_MODERATOR_COMMENTS = 'data-model-moderator-comments',
   DATA_MODEL_NAME = 'data-model-name',
   DATA_MODEL_NUM = 'data-model-num',
+  DATA_MODEL_PAGINATION_LAST = 'data-model-pagination-last',
   DATA_MODEL_PICTURE = 'data-model-picture',
   DATA_MODEL_PREREQUISITES = 'data-model-prerequisites',
+  DATA_MODEL_RATING = 'data-model-rating',
   DATA_MODEL_REPEATABLE = 'data-model-repeatable',
+  DATA_MODEL_REVIEWEE = 'data-model-reviewee',
+  DATA_MODEL_REVIEW_TYPE = 'data-model-review-type',
   DATA_MODEL_RETIRED = 'data-model-retired',
   DATA_MODEL_SHORT_NAME = 'data-model-short-name',
   DATA_MODEL_SLUG = 'data-model-slug',
   DATA_MODEL_STUDENT = 'data-model-student',
   DATA_MODEL_SUBMIT = 'data-model-submit',
   DATA_MODEL_SYLLABUS = 'data-model-syllabus',
+  DATA_MODEL_VISIBLE = 'data-model-visible',
   DATA_MODEL_YEAR = 'data-model-year',
 }

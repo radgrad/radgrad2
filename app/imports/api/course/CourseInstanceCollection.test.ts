@@ -1,14 +1,11 @@
 import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
-// import faker from 'faker';
 import fc from 'fast-check';
 import 'mocha';
-// import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { CourseInstances } from './CourseInstanceCollection';
 import { getRandomGrade, makeSampleCourse } from './SampleCourses';
 import { makeSampleUser } from '../user/SampleUsers';
 import { removeAllEntities } from '../base/BaseUtilities';
-// import { Courses } from './CourseCollection';
 import { makeSampleAcademicTerm } from '../academic-term/SampleAcademicTerms';
 import { CourseInstance } from '../../typings/radgrad';
 import { Slugs } from '../slug/SlugCollection';

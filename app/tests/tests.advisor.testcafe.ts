@@ -25,7 +25,7 @@ import {
 
 /** Credentials for sample user(s) defined in settings.development.json. */
 const credentials = {
-  advisor: { userName: 'glau@hawaii.edu', password: 'foo' },
+  advisor: { userName: 'kennydq@hawaii.edu', password: 'foo' },
 };
 
 fixture('Advisor UI acceptance tests').page('http://localhost:3200');
@@ -101,6 +101,14 @@ test('Test advisor manage student page', async (testController) => {
   await managePages.clickFilteredAlumniTabAndVerify(testController);
   await managePages.clickOtherTabAndVerify(testController);
   await managePages.clickMatriculateTabAndVerify(testController);
+});
+
+test('Test advisor manage opportunities page', async (testController) => {
+  await landingNavBar.gotoAdvisorLogin(testController);
+  await signinPage.signin(testController, credentials.advisor);
+
+  await advisorNavBar.gotoManageOpportunitiesPage(testController);
+  await managePages.clickEditOpportunities(testController);
 });
 
 test('Test advisor visibility page', async (testController) => {
