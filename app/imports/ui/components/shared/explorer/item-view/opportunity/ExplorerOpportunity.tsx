@@ -2,7 +2,7 @@ import moment from 'moment';
 import React from 'react';
 import Markdown from 'react-markdown';
 import { useParams } from 'react-router-dom';
-import { Divider, Grid, Segment } from 'semantic-ui-react';
+import { Divider, Grid, Segment, List } from 'semantic-ui-react';
 import { Reviews } from '../../../../../../api/review/ReviewCollection';
 import { ROLE } from '../../../../../../api/role/Role';
 import { Teasers } from '../../../../../../api/teaser/TeaserCollection';
@@ -91,8 +91,7 @@ const ExplorerOpportunity: React.FC<ExplorerOpportunitiesProps> = ({ opportunity
     }
   }
 
-  const listItems = dateStrings.map((d) => <li key={`${d.date+d.event}`}>{d.event + " :"} {d.date}</li>);
-  console.log(dateStrings, listItems, opportunity.eventDateLabel1 );
+  const listDateStrings = dateStrings.map((d) => <List bulleted> <List.Item>{d.event + " :"} {d.date}</List.Item> </List>);
   // console.log(profile.userID, opportunity._id, opportunity.name);
   return (
     <div id="explorerOpportunityWidget">
@@ -109,7 +108,7 @@ const ExplorerOpportunity: React.FC<ExplorerOpportunitiesProps> = ({ opportunity
           <Grid.Row style={compactRowStyle}>
             <strong>Dates:</strong>&nbsp;
           </Grid.Row>
-          {opportunity.eventDate1 ? listItems : 'N/A'}
+          {opportunity.eventDate1 ? listDateStrings : 'N/A'}
           {showManageButtons ? <Grid.Row><EditOpportunityButton opportunity={opportunity} sponsors={sponsors} interests={interests} opportunityTypes={opportunityTypes}/> <DeleteItemButton item={opportunity} type={PROFILE_ENTRY_TYPE.OPPORTUNITY} /></Grid.Row> : ''}
         </Grid>
       </Segment>
