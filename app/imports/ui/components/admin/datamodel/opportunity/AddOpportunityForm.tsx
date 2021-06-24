@@ -32,12 +32,7 @@ const AddOpportunityForm: React.FC<AddOpportunityFormProps> = ({ sponsors, inter
   const handleAdd = (doc) => {
     // console.log('Opportunities.handleAdd(%o)', doc);
     const collectionName = Opportunities.getCollectionName();
-    const definitionData: OpportunityDefine = doc;
-    const docInterestNames = doc.interests.map(interestSlugFromName);
-    definitionData.interests = docInterestNames;
-    definitionData.opportunityType = opportunityTypeNameToSlug(doc.opportunityType);
-    definitionData.sponsor = profileNameToUsername(doc.sponsor);
-    definitionData.slug = `${slugify(doc.name)}-opportunity`;
+    const definitionData: OpportunityDefine = { name: doc.name, description: doc.description, slug: `${slugify(doc.name)}-opportunity`, interests: doc.interests.map(interestSlugFromName), opportunityType: opportunityTypeNameToSlug(doc.opportunityType), sponsor: profileNameToUsername(doc.sponsor), ice: doc.ice, picture: doc.picture, retired: doc.retired };
     // console.log(definitionData);
     defineMethod
       .callPromise({ collectionName, definitionData })

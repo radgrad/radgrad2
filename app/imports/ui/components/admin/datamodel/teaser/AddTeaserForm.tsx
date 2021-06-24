@@ -7,7 +7,7 @@ import SimpleSchema from 'simpl-schema';
 import RadGradAlert from '../../../../utilities/RadGradAlert';
 import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
 import { Teasers } from '../../../../../api/teaser/TeaserCollection';
-import { Interest, Opportunity, CareerGoal, Course } from '../../../../../typings/radgrad';
+import { Interest, Opportunity, CareerGoal, Course, TeaserDefine } from '../../../../../typings/radgrad';
 import {
   docToName,
   interestNameToSlug,
@@ -57,13 +57,12 @@ const AddTeaserForm: React.FC<AddTeaserFormProps> = ({ careerGoals, courses, int
   const formSchema = new SimpleSchema2Bridge(schema);
 
   const handleAdd = (doc) => {
-    console.log('Teasers.handleAdd(%o)', doc);
+    // console.log('Teasers.handleAdd(%o)', doc);
     const collectionName = Teasers.getCollectionName();
-    const definitionData = doc;
-    definitionData.interests = doc.interests.map(interestNameToSlug);
-    definitionData.targetSlug = slugNameAndTypeToName(doc.targetSlug);
-    definitionData.url = doc.youtubeID;
-    definitionData.slug = `${definitionData.targetSlug}-teaser`;
+    const interestSlugs = doc.interests.map(interestNameToSlug);
+    const targetSlug = slugNameAndTypeToName(doc.targetSlug);
+    const url = doc.youtubeID;
+    const definitionData: TeaserDefine = { title: doc.title, url, author: doc.author, interests: interestSlugs, targetSlug, description: doc.description, slug: `${doc.targetSlug}-teaser`, duration: doc.duration, retired: doc.retired };
     // definitionData.opportunity = opportunityNameToSlug(doc.opportunity);
     // console.log(collectionName, definitionData);
     defineMethod.callPromise({ collectionName, definitionData })

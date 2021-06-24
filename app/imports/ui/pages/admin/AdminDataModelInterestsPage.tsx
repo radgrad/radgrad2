@@ -12,10 +12,7 @@ import UpdateInterestForm from '../../components/admin/datamodel/interest/Update
 import { itemToSlugName, interestTypeNameToId } from '../../components/shared/utilities/data-model';
 import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
-import {
-  handleCancelWrapper,
-  handleConfirmDeleteWrapper, handleDeleteWrapper, handleOpenUpdateWrapper,
-} from './utilities/data-model-page-callbacks';
+import { handleCancelWrapper, handleConfirmDeleteWrapper, handleDeleteWrapper, handleOpenUpdateWrapper } from './utilities/data-model-page-callbacks';
 
 const collection = Interests; // the collection to use.
 
@@ -72,44 +69,34 @@ const AdminDataModelInterestsPage: React.FC<AdminDataModelInterestsPageProps> = 
       updateData.interestType = interestTypeNameToId(doc.interestType);
     }
     // console.log(updateData);
-    updateMethod.callPromise({ collectionName, updateData })
-      .catch((error) => { RadGradAlert.failure('Update Failed', error.message, error);})
+    updateMethod
+      .callPromise({ collectionName, updateData })
+      .catch((error) => {
+        RadGradAlert.failure('Update Failed', error.message, error);
+      })
       .then(() => {
         RadGradAlert.success('Update Succeeded');
         setShowUpdateForm(false);
         setId('');
       });
   };
-  const findOptions = {
-    sort: { name: 1 }, // determine how you want to sort the items in the list
-  };
   return (
     <PageLayout id={PAGEIDS.DATA_MODEL_INTERESTS} headerPaneTitle="Interests">
       {showUpdateFormState ? (
-        <UpdateInterestForm collection={collection} id={idState} handleUpdate={handleUpdate}
-          handleCancel={handleCancel} itemTitleString={itemTitleString}
-          interestTypes={interestTypes} />
+        <UpdateInterestForm collection={collection} id={idState} handleUpdate={handleUpdate} handleCancel={handleCancel} itemTitleString={itemTitleString} interestTypes={interestTypes} />
       ) : (
         <AddInterestForm interestTypes={interestTypes} />
       )}
-      <ListCollectionWidget
-        collection={collection}
-        findOptions={findOptions}
-        descriptionPairs={descriptionPairs}
-        itemTitle={itemTitle}
-        handleOpenUpdate={handleOpenUpdate}
-        handleDelete={handleDelete}
-        items={items}
-      />
-      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
-        header="Delete Interest?" />
+      <ListCollectionWidget collection={collection} descriptionPairs={descriptionPairs} itemTitle={itemTitle} handleOpenUpdate={handleOpenUpdate} handleDelete={handleDelete} items={items} />
+      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Interest?" />
     </PageLayout>
   );
 };
 
 export default withTracker(() => {
-  const items = Interests.find({}).fetch();
-  const interestTypes = InterestTypes.find({}).fetch();
+  // We want to sort the items.
+  const items = Interests.find({}, { sort: { name: 1 } }).fetch();
+  const interestTypes = InterestTypes.find({}, { sort: { name: 1 } }).fetch();
   return {
     items,
     interestTypes,

@@ -8,7 +8,7 @@ import { CareerGoals } from '../../../../../api/career/CareerGoalCollection';
 import { Interests } from '../../../../../api/interest/InterestCollection';
 import slugify, { Slugs } from '../../../../../api/slug/SlugCollection';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
-import { Interest } from '../../../../../typings/radgrad';
+import { CareerGoalDefine, Interest } from '../../../../../typings/radgrad';
 import PictureField from '../../../form-fields/PictureField';
 import { docToName } from '../../../shared/utilities/data-model';
 import RadGradAlert from '../../../../utilities/RadGradAlert';
@@ -23,10 +23,9 @@ const AddCareerGoalForm: React.FC<AddCareerGoalFormProps> = ({ interests }) => {
   const handleAdd = (doc) => {
     // console.log('handleAdd(%o)', doc);
     const collectionName = CareerGoals.getCollectionName();
-    const docInterests = doc.interests;
-    const slugs = docInterests.map((i) => Slugs.getNameFromID(Interests.findDoc({ name: i }).slugID));
-    const definitionData = doc;
-    definitionData.interests = slugs;
+    const slugs = doc.interests.map((i) => Slugs.getNameFromID(Interests.findDoc({ name: i }).slugID));
+    // Don't assign doc to definitionData since we need to change the interests.
+    const definitionData: CareerGoalDefine = { name: doc.name, slug: doc.slug, description: doc.description, interests: slugs };
     definitionData.slug = slugify(doc.name);
     defineMethod.callPromise({ collectionName, definitionData })
       .catch((error) => {

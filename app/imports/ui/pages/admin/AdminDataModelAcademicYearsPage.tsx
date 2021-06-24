@@ -11,11 +11,7 @@ import AdminDataModelUpdateForm from '../../components/admin/datamodel/AdminData
 import AddAcademicYearInstanceForm from '../../components/admin/datamodel/academic-year/AddAcademicYearInstanceForm';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { PAGEIDS } from '../../utilities/PageIDs';
-import {
-  handleCancelWrapper,
-  handleConfirmDeleteWrapper,
-  handleDeleteWrapper, handleOpenUpdateWrapper,
-} from './utilities/data-model-page-callbacks';
+import { handleCancelWrapper, handleConfirmDeleteWrapper, handleDeleteWrapper, handleOpenUpdateWrapper } from './utilities/data-model-page-callbacks';
 import PageLayout from '../PageLayout';
 
 const collection = AcademicYearInstances;
@@ -70,8 +66,11 @@ const AdminDataModelAcademicYearsPage: React.FC<AdminDataModelAcademicYearsPageP
     updateData.year = doc.year;
     updateData.retired = doc.retired;
     // console.log('parameter = %o', { collectionName, updateData });
-    updateMethod.callPromise({ collectionName, updateData })
-      .catch((error) => { RadGradAlert.failure('Update Failed', error.message, error);})
+    updateMethod
+      .callPromise({ collectionName, updateData })
+      .catch((error) => {
+        RadGradAlert.failure('Update Failed', error.message, error);
+      })
       .then(() => {
         RadGradAlert.success('Update Succeeded');
         setShowUpdateForm(false);
@@ -79,40 +78,26 @@ const AdminDataModelAcademicYearsPage: React.FC<AdminDataModelAcademicYearsPageP
       });
   };
 
-  const findOptions = {
-    sort: { year: 1 },
-  };
   return (
     <PageLayout id={PAGEIDS.DATA_MODEL_ACADEMIC_YEARS} headerPaneTitle="Academic Year Instances">
       {showUpdateFormState ? (
-        <AdminDataModelUpdateForm collection={AcademicYearInstances} id={idState}
-          handleUpdate={handleUpdate} handleCancel={handleCancel}
-          itemTitleString={itemTitleString} />
+        <AdminDataModelUpdateForm collection={AcademicYearInstances} id={idState} handleUpdate={handleUpdate} handleCancel={handleCancel} itemTitleString={itemTitleString} />
       ) : (
         <AddAcademicYearInstanceForm students={students} />
       )}
-      <ListCollectionWidget
-        collection={AcademicYearInstances}
-        findOptions={findOptions}
-        descriptionPairs={descriptionPairs}
-        itemTitle={itemTitle}
-        handleOpenUpdate={handleOpenUpdate}
-        handleDelete={handleDelete}
-        items={items}
-      />
+      <ListCollectionWidget collection={AcademicYearInstances} descriptionPairs={descriptionPairs} itemTitle={itemTitle} handleOpenUpdate={handleOpenUpdate} handleDelete={handleDelete} items={items} />
 
-      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
-        header="Delete Academic Year Instance?" />
+      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Academic Year Instance?" />
     </PageLayout>
   );
 };
 
 export default withTracker(() => {
-  const items = AcademicYearInstances.find({}).fetch();
+  // We want to sort the items.
+  const items = AcademicYearInstances.find({}, { sort: { year: 1 } }).fetch();
   const students = StudentProfiles.find({ isAlumni: false }).fetch();
   return {
     items,
     students,
   };
 })(AdminDataModelAcademicYearsPage);
-

@@ -9,7 +9,6 @@ import AdminPaginationWidget from './AdminPaginationWidget';
 
 interface ListSlugCollectionWidgetProps {
   collection: BaseCollection;
-  findOptions?: { [key: string]: unknown };
   descriptionPairs: (item) => DescriptionPair[];
   handleOpenUpdate: (evt: any, id: any) => any;
   handleDelete: (evt: any, id: any) => any;
@@ -17,7 +16,7 @@ interface ListSlugCollectionWidgetProps {
   itemTitle: (item) => React.ReactNode;
 }
 
-const ListSlugCollectionWidget: React.FC<ListSlugCollectionWidgetProps> = ({ collection, findOptions, descriptionPairs, handleDelete, handleOpenUpdate, items, itemTitle }) => {
+const ListSlugCollectionWidget: React.FC<ListSlugCollectionWidgetProps> = ({ collection, descriptionPairs, handleDelete, handleOpenUpdate, items, itemTitle }) => {
   // console.log('ListSlugCollectionWidget.render props=%o', props);
   const count = collection.count();
   const collectionName = collection.getCollectionName();

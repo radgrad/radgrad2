@@ -288,7 +288,7 @@ class CourseCollection extends BaseSlugCollection {
    */
   public findNames(instanceIDs: string[]) {
     // console.log('Courses.findNames(%o)', instanceIDs);
-    return instanceIDs.map((instanceID) => this.findDoc(instanceID).name);
+    return instanceIDs.map((instanceID) => this.getName(instanceID));
   }
 
 

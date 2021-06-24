@@ -32,7 +32,7 @@ const descriptionPairs = (item: Opportunity): DescriptionPair[] => {
     { label: 'Description', value: item.description },
     { label: 'Opportunity Type', value: OpportunityTypes.findDoc(item.opportunityTypeID).name },
     { label: 'Sponsor', value: Users.getProfile(item.sponsorID).username },
-    { label: 'Interests', value: _.sortBy(Interests.findNames(item.interestIDs)) },
+    { label: 'Interests', value: Interests.findNames(item.interestIDs).sort() },
     { label: 'ICE', value: `${item.ice.i}, ${item.ice.c}, ${item.ice.e}` },
     { label: 'Picture', value: makeMarkdownLink(item.picture) },
     { label: 'Retired', value: item.retired ? 'True' : 'False' },
@@ -111,9 +111,6 @@ const AdminDataModelOpportunitiesPage: React.FC<AdminDataModelOpportunitiesPageP
       });
   };
 
-  const findOptions = {
-    sort: { name: 1 }, // determine how you want to sort the items in the list
-  };
   return (
     <PageLayout id={PAGEIDS.DATA_MODEL_OPPORTUNITIES} headerPaneTitle="Opportunities">
       {showUpdateFormState ? (
@@ -121,7 +118,7 @@ const AdminDataModelOpportunitiesPage: React.FC<AdminDataModelOpportunitiesPageP
       ) : (
         <AddOpportunityForm sponsors={sponsors} interests={interests} opportunityTypes={opportunityTypes} />
       )}
-      <ListCollectionWidget collection={collection} findOptions={findOptions} descriptionPairs={descriptionPairs} itemTitle={itemTitle} handleOpenUpdate={handleOpenUpdate} handleDelete={handleDelete} items={items} />
+      <ListCollectionWidget collection={collection} descriptionPairs={descriptionPairs} itemTitle={itemTitle} handleOpenUpdate={handleOpenUpdate} handleDelete={handleDelete} items={items} />
 
       <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Opportunity?" />
     </PageLayout>
@@ -134,8 +131,9 @@ export default withTracker(() => {
   const advisors = AdvisorProfiles.find({}).fetch();
   const sponsorDocs = _.union(faculty, advisors);
   const sponsors = _.sortBy(sponsorDocs, ['lastName', 'firstName']);
+  // We want to sort the items.
   const items = Opportunities.find({}, { sort: { name: 1 } }).fetch();
-  const opportunityTypes = OpportunityTypes.find({}).fetch();
+  const opportunityTypes = OpportunityTypes.find({}, { sort: { name: 1 } }).fetch();
   return {
     sponsors,
     items,

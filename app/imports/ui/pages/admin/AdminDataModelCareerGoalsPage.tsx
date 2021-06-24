@@ -1,6 +1,5 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
-import _ from 'lodash';
 import { Confirm, Icon } from 'semantic-ui-react';
 import RadGradAlert from '../../utilities/RadGradAlert';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
@@ -11,17 +10,9 @@ import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import AddCareerGoalForm from '../../components/admin/datamodel/career-goal/AddCareerGoalForm';
 import UpdateCareerGoalForm from '../../components/admin/datamodel/career-goal/UpdateCareerGoalForm';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
-import {
-  profileGetCareerGoalIDs,
-  itemToSlugName,
-  interestNameToId,
-} from '../../components/shared/utilities/data-model';
+import { profileGetCareerGoalIDs, itemToSlugName, interestNameToId } from '../../components/shared/utilities/data-model';
 import { PAGEIDS } from '../../utilities/PageIDs';
-import {
-  handleCancelWrapper,
-  handleConfirmDeleteWrapper,
-  handleDeleteWrapper, handleOpenUpdateWrapper,
-} from './utilities/data-model-page-callbacks';
+import { handleCancelWrapper, handleConfirmDeleteWrapper, handleDeleteWrapper, handleOpenUpdateWrapper } from './utilities/data-model-page-callbacks';
 import PageLayout from '../PageLayout';
 
 const collection = CareerGoals;
@@ -29,7 +20,7 @@ const collection = CareerGoals;
 const numReferences = (careerGoal) => {
   let references = 0;
   Users.findProfiles({}, {}).forEach((profile) => {
-    if ((profileGetCareerGoalIDs(profile)).includes(careerGoal._id)) {
+    if (profileGetCareerGoalIDs(profile).includes(careerGoal._id)) {
       references += 1;
     }
   });
@@ -38,7 +29,7 @@ const numReferences = (careerGoal) => {
 
 const descriptionPairs = (careerGoal: CareerGoal): DescriptionPair[] => [
   { label: 'Description', value: careerGoal.description },
-  { label: 'Interests', value: _.sortBy(Interests.findNames(careerGoal.interestIDs)) },
+  { label: 'Interests', value: Interests.findNames(careerGoal.interestIDs).sort() },
   { label: 'References', value: `Users: ${numReferences(careerGoal)}` },
 ];
 
@@ -79,8 +70,11 @@ const AdminDataModelCareerGoalsPage: React.FC<AdminDataModelCareerGoalsPageProps
     updateData.retired = doc.retired;
     updateData.interests = doc.interests.map(interestNameToId);
     // console.log('updateData = %o', updateData);
-    updateMethod.callPromise({ collectionName, updateData })
-      .catch((error) => { RadGradAlert.failure('Update Failed', error.message, error);})
+    updateMethod
+      .callPromise({ collectionName, updateData })
+      .catch((error) => {
+        RadGradAlert.failure('Update Failed', error.message, error);
+      })
       .then(() => {
         RadGradAlert.success('Update Succeeded');
         setShowUpdateForm(false);
@@ -91,29 +85,20 @@ const AdminDataModelCareerGoalsPage: React.FC<AdminDataModelCareerGoalsPageProps
   return (
     <PageLayout id={PAGEIDS.DATA_MODEL_CAREER_GOALS} headerPaneTitle="Career Goals">
       {showUpdateFormState ? (
-        <UpdateCareerGoalForm collection={CareerGoals} id={idState} handleUpdate={handleUpdate}
-          handleCancel={handleCancel} itemTitleString={itemTitleString}
-          interests={interests} />
+        <UpdateCareerGoalForm collection={CareerGoals} id={idState} handleUpdate={handleUpdate} handleCancel={handleCancel} itemTitleString={itemTitleString} interests={interests} />
       ) : (
         <AddCareerGoalForm interests={interests} />
       )}
-      <ListCollectionWidget
-        collection={CareerGoals}
-        descriptionPairs={descriptionPairs}
-        itemTitle={itemTitle}
-        handleOpenUpdate={handleOpenUpdate}
-        handleDelete={handleDelete}
-        items={items}
-      />
+      <ListCollectionWidget collection={CareerGoals} descriptionPairs={descriptionPairs} itemTitle={itemTitle} handleOpenUpdate={handleOpenUpdate} handleDelete={handleDelete} items={items} />
 
-      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
-        header="Delete Career Goal?" />
+      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Career Goal?" />
     </PageLayout>
   );
 };
 
 export default withTracker(() => {
-  const items = CareerGoals.find({}).fetch();
+  // We want to sort the items.
+  const items = CareerGoals.find({}, { sort: { name: 1 } }).fetch();
   const interests = Interests.find({}).fetch();
   return {
     items,

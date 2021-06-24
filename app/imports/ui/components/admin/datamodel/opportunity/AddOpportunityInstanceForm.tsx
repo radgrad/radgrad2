@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import React from 'react';
 import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, SelectField, BoolField, SubmitField, ErrorsField } from 'uniforms-semantic';
@@ -8,7 +7,7 @@ import RadGradAlert from '../../../../utilities/RadGradAlert';
 import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
 import { OpportunityInstances } from '../../../../../api/opportunity/OpportunityInstanceCollection';
 import { Slugs } from '../../../../../api/slug/SlugCollection';
-import { AcademicTerm, BaseProfile, Opportunity, StudentProfile } from '../../../../../typings/radgrad';
+import { AcademicTerm, BaseProfile, Opportunity, OpportunityInstanceDefine, StudentProfile } from '../../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermCollection';
 import {
   academicTermNameToDoc,
@@ -64,22 +63,12 @@ const AddOpportunityInstanceForm: React.FC<AddOpportunityInstanceFormProps> = ({
   const handleAdd = (doc) => {
     // console.log('OpportunityInstances.handleAdd(%o)', doc);
     const collectionName = OpportunityInstances.getCollectionName();
-    const definitionData = doc;
     const academicTermDoc = academicTermNameToDoc(doc.term);
     const academicTerm = Slugs.getNameFromID(academicTermDoc.slugID);
     const opportunity = opportunityNameToSlug(doc.opportunity);
     const student = profileNameToUsername(doc.student);
     const sponsor = profileNameToUsername(doc.sponsor);
-    definitionData.academicTerm = academicTerm;
-    definitionData.opportunity = opportunity;
-    definitionData.sponsor = sponsor;
-    definitionData.student = student;
-    if (_.isBoolean(doc.verified)) {
-      definitionData.verifed = doc.verifed;
-    }
-    if (_.isBoolean(doc.retired)) {
-      definitionData.retired = doc.retired;
-    }
+    const definitionData: OpportunityInstanceDefine = { academicTerm, opportunity, sponsor, student, verified: doc.verified, retired: doc.retired };
     defineMethod.callPromise({ collectionName, definitionData })
       .catch((error) => { RadGradAlert.failure('Add failed', error.message, error);})
       .then(() => {

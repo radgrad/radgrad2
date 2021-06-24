@@ -28,7 +28,7 @@ const AddAcademicYearInstanceForm: React.FC<AddAcademicYearInstanceProps> = ({ s
   let formRef;
   const handleAdd = (doc) => {
     const collectionName = AcademicYearInstances.getCollectionName();
-    const definitionData = doc;
+    const definitionData = doc; // We can do this since we don't change any of the fields in doc.
     defineMethod.callPromise({ collectionName, definitionData })
       .catch((error) => { RadGradAlert.failure('Add failed', error.message, error);})
       .then(() => {

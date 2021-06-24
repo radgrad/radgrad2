@@ -8,12 +8,7 @@ import { Slugs } from '../../../../../api/slug/SlugCollection';
 import { AcademicTerm, Course, CourseInstanceDefine, StudentProfile } from '../../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermCollection';
 import { CourseInstances } from '../../../../../api/course/CourseInstanceCollection';
-import {
-  academicTermNameToDoc,
-  academicTermToName, courseNameToCourseDoc,
-  courseToName, profileNameToUsername,
-  profileToName,
-} from '../../../shared/utilities/data-model';
+import { academicTermNameToDoc, academicTermToName, courseNameToCourseDoc, courseToName, profileNameToUsername, profileToName } from '../../../shared/utilities/data-model';
 import RadGradAlert from '../../../../utilities/RadGradAlert';
 
 interface AddCourseInstanceFormProps {
@@ -44,8 +39,11 @@ const AddCourseInstanceForm: React.FC<AddCourseInstanceFormProps> = ({ terms, co
       grade,
     };
     // console.log('definitionData=%o', definitionData);
-    defineMethod.callPromise({ collectionName, definitionData })
-      .catch((error) => { RadGradAlert.failure('Failed adding Course Instance', error.message, error);})
+    defineMethod
+      .callPromise({ collectionName, definitionData })
+      .catch((error) => {
+        RadGradAlert.failure('Failed adding Course Instance', error.message, error);
+      })
       .then(() => {
         RadGradAlert.success('Add Course Instance Succeeded');
         formRef.reset();
@@ -87,7 +85,7 @@ const AddCourseInstanceForm: React.FC<AddCourseInstanceFormProps> = ({ terms, co
     <Segment padded>
       <Header dividing>Add Course Instance</Header>
       {/* eslint-disable-next-line no-return-assign */}
-      <AutoForm schema={formSchema} onSubmit={handleAdd} ref={(ref) => formRef = ref} showInlineError>
+      <AutoForm schema={formSchema} onSubmit={handleAdd} ref={(ref) => (formRef = ref)} showInlineError>
         <Form.Group widths="equal">
           <SelectField name="term" />
           <SelectField name="course" />
