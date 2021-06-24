@@ -61,18 +61,22 @@ const ExplorerOpportunity: React.FC<ExplorerOpportunitiesProps> = ({ opportunity
   const isSponsor = profile.userID === opportunity.sponsorID;
   const showManageButtons = isSponsor || profile.role === ROLE.ADMIN;
   const dateStrings = [];
+
   if (opportunity.eventDate1) {
-    dateStrings.push(moment(opportunity.eventDate1).format('MM/DD/YYYY'));
+    dateStrings.push({"event": "Event 1:", "date": (moment(opportunity.eventDate1).format('MM/DD/YYYY'))});
   }
   if (opportunity.eventDate2) {
-    dateStrings.push(moment(opportunity.eventDate2).format('MM/DD/YYYY'));
+    dateStrings.push({"event": "Event 2:", "date": (moment(opportunity.eventDate2).format('MM/DD/YYYY'))});
   }
   if (opportunity.eventDate3) {
-    dateStrings.push(moment(opportunity.eventDate3).format('MM/DD/YYYY'));
+    dateStrings.push({"event": "Event 3:", "date": (moment(opportunity.eventDate3).format('MM/DD/YYYY'))});
   }
   if (opportunity.eventDate4) {
-    dateStrings.push(moment(opportunity.eventDate4).format('MM/DD/YYYY'));
+    dateStrings.push({"event": "Event 4:", "date": (moment(opportunity.eventDate4).format('MM/DD/YYYY'))});
   }
+
+  const listItems = dateStrings.map((d) => <li key={`${d.date+d.event}`}>{d.event} {d.date}</li>);
+  console.log(dateStrings, listItems);
   // console.log(profile.userID, opportunity._id, opportunity.name);
   return (
     <div id="explorerOpportunityWidget">
@@ -87,8 +91,9 @@ const ExplorerOpportunity: React.FC<ExplorerOpportunitiesProps> = ({ opportunity
             <strong style={{ paddingTop: '5px' }}>Sponsor:</strong> &nbsp; <UserLabel username={opportunity.sponsorID}/>
           </Grid.Row>
           <Grid.Row style={compactRowStyle}>
-            <strong>Dates:</strong>&nbsp;{opportunity.eventDate1 ? dateStrings.join(', ') : 'N/A'}
+            <strong>Dates:</strong>&nbsp;
           </Grid.Row>
+          {opportunity.eventDate1 ? listItems : 'N/A'}
           {showManageButtons ? <Grid.Row><EditOpportunityButton opportunity={opportunity} sponsors={sponsors} interests={interests} opportunityTypes={opportunityTypes}/> <DeleteItemButton item={opportunity} type={PROFILE_ENTRY_TYPE.OPPORTUNITY} /></Grid.Row> : ''}
         </Grid>
       </Segment>
