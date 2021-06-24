@@ -1,11 +1,9 @@
 import React from 'react';
-import { Grid, Image } from 'semantic-ui-react';
+import { Grid, Image, Label } from 'semantic-ui-react';
 import ReactMarkdownWithHtml from 'react-markdown/with-html';
-import { useRouteMatch } from 'react-router';
 import InterestList from '../InterestList';
 import OpportunityLabel from '../label/OpportunityLabel';
 import { getSlugFromEntityID } from '../../landing/utilities/helper-functions';
-import * as Router from '../utilities/router';
 
 interface UpComingEventsCardProps {
   event: {
@@ -16,19 +14,22 @@ interface UpComingEventsCardProps {
     label: string,
     interestIDs: string[];
   };
+  plannerOppIDs: string[];
+  userID: string,
 }
 
-const UpComingEventsCard: React.FC<UpComingEventsCardProps> = ({ event }) => {
+const UpComingEventsCard: React.FC<UpComingEventsCardProps> = ({ event, plannerOppIDs, userID }) => {
   const info = `${event.date} - ${event.label}`;
-  const match = useRouteMatch();
-  const userID = Router.getUserIdFromRoute(match);
   return (
     <Grid.Row>
       <Grid.Column width={4}>
         <Image size='small' circular verticalAlign='middle' src={event.picture} />
       </Grid.Column>
       <Grid.Column width={12}>
-        <OpportunityLabel key={event.id} userID={userID} slug={getSlugFromEntityID(event.id)} size="medium" />
+        <Grid.Row>
+          <OpportunityLabel key={event.id} userID={userID} slug={getSlugFromEntityID(event.id)} size="medium" />
+          { plannerOppIDs.includes(event.id) ? <Label attached='top right' color='green'>IN MY PLANNER</Label> : '' }
+        </Grid.Row>
         <ReactMarkdownWithHtml linkTarget="_blank" allowDangerousHtml source={info}/>
         <InterestList item={event} size="small" />
       </Grid.Column>
