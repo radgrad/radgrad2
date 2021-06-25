@@ -1,6 +1,5 @@
 import React from 'react';
 import { Grid, Image, Label } from 'semantic-ui-react';
-import ReactMarkdownWithHtml from 'react-markdown/with-html';
 import InterestList from '../InterestList';
 import OpportunityLabel from '../label/OpportunityLabel';
 import { getSlugFromEntityID } from '../../landing/utilities/helper-functions';
@@ -19,19 +18,23 @@ interface UpComingEventsCardProps {
 }
 
 const UpComingEventsCard: React.FC<UpComingEventsCardProps> = ({ event, plannerOppIDs, userID }) => {
-  const info = `${event.date} - ${event.label}`;
+  const rowStyle = { paddingBottom: 10 };
   return (
-    <Grid.Row>
+    <Grid.Row verticalAlign='middle'>
       <Grid.Column width={4}>
         <Image size='small' circular verticalAlign='middle' src={event.picture} />
       </Grid.Column>
       <Grid.Column width={12}>
-        <Grid.Row>
-          <OpportunityLabel key={event.id} userID={userID} slug={getSlugFromEntityID(event.id)} size="medium" />
-          { plannerOppIDs.includes(event.id) ? <Label attached='top right' color='green'>IN MY PLANNER</Label> : '' }
+        <Grid.Row style={rowStyle}>
+          <OpportunityLabel key={event.id} userID={userID} slug={getSlugFromEntityID(event.id)} size="large" />
+          { plannerOppIDs.includes(event.id) ? <Label attached='top right' size='small' color='green'>IN MY PLANNER</Label> : '' }
         </Grid.Row>
-        <ReactMarkdownWithHtml linkTarget="_blank" allowDangerousHtml source={info}/>
-        <InterestList item={event} size="small" />
+        <Grid.Row style={rowStyle}>
+          {event.date} - {event.label}
+        </Grid.Row>
+        <Grid.Row style={rowStyle}>
+          <InterestList item={event} size="tiny" />
+        </Grid.Row>
       </Grid.Column>
     </Grid.Row>
   );

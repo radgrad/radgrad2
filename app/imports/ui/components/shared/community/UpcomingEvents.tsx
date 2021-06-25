@@ -46,12 +46,13 @@ export default withTracker(() => {
   const match = useRouteMatch();
   const userID = Router.getUserIdFromRoute(match);
   const opportunities = Opportunities.findNonRetired({});
+
   const date = new Date();
   const currentDate = moment(date).format('MM/DD/YYYY');
   const threeMonths = moment(currentDate).add(3, 'months');
   const endDate = moment(threeMonths).format('MM/DD/YYYY');
   const eventList = [];
-  // Academic Terms
+  // Finding the academic term of today and 3 months from today
   const currentTerm = AcademicTerms.getAcademicTerm(currentDate);
   const nextTerm = AcademicTerms.getAcademicTerm(endDate);
   const currentPlannerOpp = OpportunityInstances.findNonRetired({ studentID: userID, termID: currentTerm });
@@ -61,6 +62,7 @@ export default withTracker(() => {
     plannerOpportunities = [...currentPlannerOpp, ...nextPlannerOpp];
   }
 
+  // Traversing through each opportunity and find if there is an event between now and 3 months from now
   opportunities.forEach((opportunity) => {
     if (opportunity.eventDate1) {
       const temp = moment(opportunity.eventDate1).format('MM/DD/YYYY');
