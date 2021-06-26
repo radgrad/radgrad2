@@ -408,7 +408,7 @@ This is used in the define, update, and removeIt Meteor methods associated with 
     <div class="description">
         <p>Returns an array of strings, each one representing an integrity problem with this collection.
 Returns an empty array if no problems were found.
-Checks semesterID, courseID, and studentID.</p>
+Checks semesterID, courseID, and userID.</p>
     </div>
     
 
@@ -521,7 +521,7 @@ Checks semesterID, courseID, and studentID.</p>
         
         <span class="code-name">
             
-                define<span class="signature">(course, student, retired)</span><span class="type-signature"> &rarr; {void|*|boolean|Object}</span>
+                define<span class="signature">(course, username, retired)</span><span class="type-signature"> &rarr; {void|*|boolean|Object}</span>
             
         </span>
     </h4>
@@ -588,7 +588,7 @@ Checks semesterID, courseID, and studentID.</p>
             
 <tr class="deep-level-0">
   
-      <td class="name"><code>student</code></td>
+      <td class="name"><code>username</code></td>
   
 
   <td class="type">
@@ -1798,7 +1798,7 @@ Checks semesterID, courseID, and studentID.</p>
     
     
     <div class="description">
-        <p>Returns the username associated with the studentID.</p>
+        <p>Returns the username associated with the userID.</p>
     </div>
     
 
@@ -1964,7 +1964,7 @@ Checks semesterID, courseID, and studentID.</p>
     
     
     <div class="description">
-        <p>Publish ProfileCourses. If logged in as ADMIN get all, otherwise only get the ProfileCourses for the studentID.
+        <p>Publish ProfileCourses. If logged in as ADMIN get all, otherwise only get the ProfileCourses for the userID.
 Also publishes the ProfileCourses forecast.</p>
     </div>
     
