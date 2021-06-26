@@ -18,6 +18,8 @@ class AcademicYearPage {
       .expect(yearSelect.value).eql(nextYear);
     // Submit the data.
     await t.click(`#${COMPONENTIDS.DATA_MODEL_SUBMIT}`);
+    // give things time to propagate
+    await t.wait(1000);
     // Check that the form reset.
     await t
       .expect(yearSelect.value).eql(`${year}`)

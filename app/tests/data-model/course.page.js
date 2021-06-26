@@ -3,28 +3,28 @@ import { COMPONENTIDS } from '../../imports/ui/utilities/ComponentIDs';
 
 class CoursePage {
   async addCourse(t) {
+    const slugSelect = new Selector(`#${COMPONENTIDS.DATA_MODEL_SLUG}`);
+    const nameSelect = new Selector(`#${COMPONENTIDS.DATA_MODEL_NAME}`);
+    const shortNameSelect = new Selector(`#${COMPONENTIDS.DATA_MODEL_SHORT_NAME}`);
+    const creditHoursSelect = new Selector(`#${COMPONENTIDS.DATA_MODEL_CREDIT_HOURS}`);
+    const numSelect = new Selector(`#${COMPONENTIDS.DATA_MODEL_NUM}`);
+    const descriptionSelect = new Selector(`#${COMPONENTIDS.DATA_MODEL_DESCRIPTION}`);
+    const pictureSelect = new Selector(`#${COMPONENTIDS.DATA_MODEL_PICTURE}`);
+    const syllabusSelect = new Selector(`#${COMPONENTIDS.DATA_MODEL_SYLLABUS}`);
+    const interestsSelect = new Selector(`#${COMPONENTIDS.DATA_MODEL_INTERESTS}`);
+    const interestsOption = interestsSelect.find('div span');
+    const submitSelect = new Selector(`#${COMPONENTIDS.DATA_MODEL_SUBMIT}`);
     const slug = 'ics_4321';
-    const slugSelect = Selector(`#${COMPONENTIDS.DATA_MODEL_SLUG}`);
     const name = 'New course';
-    const nameSelect = Selector(`#${COMPONENTIDS.DATA_MODEL_NAME}`);
     const shortName = 'New';
-    const shortNameSelect = Selector(`#${COMPONENTIDS.DATA_MODEL_SHORT_NAME}`);
-    const creditHoursSelect = Selector(`#${COMPONENTIDS.DATA_MODEL_CREDIT_HOURS}`);
     const num = 'ICS 4321';
-    const numSelect = Selector(`#${COMPONENTIDS.DATA_MODEL_NUM}`);
     const description = "The new course' description.";
-    const descriptionSelect = Selector(`#${COMPONENTIDS.DATA_MODEL_DESCRIPTION}`);
     const picture = 'https://mywebsite.com/picture';
-    const pictureSelect = Selector(`#${COMPONENTIDS.DATA_MODEL_PICTURE}`);
     const syllabus = `https://dept.ics.edu/${slug}/syllabus`;
-    const syllabusSelect = Selector(`#${COMPONENTIDS.DATA_MODEL_SYLLABUS}`);
-    const interestsSelect = Selector(`#${COMPONENTIDS.DATA_MODEL_INTERESTS}`);
-    const interestsOption = interestsSelect.find('option');
     // const coreq = 'ics_211';
-    // const coreqsSelect = Selector(`#${COMPONENTIDS.DATA_MODEL_COREQUISITES}`);
+    // const coreqsSelect = new Selector(`#${COMPONENTIDS.DATA_MODEL_COREQUISITES}`);
     // const prereq = 'ics_111';
-    // const prereqsSelect = Selector(`#${COMPONENTIDS.DATA_MODEL_PREREQUISITES}`);
-    const submitSelect = Selector(`#${COMPONENTIDS.DATA_MODEL_SUBMIT}`);
+    // const prereqsSelect = new Selector(`#${COMPONENTIDS.DATA_MODEL_PREREQUISITES}`);
     // fill the form
     await t
       .click(slugSelect)
@@ -58,6 +58,8 @@ class CoursePage {
       .click(interestsOption.withText('C#'));
     // submit the form
     await t.click(submitSelect);
+    // give things time to propagate
+    await t.wait(1000);
     // check the reset form
     await t
       .expect(slugSelect.value).eql('');

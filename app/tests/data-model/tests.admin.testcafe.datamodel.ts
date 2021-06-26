@@ -3,6 +3,7 @@
 import { adminNavBar } from '../navbar.admin.component';
 import { signinPage } from '../signin.page';
 import { academicYearPage } from './academicYear.page';
+import { careerGoalsPage } from './careerGoals.page';
 import { coursePage } from './course.page';
 import { reviewPage } from './review.page';
 
@@ -25,11 +26,20 @@ test('Test admin data model academic year page', async (testController) => {
   // test the academic year delete
 });
 
+test('Test admin data model career goals page', async (testController) => {
+  await adminNavBar.gotoAdminLogin(testController);
+  await signinPage.signin(testController, credentials.admin);
+  await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'career-goals');
+  await careerGoalsPage.addCareerGoal(testController);
+  // test career-goals update
+  // test career-goals delete
+});
+
 test('Test admin data model course page', async (testController) => {
   await adminNavBar.gotoAdminLogin(testController);
   await signinPage.signin(testController, credentials.admin);
   await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'courses');
-  coursePage.addCourse(testController);
+  await coursePage.addCourse(testController);
   // test course update
   // test course delete
 });
