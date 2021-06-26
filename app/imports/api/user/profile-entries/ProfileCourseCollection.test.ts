@@ -16,15 +16,17 @@ if (Meteor.isServer) {
   describe('ProfileCourseCollection', function testSuite() {
     let course;
     let courseName;
-    let student;
+    let userID;
+    let username;
     let firstName;
 
     before(function setup() {
       removeAllEntities();
       course = makeSampleCourse();
       courseName = Courses.findDoc(course).name;
-      student = makeSampleUser();
-      firstName = Users.getProfile(student).firstName;
+      userID = makeSampleUser();
+      username = Users.getProfile(userID).username;
+      firstName = Users.getProfile(userID).firstName;
     });
 
     after(function teardown() {
@@ -32,15 +34,15 @@ if (Meteor.isServer) {
     });
 
     it('Can define and removeIt', function test1() {
-      const docID = ProfileCourses.define({ course, student });
+      const docID = ProfileCourses.define({ course, username });
       expect(ProfileCourses.isDefined(docID)).to.be.true;
       ProfileCourses.removeIt(docID);
       expect(ProfileCourses.isDefined(docID)).to.be.false;
     });
 
     it('Cannot define duplicates', function test2() {
-      const docID1 = ProfileCourses.define({ course, student });
-      const docID2 = ProfileCourses.define({ course, student });
+      const docID1 = ProfileCourses.define({ course, username });
+      const docID2 = ProfileCourses.define({ course, username });
       expect(docID1).to.equal(docID2);
       expect(ProfileCourses.isDefined(docID1)).to.be.true;
       ProfileCourses.removeIt(docID2);
@@ -48,7 +50,7 @@ if (Meteor.isServer) {
     });
 
     it('Can update', function test3(done) {
-      const docID = ProfileCourses.define({ course, student });
+      const docID = ProfileCourses.define({ course, username });
       fc.assert(
         fc.property(fc.boolean(), (retired) => {
           ProfileCourses.update(docID, { retired });
@@ -62,13 +64,14 @@ if (Meteor.isServer) {
     it('Can dumpOne, removeIt, and restoreOne', function test4() {
       let fav = ProfileCourses.findOne({});
       let docID = fav._id;
-      const dumbObject = ProfileCourses.dumpOne(docID);
+      const dumpObject = ProfileCourses.dumpOne(docID);
       ProfileCourses.removeIt(docID);
       expect(ProfileCourses.isDefined(docID)).to.be.false;
-      docID = ProfileCourses.restoreOne(dumbObject);
+      docID = ProfileCourses.restoreOne(dumpObject);
+      expect(ProfileCourses.isDefined(docID)).to.be.true;
       fav = ProfileCourses.findDoc(docID);
-      expect(fav.studentID).to.equal(student);
       expect(fav.courseID).to.equal(course);
+      expect(fav.userID).to.equal(userID);
     });
 
     it('Can checkIntegrity no errors', function test5() {
@@ -77,7 +80,7 @@ if (Meteor.isServer) {
     });
 
     it('Can get docs and slug', function test6() {
-      const docID = ProfileCourses.define({ course, student });
+      const docID = ProfileCourses.define({ course, username });
       const courseDoc = ProfileCourses.getCourseDoc(docID);
       expect(courseDoc).to.exist;
       expect(courseDoc.name).to.equal(courseName);
@@ -91,16 +94,16 @@ if (Meteor.isServer) {
     });
 
     it('Can dumpUser', function test7() {
+      username = makeSampleUser();
       const numToMake = 10;
       const existingCount = ProfileCourses.count();
-      student = makeSampleUser();
       for (let i = 0; i < numToMake; i++) {
         course = makeSampleCourse();
-        ProfileCourses.define({ course, student });
+        ProfileCourses.define({ course, username });
       }
       const profileCount = ProfileCourses.count();
       expect(profileCount).to.equal(existingCount + numToMake);
-      const userDump = ProfileCourses.dumpUser(student);
+      const userDump = ProfileCourses.dumpUser(username);
       expect(userDump.length).to.equal(numToMake);
     });
   });

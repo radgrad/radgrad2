@@ -45,31 +45,31 @@ export const getSlug = (slugID: string): string => Slugs.getNameFromID(slugID);
 type ItemType = CareerGoal | Course | Interest | Opportunity;
 
 export const createDefinitionData = (studentID: string, item: ItemType, type: IProfileEntryTypes): ProfileCareerGoalDefine | ProfileCourseDefine | ProfileInterestDefine | ProfileOpportunityDefine => {
-  const student = getStudent(studentID);
+  const username = getStudent(studentID);
   const slug = getSlug(item.slugID);
   let definitionData;
   switch (type) {
     case PROFILE_ENTRY_TYPE.CAREERGOAL:
       definitionData = {
-        username: student,
+        username,
         careerGoal: slug,
       };
       break;
     case PROFILE_ENTRY_TYPE.COURSE:
       definitionData = {
-        student,
+        username,
         course: slug,
       };
       break;
     case PROFILE_ENTRY_TYPE.INTEREST:
       definitionData = {
-        username: student,
+        username,
         interest: slug,
       };
       break;
     case PROFILE_ENTRY_TYPE.OPPORTUNITY:
       definitionData = {
-        student,
+        username,
         opportunity: slug,
       };
       break;
