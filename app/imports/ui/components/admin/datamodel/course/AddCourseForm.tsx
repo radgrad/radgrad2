@@ -65,11 +65,13 @@ const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses }) => 
     description: String,
     syllabus: { type: String, optional: true },
     picture: { type: String, optional: true },
-    interests: Array,
+    interests: {
+      type: Array,
+    },
     'interests.$': {
       type: String,
       allowedValues: interestNames,
-      // optional: true, CAM: not sure if we want this to be optional
+      // optional: true,
     },
     corequisites: { type: Array, optional: true },
     'corequisites.$': { type: String, allowedValues: courseNames },

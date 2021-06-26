@@ -12,7 +12,7 @@ class ProfileOpportunityCollection extends BaseCollection {
   constructor() {
     super('ProfileOpportunity', new SimpleSchema({
       opportunityID: SimpleSchema.RegEx.Id,
-      studentID: SimpleSchema.RegEx.Id,
+      userID: SimpleSchema.RegEx.Id,
       retired: { type: Boolean, optional: true },
     }));
   }
@@ -20,18 +20,18 @@ class ProfileOpportunityCollection extends BaseCollection {
   /**
    * Defines a new ProfileOpportunity.
    * @param opportunity the opportunity slug.
-   * @param student the student's username.
+   * @param username the username's username.
    * @param retired the retired status.
    * @returns {void|*|boolean|{}}
    */
-  define({ opportunity, student, retired = false }) {
+  define({ opportunity, username, retired = false }) {
     const opportunityID = Opportunities.getID(opportunity);
-    const studentID = Users.getID(student);
-    const doc = this.collection.findOne({ studentID, opportunityID });
+    const userID = Users.getID(username);
+    const doc = this.collection.findOne({ userID, opportunityID });
     if (doc) {
       return doc._id;
     }
-    return this.collection.insert({ opportunityID, studentID, retired });
+    return this.collection.insert({ opportunityID, userID, retired });
   }
 
   /**
@@ -63,27 +63,27 @@ class ProfileOpportunityCollection extends BaseCollection {
    * @param user the username.
    */
   removeUser(user) {
-    const studentID = Users.getID(user);
-    this.collection.remove({ studentID });
+    const userID = Users.getID(user);
+    this.collection.remove({ userID });
   }
 
   /**
    * Publish ProfileOpportunities. If logged in as ADMIN get all, otherwise only get the ProfileOpportunities for the
-   * studentID.
+   * userID.
    * Also publishes the ProfileOpportunities forecast.
    */
   publish() {
     if (Meteor.isServer) {
       const collection = this.collection;
-      Meteor.publish(this.collectionName, function filterStudentID(studentID) { // eslint-disable-line meteor/audit-argument-checks
-        if (_.isNil(studentID)) {
+      Meteor.publish(this.collectionName, function filterStudentID(userID) { // eslint-disable-line meteor/audit-argument-checks
+        if (_.isNil(userID)) {
           return this.ready();
         }
-        const profile = Users.getProfile(studentID);
-        if ([ROLE.ADMIN, ROLE.ADVISOR].includes( profile.role)) {
+        const profile = Users.getProfile(userID);
+        if ([ROLE.ADMIN, ROLE.FACULTY, ROLE.ADVISOR].includes( profile.role)) {
           return collection.find();
         }
-        return collection.find({ studentID });
+        return collection.find({ userID });
       });
     }
   }
@@ -96,7 +96,7 @@ class ProfileOpportunityCollection extends BaseCollection {
    * @throws { Meteor.Error } If there is no logged in user, or the user is not an Admin or Advisor.
    */
   assertValidRoleForMethod(userId) {
-    this.assertRole(userId, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.STUDENT]);
+    this.assertRole(userId, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY, ROLE.STUDENT]);
   }
 
   /**
@@ -128,8 +128,8 @@ class ProfileOpportunityCollection extends BaseCollection {
    * @returns {Array<any>} Opportunity slugs.
    */
   getOpportunitySlugs(username) {
-    const studentID = Users.getID(username);
-    const documents = this.collection.find({ studentID, retired: false });
+    const userID = Users.getID(username);
+    const documents = this.collection.find({ userID, retired: false });
     return documents.map(document => Opportunities.findSlugByID(document.opportunityID));
   }
 
@@ -142,24 +142,24 @@ class ProfileOpportunityCollection extends BaseCollection {
   getStudentDoc(instanceID) {
     this.assertDefined(instanceID);
     const instance = this.collection.findOne({ _id: instanceID });
-    return Users.getProfile(instance.studentID);
+    return Users.getProfile(instance.userID);
   }
 
   /**
-   * Returns the username associated with the studentID.
+   * Returns the username associated with the userID.
    * @param instanceID the ProfileOpportunity id.
    * @returns {*}
    */
   getStudentUsername(instanceID) {
     this.assertDefined(instanceID);
     const instance = this.collection.findOne({ _id: instanceID });
-    return Users.getProfile(instance.studentID).username;
+    return Users.getProfile(instance.userID).username;
   }
 
   /**
    * Returns an array of strings, each one representing an integrity problem with this collection.
    * Returns an empty array if no problems were found.
-   * Checks semesterID, opportunityID, and studentID.
+   * Checks semesterID, opportunityID, and userID.
    * @returns {Array} A (possibly empty) array of strings indicating integrity issues.
    */
   checkIntegrity() {
@@ -169,8 +169,8 @@ class ProfileOpportunityCollection extends BaseCollection {
         if (!Opportunities.isDefined(doc.opportunityID)) {
           problems.push(`Bad opportunityID: ${doc.opportunityID}`);
         }
-        if (!Users.isDefined(doc.studentID)) {
-          problems.push(`Bad studentID: ${doc.studentID}`);
+        if (!Users.isDefined(doc.userID)) {
+          problems.push(`Bad userID: ${doc.userID}`);
         }
       });
     return problems;
@@ -184,9 +184,9 @@ class ProfileOpportunityCollection extends BaseCollection {
   dumpOne(docID): ProfileOpportunityDefine {
     const doc = this.findDoc(docID);
     const opportunity = Opportunities.findSlugByID(doc.opportunityID);
-    const student = Users.getProfile(doc.studentID).username;
+    const username = Users.getProfile(doc.userID).username;
     const retired = doc.retired;
-    return { opportunity, student, retired };
+    return { opportunity, username, retired };
   }
 
   /**
@@ -196,9 +196,9 @@ class ProfileOpportunityCollection extends BaseCollection {
    */
   dumpUser(usernameOrID: string): ProfileOpportunityDefine[] {
     const profile = Users.getProfile(usernameOrID);
-    const studentID = profile.userID;
+    const userID = profile.userID;
     const retVal = [];
-    const instances = this.find({ studentID }).fetch();
+    const instances = this.find({ userID }).fetch();
     instances.forEach((instance) => {
       retVal.push(this.dumpOne(instance._id));
     });

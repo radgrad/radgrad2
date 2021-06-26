@@ -13,7 +13,6 @@ import ExplorerCourse from '../../../components/shared/explorer/item-view/course
 import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
 import { Slugs } from '../../../../api/slug/SlugCollection';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
-import { ROLE } from '../../../../api/role/Role';
 import AddToProfileButton from '../../../components/shared/explorer/item-view/AddToProfileButton';
 import { PROFILE_ENTRY_TYPE } from '../../../../api/user/profile-entries/ProfileEntryTypes';
 import RelatedInterests from '../../../components/shared/RelatedInterests';
@@ -33,11 +32,11 @@ interface CourseViewPageProps {
   interests: Interest[];
 }
 
-const isCourseCompleted = (courseSlugName, studentID): boolean => {
+const isCourseCompleted = (courseSlugName, userID): boolean => {
   let courseCompleted = false;
   const theCourse = Courses.findDocBySlug(courseSlugName);
   const ci = CourseInstances.findNonRetired({
-    studentID: studentID,
+    userID: userID,
     courseID: theCourse._id,
   });
   ci.forEach((c) => {
@@ -60,14 +59,13 @@ const CourseViewPage: React.FC<CourseViewPageProps> = ({
   const headerPaneTitle = Courses.getName(course._id);
   const headerPaneImage =  course.picture;
   const added = ProfileCourses.findNonRetired({
-    studentID: profile.userID,
+    userID: profile.userID,
     courseID: course._id,
   }).length > 0;
   const relatedOpportunities = getAssociationRelatedOpportunities(Courses.findRelatedOpportunities(course._id), profile.userID);
   const relatedCareerGoals = Courses.findRelatedCareerGoals(course._id);
-  const headerPaneButton = profile.role === ROLE.STUDENT ?
-    <AddToProfileButton type={PROFILE_ENTRY_TYPE.COURSE} studentID={profile.userID} item={course}
-      added={added} inverted floated="left" /> : undefined;
+  const headerPaneButton = <AddToProfileButton type={PROFILE_ENTRY_TYPE.COURSE} userID={profile.userID} item={course}
+    added={added} inverted floated="left" />;
   const courseSlug = Slugs.getNameFromID(course.slugID);
   const completed = isCourseCompleted(courseSlug, profile.userID);
   const relatedSlugs = Courses.getPrerequisiteSlugs(course._id);
@@ -99,7 +97,7 @@ export default withTracker(() => {
   const { course, username } = useParams();
   const courseDoc = Courses.findDocBySlug(course);
   const profile = Users.getProfile(username);
-  const profileCourses = ProfileCourses.findNonRetired({ studentID: profile.userID });
+  const profileCourses = ProfileCourses.findNonRetired({ userID: profile.userID });
   const itemReviews = Reviews.findNonRetired({ revieweeID: courseDoc._id, visible: true });
   const allTerms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
   const currentTermNumber = AcademicTerms.getCurrentAcademicTermDoc().termNumber;

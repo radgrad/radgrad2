@@ -201,7 +201,7 @@
         "username": "dora@hawaii.edu",
         "firstName": "Dora",
         "lastName": "Velasquez",
-        "picture": "/images/people/shaziney.jpg",
+        "picture": "/images/people/dora.jpg",
         "interests": [
           "civic-engagement",
           "web-development",
@@ -211,7 +211,7 @@
         "careerGoals": [
           "full-stack-developer"
         ],
-        "level": 6,
+        "level": 5,
         "profileCourses": [
           "ics_111",
           "ics_141",

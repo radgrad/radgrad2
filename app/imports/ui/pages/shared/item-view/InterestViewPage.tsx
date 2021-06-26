@@ -51,7 +51,7 @@ const InterestViewPage: React.FC<InterestViewPageProps> = ({
   const added = ProfileInterests.findNonRetired({ userID: profile.userID, interestID }).length > 0;
   return (
     <PageLayout id={PAGEIDS.INTEREST} headerPaneTitle={headerPaneTitle} headerPaneImage={headerPaneImage}
-      headerPaneButton={<AddToProfileButton type={PROFILE_ENTRY_TYPE.INTEREST} studentID={profile.userID}
+      headerPaneButton={<AddToProfileButton type={PROFILE_ENTRY_TYPE.INTEREST} userID={profile.userID}
         item={interest} added={added} inverted floated="left" />}>
       <Grid stackable>
         <Grid.Row>

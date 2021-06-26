@@ -1,8 +1,11 @@
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
+import { Courses } from '../course/CourseCollection';
 import { Opportunities } from '../opportunity/OpportunityCollection';
 import BaseProfileCollection, { defaultProfilePicture } from './BaseProfileCollection';
+import { ProfileCourses } from './profile-entries/ProfileCourseCollection';
+import { ProfileOpportunities } from './profile-entries/ProfileOpportunityCollection';
 import { Users } from './UserCollection';
 import { Interests } from '../interest/InterestCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
@@ -45,12 +48,16 @@ class AdvisorProfileCollection extends BaseProfileCollection {
     website,
     interests,
     careerGoals,
+    profileCourses,
+    profileOpportunities,
     aboutMe,
     retired = false,
     sharePicture = true,
     shareWebsite = true,
     shareInterests = true,
     shareCareerGoals = true,
+    shareCourses = true,
+    shareOpportunities = true,
     lastVisited = {},
   }: AdvisorOrFacultyProfileDefine) {
     if (Meteor.isServer) {
@@ -58,6 +65,7 @@ class AdvisorProfileCollection extends BaseProfileCollection {
       checkUsername(username);
       const profileID = this.collection.insert({
         username, firstName, lastName, role, picture, website, userID: this.getFakeUserId(), aboutMe, retired, sharePicture, shareWebsite, shareInterests, shareCareerGoals, lastVisited,
+        shareCourses, shareOpportunities,
       });
       const userID = Users.define({ username, role });
       this.collection.update(profileID, { $set: { userID } });
@@ -67,6 +75,12 @@ class AdvisorProfileCollection extends BaseProfileCollection {
       }
       if (careerGoals) {
         careerGoals.forEach((careerGoal) => ProfileCareerGoals.define({ careerGoal, share, username, retired }));
+      }
+      if (profileCourses) {
+        profileCourses.forEach((course)=> ProfileCourses.define({ course, username, retired }));
+      }
+      if (profileOpportunities) {
+        profileOpportunities.forEach((opportunity) => ProfileOpportunities.define({ opportunity, username, retired }));
       }
       return profileID;
     }
@@ -85,6 +99,8 @@ class AdvisorProfileCollection extends BaseProfileCollection {
     website,
     interests,
     careerGoals,
+    profileCourses,
+    profileOpportunities,
     retired,
     courseExplorerFilter,
     opportunityExplorerSortOrder,
@@ -92,6 +108,8 @@ class AdvisorProfileCollection extends BaseProfileCollection {
     sharePicture,
     shareInterests,
     shareCareerGoals,
+    shareCourses,
+    shareOpportunities,
     acceptedTermsAndConditions,
     refusedTermsAndConditions,
     aboutMe,
@@ -116,6 +134,12 @@ class AdvisorProfileCollection extends BaseProfileCollection {
     if (aboutMe) {
       updateData.aboutMe = aboutMe;
     }
+    if (profileCourses) {
+      updateData.profileCourses = profileCourses;
+    }
+    if (profileOpportunities) {
+      updateData.profileOpportunities = profileOpportunities;
+    }
     // console.log(docID, updateData);
     this.collection.update(docID, { $set: updateData });
     const profile = this.findDoc(docID);
@@ -127,6 +151,14 @@ class AdvisorProfileCollection extends BaseProfileCollection {
     if (careerGoals) {
       ProfileCareerGoals.removeUser(username);
       careerGoals.forEach((careerGoal) => ProfileCareerGoals.define({ careerGoal, username }));
+    }
+    if (profileCourses) {
+      ProfileCourses.removeUser(username);
+      profileCourses.forEach((course) => ProfileCourses.define({ course, username }));
+    }
+    if (profileOpportunities) {
+      ProfileOpportunities.removeUser(username);
+      profileOpportunities.forEach((opportunity) => ProfileOpportunities.define({ opportunity, username }));
     }
     if (_.isBoolean(retired)) {
       // Need to retire the opportunities that they are the sponsor of?
@@ -185,13 +217,19 @@ class AdvisorProfileCollection extends BaseProfileCollection {
     const interests = favInterests.map((fav) => Interests.findSlugByID(fav.interestID));
     const favCareerGoals = ProfileCareerGoals.findNonRetired({ userID });
     const careerGoals = favCareerGoals.map((fav) => CareerGoals.findSlugByID(fav.careerGoalID));
+    const favCourses = ProfileCourses.findNonRetired({ userID });
+    const profileCourses = favCourses.map((fav) => Courses.findSlugByID(fav.courseID));
+    const favOpps = ProfileOpportunities.findNonRetired({ userID });
+    const profileOpportunities = favOpps.map((fav) => Opportunities.findSlugByID(fav.opportunityID));
     const aboutMe = doc.aboutMe;
     const retired = doc.retired;
     const sharePicture = doc.sharePicture;
     const shareWebsite = doc.shareWebsite;
     const shareInterests = doc.shareInterests;
     const shareCareerGoals = doc.shareCareerGoals;
-    return { username, firstName, lastName, picture, website, interests, careerGoals, aboutMe, retired, shareInterests, sharePicture, shareWebsite, shareCareerGoals };
+    const shareCourses = doc.shareCourses;
+    const shareOpportunities = doc.shareOpportunities;
+    return { username, firstName, lastName, picture, website, interests, careerGoals, profileCourses, profileOpportunities, aboutMe, retired, shareInterests, sharePicture, shareWebsite, shareCareerGoals, shareCourses, shareOpportunities };
   }
 }
 
