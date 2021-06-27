@@ -10,6 +10,7 @@ import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermColl
 import { CourseInstances } from '../../../../../api/course/CourseInstanceCollection';
 import { academicTermNameToDoc, academicTermToName, courseNameToCourseDoc, courseToName, profileNameToUsername, profileToName } from '../../../shared/utilities/data-model';
 import RadGradAlert from '../../../../utilities/RadGradAlert';
+import { COMPONENTIDS } from '../../../../utilities/ComponentIDs';
 
 interface AddCourseInstanceFormProps {
   terms: AcademicTerm[];
@@ -20,7 +21,7 @@ interface AddCourseInstanceFormProps {
 const AddCourseInstanceForm: React.FC<AddCourseInstanceFormProps> = ({ terms, courses, students }) => {
   let formRef;
   const handleAdd = (doc) => {
-    // console.log('CourseInstancePage.handleAdd(%o)', doc);
+    console.log('AddCourseInstanceForm.handleAdd', doc);
     const collectionName = CourseInstances.getCollectionName();
     const academicTermDoc = academicTermNameToDoc(doc.term);
     const academicTerm = Slugs.getNameFromID(academicTermDoc.slugID);
@@ -38,7 +39,7 @@ const AddCourseInstanceForm: React.FC<AddCourseInstanceFormProps> = ({ terms, co
       creditHrs,
       grade,
     };
-    // console.log('definitionData=%o', definitionData);
+    console.log('definitionData=', definitionData);
     defineMethod
       .callPromise({ collectionName, definitionData })
       .catch((error) => {
@@ -87,15 +88,15 @@ const AddCourseInstanceForm: React.FC<AddCourseInstanceFormProps> = ({ terms, co
       {/* eslint-disable-next-line no-return-assign */}
       <AutoForm schema={formSchema} onSubmit={handleAdd} ref={(ref) => (formRef = ref)} showInlineError>
         <Form.Group widths="equal">
-          <SelectField name="term" />
-          <SelectField name="course" />
+          <SelectField id={COMPONENTIDS.DATA_MODEL_ACADEMIC_TERM} name="term" />
+          <SelectField id={COMPONENTIDS.DATA_MODEL_COURSE} name="course" />
         </Form.Group>
         <Form.Group widths="equal">
-          <SelectField name="student" />
-          <NumField name="creditHours" />
-          <SelectField name="grade" />
+          <SelectField id={COMPONENTIDS.DATA_MODEL_STUDENT} name="student" />
+          <NumField id={COMPONENTIDS.DATA_MODEL_CREDIT_HOURS} name="creditHours" />
+          <SelectField id={COMPONENTIDS.DATA_MODEL_GRADE} name="grade" />
         </Form.Group>
-        <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
+        <SubmitField id={COMPONENTIDS.DATA_MODEL_SUBMIT} className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
         <ErrorsField />
       </AutoForm>
     </Segment>

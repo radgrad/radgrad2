@@ -5,6 +5,7 @@ import { signinPage } from '../signin.page';
 import { academicYearPage } from './academicYear.page';
 import { careerGoalsPage } from './careerGoals.page';
 import { coursePage } from './course.page';
+import { courseInstancePage } from './courseInstance.page';
 import { reviewPage } from './review.page';
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
@@ -40,6 +41,15 @@ test('Test admin data model course page', async (testController) => {
   await signinPage.signin(testController, credentials.admin);
   await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'courses');
   await coursePage.addCourse(testController);
+  // test course update
+  // test course delete
+});
+
+test('Test admin data model course instance page', async (testController) => {
+  await adminNavBar.gotoAdminLogin(testController);
+  await signinPage.signin(testController, credentials.admin);
+  await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'course-instances');
+  await courseInstancePage.addCourseInstance(testController);
   // test course update
   // test course delete
 });

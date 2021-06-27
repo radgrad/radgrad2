@@ -112,7 +112,7 @@ const AdminDataModelCourseInstancesPage: React.FC<AdminDataModelCourseInstancesP
 export default withTracker(() => {
   const items = CourseInstances.find({}).fetch();
   const terms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
-  const courses = Courses.find().fetch();
+  const courses = Courses.find({}, { sort: { num: 1 } }).fetch();
   const students = StudentProfiles.find({}, { sort: { lastName: 1 } }).fetch();
   return {
     items,

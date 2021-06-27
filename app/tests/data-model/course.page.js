@@ -1,19 +1,14 @@
-import { Selector } from 'testcafe';
-import { COMPONENTIDS } from '../../imports/ui/utilities/ComponentIDs';
+import {
+  creditHoursSelector,
+  descriptionSelector, interestsOption, interestsSelector,
+  nameSelector,
+  numSelector, pictureSelector,
+  shortNameSelector,
+  slugSelector, submitSelector, syllabusSelector,
+} from './selectors';
 
 class CoursePage {
   async addCourse(t) {
-    const slugSelect = new Selector(`#${COMPONENTIDS.DATA_MODEL_SLUG}`);
-    const nameSelect = new Selector(`#${COMPONENTIDS.DATA_MODEL_NAME}`);
-    const shortNameSelect = new Selector(`#${COMPONENTIDS.DATA_MODEL_SHORT_NAME}`);
-    const creditHoursSelect = new Selector(`#${COMPONENTIDS.DATA_MODEL_CREDIT_HOURS}`);
-    const numSelect = new Selector(`#${COMPONENTIDS.DATA_MODEL_NUM}`);
-    const descriptionSelect = new Selector(`#${COMPONENTIDS.DATA_MODEL_DESCRIPTION}`);
-    const pictureSelect = new Selector(`#${COMPONENTIDS.DATA_MODEL_PICTURE}`);
-    const syllabusSelect = new Selector(`#${COMPONENTIDS.DATA_MODEL_SYLLABUS}`);
-    const interestsSelect = new Selector(`#${COMPONENTIDS.DATA_MODEL_INTERESTS}`);
-    const interestsOption = interestsSelect.find('div span');
-    const submitSelect = new Selector(`#${COMPONENTIDS.DATA_MODEL_SUBMIT}`);
     const slug = 'ics_4321';
     const name = 'New course';
     const shortName = 'New';
@@ -27,42 +22,42 @@ class CoursePage {
     // const prereqsSelect = new Selector(`#${COMPONENTIDS.DATA_MODEL_PREREQUISITES}`);
     // fill the form
     await t
-      .click(slugSelect)
-      .typeText(slugSelect, slug)
-      .expect(slugSelect.value).eql(slug);
+      .click(slugSelector)
+      .typeText(slugSelector, slug)
+      .expect(slugSelector.value).eql(slug);
     await t
-      .typeText(nameSelect, name)
-      .expect(nameSelect.value).eql(name);
+      .typeText(nameSelector, name)
+      .expect(nameSelector.value).eql(name);
     await t
-      .typeText(shortNameSelect, shortName)
-      .expect(shortNameSelect.value).eql(shortName);
+      .typeText(shortNameSelector, shortName)
+      .expect(shortNameSelector.value).eql(shortName);
     await t
-      .selectText(creditHoursSelect)
-      .typeText(creditHoursSelect, '6')
-      .expect(creditHoursSelect.value).eql('6');
+      .selectText(creditHoursSelector)
+      .typeText(creditHoursSelector, '6')
+      .expect(creditHoursSelector.value).eql('6');
     await t
-      .typeText(numSelect, num)
-      .expect(numSelect.value).eql(num);
+      .typeText(numSelector, num)
+      .expect(numSelector.value).eql(num);
     await t
-      .typeText(descriptionSelect, description)
-      .expect(descriptionSelect.value).eql(description);
+      .typeText(descriptionSelector, description)
+      .expect(descriptionSelector.value).eql(description);
     await t
-      .typeText(pictureSelect, picture)
-      .expect(pictureSelect.value).eql(picture);
+      .typeText(pictureSelector, picture)
+      .expect(pictureSelector.value).eql(picture);
     await t
-      .typeText(syllabusSelect, syllabus)
-      .expect(syllabusSelect.value).eql(syllabus);
+      .typeText(syllabusSelector, syllabus)
+      .expect(syllabusSelector.value).eql(syllabus);
     await t
-      .click(interestsSelect)
+      .click(interestsSelector)
       .click(interestsOption.withText('.NET'))
       .click(interestsOption.withText('C#'));
     // submit the form
-    await t.click(submitSelect);
+    await t.click(submitSelector);
     // give things time to propagate
     await t.wait(1000);
     // check the reset form
     await t
-      .expect(slugSelect.value).eql('');
+      .expect(slugSelector.value).eql('');
   }
 }
 

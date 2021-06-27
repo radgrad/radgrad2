@@ -131,9 +131,11 @@ export enum COMPONENTIDS {
   // Data model form ids.
   DATA_MODEL_ACADEMIC_TERM = 'data-model-academic-term',
   DATA_MODEL_COMMENTS = 'data-model-comments',
+  DATA_MODEL_COURSE = 'data-model-course',
   DATA_MODEL_COREQUISITES = 'data-model-corequisites',
   DATA_MODEL_CREDIT_HOURS = 'data-model-credit-hours',
   DATA_MODEL_DESCRIPTION = 'data-model-description',
+  DATA_MODEL_GRADE = 'data-model-grade',
   DATA_MODEL_INTERESTS = 'data-model-interests',
   DATA_MODEL_MODERATED = 'data-model-moderated',
   DATA_MODEL_MODERATOR_COMMENTS = 'data-model-moderator-comments',
