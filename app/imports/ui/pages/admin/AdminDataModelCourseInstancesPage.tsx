@@ -111,6 +111,12 @@ const AdminDataModelCourseInstancesPage: React.FC<AdminDataModelCourseInstancesP
 
 export default withTracker(() => {
   const items = CourseInstances.find({}).fetch();
+  // want to sort the items by their item title string
+  items.sort((firstEl, secondEl) => {
+    const firstStr = itemTitleString(firstEl);
+    const secondStr = itemTitleString(secondEl);
+    return firstStr.localeCompare(secondStr);
+  });
   const terms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
   const courses = Courses.find({}, { sort: { num: 1 } }).fetch();
   const students = StudentProfiles.find({}, { sort: { lastName: 1 } }).fetch();

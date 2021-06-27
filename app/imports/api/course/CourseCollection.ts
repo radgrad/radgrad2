@@ -400,7 +400,7 @@ class CourseCollection extends BaseSlugCollection {
   public getName(docIdOrSlug: string): string {
     const courseID = this.getID(docIdOrSlug);
     const course =  this.findDoc(courseID);
-    return `${course.num} ${course.shortName}`;
+    return `${course.num}: ${course.shortName}`;
   }
 
   public getPrerequisiteSlugs(docIdOrSlug: string): string[] {
