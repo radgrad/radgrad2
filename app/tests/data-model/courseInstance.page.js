@@ -10,12 +10,13 @@ import {
 
 class CourseInstancePage {
   async addCourseInstance(t) {
+    const currentTerm = 'Summer 2021'; // TODO update this when it changes.
     const academicTermName = 'Fall 2022';
     await t
       .click(termSelector)
       .click(termOption.withText(academicTermName))
       .expect(termSelector.value).eql(academicTermName);
-    const courseName = 'ICS 499 Independent Study';
+    const courseName = 'ICS 499: Independent Study';
     await t
       .click(courseSelector)
       .click(courseOption.withText(courseName))
@@ -39,7 +40,8 @@ class CourseInstancePage {
     // give things time to propagate
     await t.wait(500);
     await t
-      .expect(termSelector.value).eql('');
+      .expect(termSelector.value).eql(currentTerm)
+      .expect(studentSelector.value).eql(studentNames.abi);
   }
 }
 
