@@ -12,7 +12,6 @@ import {
   SubmitField,
   TextField,
 } from 'uniforms-semantic';
-SimpleSchema.extendOptions(['autoform']);
 import RadGradAlert from '../../../../utilities/RadGradAlert';
 import { updateMethod } from '../../../../../api/base/BaseCollection.methods';
 import { iceSchema } from '../../../../../api/ice/IceProcessor';
@@ -24,6 +23,8 @@ import { OpportunityUpdate } from '../../../../../typings/radgrad';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
 import PictureField from '../../../form-fields/PictureField';
 import { ManageOpportunityProps } from './ManageOpportunityProps';
+
+SimpleSchema.extendOptions(['autoform']);
 
 const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({
   opportunity,

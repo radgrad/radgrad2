@@ -47,7 +47,7 @@ class OpportunityCollection extends BaseSlugCollection {
       eventDate4: { type: Date, optional: true },
       eventDateLabel4: { type: String, optional: true },
       ice: { type: iceSchema, optional: true },
-      picture: { type: String, optional: true,  defaultValue: 'images/header-panel/header-opportunities.png' },
+      picture: { type: String, optional: true, defaultValue: 'images/header-panel/header-opportunities.png' },
       retired: { type: Boolean, optional: true },
     }));
   }

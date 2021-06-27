@@ -64,34 +64,34 @@ const ExplorerOpportunity: React.FC<ExplorerOpportunitiesProps> = ({ opportunity
 
   if (opportunity.eventDate1) {
     if (opportunity.eventDateLabel1){
-      dateStrings.push({"event": opportunity.eventDateLabel1, "date": (moment(opportunity.eventDate1).format('MM/DD/YYYY'))});
+      dateStrings.push({ 'event': opportunity.eventDateLabel1, 'date': (moment(opportunity.eventDate1).format('MM/DD/YYYY')) });
     } else {
-      dateStrings.push({"event": "Event 1", "date": (moment(opportunity.eventDate1).format('MM/DD/YYYY'))});
+      dateStrings.push({ 'event': 'Event 1', 'date': (moment(opportunity.eventDate1).format('MM/DD/YYYY')) });
     }
   }
   if (opportunity.eventDate2) {
     if (opportunity.eventDateLabel2){
-      dateStrings.push({"event": opportunity.eventDateLabel2, "date": (moment(opportunity.eventDate1).format('MM/DD/YYYY'))});
+      dateStrings.push({ 'event': opportunity.eventDateLabel2, 'date': (moment(opportunity.eventDate1).format('MM/DD/YYYY')) });
     } else {
-      dateStrings.push({"event": "Event 2", "date": (moment(opportunity.eventDate2).format('MM/DD/YYYY'))});
+      dateStrings.push({ 'event': 'Event 2', 'date': (moment(opportunity.eventDate2).format('MM/DD/YYYY')) });
     }
   }
   if (opportunity.eventDate3) {
     if (opportunity.eventDateLabel3){
-      dateStrings.push({"event": opportunity.eventDateLabel3, "date": (moment(opportunity.eventDate1).format('MM/DD/YYYY'))});
+      dateStrings.push({ 'event': opportunity.eventDateLabel3, 'date': (moment(opportunity.eventDate1).format('MM/DD/YYYY')) });
     } else {
-      dateStrings.push({"event": "Event 3", "date": (moment(opportunity.eventDate3).format('MM/DD/YYYY'))});
+      dateStrings.push({ 'event': 'Event 3', 'date': (moment(opportunity.eventDate3).format('MM/DD/YYYY')) });
     }
   }
   if (opportunity.eventDate4) {
     if (opportunity.eventDateLabel4){
-      dateStrings.push({"event": opportunity.eventDateLabel4, "date": (moment(opportunity.eventDate1).format('MM/DD/YYYY'))});
+      dateStrings.push({ 'event': opportunity.eventDateLabel4, 'date': (moment(opportunity.eventDate1).format('MM/DD/YYYY')) });
     } else {
-      dateStrings.push({"event": "Event 4", "date": (moment(opportunity.eventDate4).format('MM/DD/YYYY'))});
+      dateStrings.push({ 'event': 'Event 4', 'date': (moment(opportunity.eventDate4).format('MM/DD/YYYY')) });
     }
   }
 
-  const listDateStrings = dateStrings.map((d) => <List bulleted> <List.Item>{d.event + " :"} {d.date}</List.Item> </List>);
+  const listDateStrings = dateStrings.map((d) => <List bulleted> <List.Item>{`${d.event} :`} {d.date}</List.Item> </List>);
   // console.log(profile.userID, opportunity._id, opportunity.name);
   return (
     <div id="explorerOpportunityWidget">
