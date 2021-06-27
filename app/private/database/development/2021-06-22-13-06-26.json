@@ -1082,26 +1082,6 @@
       "name": "CourseCollection",
       "contents": [
         {
-          "name": "Computational Media Systems",
-          "shortName": "Computational Media",
-          "slug": "ICS_369",
-          "num": "ICS 369",
-          "description": "Intermediate object-oriented programming within the context of interactive media systems and video game development. Topics: classes, objects, inheritance, polymorphism, abstract classes, interfaces, event-driven programming, vectors, geometric primitives, game mechanics, and relevant design patterns.",
-          "creditHrs": 3,
-          "interests": [
-            "application-development",
-            "computer-graphics",
-            "game-design",
-            "software-engineering"
-          ],
-          "corequisites": [],
-          "prerequisites": [
-            "ics_111"
-          ],
-          "repeatable": false,
-          "retired": false
-        },
-        {
           "name": "Digital Tools for the Information World",
           "shortName": "Digital Tools",
           "slug": "ics_101",
@@ -1539,15 +1519,20 @@
         {
           "name": "Computational Media Systems",
           "shortName": "Computational Media",
-          "slug": "ics_369",
+          "slug": "ICS_369",
           "num": "ICS 369",
           "description": "Intermediate object-oriented programming within the context of interactive media systems and video game development. Topics: classes, objects, inheritance, polymorphism, abstract classes, interfaces, event-driven programming, vectors, geometric primitives, game mechanics, and relevant design patterns.",
           "creditHrs": 3,
           "interests": [
+            "application-development",
+            "computer-graphics",
+            "game-design",
             "software-engineering"
           ],
           "corequisites": [],
-          "prerequisites": [],
+          "prerequisites": [
+            "ics_111"
+          ],
           "repeatable": false,
           "retired": false
         },
