@@ -30,14 +30,14 @@ export class LevelChecklist extends Checklist {
 
   public updateState(): void {
     if (this.profile.lastLeveledUp) {
-      if (this.isSixMonthsOld(this.profile.lastLeveledUp)) {
+      if (this.isSixMonthsOld(this.profile.lastLeveledUp) && this.profile.level !== 6) {
         this.state = CHECKSTATE.REVIEW;
       } else {
         this.state = CHECKSTATE.OK;
       }
     } else {
       // no lastLeveledUp info
-      this.state = CHECKSTATE.REVIEW;
+      this.state = CHECKSTATE.OK;
     }
   }
 
