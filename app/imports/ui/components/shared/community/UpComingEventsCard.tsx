@@ -3,6 +3,7 @@ import { Grid, Image, Label } from 'semantic-ui-react';
 import InterestList from '../InterestList';
 import OpportunityLabel from '../label/OpportunityLabel';
 import { getSlugFromEntityID } from '../../landing/utilities/helper-functions';
+import RadGradHeader from '../RadGradHeader';
 
 interface UpComingEventsCardProps {
   event: {
@@ -21,16 +22,16 @@ const UpComingEventsCard: React.FC<UpComingEventsCardProps> = ({ event, plannerO
   const rowStyle = { paddingBottom: 10 };
   return (
     <Grid.Row verticalAlign='middle'>
+      <Grid.Column width={16}>
+        <RadGradHeader title={`${event.label}: ${event.date}`} dividing={false}/>
+        { plannerOppIDs.includes(event.id) ? <Label attached='top right' size='small' color='green'>IN MY PLANNER</Label> : '' }
+      </Grid.Column>
       <Grid.Column width={4}>
         <Image size='small' circular verticalAlign='middle' src={event.picture} />
       </Grid.Column>
       <Grid.Column width={12}>
         <Grid.Row style={rowStyle}>
-          <OpportunityLabel key={event.id} userID={userID} slug={getSlugFromEntityID(event.id)} size="large" />
-          { plannerOppIDs.includes(event.id) ? <Label attached='top right' size='small' color='green'>IN MY PLANNER</Label> : '' }
-        </Grid.Row>
-        <Grid.Row style={rowStyle}>
-          {event.date} - {event.label}
+          <OpportunityLabel key={event.id} userID={userID} slug={getSlugFromEntityID(event.id)} size="small" />
         </Grid.Row>
         <Grid.Row style={rowStyle}>
           <InterestList item={event} size="tiny" />
