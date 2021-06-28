@@ -1,6 +1,6 @@
 import {
   creditHoursSelector,
-  descriptionSelector, interestsOption, interestsSelector,
+  descriptionSelector, interestNames, interestsOption, interestsSelector,
   nameSelector,
   numSelector, pictureSelector,
   shortNameSelector,
@@ -49,8 +49,8 @@ class CoursePage {
       .expect(syllabusSelector.value).eql(syllabus);
     await t
       .click(interestsSelector)
-      .click(interestsOption.withText('.NET'))
-      .click(interestsOption.withText('C#'));
+      .click(interestsOption.withText(interestNames.dot_net))
+      .click(interestsOption.withText(interestNames.c_sharp));
     // submit the form
     await t.click(submitSelector);
     // give things time to propagate

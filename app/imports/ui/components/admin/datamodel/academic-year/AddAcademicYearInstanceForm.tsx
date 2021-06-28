@@ -9,7 +9,7 @@ import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
 import { AcademicYearInstances } from '../../../../../api/degree-plan/AcademicYearInstanceCollection';
 import { AcademicYearInstanceDefine } from '../../../../../typings/radgrad';
 import { COMPONENTIDS } from '../../../../utilities/ComponentIDs';
-import { profileToName, profileToUsername } from '../../../shared/utilities/data-model';
+import { profileToName } from '../../../shared/utilities/data-model';
 import RadGradAlert from '../../../../utilities/RadGradAlert';
 
 interface AddAcademicYearInstanceProps {

@@ -1,5 +1,5 @@
 import {
-  descriptionSelector,
+  descriptionSelector, interestNames,
   interestsOption,
   interestsSelector,
   nameSelector,
@@ -11,8 +11,8 @@ class CareerGoalsPage {
   async addCareerGoal(t) {
     // console.log('inside addCareerGoal', t);
     const name = 'Quantum Software Developer';
-    const interest1 = 'Quantum Computing';
-    const interest2 = 'Software Engineering';
+    const interest1 = interestNames.quantum_computing;
+    const interest2 = interestNames.software_engineering;
     const picture = 'https://mywebsite.com/picture';
     const description = 'The new software engineering using quantum code.';
     await t.selectText(nameSelector)
