@@ -4,6 +4,12 @@ import { COMPONENTIDS } from '../../imports/ui/utilities/ComponentIDs';
 export const authorSelector = new Selector(`#${COMPONENTIDS.DATA_MODEL_AUTHOR}`);
 export const careerGoalSelector = new Selector(`#${COMPONENTIDS.DATA_MODEL_CAREER_GOALS}`);
 export const careerGoalOption = careerGoalSelector.find('div span');
+export const careerGoalNames = {
+  data: 'Data Scientist',
+  grad: 'Graduate School',
+  software: 'Software Developer',
+  teacher: 'Teacher',
+};
 export const courseSelector = new Selector(`#${COMPONENTIDS.DATA_MODEL_COURSE}`);
 export const courseOption = courseSelector.find('option');
 export const creditHoursSelector = new Selector(`#${COMPONENTIDS.DATA_MODEL_CREDIT_HOURS}`);

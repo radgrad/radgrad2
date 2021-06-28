@@ -1,9 +1,12 @@
 import {
-  firstNameSelector,
+  careerGoalNames,
+  careerGoalOption,
+  careerGoalSelector, errorFieldSelector,
+  firstNameSelector, interestNames, interestsOption, interestsSelector,
   lastNameSelector,
   pictureSelector,
   roleOption,
-  roleSelector,
+  roleSelector, submitSelector,
   usernameSelector, websiteSelector,
 } from './selectors';
 
@@ -34,6 +37,23 @@ class UserPage {
     await t
       .typeText(websiteSelector, website)
       .expect(websiteSelector.value).eql(website);
+    await t
+      .click(interestsSelector)
+      .click(interestsOption.withText(interestNames.civic_engagement))
+      .click(interestsOption.withText(interestNames.data_science));
+    await t
+      .click(careerGoalSelector)
+      .click(careerGoalOption.withText(careerGoalNames.teacher))
+      .click(careerGoalOption.withText(careerGoalNames.grad));
+    // submit the form
+    await t.click(submitSelector);
+    await t.expect(errorFieldSelector.exists).notOk;
+    // give things time to propagate
+    await t.wait(1000);
+    await t
+      .expect(usernameSelector.value).eql('')
+      .expect(firstNameSelector.value).eql('')
+      .expect(lastNameSelector.value).eql('');
   }
 }
 
