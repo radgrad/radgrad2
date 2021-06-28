@@ -80,18 +80,18 @@ const AddTeaserForm: React.FC<AddTeaserFormProps> = ({ careerGoals, courses, int
       {/* eslint-disable-next-line no-return-assign */}
       <AutoForm schema={formSchema} onSubmit={handleAdd} ref={(ref) => formRef = ref} showInlineError>
         <Form.Group widths="equal">
-          <TextField name="title" />
-          <TextField name="author" />
+          <TextField id={COMPONENTIDS.DATA_MODEL_TITLE} name="title" />
+          <TextField id={COMPONENTIDS.DATA_MODEL_AUTHOR} name="author" />
         </Form.Group>
         <Form.Group widths="equal">
-          <SelectField name="targetSlug" />
-          <TextField name="youtubeID" />
-          <TextField name="duration" />
+          <SelectField id={COMPONENTIDS.DATA_MODEL_TARGET_SLUG} name="targetSlug" />
+          <TextField id={COMPONENTIDS.DATA_MODEL_YOUTUBE_ID} name="youtubeID" />
+          <TextField id={COMPONENTIDS.DATA_MODEL_DURATION} name="duration" />
         </Form.Group>
-        <MultiSelectField name="interests" />
-        <LongTextField name="description" />
-        <BoolField name="retired" />
-        <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
+        <MultiSelectField id={COMPONENTIDS.DATA_MODEL_INTERESTS} name="interests" />
+        <LongTextField id={COMPONENTIDS.DATA_MODEL_DESCRIPTION} name="description" />
+        <BoolField id={COMPONENTIDS.DATA_MODEL_RETIRED} name="retired" />
+        <SubmitField id={COMPONENTIDS.DATA_MODEL_SUBMIT} className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
         <ErrorsField id={COMPONENTIDS.DATA_MODEL_ERROR_FIELD} />
       </AutoForm>
     </Segment>

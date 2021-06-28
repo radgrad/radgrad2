@@ -130,11 +130,13 @@ export enum COMPONENTIDS {
 
   // Data model form ids.
   DATA_MODEL_ACADEMIC_TERM = 'data-model-academic-term',
+  DATA_MODEL_AUTHOR = 'data-model-author',
   DATA_MODEL_COMMENTS = 'data-model-comments',
   DATA_MODEL_COURSE = 'data-model-course',
   DATA_MODEL_COREQUISITES = 'data-model-corequisites',
   DATA_MODEL_CREDIT_HOURS = 'data-model-credit-hours',
   DATA_MODEL_DESCRIPTION = 'data-model-description',
+  DATA_MODEL_DURATION = 'data-model-duration',
   DATA_MODEL_ERROR_FIELD = 'data-model-error-field',
   DATA_MODEL_EVENT_DATE_1 = 'data-model-event-date-1',
   DATA_MODEL_EVENT_DATE_1_LABEL = 'data-model-event-date-1-label',
@@ -170,7 +172,10 @@ export enum COMPONENTIDS {
   DATA_MODEL_STUDENT = 'data-model-student',
   DATA_MODEL_SUBMIT = 'data-model-submit',
   DATA_MODEL_SYLLABUS = 'data-model-syllabus',
+  DATA_MODEL_TARGET_SLUG = 'data-model-target-slug',
+  DATA_MODEL_TITLE = 'data-model-title',
   DATA_MODEL_VERIFIED = 'data-model-verified',
   DATA_MODEL_VISIBLE = 'data-model-visible',
   DATA_MODEL_YEAR = 'data-model-year',
+  DATA_MODEL_YOUTUBE_ID = 'data-model-youtube-id',
 }

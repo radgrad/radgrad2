@@ -1,10 +1,12 @@
 import { Selector } from 'testcafe';
 import { COMPONENTIDS } from '../../imports/ui/utilities/ComponentIDs';
 
+export const authorSelector = new Selector(`#${COMPONENTIDS.DATA_MODEL_AUTHOR}`);
 export const courseSelector = new Selector(`#${COMPONENTIDS.DATA_MODEL_COURSE}`);
 export const courseOption = courseSelector.find('option');
 export const creditHoursSelector = new Selector(`#${COMPONENTIDS.DATA_MODEL_CREDIT_HOURS}`);
 export const descriptionSelector = new Selector(`#${COMPONENTIDS.DATA_MODEL_DESCRIPTION}`);
+export const durationSelector = new Selector(`#${COMPONENTIDS.DATA_MODEL_DURATION}`);
 export const errorFieldSelector = new Selector(`#${COMPONENTIDS.DATA_MODEL_ERROR_FIELD}`);
 export const eventDate1Selector = new Selector(`#${COMPONENTIDS.DATA_MODEL_EVENT_DATE_1}`);
 export const eventDate1LabelSelector = new Selector(`#${COMPONENTIDS.DATA_MODEL_EVENT_DATE_1_LABEL}`);
@@ -60,7 +62,11 @@ export const studentNames = {
 };
 export const submitSelector = new Selector(`#${COMPONENTIDS.DATA_MODEL_SUBMIT}`);
 export const syllabusSelector = new Selector(`#${COMPONENTIDS.DATA_MODEL_SYLLABUS}`);
+export const targetSlugSelector = new Selector(`#${COMPONENTIDS.DATA_MODEL_TARGET_SLUG}`);
+export const targetSlugOption = targetSlugSelector.find('option');
 export const termSelector = new Selector(`#${COMPONENTIDS.DATA_MODEL_ACADEMIC_TERM}`);
 export const termOption = termSelector.find('option');
+export const titleSelector = new Selector(`#${COMPONENTIDS.DATA_MODEL_TITLE}`);
 export const verifiedSelector = new Selector(`#${COMPONENTIDS.DATA_MODEL_VERIFIED}`);
 export const yearSelector = new Selector(`#${COMPONENTIDS.DATA_MODEL_YEAR}`);
+export const youtubeIdSelector = new Selector(`#${COMPONENTIDS.DATA_MODEL_YOUTUBE_ID}`);
