@@ -20,16 +20,17 @@ interface UpComingEventsCardProps {
 
 const UpComingEventsCard: React.FC<UpComingEventsCardProps> = ({ event, plannerOppIDs, userID }) => {
   const rowStyle = { paddingBottom: 10 };
+  const titleStyle = { margin: 0 };
   return (
     <Grid.Row verticalAlign='middle'>
-      <Grid.Column width={16}>
+      <Grid.Column width={16} style={titleStyle}>
         <RadGradHeader title={`${event.label}: ${event.date}`} dividing={false}/>
         { plannerOppIDs.includes(event.id) ? <Label attached='top right' size='small' color='green'>IN MY PLANNER</Label> : '' }
       </Grid.Column>
-      <Grid.Column width={4}>
-        <Image size='small' circular verticalAlign='middle' src={event.picture} />
+      <Grid.Column width={2}>
+        <Image size='tiny' circular verticalAlign='middle' src={event.picture} />
       </Grid.Column>
-      <Grid.Column width={12}>
+      <Grid.Column width={14}>
         <Grid.Row style={rowStyle}>
           <OpportunityLabel key={event.id} userID={userID} slug={getSlugFromEntityID(event.id)} size="small" />
         </Grid.Row>

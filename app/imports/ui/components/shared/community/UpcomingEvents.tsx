@@ -33,7 +33,7 @@ const UpcomingEvents: React.FC<UpcomingEventsProp> = ({ upComingEventsList, plan
   const plannerOppIDs = _.map(plannerOpportunities, 'opportunityID');
   return (
     <RadGradSegment header={header}>
-      <Grid style={gridStyle}>
+      <Grid style={gridStyle} divided='vertically'>
         {upComingEventsList.map((event) => (
           <UpComingEventsCard event={event} plannerOppIDs={plannerOppIDs} userID={userID} />
         ))}
