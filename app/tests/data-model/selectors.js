@@ -33,6 +33,8 @@ export const interestNames = {
 };
 export const nameSelector = new Selector(`#${COMPONENTIDS.DATA_MODEL_NAME}`);
 export const numSelector = new Selector(`#${COMPONENTIDS.DATA_MODEL_NUM}`);
+export const opportunitySelector = new Selector(`#${COMPONENTIDS.DATA_MODEL_OPPORTUNITY}`);
+export const opportunityOption = opportunitySelector.find('option');
 export const opportunityTypeSelector = new Selector(`#${COMPONENTIDS.DATA_MODEL_OPPORTUNITY_TYPE}`);
 export const opportunityTypeOption = opportunityTypeSelector.find('option');
 export const pictureSelector = new Selector(`#${COMPONENTIDS.DATA_MODEL_PICTURE}`);
@@ -60,4 +62,5 @@ export const submitSelector = new Selector(`#${COMPONENTIDS.DATA_MODEL_SUBMIT}`)
 export const syllabusSelector = new Selector(`#${COMPONENTIDS.DATA_MODEL_SYLLABUS}`);
 export const termSelector = new Selector(`#${COMPONENTIDS.DATA_MODEL_ACADEMIC_TERM}`);
 export const termOption = termSelector.find('option');
+export const verifiedSelector = new Selector(`#${COMPONENTIDS.DATA_MODEL_VERIFIED}`);
 export const yearSelector = new Selector(`#${COMPONENTIDS.DATA_MODEL_YEAR}`);

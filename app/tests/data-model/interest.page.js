@@ -1,5 +1,5 @@
 import {
-  descriptionSelector,
+  descriptionSelector, errorFieldSelector,
   interestTypeOption,
   interestTypeSelector,
   nameSelector,
@@ -26,6 +26,7 @@ class InterestPage {
       .typeText(descriptionSelector, description)
       .expect(descriptionSelector.value).eql(description);
     await t.click(submitSelector);
+    await t.expect(errorFieldSelector.exists).notOk;
     // give things time to propagate
     await t.wait(1000);
     // check the reset form

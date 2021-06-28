@@ -96,7 +96,7 @@ const AddOpportunityInstanceForm: React.FC<AddOpportunityInstanceFormProps> = ({
           <BoolField id={COMPONENTIDS.DATA_MODEL_VERIFIED} name="verified" />
           <BoolField id={COMPONENTIDS.DATA_MODEL_RETIRED} name="retired" />
         </Form.Group>
-        <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
+        <SubmitField id={COMPONENTIDS.DATA_MODEL_SUBMIT} className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
         <ErrorsField id={COMPONENTIDS.DATA_MODEL_ERROR_FIELD} />
       </AutoForm>
     </Segment>

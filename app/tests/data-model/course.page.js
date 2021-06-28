@@ -1,6 +1,6 @@
 import {
   creditHoursSelector,
-  descriptionSelector, interestNames, interestsOption, interestsSelector,
+  descriptionSelector, errorFieldSelector, interestNames, interestsOption, interestsSelector,
   nameSelector,
   numSelector, pictureSelector,
   shortNameSelector,
@@ -53,6 +53,7 @@ class CoursePage {
       .click(interestsOption.withText(interestNames.c_sharp));
     // submit the form
     await t.click(submitSelector);
+    await t.expect(errorFieldSelector.exists).notOk;
     // give things time to propagate
     await t.wait(1000);
     // check the reset form

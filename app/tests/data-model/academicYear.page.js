@@ -1,4 +1,11 @@
-import { studentSelector, studentOption, studentNames, yearSelector, submitSelector } from './selectors';
+import {
+  studentSelector,
+  studentOption,
+  studentNames,
+  yearSelector,
+  submitSelector,
+  errorFieldSelector,
+} from './selectors';
 
 class AcademicYearPage {
   async addAcademicYearInstance(t) {
@@ -14,6 +21,7 @@ class AcademicYearPage {
       .expect(yearSelector.value).eql(nextYear);
     // Submit the data.
     await t.click(submitSelector);
+    await t.expect(errorFieldSelector.exists).notOk;
     // give things time to propagate
     await t.wait(1000);
     // Check that the form reset.

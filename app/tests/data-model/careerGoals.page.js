@@ -1,5 +1,5 @@
 import {
-  descriptionSelector, interestNames,
+  descriptionSelector, errorFieldSelector, interestNames,
   interestsOption,
   interestsSelector,
   nameSelector,
@@ -30,6 +30,7 @@ class CareerGoalsPage {
       .click(interestsOption.withText(interest1))
       .click(interestsOption.withText(interest2));
     await t.click(submitSelector);
+    await t.expect(errorFieldSelector.exists).notOk;
     // give things time to propagate
     await t.wait(500);
     await t

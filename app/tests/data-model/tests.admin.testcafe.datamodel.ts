@@ -1,5 +1,3 @@
-// import { COMPONENTIDS } from '../../imports/ui/utilities/ComponentIDs';
-// import { landingNavBar } from '../navbar.landing.component';
 import { adminNavBar } from '../navbar.admin.component';
 import { signinPage } from '../signin.page';
 import { academicYearPage } from './academicYear.page';
@@ -8,6 +6,7 @@ import { coursePage } from './course.page';
 import { courseInstancePage } from './courseInstance.page';
 import { interestPage } from './interest.page';
 import { opportunityPage } from './opportunity.page';
+import { opportunityInstancePage } from './opportunityInstance.page';
 import { reviewPage } from './review.page';
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
@@ -70,6 +69,15 @@ test('Test admin data model opportunity page', async (testController) => {
   await signinPage.signin(testController, credentials.admin);
   await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'opportunities');
   await opportunityPage.addOpportunity(testController);
+  // test opportunity update
+  // test opportunity delete
+});
+
+test('Test admin data model opportunity instance page', async (testController) => {
+  await adminNavBar.gotoAdminLogin(testController);
+  await signinPage.signin(testController, credentials.admin);
+  await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'opportunity-instances');
+  await opportunityInstancePage.addOpportunityInstance(testController);
   // test opportunity update
   // test opportunity delete
 });
