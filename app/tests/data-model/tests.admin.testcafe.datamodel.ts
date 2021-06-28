@@ -9,6 +9,7 @@ import { opportunityPage } from './opportunity.page';
 import { opportunityInstancePage } from './opportunityInstance.page';
 import { reviewPage } from './review.page';
 import { teaserPage } from './teaser.page';
+import { userPage } from './user.page';
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 /* global fixture:false, test:false */
@@ -97,6 +98,15 @@ test('Test admin data model teasers page', async (testController) => {
   await signinPage.signin(testController, credentials.admin);
   await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'teasers');
   await teaserPage.addTeaser(testController);
+  // test review update
+  // test review delete
+});
+
+test('Test admin data model users page', async (testController) => {
+  await adminNavBar.gotoAdminLogin(testController);
+  await signinPage.signin(testController, credentials.admin);
+  await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'users');
+  await userPage.addUser(testController);
   // test review update
   // test review delete
 });

@@ -145,25 +145,25 @@ const AddUserForm: React.FC<AddUserProps> = ({ interests, academicTerms, careerG
       <AutoForm schema={formSchema} ref={(ref) => formRef = ref} onSubmit={doc => handleAddUser(doc, formRef)}
         showInlineError onChangeModel={handleModelChange}>
         <Form.Group widths="equal">
-          <TextField name="username" placeholder="johndoe@foo.edu" />
-          <SelectField name="role" />
+          <TextField id={COMPONENTIDS.DATA_MODEL_USERNAME} name="username" placeholder="johndoe@foo.edu" />
+          <SelectField id={COMPONENTIDS.DATA_MODEL_ROLE} name="role" />
         </Form.Group>
         <Form.Group widths="equal">
-          <TextField name="firstName" placeholder="John" />
-          <TextField name="lastName" placeholder="Doe" />
+          <TextField id={COMPONENTIDS.DATA_MODEL_FIRST_NAME} name="firstName" placeholder="John" />
+          <TextField id={COMPONENTIDS.DATA_MODEL_LAST_NAME} name="lastName" placeholder="Doe" />
         </Form.Group>
         <Header dividing as="h4">
           Optional fields (all users)
         </Header>
         <Form.Group widths="equal">
-          <PictureField name="picture" />
-          <TextField name="website" />
+          <PictureField id={COMPONENTIDS.DATA_MODEL_PICTURE} name="picture" />
+          <TextField id={COMPONENTIDS.DATA_MODEL_WEBSITE} name="website" />
         </Form.Group>
         <Form.Group widths="equal">
-          <MultiSelectField name="interests" />
-          <MultiSelectField name="careerGoals" />
+          <MultiSelectField id={COMPONENTIDS.DATA_MODEL_INTERESTS} name="interests" />
+          <MultiSelectField id={COMPONENTIDS.DATA_MODEL_CAREER_GOALS} name="careerGoals" />
         </Form.Group>
-        <BoolField name="retired" />
+        <BoolField id={COMPONENTIDS.DATA_MODEL_RETIRED} name="retired" />
         {role === ROLE.STUDENT ? (
           <div>
             <Header dividing as="h4">
@@ -198,7 +198,7 @@ const AddUserForm: React.FC<AddUserProps> = ({ interests, academicTerms, careerG
         ) : (
           ''
         )}
-        <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
+        <SubmitField id={COMPONENTIDS.DATA_MODEL_SUBMIT} className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
         <ErrorsField id={COMPONENTIDS.DATA_MODEL_ERROR_FIELD} />
       </AutoForm>
     </Segment>
