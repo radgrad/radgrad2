@@ -37,9 +37,6 @@ const descriptionPairs = (item: Opportunity): DescriptionPair[] => {
     { label: 'Picture', value: makeMarkdownLink(item.picture) },
     { label: 'Retired', value: item.retired ? 'True' : 'False' },
   ];
-  if (item.eventDate) {
-    retVal.push({ label: 'Event Date', value: item.eventDate.toDateString() });
-  }
   if (item.eventDate1 && item.eventDateLabel1) {
     retVal.push({ label: 'Event Date 1', value: `${item.eventDate1.toDateString()} ${item.eventDateLabel1}` });
   }
