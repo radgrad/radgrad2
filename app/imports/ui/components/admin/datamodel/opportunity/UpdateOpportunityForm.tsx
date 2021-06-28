@@ -5,7 +5,6 @@ import {
   TextField,
   SelectField,
   LongTextField,
-  DateField,
   BoolField,
   SubmitField,
   NumField,
@@ -15,6 +14,7 @@ import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { BaseProfile, Interest, OpportunityType } from '../../../../../typings/radgrad';
 import BaseCollection from '../../../../../api/base/BaseCollection';
+import DayField from '../../../form-fields/DayField';
 import PictureField from '../../../form-fields/PictureField';
 import {
   docToName,
@@ -100,19 +100,19 @@ const UpdateOpportunityForm: React.FC<UpdateOpportunityFormProps> = ({
           <MultiSelectField name="interests"/>
         </Form.Group>
         <Form.Group widths="equal">
-          <DateField name="eventDate1"/>
+          <DayField name="eventDate1"/>
           <TextField name="eventDateLabel1"/>
         </Form.Group>
         <Form.Group widths="equal">
-          <DateField name="eventDate2"/>
+          <DayField name="eventDate2"/>
           <TextField name="eventDateLabel2"/>
         </Form.Group>
         <Form.Group widths="equal">
-          <DateField name="eventDate3"/>
+          <DayField name="eventDate3"/>
           <TextField name="eventDateLabel3"/>
         </Form.Group>
         <Form.Group widths="equal">
-          <DateField name="eventDate4"/>
+          <DayField name="eventDate4"/>
           <TextField name="eventDateLabel4"/>
         </Form.Group>
         <Form.Group widths="equal">
