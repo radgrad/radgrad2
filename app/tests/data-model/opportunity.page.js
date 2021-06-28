@@ -43,7 +43,7 @@ class OpportunityPage {
     await t
       .typeText(pictureSelector, picture)
       .expect(pictureSelector.value).eql(picture);
-    const eventDate1 = '2021-07-04T10:00';
+    const eventDate1 = '2021-07-04';
     await t
       .click(eventDate1Selector)
       .typeText(eventDate1Selector, eventDate1)

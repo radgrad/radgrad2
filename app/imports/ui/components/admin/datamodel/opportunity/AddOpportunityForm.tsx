@@ -8,6 +8,7 @@ import { Opportunities } from '../../../../../api/opportunity/OpportunityCollect
 import slugify from '../../../../../api/slug/SlugCollection';
 import { BaseProfile, Interest, OpportunityDefine, OpportunityType } from '../../../../../typings/radgrad';
 import { COMPONENTIDS } from '../../../../utilities/ComponentIDs';
+import DayField from '../../../form-fields/DayField';
 import PictureField from '../../../form-fields/PictureField';
 import { docToName, opportunityTypeNameToSlug, profileNameToUsername, profileToName } from '../../../shared/utilities/data-model';
 import { iceSchema } from '../../../../../api/ice/IceProcessor';
@@ -100,9 +101,9 @@ const AddOpportunityForm: React.FC<AddOpportunityFormProps> = ({ sponsors, inter
         <MultiSelectField id={COMPONENTIDS.DATA_MODEL_INTERESTS} name="interests" />
         <PictureField id={COMPONENTIDS.DATA_MODEL_PICTURE} name="picture" />
         <Form.Group widths="equal">
-          <DateField id={COMPONENTIDS.DATA_MODEL_EVENT_DATE_1} name="eventDate1" />
+          <DayField id={COMPONENTIDS.DATA_MODEL_EVENT_DATE_1} name="eventDate1" />
           <TextField id={COMPONENTIDS.DATA_MODEL_EVENT_DATE_1_LABEL} name="eventDateLabel1" />
-          <DateField id={COMPONENTIDS.DATA_MODEL_EVENT_DATE_2} name="eventDate2" />
+          <DayField id={COMPONENTIDS.DATA_MODEL_EVENT_DATE_2} name="eventDate2" />
           <TextField id={COMPONENTIDS.DATA_MODEL_EVENT_DATE_2_LABEL} name="eventDateLabel2" />
         </Form.Group>
         <Form.Group widths="equal">
