@@ -137,6 +137,7 @@ export enum COMPONENTIDS {
   DATA_MODEL_DESCRIPTION = 'data-model-description',
   DATA_MODEL_GRADE = 'data-model-grade',
   DATA_MODEL_INTERESTS = 'data-model-interests',
+  DATA_MODEL_INTEREST_TYPE = 'data-model-interest-type',
   DATA_MODEL_MODERATED = 'data-model-moderated',
   DATA_MODEL_MODERATOR_COMMENTS = 'data-model-moderator-comments',
   DATA_MODEL_NAME = 'data-model-name',

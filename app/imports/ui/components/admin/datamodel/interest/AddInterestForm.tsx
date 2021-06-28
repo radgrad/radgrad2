@@ -3,6 +3,7 @@ import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, SelectField, LongTextField, BoolField, SubmitField, ErrorsField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
+import { COMPONENTIDS } from '../../../../utilities/ComponentIDs';
 import RadGradAlert from '../../../../utilities/RadGradAlert';
 import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
 import { Interests } from '../../../../../api/interest/InterestCollection';
@@ -26,7 +27,7 @@ const AddInterestForm: React.FC<AddInterestFormProps> = ({ interestTypes }) => {
       .catch((error) => { RadGradAlert.failure('Failed to add Interest', error.message, error);})
       .then(() => {
         RadGradAlert.success('Add Interest Succeeded');
-        formRef.reset();
+        formRef?.reset();
       });
   };
 
@@ -46,13 +47,13 @@ const AddInterestForm: React.FC<AddInterestFormProps> = ({ interestTypes }) => {
       {/* eslint-disable-next-line no-return-assign */}
       <AutoForm schema={formSchema} onSubmit={handleAdd} ref={(ref) => formRef = ref} showInlineError>
         <Form.Group widths="equal">
-          <TextField name="name" placeholder="Rust Programming Language" />
-          <SelectField name="interestType" />
+          <TextField id={COMPONENTIDS.DATA_MODEL_NAME} name="name" placeholder="Rust Programming Language" />
+          <SelectField id={COMPONENTIDS.DATA_MODEL_INTEREST_TYPE} name="interestType" />
         </Form.Group>
-        <PictureField name="picture" placeholder='https://mywebsite.com/picture.png' />
-        <LongTextField name="description" />
-        <BoolField name="retired" />
-        <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
+        <PictureField id={COMPONENTIDS.DATA_MODEL_PICTURE} name="picture" placeholder='https://mywebsite.com/picture.png' />
+        <LongTextField id={COMPONENTIDS.DATA_MODEL_DESCRIPTION} name="description" />
+        <BoolField id={COMPONENTIDS.DATA_MODEL_RETIRED} name="retired" />
+        <SubmitField id={COMPONENTIDS.DATA_MODEL_SUBMIT} className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
         <ErrorsField />
       </AutoForm>
     </Segment>
