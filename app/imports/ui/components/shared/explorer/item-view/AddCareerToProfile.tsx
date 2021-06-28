@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Icon, Modal, SemanticFLOATS, Grid, Form } from 'semantic-ui-react';
+import { Button, Icon, Modal, SemanticFLOATS, Grid, Form, Container } from 'semantic-ui-react';
 import { defineMethod, removeItMethod } from '../../../../../api/base/BaseCollection.methods';
 import { Interests } from '../../../../../api/interest/InterestCollection';
 import RadGradAlert from '../../../../utilities/RadGradAlert';
@@ -72,8 +72,10 @@ const AddCareerToProfile: React.FC<AddCareerToProfileProps> = ({ userID, careerG
           <Modal.Description textAlign = 'center'>
             <p> Adding this Career Goal will automatically add the following new Interests to your profile.<br/>
               If you are OK with that, just press OK. </p>
-            <Form>
+            <Container textAlign='center'>
               <InterestList item={careerGoal} size="small"/>
+            </Container>
+            <Form>
               <Form.Group widths={2}>
                 {interestSlugs.map((slug, index) => <Form.Checkbox id={`id_${slug}`} key={`${slug}-checkbox`} radio label={`${interestSlugs[index]}`}/>)}
               </Form.Group>
