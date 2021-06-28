@@ -104,7 +104,7 @@ const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses }) => 
         </Form.Group>
         <BoolField id={COMPONENTIDS.DATA_MODEL_REPEATABLE} name="repeatable" />
         <SubmitField id={COMPONENTIDS.DATA_MODEL_SUBMIT} className="mini basic green" value="Add" />
-        <ErrorsField />
+        <ErrorsField id={COMPONENTIDS.DATA_MODEL_ERROR_FIELD} />
       </AutoForm>
     </Segment>
   );

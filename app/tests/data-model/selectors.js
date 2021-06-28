@@ -5,6 +5,7 @@ export const courseSelector = new Selector(`#${COMPONENTIDS.DATA_MODEL_COURSE}`)
 export const courseOption = courseSelector.find('option');
 export const creditHoursSelector = new Selector(`#${COMPONENTIDS.DATA_MODEL_CREDIT_HOURS}`);
 export const descriptionSelector = new Selector(`#${COMPONENTIDS.DATA_MODEL_DESCRIPTION}`);
+export const errorFieldSelector = new Selector(`#${COMPONENTIDS.DATA_MODEL_ERROR_FIELD}`);
 export const eventDate1Selector = new Selector(`#${COMPONENTIDS.DATA_MODEL_EVENT_DATE_1}`);
 export const eventDate1LabelSelector = new Selector(`#${COMPONENTIDS.DATA_MODEL_EVENT_DATE_1_LABEL}`);
 export const eventDate2Selector = new Selector(`#${COMPONENTIDS.DATA_MODEL_EVENT_DATE_2}`);

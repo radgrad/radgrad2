@@ -1,5 +1,5 @@
 import {
-  descriptionSelector,
+  descriptionSelector, errorFieldSelector,
   eventDate1Selector, iceCSelector,
   iceESelector,
   iceISelector,
@@ -61,6 +61,7 @@ class OpportunityPage {
       .typeText(iceESelector, e)
       .expect(iceESelector.value).eql(e);
     await t.click(submitSelector);
+    await t.expect(errorFieldSelector.exists).notOk;
     // give things time to propagate
     await t.wait(2000);
     await t

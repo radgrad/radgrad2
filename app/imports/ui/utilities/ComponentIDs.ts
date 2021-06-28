@@ -135,6 +135,7 @@ export enum COMPONENTIDS {
   DATA_MODEL_COREQUISITES = 'data-model-corequisites',
   DATA_MODEL_CREDIT_HOURS = 'data-model-credit-hours',
   DATA_MODEL_DESCRIPTION = 'data-model-description',
+  DATA_MODEL_ERROR_FIELD = 'data-model-error-field',
   DATA_MODEL_EVENT_DATE_1 = 'data-model-event-date-1',
   DATA_MODEL_EVENT_DATE_1_LABEL = 'data-model-event-date-1-label',
   DATA_MODEL_EVENT_DATE_2 = 'data-model-event-date-2',
@@ -153,6 +154,7 @@ export enum COMPONENTIDS {
   DATA_MODEL_MODERATOR_COMMENTS = 'data-model-moderator-comments',
   DATA_MODEL_NAME = 'data-model-name',
   DATA_MODEL_NUM = 'data-model-num',
+  DATA_MODEL_OPPORTUNITY = 'data-model-opportunity',
   DATA_MODEL_OPPORTUNITY_TYPE = 'data-model-opportunity-type',
   DATA_MODEL_PAGINATION_LAST = 'data-model-pagination-last',
   DATA_MODEL_PICTURE = 'data-model-picture',
@@ -168,6 +170,7 @@ export enum COMPONENTIDS {
   DATA_MODEL_STUDENT = 'data-model-student',
   DATA_MODEL_SUBMIT = 'data-model-submit',
   DATA_MODEL_SYLLABUS = 'data-model-syllabus',
+  DATA_MODEL_VERIFIED = 'data-model-verified',
   DATA_MODEL_VISIBLE = 'data-model-visible',
   DATA_MODEL_YEAR = 'data-model-year',
 }

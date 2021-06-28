@@ -3,6 +3,7 @@ import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, SelectField, BoolField, SubmitField, ErrorsField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
+import { COMPONENTIDS } from '../../../../utilities/ComponentIDs';
 import RadGradAlert from '../../../../utilities/RadGradAlert';
 import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
 import { OpportunityInstances } from '../../../../../api/opportunity/OpportunityInstanceCollection';
@@ -84,19 +85,19 @@ const AddOpportunityInstanceForm: React.FC<AddOpportunityInstanceFormProps> = ({
       {/* eslint-disable-next-line no-return-assign */}
       <AutoForm schema={formSchema} onSubmit={handleAdd} ref={(ref) => formRef = ref} showInlineError>
         <Form.Group widths="equal">
-          <SelectField name="term" />
-          <SelectField name="student" />
+          <SelectField id={COMPONENTIDS.DATA_MODEL_ACADEMIC_TERM} name="term" />
+          <SelectField id={COMPONENTIDS.DATA_MODEL_STUDENT} name="student" />
         </Form.Group>
         <Form.Group widths="equal">
-          <SelectField name="opportunity" />
-          <SelectField name="sponsor" />
+          <SelectField id={COMPONENTIDS.DATA_MODEL_OPPORTUNITY} name="opportunity" />
+          <SelectField id={COMPONENTIDS.DATA_MODEL_SPONSOR} name="sponsor" />
         </Form.Group>
         <Form.Group widths="equal">
-          <BoolField name="verified" />
-          <BoolField name="retired" />
+          <BoolField id={COMPONENTIDS.DATA_MODEL_VERIFIED} name="verified" />
+          <BoolField id={COMPONENTIDS.DATA_MODEL_RETIRED} name="retired" />
         </Form.Group>
         <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
-        <ErrorsField />
+        <ErrorsField id={COMPONENTIDS.DATA_MODEL_ERROR_FIELD} />
       </AutoForm>
     </Segment>
   );

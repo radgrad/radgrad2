@@ -14,6 +14,7 @@ import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { BaseProfile, Interest, OpportunityType } from '../../../../../typings/radgrad';
 import BaseCollection from '../../../../../api/base/BaseCollection';
+import { COMPONENTIDS } from '../../../../utilities/ComponentIDs';
 import DayField from '../../../form-fields/DayField';
 import PictureField from '../../../form-fields/PictureField';
 import {
@@ -129,7 +130,7 @@ const UpdateOpportunityForm: React.FC<UpdateOpportunityFormProps> = ({
         <BoolField name="retired"/>
         <SubmitField inputRef={undefined} disabled={false} value="Update" className="mini basic green"/>
         <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
-        <ErrorsField/>
+        <ErrorsField id={COMPONENTIDS.DATA_MODEL_ERROR_FIELD} />
       </AutoForm>
     </Segment>
   );
