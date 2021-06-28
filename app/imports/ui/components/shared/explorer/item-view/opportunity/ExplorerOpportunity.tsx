@@ -2,7 +2,7 @@ import moment from 'moment';
 import React from 'react';
 import Markdown from 'react-markdown';
 import { useParams } from 'react-router-dom';
-import { Divider, Grid, Segment } from 'semantic-ui-react';
+import { Divider, Grid, Segment, List } from 'semantic-ui-react';
 import { Reviews } from '../../../../../../api/review/ReviewCollection';
 import { ROLE } from '../../../../../../api/role/Role';
 import { Teasers } from '../../../../../../api/teaser/TeaserCollection';
@@ -61,18 +61,37 @@ const ExplorerOpportunity: React.FC<ExplorerOpportunitiesProps> = ({ opportunity
   const isSponsor = profile.userID === opportunity.sponsorID;
   const showManageButtons = isSponsor || profile.role === ROLE.ADMIN;
   const dateStrings = [];
+
   if (opportunity.eventDate1) {
-    dateStrings.push(moment(opportunity.eventDate1).format('MM/DD/YYYY'));
+    if (opportunity.eventDateLabel1){
+      dateStrings.push({ 'event': opportunity.eventDateLabel1, 'date': (moment(opportunity.eventDate1).format('MM/DD/YYYY')) });
+    } else {
+      dateStrings.push({ 'event': 'Event 1', 'date': (moment(opportunity.eventDate1).format('MM/DD/YYYY')) });
+    }
   }
   if (opportunity.eventDate2) {
-    dateStrings.push(moment(opportunity.eventDate2).format('MM/DD/YYYY'));
+    if (opportunity.eventDateLabel2){
+      dateStrings.push({ 'event': opportunity.eventDateLabel2, 'date': (moment(opportunity.eventDate1).format('MM/DD/YYYY')) });
+    } else {
+      dateStrings.push({ 'event': 'Event 2', 'date': (moment(opportunity.eventDate2).format('MM/DD/YYYY')) });
+    }
   }
   if (opportunity.eventDate3) {
-    dateStrings.push(moment(opportunity.eventDate3).format('MM/DD/YYYY'));
+    if (opportunity.eventDateLabel3){
+      dateStrings.push({ 'event': opportunity.eventDateLabel3, 'date': (moment(opportunity.eventDate1).format('MM/DD/YYYY')) });
+    } else {
+      dateStrings.push({ 'event': 'Event 3', 'date': (moment(opportunity.eventDate3).format('MM/DD/YYYY')) });
+    }
   }
   if (opportunity.eventDate4) {
-    dateStrings.push(moment(opportunity.eventDate4).format('MM/DD/YYYY'));
+    if (opportunity.eventDateLabel4){
+      dateStrings.push({ 'event': opportunity.eventDateLabel4, 'date': (moment(opportunity.eventDate1).format('MM/DD/YYYY')) });
+    } else {
+      dateStrings.push({ 'event': 'Event 4', 'date': (moment(opportunity.eventDate4).format('MM/DD/YYYY')) });
+    }
   }
+
+  const listDateStrings = dateStrings.map((d) => <List bulleted> <List.Item>{`${d.event} :`} {d.date}</List.Item> </List>);
   // console.log(profile.userID, opportunity._id, opportunity.name);
   return (
     <div id="explorerOpportunityWidget">
@@ -87,8 +106,9 @@ const ExplorerOpportunity: React.FC<ExplorerOpportunitiesProps> = ({ opportunity
             <strong style={{ paddingTop: '5px' }}>Sponsor:</strong> &nbsp; <UserLabel username={opportunity.sponsorID}/>
           </Grid.Row>
           <Grid.Row style={compactRowStyle}>
-            <strong>Dates:</strong>&nbsp;{opportunity.eventDate1 ? dateStrings.join(', ') : 'N/A'}
+            <strong>Dates:</strong> &nbsp;
           </Grid.Row>
+          {opportunity.eventDate1 ? listDateStrings : 'N/A'}
           {showManageButtons ? <Grid.Row><EditOpportunityButton opportunity={opportunity} sponsors={sponsors} interests={interests} opportunityTypes={opportunityTypes}/> <DeleteItemButton item={opportunity} type={PROFILE_ENTRY_TYPE.OPPORTUNITY} /></Grid.Row> : ''}
         </Grid>
       </Segment>

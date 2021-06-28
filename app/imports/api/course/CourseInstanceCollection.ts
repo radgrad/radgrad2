@@ -143,7 +143,7 @@ class CourseInstanceCollection extends BaseCollection {
       creditHrs = Courses.findDoc(courseID).creditHrs;
     }
     // TODO need to talk about this.
-    ProfileCourses.define({ course, student, retired });
+    ProfileCourses.define({ course, username:student, retired });
     // Define and return the CourseInstance
     return this.collection.insert({
       termID,
@@ -232,7 +232,7 @@ class CourseInstanceCollection extends BaseCollection {
    * @throws { Meteor.Error } If there is no logged in user, or the user is not an Admin or Advisor.
    */
   public assertValidRoleForMethod(userId: string) {
-    this.assertRole(userId, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.STUDENT]);
+    this.assertRole(userId, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY, ROLE.STUDENT]);
   }
 
   /**

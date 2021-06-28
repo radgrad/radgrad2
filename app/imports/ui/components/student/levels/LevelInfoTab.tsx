@@ -36,7 +36,7 @@ const getLevelExplanation = (level) => {
       result = `
 If you achieve Level 6, you are truly one of the elite RadGrad students, and you will have achieved excellent preparation for entering the workforce, or going on to Graduate School, whichever you prefer. Congratulations!
 
-To achieve Level 6, in addition to fulfilling the ICE requirements, you&apos;ll also need to &quot;pay it forward&quot; to the RadGrad community by completing Reviews of your completed courses and opportunities. The reward is the coveted black RadGrad sticker.`;
+To achieve Level 6, in addition to fulfilling the ICE requirements, you&apos;ll also need to &quot;pay it forward&quot; to the RadGrad community by completing Reviews of your completed courses and opportunities. One reward is the coveted and rarely seen Ninja-level Black RadGrad sticker.`;
       break;
 
     case 5:
