@@ -48,14 +48,10 @@ const ExperienceIceTabPane: React.FC<ExperienceIceTabPaneProps> = ({
               <Header as="h3" className="ice-experience-color">
                 EXPERIENCE
               </Header>
-              <p>You earn experience points by completing opportunities that provide &#8220;real world
-                experience&#8220;,
-                such
-                as <strong>internships</strong> or <strong>business plan competitions</strong>.</p>
-              <p>You have <strong>{earnedICE}</strong> verified experience points. This appears as a number in the
-                center of the circle. It is also represented by the darkly colored portion of the circle. You
-                have <strong>{projectedICE}</strong> unverified experience points. This appears as the lightly colored
-                portion of the circle.</p>
+              <p>You earn Experience points by completing opportunities that provide &#8220;real world
+                experience&#8220;, such as <strong>internships</strong> or <strong>business plan competitions</strong>.</p>
+              <p>Right now, you have <strong>{earnedICE}</strong> verified Experience points. This appears as the number in the center of the first circle (although the displayed value is capped at 100). Your verified points are also represented by the darkly colored portion of the circle. Only verified points enable you to achieve new Levels in RadGrad.</p>
+              <p>Your grand total for Experience is <strong>{projectedICE}</strong>. This includes both verified Opportunities plus Opportunities that you have planned to carry out but have not yet verified.  If some of your planned Opportunities are not yet verified, then you might see these points represented as a lightly colored portion of the circle.</p>
               {unVerifiedOIs.length > 0 ?
                 <p>You have {unVerifiedOIs.length} opportunit{unVerifiedOIs.length > 1 ? 'ies' : 'y'} without
                   verification

@@ -29,8 +29,9 @@ export const CompetencyIceTabPane: React.FC<CompetencyIceTabPaneProps> = ({ prof
               <Header as="h3" className="ice-competency-color">
                 COMPETENCY
               </Header>
-              <p>You earn competency points by completing classes. The number of competency points depends upon your grade: you get <strong>{gradeCompetency.A} points for any kind of A, {gradeCompetency.B} points for any kind of B, and {gradeCompetency.C} points for a C or below</strong>.</p>
-              <p>You have <strong>{earnedICE}</strong> verified experience points. This appears as a number in the center of the circle. It is also represented by the darkly colored portion of the circle. You have <strong>{projectedICE}</strong> unverified experience points. This appears as the lightly colored portion of the circle.</p>
+              <p>You earn Competency points by completing courses. The number of Competency points depends upon your grade: you get <strong>{gradeCompetency.A} points for any kind of A, {gradeCompetency.B} points for any kind of B, and {gradeCompetency.C} points for a C or below</strong>.</p>
+              <p>Right now, you have <strong>{earnedICE}</strong> verified Competency points. This appears as the number in the center of the first circle (although the displayed value is capped at 100). Your verified points are also represented by the darkly colored portion of the circle. Only verified points enable you to achieve new Levels in RadGrad.</p>
+              <p>Your grand total for Competency is <strong>{projectedICE}</strong>. This includes both verified Courses plus Courses that you have planned to take in future.  If some of your planned Courses have not yet been completed, then you might see these points represented as a lightly colored portion of the circle.</p>
               {projectedICE < 100 ? <div>
                 <p>You don&quot;t have enough competency from courses in your degree experience plan. Here are some recommended courses that match your interests:</p>
                 <CourseList courses={recommended} keyStr='recommended' size='large' userID={profileID} />

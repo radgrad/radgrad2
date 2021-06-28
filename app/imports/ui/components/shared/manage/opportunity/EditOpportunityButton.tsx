@@ -23,6 +23,9 @@ import { OpportunityUpdate } from '../../../../../typings/radgrad';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
 import PictureField from '../../../form-fields/PictureField';
 import { ManageOpportunityProps } from './ManageOpportunityProps';
+import { COMPONENTIDS } from '../../../../utilities/ComponentIDs';
+
+SimpleSchema.extendOptions(['autoform']);
 
 const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({
   opportunity,
@@ -69,7 +72,6 @@ const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({
       allowedValues: interestNames,
     },
     picture: { type: String, optional: true },
-    eventDate: { type: Date, optional: true },
     eventDate1: { type: Date, optional: true },
     eventDateLabel1: { type: String, optional: true },
     eventDate2: { type: Date, optional: true },
@@ -78,7 +80,6 @@ const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({
     eventDateLabel3: { type: String, optional: true },
     eventDate4: { type: Date, optional: true },
     eventDateLabel4: { type: String, optional: true },
-    clearEventDate: { type: Boolean, optional: true },
     clearEventDate1: { type: Boolean, optional: true },
     clearEventDate2: { type: Boolean, optional: true },
     clearEventDate3: { type: Boolean, optional: true },
@@ -93,7 +94,7 @@ const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
       open={open}
-      trigger={<Button basic color='green' key={`${opportunity._id}-edit-button`}>EDIT</Button>}>
+      trigger={<Button basic color='green' id={COMPONENTIDS.EDIT_OPPORTUNITY_BUTTON} key={`${opportunity._id}-edit-button`}>EDIT</Button>}>
       <Modal.Header>{`Edit ${opportunity.name}`}</Modal.Header>
       <Modal.Content>
         <AutoForm model={model} schema={updateFormSchema} showInlineError onSubmit={(doc) => {
@@ -127,7 +128,6 @@ const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({
             <TextField name="eventDateLabel4"/>
           </Form.Group>
           <Form.Group widths="equal">
-            <BoolField name="clearEventDate"/>
             <BoolField name="clearEventDate1"/>
             <BoolField name="clearEventDate2"/>
             <BoolField name="clearEventDate3"/>

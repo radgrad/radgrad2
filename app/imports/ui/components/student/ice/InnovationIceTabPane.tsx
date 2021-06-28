@@ -48,13 +48,9 @@ const InnovationIceTabPane: React.FC<InnovationIceTabPaneProps> = ({
               <Header as="h3" className="ice-innovation-color">
                 INNOVATION
               </Header>
-              <p>You earn innovation points by completing opportunities that involve &quot;innovation&quot;, such as <b>research
-                projects, hackathons, or other activities producing new insights or technologies.</b></p>
-              <p>You have <strong>{earnedICE}</strong> verified innovation points. This appears as a number in the
-                center
-                of the circle. It is also represented by the darkly colored portion of the circle. You
-                have <strong>{projectedICE}</strong> unverified innovation points. This appears as
-                the lightly colored portion of the circle.</p>
+              <p>You earn Innovation points by completing Opportunities that involve &quot;innovation&quot;, such as <b>research projects, hackathons, or other activities producing new insights or technologies.</b></p>
+              <p>Right now, you have <strong>{earnedICE}</strong> verified Innovation points. This appears as the number in the center of the first circle (although the displayed value is capped at 100). Your verified points are also represented by the darkly colored portion of the circle. Only verified points enable you to achieve new Levels in RadGrad.</p>
+              <p>Your grand total for Innovation is <strong>{projectedICE}</strong>. This includes both verified Opportunities plus Opportunities that you have planned to carry out but have not yet verified.  If some of your planned Opportunities are not yet verified, then you might see these points represented as a lightly colored portion of the circle.</p>
               {unVerifiedOIs.length > 0 ?
                 <p>You have {unVerifiedOIs.length} opportunit{unVerifiedOIs.length > 1 ? 'ies' : 'y'} without
                   verification

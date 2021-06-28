@@ -53,6 +53,18 @@ const VisibilitySettingList: React.FC<StudentVisibilitySettingListProps> = ({ pr
       hide.push('Opportunities');
     }
   }
+  if (profile.role === ROLE.FACULTY || ROLE.ADVISOR) {
+    if (profile.shareCourses) {
+      share.push('Courses');
+    } else {
+      hide.push('Courses');
+    }
+    if (profile.shareOpportunities) {
+      share.push('Opportunities');
+    } else {
+      hide.push('Opportunities');
+    }
+  }
 
   return (
     <Label.Group size={size}>

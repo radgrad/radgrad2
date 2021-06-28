@@ -1082,26 +1082,6 @@
       "name": "CourseCollection",
       "contents": [
         {
-          "name": "Computational Media Systems",
-          "shortName": "Computational Media",
-          "slug": "ICS_369",
-          "num": "ICS 369",
-          "description": "Intermediate object-oriented programming within the context of interactive media systems and video game development. Topics: classes, objects, inheritance, polymorphism, abstract classes, interfaces, event-driven programming, vectors, geometric primitives, game mechanics, and relevant design patterns.",
-          "creditHrs": 3,
-          "interests": [
-            "application-development",
-            "computer-graphics",
-            "game-design",
-            "software-engineering"
-          ],
-          "corequisites": [],
-          "prerequisites": [
-            "ics_111"
-          ],
-          "repeatable": false,
-          "retired": false
-        },
-        {
           "name": "Digital Tools for the Information World",
           "shortName": "Digital Tools",
           "slug": "ics_101",
@@ -1539,15 +1519,20 @@
         {
           "name": "Computational Media Systems",
           "shortName": "Computational Media",
-          "slug": "ics_369",
+          "slug": "ICS_369",
           "num": "ICS 369",
           "description": "Intermediate object-oriented programming within the context of interactive media systems and video game development. Topics: classes, objects, inheritance, polymorphism, abstract classes, interfaces, event-driven programming, vectors, geometric primitives, game mechanics, and relevant design patterns.",
           "creditHrs": 3,
           "interests": [
+            "application-development",
+            "computer-graphics",
+            "game-design",
             "software-engineering"
           ],
           "corequisites": [],
-          "prerequisites": [],
+          "prerequisites": [
+            "ics_111"
+          ],
           "repeatable": false,
           "retired": false
         },
@@ -4725,7 +4710,7 @@
           "slug": "acm-manoa",
           "description": "Make friends and find folks with similar interests by joining ACM Manoa, the UH student chapter of the Association for Computing Machinery and most popular undergraduate computer science club. We are a Registered Independent Organization (RIO) focused on providing opportunities and resources for our members’ personal and professional advancement.  ACM Manoa currently sponsors three special interest groups: GreyHats (security), Algorithms for Competitions and Interviews, and Data Science.\n\nACM Manoa has 3 pillars: social, professional, and technical.\n\n  * We hold social activities for our members to have fun as well as develop and strengthen their interpersonal relationships.\n\n  * We strive to connect our members to professionals in the industry, abroad and within the Honolulu community.\n\n  * We are largely comprised of aspiring professionals in the computing industry; accordingly, members in ACM Manoa are encouraged to join and create Special Interest Groups (SIG) and Playgrounds where they can collaborate on interesting projects. \n\nFor more information, go to [http://acmanoa.github.io/](http://acmanoa.github.io/)",
           "opportunityType": "club",
-          "sponsor": "johnson@hawaii.edu",
+          "sponsor": "kennydq@hawaii.edu",
           "ice": {
             "i": 5,
             "c": 0,

@@ -38,7 +38,7 @@ export const isRole = (role: string): boolean => (typeof role) === 'string' && (
  * @throws { Meteor.Error } If any of role(s) are not valid.
  * @memberOf api/role
  */
-export const assertRole = (role: string| string[]) => {
+export const assertRole = (role: string | string[]) => {
   const roleArray = (Array.isArray(role)) ? role : [role];
   roleArray.forEach((theRole) => {
     if (!isRole(theRole)) {

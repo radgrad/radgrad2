@@ -66,7 +66,6 @@ const AddOpportunityForm: React.FC<AddOpportunityFormProps> = ({ sponsors, inter
     sponsor: { type: String, allowedValues: sponsorNames, defaultValue: sponsorNames[0] },
     interests: Array,
     'interests.$': { type: String, allowedValues: interestNames },
-    eventDate: { type: Date, optional: true },
     eventDate1: { type: Date, optional: true },
     eventDateLabel1: { type: String, optional: true },
     eventDate2: { type: Date, optional: true },
@@ -80,6 +79,7 @@ const AddOpportunityForm: React.FC<AddOpportunityFormProps> = ({ sponsors, inter
     picture: { type: String, optional: true },
   });
   const formSchema = new SimpleSchema2Bridge(schema);
+
   return (
     <Segment padded>
       <Header dividing>Add Opportunity</Header>

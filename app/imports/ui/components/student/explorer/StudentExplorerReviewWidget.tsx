@@ -11,6 +11,7 @@ import StudentExplorerAddReviewForm from './StudentExplorerAddReviewForm';
 import * as Router from '../../shared/utilities/router';
 import { Review } from '../../../../typings/radgrad';
 import UserLabel from '../../shared/profile/UserLabel';
+import { EXPLORER_TYPE_ICON } from '../../../utilities/ExplorerUtils';
 
 interface StudentExplorerReviewWidgetProps {
   itemToReview: any;
@@ -51,9 +52,19 @@ const StudentExplorerReviewWidget: React.FC<StudentExplorerReviewWidgetProps> = 
   } else {
     theReviews = theReviews.filter((review) => review.visible);
   }
+  let icon = '';
+  switch (reviewType) {
+    case 'course':
+      icon = EXPLORER_TYPE_ICON.COURSE;
+      break;
+    case 'opportunity':
+      icon = EXPLORER_TYPE_ICON.OPPORTUNITY;
+      break;
+    default:
+  }
   return (
     <div className="ui padded container">
-      <RadGradHeader title={`${reviewType} reviews`} dividing />
+      <RadGradHeader icon={icon} title={`${reviewType} reviews`} dividing />
 
       <List verticalAlign="middle" relaxed="very" divided>
         {userReview ? (
@@ -97,7 +108,7 @@ const StudentExplorerReviewWidget: React.FC<StudentExplorerReviewWidgetProps> = 
           </List.Item>
         )}
 
-        {theReviews ? (
+        {theReviews.length > 0 ? (
           <React.Fragment>
             {theReviews.map((review, index) => {
               const aReview = reviewData(review);
@@ -121,7 +132,9 @@ const StudentExplorerReviewWidget: React.FC<StudentExplorerReviewWidgetProps> = 
             })}
           </React.Fragment>
         ) : (
-          <i>No reviews to display</i>
+          <p>
+            <i>No reviews to display</i>
+          </p>
         )}
       </List>
     </div>
