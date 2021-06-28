@@ -47,7 +47,7 @@ const AddAcademicYearInstanceForm: React.FC<AddAcademicYearInstanceProps> = ({ s
         <NumField id={COMPONENTIDS.DATA_MODEL_YEAR} name="year" />
         <SelectField id={COMPONENTIDS.DATA_MODEL_STUDENT} name="student" />
         <SubmitField id={COMPONENTIDS.DATA_MODEL_SUBMIT} className="mini basic green" value="Add" />
-        <ErrorsField />
+        <ErrorsField id={COMPONENTIDS.DATA_MODEL_ERROR_FIELD} />
       </AutoForm>
     </Segment>
   );

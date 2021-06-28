@@ -19,6 +19,7 @@ import { FacultyProfiles } from '../../../../../api/user/FacultyProfileCollectio
 import { StudentProfiles } from '../../../../../api/user/StudentProfileCollection';
 import { AcademicTerm, CareerGoal, CombinedProfileDefine, Interest } from '../../../../../typings/radgrad';
 import { ROLE } from '../../../../../api/role/Role';
+import { COMPONENTIDS } from '../../../../utilities/ComponentIDs';
 import PictureField from '../../../form-fields/PictureField';
 import { academicTermToName, docToName } from '../../../shared/utilities/data-model';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
@@ -198,7 +199,7 @@ const AddUserForm: React.FC<AddUserProps> = ({ interests, academicTerms, careerG
           ''
         )}
         <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
-        <ErrorsField />
+        <ErrorsField id={COMPONENTIDS.DATA_MODEL_ERROR_FIELD} />
       </AutoForm>
     </Segment>
   );

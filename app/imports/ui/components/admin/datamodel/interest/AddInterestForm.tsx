@@ -54,7 +54,7 @@ const AddInterestForm: React.FC<AddInterestFormProps> = ({ interestTypes }) => {
         <LongTextField id={COMPONENTIDS.DATA_MODEL_DESCRIPTION} name="description" />
         <BoolField id={COMPONENTIDS.DATA_MODEL_RETIRED} name="retired" />
         <SubmitField id={COMPONENTIDS.DATA_MODEL_SUBMIT} className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
-        <ErrorsField />
+        <ErrorsField id={COMPONENTIDS.DATA_MODEL_ERROR_FIELD} />
       </AutoForm>
     </Segment>
   );

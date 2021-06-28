@@ -130,7 +130,7 @@ const AddReviewForm: React.FC<AddReviewFormProps> = ({ terms, courses, opportuni
         <LongTextField id={COMPONENTIDS.DATA_MODEL_MODERATOR_COMMENTS} name="moderatorComments" />
         <BoolField id={COMPONENTIDS.DATA_MODEL_RETIRED} name="retired" />
         <SubmitField id={COMPONENTIDS.DATA_MODEL_SUBMIT} className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
-        <ErrorsField />
+        <ErrorsField id={COMPONENTIDS.DATA_MODEL_ERROR_FIELD} />
       </AutoForm>
     </Segment>
   );
