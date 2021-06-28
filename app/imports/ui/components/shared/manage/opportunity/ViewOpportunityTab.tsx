@@ -1,6 +1,7 @@
 import React from 'react';
 import { Grid, Tab } from 'semantic-ui-react';
 import { AcademicTerm, BaseProfile, Interest, Opportunity, OpportunityType } from '../../../../../typings/radgrad';
+
 import ManageOpportunityItem from './ManageOpportunityItem';
 
 export interface ViewOpportunityTabProps {
@@ -19,9 +20,12 @@ const ViewOpportunityTab: React.FC<ViewOpportunityTabProps> = ({
   opportunities,
 }) => (
   <Tab.Pane>
-    <Grid stackable>
+    <Grid stackable textAlign='center'>
       {opportunities.map((opp) => <ManageOpportunityItem opportunity={opp} sponsors={sponsors} terms={terms}
-        interests={interests} opportunityTypes={opportunityTypes} key={opp._id} />)}
+        interests={interests} opportunityTypes={opportunityTypes} key={opp._id} />).length === 0 ? (
+          'You are not sponsoring any Opportunities and so there are none for you to manage at this time.') : (
+          opportunities.map((opp) => <ManageOpportunityItem opportunity={opp} sponsors={sponsors} terms={terms}
+            interests={interests} opportunityTypes={opportunityTypes} key={opp._id} />))}
     </Grid>
   </Tab.Pane>
 );
