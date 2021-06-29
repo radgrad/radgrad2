@@ -21,7 +21,7 @@ const OpportunityLabel: React.FC<EntityLabelPublicProps> = ({ slug, userID, size
   if (userID) {
     route = Router.buildRouteName(match, route);
     // Calculate inProfile.
-    const profileEntityIDs = ProfileOpportunities.findNonRetired({ studentID: userID });
+    const profileEntityIDs = ProfileOpportunities.findNonRetired({ userID: userID });
     const id = opportunity._id;
     inProfile = (profileEntityIDs.map(doc => doc.opportunityID)).includes(id) || opportunity.sponsorID === userID;
   }
