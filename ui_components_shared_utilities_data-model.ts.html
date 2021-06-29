@@ -151,7 +151,7 @@ export const careerGoalIdToName = (id: string): string => CareerGoals.findDoc(id
 
 export const careerGoalNameToSlug = (name: string): string => itemToSlugName(CareerGoals.findDoc(name));
 
-export const courseToName = (course): string => `${course.num}: ${course.shortName}`;
+export const courseToName = (course): string => Courses.getName(course._id);
 
 export const courseIdToName = (id: string): string => {
   const course = Courses.findDoc(id);

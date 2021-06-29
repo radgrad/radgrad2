@@ -101,11 +101,7 @@ import AddCourseInstanceForm from '../../components/admin/datamodel/course/AddCo
 import { academicTermNameToDoc } from '../../components/shared/utilities/data-model';
 import UpdateCourseInstanceForm from '../../components/admin/datamodel/course/UpdateCourseInstanceForm';
 import { PAGEIDS } from '../../utilities/PageIDs';
-import {
-  handleCancelWrapper,
-  handleConfirmDeleteWrapper,
-  handleDeleteWrapper, handleOpenUpdateWrapper,
-} from './utilities/data-model-page-callbacks';
+import { handleCancelWrapper, handleConfirmDeleteWrapper, handleDeleteWrapper, handleOpenUpdateWrapper } from './utilities/data-model-page-callbacks';
 import PageLayout from '../PageLayout';
 
 const collection = CourseInstances;
@@ -175,8 +171,11 @@ const AdminDataModelCourseInstancesPage: React.FC&lt;AdminDataModelCourseInstanc
     updateData.creditHrs = doc.creditHours;
     updateData.termID = academicTermNameToDoc(doc.academicTerm)._id;
     // console.log(collectionName, updateData);
-    updateMethod.callPromise({ collectionName, updateData })
-      .catch((error) => { RadGradAlert.failure('Update Failed', error.message, error);})
+    updateMethod
+      .callPromise({ collectionName, updateData })
+      .catch((error) => {
+        RadGradAlert.failure('Update Failed', error.message, error);
+      })
       .then(() => {
         RadGradAlert.success('Update Succeeded');
         setShowUpdateForm(false);
@@ -184,37 +183,29 @@ const AdminDataModelCourseInstancesPage: React.FC&lt;AdminDataModelCourseInstanc
       });
   };
 
-  const findOptions = {
-    sort: { note: 1 }, // determine how you want to sort the items in the list
-  };
   return (
     &lt;PageLayout id={PAGEIDS.DATA_MODEL_COURSE_INSTANCES} headerPaneTitle="Course Instances">
       {showUpdateFormState ? (
-        &lt;UpdateCourseInstanceForm collection={collection} id={idState} handleUpdate={handleUpdate}
-          handleCancel={handleCancel} itemTitleString={itemTitleString} terms={terms} />
+        &lt;UpdateCourseInstanceForm collection={collection} id={idState} handleUpdate={handleUpdate} handleCancel={handleCancel} itemTitleString={itemTitleString} terms={terms} />
       ) : (
-        &lt;AddCourseInstanceForm terms={terms} courses={courses}
-          students={students} />
+        &lt;AddCourseInstanceForm terms={terms} courses={courses} students={students} />
       )}
-      &lt;ListCollectionWidget
-        collection={collection}
-        findOptions={findOptions}
-        descriptionPairs={descriptionPairs}
-        itemTitle={itemTitle}
-        handleOpenUpdate={handleOpenUpdate}
-        handleDelete={handleDelete}
-        items={items}
-      />
-      &lt;Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
-        header="Delete Course Instance?" />
+      &lt;ListCollectionWidget collection={collection} descriptionPairs={descriptionPairs} itemTitle={itemTitle} handleOpenUpdate={handleOpenUpdate} handleDelete={handleDelete} items={items} />
+      &lt;Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Course Instance?" />
     &lt;/PageLayout>
   );
 };
 
 export default withTracker(() => {
   const items = CourseInstances.find({}).fetch();
+  // want to sort the items by their item title string
+  items.sort((firstEl, secondEl) => {
+    const firstStr = itemTitleString(firstEl);
+    const secondStr = itemTitleString(secondEl);
+    return firstStr.localeCompare(secondStr);
+  });
   const terms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
-  const courses = Courses.find().fetch();
+  const courses = Courses.find({}, { sort: { num: 1 } }).fetch();
   const students = StudentProfiles.find({}, { sort: { lastName: 1 } }).fetch();
   return {
     items,
