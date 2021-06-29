@@ -16,7 +16,7 @@ interface CompetencyIceTabPaneProps {
 
 export const CompetencyIceTabPane: React.FC<CompetencyIceTabPaneProps> = ({ profileID, projectedICE, earnedICE, profileCourses, profileInterests }) => {
   const interestIDs = profileInterests.map((pi) => pi.interestID);
-  const recommended = getRecommendedCourses(interestIDs, projectedICE);
+  const recommended = getRecommendedCourses(interestIDs, projectedICE, profileID);
   return (
     <Tab.Pane>
       <Segment basic>

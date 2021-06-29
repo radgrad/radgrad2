@@ -1,4 +1,6 @@
+import _ from 'lodash';
 import { Courses } from '../../../../../api/course/CourseCollection';
+import { CourseInstances } from '../../../../../api/course/CourseInstanceCollection';
 import PreferredChoice from '../../../../../api/degree-plan/PreferredChoice';
 import { gradeCompetency } from '../../../../../api/ice/IceProcessor';
 import { Opportunities } from '../../../../../api/opportunity/OpportunityCollection';
@@ -20,7 +22,9 @@ export const getRecommendedOpportunities = (interestIDs: string[], projectedICE:
   return recommended;
 };
 
-export const getRecommendedCourses = (interestIDs: string[], projectedICE: number): Course[] => {
+export const getRecommendedCourses = (interestIDs: string[], projectedICE: number, profileID: string): Course[] => {
+  const courseInstances = CourseInstances.findNonRetired({ profileID });
+  const courseIDs = _.uniq(courseInstances.map(instance => instance.courseID));
   let projected = projectedICE;
   const courses = Courses.findNonRetired({});
   const choices = new PreferredChoice(courses, interestIDs);
@@ -28,8 +32,10 @@ export const getRecommendedCourses = (interestIDs: string[], projectedICE: numbe
   const recommended = [];
   while (projected < 100) {
     const item = bestChoices.shift();
-    projected += gradeCompetency.A; // Assuming they get an A.
-    recommended.push(item);
+    if (!courseIDs.find(id => id === item._id)) {
+      projected += gradeCompetency.A; // Assuming they get an A.
+      recommended.push(item);
+    }
   }
   return recommended;
 };
