@@ -20,7 +20,7 @@ const CourseLabel: React.FC<EntityLabelPublicProps> = ({ slug, userID, size, sty
   if (userID) {
     route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${slug}`);
     // Calculate inProfile and route.
-    const profileEntityIDs = ProfileCourses.findNonRetired({ studentID: userID });
+    const profileEntityIDs = ProfileCourses.findNonRetired({ userID: userID });
     const id = Courses.findIdBySlug(slug);
     // console.log(profileEntityIDs, id);
     inProfile = (profileEntityIDs.map(doc => doc.courseID)).includes(id);
