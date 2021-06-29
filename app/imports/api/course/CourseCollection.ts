@@ -10,7 +10,7 @@ import { Teasers } from '../teaser/TeaserCollection';
 import { ProfileCourses } from '../user/profile-entries/ProfileCourseCollection';
 import { CourseInstances } from './CourseInstanceCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
-import { CareerGoal, CourseDefine, CourseUpdate, Opportunity } from '../../typings/radgrad';
+import { CareerGoal, Course, CourseDefine, CourseUpdate, Opportunity } from '../../typings/radgrad';
 import { isSingleChoice, complexChoiceToArray } from '../degree-plan/PlanChoiceUtilities';
 import { validateCourseSlugFormat } from './CourseUtilities';
 
@@ -291,6 +291,34 @@ class CourseCollection extends BaseSlugCollection {
     return instanceIDs.map((instanceID) => this.getName(instanceID));
   }
 
+  /**
+   * Courses have names, but they also have a method 'getName' that returns the `${num}: ${shortName}`. This method
+   * will return the doc that has that getName.
+   * @param { String | Object } name Either the docID, or an object selector, or the 'name' field value.
+   * @returns { Object } The document associated with name.
+   * @throws { Meteor.Error } If the document cannot be found.
+   */
+  public findDoc(name: string | { [key: string]: unknown } | { name } | { _id: string; } | { username: string; }) {
+    if (_.isNull(name) || _.isUndefined(name)) {
+      throw new Meteor.Error(`${name} is not a defined ${this.type}`);
+    }
+    const doc = (
+      this.collection.findOne(name) ||
+      this.collection.findOne({ name }) ||
+      this.collection.findOne({ _id: name }) ||
+      this.collection.findOne({ username: name })) ||
+      // last chance we were given the getName name.
+      this.findDocByName(name as string);
+    if (!doc) {
+      if (typeof name !== 'string') {
+        throw new Meteor.Error(`${JSON.stringify(name)} is not a defined ${this.type}`);
+      } else {
+        throw new Meteor.Error(`${name} is not a defined ${this.type}`);
+      }
+    }
+    return doc;
+  }
+
 
   /**
    * Returns a list of CareerGoals that have common interests.
@@ -401,6 +429,11 @@ class CourseCollection extends BaseSlugCollection {
     const courseID = this.getID(docIdOrSlug);
     const course =  this.findDoc(courseID);
     return `${course.num}: ${course.shortName}`;
+  }
+
+  public findDocByName(name: string): Course {
+    const num = this.findCourseNumberByName(name);
+    return this.findDoc({ num });
   }
 
   public getPrerequisiteSlugs(docIdOrSlug: string): string[] {

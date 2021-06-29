@@ -148,12 +148,14 @@ if (Meteor.isServer) {
       expect(relatedOpportunities.length).to.equal(1);
     });
 
-    it('Can findCourseNumberByName', function test11() {
+    it('Can findCourseNumberByName and findDoc', function test11() {
       const course = Courses.findDoc('Discrete Mathematics for Computer Science I');
       const name = Courses.getName(course._id);
       expect(name).to.equal('ICS 141: Discrete Math I');
       const num = Courses.findCourseNumberByName(name);
       expect(num).to.equal('ICS 141');
+      const doc = Courses.findDoc(name);
+      expect(doc.slugID).to.equal(course.slugID);
     });
   });
 }
