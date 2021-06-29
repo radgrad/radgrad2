@@ -431,8 +431,7 @@ class CourseCollection extends BaseSlugCollection {
    * @returns {string}
    */
   public findCourseNumberByName(name: string): string {
-    const course = this.findDoc(name);
-    return course.num;
+    return name.substring(0, name.indexOf(':'));
   }
 }
 
