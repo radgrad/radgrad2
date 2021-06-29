@@ -48,7 +48,7 @@ const handleRemove = (userID: string, item: CareerGoal, type: IProfileEntryTypes
 const AddCareerToProfile: React.FC<AddCareerToProfileProps> = ({ userID, careerGoal, type, added, inverted, floated }) => {
   const [open, setOpen] = useState(false);
 
-  const interestSlugs = careerGoal.interestIDs.map((id) => Interests.findSlugByID(id));
+  const interestSlugs = careerGoal.interestIDs.map((id) => Interests.findSlugByID(id)).sort();
 
   return (
     <React.Fragment>
