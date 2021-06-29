@@ -72,12 +72,9 @@ const AddCareerToProfile: React.FC<AddCareerToProfileProps> = ({ userID, careerG
           <Modal.Description textAlign = 'center'>
             <p> Adding this Career Goal will automatically add the following new Interests to your profile.<br/>
               If you are OK with that, just press OK. </p>
-            <Container textAlign='center'>
-              <InterestList item={careerGoal} size="small"/>
-            </Container>
             <Form>
               <Form.Group widths={2}>
-                {interestSlugs.map((slug, index) => <Form.Checkbox id={`id_${slug}`} key={`${slug}-checkbox`} radio label={`${interestSlugs[index]}`}/>)}
+                {interestSlugs.map((slug, index) => <Form.Checkbox id={`id_${slug}`} key={`${slug}-checkbox`} label={`${interestSlugs[index]}`}/>)}
               </Form.Group>
             </Form>
           </Modal.Description>
