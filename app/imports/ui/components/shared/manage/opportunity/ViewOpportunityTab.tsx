@@ -21,11 +21,9 @@ const ViewOpportunityTab: React.FC<ViewOpportunityTabProps> = ({
 }) => (
   <Tab.Pane>
     <Grid stackable textAlign='center'>
-      {opportunities.map((opp) => <ManageOpportunityItem opportunity={opp} sponsors={sponsors} terms={terms}
-        interests={interests} opportunityTypes={opportunityTypes} key={opp._id} />).length === 0 ? (
-          'You are not sponsoring any Opportunities and so there are none for you to manage at this time.') : (
-          opportunities.map((opp) => <ManageOpportunityItem opportunity={opp} sponsors={sponsors} terms={terms}
-            interests={interests} opportunityTypes={opportunityTypes} key={opp._id} />))}
+      {opportunities.length > 0 ? (opportunities.map((opp) => <ManageOpportunityItem opportunity={opp} sponsors={sponsors} terms={terms}
+        interests={interests} opportunityTypes={opportunityTypes} key={opp._id} />)) :
+        'You are not sponsoring any Opportunities and so there are none for you to manage at this time.'}
     </Grid>
   </Tab.Pane>
 );
