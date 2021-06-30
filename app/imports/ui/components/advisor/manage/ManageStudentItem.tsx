@@ -23,18 +23,27 @@ const ManageStudentItem: React.FC<ManageStudentProps> = ({
   const [lastTerm, setLastTerm] = useState(startTerm);
   const [fetched, setFetched] = useState(false);
 
+  // @ts-ignore
   useEffect(() => {
+    let isSubscribed = true;
     // console.log('check for infinite loop');
     const fetchData = () => {
-      getLastAcademicTermMethod.callPromise(student.username)
-        .then(result => setLastTerm(result));
+      getLastAcademicTermMethod.callPromise(student.username).then((result) => {
+        if (isSubscribed) {
+          setLastTerm(result);
+        }
+      });
     };
     // Only fetch data if it hasn't been fetched before.
     if (!fetched) {
       fetchData();
-      setFetched(true);
+      if (isSubscribed) {
+        setFetched(true);
+      }
     }
-  }, [fetched]);
+    // eslint-disable-next-line no-return-assign
+    return () => isSubscribed = false;
+  }, []);
 
   // const updatedOn = student.updatedAt ? student.updatedAt : student.createdAt;
   // const updatedOnStr = `Updated on ${moment(updatedOn).format('MM/DD/YYYY')}`;
