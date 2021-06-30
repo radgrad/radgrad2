@@ -1,6 +1,6 @@
 {
   "name": "radgrad2",
-  "version": "2.0.55",
+  "version": "2.0.60",
   "meteor": {
     "mainModule": {
       "client": "client/main.ts",
