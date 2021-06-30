@@ -7,8 +7,9 @@ import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
 import { CareerGoals } from '../../../../../api/career/CareerGoalCollection';
 import { Interests } from '../../../../../api/interest/InterestCollection';
 import slugify, { Slugs } from '../../../../../api/slug/SlugCollection';
+import { COMPONENTIDS } from '../../../../utilities/ComponentIDs';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
-import { Interest } from '../../../../../typings/radgrad';
+import { CareerGoalDefine, Interest } from '../../../../../typings/radgrad';
 import PictureField from '../../../form-fields/PictureField';
 import { docToName } from '../../../shared/utilities/data-model';
 import RadGradAlert from '../../../../utilities/RadGradAlert';
@@ -23,10 +24,9 @@ const AddCareerGoalForm: React.FC<AddCareerGoalFormProps> = ({ interests }) => {
   const handleAdd = (doc) => {
     // console.log('handleAdd(%o)', doc);
     const collectionName = CareerGoals.getCollectionName();
-    const docInterests = doc.interests;
-    const slugs = docInterests.map((i) => Slugs.getNameFromID(Interests.findDoc({ name: i }).slugID));
-    const definitionData = doc;
-    definitionData.interests = slugs;
+    const slugs = doc.interests.map((i) => Slugs.getNameFromID(Interests.findDoc({ name: i }).slugID));
+    // Don't assign doc to definitionData since we need to change the interests.
+    const definitionData: CareerGoalDefine = { name: doc.name, slug: doc.slug, description: doc.description, interests: slugs };
     definitionData.slug = slugify(doc.name);
     defineMethod.callPromise({ collectionName, definitionData })
       .catch((error) => {
@@ -60,12 +60,12 @@ const AddCareerGoalForm: React.FC<AddCareerGoalFormProps> = ({ interests }) => {
       <Header dividing>Add Career Goal</Header>
       {/* eslint-disable-next-line no-return-assign */}
       <AutoForm schema={formSchema} onSubmit={handleAdd} ref={(ref) => formRef = ref} showInlineError>
-        <TextField name="name" placeholder="Software Engineer" />
-        <MultiSelectField name="interests" placeholder="Select interest(s)" />
-        <PictureField name="picture" placeholder='https://mywebsite.com/picture.png'/>
-        <LongTextField name="description" placeholder="Describe the Career Goal here" />
-        <SubmitField className="mini basic green" value="Add" />
-        <ErrorsField />
+        <TextField id={COMPONENTIDS.DATA_MODEL_NAME} name="name" placeholder="Software Engineer" />
+        <MultiSelectField id={COMPONENTIDS.DATA_MODEL_INTERESTS} name="interests" placeholder="Select interest(s)" />
+        <PictureField id={COMPONENTIDS.DATA_MODEL_PICTURE} name="picture" placeholder='https://mywebsite.com/picture.png'/>
+        <LongTextField id={COMPONENTIDS.DATA_MODEL_DESCRIPTION} name="description" placeholder="Describe the Career Goal here" />
+        <SubmitField id={COMPONENTIDS.DATA_MODEL_SUBMIT} className="mini basic green" value="Add" />
+        <ErrorsField id={COMPONENTIDS.DATA_MODEL_ERROR_FIELD} />
       </AutoForm>
     </Segment>
   );

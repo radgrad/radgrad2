@@ -14,6 +14,7 @@ import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { AcademicTerm } from '../../../../../typings/radgrad';
 import BaseCollection from '../../../../../api/base/BaseCollection';
+import { COMPONENTIDS } from '../../../../utilities/ComponentIDs';
 import { academicTermIdToName, academicTermToName } from '../../../shared/utilities/data-model';
 import { iceSchema } from '../../../../../api/ice/IceProcessor';
 import { CourseInstances } from '../../../../../api/course/CourseInstanceCollection';
@@ -84,7 +85,7 @@ const UpdateCourseInstanceForm: React.FC<UpdateCourseInstanceFormProps> = ({
         <BoolField name="retired"/>
         <SubmitField inputRef={undefined} value="Update" disabled={false} className="mini basic green"/>
         <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
-        <ErrorsField/>
+        <ErrorsField id={COMPONENTIDS.DATA_MODEL_ERROR_FIELD} />
       </AutoForm>
     </Segment>
   );

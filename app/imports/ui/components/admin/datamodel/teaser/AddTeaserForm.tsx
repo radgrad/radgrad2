@@ -4,10 +4,11 @@ import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, SelectField, LongTextField, BoolField, SubmitField, ErrorsField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
+import { COMPONENTIDS } from '../../../../utilities/ComponentIDs';
 import RadGradAlert from '../../../../utilities/RadGradAlert';
 import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
 import { Teasers } from '../../../../../api/teaser/TeaserCollection';
-import { Interest, Opportunity, CareerGoal, Course } from '../../../../../typings/radgrad';
+import { Interest, Opportunity, CareerGoal, Course, TeaserDefine } from '../../../../../typings/radgrad';
 import {
   docToName,
   interestNameToSlug,
@@ -57,13 +58,12 @@ const AddTeaserForm: React.FC<AddTeaserFormProps> = ({ careerGoals, courses, int
   const formSchema = new SimpleSchema2Bridge(schema);
 
   const handleAdd = (doc) => {
-    console.log('Teasers.handleAdd(%o)', doc);
+    // console.log('Teasers.handleAdd(%o)', doc);
     const collectionName = Teasers.getCollectionName();
-    const definitionData = doc;
-    definitionData.interests = doc.interests.map(interestNameToSlug);
-    definitionData.targetSlug = slugNameAndTypeToName(doc.targetSlug);
-    definitionData.url = doc.youtubeID;
-    definitionData.slug = `${definitionData.targetSlug}-teaser`;
+    const interestSlugs = doc.interests.map(interestNameToSlug);
+    const targetSlug = slugNameAndTypeToName(doc.targetSlug);
+    const url = doc.youtubeID;
+    const definitionData: TeaserDefine = { title: doc.title, url, author: doc.author, interests: interestSlugs, targetSlug, description: doc.description, slug: `${doc.targetSlug}-teaser`, duration: doc.duration, retired: doc.retired };
     // definitionData.opportunity = opportunityNameToSlug(doc.opportunity);
     // console.log(collectionName, definitionData);
     defineMethod.callPromise({ collectionName, definitionData })
@@ -80,19 +80,19 @@ const AddTeaserForm: React.FC<AddTeaserFormProps> = ({ careerGoals, courses, int
       {/* eslint-disable-next-line no-return-assign */}
       <AutoForm schema={formSchema} onSubmit={handleAdd} ref={(ref) => formRef = ref} showInlineError>
         <Form.Group widths="equal">
-          <TextField name="title" />
-          <TextField name="author" />
+          <TextField id={COMPONENTIDS.DATA_MODEL_TITLE} name="title" />
+          <TextField id={COMPONENTIDS.DATA_MODEL_AUTHOR} name="author" />
         </Form.Group>
         <Form.Group widths="equal">
-          <SelectField name="targetSlug" />
-          <TextField name="youtubeID" />
-          <TextField name="duration" />
+          <SelectField id={COMPONENTIDS.DATA_MODEL_TARGET_SLUG} name="targetSlug" />
+          <TextField id={COMPONENTIDS.DATA_MODEL_YOUTUBE_ID} name="youtubeID" />
+          <TextField id={COMPONENTIDS.DATA_MODEL_DURATION} name="duration" />
         </Form.Group>
-        <MultiSelectField name="interests" />
-        <LongTextField name="description" />
-        <BoolField name="retired" />
-        <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
-        <ErrorsField />
+        <MultiSelectField id={COMPONENTIDS.DATA_MODEL_INTERESTS} name="interests" />
+        <LongTextField id={COMPONENTIDS.DATA_MODEL_DESCRIPTION} name="description" />
+        <BoolField id={COMPONENTIDS.DATA_MODEL_RETIRED} name="retired" />
+        <SubmitField id={COMPONENTIDS.DATA_MODEL_SUBMIT} className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
+        <ErrorsField id={COMPONENTIDS.DATA_MODEL_ERROR_FIELD} />
       </AutoForm>
     </Segment>
   );

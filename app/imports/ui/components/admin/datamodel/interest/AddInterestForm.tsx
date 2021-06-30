@@ -3,11 +3,12 @@ import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, SelectField, LongTextField, BoolField, SubmitField, ErrorsField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
+import { COMPONENTIDS } from '../../../../utilities/ComponentIDs';
 import RadGradAlert from '../../../../utilities/RadGradAlert';
 import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
 import { Interests } from '../../../../../api/interest/InterestCollection';
 import slugify from '../../../../../api/slug/SlugCollection';
-import { InterestType } from '../../../../../typings/radgrad';
+import { InterestDefine, InterestType } from '../../../../../typings/radgrad';
 import PictureField from '../../../form-fields/PictureField';
 import { docToName, interestTypeNameToSlug } from '../../../shared/utilities/data-model';
 
@@ -20,15 +21,13 @@ const AddInterestForm: React.FC<AddInterestFormProps> = ({ interestTypes }) => {
   const handleAdd = (doc) => {
     // console.log('Interests.handleAdd(%o)', doc);
     const collectionName = Interests.getCollectionName();
-    const definitionData = doc;
-    definitionData.slug = `${slugify(doc.name)}-interests`;
-    definitionData.interestType = interestTypeNameToSlug(doc.interestType);
+    const definitionData: InterestDefine = { name: doc.name, slug: `${slugify(doc.name)}-interests`, description: doc.description, interestType: interestTypeNameToSlug(doc.interestType), picture: doc.picture, retired: doc.retired };
     // console.log(collectionName, definitionData);
     defineMethod.callPromise({ collectionName, definitionData })
       .catch((error) => { RadGradAlert.failure('Failed to add Interest', error.message, error);})
-      .then(() => { 
+      .then(() => {
         RadGradAlert.success('Add Interest Succeeded');
-        formRef.reset();
+        formRef?.reset();
       });
   };
 
@@ -48,14 +47,14 @@ const AddInterestForm: React.FC<AddInterestFormProps> = ({ interestTypes }) => {
       {/* eslint-disable-next-line no-return-assign */}
       <AutoForm schema={formSchema} onSubmit={handleAdd} ref={(ref) => formRef = ref} showInlineError>
         <Form.Group widths="equal">
-          <TextField name="name" placeholder="Rust Programming Language" />
-          <SelectField name="interestType" />
+          <TextField id={COMPONENTIDS.DATA_MODEL_NAME} name="name" placeholder="Rust Programming Language" />
+          <SelectField id={COMPONENTIDS.DATA_MODEL_INTEREST_TYPE} name="interestType" />
         </Form.Group>
-        <PictureField name="picture" placeholder='https://mywebsite.com/picture.png' />
-        <LongTextField name="description" />
-        <BoolField name="retired" />
-        <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
-        <ErrorsField />
+        <PictureField id={COMPONENTIDS.DATA_MODEL_PICTURE} name="picture" placeholder='https://mywebsite.com/picture.png' />
+        <LongTextField id={COMPONENTIDS.DATA_MODEL_DESCRIPTION} name="description" />
+        <BoolField id={COMPONENTIDS.DATA_MODEL_RETIRED} name="retired" />
+        <SubmitField id={COMPONENTIDS.DATA_MODEL_SUBMIT} className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
+        <ErrorsField id={COMPONENTIDS.DATA_MODEL_ERROR_FIELD} />
       </AutoForm>
     </Segment>
   );

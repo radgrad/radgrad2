@@ -16,7 +16,7 @@ const AdminDataModelAddForm: React.FC<AdminDataModelAddFormProps> = ({ collectio
   const handleAdd = (doc) => {
     // console.log('handleAdd(%o)', doc, formRef);
     const collectionName = collection.getCollectionName();
-    const definitionData = doc;
+    const definitionData = doc; // We can do this since we don't change any of the fields in doc.
     defineMethod.callPromise({ collectionName, definitionData });
     defineCallback(formRef);
   };

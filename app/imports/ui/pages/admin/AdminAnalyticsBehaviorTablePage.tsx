@@ -58,21 +58,22 @@ const AdminAnalyticsBehaviorTablePage: React.FC = () => {
             <Table.Row>
               <Table.HeaderCell>Behavior</Table.HeaderCell>
               <Table.HeaderCell>Description</Table.HeaderCell>
-              <Table.HeaderCell>Num Users</Table.HeaderCell>
-              <Table.HeaderCell>Users</Table.HeaderCell>
+              <Table.HeaderCell>Total Behaviors</Table.HeaderCell>
+              <Table.HeaderCell>Unique Users</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body>
             {Object.keys(groups).map(key => {
               const behavior = key;
               const description = USER_INTERACTION_DESCRIPTIONS[behavior];
-              const users = groups[key].map(instance => instance.username).map(username => <UserLabel key={username} username={username} />);
+              const interactions = groups[key].map(instance => instance.username);
+              const uniqueUsers = _.uniq(interactions).map(username => <UserLabel key={username} username={username} />);
               return (
                 <Table.Row key={behavior}>
                   <Table.Cell>{behavior}</Table.Cell>
                   <Table.Cell>{description}</Table.Cell>
-                  <Table.Cell>{users.length}</Table.Cell>
-                  <Table.Cell>{users}</Table.Cell>
+                  <Table.Cell>{interactions.length}</Table.Cell>
+                  <Table.Cell>{uniqueUsers}</Table.Cell>
                 </Table.Row>
               );
             })}

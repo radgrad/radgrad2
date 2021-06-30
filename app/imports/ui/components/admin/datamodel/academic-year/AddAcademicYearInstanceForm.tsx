@@ -7,8 +7,9 @@ import SimpleSchema from 'simpl-schema';
 import moment from 'moment';
 import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
 import { AcademicYearInstances } from '../../../../../api/degree-plan/AcademicYearInstanceCollection';
+import { AcademicYearInstanceDefine } from '../../../../../typings/radgrad';
 import { COMPONENTIDS } from '../../../../utilities/ComponentIDs';
-import { profileToUsername } from '../../../shared/utilities/data-model';
+import { profileToName } from '../../../shared/utilities/data-model';
 import RadGradAlert from '../../../../utilities/RadGradAlert';
 
 interface AddAcademicYearInstanceProps {
@@ -16,7 +17,7 @@ interface AddAcademicYearInstanceProps {
 }
 
 const AddAcademicYearInstanceForm: React.FC<AddAcademicYearInstanceProps> = ({ students }) => {
-  const studentNames = students.map(profileToUsername);
+  const studentNames = students.map(profileToName);
   const schema = new SimpleSchema({
     student: {
       type: String,
@@ -28,7 +29,8 @@ const AddAcademicYearInstanceForm: React.FC<AddAcademicYearInstanceProps> = ({ s
   let formRef;
   const handleAdd = (doc) => {
     const collectionName = AcademicYearInstances.getCollectionName();
-    const definitionData = doc;
+    const student = doc.student.substring(doc.student.indexOf('(') + 1, doc.student.indexOf(')'));
+    const definitionData: AcademicYearInstanceDefine = { year: doc.year, student }; // We can do this since we don't change any of the fields in doc.
     defineMethod.callPromise({ collectionName, definitionData })
       .catch((error) => { RadGradAlert.failure('Add failed', error.message, error);})
       .then(() => {
@@ -45,7 +47,7 @@ const AddAcademicYearInstanceForm: React.FC<AddAcademicYearInstanceProps> = ({ s
         <NumField id={COMPONENTIDS.DATA_MODEL_YEAR} name="year" />
         <SelectField id={COMPONENTIDS.DATA_MODEL_STUDENT} name="student" />
         <SubmitField id={COMPONENTIDS.DATA_MODEL_SUBMIT} className="mini basic green" value="Add" />
-        <ErrorsField />
+        <ErrorsField id={COMPONENTIDS.DATA_MODEL_ERROR_FIELD} />
       </AutoForm>
     </Segment>
   );

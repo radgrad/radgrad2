@@ -5,7 +5,7 @@ class ReviewPage {
 
   async testWriteReview(testController) {
     await testController.click(`#${COMPONENTIDS.STUDENT_COURSE_OR_OPPORTUNITY}`);
-    await testController.click(Selector('option').filter('[value="Algorithms (Course) (ICS 311)"]'));
+    await testController.click(Selector('option').filter('[value="ICS 311: Algorithms (Course)"]'));
     await testController.click(Selector('span').withText('Average'));
     const ratingsSelector = Selector('div').filter('[role="option"]');
     await testController.click(ratingsSelector.withText('Above average'));

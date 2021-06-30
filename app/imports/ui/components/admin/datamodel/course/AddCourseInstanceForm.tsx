@@ -8,13 +8,9 @@ import { Slugs } from '../../../../../api/slug/SlugCollection';
 import { AcademicTerm, Course, CourseInstanceDefine, StudentProfile } from '../../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermCollection';
 import { CourseInstances } from '../../../../../api/course/CourseInstanceCollection';
-import {
-  academicTermNameToDoc,
-  academicTermToName, courseNameToCourseDoc,
-  courseToName, profileNameToUsername,
-  profileToName,
-} from '../../../shared/utilities/data-model';
+import { academicTermNameToDoc, academicTermToName, courseNameToCourseDoc, courseToName, profileNameToUsername, profileToName } from '../../../shared/utilities/data-model';
 import RadGradAlert from '../../../../utilities/RadGradAlert';
+import { COMPONENTIDS } from '../../../../utilities/ComponentIDs';
 
 interface AddCourseInstanceFormProps {
   terms: AcademicTerm[];
@@ -25,7 +21,7 @@ interface AddCourseInstanceFormProps {
 const AddCourseInstanceForm: React.FC<AddCourseInstanceFormProps> = ({ terms, courses, students }) => {
   let formRef;
   const handleAdd = (doc) => {
-    // console.log('CourseInstancePage.handleAdd(%o)', doc);
+    console.log('AddCourseInstanceForm.handleAdd', doc);
     const collectionName = CourseInstances.getCollectionName();
     const academicTermDoc = academicTermNameToDoc(doc.term);
     const academicTerm = Slugs.getNameFromID(academicTermDoc.slugID);
@@ -43,9 +39,12 @@ const AddCourseInstanceForm: React.FC<AddCourseInstanceFormProps> = ({ terms, co
       creditHrs,
       grade,
     };
-    // console.log('definitionData=%o', definitionData);
-    defineMethod.callPromise({ collectionName, definitionData })
-      .catch((error) => { RadGradAlert.failure('Failed adding Course Instance', error.message, error);})
+    console.log('definitionData=', definitionData);
+    defineMethod
+      .callPromise({ collectionName, definitionData })
+      .catch((error) => {
+        RadGradAlert.failure('Failed adding Course Instance', error.message, error);
+      })
       .then(() => {
         RadGradAlert.success('Add Course Instance Succeeded');
         formRef.reset();
@@ -87,18 +86,18 @@ const AddCourseInstanceForm: React.FC<AddCourseInstanceFormProps> = ({ terms, co
     <Segment padded>
       <Header dividing>Add Course Instance</Header>
       {/* eslint-disable-next-line no-return-assign */}
-      <AutoForm schema={formSchema} onSubmit={handleAdd} ref={(ref) => formRef = ref} showInlineError>
+      <AutoForm schema={formSchema} onSubmit={handleAdd} ref={(ref) => (formRef = ref)} showInlineError>
         <Form.Group widths="equal">
-          <SelectField name="term" />
-          <SelectField name="course" />
+          <SelectField id={COMPONENTIDS.DATA_MODEL_ACADEMIC_TERM} name="term" />
+          <SelectField id={COMPONENTIDS.DATA_MODEL_COURSE} name="course" />
         </Form.Group>
         <Form.Group widths="equal">
-          <SelectField name="student" />
-          <NumField name="creditHours" />
-          <SelectField name="grade" />
+          <SelectField id={COMPONENTIDS.DATA_MODEL_STUDENT} name="student" />
+          <NumField id={COMPONENTIDS.DATA_MODEL_CREDIT_HOURS} name="creditHours" />
+          <SelectField id={COMPONENTIDS.DATA_MODEL_GRADE} name="grade" />
         </Form.Group>
-        <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
-        <ErrorsField />
+        <SubmitField id={COMPONENTIDS.DATA_MODEL_SUBMIT} className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
+        <ErrorsField id={COMPONENTIDS.DATA_MODEL_ERROR_FIELD} />
       </AutoForm>
     </Segment>
   );

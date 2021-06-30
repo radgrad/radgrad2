@@ -11,10 +11,7 @@ import ListCollectionWidget from '../../components/admin/datamodel/ListCollectio
 import AdminDataModelUpdateForm from '../../components/admin/datamodel/AdminDataModelUpdateForm';
 import AdminDataModelAddForm from '../../components/admin/datamodel/AdminDataModelAddForm';
 import { PAGEIDS } from '../../utilities/PageIDs';
-import {
-  handleCancelWrapper, handleConfirmDeleteWrapper,
-  handleDeleteWrapper, handleOpenUpdateWrapper,
-} from './utilities/data-model-page-callbacks';
+import { handleCancelWrapper, handleConfirmDeleteWrapper, handleDeleteWrapper, handleOpenUpdateWrapper } from './utilities/data-model-page-callbacks';
 import PageLayout from '../PageLayout';
 
 const collection = AcademicTerms;
@@ -22,21 +19,24 @@ const collection = AcademicTerms;
 const numReferences = (term) => {
   let references = 0;
   [CourseInstances, OpportunityInstances].forEach((entity) => {
-    entity.find().fetch().forEach((e) => {
-      if (e.termID === term._id) {
-        references++;
-      }
-    });
+    entity
+      .find()
+      .fetch()
+      .forEach((e) => {
+        if (e.termID === term._id) {
+          references++;
+        }
+      });
   });
   return references;
 };
 
-const descriptionPairs = (term: AcademicTerm): DescriptionPair[] => ([
+const descriptionPairs = (term: AcademicTerm): DescriptionPair[] => [
   { label: 'Term', value: AcademicTerms.toString(term._id, false) },
   { label: 'Term Number', value: `${term.termNumber}` },
   { label: 'References', value: `${numReferences(term)}` },
   { label: 'Retired', value: term.retired ? 'True' : 'False' },
-]);
+];
 
 const itemTitle = (term: AcademicTerm): React.ReactNode => {
   if (AcademicTerms.isDefined(term._id)) {
@@ -81,8 +81,11 @@ const AdminDataModelAcademicTermsPage: React.FC<AdminDataModelAcademicTermsPageP
     updateData.id = doc._id;
     updateData.retired = doc.retired;
     // console.log('parameter = %o', { collectionName, updateData });
-    updateMethod.callPromise({ collectionName, updateData })
-      .catch((error) => { RadGradAlert.failure('Update Failed', error.message, error);})
+    updateMethod
+      .callPromise({ collectionName, updateData })
+      .catch((error) => {
+        RadGradAlert.failure('Update Failed', error.message, error);
+      })
       .then(() => {
         RadGradAlert.success('Update Succeeded');
         setShowUpdateForm(false);
@@ -90,36 +93,23 @@ const AdminDataModelAcademicTermsPage: React.FC<AdminDataModelAcademicTermsPageP
       });
   };
 
-  const findOptions = {
-    sort: { termNumber: 1 },
-  };
   return (
     <PageLayout id={PAGEIDS.DATA_MODEL_ACADEMIC_TERMS} headerPaneTitle="Academic Terms">
       {showUpdateFormState ? (
-        <AdminDataModelUpdateForm collection={AcademicTerms} id={idState} handleUpdate={handleUpdate}
-          handleCancel={handleCancel} itemTitleString={itemTitleString} />
+        <AdminDataModelUpdateForm collection={AcademicTerms} id={idState} handleUpdate={handleUpdate} handleCancel={handleCancel} itemTitleString={itemTitleString} />
       ) : (
         <AdminDataModelAddForm collection={AcademicTerms} />
       )}
-      <ListCollectionWidget
-        collection={AcademicTerms}
-        findOptions={findOptions}
-        descriptionPairs={descriptionPairs}
-        itemTitle={itemTitle}
-        handleOpenUpdate={handleOpenUpdate}
-        handleDelete={handleDelete}
-        items={items}
-      />
-      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
-        header="Delete Academic Term?" />
+      <ListCollectionWidget collection={AcademicTerms} descriptionPairs={descriptionPairs} itemTitle={itemTitle} handleOpenUpdate={handleOpenUpdate} handleDelete={handleDelete} items={items} />
+      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Academic Term?" />
     </PageLayout>
   );
 };
 
 export default withTracker(() => {
+  // We want to sort the items.
   const items = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
   return {
     items,
   };
 })(AdminDataModelAcademicTermsPage);
-
