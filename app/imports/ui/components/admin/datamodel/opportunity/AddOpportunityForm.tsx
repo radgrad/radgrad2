@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, SelectField, LongTextField, BoolField, SubmitField, NumField, ErrorsField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
@@ -25,7 +25,6 @@ interface AddOpportunityFormProps {
 // Technical Debt: Picture part of the form is different than the AddUserForm.
 
 const AddOpportunityForm: React.FC<AddOpportunityFormProps> = ({ sponsors, interests, opportunityTypes }) => {
-  const [pictureURL, setPictureURL] = useState<string>('');
   const sponsorNames = sponsors.map(profileToName);
   const opportunityTypeNames = opportunityTypes.map(docToName);
   const interestNames = interests.map(docToName);
@@ -57,12 +56,12 @@ const AddOpportunityForm: React.FC<AddOpportunityFormProps> = ({ sponsors, inter
       });
   };
 
+
+
   // Hacky way of resetting pictureURL to be empty
-  const handleAddOpportunity = (doc) => {
-    const model = doc;
-    model.picture = pictureURL;
-    handleAdd(model);
-    setPictureURL(pictureURL);
+  const handleAddOpportunity = (doc, fRef) => {
+    fRef.reset();
+    handleAdd(doc);
   };
 
   // console.log(opportunityTypeNames);
@@ -91,7 +90,7 @@ const AddOpportunityForm: React.FC<AddOpportunityFormProps> = ({ sponsors, inter
     <Segment padded>
       <Header dividing>Add Opportunity</Header>
       {/* eslint-disable-next-line no-return-assign */}
-      <AutoForm schema={formSchema} onSubmit={(doc) => handleAddOpportunity(doc)} ref={(ref) => (formRef = ref)} showInlineError>
+      <AutoForm schema={formSchema} onSubmit={(doc) => handleAddOpportunity(doc, formRef)} ref={(ref) => (formRef = ref)} showInlineError>
         <TextField id={COMPONENTIDS.DATA_MODEL_NAME} name="name" />
         <Form.Group widths="equal">
           <SelectField id={COMPONENTIDS.DATA_MODEL_OPPORTUNITY_TYPE} name="opportunityType" />
