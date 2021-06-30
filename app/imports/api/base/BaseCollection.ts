@@ -411,7 +411,7 @@ class BaseCollection {
   }
 
   static getLastUpdatedFromDoc(doc) {
-    const updateDate = doc.lastUpdate || doc.createdAt;
+    const updateDate = doc.updatedAt || doc.createdAt;
     return updateDate ? moment(updateDate).format('LL') : 'Unknown update time';
   }
 }
