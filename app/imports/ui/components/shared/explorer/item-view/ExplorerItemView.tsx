@@ -1,6 +1,7 @@
 import React from 'react';
 import { Segment, SegmentGroup } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
+import BaseCollection from '../../../../../api/base/BaseCollection';
 import { ROLE } from '../../../../../api/role/Role';
 import { CareerGoal, Course, Interest, InterestType, Opportunity, Profile } from '../../../../../typings/radgrad';
 import EditCareerGoalButton from '../../manage/career-goal/EditCareerGoalButton';
@@ -45,6 +46,7 @@ const ExplorerItemView: React.FC<ExplorerItemViewProps> = ({ profile, item, cour
         <Segment>
           {hasTeaser ? (<TeaserVideo id={teaser && teaser[0] && teaser[0].url} />) : ''}
           <Markdown escapeHtml linkTarget="_blank" source={item.description} />
+          <p><strong>Last Update:</strong> {BaseCollection.getLastUpdatedFromDoc(item)}</p>
           {isNotStudent ? editButton : ''}
           {isAdmin ? <DeleteItemButton item={item} type={itemType} /> : ''}
         </Segment>
