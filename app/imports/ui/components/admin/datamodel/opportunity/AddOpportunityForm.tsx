@@ -62,7 +62,7 @@ const AddOpportunityForm: React.FC<AddOpportunityFormProps> = ({ sponsors, inter
     const model = doc;
     model.picture = pictureURL;
     handleAdd(model);
-    setPictureURL('');
+    setPictureURL(pictureURL);
   };
 
   // console.log(opportunityTypeNames);
