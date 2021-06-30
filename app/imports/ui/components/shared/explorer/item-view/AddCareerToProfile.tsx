@@ -45,8 +45,14 @@ const handleRemove = (userID: string, item: CareerGoal, type: IProfileEntryTypes
     .catch((error) => { RadGradAlert.failure('Failed to remove from profile', error.message, error);});
 };
 
+const onChangeCheckbox = (evt, data) => {
+  const checked = data.checked;
+  console.log(checked);
+};
+
 const AddCareerToProfile: React.FC<AddCareerToProfileProps> = ({ userID, careerGoal, type, added, inverted, floated }) => {
   const [open, setOpen] = useState(false);
+
 
   const interestSlugs = careerGoal.interestIDs.map((id) => Interests.findSlugByID(id)).sort();
 
@@ -74,7 +80,7 @@ const AddCareerToProfile: React.FC<AddCareerToProfileProps> = ({ userID, careerG
               If you are OK with that, just press OK. </p>
             <Form>
               <Form.Group widths={2}>
-                {interestSlugs.map((slug, index) => <Form.Checkbox id={`id_${slug}`} key={`${slug}-checkbox`} label={`${interestSlugs[index]}`}/>)}
+                {interestSlugs.map((slug, index) => <Form.Checkbox id={`id_${slug}`} key={`${slug}-checkbox`} label={`${interestSlugs[index]}`} onClick={(evt, data)=>onChangeCheckbox(evt, data)}/>)}
               </Form.Group>
             </Form>
           </Modal.Description>
