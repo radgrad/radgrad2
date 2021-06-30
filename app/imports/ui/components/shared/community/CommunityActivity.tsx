@@ -1,5 +1,6 @@
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
+import { Grid } from 'semantic-ui-react';
 import ReactMarkdownWithHtml from 'react-markdown/with-html';
 import { WHATS_NEW_FIELDS, WhatsNewData } from '../../../../api/whats-new/WhatsNew';
 import { getWhatsNew } from '../../../../api/whats-new/WhatsNew.methods';
@@ -10,6 +11,7 @@ const CommunityActivity: React.FC = () => {
   const header = <RadGradHeader title="What's New?" icon='calendar alternate outline' />;
   const [data, setData] = useState<WhatsNewData>({});
   const [fetched, setFetched] = useState(false);
+  const gridStyle = { height: 350, paddingTop: 10 };
   let info = 'Fetching recent updates';
 
   useEffect(() => {
@@ -41,6 +43,7 @@ const CommunityActivity: React.FC = () => {
     const updatedOpportunities = data.updatedEntities[WHATS_NEW_FIELDS.OPPORTUNITIES].length;
 
     info = `
+    
 In the past week, ${data.logins} users have accessed RadGrad, and ${data.levelUps} of those have leveled up. 
 
 New additions include ${newInterests} interests, ${newCareerGoals} career goals, ${newCourses} courses, and ${newOpportunities} opportunities. 
@@ -54,7 +57,9 @@ This information was last updated ${moment(data.lastUpdate).fromNow()}.
   }
   return (
     <RadGradSegment header={header}>
-      <ReactMarkdownWithHtml linkTarget="_blank" allowDangerousHtml source={info}/>
+      <Grid style={gridStyle}>
+        <ReactMarkdownWithHtml linkTarget="_blank" allowDangerousHtml source={info}/>
+      </Grid>
     </RadGradSegment>
   );
 };

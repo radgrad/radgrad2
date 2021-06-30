@@ -16,7 +16,9 @@ interface ExplorerCardProps {
     interestIDs: string[];
     termIDs?:string[];
     slugID: string,
-    num?:string;
+    num?:string,
+    createdAt: Date,
+    updatedAt?: Date;
   };
   type: string;
   inProfile: boolean;
@@ -27,6 +29,7 @@ const ExplorerCard: React.FC<ExplorerCardProps> = ({ item, type, inProfile }) =>
   const itemName = (type === EXPLORER_TYPE.COURSES) ? Courses.getName(item._id) : docToName(item);
   const itemShortDescription = docToShortDescription(item);
   const slugName = itemToSlugName(item);
+  const date = item.updatedAt ? `${item.updatedAt.getMonth() + 1}/${item.updatedAt.getDate()}/${item.updatedAt.getFullYear()}` : `${item.createdAt.getMonth() + 1}/${item.createdAt.getDate()}/${item.createdAt.getFullYear()}`;
   return (
     <Card>
       <Card.Content>
@@ -37,6 +40,9 @@ const ExplorerCard: React.FC<ExplorerCardProps> = ({ item, type, inProfile }) =>
         <Markdown escapeHtml source={itemShortDescription}
           renderers={{ link: (localProps) => Router.renderLink(localProps, match) }} />
         { item.interestIDs ? (<InterestList item={item} size="small" />) : ''}
+      </Card.Content>
+      <Card.Content extra>
+        {`Last Updated at: ${date}`}
       </Card.Content>
       <Link to={buildExplorerSlugRoute(match, type, slugName)} className="ui button" id={`see-details-${slugName}-button`}>
         <Icon name="zoom in" />

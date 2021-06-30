@@ -1,7 +1,6 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
 import { Confirm, Icon } from 'semantic-ui-react';
-import _ from 'lodash';
 import RadGradAlert from '../../utilities/RadGradAlert';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { Course, CourseUpdate, DescriptionPair, Interest } from '../../../typings/radgrad';
@@ -9,11 +8,7 @@ import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { PAGEIDS } from '../../utilities/PageIDs';
-import {
-  handleCancelWrapper,
-  handleConfirmDeleteWrapper,
-  handleDeleteWrapper, handleOpenUpdateWrapper,
-} from './utilities/data-model-page-callbacks';
+import { handleCancelWrapper, handleConfirmDeleteWrapper, handleDeleteWrapper, handleOpenUpdateWrapper } from './utilities/data-model-page-callbacks';
 import { makeMarkdownLink } from './utilities/datamodel';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { courseNameToSlug, interestNameToId } from '../../components/shared/utilities/data-model';
@@ -32,7 +27,7 @@ const numReferences = (course: Course) => CourseInstances.find({ courseID: cours
 const descriptionPairs = (item: Course): DescriptionPair[] => [
   { label: 'Description', value: item.description },
   { label: 'Credit Hours', value: `${item.creditHrs}` },
-  { label: 'Interests', value: _.sortBy(Interests.findNames(item.interestIDs)) },
+  { label: 'Interests', value: Interests.findNames(item.interestIDs).sort() },
   { label: 'Syllabus', value: makeMarkdownLink(item.syllabus) },
   { label: 'Prerequisites', value: item.prerequisites },
   { label: 'References', value: `Course Instances: ${numReferences(item)}` },
@@ -61,11 +56,10 @@ const itemTitle = (item: Course): React.ReactNode => (
 interface AdminDataModelCoursesPageProps {
   items: Course[];
   interests: Interest[];
-  courses: Course[];
 }
 
 // props not deconstructed because AdminDataModeMenuProps has 21 numbers.
-const AdminDataModelCoursesPage: React.FC<AdminDataModelCoursesPageProps> = ({ items, interests, courses }) => {
+const AdminDataModelCoursesPage: React.FC<AdminDataModelCoursesPageProps> = ({ items, interests }) => {
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
   const [showUpdateFormState, setShowUpdateForm] = useState(false);
@@ -89,8 +83,11 @@ const AdminDataModelCoursesPage: React.FC<AdminDataModelCoursesPageProps> = ({ i
       updateData.prerequisites = doc.prerequisites.map(courseNameToSlug);
     }
     // console.log(collectionName, updateData);
-    updateMethod.callPromise({ collectionName, updateData })
-      .catch((error) => { RadGradAlert.failure('Update Failed', error.message, error);})
+    updateMethod
+      .callPromise({ collectionName, updateData })
+      .catch((error) => {
+        RadGradAlert.failure('Update Failed', error.message, error);
+      })
       .then(() => {
         RadGradAlert.success('Update Succeeded');
         setShowUpdateForm(false);
@@ -98,9 +95,6 @@ const AdminDataModelCoursesPage: React.FC<AdminDataModelCoursesPageProps> = ({ i
       });
   };
 
-  const findOptions = {
-    sort: { num: 1 }, // determine how you want to sort the items in the list
-  };
   const headerPaneBody = `Course slugs have a fixed format:
  * The department, a lowercase string. Normally 2 to 5 characters
  * an underscore '_'
@@ -108,21 +102,11 @@ const AdminDataModelCoursesPage: React.FC<AdminDataModelCoursesPageProps> = ({ i
   return (
     <PageLayout id={PAGEIDS.DATA_MODEL_COURSES} headerPaneTitle="Courses" headerPaneBody={headerPaneBody}>
       {showUpdateFormState ? (
-        <UpdateCourseForm collection={collection} id={idState} handleUpdate={handleUpdate}
-          handleCancel={handleCancel} itemTitleString={itemTitleString} interests={interests}
-          courses={courses} />
+        <UpdateCourseForm collection={collection} id={idState} handleUpdate={handleUpdate} handleCancel={handleCancel} itemTitleString={itemTitleString} interests={interests} courses={items} />
       ) : (
-        <AddCourseForm interests={interests} courses={courses} />
+        <AddCourseForm interests={interests} courses={items} />
       )}
-      <ListCollectionWidget
-        collection={collection}
-        findOptions={findOptions}
-        descriptionPairs={descriptionPairs}
-        itemTitle={itemTitle}
-        handleOpenUpdate={handleOpenUpdate}
-        handleDelete={handleDelete}
-        items={items}
-      />
+      <ListCollectionWidget collection={collection} descriptionPairs={descriptionPairs} itemTitle={itemTitle} handleOpenUpdate={handleOpenUpdate} handleDelete={handleDelete} items={items} />
 
       <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Course?" />
     </PageLayout>
@@ -130,12 +114,11 @@ const AdminDataModelCoursesPage: React.FC<AdminDataModelCoursesPageProps> = ({ i
 };
 
 export default withTracker(() => {
-  const items = Courses.find({}).fetch();
+  // We want to sort the items.
+  const items = Courses.find({}, { sort: { num: 1 } }).fetch();
   const interests = Interests.find({}, { sort: { name: 1 } }).fetch();
-  const courses = Courses.find({}, { sort: { num: 1 } }).fetch();
   return {
     items,
     interests,
-    courses,
   };
 })(AdminDataModelCoursesPage);

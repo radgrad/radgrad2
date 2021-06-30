@@ -16,11 +16,7 @@ import AddReviewForm from '../../components/admin/datamodel/review/AddReviewForm
 import UpdateReviewForm from '../../components/admin/datamodel/review/UpdateReviewForm';
 import { academicTermNameToSlug } from '../../components/shared/utilities/data-model';
 import { PAGEIDS } from '../../utilities/PageIDs';
-import {
-  handleCancelWrapper,
-  handleConfirmDeleteWrapper,
-  handleDeleteWrapper, handleOpenUpdateWrapper,
-} from './utilities/data-model-page-callbacks';
+import { handleCancelWrapper, handleConfirmDeleteWrapper, handleDeleteWrapper, handleOpenUpdateWrapper } from './utilities/data-model-page-callbacks';
 import PageLayout from '../PageLayout';
 
 const collection = Reviews; // the collection to use.
@@ -65,7 +61,6 @@ const itemTitleString = (item: Review): string => {
     }
     const term = AcademicTerms.toString(item.termID, false);
     return `${student.username}, ${reviewee.name}, ${term}`;
-
   }
   return '';
 };
@@ -107,44 +102,34 @@ const AdminDataModelReviewsPage: React.FC<AdminDataModelReviewsPageProps> = ({ i
     updateData.id = doc._id;
     updateData.academicTerm = academicTermNameToSlug(doc.academicTerm);
     // console.log(collectionName, updateData);
-    updateMethod.callPromise({ collectionName, updateData })
-      .catch((error) => { RadGradAlert.failure('Update Failed', error.message, error);})
-      .then(() =>{
+    updateMethod
+      .callPromise({ collectionName, updateData })
+      .catch((error) => {
+        RadGradAlert.failure('Update Failed', error.message, error);
+      })
+      .then(() => {
         RadGradAlert.success('Update Succeeded');
         setShowUpdateForm(false);
         setId('');
       });
   };
 
-  const findOptions = {
-    sort: { name: 1 }, // determine how you want to sort the items in the list
-  };
   return (
     <PageLayout id={PAGEIDS.DATA_MODEL_REVIEWS} headerPaneTitle="Reviews" headerPaneBody="Be sure to select the reviewee. If you don't you will get an error.">
       {showUpdateFormState ? (
-        <UpdateReviewForm collection={collection} id={idState} handleUpdate={handleUpdate}
-          handleCancel={handleCancel} itemTitleString={itemTitleString} terms={terms}/>
+        <UpdateReviewForm collection={collection} id={idState} handleUpdate={handleUpdate} handleCancel={handleCancel} itemTitleString={itemTitleString} terms={terms} />
       ) : (
-        <AddReviewForm terms={terms} students={students}
-          opportunities={opportunities} courses={courses}/>
+        <AddReviewForm terms={terms} students={students} opportunities={opportunities} courses={courses} />
       )}
-      <ListCollectionWidget
-        collection={collection}
-        findOptions={findOptions}
-        descriptionPairs={descriptionPairs}
-        itemTitle={itemTitle}
-        handleOpenUpdate={handleOpenUpdate}
-        handleDelete={handleDelete}
-        items={items}
-      />
-      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Review?"/>
+      <ListCollectionWidget collection={collection} descriptionPairs={descriptionPairs} itemTitle={itemTitle} handleOpenUpdate={handleOpenUpdate} handleDelete={handleDelete} items={items} />
+      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Review?" />
     </PageLayout>
   );
 };
 
 export default withTracker(() => {
   const terms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
-  const courses = Courses.find().fetch();
+  const courses = Courses.find({}, { sort: { num: 1 } }).fetch();
   const students = StudentProfiles.find({}, { sort: { lastName: 1 } }).fetch();
   const opportunities = Opportunities.find({}, { sort: { name: 1 } }).fetch();
   const items = Reviews.find({}).fetch();

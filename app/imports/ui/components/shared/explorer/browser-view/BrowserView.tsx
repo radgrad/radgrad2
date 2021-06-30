@@ -109,7 +109,7 @@ const BrowserView: React.FC<BrowserViewProps> = ({ items, explorerType }) => {
 
   switch (sortChoice) {
     case EXPLORER_SORT_KEYS.MOST_RECENT: {
-      explorerItems = _.sortBy(explorerItems, (item: any) => item.updatedAt);
+      explorerItems = _.sortBy(explorerItems, (item: any) => (item.updatedAt ? -item.updatedAt : -item.createdAt));
       break;
     }
     case EXPLORER_SORT_KEYS.RECOMMENDED: {

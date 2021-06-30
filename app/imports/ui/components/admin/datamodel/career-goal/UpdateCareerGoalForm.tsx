@@ -5,6 +5,7 @@ import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import BaseCollection from '../../../../../api/base/BaseCollection';
 import { Interest } from '../../../../../typings/radgrad';
+import { COMPONENTIDS } from '../../../../utilities/ComponentIDs';
 import PictureField from '../../../form-fields/PictureField';
 import { docToName, interestIdToName } from '../../../shared/utilities/data-model';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
@@ -58,7 +59,7 @@ const UpdateCareerGoalForm: React.FC<UpdateCareerGoalFormProps> = ({
         <PictureField name="picture" placeholder='https://mywebsite.com/picture.png'/>
         <BoolField name="retired" />
         <p />
-        <ErrorsField />
+        <ErrorsField id={COMPONENTIDS.DATA_MODEL_ERROR_FIELD} />
         <SubmitField value="Update" disabled={false} className="mini basic green" />
         <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
       </AutoForm>

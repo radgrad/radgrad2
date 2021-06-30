@@ -79,7 +79,7 @@ const descriptionPairs = (props: AdminDataModelUsersPageProps) => (user: BasePro
   const profileInterests = props.profileInterests.filter((fav) => fav.userID === user.userID);
   // const profileInterests = ProfileInterests.findNonRetired({ studentID: user.userID });
   const interestIDs = profileInterests.map((f) => f.interestID);
-  pairs.push({ label: 'Interests', value: _.sortBy(Interests.findNames(interestIDs)) });
+  pairs.push({ label: 'Interests', value: Interests.findNames(interestIDs).sort() });
   if (user.role === ROLE.STUDENT) {
     const profileCourses = props.profileCourses.filter((fav) => fav.studentID === user.userID);
     const courseIDs = profileCourses.map((fav) => fav.courseID);

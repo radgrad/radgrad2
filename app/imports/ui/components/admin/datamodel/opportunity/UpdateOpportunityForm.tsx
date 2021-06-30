@@ -5,7 +5,6 @@ import {
   TextField,
   SelectField,
   LongTextField,
-  DateField,
   BoolField,
   SubmitField,
   NumField,
@@ -15,6 +14,8 @@ import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { BaseProfile, Interest, OpportunityType } from '../../../../../typings/radgrad';
 import BaseCollection from '../../../../../api/base/BaseCollection';
+import { COMPONENTIDS } from '../../../../utilities/ComponentIDs';
+import DayField from '../../../form-fields/DayField';
 import PictureField from '../../../form-fields/PictureField';
 import {
   docToName,
@@ -100,19 +101,19 @@ const UpdateOpportunityForm: React.FC<UpdateOpportunityFormProps> = ({
           <MultiSelectField name="interests"/>
         </Form.Group>
         <Form.Group widths="equal">
-          <DateField name="eventDate1"/>
+          <DayField name="eventDate1"/>
           <TextField name="eventDateLabel1"/>
         </Form.Group>
         <Form.Group widths="equal">
-          <DateField name="eventDate2"/>
+          <DayField name="eventDate2"/>
           <TextField name="eventDateLabel2"/>
         </Form.Group>
         <Form.Group widths="equal">
-          <DateField name="eventDate3"/>
+          <DayField name="eventDate3"/>
           <TextField name="eventDateLabel3"/>
         </Form.Group>
         <Form.Group widths="equal">
-          <DateField name="eventDate4"/>
+          <DayField name="eventDate4"/>
           <TextField name="eventDateLabel4"/>
         </Form.Group>
         <Form.Group widths="equal">
@@ -129,7 +130,7 @@ const UpdateOpportunityForm: React.FC<UpdateOpportunityFormProps> = ({
         <BoolField name="retired"/>
         <SubmitField inputRef={undefined} disabled={false} value="Update" className="mini basic green"/>
         <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
-        <ErrorsField/>
+        <ErrorsField id={COMPONENTIDS.DATA_MODEL_ERROR_FIELD} />
       </AutoForm>
     </Segment>
   );

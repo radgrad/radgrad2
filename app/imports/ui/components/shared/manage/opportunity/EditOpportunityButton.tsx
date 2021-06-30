@@ -4,7 +4,7 @@ import SimpleSchema from 'simpl-schema';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import {
   AutoForm,
-  BoolField, DateField,
+  BoolField,
   ErrorsField,
   LongTextField,
   NumField,
@@ -20,6 +20,7 @@ import { Opportunities } from '../../../../../api/opportunity/OpportunityCollect
 import { OpportunityTypes } from '../../../../../api/opportunity/OpportunityTypeCollection';
 import { Users } from '../../../../../api/user/UserCollection';
 import { OpportunityUpdate } from '../../../../../typings/radgrad';
+import DayField from '../../../form-fields/DayField';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
 import PictureField from '../../../form-fields/PictureField';
 import { ManageOpportunityProps } from './ManageOpportunityProps';
@@ -112,19 +113,19 @@ const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({
             <MultiSelectField name="interests"/>
           </Form.Group>
           <Form.Group widths="equal">
-            <DateField name="eventDate1"/>
+            <DayField name="eventDate1"/>
             <TextField name="eventDateLabel1"/>
           </Form.Group>
           <Form.Group widths="equal">
-            <DateField name="eventDate2"/>
+            <DayField name="eventDate2"/>
             <TextField name="eventDateLabel2"/>
           </Form.Group>
           <Form.Group widths="equal">
-            <DateField name="eventDate3"/>
+            <DayField name="eventDate3"/>
             <TextField name="eventDateLabel3"/>
           </Form.Group>
           <Form.Group widths="equal">
-            <DateField name="eventDate4"/>
+            <DayField name="eventDate4"/>
             <TextField name="eventDateLabel4"/>
           </Form.Group>
           <Form.Group widths="equal">

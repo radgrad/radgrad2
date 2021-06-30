@@ -53,26 +53,15 @@ const AdminDataModelSlugsPage: React.FC<AdminDataModelSlugsPageProps> = ({ items
     // console.log('handleOpenUpdate inst=%o', evt, inst);
   };
 
-  const findOptions = {
-    sort: { name: 1 }, // determine how you want to sort the items in the list
-  };
   return (
     <PageLayout id={PAGEIDS.DATA_MODEL_SLUGS} headerPaneTitle="Slugs">
-      <ListSlugCollectionWidget
-        collection={collection}
-        findOptions={findOptions}
-        descriptionPairs={descriptionPairs}
-        itemTitle={itemTitle}
-        handleOpenUpdate={handleOpenUpdate}
-        handleDelete={handleDelete}
-        items={items}
-      />
+      <ListSlugCollectionWidget collection={collection} descriptionPairs={descriptionPairs} itemTitle={itemTitle} handleOpenUpdate={handleOpenUpdate} handleDelete={handleDelete} items={items} />
     </PageLayout>
   );
 };
 
 export default withTracker(() => {
-  const items = Slugs.find({}).fetch();
+  const items = Slugs.find({}, { sort: { entityName: 1 } }).fetch();
   return {
     items,
   };
