@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Icon, Modal, SemanticFLOATS, Grid, Form, Container } from 'semantic-ui-react';
+import { Button, Icon, Modal, SemanticFLOATS, Grid, Form } from 'semantic-ui-react';
 import { defineMethod, removeItMethod } from '../../../../../api/base/BaseCollection.methods';
 import { Interests } from '../../../../../api/interest/InterestCollection';
 import RadGradAlert from '../../../../utilities/RadGradAlert';
@@ -7,7 +7,6 @@ import { CareerGoal, MeteorError } from '../../../../../typings/radgrad';
 import { ProfileCareerGoals } from '../../../../../api/user/profile-entries/ProfileCareerGoalCollection';
 import { PROFILE_ENTRY_TYPE, IProfileEntryTypes } from '../../../../../api/user/profile-entries/ProfileEntryTypes';
 import { COMPONENTIDS } from '../../../../utilities/ComponentIDs';
-import InterestList from '../../InterestList';
 import { createDefinitionData, getCollectionName } from './utilities/profile-button';
 
 export interface AddCareerToProfileProps {
