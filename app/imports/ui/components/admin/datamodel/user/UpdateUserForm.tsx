@@ -17,6 +17,7 @@ import { ProfileCourses } from '../../../../../api/user/profile-entries/ProfileC
 import { ProfileOpportunities } from '../../../../../api/user/profile-entries/ProfileOpportunityCollection';
 import { AcademicTerm, CareerGoal, Course, Interest, Opportunity } from '../../../../../typings/radgrad';
 import { ROLE } from '../../../../../api/role/Role';
+import { COMPONENTIDS } from '../../../../utilities/ComponentIDs';
 import PictureField from '../../../form-fields/PictureField';
 import {
   academicTermIdToName,
@@ -210,7 +211,7 @@ const UpdateUserForm: React.FC<UpdateUserProps> = ({
         )}
         <SubmitField inputRef={undefined} value="Update" disabled={false} className="mini basic green"/>
         <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
-        <ErrorsField/>
+        <ErrorsField id={COMPONENTIDS.DATA_MODEL_ERROR_FIELD} />
       </AutoForm>
     </Segment>
   );

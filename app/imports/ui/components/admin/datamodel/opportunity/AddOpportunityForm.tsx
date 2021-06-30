@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { Form, Header, Segment } from 'semantic-ui-react';
-import { AutoForm, TextField, SelectField, LongTextField, DateField, BoolField, SubmitField, NumField, ErrorsField } from 'uniforms-semantic';
+import { AutoForm, TextField, SelectField, LongTextField, BoolField, SubmitField, NumField, ErrorsField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
 import { Opportunities } from '../../../../../api/opportunity/OpportunityCollection';
 import slugify from '../../../../../api/slug/SlugCollection';
 import { BaseProfile, Interest, OpportunityDefine, OpportunityType } from '../../../../../typings/radgrad';
+import { COMPONENTIDS } from '../../../../utilities/ComponentIDs';
+import DayField from '../../../form-fields/DayField';
 import PictureField from '../../../form-fields/PictureField';
 import { docToName, opportunityTypeNameToSlug, profileNameToUsername, profileToName } from '../../../shared/utilities/data-model';
 import { iceSchema } from '../../../../../api/ice/IceProcessor';
@@ -32,12 +34,17 @@ const AddOpportunityForm: React.FC<AddOpportunityFormProps> = ({ sponsors, inter
   const handleAdd = (doc) => {
     // console.log('Opportunities.handleAdd(%o)', doc);
     const collectionName = Opportunities.getCollectionName();
-    const definitionData: OpportunityDefine = doc;
-    const docInterestNames = doc.interests.map(interestSlugFromName);
-    definitionData.interests = docInterestNames;
-    definitionData.opportunityType = opportunityTypeNameToSlug(doc.opportunityType);
-    definitionData.sponsor = profileNameToUsername(doc.sponsor);
-    definitionData.slug = `${slugify(doc.name)}-opportunity`;
+    const definitionData: OpportunityDefine = {
+      name: doc.name,
+      description: doc.description,
+      slug: `${slugify(doc.name)}-opportunity`,
+      interests: doc.interests.map(interestSlugFromName),
+      opportunityType: opportunityTypeNameToSlug(doc.opportunityType),
+      sponsor: profileNameToUsername(doc.sponsor),
+      ice: doc.ice,
+      picture: doc.picture,
+      retired: doc.retired,
+    };
     // console.log(definitionData);
     defineMethod
       .callPromise({ collectionName, definitionData })
@@ -46,7 +53,7 @@ const AddOpportunityForm: React.FC<AddOpportunityFormProps> = ({ sponsors, inter
       })
       .then(() => {
         RadGradAlert.success('Add Opportunity Succeeded');
-        formRef.reset();
+        formRef?.reset(); // CAM getting an error in TestCafe tests so adding ?
       });
   };
 
@@ -85,41 +92,35 @@ const AddOpportunityForm: React.FC<AddOpportunityFormProps> = ({ sponsors, inter
       <Header dividing>Add Opportunity</Header>
       {/* eslint-disable-next-line no-return-assign */}
       <AutoForm schema={formSchema} onSubmit={(doc) => handleAddOpportunity(doc)} ref={(ref) => (formRef = ref)} showInlineError>
+        <TextField id={COMPONENTIDS.DATA_MODEL_NAME} name="name" />
         <Form.Group widths="equal">
-          <TextField name="name" />
+          <SelectField id={COMPONENTIDS.DATA_MODEL_OPPORTUNITY_TYPE} name="opportunityType" />
+          <SelectField id={COMPONENTIDS.DATA_MODEL_SPONSOR} name="sponsor" />
+        </Form.Group>
+        <LongTextField id={COMPONENTIDS.DATA_MODEL_DESCRIPTION} name="description" />
+        <MultiSelectField id={COMPONENTIDS.DATA_MODEL_INTERESTS} name="interests" />
+        <PictureField id={COMPONENTIDS.DATA_MODEL_PICTURE} name="picture" />
+        <Form.Group widths="equal">
+          <DayField id={COMPONENTIDS.DATA_MODEL_EVENT_DATE_1} name="eventDate1" />
+          <TextField id={COMPONENTIDS.DATA_MODEL_EVENT_DATE_1_LABEL} name="eventDateLabel1" />
+          <DayField id={COMPONENTIDS.DATA_MODEL_EVENT_DATE_2} name="eventDate2" />
+          <TextField id={COMPONENTIDS.DATA_MODEL_EVENT_DATE_2_LABEL} name="eventDateLabel2" />
         </Form.Group>
         <Form.Group widths="equal">
-          <SelectField name="opportunityType" />
-          <SelectField name="sponsor" />
-        </Form.Group>
-        <LongTextField name="description" />
-        <MultiSelectField name="interests" />
-        <Form.Group widths="equal">
-          <DateField name="eventDate1" />
-          <TextField name="eventDateLabel1" />
+          <DayField id={COMPONENTIDS.DATA_MODEL_EVENT_DATE_3} name="eventDate3" />
+          <TextField id={COMPONENTIDS.DATA_MODEL_EVENT_DATE_3_LABEL} name="eventDateLabel3" />
+          <DayField id={COMPONENTIDS.DATA_MODEL_EVENT_DATE_4} name="eventDate4" />
+          <TextField id={COMPONENTIDS.DATA_MODEL_EVENT_DATE_4_LABEL} name="eventDateLabel4" />
         </Form.Group>
         <Form.Group widths="equal">
-          <DateField name="eventDate2" />
-          <TextField name="eventDateLabel2" />
+          <NumField id={COMPONENTIDS.DATA_MODEL_ICE_I} name="ice.i" />
+          <NumField id={COMPONENTIDS.DATA_MODEL_ICE_C} name="ice.c" />
+          <NumField id={COMPONENTIDS.DATA_MODEL_ICE_E} name="ice.e" />
         </Form.Group>
-        <Form.Group widths="equal">
-          <DateField name="eventDate3" />
-          <TextField name="eventDateLabel3" />
-        </Form.Group>
-        <Form.Group widths="equal">
-          <DateField name="eventDate4" />
-          <TextField name="eventDateLabel4" />
-        </Form.Group>
-        <Form.Group widths="equal">
-          <NumField name="ice.i" />
-          <NumField name="ice.c" />
-          <NumField name="ice.e" />
-        </Form.Group>
-        <BoolField name="retired" />
-        <PictureField name="picture" />
+        <BoolField id={COMPONENTIDS.DATA_MODEL_RETIRED} name="retired" />
         <ErrorsField />
-        <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
-        <ErrorsField />
+        <SubmitField id={COMPONENTIDS.DATA_MODEL_SUBMIT} className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
+        <ErrorsField id={COMPONENTIDS.DATA_MODEL_ERROR_FIELD} />
       </AutoForm>
     </Segment>
   );

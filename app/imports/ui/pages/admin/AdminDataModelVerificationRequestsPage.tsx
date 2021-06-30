@@ -13,11 +13,7 @@ import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstan
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import AddVerificationRequestForm from '../../components/admin/datamodel/verification-request/AddVerificationRequestForm';
 import { PAGEIDS } from '../../utilities/PageIDs';
-import {
-  handleCancelWrapper,
-  handleConfirmDeleteWrapper,
-  handleDeleteWrapper, handleOpenUpdateWrapper,
-} from './utilities/data-model-page-callbacks';
+import { handleCancelWrapper, handleConfirmDeleteWrapper, handleDeleteWrapper, handleOpenUpdateWrapper } from './utilities/data-model-page-callbacks';
 import PageLayout from '../PageLayout';
 
 const collection = VerificationRequests; // the collection to use.
@@ -88,30 +84,15 @@ const AdminDataModelVerificationRequestsPage: React.FC<AdminDataModelVerificatio
     updateMethod.callPromise({ collectionName, updateData });
   };
 
-  const findOptions = {
-    sort: { name: 1 }, // determine how you want to sort the items in the list
-  };
   return (
     <PageLayout id={PAGEIDS.DATA_MODEL_VERIFICATION_REQUESTS} headerPaneTitle="Verification Requests">
       {showUpdateFormState ? (
-        <AdminDataModelUpdateForm collection={collection} id={idState} handleUpdate={handleUpdate}
-          handleCancel={handleCancel} itemTitleString={itemTitleString}/>
+        <AdminDataModelUpdateForm collection={collection} id={idState} handleUpdate={handleUpdate} handleCancel={handleCancel} itemTitleString={itemTitleString} />
       ) : (
-        <AddVerificationRequestForm opportunities={opportunities}
-          students={students} opportunityInstances={opportunityInstances}
-          academicTerms={academicTerms}/>
+        <AddVerificationRequestForm opportunities={opportunities} students={students} opportunityInstances={opportunityInstances} academicTerms={academicTerms} />
       )}
-      <ListCollectionWidget
-        collection={collection}
-        findOptions={findOptions}
-        descriptionPairs={descriptionPairs}
-        itemTitle={itemTitle}
-        handleOpenUpdate={handleOpenUpdate}
-        handleDelete={handleDelete}
-        items={items}
-      />
-      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
-        header="Delete Verification Request?"/>
+      <ListCollectionWidget collection={collection} descriptionPairs={descriptionPairs} itemTitle={itemTitle} handleOpenUpdate={handleOpenUpdate} handleDelete={handleDelete} items={items} />
+      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Verification Request?" />
     </PageLayout>
   );
 };

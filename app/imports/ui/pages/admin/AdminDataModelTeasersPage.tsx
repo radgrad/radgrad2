@@ -1,7 +1,6 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
 import { Confirm, Icon } from 'semantic-ui-react';
-import _ from 'lodash';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
@@ -11,11 +10,7 @@ import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { PAGEIDS } from '../../utilities/PageIDs';
-import {
-  handleCancelWrapper,
-  handleConfirmDeleteWrapper,
-  handleDeleteWrapper, handleOpenUpdateWrapper,
-} from './utilities/data-model-page-callbacks';
+import { handleCancelWrapper, handleConfirmDeleteWrapper, handleDeleteWrapper, handleOpenUpdateWrapper } from './utilities/data-model-page-callbacks';
 import { makeYoutubeLink } from './utilities/datamodel';
 import AddTeaserForm from '../../components/admin/datamodel/teaser/AddTeaserForm';
 import UpdateTeaserForm from '../../components/admin/datamodel/teaser/UpdateTeasersForm';
@@ -34,7 +29,7 @@ const descriptionPairs = (item: Teaser): DescriptionPair[] => [
   { label: 'Description', value: item.description },
   { label: 'Author', value: item.author },
   { label: 'Duration', value: item.duration },
-  { label: 'Interests', value: _.sortBy(Interests.findNames(item.interestIDs)) },
+  { label: 'Interests', value: Interests.findNames(item.interestIDs).sort() },
   { label: 'Youtube ID', value: makeYoutubeLink(item.url) },
   { label: 'Target Slug', value: Slugs.findDoc(item.targetSlugID).name },
   { label: 'Retired', value: item.retired ? 'True' : 'False' },
@@ -91,7 +86,8 @@ const AdminDataModelTeasersPage: React.FC<AdminDataModelTeasersPageProps> = ({ i
     updateData.interests = doc.interests.map(interestNameToSlug);
     updateData.targetSlug = Slugs.findDoc(doc.targetSlugID).name;
     // console.log(collectionName, updateData);
-    updateMethod.callPromise({ collectionName, updateData })
+    updateMethod
+      .callPromise({ collectionName, updateData })
       .catch((error) => {
         RadGradAlert.failure('Update failed', error.message, error);
       })
@@ -102,9 +98,6 @@ const AdminDataModelTeasersPage: React.FC<AdminDataModelTeasersPageProps> = ({ i
       });
   };
 
-  const findOptions = {
-    sort: { name: 1 }, // determine how you want to sort the items in the list
-  };
   return (
     <PageLayout id={PAGEIDS.DATA_MODEL_TEASERS} headerPaneTitle="Teasers">
       {showUpdateFormState ? (
@@ -120,18 +113,9 @@ const AdminDataModelTeasersPage: React.FC<AdminDataModelTeasersPageProps> = ({ i
           careerGoals={careerGoals}
         />
       ) : (
-        <AddTeaserForm opportunities={opportunities}
-          courses={courses} interests={interests} careerGoals={careerGoals} />
+        <AddTeaserForm opportunities={opportunities} courses={courses} interests={interests} careerGoals={careerGoals} />
       )}
-      <ListCollectionWidget
-        collection={collection}
-        findOptions={findOptions}
-        descriptionPairs={descriptionPairs}
-        itemTitle={itemTitle}
-        handleOpenUpdate={handleOpenUpdate}
-        handleDelete={handleDelete}
-        items={items}
-      />
+      <ListCollectionWidget collection={collection} descriptionPairs={descriptionPairs} itemTitle={itemTitle} handleOpenUpdate={handleOpenUpdate} handleDelete={handleDelete} items={items} />
 
       <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Teaser?" />
     </PageLayout>

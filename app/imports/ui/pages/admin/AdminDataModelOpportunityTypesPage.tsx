@@ -12,11 +12,7 @@ import AddOpportunityTypeForm from '../../components/admin/datamodel/opportunity
 import UpdateOpportunityTypeForm from '../../components/admin/datamodel/opportunity/UpdateOpportunityTypeForm';
 import { itemToSlugName } from '../../components/shared/utilities/data-model';
 import { PAGEIDS } from '../../utilities/PageIDs';
-import {
-  handleCancelWrapper,
-  handleConfirmDeleteWrapper,
-  handleDeleteWrapper, handleOpenUpdateWrapper,
-} from './utilities/data-model-page-callbacks';
+import { handleCancelWrapper, handleConfirmDeleteWrapper, handleDeleteWrapper, handleOpenUpdateWrapper } from './utilities/data-model-page-callbacks';
 import PageLayout from '../PageLayout';
 
 const collection = OpportunityTypes; // the collection to use.
@@ -24,7 +20,8 @@ const collection = OpportunityTypes; // the collection to use.
 const numReferences = (opportunityType) => {
   let references = 0;
   Opportunities.find().forEach((doc) => {
-    if ((doc.opportunityTypeID).includes(opportunityType._id)) { // TODO: Why is this using .includes instead of ===?
+    if (doc.opportunityTypeID.includes(opportunityType._id)) {
+      // TODO: Why is this using .includes instead of ===?
       references += 1;
     }
   });
@@ -81,8 +78,11 @@ const AdminDataModelOpportunityTypesPage: React.FC<AdminDataModelOpportunityType
     const collectionName = collection.getCollectionName();
     const updateData = doc;
     updateData.id = doc._id;
-    updateMethod.callPromise({ collectionName, updateData })
-      .catch((error) => { RadGradAlert.failure('Update Failed', error.message, error);})
+    updateMethod
+      .callPromise({ collectionName, updateData })
+      .catch((error) => {
+        RadGradAlert.failure('Update Failed', error.message, error);
+      })
       .then(() => {
         RadGradAlert.success('Update Succeeded');
         setShowUpdateForm(false);
@@ -90,34 +90,18 @@ const AdminDataModelOpportunityTypesPage: React.FC<AdminDataModelOpportunityType
       });
   };
 
-  const findOptions = {
-    sort: { name: 1 }, // determine how you want to sort the items in the list
-  };
   return (
     <PageLayout id={PAGEIDS.DATA_MODEL_OPPORTUNITY_TYPES} headerPaneTitle="Opportunity Types">
-      {showUpdateFormState ? (
-        <UpdateOpportunityTypeForm collection={collection} id={idState} handleUpdate={handleUpdate}
-          handleCancel={handleCancel} itemTitleString={itemTitleString} />
-      ) : (
-        <AddOpportunityTypeForm />
-      )}
-      <ListCollectionWidget
-        collection={collection}
-        findOptions={findOptions}
-        descriptionPairs={descriptionPairs}
-        itemTitle={itemTitle}
-        handleOpenUpdate={handleOpenUpdate}
-        handleDelete={handleDelete}
-        items={items}
-      />
-      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
-        header="Delete Opportunity Type?" />
+      {showUpdateFormState ? <UpdateOpportunityTypeForm collection={collection} id={idState} handleUpdate={handleUpdate} handleCancel={handleCancel} itemTitleString={itemTitleString} /> : <AddOpportunityTypeForm />}
+      <ListCollectionWidget collection={collection} descriptionPairs={descriptionPairs} itemTitle={itemTitle} handleOpenUpdate={handleOpenUpdate} handleDelete={handleDelete} items={items} />
+      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Opportunity Type?" />
     </PageLayout>
   );
 };
 
 export default withTracker(() => {
-  const items = OpportunityTypes.find({}).fetch();
+  // We want to sort the items.
+  const items = OpportunityTypes.find({}, { sort: { name: 1 } }).fetch();
   return {
     items,
   };

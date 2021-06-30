@@ -12,7 +12,6 @@ class ReviewPage {
     const termSelect = new Selector(`#${COMPONENTIDS.DATA_MODEL_ACADEMIC_TERM}`);
     const termOption = termSelect.find('option');
     const ratingSelect = new Selector(`#${COMPONENTIDS.DATA_MODEL_RATING}`);
-    // want to do the rating, but don't know how.
     const commentsSelect = new Selector(`#${COMPONENTIDS.DATA_MODEL_COMMENTS}`);
     // const moderatedSelect = new Selector(`#${COMPONENTIDS.DATA_MODEL_MODERATED}`);
     // const visibleSelect = new Selector(`#${COMPONENTIDS.DATA_MODEL_VISIBLE}`);
@@ -48,6 +47,15 @@ class ReviewPage {
       .expect(commentsSelect.value).eql(comments);
     await t
       .click(submitSelect);
+    // give things time to propagate
+    await t.wait(1000);
+    await t
+      .expect(reviewTypeSelect.value).eql('')
+      .expect(studentSelect.value).eql('')
+      .expect(revieweeSelect.value).eql('')
+      .expect(termSelect.value).eql('')
+      .expect(ratingSelect.value).eql('')
+      .expect(commentsSelect.value).eql('');
   }
 }
 

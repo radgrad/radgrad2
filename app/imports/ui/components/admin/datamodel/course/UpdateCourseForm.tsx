@@ -6,6 +6,7 @@ import SimpleSchema from 'simpl-schema';
 import BaseCollection from '../../../../../api/base/BaseCollection';
 import { Courses } from '../../../../../api/course/CourseCollection';
 import { Course, Interest } from '../../../../../typings/radgrad';
+import { COMPONENTIDS } from '../../../../utilities/ComponentIDs';
 import PictureField from '../../../form-fields/PictureField';
 import { courseSlugToName, courseToName, docToName, interestIdToName } from '../../../shared/utilities/data-model';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
@@ -95,7 +96,7 @@ const UpdateCourseForm: React.FC<UpdateCourseFormProps> = ({
         <p />
         <SubmitField value="Update" disabled={false} className="mini basic green" />
         <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
-        <ErrorsField />
+        <ErrorsField id={COMPONENTIDS.DATA_MODEL_ERROR_FIELD} />
       </AutoForm>
     </Segment>
   );

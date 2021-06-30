@@ -17,11 +17,7 @@ import AddOpportunityInstanceForm from '../../components/admin/datamodel/opportu
 import UpdateOpportunityInstanceForm from '../../components/admin/datamodel/opportunity/UpdateOpportunityInstanceForm';
 import { academicTermNameToDoc } from '../../components/shared/utilities/data-model';
 import { PAGEIDS } from '../../utilities/PageIDs';
-import {
-  handleCancelWrapper,
-  handleConfirmDeleteWrapper,
-  handleDeleteWrapper, handleOpenUpdateWrapper,
-} from './utilities/data-model-page-callbacks';
+import { handleCancelWrapper, handleConfirmDeleteWrapper, handleDeleteWrapper, handleOpenUpdateWrapper } from './utilities/data-model-page-callbacks';
 import PageLayout from '../PageLayout';
 
 const collection = OpportunityInstances; // the collection to use.
@@ -97,8 +93,11 @@ const AdminDataModelOpportunityInstancesPage: React.FC<AdminDataModelOpportunity
     updateData.id = doc._id;
     updateData.termID = academicTermNameToDoc(doc.academicTerm)._id;
     // console.log(collectionName, updateData);
-    updateMethod.callPromise({ collectionName, updateData })
-      .catch((error) => { RadGradAlert.failure('Update Failed', error.message, error);})
+    updateMethod
+      .callPromise({ collectionName, updateData })
+      .catch((error) => {
+        RadGradAlert.failure('Update Failed', error.message, error);
+      })
       .then(() => {
         RadGradAlert.success('Update Succeeded');
         setShowUpdateForm(false);
@@ -106,30 +105,15 @@ const AdminDataModelOpportunityInstancesPage: React.FC<AdminDataModelOpportunity
       });
   };
 
-  const findOptions = {
-    sort: { name: 1 }, // determine how you want to sort the items in the list
-  };
   return (
     <PageLayout id={PAGEIDS.DATA_MODEL_OPPORTUNITY_INSTANCES} headerPaneTitle="Opportunity Instances">
       {showUpdateFormState ? (
-        <UpdateOpportunityInstanceForm collection={collection} id={idState}
-          handleUpdate={handleUpdate} handleCancel={handleCancel}
-          itemTitleString={itemTitleString} terms={terms} />
+        <UpdateOpportunityInstanceForm collection={collection} id={idState} handleUpdate={handleUpdate} handleCancel={handleCancel} itemTitleString={itemTitleString} terms={terms} />
       ) : (
-        <AddOpportunityInstanceForm opportunities={opportunities}
-          sponsors={sponsors} students={students} terms={terms} />
+        <AddOpportunityInstanceForm opportunities={opportunities} sponsors={sponsors} students={students} terms={terms} />
       )}
-      <ListCollectionWidget
-        collection={collection}
-        findOptions={findOptions}
-        descriptionPairs={descriptionPairs}
-        itemTitle={itemTitle}
-        handleOpenUpdate={handleOpenUpdate}
-        handleDelete={handleDelete}
-        items={items}
-      />
-      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
-        header="Delete Opportunity Instance?" />
+      <ListCollectionWidget collection={collection} descriptionPairs={descriptionPairs} itemTitle={itemTitle} handleOpenUpdate={handleOpenUpdate} handleDelete={handleDelete} items={items} />
+      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Opportunity Instance?" />
     </PageLayout>
   );
 };

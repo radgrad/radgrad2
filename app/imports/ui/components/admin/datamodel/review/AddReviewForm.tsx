@@ -6,7 +6,7 @@ import SimpleSchema from 'simpl-schema';
 import { COMPONENTIDS } from '../../../../utilities/ComponentIDs';
 import RadGradAlert from '../../../../utilities/RadGradAlert';
 import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
-import { AcademicTerm, Course, Opportunity, StudentProfile } from '../../../../../typings/radgrad';
+import { AcademicTerm, Course, Opportunity, ReviewDefine, StudentProfile } from '../../../../../typings/radgrad';
 import {
   academicTermNameToSlug,
   academicTermToName, courseNameToSlug,
@@ -90,14 +90,15 @@ const AddReviewForm: React.FC<AddReviewFormProps> = ({ terms, courses, opportuni
   const handleAdd = (doc) => {
     // console.log('Reviews.handleAdd(%o)', doc);
     const collectionName = Reviews.getCollectionName();
-    const definitionData = doc;
-    definitionData.student = profileNameToUsername(doc.student);
+    const student = profileNameToUsername(doc.student);
+    let reviewee;
     if (doc.reviewType === Reviews.COURSE) {
-      definitionData.reviewee = courseNameToSlug(doc.reviewee);
+      reviewee = courseNameToSlug(doc.reviewee);
     } else {
-      definitionData.reviewee = opportunityNameToSlug(doc.reviewee);
+      reviewee = opportunityNameToSlug(doc.reviewee);
     }
-    definitionData.academicTerm = academicTermNameToSlug(doc.academicTerm);
+    const academicTerm = academicTermNameToSlug(doc.academicTerm);
+    const definitionData: ReviewDefine = { student, reviewee, reviewType: doc.reviewType, academicTerm, comments: doc.comments, moderatorComments: doc.moderatorComments, moderated: doc.moderated, retired: doc.retired, rating: doc.rating, visible: doc.visible };
     defineMethod.callPromise({ collectionName, definitionData })
       .catch((error) => { RadGradAlert.failure('Add failed', error.message, error);})
       .then(() => {
@@ -129,7 +130,7 @@ const AddReviewForm: React.FC<AddReviewFormProps> = ({ terms, courses, opportuni
         <LongTextField id={COMPONENTIDS.DATA_MODEL_MODERATOR_COMMENTS} name="moderatorComments" />
         <BoolField id={COMPONENTIDS.DATA_MODEL_RETIRED} name="retired" />
         <SubmitField id={COMPONENTIDS.DATA_MODEL_SUBMIT} className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
-        <ErrorsField />
+        <ErrorsField id={COMPONENTIDS.DATA_MODEL_ERROR_FIELD} />
       </AutoForm>
     </Segment>
   );

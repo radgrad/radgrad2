@@ -42,7 +42,7 @@ const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses }) => 
       })
       .then(() => {
         RadGradAlert.success('Add Course Succeeded');
-        formRef.reset();
+        formRef?.reset();
       });
   };
 
@@ -94,7 +94,7 @@ const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses }) => 
           <NumField id={COMPONENTIDS.DATA_MODEL_CREDIT_HOURS} name="creditHours" />
           <TextField id={COMPONENTIDS.DATA_MODEL_NUM} name="num" placeholder="DEPT 111" />
         </Form.Group>
-        <LongTextField name="description" />
+        <LongTextField id={COMPONENTIDS.DATA_MODEL_DESCRIPTION} name="description" />
         <PictureField id={COMPONENTIDS.DATA_MODEL_PICTURE} name="picture" placeholder='https://mywebsite.com/picture.png' />
         <TextField id={COMPONENTIDS.DATA_MODEL_SYLLABUS} name="syllabus" placeholder="https://dept.foo.edu/dept_111/syllabus.html" />
         <Form.Group widths="equal">
@@ -103,8 +103,8 @@ const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses }) => 
           <MultiSelectField id={COMPONENTIDS.DATA_MODEL_PREREQUISITES} name="prerequisites" placeholder="Select Prerequisite(s)" />
         </Form.Group>
         <BoolField id={COMPONENTIDS.DATA_MODEL_REPEATABLE} name="repeatable" />
-        <SubmitField className="mini basic green" value="Add" />
-        <ErrorsField />
+        <SubmitField id={COMPONENTIDS.DATA_MODEL_SUBMIT} className="mini basic green" value="Add" />
+        <ErrorsField id={COMPONENTIDS.DATA_MODEL_ERROR_FIELD} />
       </AutoForm>
     </Segment>
   );
