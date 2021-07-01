@@ -18,7 +18,7 @@ export interface AddCareerToProfileProps {
   floated?: SemanticFLOATS;
 }
 
-const handleAdd = (userID: string, item: CareerGoal, type: IProfileEntryTypes) => () => {
+const handleAdd = (userID: string, item: CareerGoal, type: IProfileEntryTypes) => {
   const collectionName = getCollectionName(type);
   const definitionData = createDefinitionData(userID, item, type);
   defineMethod.callPromise({ collectionName, definitionData })
@@ -26,7 +26,7 @@ const handleAdd = (userID: string, item: CareerGoal, type: IProfileEntryTypes) =
     .then(() => { RadGradAlert.success('Added to profile');});
 };
 
-const handleRemove = (userID: string, item: CareerGoal, type: IProfileEntryTypes) => () => {
+const handleRemove = (userID: string, item: CareerGoal, type: IProfileEntryTypes) => {
   const collectionName = getCollectionName(type);
   let instance;
   switch (type) {
@@ -58,7 +58,10 @@ const AddCareerToProfile: React.FC<AddCareerToProfileProps> = ({ userID, careerG
   return (
     <React.Fragment>
       {added ? (
-        <Button id={COMPONENTIDS.REMOVE_FROM_PROFILE_BUTTON} onClick={handleRemove(userID, careerGoal, type)} size="small" color="teal" floated={floated || 'right'} basic inverted={inverted}>
+        <Button id={COMPONENTIDS.REMOVE_FROM_PROFILE_BUTTON} onClick={() => {
+          setOpen(false);
+          handleRemove(userID, careerGoal, type);
+        }} size="small" color="teal" floated={floated || 'right'} basic inverted={inverted}>
           <Icon name="user outline" color="grey" inverted={inverted} />
           <Icon name="minus" />
           REMOVE FROM PROFILE
@@ -86,7 +89,7 @@ const AddCareerToProfile: React.FC<AddCareerToProfileProps> = ({ userID, careerG
           <Modal.Actions>
             <br/>
             <Grid textAlign = 'center'>
-              <Button id={COMPONENTIDS.ADD_TO_PROFILE_BUTTON} size="small" onClick={handleAdd(userID, careerGoal, type)} color="teal" basic>
+              <Button id={COMPONENTIDS.ADD_TO_PROFILE_BUTTON} size="small" onClick={() => handleAdd(userID, careerGoal, type)} color="teal" basic>
                 <Icon name="user" color="grey"/>
                 <Icon name="plus" />
                 ADD TO PROFILE
