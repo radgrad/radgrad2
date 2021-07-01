@@ -80,7 +80,7 @@ if (Meteor.isServer) {
         }),
       );
       const errors = UserInteractions.checkIntegrity();
-      expect(errors).to.have.lengthOf(100);
+      expect(errors).to.have.lengthOf(0); // We no longer check the users.
     });
 
     it('Can removeUser', function test5() {
