@@ -12,3 +12,4 @@ Meteor.startup(() => {
 });
 
 Meteor.startup(() =>  document.body.classList.add('radgrad-background-color'));
+Meteor.startup(() =>  { document.title = `RadGrad (${Meteor.settings.public.instanceName})`; });

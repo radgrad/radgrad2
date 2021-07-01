@@ -3,6 +3,7 @@ import { check } from 'meteor/check';
 import _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
+import moment from 'moment';
 import SimpleSchema from 'simpl-schema';
 import { ROLE } from '../role/Role';
 import { DumpOne } from '../../typings/radgrad';
@@ -176,19 +177,6 @@ class BaseCollection {
     const theSelector = (typeof selector === 'undefined') ? {} : selector;
     return this.collection.findOne(theSelector, options);
   }
-
-  /**
-   * Runs a simplified version of update on this collection.
-   * @see {@link http://docs.meteor.com/api/collections.html#Mongo-Collection-update}
-   * @param { Object } selector A MongoDB selector.
-   * @param { Object } modifier A MongoDB modifier
-   * @returns true
-   */
-  // public update(selector, modifier) {
-  //   const theSelector = (typeof selector === 'undefined') ? {} : selector;
-  //   this.collection.update(theSelector, modifier);
-  //   return true;
-  // }
 
   /**
    * Returns true if the passed entity is in this collection.
@@ -420,6 +408,11 @@ class BaseCollection {
       return false;
     }
     return Roles.userIsInRole(userId, roles);
+  }
+
+  static getLastUpdatedFromDoc(doc) {
+    const updateDate = doc.updatedAt || doc.createdAt;
+    return updateDate ? moment(updateDate).format('LL') : 'Unknown update time';
   }
 }
 

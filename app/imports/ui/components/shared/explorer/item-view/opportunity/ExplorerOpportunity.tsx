@@ -3,6 +3,7 @@ import React from 'react';
 import Markdown from 'react-markdown';
 import { useParams } from 'react-router-dom';
 import { Divider, Grid, Segment, List } from 'semantic-ui-react';
+import BaseCollection from '../../../../../../api/base/BaseCollection';
 import { Reviews } from '../../../../../../api/review/ReviewCollection';
 import { ROLE } from '../../../../../../api/role/Role';
 import { Teasers } from '../../../../../../api/teaser/TeaserCollection';
@@ -53,46 +54,16 @@ const teaserUrlHelper = (opportunity: Opportunity): string => {
 
 const ExplorerOpportunity: React.FC<ExplorerOpportunitiesProps> = ({ opportunity, opportunityTypes, opportunities, terms, interests, sponsors, completed, itemReviews, profile }) => {
   const segmentStyle = { backgroundColor: 'white' };
-  const compactRowStyle = { paddingTop: 2, paddingBottom: 2 };
+  const compactRowStyle = { paddingTop: 3, paddingBottom: 3 };
   const gridStyle = { paddingLeft: 17, paddingTop: 10, paddingBottom: 17 };
   const { username } = useParams();
   const hasTeaser = Teasers.findNonRetired({ targetSlugID: opportunity.slugID }).length > 0;
   const isStudent = profile.role === ROLE.STUDENT;
   const isSponsor = profile.userID === opportunity.sponsorID;
   const showManageButtons = isSponsor || profile.role === ROLE.ADMIN;
-  const dateStrings = [];
 
-  if (opportunity.eventDate1) {
-    if (opportunity.eventDateLabel1){
-      dateStrings.push({ 'event': opportunity.eventDateLabel1, 'date': (moment(opportunity.eventDate1).format('MM/DD/YYYY')) });
-    } else {
-      dateStrings.push({ 'event': 'Event 1', 'date': (moment(opportunity.eventDate1).format('MM/DD/YYYY')) });
-    }
-  }
-  if (opportunity.eventDate2) {
-    if (opportunity.eventDateLabel2){
-      dateStrings.push({ 'event': opportunity.eventDateLabel2, 'date': (moment(opportunity.eventDate2).format('MM/DD/YYYY')) });
-    } else {
-      dateStrings.push({ 'event': 'Event 2', 'date': (moment(opportunity.eventDate2).format('MM/DD/YYYY')) });
-    }
-  }
-  if (opportunity.eventDate3) {
-    if (opportunity.eventDateLabel3){
-      dateStrings.push({ 'event': opportunity.eventDateLabel3, 'date': (moment(opportunity.eventDate3).format('MM/DD/YYYY')) });
-    } else {
-      dateStrings.push({ 'event': 'Event 3', 'date': (moment(opportunity.eventDate3).format('MM/DD/YYYY')) });
-    }
-  }
-  if (opportunity.eventDate4) {
-    if (opportunity.eventDateLabel4){
-      dateStrings.push({ 'event': opportunity.eventDateLabel4, 'date': (moment(opportunity.eventDate4).format('MM/DD/YYYY')) });
-    } else {
-      dateStrings.push({ 'event': 'Event 4', 'date': (moment(opportunity.eventDate4).format('MM/DD/YYYY')) });
-    }
-  }
+  const eventListItem = (date, label) => (date ? <List.Item key='${label}'>{moment(date).format('LL')}:  {label}</List.Item> : '');
 
-  const listDateStrings = dateStrings.map((d) => <List bulleted> <List.Item>{`${d.event} :`} {d.date}</List.Item> </List>);
-  // console.log(profile.userID, opportunity._id, opportunity.name);
   return (
     <div id="explorerOpportunityWidget">
       <Segment className="container" style={segmentStyle}>
@@ -106,9 +77,17 @@ const ExplorerOpportunity: React.FC<ExplorerOpportunitiesProps> = ({ opportunity
             <strong style={{ paddingTop: '5px' }}>Sponsor:</strong> &nbsp; <UserLabel username={opportunity.sponsorID}/>
           </Grid.Row>
           <Grid.Row style={compactRowStyle}>
-            <strong>Dates:</strong> &nbsp;
+            {opportunity.eventDate1 ? <strong>Dates:</strong> : ''}
+            <List bulleted>
+              {eventListItem(opportunity.eventDate1, opportunity.eventDateLabel1)}
+              {eventListItem(opportunity.eventDate2, opportunity.eventDateLabel2)}
+              {eventListItem(opportunity.eventDate3, opportunity.eventDateLabel3)}
+              {eventListItem(opportunity.eventDate4, opportunity.eventDateLabel4)}
+            </List>
           </Grid.Row>
-          {opportunity.eventDate1 ? listDateStrings : 'N/A'}
+          <Grid.Row style={compactRowStyle}>
+            <strong>Last Update:</strong> &nbsp; {BaseCollection.getLastUpdatedFromDoc(opportunity)}
+          </Grid.Row>
           {showManageButtons ? <Grid.Row><EditOpportunityButton opportunity={opportunity} sponsors={sponsors} interests={interests} opportunityTypes={opportunityTypes}/> <DeleteItemButton item={opportunity} type={PROFILE_ENTRY_TYPE.OPPORTUNITY} /></Grid.Row> : ''}
         </Grid>
       </Segment>

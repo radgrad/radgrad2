@@ -2,6 +2,7 @@ import React from 'react';
 import Markdown from 'react-markdown';
 import { useParams } from 'react-router-dom';
 import { Divider, Grid, Segment } from 'semantic-ui-react';
+import BaseCollection from '../../../../../../api/base/BaseCollection';
 import { Reviews } from '../../../../../../api/review/ReviewCollection';
 import { ROLE } from '../../../../../../api/role/Role';
 import { Teasers } from '../../../../../../api/teaser/TeaserCollection';
@@ -65,6 +66,7 @@ const ExplorerCourse: React.FC<ExplorerCoursesWidgetProps> = ({ course, courses,
           </Grid.Row>
           <Grid.Row>
             <Markdown allowDangerousHtml linkTarget="_blank" source={course.description} />
+            <p><strong>Last Update:</strong> {BaseCollection.getLastUpdatedFromDoc(course)}</p>
           </Grid.Row>
           {isStudent ? '' : <EditCourseButton course={course} courses={courses} interests={interests} />}
           {isAdmin ? <DeleteItemButton item={course} type={PROFILE_ENTRY_TYPE.COURSE} /> : ''}

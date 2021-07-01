@@ -1,6 +1,9 @@
 module.exports = {
   servers: { one: { host: 'CHANGEME.EDU', username: 'root', password: 'CHANGEME' }},
-  hooks: { 'pre.deploy': { localCommand: 'npm run update-build-version' }},
+  hooks: {
+    'pre.deploy': { localCommand: 'npm run update-build-version' },
+    'post.deploy': { localCommand: 'mup logs' }
+  },
   app: {
     name: 'radgrad',
     path: '../',
