@@ -27,12 +27,12 @@ const UpComingEventsCard: React.FC<UpComingEventsCardProps> = ({ event, plannerO
         <RadGradHeader title={`${event.label}: ${event.date}`} dividing={false}/>
         { plannerOppIDs.includes(event.id) ? <Label attached='top right' size='small' color='green'>IN MY PLANNER</Label> : '' }
       </Grid.Column>
-      <Grid.Column width={2}>
-        <Image size='tiny' circular verticalAlign='middle' src={event.picture} />
+      <Grid.Column width={3}>
+        <Image size='small' circular verticalAlign='middle' src={event.picture} />
       </Grid.Column>
-      <Grid.Column width={14}>
+      <Grid.Column width={13}>
         <Grid.Row style={rowStyle}>
-          <OpportunityLabel key={event.id} userID={userID} slug={getSlugFromEntityID(event.id)} size="small" />
+          <OpportunityLabel key={event.id} userID={userID} slug={getSlugFromEntityID(event.id)} size="medium" />
         </Grid.Row>
         <Grid.Row style={rowStyle}>
           <InterestList item={event} size="tiny" />
