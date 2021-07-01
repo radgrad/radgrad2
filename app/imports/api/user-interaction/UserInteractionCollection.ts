@@ -2,7 +2,6 @@ import { Meteor } from 'meteor/meteor';
 import moment from 'moment';
 import SimpleSchema from 'simpl-schema';
 import BaseCollection from '../base/BaseCollection';
-import { Users } from '../user/UserCollection';
 import { ROLE } from '../role/Role';
 import { UserInteractionDefine } from '../../typings/radgrad';
 
@@ -107,11 +106,7 @@ class UserInteractionCollection extends BaseCollection {
    */
   public checkIntegrity(): string[] {
     const problems = [];
-    this.find().forEach((doc) => {
-      if (!Users.isDefined(doc.username)) {
-        problems.push(`Bad user: ${doc.username}`);
-      }
-    });
+    // CAM: We no longer validate the users in the UserInteractions since we now remove users.
     return problems;
   }
 
