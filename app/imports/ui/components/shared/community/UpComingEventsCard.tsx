@@ -7,7 +7,7 @@ import RadGradHeader from '../RadGradHeader';
 
 interface UpComingEventsCardProps {
   event: {
-    id: string,
+    OpportunityID: string,
     name: string,
     picture: string,
     date: string,
@@ -25,14 +25,14 @@ const UpComingEventsCard: React.FC<UpComingEventsCardProps> = ({ event, plannerO
     <Grid.Row verticalAlign='middle'>
       <Grid.Column width={16} style={titleStyle}>
         <RadGradHeader title={`${event.label}: ${event.date}`} dividing={false}/>
-        { plannerOppIDs.includes(event.id) ? <Label attached='top right' size='small' color='green'>IN MY PLANNER</Label> : '' }
+        { plannerOppIDs.includes(event.OpportunityID) ? <Label attached='top right' size='small' color='green'>IN MY PLANNER</Label> : '' }
       </Grid.Column>
       <Grid.Column width={3}>
         <Image size='small' circular verticalAlign='middle' src={event.picture} />
       </Grid.Column>
       <Grid.Column width={13}>
         <Grid.Row style={rowStyle}>
-          <OpportunityLabel key={event.id} userID={userID} slug={getSlugFromEntityID(event.id)} size="medium" />
+          <OpportunityLabel key={event.OpportunityID} userID={userID} slug={getSlugFromEntityID(event.OpportunityID)} size="medium" />
         </Grid.Row>
         <Grid.Row style={rowStyle}>
           <InterestList item={event} size="tiny" />

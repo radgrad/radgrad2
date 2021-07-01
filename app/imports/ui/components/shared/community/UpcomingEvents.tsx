@@ -39,7 +39,7 @@ const UpcomingEvents: React.FC<UpcomingEventsProp> = ({ opportunities, dayBefore
         const temp = dateFormat(eventDate);
         if (moment(temp).isBetween(dayBefore, threeMonths)) {
           eventList.push({
-            id: opportunity._id,
+            OpportunityID: opportunity._id,
             name: opportunity.name,
             picture: opportunity.picture,
             date: temp,
@@ -52,12 +52,11 @@ const UpcomingEvents: React.FC<UpcomingEventsProp> = ({ opportunities, dayBefore
     }
   });
   const upComingEventsList = _.sortBy(eventList, ['date']);
-  console.log(upComingEventsList);
   return (
     <RadGradSegment header={header}>
       <Grid style={gridStyle} divided='vertically'>
         {upComingEventsList.map((event) => (
-          <UpComingEventsCard event={event} plannerOppIDs={plannerOppIDs} userID={userID} />
+          <UpComingEventsCard key={event.uniqueId} event={event} plannerOppIDs={plannerOppIDs} userID={userID} />
         ))}
       </Grid>
     </RadGradSegment>
