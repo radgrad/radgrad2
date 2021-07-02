@@ -85,6 +85,7 @@ const AdminDataModelTeasersPage: React.FC<AdminDataModelTeasersPageProps> = ({ i
     updateData.id = doc._id;
     updateData.interests = doc.interests.map(interestNameToSlug);
     updateData.targetSlug = Slugs.findDoc(doc.targetSlugID).name;
+    updateData.url = doc.youtubeID;
     // console.log(collectionName, updateData);
     updateMethod
       .callPromise({ collectionName, updateData })
