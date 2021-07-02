@@ -63,8 +63,8 @@ const RadGradLoginButtons: React.FC<RadGradLoginButtonsProps> = ({ instanceName 
 
   return development ? (
     <div>
-      <Button content={{ height:'100%', width: '100%' }} mode="contained" inverted={inverted} size={size} text='LOGIN'>
-        <Dropdown id={COMPONENTIDS.LOGIN} text='LOGIN' pointing="top right" simple>
+      <Button as = 'div' inverted={inverted} size={size} text='LOGIN'>
+        <Dropdown id={COMPONENTIDS.LOGIN} text='LOGIN' pointing="top right" simple mode="contained" content={{ height:'100%', width: '100%' }}>
           <Dropdown.Menu>
             <Dropdown.Item id={COMPONENTIDS.STUDENT} text={studentLabel} as={Link} to="/signin" />
             <Dropdown.Item id={COMPONENTIDS.FACULTY} text={facultyLabel} as={Link} to="/signin" />
@@ -78,7 +78,7 @@ const RadGradLoginButtons: React.FC<RadGradLoginButtonsProps> = ({ instanceName 
       </Message>
     </div>
   ) : (
-    <Button inverted={inverted} size={size}>
+    <Button content={{ height:'100%', width: '100%' }} mode="contained" inverted={inverted} size={size}>
       <Dropdown id={COMPONENTIDS.LOGIN} text={`${instanceName} LOGIN FOR`} pointing="top right">
         <Dropdown.Menu>
           <Dropdown.Item id={COMPONENTIDS.STUDENT} text={studentLabel} onClick={handleClick} />
