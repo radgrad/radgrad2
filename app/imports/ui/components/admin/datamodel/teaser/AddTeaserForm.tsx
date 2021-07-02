@@ -63,7 +63,7 @@ const AddTeaserForm: React.FC<AddTeaserFormProps> = ({ careerGoals, courses, int
     const interestSlugs = doc.interests.map(interestNameToSlug);
     const targetSlug = slugNameAndTypeToName(doc.targetSlug);
     const url = doc.youtubeID;
-    const definitionData: TeaserDefine = { title: doc.title, url, author: doc.author, interests: interestSlugs, targetSlug, description: doc.description, slug: `${doc.targetSlug}-teaser`, duration: doc.duration, retired: doc.retired };
+    const definitionData: TeaserDefine = { title: doc.title, url, author: doc.author, interests: interestSlugs, targetSlug, description: doc.description, slug: `${targetSlug}-teaser`, duration: doc.duration, retired: doc.retired };
     // definitionData.opportunity = opportunityNameToSlug(doc.opportunity);
     // console.log(collectionName, definitionData);
     defineMethod.callPromise({ collectionName, definitionData })
