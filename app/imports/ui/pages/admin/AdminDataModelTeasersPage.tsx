@@ -14,7 +14,7 @@ import { handleCancelWrapper, handleConfirmDeleteWrapper, handleDeleteWrapper, h
 import { makeYoutubeLink } from './utilities/datamodel';
 import AddTeaserForm from '../../components/admin/datamodel/teaser/AddTeaserForm';
 import UpdateTeaserForm from '../../components/admin/datamodel/teaser/UpdateTeasersForm';
-import { itemToSlugName, interestNameToSlug } from '../../components/shared/utilities/data-model';
+import { itemToSlugName, interestNameToSlug, slugNameAndTypeToName } from '../../components/shared/utilities/data-model';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import PageLayout from '../PageLayout';
 import RadGradAlert from '../../utilities/RadGradAlert';
@@ -84,7 +84,7 @@ const AdminDataModelTeasersPage: React.FC<AdminDataModelTeasersPageProps> = ({ i
     const updateData = doc; // create the updateData object from the doc.
     updateData.id = doc._id;
     updateData.interests = doc.interests.map(interestNameToSlug);
-    updateData.targetSlug = Slugs.findDoc(doc.targetSlugID).name;
+    updateData.targetSlug = slugNameAndTypeToName(doc.targetSlug);
     updateData.url = doc.youtubeID;
     // console.log(collectionName, updateData);
     updateMethod
