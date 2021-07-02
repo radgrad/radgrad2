@@ -4,10 +4,11 @@ import moment from 'moment';
 import { getCollectionData, getNonRetiredCollectionData } from '../data-dump-utils';
 import AcademicTermCollection from './AcademicTermCollection';
 import { generateCourseInstance } from './course-instance-utilities';
+import { InternshipDefine } from './internship-utilities';
 import { generateOpportunityInstance, OpportunityInstance } from './opportunity-instance-utilities';
 import RadGradCollection, { RadGradCollectionName } from './RadGradCollection';
-import { StudentConfig } from './user-config-file.js';
 import { generateReview } from './review-utilities';
+import { StudentConfig } from './user-config-file';
 import { validateFixture } from './validation-utilities';
 import { generateVerificationRequest } from './verification-request-utilities';
 
@@ -136,8 +137,49 @@ const buildVerificationRequestCollection = (opportunities: ICollection): ICollec
   });
   return result;
 };
+const convertRawInternship = (internship, interests, careerGoals) => {
+  // get some random interests to assign to the internship. Need to update this with smartness.
+  const numInterests = Math.floor(Math.random() * 5);
+  const randInterests = [];
+  for (let i = 0; i < numInterests; i++) {
+    randInterests.push(interests[Math.floor(Math.random() * interests.length)]);
+  }
+  const numCareerGoals = Math.floor(Math.random() * 5);
+  const randCareerGoals = [];
+  for (let i = 0; i < numCareerGoals; i++) {
+    randCareerGoals.push(careerGoals[Math.floor(Math.random() * careerGoals.length)]);
+  }
+  const internshipDefine: InternshipDefine = {
+    urls: [internship.url],
+    position: internship.position,
+    description: internship.description,
+    lastUploaded: internship.lastUploaded,
+    interests: randInterests,
+    careerGoals: randCareerGoals,
+    company: internship.company,
+    location: internship.location,
+    posted: internship.posted,
+    missedUploads: 0, // How are we going to calculate this?
+  };
+  return internshipDefine;
+};
 
-const createFixture = (radgradDump: IDataDump, studentConfig: StudentConfig, academicTerms: AcademicTermCollection): IDataDump => {
+const createInternshipFixture = (radgradDump: IDataDump, rawInternships) => {
+  const interestCollection = new RadGradCollection(RadGradCollectionName.INTERESTS, getCollectionData(radgradDump, RadGradCollectionName.INTERESTS));
+  const interests = interestCollection.getSlugs();
+  const careerGoalCollection = new RadGradCollection(RadGradCollectionName.CAREER_GOALS, getCollectionData(radgradDump, RadGradCollectionName.CAREER_GOALS));
+  const careerGoals = careerGoalCollection.getSlugs();
+  const internshipFixture = {
+    name: RadGradCollectionName.INTERNSHIPS,
+    contents: [],
+  };
+  rawInternships.forEach(internship => {
+    internshipFixture.contents.push(convertRawInternship(internship, interests, careerGoals));
+  });
+  return internshipFixture;
+};
+
+const createFixture = (radgradDump: IDataDump, studentConfig: StudentConfig, academicTerms: AcademicTermCollection, rawInternships): IDataDump => {
   const result: IDataDump = {
     timestamp: `${moment().format(databaseFileDateFormat)}`,
     collections: [],
@@ -197,14 +239,15 @@ const createFixture = (radgradDump: IDataDump, studentConfig: StudentConfig, aca
     name: RadGradCollectionName.USER_INTERACTIONS,
     contents: [],
   });
+  result.collections.push(createInternshipFixture(radgradDump, rawInternships));
   // sort the collections
   result.collections.sort((entry1, entry2) => compareCollections(entry1, entry2));
   validateFixture(result);
   return result;
 };
 
-async function generateDemoFixture(radgradDumpFile, userConfigFile) {
-  console.log('generateDemoFixture', radgradDumpFile, userConfigFile);
+async function generateDemoFixture(radgradDumpFile, userConfigFile, internshipFile) {
+  console.log('generateDemoFixture', radgradDumpFile, userConfigFile, internshipFile);
   const fixtureFileName = `data/${moment().format(databaseFileDateFormat)}.json`;
   console.log(fixtureFileName);
   const data = fs.readFileSync(radgradDumpFile);
@@ -212,17 +255,20 @@ async function generateDemoFixture(radgradDumpFile, userConfigFile) {
   const academicTerms = new AcademicTermCollection(getCollectionData(radgradDump, RadGradCollectionName.ACADEMIC_TERMS));
   const configData = fs.readFileSync(userConfigFile);
   const userConfig: StudentConfig = JSON.parse(configData.toString());
-  const fixture = createFixture(radgradDump, userConfig, academicTerms);
+  const internshipData = fs.readFileSync(internshipFile);
+  const rawInternships = JSON.parse(internshipData.toString());
+  const fixture = createFixture(radgradDump, userConfig, academicTerms, rawInternships);
   const fixtureString = JSON.stringify(fixture, null, 2);
   fs.writeFileSync(fixtureFileName, fixtureString);
 }
 
 program
-  .arguments('<radgradDumpFile> <userConfigFile>')
-  .description('Creates a demo fixture file based upon the RadGrad dump file and a user config file.', {
+  .arguments('<radgradDumpFile> <userConfigFile> <internshipFile>')
+  .description('Creates a demo fixture file based upon the RadGrad dump file, a user config file and an internship file.', {
     radgradDumpFile: 'A pre-existing RadGrad2 database dump file',
     userConfigFile: 'A pre-existing user configuration file',
+    internshipFile: 'A pre-existing internship file in the canonical format',
   })
-  .action((radgradDumpFile, userConfigFile) => generateDemoFixture(radgradDumpFile, userConfigFile));
+  .action((radgradDumpFile, userConfigFile, internshipFile) => generateDemoFixture(radgradDumpFile, userConfigFile, internshipFile));
 
 program.parse(process.argv);
