@@ -5,7 +5,7 @@ import OpportunityLabel from '../label/OpportunityLabel';
 import { getSlugFromEntityID } from '../../landing/utilities/helper-functions';
 import RadGradHeader from '../RadGradHeader';
 
-interface UpComingEventsCardProps {
+interface UpComingEventsListProps {
   event: {
     OpportunityID: string,
     name: string,
@@ -18,7 +18,7 @@ interface UpComingEventsCardProps {
   userID: string,
 }
 
-const UpComingEventsCard: React.FC<UpComingEventsCardProps> = ({ event, plannerOppIDs, userID }) => {
+const UpComingEventsList: React.FC<UpComingEventsListProps> = ({ event, plannerOppIDs, userID }) => {
   const rowStyle = { paddingBottom: 10 };
   const titleStyle = { margin: 0 };
   return (
@@ -42,4 +42,4 @@ const UpComingEventsCard: React.FC<UpComingEventsCardProps> = ({ event, plannerO
   );
 };
 
-export default UpComingEventsCard;
+export default UpComingEventsList;

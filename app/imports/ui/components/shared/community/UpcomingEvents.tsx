@@ -8,7 +8,7 @@ import RadGradHeader from '../RadGradHeader';
 import RadGradSegment from '../RadGradSegment';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
-import UpComingEventsCard from './UpComingEventsCard';
+import UpComingEventsList from './UpComingEventsList';
 import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
 import * as Router from '../utilities/router';
 import { Opportunity } from '../../../../typings/radgrad';
@@ -56,7 +56,7 @@ const UpcomingEvents: React.FC<UpcomingEventsProp> = ({ opportunities, dayBefore
     <RadGradSegment header={header}>
       <Grid style={gridStyle} divided='vertically'>
         {upComingEventsList.map((event) => (
-          <UpComingEventsCard key={event.uniqueId} event={event} plannerOppIDs={plannerOppIDs} userID={userID} />
+          <UpComingEventsList key={event.uniqueId} event={event} plannerOppIDs={plannerOppIDs} userID={userID} />
         ))}
       </Grid>
     </RadGradSegment>
