@@ -64,7 +64,7 @@ const RadGradLoginButtons: React.FC<RadGradLoginButtonsProps> = ({ instanceName 
   return development ? (
     <div>
       <Button inverted={inverted} size={size}>
-        <Dropdown id={COMPONENTIDS.LOGIN} text='LOGIN' pointing="top right">
+        <Dropdown id={COMPONENTIDS.LOGIN} text='LOGIN' pointing="top right" simple>
           <Dropdown.Menu>
             <Dropdown.Item id={COMPONENTIDS.STUDENT} text={studentLabel} as={Link} to="/signin" />
             <Dropdown.Item id={COMPONENTIDS.FACULTY} text={facultyLabel} as={Link} to="/signin" />
