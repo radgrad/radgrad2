@@ -10,7 +10,7 @@
     "unimported": "npx unimported",
     "convert": "npm run tsc && node js/convert-dump.js radgrad-db/2021-04-13-16-17-36.json data/Radgrad2-2021-04-13-16-17-36.json",
     "download-star-data": "npm run tsc && node js/download-bulk-star-json.js",
-    "create-demo-fixture": "npm run tsc && node js/fixture-generator/demo-fixture-generator.js radgrad-db/2021-06-21-13-22-49.json data/userConfig1.json"
+    "create-demo-fixture": "npm run tsc && node js/fixture-generator/demo-fixture-generator.js radgrad-db/2021-06-21-13-22-49.json data/demo-fixture-generator-config.json"
   },
   "author": "",
   "license": "ISC",
