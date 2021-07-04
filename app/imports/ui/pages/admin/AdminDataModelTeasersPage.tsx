@@ -78,7 +78,7 @@ const AdminDataModelTeasersPage: React.FC<AdminDataModelTeasersPageProps> = ({ i
   const handleDelete = handleDeleteWrapper(setConfirmOpen, setId);
   const handleOpenUpdate = handleOpenUpdateWrapper(setShowUpdateForm, setId);
 
-  const handleUpdate = (doc) => {
+  const handleUpdate = async (doc) => {
     // console.log('Teasers.handleUpdate doc=%o', doc);
     const collectionName = collection.getCollectionName();
     const updateData = doc; // create the updateData object from the doc.
@@ -87,15 +87,14 @@ const AdminDataModelTeasersPage: React.FC<AdminDataModelTeasersPageProps> = ({ i
     updateData.targetSlug = slugNameAndTypeToName(doc.targetSlug);
     updateData.url = doc.youtubeID;
     // console.log(collectionName, updateData);
-    updateMethod
-      .callPromise({ collectionName, updateData })
-      .catch((error) => {
-        RadGradAlert.failure('Update failed', error.message, error);
-      })
+    await updateMethod.callPromise({ collectionName, updateData })
       .then(() => {
         RadGradAlert.success('Update succeeded');
         setShowUpdateForm(false);
         setId('');
+      })
+      .catch((error) => {
+        RadGradAlert.failure('Update failed', error.message, error);
       });
   };
 

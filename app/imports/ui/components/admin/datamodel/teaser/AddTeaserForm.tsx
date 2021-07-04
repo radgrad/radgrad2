@@ -66,16 +66,13 @@ const AddTeaserForm: React.FC<AddTeaserFormProps> = ({ careerGoals, courses, int
     const definitionData: TeaserDefine = { title: doc.title, url, author: doc.author, interests: interestSlugs, targetSlug, description: doc.description, slug: `${targetSlug}-teaser`, duration: doc.duration, retired: doc.retired };
     // definitionData.opportunity = opportunityNameToSlug(doc.opportunity);
     // console.log(collectionName, definitionData);
-    try {
-      const teaser = await defineMethod.callPromise({ collectionName, definitionData });
-
-      if (teaser) {
+    await defineMethod.callPromise({ collectionName, definitionData })
+      .then(() => {
         RadGradAlert.success('Add succeeded');
         formRef.current.reset();
-      }
-    } catch (error) {
-      RadGradAlert.failure('Add failed', error.message, error);
-    }
+      }).catch((error) => {
+        RadGradAlert.failure('Add failed', error.message, error);
+      });
   };
 
   return (
