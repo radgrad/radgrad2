@@ -92,7 +92,7 @@ class InternshipCollection extends BaseCollection {
    * @param location is the object containing location information.
    * @param contact is the name, email, url, etc. of contact person.
    * @param posted is when internship was posted. Should be in YYYY-MM-DD format.
-   * @param due is optional, defaults to false.
+   * @param due is optional.
    */
   public define({ urls, position, description, lastUploaded, missedUploads, interests, careerGoals, company, location, contact, posted, due }: InternshipDefine) {
     const interestIDs = Interests.getIDs(interests);
