@@ -80,13 +80,13 @@ const descriptionPairs = (props: AdminDataModelUsersPageProps) => (user: BasePro
   // const profileInterests = ProfileInterests.findNonRetired({ studentID: user.userID });
   const interestIDs = profileInterests.map((f) => f.interestID);
   pairs.push({ label: 'Interests', value: Interests.findNames(interestIDs).sort() });
+  const profileCourses = props.profileCourses.filter((fav) => fav.userID === user.userID);
+  const courseIDs = profileCourses.map((fav) => fav.courseID);
+  pairs.push({ label: 'Courses', value: _.sortBy(Courses.findNames(courseIDs)) });
+  const profileOpportunities = props.profileOpportunities.filter((fav) => fav.userID === user.userID);
+  const opportunityIDs = profileOpportunities.map((fav) => fav.opportunityID);
+  pairs.push({ label: 'Opportunities', value: _.sortBy(Opportunities.findNames(opportunityIDs)) });
   if (user.role === ROLE.STUDENT) {
-    const profileCourses = props.profileCourses.filter((fav) => fav.studentID === user.userID);
-    const courseIDs = profileCourses.map((fav) => fav.courseID);
-    pairs.push({ label: 'Courses', value: _.sortBy(Courses.findNames(courseIDs)) });
-    const profileOpportunities = props.profileOpportunities.filter((fav) => fav.studentID === user.userID);
-    const opportunityIDs = profileOpportunities.map((fav) => fav.opportunityID);
-    pairs.push({ label: 'Opportunities', value: _.sortBy(Opportunities.findNames(opportunityIDs)) });
     pairs.push({ label: 'Level', value: `${user.level}` });
     pairs.push({
       label: 'Declared Semester',

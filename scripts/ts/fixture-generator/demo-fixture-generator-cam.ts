@@ -150,6 +150,7 @@ const buildVerificationRequestCollection = (opportunities: ICollection): ICollec
   });
   return result;
 };
+
 const convertRawInternship = (internship, interests, careerGoals) => {
   // get some random interests to assign to the internship. Need to update this with smartness.
   const numInterests = Math.floor(Math.random() * 5);
