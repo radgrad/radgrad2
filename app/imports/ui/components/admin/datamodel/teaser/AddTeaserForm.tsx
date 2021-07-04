@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import _ from 'lodash';
 import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, SelectField, LongTextField, BoolField, SubmitField, ErrorsField } from 'uniforms-semantic';
@@ -25,7 +25,7 @@ interface AddTeaserFormProps {
 }
 
 const AddTeaserForm: React.FC<AddTeaserFormProps> = ({ careerGoals, courses, interests, opportunities }) => {
-  let formRef = useRef();
+  const formRef = useRef<HTMLFormElement>();
   let careerGoalSlugNames = careerGoals.map((goal) => slugIDToSlugNameAndType(goal.slugID));
   careerGoalSlugNames = _.sortBy(careerGoalSlugNames);
   let courseSlugNames = courses.map((c) => slugIDToSlugNameAndType(c.slugID));
@@ -71,7 +71,6 @@ const AddTeaserForm: React.FC<AddTeaserFormProps> = ({ careerGoals, courses, int
 
       if (teaser) {
         RadGradAlert.success('Add succeeded');
-        console.log(formRef.current);
         formRef.current.reset();
       }
     } catch (error) {
