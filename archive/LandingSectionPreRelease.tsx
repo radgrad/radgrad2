@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Header } from 'semantic-ui-react';
-import { COLORS } from '../../utilities/Colors';
+import { COLORS } from '../app/imports/ui/utilities/Colors';
 
 const LandingSectionPreRelease: React.FC = () => (
   <div id="landing-section-prerelease" style={{ backgroundColor: COLORS.RED, height: '200' }}>

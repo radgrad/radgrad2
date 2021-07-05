@@ -210,6 +210,17 @@ class InternshipCollection extends BaseCollection {
     const due = doc.due;
     return { urls, position, description, lastUploaded, missedUploads, interests, careerGoals, company, location, contact, posted, due };
   }
+
+  /**
+   * Returns an array of strings, each one representing an integrity problem with this collection.
+   * Returns an empty array if no problems were found.
+   * No Integrity Checking performed right now.
+   * @returns {Array} A (possibly empty) array of strings indicating integrity issues.
+   */
+  public checkIntegrity() {
+    const problems = [];
+    return problems;
+  }
 }
 
 export const Internships = new InternshipCollection();

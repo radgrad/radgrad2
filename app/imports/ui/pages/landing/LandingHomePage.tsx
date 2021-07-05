@@ -17,7 +17,6 @@ import LandingSection2 from '../../components/landing/LandingSection2';
 import LandingSection3 from '../../components/landing/LandingSection3';
 import LandingSection9Container from '../../components/landing/LandingSection9';
 import PageFooter from '../../components/shared/PageFooter';
-import LandingSectionPreRelease from '../../components/landing/LandingSectionPreRelease';
 import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { PAGEIDS } from '../../utilities/PageIDs';
@@ -56,7 +55,6 @@ const LandingHomePage: React.FC<LandingHomeProps> = ({ currentUser, opportunitie
   }
   return (<div id={PAGEIDS.LANDING_HOME}>
     <LandingNavBar currentUser={currentUser} iconName={iconName} role={role} instanceName={instanceName} />
-    <LandingSectionPreRelease/>
     <LandingSection1 tagline={tagline} instanceName={instanceName} careerGoalFactoid={careerGoalFactoid} interestFactoid={interestFactoid} levelFactoid={levelFactoid} opportunityFactoid={opportunityFactoid} reviewFactoid={reviewFactoid} />
     <LandingSection2 careerGoals={careerGoals} interests={interests} opportunities={opportunities} users={users} />
     <LandingSection3 landingSubject={landingSubject} instanceName={instanceName} />
