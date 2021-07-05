@@ -1,9 +1,10 @@
 import SimpleSchema from 'simpl-schema';
 import BaseCollection from '../base/BaseCollection';
 import { InternshipDefine, InternshipUpdate, InternshipUpdateData } from '../../typings/radgrad';
+import { complexChoiceToArray, isSingleChoice } from '../degree-plan/PlanChoiceUtilities';
 import { Interests } from '../interest/InterestCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
-import slugify from '../slug/SlugCollection';
+import slugify, { Slugs } from '../slug/SlugCollection';
 
 /**
  * Creates the Internship collection
@@ -209,6 +210,17 @@ class InternshipCollection extends BaseCollection {
     const posted = doc.posted;
     const due = doc.due;
     return { urls, position, description, lastUploaded, missedUploads, interests, careerGoals, company, location, contact, posted, due };
+  }
+
+  /**
+   * Returns an array of strings, each one representing an integrity problem with this collection.
+   * Returns an empty array if no problems were found.
+   * No Integrity Checking performed right now.
+   * @returns {Array} A (possibly empty) array of strings indicating integrity issues.
+   */
+  public checkIntegrity() {
+    const problems = [];
+    return problems;
   }
 }
 
