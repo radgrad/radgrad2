@@ -71,12 +71,12 @@ const generatePublicProfileDataObject = (username) => {
       publicData.interests = Interests.sort(interestSlugs);
     }
     if (profile.shareCourses) {
-      const profileDocs = ProfileCourses.findNonRetired({ studentID: userID });
+      const profileDocs = ProfileCourses.findNonRetired({ userID });
       const courseSlugs = profileDocs.map((doc) => Courses.findSlugByID(doc.courseID));
       publicData.courses = Courses.sort(courseSlugs);
     }
     if (profile.shareOpportunities) {
-      const profileDocs = ProfileOpportunities.findNonRetired({ studentID: userID });
+      const profileDocs = ProfileOpportunities.findNonRetired({ userID });
       const opportunitySlugs = profileDocs.map((doc) => Opportunities.findSlugByID(doc.opportunityID));
       publicData.opportunities = Opportunities.sort(opportunitySlugs);
     }
