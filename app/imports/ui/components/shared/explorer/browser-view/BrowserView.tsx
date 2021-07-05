@@ -45,13 +45,13 @@ const BrowserView: React.FC<BrowserViewProps> = ({ items, explorerType }) => {
         profileItems = Users.getInterestIDs(userID).map((id) => Interests.findDoc(id));
         break;
       case EXPLORER_TYPE.CAREERGOALS:
-        profileItems = ProfileCareerGoals.findNonRetired({ userID: userID }).map((f) => CareerGoals.findDoc(f.careerGoalID));
+        profileItems = ProfileCareerGoals.findNonRetired({ userID }).map((f) => CareerGoals.findDoc(f.careerGoalID));
         break;
       case EXPLORER_TYPE.OPPORTUNITIES:
-        profileItems = ProfileOpportunities.findNonRetired({ userID: userID }).map((f) => Opportunities.findDoc(f.opportunityID)).filter(o => o.retired !== true);
+        profileItems = ProfileOpportunities.findNonRetired({ userID }).map((f) => Opportunities.findDoc(f.opportunityID)).filter(o => o.retired !== true);
         break;
       case EXPLORER_TYPE.COURSES:
-        profileItems = ProfileCourses.findNonRetired({ userID: userID }).map((f) => Courses.findDoc(f.courseID));
+        profileItems = ProfileCourses.findNonRetired({ userID }).map((f) => Courses.findDoc(f.courseID));
         break;
     }
     explorerItems = profileItems;
