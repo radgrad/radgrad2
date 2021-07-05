@@ -1,10 +1,9 @@
 import SimpleSchema from 'simpl-schema';
 import BaseCollection from '../base/BaseCollection';
 import { InternshipDefine, InternshipUpdate, InternshipUpdateData } from '../../typings/radgrad';
-import { complexChoiceToArray, isSingleChoice } from '../degree-plan/PlanChoiceUtilities';
 import { Interests } from '../interest/InterestCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
-import slugify, { Slugs } from '../slug/SlugCollection';
+import slugify from '../slug/SlugCollection';
 
 /**
  * Creates the Internship collection
