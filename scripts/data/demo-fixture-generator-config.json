@@ -1124,6 +1124,588 @@
       ]
     },
     {
+      "username": "dora2@hawaii.edu",
+      "courses": [
+        {
+          "slug" : "ics_111",
+          "academicYearOffset": -4,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_141",
+          "academicYearOffset": -4,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_211",
+          "academicYearOffset": -3,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_241",
+          "academicYearOffset": -3,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_311",
+          "academicYearOffset": -3,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_314",
+          "academicYearOffset": -3,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_212",
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_321",
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_313",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_331",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_332",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_464",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_431",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_425",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_426",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_414",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "grade": "B+"
+        }
+      ],
+      "opportunities": [
+        {
+          "slug": "acm-manoa",
+          "academicYearOffset": -4,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "acm-manoa",
+          "academicYearOffset": -3,
+          "termNum": 1,
+          "verified": true
+        },
+        {
+          "slug": "google-summer-of-code",
+          "academicYearOffset": -3,
+          "termNum": 2,
+          "verified": true
+        },
+        {
+          "slug": "acm-manoa",
+          "academicYearOffset": -3,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "hacc",
+          "academicYearOffset": -3,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "acm-manoa",
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "verified": true
+        },
+        {
+          "slug": "google-summer-of-code",
+          "academicYearOffset": -2,
+          "termNum": 2,
+          "verified": true
+        },
+        {
+          "slug": "acm-manoa",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "hacc",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "icspark",
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "verified": true
+        },
+        {
+          "slug": "acm-manoa",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "verified": true
+        },
+        {
+          "slug": "acm-manoa",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "gen-cyber-internship",
+          "academicYearOffset": -1,
+          "termNum": 2,
+          "verified": true
+        },
+        {
+          "slug": "hacc",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "acm-manoa",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "verified": true
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "username": "dora3@hawaii.edu",
+      "courses": [
+        {
+          "slug" : "ics_111",
+          "academicYearOffset": -4,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_141",
+          "academicYearOffset": -4,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_211",
+          "academicYearOffset": -3,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_241",
+          "academicYearOffset": -3,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_311",
+          "academicYearOffset": -3,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_314",
+          "academicYearOffset": -3,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_212",
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_321",
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_313",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_331",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_332",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_464",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_431",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_425",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_426",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_414",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "grade": "B+"
+        }
+      ],
+      "opportunities": [
+        {
+          "slug": "acm-manoa",
+          "academicYearOffset": -4,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "acm-manoa",
+          "academicYearOffset": -3,
+          "termNum": 1,
+          "verified": true
+        },
+        {
+          "slug": "google-summer-of-code",
+          "academicYearOffset": -3,
+          "termNum": 2,
+          "verified": true
+        },
+        {
+          "slug": "acm-manoa",
+          "academicYearOffset": -3,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "hacc",
+          "academicYearOffset": -3,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "acm-manoa",
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "verified": true
+        },
+        {
+          "slug": "google-summer-of-code",
+          "academicYearOffset": -2,
+          "termNum": 2,
+          "verified": true
+        },
+        {
+          "slug": "acm-manoa",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "hacc",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "icspark",
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "verified": true
+        },
+        {
+          "slug": "acm-manoa",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "verified": true
+        },
+        {
+          "slug": "acm-manoa",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "gen-cyber-internship",
+          "academicYearOffset": -1,
+          "termNum": 2,
+          "verified": true
+        },
+        {
+          "slug": "hacc",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "acm-manoa",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "verified": true
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "username": "dora4@hawaii.edu",
+      "courses": [
+        {
+          "slug" : "ics_111",
+          "academicYearOffset": -4,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_141",
+          "academicYearOffset": -4,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_211",
+          "academicYearOffset": -3,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_241",
+          "academicYearOffset": -3,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_311",
+          "academicYearOffset": -3,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_314",
+          "academicYearOffset": -3,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_212",
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_321",
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_313",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_331",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_332",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_464",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_431",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_425",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_426",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug" : "ics_414",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "grade": "B+"
+        }
+      ],
+      "opportunities": [
+        {
+          "slug": "acm-manoa",
+          "academicYearOffset": -4,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "acm-manoa",
+          "academicYearOffset": -3,
+          "termNum": 1,
+          "verified": true
+        },
+        {
+          "slug": "google-summer-of-code",
+          "academicYearOffset": -3,
+          "termNum": 2,
+          "verified": true
+        },
+        {
+          "slug": "acm-manoa",
+          "academicYearOffset": -3,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "hacc",
+          "academicYearOffset": -3,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "acm-manoa",
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "verified": true
+        },
+        {
+          "slug": "google-summer-of-code",
+          "academicYearOffset": -2,
+          "termNum": 2,
+          "verified": true
+        },
+        {
+          "slug": "acm-manoa",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "hacc",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "icspark",
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "verified": true
+        },
+        {
+          "slug": "acm-manoa",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "verified": true
+        },
+        {
+          "slug": "acm-manoa",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "gen-cyber-internship",
+          "academicYearOffset": -1,
+          "termNum": 2,
+          "verified": true
+        },
+        {
+          "slug": "hacc",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "acm-manoa",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "verified": true
+        }
+      ],
+      "reviews": []
+    },
+    {
       "username": "ella@hawaii.edu",
       "courses": [
         {
