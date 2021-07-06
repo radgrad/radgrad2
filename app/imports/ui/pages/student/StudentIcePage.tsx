@@ -77,8 +77,8 @@ export default withTracker(() => {
   const earnedICE: Ice = StudentProfiles.getEarnedICE(username);
   const projectedICE: Ice = StudentProfiles.getProjectedICE(username);
   const profileInterests: ProfileInterest[] = ProfileInterests.findNonRetired({ userID: studentID });
-  const profileCourses: ProfileCourse[] = ProfileCourses.findNonRetired({ studentID });
-  const profileOpportunities: ProfileOpportunity[] = ProfileOpportunities.findNonRetired({ studentID });
+  const profileCourses: ProfileCourse[] = ProfileCourses.findNonRetired({ userID: studentID });
+  const profileOpportunities: ProfileOpportunity[] = ProfileOpportunities.findNonRetired({ userID: studentID });
   const courseInstances: CourseInstance[] = CourseInstances.findNonRetired({ studentID });
   const opportunityInstances: OpportunityInstance[] = OpportunityInstances.findNonRetired({ studentID });
   return {

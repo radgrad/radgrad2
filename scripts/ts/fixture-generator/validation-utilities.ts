@@ -10,7 +10,7 @@ const validateCareerGoalsAndInterests = (profile: Doc, interests: RadGradCollect
   });
   profile.careerGoals.forEach((slug) => {
     if (!careerGoals.isDefinedSlug(slug)) {
-      throw new Error(`${slug} is not a defined CareeerGoal.`);
+      throw new Error(`${slug} is not a defined CareerGoal.`);
     }
   });
 };

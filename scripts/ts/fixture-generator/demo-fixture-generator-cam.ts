@@ -1,14 +1,15 @@
 import { program } from 'commander';
 import * as fs from 'fs';
 import moment from 'moment';
+import inquirer from 'inquirer';
 import { getCollectionData, getNonRetiredCollectionData } from '../data-dump-utils';
 import AcademicTermCollection from './AcademicTermCollection';
 import { generateCourseInstance } from './course-instance-utilities';
 import { InternshipDefine } from './internship-utilities';
 import { generateOpportunityInstance, OpportunityInstance } from './opportunity-instance-utilities';
 import RadGradCollection, { RadGradCollectionName } from './RadGradCollection';
-import { StudentConfig } from './user-config-file';
 import { generateReview } from './review-utilities';
+import { StudentConfig } from './user-config-file';
 import { validateFixture } from './validation-utilities';
 import { generateVerificationRequest } from './verification-request-utilities';
 
@@ -38,7 +39,19 @@ export interface IDataDump {
 }
 
 const databaseFileDateFormat = 'YYYY-MM-DD-HH-mm-ss';
-const copyCollectionNames = [RadGradCollectionName.ACADEMIC_TERMS, RadGradCollectionName.ADMIN_PROFILES, RadGradCollectionName.ADVISOR_PROFILES, RadGradCollectionName.CAREER_GOALS, RadGradCollectionName.COURSES, RadGradCollectionName.FACULTY_PROFILES, RadGradCollectionName.INTERESTS, RadGradCollectionName.INTEREST_TYPES, RadGradCollectionName.OPPORTUNITIES, RadGradCollectionName.OPPORTUNITY_TYPES, RadGradCollectionName.TEASERS];
+const copyCollectionNames = [
+  RadGradCollectionName.ACADEMIC_TERMS,
+  RadGradCollectionName.ADMIN_PROFILES,
+  RadGradCollectionName.ADVISOR_PROFILES,
+  RadGradCollectionName.CAREER_GOALS,
+  RadGradCollectionName.COURSES,
+  RadGradCollectionName.FACULTY_PROFILES,
+  RadGradCollectionName.INTERESTS,
+  RadGradCollectionName.INTEREST_TYPES,
+  RadGradCollectionName.OPPORTUNITIES,
+  RadGradCollectionName.OPPORTUNITY_TYPES,
+  RadGradCollectionName.TEASERS,
+];
 
 const buildCourseInstanceCollection = (studentConfig: StudentConfig, academicTerms: AcademicTermCollection, courses: RadGradCollection): ICollection => {
   const result = {
@@ -190,7 +203,8 @@ const createFixture = (radgradDump: IDataDump, studentConfig: StudentConfig, aca
     if (copyCollectionNames.includes(coll.name)) {
       // eslint-disable-next-line no-param-reassign
       coll.contents = coll.contents.filter((doc) => !doc.retired); // We don't want retired items.
-      if (coll.name === RadGradCollectionName.FACULTY_PROFILES || coll.name === RadGradCollectionName.ADVISOR_PROFILES) { // Ensure advisors, faculty have profileCourses and profileOpportunities
+      if (coll.name === RadGradCollectionName.FACULTY_PROFILES || coll.name === RadGradCollectionName.ADVISOR_PROFILES) {
+        // Ensure advisors, faculty have profileCourses and profileOpportunities
         coll.contents.forEach((profile) => {
           if (!profile.profileOpportunities) {
             // eslint-disable-next-line no-param-reassign
@@ -247,7 +261,17 @@ const createFixture = (radgradDump: IDataDump, studentConfig: StudentConfig, aca
   return result;
 };
 
-async function generateDemoFixture(radgradDumpFile, userConfigFile, internshipFile) {
+async function generateDemoFixture(userConfigFile, internshipFile) {
+  const questions = [
+    {
+      name: 'radgradTimestamp',
+      type: 'input',
+      message: 'Enter the RadGrad data dump timestamp YYYY-MM-DD-HH-mm-SS:',
+      validate: (value) => (value.length ? true : 'Please enter the timestamp'),
+    },
+  ];
+  const userParams = await inquirer.prompt(questions);
+  const radgradDumpFile = `radgrad-db/${userParams.radgradTimestamp}.json`;
   console.log('generateDemoFixture', radgradDumpFile, userConfigFile, internshipFile);
   const fixtureFileName = `data/${moment().format(databaseFileDateFormat)}.json`;
   console.log(fixtureFileName);
@@ -264,12 +288,11 @@ async function generateDemoFixture(radgradDumpFile, userConfigFile, internshipFi
 }
 
 program
-  .arguments('<radgradDumpFile> <userConfigFile> <internshipFile>')
-  .description('Creates a demo fixture file based upon the RadGrad dump file and a user config file.', {
-    radgradDumpFile: 'A pre-existing RadGrad2 database dump file',
+  .arguments('<userConfigFile> <internshipFile>')
+  .description('Creates a demo fixture file based upon the RadGrad data dump file, a user config file and an internship file.', {
     userConfigFile: 'A pre-existing user configuration file',
     internshipFile: 'A pre-existing internship file in the canonical format',
   })
-  .action((radgradDumpFile, userConfigFile, internshipFile) => generateDemoFixture(radgradDumpFile, userConfigFile, internshipFile));
+  .action((userConfigFile, internshipFile) => generateDemoFixture(userConfigFile, internshipFile));
 
 program.parse(process.argv);

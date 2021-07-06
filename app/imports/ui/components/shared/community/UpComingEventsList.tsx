@@ -5,9 +5,9 @@ import OpportunityLabel from '../label/OpportunityLabel';
 import { getSlugFromEntityID } from '../../landing/utilities/helper-functions';
 import RadGradHeader from '../RadGradHeader';
 
-interface UpComingEventsCardProps {
+interface UpComingEventsListProps {
   event: {
-    id: string,
+    OpportunityID: string,
     name: string,
     picture: string,
     date: string,
@@ -18,21 +18,21 @@ interface UpComingEventsCardProps {
   userID: string,
 }
 
-const UpComingEventsCard: React.FC<UpComingEventsCardProps> = ({ event, plannerOppIDs, userID }) => {
+const UpComingEventsList: React.FC<UpComingEventsListProps> = ({ event, plannerOppIDs, userID }) => {
   const rowStyle = { paddingBottom: 10 };
   const titleStyle = { margin: 0 };
   return (
     <Grid.Row verticalAlign='middle'>
       <Grid.Column width={16} style={titleStyle}>
         <RadGradHeader title={`${event.label}: ${event.date}`} dividing={false}/>
-        { plannerOppIDs.includes(event.id) ? <Label attached='top right' size='small' color='green'>IN MY PLANNER</Label> : '' }
+        { plannerOppIDs.includes(event.OpportunityID) ? <Label attached='top right' size='small' color='green'>IN MY PLANNER</Label> : '' }
       </Grid.Column>
-      <Grid.Column width={2}>
-        <Image size='tiny' circular verticalAlign='middle' src={event.picture} />
+      <Grid.Column width={3}>
+        <Image size='small' circular verticalAlign='middle' src={event.picture} />
       </Grid.Column>
-      <Grid.Column width={14}>
+      <Grid.Column width={13}>
         <Grid.Row style={rowStyle}>
-          <OpportunityLabel key={event.id} userID={userID} slug={getSlugFromEntityID(event.id)} size="small" />
+          <OpportunityLabel key={event.OpportunityID} userID={userID} slug={getSlugFromEntityID(event.OpportunityID)} size="medium" />
         </Grid.Row>
         <Grid.Row style={rowStyle}>
           <InterestList item={event} size="tiny" />
@@ -42,4 +42,4 @@ const UpComingEventsCard: React.FC<UpComingEventsCardProps> = ({ event, plannerO
   );
 };
 
-export default UpComingEventsCard;
+export default UpComingEventsList;
