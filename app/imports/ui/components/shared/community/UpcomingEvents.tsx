@@ -21,7 +21,7 @@ interface UpcomingEventsProp {
   threeMonths: Date;
 }
 
-const dateFormat = (date) => moment(date).format('MM/DD/YYYY');
+const dateFormat = 'MM/DD/YYYY';
 
 const UpcomingEvents: React.FC<UpcomingEventsProp> = ({ opportunities, dayBefore, threeMonths, plannerOpportunities, userID }) => {
   const header = <RadGradHeader title='Upcoming Events' icon='calendar alternate outline' />;
@@ -36,13 +36,13 @@ const UpcomingEvents: React.FC<UpcomingEventsProp> = ({ opportunities, dayBefore
       const eventDate = opportunity[`eventDate${count}`];
       const eventLabel = opportunity[`eventDateLabel${count}`];
       if (eventDate) {
-        const temp = dateFormat(eventDate);
+        const temp = moment(eventDate);
         if (moment(temp).isBetween(dayBefore, threeMonths)) {
           eventList.push({
             OpportunityID: opportunity._id,
             name: opportunity.name,
             picture: opportunity.picture,
-            date: temp,
+            date: moment(temp).format(dateFormat),
             label: eventLabel,
             interestIDs: opportunity.interestIDs,
           });
@@ -68,12 +68,11 @@ export default withTracker(() => {
   const userID = Router.getUserIdFromRoute(match);
   const opportunities = Opportunities.findNonRetired({}).filter(opportunity => opportunity.eventDateLabel1 !== undefined || opportunity.eventDateLabel2 !== undefined || opportunity.eventDateLabel3 !== undefined || opportunity.eventDateLabel4 !== undefined );
 
-  const date = new Date();
-  const currentDate = dateFormat(date);
+  const currentDate = moment(new Date());
 
   // Finding yesterday's date and the date three months from now
-  const dayBefore = dateFormat(moment(currentDate).subtract(1, 'days'));
-  const threeMonths = dateFormat(moment(currentDate).add(3, 'months'));
+  const dayBefore = moment((currentDate).subtract(1, 'days'), dateFormat, true).format();
+  const threeMonths = moment((currentDate).add(3, 'months'), dateFormat, true).format();
 
   // Finding the academic term of yesterday and 3 months from today
   const currentTerm = AcademicTerms.getAcademicTerm(dayBefore);
