@@ -7,6 +7,7 @@ import RadGradHeader from '../RadGradHeader';
 
 interface UpComingEventsListProps {
   event: {
+    key: string,
     OpportunityID: string,
     name: string,
     picture: string,
