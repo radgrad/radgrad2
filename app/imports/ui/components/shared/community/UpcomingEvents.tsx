@@ -39,7 +39,7 @@ const UpcomingEvents: React.FC<UpcomingEventsProp> = ({ opportunities, dayBefore
         const temp = moment(eventDate);
         if (moment(temp).isBetween(dayBefore, threeMonths)) {
           eventList.push({
-            id: opportunity.name + temp,
+            id: opportunity._id + temp,
             OpportunityID: opportunity._id,
             name: opportunity.name,
             picture: opportunity.picture,
@@ -72,8 +72,8 @@ export default withTracker(() => {
   const currentDate = moment(new Date());
 
   // Finding yesterday's date and the date three months from now
-  const dayBefore = moment((currentDate).subtract(1, 'days'), dateFormat, true).format();
-  const threeMonths = moment((currentDate).add(3, 'months'), dateFormat, true).format();
+  const dayBefore = moment(currentDate).subtract(1, 'days').format();
+  const threeMonths = moment(currentDate).add(3, 'months').format();
 
   // Finding the academic term of yesterday and 3 months from today
   const currentTerm = AcademicTerms.getAcademicTerm(dayBefore);
