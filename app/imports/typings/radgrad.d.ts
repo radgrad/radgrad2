@@ -991,6 +991,22 @@ export interface Location {
   zip?: string;
 }
 
+// Internships
+export interface Internship extends Document {
+  urls: string[];
+  position: string;
+  description: string;
+  lastUploaded?: Date;
+  missedUploads?: number;
+  interests: string[];
+  careerGoals: string[];
+  company?: string;
+  location?: Location;
+  contact?: string;
+  posted?: string;
+  due?: string;
+}
+
 export interface InternshipDefine extends DumpOne {
   urls: string[];
   position: string;
