@@ -31,3 +31,17 @@ export const getInternshipsMethod = new ValidatedMethod({
  * @param {Sting} scraper the name of the scraper.
  */
 // export const getCanonicalInternshipsMethod = new ValidatedMethod({});
+
+/*
+Need a method that builds an array of the InternAloha internships. Fetch all the canonical.data.json files from InternAloha github.
+
+We then can process the array to convert them to InternshipDefines.
+  - for each InternAloha need to add interests and career goals
+  - Then produce the InternshipDefine object.
+  - Then reduce the duplicates.
+  - Then add them to the Internships collection.
+ */
+
+/*
+Need a method to check for 'old/expired' internships. Marks them appropriately.
+ */
