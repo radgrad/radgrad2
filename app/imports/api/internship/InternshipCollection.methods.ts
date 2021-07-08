@@ -20,3 +20,22 @@ export const getInternshipsMethod = new ValidatedMethod({
     }
   },
 });
+
+// function importInternships
+/*
+* Prerequisite: Should make a main function within Internaloha to combine all the scraped json files.
+* Either reads and filters out a json file imported from Internaloha or scrapes the combined json file from the github link.
+* Primary Filter will check through all the URLs for any duplicates.
+* Secondary Filter has three parameters to look at: Position, Company, and Location. Any small changes is grounds for removal.
+* Tertiary Filter checks if any of the listings is already a duplicate of current RadGrad internships and removes them from the list.
+* Passing these three walls will create a new RadGrad internship and its guid from it's time of creation.
+ */
+
+// function getTags: compares the InternAloha tags w/RadGrad's tags to determine added tags.
+
+// function relatedCareers: checks for careers based off newly added tags
+
+// function relatedInterests: checks for interests based off newly added tags
+
+// function checkRetired: compares the time of current listings posted to date.now() and determine if listing should be removed.
+
