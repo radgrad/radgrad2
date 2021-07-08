@@ -28,3 +28,5 @@ export const getInternshipsMethod = new ValidatedMethod({
 // local function getRelatedInterests which takes in the title and description and returns an array of related interests
 
 // local function getRelatedCareers which takes in the title and description and return an array of related careers
+
+// local function testURLs which will go through all of the URLS in the internship collection and make sure that they work
