@@ -22,6 +22,19 @@ export const getInternshipsMethod = new ValidatedMethod({
 });
 
 // exported function uploadInternships function which downloads the internship data JSON files and combines them into one
+/*
+  * General flow of the function
+  * Get all the listing and combine into one array
+  * Iterate over the array
+    * Check if the listing already exists in the database (call doesInternshipExist function)
+      * If yes, update the lastUploaded timestamp and add the URL to the URLs array if it doesn't already exist
+      * If not, create a new Internship
+        * call getRelatedInterests and getRelatedCareers to get an array of interests and careers for the internship
+  * Iterate over the internships in the database
+    * Check if lastUploaded equals the current date
+      * If not, Increment missedUploads and check to see if missedUploads exceeds 4 or 8
+    * Call the testURLs function to ensure that all of the URLs work
+ */
 
 // local function doesInternshipExist that checks to see if the internship is already in the database
 
