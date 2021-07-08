@@ -373,6 +373,13 @@ export interface ProfileInterest extends Document {
   retired: boolean;
 }
 
+export interface ProfileInternshipDefine extends DumpOne {
+  internship: string;
+  username: string;
+  share?: boolean;
+  retired?: boolean;
+}
+
 export interface ProfileOpportunityDefine extends DumpOne {
   opportunity: string;
   username: string;
