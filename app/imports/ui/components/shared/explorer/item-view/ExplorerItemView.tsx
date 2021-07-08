@@ -24,7 +24,7 @@ interface ExplorerItemViewProps {
   internships: Internship[],
 }
 
-const ExplorerItemView: React.FC<ExplorerItemViewProps> = ({ profile, item, courses, opportunities, explorerType, interestTypes, interests }) => {
+const ExplorerItemView: React.FC<ExplorerItemViewProps> = ({ profile, item, courses, opportunities, explorerType, interestTypes, interests, internships }) => {
   const teaser = Teasers.findNonRetired({ targetSlugID: item.slugID });
   const hasTeaser = teaser.length > 0;
   const isNotStudent = profile.role !== ROLE.STUDENT;
