@@ -20,3 +20,11 @@ export const getInternshipsMethod = new ValidatedMethod({
     }
   },
 });
+
+// exported function uploadInternships function which downloads the internship data JSON files and combines them into one
+
+// local function doesInternshipExist that checks to see if the internship is already in the database
+
+// local function getRelatedInterests which takes in the title and description and returns an array of related interests
+
+// local function getRelatedCareers which takes in the title and description and return an array of related careers
