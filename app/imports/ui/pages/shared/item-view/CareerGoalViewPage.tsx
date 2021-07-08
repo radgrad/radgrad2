@@ -7,10 +7,12 @@ import {
   CareerGoal,
   ProfileCareerGoal,
   Profile,
-  Opportunity, Course, Interest,
+  Opportunity, Course, Interest, Internship,
 } from '../../../../typings/radgrad';
 import { PAGEIDS } from '../../../utilities/PageIDs';
 import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
+import { getInternshipsMethod } from '../../../../api/internship/InternshipCollection.methods';
+import { ClientSideInternships } from '../../../../startup/client/collections';
 import { Users } from '../../../../api/user/UserCollection';
 import { ProfileCareerGoals } from '../../../../api/user/profile-entries/ProfileCareerGoalCollection';
 import { Courses } from '../../../../api/course/CourseCollection';
@@ -32,6 +34,7 @@ interface CareerGoalViewPageProps {
   profile: Profile;
   courses: Course[];
   interests: Interest[];
+  internships: Internship[];
 }
 
 const CareerGoalViewPage: React.FC<CareerGoalViewPageProps> = ({
@@ -41,6 +44,7 @@ const CareerGoalViewPage: React.FC<CareerGoalViewPageProps> = ({
   courses,
   opportunities,
   interests,
+  internships,
 }) => {
   const careerGoalID = careerGoal._id;
   const relatedCourses = getAssociationRelatedCourses(CareerGoals.findRelatedCourses(careerGoalID), profile.userID);
@@ -60,7 +64,7 @@ const CareerGoalViewPage: React.FC<CareerGoalViewPageProps> = ({
             <RelatedOpportunities relatedOpportunities={relatedOpportunities} profile={profile} />
           </Grid.Column>
           <Grid.Column width={11}>
-            <ExplorerItemView profile={profile} item={careerGoal} opportunities={opportunities} courses={courses}
+            <ExplorerItemView profile={profile} item={careerGoal} opportunities={opportunities} courses={courses} internships={internships}
               explorerType={EXPLORER_TYPE.CAREERGOALS} interests={interests} />
           </Grid.Column>
         </Grid.Row>
@@ -72,6 +76,17 @@ const CareerGoalViewPage: React.FC<CareerGoalViewPageProps> = ({
 export default withTracker(() => {
   const { careergoal, username } = useParams();
   const profile = Users.getProfile(username);
+  const studentID = profile.userID;
+  getInternshipsMethod.callPromise({ studentID })
+    .then(result => {
+      // console.log(result);
+      result.forEach((internship) => {
+        if (ClientSideInternships.find({ _id: internship._id }).fetch().length === 0) { // stop duplicate inserts
+          ClientSideInternships.insert(internship);
+        }
+      });
+    });
+  const internships = ClientSideInternships.find().fetch();
   const profileCareerGoals = ProfileCareerGoals.findNonRetired({ userID: profile.userID });
   const careerGoalDoc = CareerGoals.findDocBySlug(careergoal);
   const courses = Courses.findNonRetired({});
@@ -84,5 +99,6 @@ export default withTracker(() => {
     opportunities,
     profile,
     interests,
+    internships,
   };
 })(CareerGoalViewPage);
