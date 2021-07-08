@@ -39,6 +39,7 @@ import LandingInterestsExplorerPage from '../../pages/landing/LandingInterestsEx
 import LandingInterestExplorerPage from '../../pages/landing/LandingInterestExplorerPage';
 import LandingOpportunitiesExplorerPage from '../../pages/landing/LandingOpportunitiesExplorerPage';
 import LandingOpportunityExplorerPage from '../../pages/landing/LandingOpportunityExplorerPage';
+import ManageInternshipsPage from '../../pages/shared/ManageInternshipsPage';
 import ManageOpportunitiesPage from '../../pages/shared/ManageOpportunitiesPage';
 import ManageReviewsPage from '../../pages/shared/ManageReviewsPage';
 import ManageVerificationsPage from '../../pages/shared/ManageVerificationsPage';
@@ -124,6 +125,7 @@ export const routes = {
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${MANAGE.STUDENTS}`, component: AdvisorManageStudentsPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${MANAGE.REVIEWS}`, component: ManageReviewsPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${MANAGE.VERIFICATION}`, component: ManageVerificationsPage  },
+    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${MANAGE.INTERNSHIPS}`, component: ManageInternshipsPage  },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${TERMS_AND_CONDITIONS}`, component: TermsAndConditionsPage },
 
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${VISIBILITY}`, component: VisibilityPage },

@@ -43,6 +43,7 @@ const AdminPageMenu: React.FC = () => {
     { label: 'Verification', route: MANAGE.VERIFICATION },
     { label: 'Reviews', route: MANAGE.REVIEWS },
     { label: 'Database', route: MANAGE.DATABASE },
+    { label: 'Internships', route: MANAGE.INTERNSHIPS },
   ];
 
   const datamodelDropdownItems = [

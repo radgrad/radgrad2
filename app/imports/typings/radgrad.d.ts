@@ -1047,3 +1047,19 @@ export interface InternshipUpdateData extends Update {
   posted?: string;
   due?: string;
 }
+
+export interface InternshipCanonical {
+  url: string;
+  position: string;
+  company: string;
+  location: Location;
+  posted: string;
+  lastScraped: string;
+  description: string;
+  contact?: string;
+  due?: string;
+  compensation?: string;
+  skills?: string[];
+  qualifications?: string;
+
+}

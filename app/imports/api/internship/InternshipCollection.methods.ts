@@ -3,6 +3,11 @@ import { CallPromiseMixin } from 'meteor/didericis:callpromise-mixin';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { Internships } from './InternshipCollection';
 
+/**
+ * Method for getting the internships that match the student's interests, career goals, etc.
+ * @param {String} studentID the student's userID.
+ * @type {module:meteor/mdg.validated-method.ValidatedMethod}
+ */
 export const getInternshipsMethod = new ValidatedMethod({
   name: 'internship.get',
   mixins: [CallPromiseMixin],
@@ -20,3 +25,9 @@ export const getInternshipsMethod = new ValidatedMethod({
     }
   },
 });
+
+/**
+ * Method for getting canonical internships from InternAloha.
+ * @param {Sting} scraper the name of the scraper.
+ */
+// export const getCanonicalInternshipsMethod = new ValidatedMethod({});
