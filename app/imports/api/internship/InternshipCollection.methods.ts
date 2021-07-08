@@ -34,5 +34,5 @@ export const getInternshipsMethod = new ValidatedMethod({
 // a function that gets the career related to the internship and returns it
 
 // function: checkInternURL()
-// a function that checks whether the URL of that specific internship exists or is funcitional 
+// a function that checks whether the URL of that specific internship exists or is funcitional
 
