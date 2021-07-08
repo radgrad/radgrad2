@@ -78,7 +78,6 @@ const TermsAndConditionsPage: React.FC = () => {
         updateData.refusedTermsAndConditions = moment().format('YYYY-MM-DD');
         updateMethod.callPromise({ collectionName, updateData })
           .catch((error) => console.error('Failed to update refusedTermsAndConditions', error));
-        urlUser.getChecklistItem();
         const disagreePath = '/signout-refused';
         rejectHistory.push(disagreePath);
       }

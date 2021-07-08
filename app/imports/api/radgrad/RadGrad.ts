@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { AcademicYearInstances } from '../degree-plan/AcademicYearInstanceCollection';
+import { Internships } from '../internship/InternshipCollection';
 import { AdminProfiles } from '../user/AdminProfileCollection';
 import { AdvisorProfiles } from '../user/AdvisorProfileCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
@@ -55,6 +56,7 @@ class RadGradClass {
       ProfileOpportunities,
       Interests,
       InterestTypes,
+      Internships,
       Opportunities,
       OpportunityInstances,
       OpportunityTypes,
@@ -97,6 +99,7 @@ class RadGradClass {
       ProfileCourses,
       ProfileInterests,
       ProfileOpportunities,
+      Internships,
     ];
 
     /**

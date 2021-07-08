@@ -83,10 +83,10 @@ const UpdateUserForm: React.FC<UpdateUserProps> = ({
   if (model.declaredAcademicTermID) {
     model.declaredAcademicTerm = academicTermIdToName(model.declaredAcademicTermID);
   }
-  const profileCourses = ProfileCourses.find({ studentID: userID }).fetch();
+  const profileCourses = ProfileCourses.find({ userID }).fetch();
   const courseIDs = profileCourses.map((p) => p.courseID);
   model.courses = courseIDs.map(courseIdToName);
-  const profileOpps = ProfileOpportunities.find({ studentID: userID }).fetch();
+  const profileOpps = ProfileOpportunities.find({ userID }).fetch();
   const oppIDs = profileOpps.map((p) => p.opportunityID);
   model.opportunities = oppIDs.map(opportunityIdToName);
   const interestNames = interests.map(docToName);

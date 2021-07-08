@@ -6,6 +6,7 @@ import '../../api/base/BaseCollection.methods';
 import '../../api/course/CourseCollection.methods';
 import '../../api/email/Email.methods';
 import '../../api/integrity/IntegrityChecker.methods';
+import '../../api/internship/InternshipCollection.methods';
 import '../../api/level/LevelProcessor.methods';
 import '../../api/star/StarProcessor.methods';
 import '../../api/user/BaseProfileCollection.methods';
