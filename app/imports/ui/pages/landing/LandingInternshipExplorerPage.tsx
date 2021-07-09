@@ -1,5 +1,6 @@
 import React from 'react';
 import { useRouteMatch } from 'react-router';
+import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { CareerGoal, Course, Interest, Internship, Opportunity } from '../../../typings/radgrad';
 import LandingExplorerMenuBar from '../../components/landing/explorer/LandingExplorerMenuBar';
 import PageLayout from '../PageLayout';
