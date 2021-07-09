@@ -20,3 +20,13 @@ export const getInternshipsMethod = new ValidatedMethod({
     }
   },
 });
+
+/*
+ * Function for addressing duplications
+ * checks new internships with existing ones based on the position, company, and possibly description.
+ *
+ * Function for finding related Interests and Career Goals
+ * looks through the description  (skills property) and see if anything matches with currently Interests. Then form related Career Goals based on the Interests matches.
+ */
+
+
