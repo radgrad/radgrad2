@@ -210,8 +210,6 @@ export const profileGetInterests = (profile) => {
 
 export const profileGetInterestIDs = (profile) => profileGetInterests(profile).map((p) => p._id);
 
-export const profileGetInterestSlugs = (profile) => profileGetInterests(profile).map((p) => p.slug);
-
 export const profileToFullName = (profile) => Users.getFullName(profile.userID);
 
 export const profileToName = (profile) => `${profileToFullName(profile)} (${profile.username})`;

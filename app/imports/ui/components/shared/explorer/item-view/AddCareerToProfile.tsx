@@ -20,15 +20,19 @@ export interface AddCareerToProfileProps {
   profile: Profile;
 }
 
+function refreshPage() {
+  setTimeout(()=>{
+    window.location.reload(false);
+  }, 1000);
+}
+
 const handleAdd = (userID: string, item: CareerGoal, type: IProfileEntryTypes, interestList: string[]) => {
   let collectionName = getCollectionName(PROFILE_ENTRY_TYPE.INTEREST);
   let definitionData;
   interestList.forEach((interest) => {
     const interestItem: Interest = Interests.findDocBySlug(interest);
     definitionData = createDefinitionData(userID, interestItem, PROFILE_ENTRY_TYPE.INTEREST);
-    defineMethod.callPromise({ collectionName, definitionData })
-      .catch((error: MeteorError) => { RadGradAlert.failure('Failed to add to profile', error.message);})
-      .then(() => { RadGradAlert.success('Added to profile');});
+    defineMethod.callPromise({ collectionName, definitionData });
   });
 
   collectionName = getCollectionName(type);
@@ -36,7 +40,7 @@ const handleAdd = (userID: string, item: CareerGoal, type: IProfileEntryTypes, i
   defineMethod.callPromise({ collectionName, definitionData })
     .catch((error: MeteorError) => { RadGradAlert.failure('Failed to add to profile', error.message);})
     .then(() => { RadGradAlert.success('Added to profile');});
-  window.location.reload();
+  refreshPage();
 };
 
 const handleRemove = (userID: string, item: CareerGoal, type: IProfileEntryTypes) => {
@@ -58,21 +62,27 @@ const handleRemove = (userID: string, item: CareerGoal, type: IProfileEntryTypes
 };
 
 const AddCareerToProfile: React.FC<AddCareerToProfileProps> = ({ userID, profile, careerGoal, type, added, inverted, floated }) => {
+  const centerStyle = { textAlign: 'center' };
+  const paddingStyle = { paddingLeft: 20, paddingTop: 5, paddingBottom: 5 };
   const [open, setOpen] = useState(false);
-  const interestList: Array<string> = [ ];
+  let interestList: Array<string> = [ ];
 
   const onChangeCheckbox = (evt, data) => {
-    if (data.checked) {
-      interestList.push(data.label);
-    }
+    data.checked ? interestList.push(data.label) : interestList = interestList.filter(label => label !== data.label);
   };
 
 
   const interestSlugs = careerGoal.interestIDs.map((id) => Interests.findSlugByID(id)).sort();
-  console.log(interestSlugs);
-  const profileInterest = profileGetInterestIDs(profile);
-  console.log(profileInterest);
-
+  const profileInterestSlugs = profileGetInterestIDs(profile).map((id) => Interests.findSlugByID(id));
+  const interestInclude = [];
+  interestSlugs.map((slug) => {
+    if (profileInterestSlugs.includes(slug)) {
+      interestInclude.push({ 'slug': slug, 'include': false, 'disable': true });
+    } else {
+      interestInclude.push({ 'slug': slug, 'include': true, 'disable': false });
+      interestList.push(slug);
+    }
+  });
 
   return (
     <React.Fragment>
@@ -96,25 +106,26 @@ const AddCareerToProfile: React.FC<AddCareerToProfileProps> = ({ userID, profile
             ADD TO PROFILE
           </Button>}>
           <Modal.Header>Adding The Career To Profile</Modal.Header>
-          <Modal.Description textAlign = 'center'>
+          <Modal.Description style={paddingStyle}>
             <p> Adding this Career Goal will automatically add the following new Interests to your profile.<br/>
               If you are OK with that, just press OK. </p>
             <Form>
-              <Form.Group widths={2}>
-                {interestSlugs.map((slug, index) =>
+              <Form.Group style={centerStyle}>
+                {interestInclude.map((o, index) =>
                   <Form.Checkbox
-                    id={`id_${slug}`}
-                    key={`${slug}-checkbox`}
+                    id={`id_${o.slug}`}
+                    key={`${o.slug}-checkbox`}
                     label={`${interestSlugs[index]}`}
-                    defaultChecked={false}
+                    defaultChecked={o.include}
+                    disabled={o.disable}
                     onClick={(evt, data)=>onChangeCheckbox(evt, data)}/>)}
               </Form.Group>
             </Form>
           </Modal.Description>
           <Modal.Actions>
             <br/>
-            <Grid textAlign = 'center'>
-              <Button id={COMPONENTIDS.ADD_TO_PROFILE_BUTTON} size="small" onClick={() => handleAdd(userID, careerGoal, type, interestList)} color="teal" basic>
+            <Grid style={paddingStyle}>
+              <Button id={COMPONENTIDS.ADD_TO_PROFILE_BUTTON} size="small" onClick={() => handleAdd(userID, careerGoal, type, interestList)} color="teal" >
                 <Icon name="user" color="grey"/>
                 <Icon name="plus" />
                 ADD TO PROFILE
