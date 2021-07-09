@@ -3,7 +3,7 @@ import { Button, Icon, Modal, SemanticFLOATS, Grid, Form } from 'semantic-ui-rea
 import { defineMethod, removeItMethod } from '../../../../../api/base/BaseCollection.methods';
 import { Interests } from '../../../../../api/interest/InterestCollection';
 import RadGradAlert from '../../../../utilities/RadGradAlert';
-import { CareerGoal, MeteorError } from '../../../../../typings/radgrad';
+import { CareerGoal, Interest, MeteorError } from '../../../../../typings/radgrad';
 import { ProfileCareerGoals } from '../../../../../api/user/profile-entries/ProfileCareerGoalCollection';
 import { PROFILE_ENTRY_TYPE, IProfileEntryTypes } from '../../../../../api/user/profile-entries/ProfileEntryTypes';
 import { COMPONENTIDS } from '../../../../utilities/ComponentIDs';
@@ -18,12 +18,23 @@ export interface AddCareerToProfileProps {
   floated?: SemanticFLOATS;
 }
 
-const handleAdd = (userID: string, item: CareerGoal, type: IProfileEntryTypes) => {
-  const collectionName = getCollectionName(type);
-  const definitionData = createDefinitionData(userID, item, type);
+const handleAdd = (userID: string, item: CareerGoal, type: IProfileEntryTypes, interestList: string[]) => {
+  let collectionName = getCollectionName(PROFILE_ENTRY_TYPE.INTEREST);
+  let definitionData;
+  interestList.forEach((interest) => {
+    const interestItem: Interest = Interests.findDocBySlug(interest);
+    definitionData = createDefinitionData(userID, interestItem, PROFILE_ENTRY_TYPE.INTEREST);
+    defineMethod.callPromise({ collectionName, definitionData })
+      .catch((error: MeteorError) => { RadGradAlert.failure('Failed to add to profile', error.message);})
+      .then(() => { RadGradAlert.success('Added to profile');});
+  });
+
+  collectionName = getCollectionName(type);
+  definitionData = createDefinitionData(userID, item, type);
   defineMethod.callPromise({ collectionName, definitionData })
     .catch((error: MeteorError) => { RadGradAlert.failure('Failed to add to profile', error.message);})
     .then(() => { RadGradAlert.success('Added to profile');});
+  window.location.reload();
 };
 
 const handleRemove = (userID: string, item: CareerGoal, type: IProfileEntryTypes) => {
@@ -44,13 +55,15 @@ const handleRemove = (userID: string, item: CareerGoal, type: IProfileEntryTypes
     .catch((error) => { RadGradAlert.failure('Failed to remove from profile', error.message, error);});
 };
 
-const onChangeCheckbox = (evt, data) => {
-  const checked = data.checked;
-  console.log(checked);
-};
-
 const AddCareerToProfile: React.FC<AddCareerToProfileProps> = ({ userID, careerGoal, type, added, inverted, floated }) => {
   const [open, setOpen] = useState(false);
+  const interestList: Array<string> = [ ];
+
+  const onChangeCheckbox = (evt, data) => {
+    if (data.checked) {
+      interestList.push(data.label);
+    }
+  };
 
 
   const interestSlugs = careerGoal.interestIDs.map((id) => Interests.findSlugByID(id)).sort();
@@ -89,7 +102,7 @@ const AddCareerToProfile: React.FC<AddCareerToProfileProps> = ({ userID, careerG
           <Modal.Actions>
             <br/>
             <Grid textAlign = 'center'>
-              <Button id={COMPONENTIDS.ADD_TO_PROFILE_BUTTON} size="small" onClick={() => handleAdd(userID, careerGoal, type)} color="teal" basic>
+              <Button id={COMPONENTIDS.ADD_TO_PROFILE_BUTTON} size="small" onClick={() => handleAdd(userID, careerGoal, type, interestList)} color="teal" basic>
                 <Icon name="user" color="grey"/>
                 <Icon name="plus" />
                 ADD TO PROFILE
