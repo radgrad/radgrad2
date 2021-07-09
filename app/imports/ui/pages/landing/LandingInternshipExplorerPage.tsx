@@ -30,8 +30,8 @@ const LandingInternshipExplorerPage: React.FC<InternshipExplorerProps> = ({ curr
             <Grid.Column width={3}>
               <LandingExplorerMenuContainer />
             </Grid.Column>
-
           </Grid.Row>
+          <Grid.Column width={13}/>
         </Grid>
       </PageLayout>
     </div>
