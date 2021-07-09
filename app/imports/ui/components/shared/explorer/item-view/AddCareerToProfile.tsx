@@ -108,7 +108,7 @@ const AddCareerToProfile: React.FC<AddCareerToProfileProps> = ({ userID, profile
           <Modal.Header>Adding The Career To Profile</Modal.Header>
           <Modal.Description style={paddingStyle}>
             <p> Adding this Career Goal will automatically add the following new Interests to your profile.<br/>
-              If you are OK with that, just press OK. </p>
+              If you are OK with that, just press ADD TO PROFILE. </p>
             <Form>
               <Form.Group style={centerStyle}>
                 {interestInclude.map((o, index) =>
