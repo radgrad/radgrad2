@@ -3,11 +3,12 @@ import { Button, Icon, Modal, SemanticFLOATS, Grid, Form } from 'semantic-ui-rea
 import { defineMethod, removeItMethod } from '../../../../../api/base/BaseCollection.methods';
 import { Interests } from '../../../../../api/interest/InterestCollection';
 import RadGradAlert from '../../../../utilities/RadGradAlert';
-import { CareerGoal, Interest, MeteorError } from '../../../../../typings/radgrad';
+import { CareerGoal, Interest, MeteorError, Profile } from '../../../../../typings/radgrad';
 import { ProfileCareerGoals } from '../../../../../api/user/profile-entries/ProfileCareerGoalCollection';
 import { PROFILE_ENTRY_TYPE, IProfileEntryTypes } from '../../../../../api/user/profile-entries/ProfileEntryTypes';
 import { COMPONENTIDS } from '../../../../utilities/ComponentIDs';
 import { createDefinitionData, getCollectionName } from './utilities/profile-button';
+import { profileGetInterestIDs } from '../../utilities/data-model';
 
 export interface AddCareerToProfileProps {
   careerGoal: CareerGoal;
@@ -16,6 +17,7 @@ export interface AddCareerToProfileProps {
   added: boolean;
   inverted: boolean;
   floated?: SemanticFLOATS;
+  profile: Profile;
 }
 
 const handleAdd = (userID: string, item: CareerGoal, type: IProfileEntryTypes, interestList: string[]) => {
@@ -55,7 +57,7 @@ const handleRemove = (userID: string, item: CareerGoal, type: IProfileEntryTypes
     .catch((error) => { RadGradAlert.failure('Failed to remove from profile', error.message, error);});
 };
 
-const AddCareerToProfile: React.FC<AddCareerToProfileProps> = ({ userID, careerGoal, type, added, inverted, floated }) => {
+const AddCareerToProfile: React.FC<AddCareerToProfileProps> = ({ userID, profile, careerGoal, type, added, inverted, floated }) => {
   const [open, setOpen] = useState(false);
   const interestList: Array<string> = [ ];
 
@@ -67,6 +69,10 @@ const AddCareerToProfile: React.FC<AddCareerToProfileProps> = ({ userID, careerG
 
 
   const interestSlugs = careerGoal.interestIDs.map((id) => Interests.findSlugByID(id)).sort();
+  console.log(interestSlugs);
+  const profileInterest = profileGetInterestIDs(profile);
+  console.log(profileInterest);
+
 
   return (
     <React.Fragment>
@@ -95,7 +101,13 @@ const AddCareerToProfile: React.FC<AddCareerToProfileProps> = ({ userID, careerG
               If you are OK with that, just press OK. </p>
             <Form>
               <Form.Group widths={2}>
-                {interestSlugs.map((slug, index) => <Form.Checkbox id={`id_${slug}`} key={`${slug}-checkbox`} label={`${interestSlugs[index]}`} onClick={(evt, data)=>onChangeCheckbox(evt, data)}/>)}
+                {interestSlugs.map((slug, index) =>
+                  <Form.Checkbox
+                    id={`id_${slug}`}
+                    key={`${slug}-checkbox`}
+                    label={`${interestSlugs[index]}`}
+                    defaultChecked={false}
+                    onClick={(evt, data)=>onChangeCheckbox(evt, data)}/>)}
               </Form.Group>
             </Form>
           </Modal.Description>
