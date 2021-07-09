@@ -22,13 +22,14 @@ export const getInternshipsMethod = new ValidatedMethod({
 });
 
 // Function for addressing duplication
+// Traverse through each internship
 // Checks new internships with existing ones based on the position, company, and description.
 // If duplication is detected
 //  Add the url to the existing internship
 //  Update lastUploaded timestamp and missUploads
 
 // Function for finding related Interests and Career Goals
-// Looks through the description (skills property) and see if anything matches with currently
+// Looks through the description (skills property in Internship object) and see if anything matches with currently
 // Interests. Similar to InternAloha, we can form related Career Goals based on the Interests matches.
 
 
