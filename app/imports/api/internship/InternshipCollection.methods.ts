@@ -21,7 +21,7 @@ export const getInternshipsMethod = new ValidatedMethod({
   },
 });
 
-// Function for addressing duplication
+// Function for addressing duplication (inspiration from talk w/ Andre)
 // Traverse through each internship
 // Checks new internships with existing ones based on the position, company, and description.
 // If duplication is detected
