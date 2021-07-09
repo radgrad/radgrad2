@@ -41,6 +41,7 @@ export enum PAGEIDS {
   LANDING_HOME = 'landing-home-page',
   LANDING_INTEREST_EXPLORER = 'landing-interest-explorer-page',
   LANDING_INTERESTS_EXPLORER = 'landing-interests-explorer-page',
+  LANDING_INTERNSHIP_EXPLORER = 'landing-internship-explorer-page',
   LANDING_OPPORTUNITIES_EXPLORER = 'landing-opportunities-explorer-page',
   LANDING_OPPORTUNITY_EXPLORER = 'landing-opportunity-explorer-page',
 
