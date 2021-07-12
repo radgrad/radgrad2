@@ -51,13 +51,15 @@ const SigninPage: React.FC = () => {
   const userId = Meteor.userId();
   let pathname = '';
   if (Roles.userIsInRole(userId, [ROLE.ADMIN])) {
-    pathname = `/admin/${username}/home`;
+    pathname = `/${ROLE.ADMIN.toLowerCase()}/${username}/home`;
   } else if (Roles.userIsInRole(userId, [ROLE.ADVISOR])) {
-    pathname = `/advisor/${username}/home`;
+    pathname = `/${ROLE.ADVISOR.toLowerCase()}/${username}/home`;
   } else if (Roles.userIsInRole(userId, [ROLE.FACULTY])) {
-    pathname = `/faculty/${username}/home`;
+    pathname = `/${ROLE.FACULTY.toLowerCase()}/${username}/home`;
   } else if (Roles.userIsInRole(userId, [ROLE.STUDENT])) {
-    pathname = `/student/${username}/home`;
+    pathname = `/${ROLE.STUDENT.toLowerCase()}/${username}/home`;
+  } else if (Roles.userIsInRole(userId, [ROLE.ALUMNI])) {
+    pathname = `/${ROLE.ALUMNI.toLowerCase()}/${username}/home`;
   }
   const { from } = { from: { pathname } };
   // if correct authentication, redirect to page instead of login screen
