@@ -10,6 +10,7 @@ const ExplorerButtons: React.FC = () => (
         <Dropdown.Item id={COMPONENTIDS.LANDING_INTERESTS_EXPLORER} text='Interests' href="/#/explorer/interests" />
         <Dropdown.Item id={COMPONENTIDS.LANDING_COURSES_EXPLORER} text='Courses' href="/#/explorer/courses" />
         <Dropdown.Item id={COMPONENTIDS.LANDING_OPPORTUNITIES_EXPLORER} text='Opportunities' href="/#/explorer/opportunities" />
+        <Dropdown.Item id={COMPONENTIDS.LANDING_INTERNSHIPS_EXPLORER} text='Internships' href="/#/explorer/internships" />
       </Dropdown.Menu>
     </Dropdown>
   </Button>
