@@ -6,7 +6,7 @@ import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
 import LandingExplorerMenuBar from '../../components/landing/explorer/LandingExplorerMenuBar';
 
 interface InternshipCardExplorerProps  {
-  internship: Internship[];
+  internships: Internship[];
   count: number;
 }
 
@@ -17,3 +17,6 @@ Registered users can add Internships to their profile which enables RadGrad to i
 
 This page provides an overview of the Internships currently available in RadGrad. 
 `;
+const headerPaneImage = 'images/header-panel/header-internships.png';
+
+const LandingInternshipExplorerPage: React.FC<InternshipCardExplorerProps> = ({})
