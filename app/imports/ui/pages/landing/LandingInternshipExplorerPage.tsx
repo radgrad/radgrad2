@@ -10,6 +10,7 @@ import { Internships } from '../../../api/internship/InternshipCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
+import { ClientSideInternships } from '../../../startup/client/collections';
 import { CareerGoal, Course, Interest, Internship, Opportunity } from '../../../typings/radgrad';
 import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
 import LandingExplorerMenuBar from '../../components/landing/explorer/LandingExplorerMenuBar';
@@ -17,6 +18,7 @@ import RadGradHeader from '../../components/shared/RadGradHeader';
 import RadGradSegment from '../../components/shared/RadGradSegment';
 import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
 import * as Router from '../../components/shared/utilities/router';
+import { EXPLORER_TYPE_ICON } from '../../utilities/ExplorerUtils';
 import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 
@@ -48,6 +50,7 @@ const LandingInternshipExplorerPage: React.FC<InternshipExplorerProps> = ({ curr
               <Markdown escapeHtml source={internship.description}
                 renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}/>
             </RadGradSegment>
+            <RadGradSegment header={<RadGradHeader title='Related Interest' icon={EXPLORER_TYPE_ICON.} dividing />}/>
           </Grid.Column>
         </Grid>
       </PageLayout>
@@ -58,10 +61,10 @@ const LandingInternshipExplorerPage: React.FC<InternshipExplorerProps> = ({ curr
 const LandingInternshipExplorerContainer = withTracker(() => {
   const { internship } = useParams();
   const id = Slugs.getEntityID(internship, 'Internships');
-  const internshipDoc = Internships.findDoc(id);
+  const internships = ClientSideInternships.find().fetch();
   const careerGoals = CareerGoals.findNonRetired({ internshipIDs: id });
   return {
-    internship: internshipDoc,
+    internships,
     careerGoals,
   };
 })(LandingInternshipExplorerPage);
