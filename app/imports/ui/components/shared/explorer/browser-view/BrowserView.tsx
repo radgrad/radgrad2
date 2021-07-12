@@ -2,7 +2,8 @@ import React from 'react';
 import _ from 'lodash';
 import { Card, Grid } from 'semantic-ui-react';
 import { useRouteMatch } from 'react-router';
-import { CareerGoal, Course, Interest, Opportunity } from '../../../../../typings/radgrad';
+import { Internships } from '../../../../../api/internship/InternshipCollection';
+import { CareerGoal, Course, Interest, Opportunity, Internship } from '../../../../../typings/radgrad';
 import { useStickyState } from '../../../../utilities/StickyState';
 import ExplorerCard from './ExplorerCard';
 import Sort from './Sort';
@@ -23,7 +24,7 @@ import { ProfileCourses } from '../../../../../api/user/profile-entries/ProfileC
 import { Courses } from '../../../../../api/course/CourseCollection';
 
 interface BrowserViewProps {
-  items: CareerGoal[] | Course[] | Opportunity[] | Interest[];
+  items: CareerGoal[] | Course[] | Opportunity[] | Interest[] | Internship[];
   explorerType: EXPLORER_TYPE;
 }
 
@@ -53,6 +54,9 @@ const BrowserView: React.FC<BrowserViewProps> = ({ items, explorerType }) => {
       case EXPLORER_TYPE.COURSES:
         profileItems = ProfileCourses.findNonRetired({ userID }).map((f) => Courses.findDoc(f.courseID));
         break;
+      case EXPLORER_TYPE.INTERNSHIPS:
+        profileItems = []; // TODO: Change to ProfileInternships when collection is created
+        break;
     }
     explorerItems = profileItems;
     return explorerItems;
@@ -72,6 +76,9 @@ const BrowserView: React.FC<BrowserViewProps> = ({ items, explorerType }) => {
         break;
       case EXPLORER_TYPE.COURSES:
         explorerItems = Courses.findNonRetired().filter(md => profileItems.every(fd => fd._id !== md._id));
+        break;
+      case EXPLORER_TYPE.INTERNSHIPS:
+        explorerItems = Internships.findNonRetired().filter(md => profileItems.every(fd => fd._id !== md._id));
         break;
     }
     return explorerItems;
@@ -147,7 +154,7 @@ const BrowserView: React.FC<BrowserViewProps> = ({ items, explorerType }) => {
       break;
   }
 
-  const inProfile = (item: Interest | CareerGoal | Course | Opportunity, type: EXPLORER_TYPE) => {
+  const inProfile = (item: Interest | CareerGoal | Course | Opportunity | Internship, type: EXPLORER_TYPE) => {
     profileItems = getProfileItems(type);
     return !!profileItems.some(x => x._id === item._id);
   };

@@ -1,14 +1,15 @@
-import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
+import React from 'react';
 import { useParams } from 'react-router-dom';
-import { List } from 'semantic-ui-react';
 import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
 import { getInternshipsMethod } from '../../../../api/internship/InternshipCollection.methods';
 import { Users } from '../../../../api/user/UserCollection';
+import { ClientSideInternships } from '../../../../startup/client/collections';
 import { Internship } from '../../../../typings/radgrad';
+import BrowserView from '../../../components/shared/explorer/browser-view/BrowserView';
+import { EXPLORER_TYPE } from '../../../utilities/ExplorerUtils';
 import { PAGEIDS } from '../../../utilities/PageIDs';
 import PageLayout from '../../PageLayout';
-import { ClientSideInternships } from '../../../../startup/client/collections';
 
 interface InternshipBrowserViewPage {
   internships: Internship[];
@@ -22,11 +23,7 @@ const headerPaneImage = 'images/header-panel/header-career.png';
 
 const InternshipBrowserViewPage: React.FC<InternshipBrowserViewPage> = ({ internships }) => (
   <PageLayout id={PAGEIDS.INTERNSHIP_BROWSER} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
-    <List bulleted>
-      {internships.map((i) => (
-        <List.Item key={i._id}>{i.position}</List.Item>
-      ))}
-    </List>
+    <BrowserView items={internships} explorerType={EXPLORER_TYPE.INTERNSHIPS}/>
   </PageLayout>
 );
 

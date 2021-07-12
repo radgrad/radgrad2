@@ -14,6 +14,7 @@ export const enum EXPLORER_TYPE {
   COURSES = 'courses',
   INTERESTS = 'interests',
   OPPORTUNITIES = 'opportunities',
+  INTERNSHIPS = 'internships',
 }
 
 /** Define icon names for each explorer type */

@@ -13,6 +13,7 @@ interface ExplorerCardProps {
   item: {
     _id: string;
     name: string;
+    position?: string;
     interestIDs: string[];
     termIDs?:string[];
     slugID: string,
@@ -26,7 +27,18 @@ interface ExplorerCardProps {
 
 const ExplorerCard: React.FC<ExplorerCardProps> = ({ item, type, inProfile }) => {
   const match = useRouteMatch();
-  const itemName = (type === EXPLORER_TYPE.COURSES) ? Courses.getName(item._id) : docToName(item);
+  let itemName;
+  switch (type) {
+    case EXPLORER_TYPE.COURSES:
+      itemName = Courses.getName(item._id);
+      break;
+    case EXPLORER_TYPE.INTERNSHIPS:
+      itemName = item.position;
+      break;
+    default:
+      itemName = docToName(item);
+      break;
+  }
   const itemShortDescription = docToShortDescription(item);
   const slugName = itemToSlugName(item);
   return (

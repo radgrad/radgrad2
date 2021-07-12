@@ -23,6 +23,7 @@ const Filter: React.FC<FilterProps> = ({ explorerType }) => {
       case EXPLORER_TYPE.CAREERGOALS:
       case EXPLORER_TYPE.OPPORTUNITIES:
       case EXPLORER_TYPE.INTERESTS:
+      case EXPLORER_TYPE.INTERNSHIPS:
         allowedFilterValues = [EXPLORER_FILTER_KEYS.NONE, EXPLORER_FILTER_KEYS.INPROFILE, EXPLORER_FILTER_KEYS.NOTINPROFILE];
         break;
       case EXPLORER_TYPE.COURSES:
