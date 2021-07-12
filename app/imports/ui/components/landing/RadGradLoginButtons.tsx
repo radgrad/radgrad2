@@ -3,7 +3,6 @@ import { Meteor } from 'meteor/meteor';
 import { Link, Redirect } from 'react-router-dom';
 import { Button, Dropdown, Message, SemanticSIZES } from 'semantic-ui-react';
 import { Roles } from 'meteor/alanning:roles';
-import { Users } from '../../../api/user/UserCollection';
 import { ROLE } from '../../../api/role/Role';
 import { COMPONENTIDS } from '../../utilities/ComponentIDs';
 
@@ -24,24 +23,16 @@ const RadGradLoginButtons: React.FC<RadGradLoginButtonsProps> = ({ instanceName 
       if (error) {
         console.error('Error during CAS Login: ', error);
       } else {
-        const username = Meteor.user().username;
         const userId = Meteor.userId();
-        let role = Roles.getRolesForUser(userId)[0];
-        // console.log(username, userId, Roles.getRolesForUser(userId), role);
-        // console.log(Users.count(), Users.getProfile(userId));
-        const isStudent = role.toLowerCase() === 'student';
-        if (isStudent) {
-          const profile = Users.findProfileFromUsername(username);
-          if (profile.isAlumni) {
-            role = 'Alumni';
-          }
-        }
+        const username = Meteor.user().username;
         if (Roles.userIsInRole(userId, [ROLE.ADVISOR])) {
           setPathname(`/${ROLE.ADVISOR.toLowerCase()}/${username}/home`);
         } else if (Roles.userIsInRole(userId, [ROLE.FACULTY])) {
           setPathname(`/${ROLE.FACULTY.toLowerCase()}/${username}/home`);
         } else if (Roles.userIsInRole(userId, [ROLE.STUDENT])) {
           setPathname(`/${ROLE.STUDENT.toLowerCase()}/${username}/home`);
+        } else if (Roles.userIsInRole(userId, [ROLE.ALUMNI])) {
+          setPathname(`/${ROLE.ALUMNI.toLowerCase()}/${username}/home`);
         }
         localStorage.setItem('logoutEvent', 'false');
         setRedirectToReferer(true);

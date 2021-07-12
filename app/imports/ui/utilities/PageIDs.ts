@@ -9,6 +9,8 @@ export enum PAGEIDS {
   ADVISOR_VERIFICATIONS = 'advisor-verification-requests-page',
   ADVISOR_MODERATION = 'advisor-moderation-page',
 
+  ALUMNI_HOME = 'alumni-home-page',
+
   ANALYTICS_LOGGED_IN_USERS = 'analytics-logged-in-users-page',
   ANALYTICS_NEWSLETTER = 'analytics-newsletter-page',
   ANALYTICS_BEHAVIOR_TABLE = 'analytics-behavior-table-page',
