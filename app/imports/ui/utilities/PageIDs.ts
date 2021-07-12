@@ -43,6 +43,7 @@ export enum PAGEIDS {
   LANDING_INTERESTS_EXPLORER = 'landing-interests-explorer-page',
   LANDING_OPPORTUNITIES_EXPLORER = 'landing-opportunities-explorer-page',
   LANDING_OPPORTUNITY_EXPLORER = 'landing-opportunity-explorer-page',
+  LANDING_INTERNSHIPS_EXPLORER = 'landing-internships-explorer-page',
 
   STUDENT_DEGREE_PLANNER = 'degree-planner-page',
   STUDENT_HOME = 'student-home-page',

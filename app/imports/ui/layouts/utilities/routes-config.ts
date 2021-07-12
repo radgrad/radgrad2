@@ -34,6 +34,7 @@ import LandingCareerGoalsExplorerPage from '../../pages/landing/LandingCareerGoa
 import LandingCareerGoalExplorerPage from '../../pages/landing/LandingCareerGoalExplorerPage';
 import LandingCoursesExplorerPage from '../../pages/landing/LandingCoursesExplorerPage';
 import LandingCourseExplorerPage from '../../pages/landing/LandingCourseExplorerPage';
+import LandingInternshipsExplorerPage from '../../pages/landing/LandingInternshipsExplorerPage';
 import LandingHomePage from '../../pages/landing/LandingHomePage';
 import LandingInterestsExplorerPage from '../../pages/landing/LandingInterestsExplorerPage';
 import LandingInterestExplorerPage from '../../pages/landing/LandingInterestExplorerPage';
@@ -185,6 +186,7 @@ export const routes = {
     { path: `/${EXPLORER.INTERESTS_PARAM}`, component: LandingInterestExplorerPage, exact: false },
     { path: `/${EXPLORER.OPPORTUNITIES}`, component: LandingOpportunitiesExplorerPage },
     { path: `/${EXPLORER.OPPORTUNITIES_PARAM}`, component: LandingOpportunityExplorerPage, exact: false },
+    { path: `/${EXPLORER.INTERNSHIPS}`, component: LandingInternshipsExplorerPage },
   ],
 
   STUDENT: [
