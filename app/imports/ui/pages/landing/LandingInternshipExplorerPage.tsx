@@ -33,12 +33,19 @@ interface InternshipExplorerProps {
 
 const headerPaneTitle = 'The Internship Explorer';
 
+const headerPaneBody = `
+Registered users can add Internships to their profile which enables RadGrad to improve its ability to recommend career goals. 
+
+This page provides an overview of the Internships currently available in RadGrad. 
+`;
+
+
 const LandingInternshipExplorerPage: React.FC<InternshipExplorerProps> = ({ currentUser, internship, careerGoals, courses, interest, opportunities }) => {
   const match = useRouteMatch();
   return (
     <div>
       <LandingExplorerMenuBar/>
-      <PageLayout id={PAGEIDS.LANDING_INTERNSHIP_EXPLORER} headerPaneTitle={headerPaneTitle}>
+      <PageLayout id={PAGEIDS.LANDING_INTERNSHIP_EXPLORER} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
         <Grid stackable>
           <Grid.Row>
             <Grid.Column width={3}>
