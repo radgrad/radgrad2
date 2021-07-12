@@ -50,7 +50,7 @@ const LandingInternshipExplorerPage: React.FC<InternshipExplorerProps> = ({ curr
               <Markdown escapeHtml source={internship.description}
                 renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}/>
             </RadGradSegment>
-            <RadGradSegment header={<RadGradHeader title='Related Interest' icon={EXPLORER_TYPE_ICON.} dividing />}/>
+            <RadGradSegment header={<RadGradHeader title='Related Interest' icon={EXPLORER_TYPE_ICON.INTERNSHIP} dividing />}/>
           </Grid.Column>
         </Grid>
       </PageLayout>
