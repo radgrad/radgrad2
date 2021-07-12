@@ -100,7 +100,7 @@ const AddCareerToProfile: React.FC<AddCareerToProfileProps> = ({ userID, profile
           onClose={() => setOpen(false)}
           onOpen ={() => setOpen(true)}
           open = {open}
-          trigger = {<Button size="small" color="teal" floated={floated || 'right'} basic inverted={inverted}>
+          trigger = {<Button id={COMPONENTIDS.ADD_TO_PROFILE_MODAL_BUTTON} size="small" color="teal" floated={floated || 'right'} basic inverted={inverted}>
             <Icon name="user" color="grey" inverted={inverted} />
             <Icon name="plus" />
             ADD TO PROFILE
