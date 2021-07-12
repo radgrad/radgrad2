@@ -21,6 +21,7 @@ const Sort: React.FC<SortProps> = ({ explorerType }) => {
     let allowedSortValues: string[];
     switch (type) {
       case EXPLORER_TYPE.CAREERGOALS:
+      case EXPLORER_TYPE.INTERNSHIPS:
         allowedSortValues = [EXPLORER_SORT_KEYS.ALPHABETIC, EXPLORER_SORT_KEYS.RECOMMENDED, EXPLORER_SORT_KEYS.MOST_RECENT];
         break;
       case EXPLORER_TYPE.INTERESTS:
@@ -30,7 +31,6 @@ const Sort: React.FC<SortProps> = ({ explorerType }) => {
         allowedSortValues = [EXPLORER_SORT_KEYS.NUMBER, EXPLORER_SORT_KEYS.ALPHABETIC, EXPLORER_SORT_KEYS.RECOMMENDED];
         break;
       case EXPLORER_TYPE.OPPORTUNITIES:
-      case EXPLORER_TYPE.INTERNSHIPS:
         allowedSortValues = [EXPLORER_SORT_KEYS.ALPHABETIC, EXPLORER_SORT_KEYS.RECOMMENDED, EXPLORER_SORT_KEYS.MOST_RECENT, EXPLORER_SORT_KEYS.EXPERIENCE, EXPLORER_SORT_KEYS.INNOVATION];
         break;
     }
