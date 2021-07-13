@@ -20,12 +20,6 @@ export interface AddCareerToProfileProps {
   profile: Profile;
 }
 
-function refreshPage() {
-  setTimeout(()=>{
-    window.location.reload(false);
-  }, 1000);
-}
-
 const handleAdd = (userID: string, item: CareerGoal, type: IProfileEntryTypes, interestList: string[]) => {
   let collectionName = getCollectionName(PROFILE_ENTRY_TYPE.INTEREST);
   let definitionData;
@@ -40,7 +34,6 @@ const handleAdd = (userID: string, item: CareerGoal, type: IProfileEntryTypes, i
   defineMethod.callPromise({ collectionName, definitionData })
     .catch((error: MeteorError) => { RadGradAlert.failure('Failed to add to profile', error.message);})
     .then(() => { RadGradAlert.success('Added to profile');});
-  refreshPage();
 };
 
 const handleRemove = (userID: string, item: CareerGoal, type: IProfileEntryTypes) => {
