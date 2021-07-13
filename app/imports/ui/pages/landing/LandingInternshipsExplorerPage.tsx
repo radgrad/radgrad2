@@ -2,16 +2,12 @@ import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Card } from 'semantic-ui-react';
 import { Internships } from '../../../api/internship/InternshipCollection';
-import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
-import { Internship, Opportunity } from '../../../typings/radgrad';
+import { Internship } from '../../../typings/radgrad';
 import LandingExplorerCard from '../../components/landing/explorer/LandingExplorerCard';
-import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
-import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuBar from '../../components/landing/explorer/LandingExplorerMenuBar';
 import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 import { EXPLORER_TYPE } from '../../utilities/ExplorerUtils';
-import { Interests } from '../../../api/interest/InterestCollection';
 import RadGradHeader from '../../components/shared/RadGradHeader';
 import RadGradSegment from '../../components/shared/RadGradSegment';
 
@@ -22,10 +18,10 @@ interface LandingInternshipsExplorerPageProps {
 
 const headerPaneTitle = 'The Internship Explorer';
 const headerPaneBody = `
-Opportunities are extracurricular activities that relate to this discipline. They are curated by the faculty to ensure that each Opportunity provides an educationally enriching experience.  Registered users can access reviews of (re-occuring) Opportunities to learn about the experiences of previous students. Registered users can also build community by finding other users who are interested in this Opportunity.
 
-This public explorer does not provide information about community members or the reviews associated with Opportunities.
-`;
+
+This public explorer does not provide information about community members or the reviews associated with Internships.
+`; // TODO: Internship Description
 const headerPaneImage = 'images/header-panel/header-opportunities.png';
 
 const LandingInternshipsExplorerPage: React.FC<LandingInternshipsExplorerPageProps> = ({ internships, count }) => (
@@ -44,7 +40,8 @@ const LandingInternshipsExplorerPage: React.FC<LandingInternshipsExplorerPagePro
 );
 
 export default withTracker(() => {
-  const internships = Internships.findNonRetired({}, { sort: { name: 1 } });
+  const internships = Internships.findNonRetired();
+  console.log(internships);
   const count = Internships.countNonRetired();
   return { internships, count };
 })(LandingInternshipsExplorerPage);
