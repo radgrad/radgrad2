@@ -14,6 +14,7 @@ boilerplate-generator@1.7.1
 caching-compiler@1.2.2
 caching-html-compiler@1.2.1
 callback-hook@1.3.0
+cammoo:accounts-cas@0.0.1
 check@1.3.1
 ddp@1.4.0
 ddp-client@2.5.0
@@ -78,7 +79,6 @@ npm-mongo@3.9.0
 observe-sequence@1.0.19
 ordered-dict@1.1.0
 promise@0.12.0
-radgrad:accounts-cas@0.0.3
 raix:eventemitter@0.1.3
 random@1.2.0
 rate-limit@1.0.9

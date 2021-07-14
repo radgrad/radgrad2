@@ -6,7 +6,7 @@
 
   "public": {
     "cas": {"loginUrl": "https://cas-test.its.hawaii.edu/cas/login", "serviceParam": "service", "popupWidth": 810, "popupHeight": 610 },
-    "development": true,
+    "development": false,
     "cloudinary": { "cloud_name": "radgrad", "upload_preset": "CHANGEME" },
     "level": {
       "six": { "plannedICE": { "i": 100, "c": 100, "e": 100 }, "earnedICE": {"i": 100, "c": 100, "e": 100}, "reviews": 6 },
