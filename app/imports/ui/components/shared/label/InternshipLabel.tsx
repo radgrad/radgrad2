@@ -14,7 +14,7 @@ const InternshipLabel: React.FC<EntityLabelPublicProps> = ({ slug, userID, size,
     route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERNSHIPS}/${slug}`);
   }
   return (
-    <EntityLabel slug={slug} inProfile={inProfile} icon='tags' name={name} route={route} size={size} style={style} rightside={rightside}/>
+    <EntityLabel slug={slug} inProfile={inProfile} icon='coffee' name={name} route={route} size={size} style={style} rightside={rightside}/>
   );
 };
 

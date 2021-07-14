@@ -9,6 +9,7 @@ import InternshipLabel from './label/InternshipLabel';
 interface InternshipListProps {
   internships: Internship[];
   size: SemanticSIZES;
+  userID: string;
 }
 
 export const InternshipList: React.FC<InternshipListProps> = ({ internships, size }) => {
