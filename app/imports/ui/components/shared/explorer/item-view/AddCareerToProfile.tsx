@@ -20,17 +20,20 @@ export interface AddCareerToProfileProps {
   profile: Profile;
 }
 
-const handleAdd = (userID: string, item: CareerGoal, type: IProfileEntryTypes, interestList: string[]) => {
-  let collectionName = getCollectionName(PROFILE_ENTRY_TYPE.INTEREST);
+const handleAdd = (userID: string, careerItem: CareerGoal, careerType: IProfileEntryTypes, interestList: string[]) => {
+  const interestType = PROFILE_ENTRY_TYPE.INTEREST;
+  let collectionName = getCollectionName(interestType);
   let definitionData;
   interestList.forEach((interest) => {
     const interestItem: Interest = Interests.findDocBySlug(interest);
-    definitionData = createDefinitionData(userID, interestItem, PROFILE_ENTRY_TYPE.INTEREST);
-    defineMethod.callPromise({ collectionName, definitionData });
+    definitionData = createDefinitionData(userID, interestItem, interestType);
+    defineMethod.callPromise({ collectionName, definitionData })
+      .catch((error: MeteorError) => { RadGradAlert.failure('Failed to add to profile', error.message);})
+      .then(() => { });
   });
 
-  collectionName = getCollectionName(type);
-  definitionData = createDefinitionData(userID, item, type);
+  collectionName = getCollectionName(careerType);
+  definitionData = createDefinitionData(userID, careerItem, careerType);
   defineMethod.callPromise({ collectionName, definitionData })
     .catch((error: MeteorError) => { RadGradAlert.failure('Failed to add to profile', error.message);})
     .then(() => { RadGradAlert.success('Added to profile');});
