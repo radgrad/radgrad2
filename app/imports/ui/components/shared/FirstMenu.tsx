@@ -24,6 +24,12 @@ const FirstMenu: React.FC<FirstMenuProps> = ({ profile, displayLevelAndIce, earn
   const noPadding = { paddingTop: 0, paddingBottom: 0 };
   const signoutStyle = { marginTop: '32px' };
   const currentUser = Meteor.user() ? Meteor.user().username : '';
+  let userString;
+  if (profile.username !== currentUser) {
+    userString = `${profile.username} : ${currentUser}`;
+  } else {
+    userString = currentUser;
+  }
   return (
     <Menu attached="top" borderless className="radgrad-first-menu" id="firstMenu">
       <Menu.Item as={NavLink} activeClassName="" exact to="/" style={noPadding}>
@@ -47,7 +53,7 @@ const FirstMenu: React.FC<FirstMenuProps> = ({ profile, displayLevelAndIce, earn
           <div style={flexStyle}>
             <RadGradMenuProfile profile={profile} displayLevelAndIce={displayLevelAndIce} projectedICE={projectedICE}
               earnedICE={earnedICE} />
-            <Dropdown text={currentUser} id={COMPONENTIDS.FIRST_MENU_USERNAME} pointing="top right" icon="caret down"
+            <Dropdown text={userString} id={COMPONENTIDS.FIRST_MENU_USERNAME} pointing="top right" icon="caret down"
               style={signoutStyle}>
               <Dropdown.Menu>
                 <Dropdown.Item icon="sign out" text="Sign Out" as={NavLink} exact to="/signout" />
