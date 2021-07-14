@@ -1,12 +1,12 @@
 Package.describe({
   summary: "CAS support for accounts",
   version: "0.0.3",
-  name: "radgrad:accounts-cas",
+  name: "cammoo:accounts-cas",
   git: "https://github.com/radgrad/meteor-accounts-cas"
 });
 
 Package.onUse(function(api) {
-  api.versionsFrom(['1.2', '2.3']);
+  api.versionsFrom(['2.3']);
   api.use('routepolicy', 'server');
   api.use('webapp', 'server');
   api.use('accounts-base', ['client', 'server']);
