@@ -14,7 +14,7 @@ const RelatedInternships: React.FC<RelatedInternshipsProps> = ({ internships, us
   const header = <RadGradHeader title='related internships' icon={EXPLORER_TYPE_ICON.INTERNSHIP} />;
   return (
     <RadGradSegment header={header}>
-      <InternshipList userID={userID} size='medium' Internships={internships}/>
+      <InternshipList userID={userID} size='medium'  internships={internships}/>
     </RadGradSegment>
   );
 };
