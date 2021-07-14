@@ -40,6 +40,7 @@
     "immutable": "^4.0.0-rc.12",
     "meteor-node-stubs": "^1.0.3",
     "moment": "^2.29.1",
+    "radgrad-accounts-cas": "file:../../meteor-accounts-cas",
     "react": "^16.14.0",
     "react-ace": "^6.6.0",
     "react-beautiful-dnd": "^13.1.0",
