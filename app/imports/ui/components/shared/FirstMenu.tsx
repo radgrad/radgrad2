@@ -26,8 +26,7 @@ const FirstMenu: React.FC<FirstMenuProps> = ({ profile, displayLevelAndIce, earn
   const currentUser = Meteor.user() ? Meteor.user().username : '';
   let userString;
   if (profile.username !== currentUser) {
-    userString = `${profile.username} 
-    ${currentUser}`;
+    userString = `${profile.username} : ${currentUser}`;
   } else {
     userString = currentUser;
   }
