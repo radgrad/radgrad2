@@ -174,7 +174,7 @@ const StudentProtectedRoute = ({ component: Component, ...rest }) => {
       {...rest}
       render={(props) => {
         // console.log('StudentProtectedRoute', props);
-        let isAllowed = Roles.userIsInRole(userId, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.STUDENT]);
+        let isAllowed = Roles.userIsInRole(userId, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.STUDENT, ROLE.ALUMNI]);
         let role = 'student';
         if (Roles.userIsInRole(userId, [ROLE.ADMIN])) {
           role = 'admin';
