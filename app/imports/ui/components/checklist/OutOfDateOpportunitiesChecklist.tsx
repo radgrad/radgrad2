@@ -45,33 +45,25 @@ export class OutOfDateOpportunitiesChecklist extends Checklist {
         if (this.checkDates(now, moment(opportunity.eventDate))) {
           this.outOfDate.push(opportunity);
         }
-      }
-      if (opportunity.eventDate1) {
+      } else if (opportunity.eventDate1) {
         if (this.checkDates(now, moment(opportunity.eventDate1))) {
           this.outOfDate.push(opportunity);
         }
-      }
-      if (opportunity.eventDate2) {
+      } else if (opportunity.eventDate2) {
         if (this.checkDates(now, moment(opportunity.eventDate2))) {
           this.outOfDate.push(opportunity);
         }
-      }
-      if (opportunity.eventDate3) {
+      } else if (opportunity.eventDate3) {
         if (this.checkDates(now, moment(opportunity.eventDate3))) {
           this.outOfDate.push(opportunity);
         }
-      }
-      if (opportunity.eventDate4) {
+      } else if (opportunity.eventDate4) {
         if (this.checkDates(now, moment(opportunity.eventDate4))) {
           this.outOfDate.push(opportunity);
         }
       }
     });
-    if (this.outOfDate.length > 0) {
-      this.state = CHECKSTATE.REVIEW;
-    } else {
-      this.state = CHECKSTATE.OK;
-    }
+    this.outOfDate.length > 0 ? this.state = CHECKSTATE.REVIEW : this.state = CHECKSTATE.OK;
   }
 
   public getDetails(): JSX.Element {
