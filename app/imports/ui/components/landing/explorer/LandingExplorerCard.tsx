@@ -11,10 +11,12 @@ import { Courses } from '../../../../api/course/CourseCollection';
 
 interface ItemProps {
   name: string;
+  position?: string;
   num?: string;
   description: string;
   interestIDs?: string[];
   slugID: string;
+  guid?: string;
   _id: string;
 }
 
@@ -24,11 +26,22 @@ interface LandingExplorerCardProps {
 }
 
 const LandingExplorerCard: React.FC<LandingExplorerCardProps> = ({ item, type }) => {
-  const routeToItem = `#/${EXPLORER_TYPE.HOME}/${type}/${getSlug(item)}`;
-  const title = (type === EXPLORER_TYPE.COURSES) ? Courses.getName(item._id) : docToName(item);
-
+  const routeToItem = (type === EXPLORER_TYPE.INTERNSHIPS) ? `#/${EXPLORER_TYPE.HOME}/${type}/${item.guid}` : `#/${EXPLORER_TYPE.HOME}/${type}/${getSlug(item)}`;
+  let title;
+  switch (type) {
+    case EXPLORER_TYPE.COURSES:
+      title = Courses.getName(item._id);
+      break;
+    case EXPLORER_TYPE.INTERNSHIPS:
+      title = item.position;
+      break;
+    default:
+      title = docToName(item);
+      break;
+  }
   const match = useRouteMatch();
   const itemShortDescription = docToShortDescription(item);
+
   return (
     <Card>
       <Card.Content className="content">
