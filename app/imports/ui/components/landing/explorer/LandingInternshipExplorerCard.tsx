@@ -10,29 +10,26 @@ import LandingInterestList from '../LandingInterestList';
 import { Courses } from '../../../../api/course/CourseCollection';
 
 interface ItemProps {
-  name: string;
-  num?: string;
+  position: string;
   description: string;
-  interestIDs?: string[];
-  slugID: string;
+  guid: string;
   _id: string;
 }
 
-interface LandingExplorerCardProps {
+interface LandingInternshipExplorerCardProps {
   item: ItemProps;
   type: string;
 }
 
-const LandingExplorerCard: React.FC<LandingExplorerCardProps> = ({ item, type }) => {
-  const routeToItem = `#/${EXPLORER_TYPE.HOME}/${type}/${getSlug(item)}`;
-  const title = (type === EXPLORER_TYPE.COURSES) ? Courses.getName(item._id) : docToName(item);
+const LandingInternshipExplorerCard: React.FC<LandingInternshipExplorerCardProps> = ({ item }) => {
+  const routeToItem = `#/${EXPLORER_TYPE.HOME}/internship/${getSlug(item)}`;
 
   const match = useRouteMatch();
   const itemShortDescription = docToShortDescription(item);
   return (
     <Card>
       <Card.Content className="content">
-        <div className="header">{title}</div>
+        <div className="header">{item.position}</div>
       </Card.Content>
       <Card.Content className="content">
         <Markdown escapeHtml source={itemShortDescription} renderers={{ link: (localProps) => Router.renderLink(localProps, match) }} />
@@ -48,4 +45,4 @@ const LandingExplorerCard: React.FC<LandingExplorerCardProps> = ({ item, type })
   );
 };
 
-export default LandingExplorerCard;
+export default LandingInternshipExplorerCard;
