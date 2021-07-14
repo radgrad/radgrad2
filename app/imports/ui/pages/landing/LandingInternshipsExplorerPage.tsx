@@ -25,7 +25,7 @@ const headerPaneBody = `
 
 This public explorer does not provide information about community members or the reviews associated with Internships.
 `; // TODO: Internship Description
-const headerPaneImage = 'images/header-panel/header-opportunities.png';
+const headerPaneImage = 'images/header-panel/header-career.png';
 
 const LandingInternshipsExplorerPage: React.FC<LandingInternshipsExplorerPageProps> = ({ internships, count }) => (
   <div>
