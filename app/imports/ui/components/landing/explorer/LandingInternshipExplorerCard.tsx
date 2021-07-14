@@ -2,18 +2,17 @@ import React from 'react';
 import { Button, Card, Icon } from 'semantic-ui-react';
 import { useRouteMatch } from 'react-router-dom';
 import Markdown from 'react-markdown';
-import { getSlug } from '../utilities/helper-functions';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import * as Router from '../../shared/utilities/router';
-import { docToName, docToShortDescription } from '../../shared/utilities/data-model';
+import { docToShortDescription } from '../../shared/utilities/data-model';
 import LandingInterestList from '../LandingInterestList';
-import { Courses } from '../../../../api/course/CourseCollection';
 
 interface ItemProps {
   position: string;
   description: string;
   guid: string;
   _id: string;
+  interestIDs: string[];
 }
 
 interface LandingInternshipExplorerCardProps {
@@ -22,7 +21,7 @@ interface LandingInternshipExplorerCardProps {
 }
 
 const LandingInternshipExplorerCard: React.FC<LandingInternshipExplorerCardProps> = ({ item }) => {
-  const routeToItem = `#/${EXPLORER_TYPE.HOME}/internship/${getSlug(item)}`;
+  const routeToItem = `#/${EXPLORER_TYPE.HOME}/internship/${item.guid}`;
 
   const match = useRouteMatch();
   const itemShortDescription = docToShortDescription(item);
