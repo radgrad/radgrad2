@@ -10,7 +10,7 @@ import LandingInterestList from '../LandingInterestList';
 interface ItemProps {
   position: string;
   description: string;
-  guid: string;
+  guid?: string;
   _id: string;
   interestIDs: string[];
 }

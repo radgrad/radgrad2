@@ -1,6 +1,7 @@
 import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Card } from 'semantic-ui-react';
+import { Interests } from '../../../api/interest/InterestCollection';
 import { Internships } from '../../../api/internship/InternshipCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { Internship } from '../../../typings/radgrad';
@@ -44,7 +45,6 @@ const LandingInternshipsExplorerPage: React.FC<LandingInternshipsExplorerPagePro
 const LandingInternshipsCardExplorerContainer = withTracker(() => {
   const internships = Internships.findNonRetired({});
   const count = Internships.countNonRetired();
-  console.log(internships);
   return {
     internships,
     count,
@@ -53,5 +53,6 @@ const LandingInternshipsCardExplorerContainer = withTracker(() => {
 
 export default withListSubscriptions(LandingInternshipsCardExplorerContainer, [
   Internships.getPublicationName(),
+  Interests.getPublicationName(),
   Slugs.getPublicationName(),
 ]);
