@@ -26,7 +26,8 @@ interface LandingExplorerCardProps {
 }
 
 const LandingExplorerCard: React.FC<LandingExplorerCardProps> = ({ item, type }) => {
-  const routeToItem = (type === EXPLORER_TYPE.INTERNSHIPS) ? `#/${EXPLORER_TYPE.HOME}/${type}/${item.guid}` : `#/${EXPLORER_TYPE.HOME}/${type}/${getSlug(item)}`;
+  const route = (type === EXPLORER_TYPE.INTERNSHIPS) ? item.guid : getSlug(item);
+  const routeToItem = `#/${EXPLORER_TYPE.HOME}/${type}/${route}`;
   let title;
   switch (type) {
     case EXPLORER_TYPE.COURSES:
