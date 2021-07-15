@@ -68,3 +68,4 @@ export const landingInterestExplorerPage = new SimplePage(PAGEIDS.LANDING_INTERE
 export const landingInterestExplorerItemPage = new SimplePage(PAGEIDS.LANDING_INTEREST_EXPLORER);
 export const landingOpportunityExplorerPage = new SimplePage(PAGEIDS.LANDING_OPPORTUNITIES_EXPLORER);
 export const landingOpportunityExplorerItemPage = new SimplePage(PAGEIDS.LANDING_OPPORTUNITY_EXPLORER);
+export const landingInternshipExplorerPage = new SimplePage(PAGEIDS.LANDING_INTERNSHIPS_EXPLORER);

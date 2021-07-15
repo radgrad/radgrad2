@@ -11,6 +11,7 @@ import {
   landingCareerGoalExplorerPage,
   landingCourseExplorerPage,
   landingOpportunityExplorerPage,
+  landingInternshipExplorerPage,
 } from './simple.page';
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
@@ -41,6 +42,9 @@ test('Test that the landing explorer pages show up', async (testController) => {
   await landingPage.gotoLanding(testController);
   await landingPage.gotoOpportunitiesExplorer(testController);
   await landingOpportunityExplorerPage.isDisplayed(testController);
+  await landingPage.gotoLanding(testController);
+  await landingPage.gotoInternshipsExplorer(testController);
+  await landingInternshipExplorerPage.isDisplayed(testController);
 });
 
 test('Test admin login', async (testController) => {

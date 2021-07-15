@@ -38,6 +38,11 @@ class LandingPage {
     await testController.click(`#${COMPONENTIDS.LANDING_EXPLORER_BUTTONS}`);
     await testController.click(`#${COMPONENTIDS.LANDING_OPPORTUNITIES_EXPLORER}`);
   }
+
+  async gotoInternshipsExplorer(testController) {
+    await testController.click(`#${COMPONENTIDS.LANDING_EXPLORER_BUTTONS}`);
+    await testController.click(`#${COMPONENTIDS.LANDING_INTERNSHIPS_EXPLORER}`);
+  }
 }
 
 export const landingPage = new LandingPage();
