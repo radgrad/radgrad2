@@ -75,6 +75,8 @@ const LandingHomeContainer = withTracker(() => {
       role = 'advisor';
     } else if (Roles.userIsInRole(Meteor.userId(), [ROLE.FACULTY])) {
       role = 'faculty';
+    } else if (Roles.userIsInRole(Meteor.userId(), [ROLE.ALUMNI])) {
+      role = 'alumni';
     }
   }
   const currentUser = Meteor.user() ? Meteor.user().username : '';
