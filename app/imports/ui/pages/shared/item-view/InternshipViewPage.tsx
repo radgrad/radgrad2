@@ -4,12 +4,14 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Grid } from 'semantic-ui-react';
 import { Interests } from '../../../../api/interest/InterestCollection';
 import { InterestTypes } from '../../../../api/interest/InterestTypeCollection';
+import { Internships } from '../../../../api/internship/InternshipCollection';
 import { ProfileCareerGoals } from '../../../../api/user/profile-entries/ProfileCareerGoalCollection';
 import {
   CareerGoal,
   Profile,
   Opportunity, Course, Interest, Internship,
 } from '../../../../typings/radgrad';
+import ProfileInternships from '../../../components/student/degree-planner/ProfileInternships';
 import { PAGEIDS } from '../../../utilities/PageIDs';
 import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
 import { getInternshipsMethod } from '../../../../api/internship/InternshipCollection.methods';
@@ -28,41 +30,40 @@ import RelatedOpportunities from '../../../components/shared/RelatedOpportunitie
 import RelatedInterests from '../../../components/shared/RelatedInterests';
 
 interface InternshipViewPageProps {
-  careerGoal: CareerGoal;
+  careerGoals: CareerGoal[];
   opportunities: Opportunity[];
   profile: Profile;
   courses: Course[];
   interests: Interest[];
-  internships: Internship[];
+  internship: Internship;
 }
 
 const InternshipViewPage: React.FC<InternshipViewPageProps> = ({
-  careerGoal,
+  careerGoals,
   profile,
   courses,
   opportunities,
   interests,
-  internships,
+  internship,
 }) => {
-  const careerGoalID = careerGoal._id;
-  const relatedCourses = getAssociationRelatedCourses(CareerGoals.findRelatedCourses(careerGoalID), profile.userID);
-  const relatedOpportunities = getAssociationRelatedOpportunities(CareerGoals.findRelatedOpportunities(careerGoalID), profile.userID);
-  const headerPaneTitle = careerGoal.name;
-  const careerPicture = careerGoal.picture;
-  const added = ProfileCareerGoals.findNonRetired({ userID: profile.userID, careerGoalID }).length > 0;
+  const internshipID = internship._id;
+  const relatedCourses = getAssociationRelatedCourses(CareerGoals.findRelatedCourses(internshipID), profile.userID);
+  const relatedOpportunities = getAssociationRelatedOpportunities(CareerGoals.findRelatedOpportunities(internshipID), profile.userID);
+  const headerPaneTitle = internship.position;
+  const added = ProfileInternships.findNonRetired({ userID: profile.userID, careerGoalID }).length > 0;
   return (
-    <PageLayout id={PAGEIDS.CAREER_GOAL} headerPaneTitle={headerPaneTitle} headerPaneImage={careerPicture}
-      headerPaneButton={<AddToProfileButton type={PROFILE_ENTRY_TYPE.CAREERGOAL} userID={profile.userID}
-        item={careerGoal} added={added} inverted floated="left" />}>
+    <PageLayout id={PAGEIDS.CAREER_GOAL} headerPaneTitle={headerPaneTitle}
+      headerPaneButton={<AddToProfileButton type={PROFILE_ENTRY_TYPE.} userID={profile.userID}
+        item={internship} added={added} inverted floated="left" />}>
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={5}>
-            <RelatedInterests item={careerGoal} />
+            <RelatedInterests item={internship} />
             <RelatedCourses relatedCourses={relatedCourses} profile={profile} />
             <RelatedOpportunities relatedOpportunities={relatedOpportunities} profile={profile} />
           </Grid.Column>
           <Grid.Column width={11}>
-            <ExplorerItemView profile={profile} item={careerGoal} opportunities={opportunities} courses={courses} internships={internships}
+            <ExplorerItemView profile={profile} item={internship} opportunities={opportunities} courses={courses} carrerGoals = {careerGoals}
               explorerType={EXPLORER_TYPE.CAREERGOALS} interests={interests} />
           </Grid.Column>
         </Grid.Row>
@@ -72,8 +73,7 @@ const InternshipViewPage: React.FC<InternshipViewPageProps> = ({
 };
 
 export default withTracker(() => {
-  const { interest, username } = useParams();
-  const interestDoc = Interests.findDocBySlug(interest);
+  const { username } = useParams();
   const profile = Users.getProfile(username);
   const studentID = profile.userID;
   getInternshipsMethod.callPromise({ studentID })
@@ -95,7 +95,6 @@ export default withTracker(() => {
   return {
     courses,
     profileInterests,
-    interest: interestDoc,
     opportunities,
     profile,
     interestTypes,
