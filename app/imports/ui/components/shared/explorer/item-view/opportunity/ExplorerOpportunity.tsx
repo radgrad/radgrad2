@@ -62,7 +62,7 @@ const ExplorerOpportunity: React.FC<ExplorerOpportunitiesProps> = ({ opportunity
   const isSponsor = profile.userID === opportunity.sponsorID;
   const showManageButtons = isSponsor || profile.role === ROLE.ADMIN;
 
-  const eventListItem = (date, label) => (date ? <List.Item key='${label}'>{moment(date).format('LL')}:  {label}</List.Item> : '');
+  const eventListItem = (date, label) => (date ? <List.Item key={date + label}>{moment.utc(date).format('LL')}:  {label}</List.Item> : '');
 
   return (
     <div id="explorerOpportunityWidget">
@@ -88,7 +88,7 @@ const ExplorerOpportunity: React.FC<ExplorerOpportunitiesProps> = ({ opportunity
           <Grid.Row style={compactRowStyle}>
             <strong>Last Update:</strong> &nbsp; {BaseCollection.getLastUpdatedFromDoc(opportunity)}
           </Grid.Row>
-          {showManageButtons ? <Grid.Row><EditOpportunityButton opportunity={opportunity} sponsors={sponsors} interests={interests} opportunityTypes={opportunityTypes}/> <DeleteItemButton item={opportunity} type={PROFILE_ENTRY_TYPE.OPPORTUNITY} /></Grid.Row> : ''}
+          {showManageButtons ? <Grid.Row><EditOpportunityButton terms={terms} opportunity={opportunity} sponsors={sponsors} interests={interests} opportunityTypes={opportunityTypes}/> <DeleteItemButton item={opportunity} type={PROFILE_ENTRY_TYPE.OPPORTUNITY} /></Grid.Row> : ''}
         </Grid>
       </Segment>
 
