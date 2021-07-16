@@ -13,17 +13,13 @@ const VisibilitySettingList: React.FC<StudentVisibilitySettingListProps> = ({ pr
   const hide = [];
   profile.shareCareerGoals ? share.push('Career Goals') : hide.push('Career Goals');
   profile.shareInterests ? share.push('Interests') : hide.push('Interests');
+  profile.shareCourses ? share.push('Courses') : hide.push('Courses');
+  profile.shareOpportunities ? share.push('Opportunities') : hide.push('Opportunities');
   profile.sharePicture ? share.push('Picture') : hide.push('Picture');
   profile.shareWebsite ? share.push('Website') : hide.push('Website');
   if (profile.role === ROLE.STUDENT) {
-    profile.shareCourses ? share.push('Courses') : hide.push('Courses');
-    profile.shareOpportunities ? share.push('Opportunities') : hide.push('Opportunities');
     profile.shareICE ? share.push('ICE') : hide.push('ICE');
     profile.shareLevel ? share.push('Level') : hide.push('Level');
-  }
-  if (profile.role === ROLE.ADVISOR || profile.role === ROLE.FACULTY) {
-    profile.shareCourses ? share.push('Courses') : hide.push('Courses');
-    profile.shareOpportunities ? share.push('Opportunities') : hide.push('Opportunities');
   }
 
   return (
