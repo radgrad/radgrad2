@@ -88,7 +88,7 @@ test('Test adding and removing interests, careers, courses, and opportunities to
   await explorerPages.testAddAndRemove(testController, 'angular');
 
   await studentNavBar.gotoCareerGoalsExplorerPage(testController);
-  await explorerPages.testAddAndRemove(testController, 'game-developer');
+  await explorerPages.testCareerAddAndRemove(testController, 'game-developer');
 
   await studentNavBar.gotoCourseExplorerPage(testController);
   await explorerPages.testAddAndRemove(testController, 'ics_102');
