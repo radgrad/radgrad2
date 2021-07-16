@@ -47,7 +47,7 @@ interface OpportunityViewPageProps {
 }
 
 const isCompleted = (opportunityID: string, userID: string): boolean => {
-  const ois = OpportunityInstances.findNonRetired({ opportunityID, userID });
+  const ois = OpportunityInstances.findNonRetired({ opportunityID, studentID: userID });
   let completed = false;
   ois.forEach((oi) => {
     if (oi.verified === true) {
