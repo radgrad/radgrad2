@@ -6,10 +6,11 @@ import { Courses } from '../../../../api/course/CourseCollection';
 import { Interests } from '../../../../api/interest/InterestCollection';
 import { InterestTypes } from '../../../../api/interest/InterestTypeCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
+import { Teasers } from '../../../../api/teaser/TeaserCollection';
 import { PROFILE_ENTRY_TYPE } from '../../../../api/user/profile-entries/ProfileEntryTypes';
 import { ProfileInterests } from '../../../../api/user/profile-entries/ProfileInterestCollection';
 import { Users } from '../../../../api/user/UserCollection';
-import { Course, Interest, InterestType, Opportunity, Profile } from '../../../../typings/radgrad';
+import { Course, Interest, InterestType, Opportunity, Profile, Teaser } from '../../../../typings/radgrad';
 import AddToProfileButton from '../../../components/shared/explorer/item-view/AddToProfileButton';
 import { PAGEIDS } from '../../../utilities/PageIDs';
 import PageLayout from '../../PageLayout';
@@ -31,6 +32,7 @@ interface InterestViewPageProps {
   profile: Profile;
   interestTypes: InterestType[];
   interests: Interest[];
+  teaser: Teaser[];
 }
 
 const InterestViewPage: React.FC<InterestViewPageProps> = ({
@@ -41,6 +43,7 @@ const InterestViewPage: React.FC<InterestViewPageProps> = ({
   profile,
   interestTypes,
   interests,
+  teaser,
 }) => {
   const interestID = interest._id;
   const relatedCourses = getAssociationRelatedCourses(Interests.findRelatedCourses(interestID), profile.userID);
@@ -63,7 +66,7 @@ const InterestViewPage: React.FC<InterestViewPageProps> = ({
           <Grid.Column width={11}>
             <ExplorerItemView profile={profile} item={interest} opportunities={opportunities} courses={courses}
               explorerType={EXPLORER_TYPE.INTERESTS} interestTypes={interestTypes}
-              interests={interests} />
+              interests={interests} teaser={teaser} />
           </Grid.Column>
         </Grid.Row>
       </Grid>
@@ -81,6 +84,7 @@ export default withTracker(() => {
   const profileInterests = allInterests.map((id) => Interests.findDoc(id));
   const interestTypes = InterestTypes.findNonRetired();
   const interests = Interests.findNonRetired({});
+  const teaser = Teasers.findNonRetired({ targetSlugID: interestDoc.slugID });
   return {
     courses,
     profileInterests,
@@ -89,5 +93,6 @@ export default withTracker(() => {
     profile,
     interestTypes,
     interests,
+    teaser,
   };
 })(InterestViewPage);

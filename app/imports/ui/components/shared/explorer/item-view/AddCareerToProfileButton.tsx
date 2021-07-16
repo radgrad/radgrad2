@@ -59,7 +59,7 @@ const handleRemove = (userID: string, item: CareerGoal) => {
     });
 };
 
-const AddCareerToProfile: React.FC<AddCareerToProfileProps> = ({ userID, profile, careerGoal, added, inverted, floated }) => {
+const AddCareerToProfileButton: React.FC<AddCareerToProfileProps> = ({ userID, profile, careerGoal, added, inverted, floated }) => {
   const centerStyle = { textAlign: 'center' };
   const paddingStyle = { paddingLeft: 20, paddingTop: 5, paddingBottom: 5 };
   const [open, setOpen] = useState(false);
@@ -139,4 +139,4 @@ const AddCareerToProfile: React.FC<AddCareerToProfileProps> = ({ userID, profile
   );
 };
 
-export default AddCareerToProfile;
+export default AddCareerToProfileButton;

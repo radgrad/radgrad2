@@ -3,11 +3,12 @@ import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Grid } from 'semantic-ui-react';
 import { Interests } from '../../../../api/interest/InterestCollection';
+import { Teasers } from '../../../../api/teaser/TeaserCollection';
 import {
   CareerGoal,
   ProfileCareerGoal,
   Profile,
-  Opportunity, Course, Interest,
+  Opportunity, Course, Interest, Teaser,
 } from '../../../../typings/radgrad';
 import { PAGEIDS } from '../../../utilities/PageIDs';
 import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
@@ -16,7 +17,7 @@ import { ProfileCareerGoals } from '../../../../api/user/profile-entries/Profile
 import { Courses } from '../../../../api/course/CourseCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
 import PageLayout from '../../PageLayout';
-import AddCareerToProfile from '../../../components/shared/explorer/item-view/AddCareerToProfile';
+import AddCareerToProfileButton from '../../../components/shared/explorer/item-view/AddCareerToProfileButton';
 import { getAssociationRelatedCourses, getAssociationRelatedOpportunities } from '../utilities/getExplorerRelatedMethods';
 import { EXPLORER_TYPE } from '../../../utilities/ExplorerUtils';
 import ExplorerItemView from '../../../components/shared/explorer/item-view/ExplorerItemView';
@@ -31,6 +32,7 @@ interface CareerGoalViewPageProps {
   profile: Profile;
   courses: Course[];
   interests: Interest[];
+  teaser: Teaser[];
 }
 
 const CareerGoalViewPage: React.FC<CareerGoalViewPageProps> = ({
@@ -40,6 +42,7 @@ const CareerGoalViewPage: React.FC<CareerGoalViewPageProps> = ({
   courses,
   opportunities,
   interests,
+  teaser,
 }) => {
   const careerGoalID = careerGoal._id;
   const relatedCourses = getAssociationRelatedCourses(CareerGoals.findRelatedCourses(careerGoalID), profile.userID);
@@ -49,7 +52,7 @@ const CareerGoalViewPage: React.FC<CareerGoalViewPageProps> = ({
   const added = ProfileCareerGoals.findNonRetired({ userID: profile.userID, careerGoalID }).length > 0;
   return (
     <PageLayout id={PAGEIDS.CAREER_GOAL} headerPaneTitle={headerPaneTitle} headerPaneImage={careerPicture}
-      headerPaneButton={<AddCareerToProfile profile={profile} userID={profile.userID}
+      headerPaneButton={<AddCareerToProfileButton profile={profile} userID={profile.userID}
         careerGoal={careerGoal} added={added} inverted floated="left" />}>
       <Grid stackable>
         <Grid.Row>
@@ -60,7 +63,7 @@ const CareerGoalViewPage: React.FC<CareerGoalViewPageProps> = ({
           </Grid.Column>
           <Grid.Column width={11}>
             <ExplorerItemView profile={profile} item={careerGoal} opportunities={opportunities} courses={courses}
-              explorerType={EXPLORER_TYPE.CAREERGOALS} interests={interests} />
+              explorerType={EXPLORER_TYPE.CAREERGOALS} interests={interests} teaser={teaser} />
           </Grid.Column>
         </Grid.Row>
       </Grid>
@@ -76,6 +79,7 @@ export default withTracker(() => {
   const courses = Courses.findNonRetired({});
   const opportunities = Opportunities.findNonRetired({});
   const interests = Interests.findNonRetired({});
+  const teaser = Teasers.findNonRetired({ targetSlugID: careerGoalDoc.slugID });
   return {
     careerGoal: careerGoalDoc,
     profileCareerGoals,
@@ -83,5 +87,6 @@ export default withTracker(() => {
     opportunities,
     profile,
     interests,
+    teaser,
   };
 })(CareerGoalViewPage);

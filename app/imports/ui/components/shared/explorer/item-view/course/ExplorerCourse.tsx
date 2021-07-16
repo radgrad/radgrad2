@@ -1,14 +1,10 @@
 import React from 'react';
 import Markdown from 'react-markdown';
-import { useParams } from 'react-router-dom';
 import { Divider, Grid, Segment } from 'semantic-ui-react';
 import BaseCollection from '../../../../../../api/base/BaseCollection';
-import { Reviews } from '../../../../../../api/review/ReviewCollection';
 import { ROLE } from '../../../../../../api/role/Role';
-import { Teasers } from '../../../../../../api/teaser/TeaserCollection';
 import { PROFILE_ENTRY_TYPE } from '../../../../../../api/user/profile-entries/ProfileEntryTypes';
-import { StudentProfiles } from '../../../../../../api/user/StudentProfileCollection';
-import { AcademicTerm, Course, Interest, Profile, Review } from '../../../../../../typings/radgrad';
+import { AcademicTerm, Course, Interest, Profile, Review, Teaser } from '../../../../../../typings/radgrad';
 import StudentExplorerReviewWidget from '../../../../student/explorer/StudentExplorerReviewWidget';
 import EditCourseButton from '../../../manage/course/EditCourseButton';
 import DeleteItemButton from '../../../manage/DeleteItemButton';
@@ -25,38 +21,23 @@ interface ExplorerCoursesWidgetProps {
   terms: AcademicTerm[];
   courses: Course[];
   interests: Interest[];
+  review: Review[];
+  teaser: Teaser[];
 }
 
-const review = (course: Course, profile): Review => {
-  const user = StudentProfiles.findByUsername(profile);
-  const reviews = Reviews.findNonRetired({ studentID: user.userID, revieweeID: course._id });
-  if (reviews.length > 0) {
-    return reviews[0];
-  }
-  return null;
-};
-
-const teaserUrlHelper = (course: Course): string => {
-  const courseTeaser = Teasers.findNonRetired({ targetSlugID: course.slugID });
-  if (courseTeaser.length > 1) { // TODO do we need this?
-    return undefined;
-  }
-  return courseTeaser && courseTeaser[0] && courseTeaser[0].url;
-};
-
-const ExplorerCourse: React.FC<ExplorerCoursesWidgetProps> = ({ course, courses, completed, itemReviews, profile, terms, interests }) => {
+const ExplorerCourse: React.FC<ExplorerCoursesWidgetProps> = ({ course, courses, completed, itemReviews, profile, terms, interests, teaser, review }) => {
   const segmentStyle = { backgroundColor: 'white' };
   const gridStyle = { marginTop: '5px', paddingLeft: 16 };
   const compactRowStyle = { paddingTop: 2, paddingBottom: 2 };
   const linkStyle = {  textDecoration: 'underline' };
-  const { username } = useParams();
-  const hasTeaser = Teasers.findNonRetired({ targetSlugID: course.slugID }).length > 0;
+  const hasTeaser = teaser.length > 0;
   const isStudent = profile.role === ROLE.STUDENT;
   const isAdmin = profile.role === ROLE.ADMIN;
+  const reviewDoc = review.length > 0 ? review[0] : null;
   return (
     <div id="explorerCourseWidget">
       <Segment className="container" style={segmentStyle}>
-        {hasTeaser ? <TeaserVideo id={teaserUrlHelper(course)} /> : ''}
+        {hasTeaser ? <TeaserVideo id={teaser[0] && teaser[0].url} /> : ''}
         <Grid stackable style={gridStyle}>
           <Grid.Row style={compactRowStyle}>
             <strong>Credit Hours:</strong>&nbsp; {course.creditHrs}
@@ -81,7 +62,7 @@ const ExplorerCourse: React.FC<ExplorerCoursesWidgetProps> = ({ course, courses,
 
       {isStudent ? (
         <Segment>
-          <StudentExplorerReviewWidget itemToReview={course} userReview={review(course, username)} completed={completed} reviewType="course" itemReviews={itemReviews} />
+          <StudentExplorerReviewWidget itemToReview={course} userReview={reviewDoc} completed={completed} reviewType="course" itemReviews={itemReviews} />
         </Segment>
       ) : (
         <Segment><ExplorerReviewWidget itemReviews={itemReviews} reviewType="course" /></Segment>
