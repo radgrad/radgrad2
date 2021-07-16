@@ -16,7 +16,7 @@ import { ProfileCareerGoals } from '../../../../api/user/profile-entries/Profile
 import { Courses } from '../../../../api/course/CourseCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
 import PageLayout from '../../PageLayout';
-import AddToProfileButton from '../../../components/shared/explorer/item-view/AddToProfileButton';
+import AddCareerToProfile from '../../../components/shared/explorer/item-view/AddCareerToProfile';
 import { PROFILE_ENTRY_TYPE } from '../../../../api/user/profile-entries/ProfileEntryTypes';
 import { getAssociationRelatedCourses, getAssociationRelatedOpportunities } from '../utilities/getExplorerRelatedMethods';
 import { EXPLORER_TYPE } from '../../../utilities/ExplorerUtils';
@@ -50,8 +50,8 @@ const CareerGoalViewPage: React.FC<CareerGoalViewPageProps> = ({
   const added = ProfileCareerGoals.findNonRetired({ userID: profile.userID, careerGoalID }).length > 0;
   return (
     <PageLayout id={PAGEIDS.CAREER_GOAL} headerPaneTitle={headerPaneTitle} headerPaneImage={careerPicture}
-      headerPaneButton={<AddToProfileButton type={PROFILE_ENTRY_TYPE.CAREERGOAL} userID={profile.userID}
-        item={careerGoal} added={added} inverted floated="left" />}>
+      headerPaneButton={<AddCareerToProfile profile={profile} type={PROFILE_ENTRY_TYPE.CAREERGOAL} userID={profile.userID}
+        careerGoal={careerGoal} added={added} inverted floated="left" />}>
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={5}>

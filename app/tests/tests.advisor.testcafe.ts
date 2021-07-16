@@ -86,7 +86,7 @@ test('Test adding and removing interests and careers to advisor profile', async 
   await explorerPages.testAddAndRemove(testController, 'angular');
 
   await advisorNavBar.gotoCareerGoalsExplorerPage(testController);
-  await explorerPages.testAddAndRemove(testController, 'game-developer');
+  await explorerPages.testCareerAddAndRemove(testController, 'game-developer');
 });
 
 test('Test advisor manage student page', async (testController) => {
