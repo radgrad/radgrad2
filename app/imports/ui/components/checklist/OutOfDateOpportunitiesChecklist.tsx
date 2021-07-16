@@ -41,37 +41,19 @@ export class OutOfDateOpportunitiesChecklist extends Checklist {
     const opportunities = Opportunities.findNonRetired({ sponsorID: this.profile.userID });
     const now = moment();
     opportunities.forEach((opportunity) => {
-      if (opportunity.eventDate) {
-        if (this.checkDates(now, moment(opportunity.eventDate))) {
-          this.outOfDate.push(opportunity);
+      let count = 1;
+      while (count < 5) {
+        const eventDate = opportunity[`eventDate${count}`];
+        if (eventDate) {
+          if (this.checkDates(now, moment(eventDate))) {
+            this.outOfDate.push(opportunity);
+            break;
+          }
         }
-      }
-      if (opportunity.eventDate1) {
-        if (this.checkDates(now, moment(opportunity.eventDate1))) {
-          this.outOfDate.push(opportunity);
-        }
-      }
-      if (opportunity.eventDate2) {
-        if (this.checkDates(now, moment(opportunity.eventDate2))) {
-          this.outOfDate.push(opportunity);
-        }
-      }
-      if (opportunity.eventDate3) {
-        if (this.checkDates(now, moment(opportunity.eventDate3))) {
-          this.outOfDate.push(opportunity);
-        }
-      }
-      if (opportunity.eventDate4) {
-        if (this.checkDates(now, moment(opportunity.eventDate4))) {
-          this.outOfDate.push(opportunity);
-        }
+        count++;
       }
     });
-    if (this.outOfDate.length > 0) {
-      this.state = CHECKSTATE.REVIEW;
-    } else {
-      this.state = CHECKSTATE.OK;
-    }
+    this.outOfDate.length > 0 ? this.state = CHECKSTATE.REVIEW : this.state = CHECKSTATE.OK;
   }
 
   public getDetails(): JSX.Element {
