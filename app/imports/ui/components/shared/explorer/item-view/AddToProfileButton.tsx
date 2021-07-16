@@ -72,13 +72,13 @@ const AddToProfileButton: React.FC<AddToProfileButtonProps> = ({ userID, item, t
       <Button id={COMPONENTIDS.REMOVE_FROM_PROFILE_BUTTON} onClick={handleRemove(userID, item, type)} size="small" color="teal" floated={floated || 'right'} basic inverted={inverted}>
         <Icon name="user outline" color="grey" inverted={inverted} />
         <Icon name="minus" />
-        REMOVE FROM PROFILE
+          REMOVE FROM PROFILE
       </Button>
     ) : (
       <Button id={COMPONENTIDS.ADD_TO_PROFILE_BUTTON} size="small" onClick={handleAdd(userID, item, type)} color="teal" floated={floated || 'right'} basic inverted={inverted}>
         <Icon name="user" color="grey" inverted={inverted} />
         <Icon name="plus" />
-        ADD TO PROFILE
+          ADD TO PROFILE
       </Button>
     )}
   </React.Fragment>

@@ -108,6 +108,7 @@ export enum COMPONENTIDS {
   SIGNIN_FORM_SUBMIT = 'signin-form-submit',
 
   ADD_TO_PROFILE_BUTTON = 'add-to-profile-button',
+  ADD_TO_PROFILE_MODAL_BUTTON = 'add-to-profile-modal-button',
   REMOVE_FROM_PROFILE_BUTTON = 'remove-from-profile-button',
   SHARE_PICTURE = 'share-picture',
   SHARE_WEBSITE = 'share-website',

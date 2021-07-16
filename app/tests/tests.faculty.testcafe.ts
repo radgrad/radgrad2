@@ -82,7 +82,7 @@ test('Test adding and removing interests and careers to faculty profile', async 
   await explorerPages.testAddAndRemove(testController, 'angular');
 
   await facultyNavBar.gotoCareerGoalsExplorerPage(testController);
-  await explorerPages.testAddAndRemove(testController, 'game-developer');
+  await explorerPages.testCareerAddAndRemove(testController, 'game-developer');
 });
 
 test('Test faculty visibility page', async (testController) => {
