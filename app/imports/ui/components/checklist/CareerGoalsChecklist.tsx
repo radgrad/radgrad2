@@ -66,7 +66,7 @@ export class CareerGoalsChecklist extends Checklist {
     return ((careerGoals.length === 0) ?
       <DetailsBox description='You have 0 Career Goals in your profile. Please add some!'/> :
       <DetailsBox description='Your current Career Goals:'>
-        <ProfileCareerGoalList profile={this.profile} size="medium"/>
+        <ProfileCareerGoalList profile={this.profile} size="medium" careerGoals={careerGoals}/>
       </DetailsBox>
     );
   }

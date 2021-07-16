@@ -62,16 +62,16 @@ const BrowserView: React.FC<BrowserViewProps> = ({ items, explorerType, profileC
     profileItems = getProfileItems(type);
     switch (type) {
       case EXPLORER_TYPE.INTERESTS:
-        explorerItems = Interests.findNonRetired().filter(md => profileItems.every(fd => fd._id !== md._id));
+        explorerItems = interests.filter(md => profileItems.every(fd => fd._id !== md._id));
         break;
       case EXPLORER_TYPE.CAREERGOALS:
-        explorerItems = CareerGoals.findNonRetired().filter(md => profileItems.every(fd => fd._id !== md._id));
+        explorerItems = careerGoals.filter(md => profileItems.every(fd => fd._id !== md._id));
         break;
       case EXPLORER_TYPE.OPPORTUNITIES:
-        explorerItems = Opportunities.findNonRetired().filter(md => profileItems.every(fd => fd._id !== md._id));
+        explorerItems = opportunities.filter(md => profileItems.every(fd => fd._id !== md._id));
         break;
       case EXPLORER_TYPE.COURSES:
-        explorerItems = Courses.findNonRetired().filter(md => profileItems.every(fd => fd._id !== md._id));
+        explorerItems = courses.filter(md => profileItems.every(fd => fd._id !== md._id));
         break;
     }
     return explorerItems;
