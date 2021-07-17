@@ -20,6 +20,7 @@ const OpportunityLabel: React.FC<EntityLabelPublicProps> = ({ slug, userID, size
   const name = opportunity.name; // will throw an error if slug is undefined.
   if (userID) {
     route = Router.buildRouteName(match, route);
+    // TODO does this need to be reactive? If so then it needs to be a property of the label and calculated elsewhere.
     // Calculate inProfile.
     const profileEntityIDs = ProfileOpportunities.findNonRetired({ userID });
     const id = opportunity._id;

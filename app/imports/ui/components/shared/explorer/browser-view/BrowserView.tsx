@@ -42,7 +42,7 @@ const BrowserView: React.FC<BrowserViewProps> = ({ items, explorerType, profileC
   const getProfileItems = (type: EXPLORER_TYPE) => {
     switch (type) {
       case EXPLORER_TYPE.INTERESTS:
-        profileItems = profileInterests.map((id) => Interests.findDoc(id));
+        profileItems = profileInterests.map((f) => Interests.findDoc(f.interestID));
         break;
       case EXPLORER_TYPE.CAREERGOALS:
         profileItems = profileCareerGoals.map((f) => CareerGoals.findDoc(f.careerGoalID));
