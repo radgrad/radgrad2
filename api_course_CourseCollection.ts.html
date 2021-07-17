@@ -89,6 +89,7 @@
 import _ from 'lodash';
 import SimpleSchema from 'simpl-schema';
 import { CareerGoals } from '../career/CareerGoalCollection';
+import { Internships } from '../internship/InternshipCollection';
 import { Opportunities } from '../opportunity/OpportunityCollection';
 import { Reviews } from '../review/ReviewCollection';
 import { Slugs } from '../slug/SlugCollection';
@@ -97,7 +98,7 @@ import { Teasers } from '../teaser/TeaserCollection';
 import { ProfileCourses } from '../user/profile-entries/ProfileCourseCollection';
 import { CourseInstances } from './CourseInstanceCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
-import { CareerGoal, Course, CourseDefine, CourseUpdate, Opportunity } from '../../typings/radgrad';
+import { CareerGoal, Course, CourseDefine, CourseUpdate, Internship, Opportunity } from '../../typings/radgrad';
 import { isSingleChoice, complexChoiceToArray } from '../degree-plan/PlanChoiceUtilities';
 import { validateCourseSlugFormat } from './CourseUtilities';
 
@@ -409,8 +410,8 @@ class CourseCollection extends BaseSlugCollection {
 
   /**
    * Returns a list of CareerGoals that have common interests.
-   * @param {string} docIdOrSlug an interest ID or slug.
-   * @return {CareerGoals[]} Courses that have the given interest.
+   * @param {string} docIdOrSlug a course ID or slug.
+   * @return {CareerGoals[]} CareerGoals that share the interests.
    */
   public findRelatedCareerGoals(docIdOrSlug: string): CareerGoal[] {
     const docID = this.getID(docIdOrSlug);
@@ -420,9 +421,21 @@ class CourseCollection extends BaseSlugCollection {
   }
 
   /**
+   * Returns a list of Internships that have common interests.
+   * @param {string} docIdOrSlug a course ID or slug.
+   * @return {Internship[]} Internships that share the interests.
+   */
+  public findRelatedInternships(docIdOrSlug: string): Internship[] {
+    const docID = this.getID(docIdOrSlug);
+    const interestIDs = this.findDoc(docID).interestIDs;
+    const internships = Internships.findNonRetired();
+    return internships.filter((internship) => internship.interestIDs.filter(x => interestIDs.includes(x)).length > 0);
+  }
+
+  /**
    * Returns a list of the Opportunities that have common interests.
-   * @param {string} docIdOrSlug an interest ID or slug.
-   * @return {Opportunity[]} Opportunities that have the given interest.
+   * @param {string} docIdOrSlug a course ID or slug.
+   * @return {Opportunity[]} Opportunities that share the interests.
    */
   public findRelatedOpportunities(docIdOrSlug: string): Opportunity[] {
     const docID = this.getID(docIdOrSlug);

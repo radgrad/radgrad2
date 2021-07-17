@@ -173,7 +173,7 @@ To represent a specific course for a specific academicTerm, use CourseInstance.<
         <p class="tag-source">
             <a href="api_course_CourseCollection.ts.html" class="button">View Source</a>
             <span>
-                <a href="api_course_CourseCollection.ts.html">api/course/CourseCollection.ts</a>, <a href="api_course_CourseCollection.ts.html#line22">line 22</a>
+                <a href="api_course_CourseCollection.ts.html">api/course/CourseCollection.ts</a>, <a href="api_course_CourseCollection.ts.html#line23">line 23</a>
             </span>
         </p>
     
@@ -308,7 +308,7 @@ Checks slugID and interestIDs.</p>
         <p class="tag-source">
             <a href="api_course_CourseCollection.ts.html" class="button">View Source</a>
             <span>
-                <a href="api_course_CourseCollection.ts.html">api/course/CourseCollection.ts</a>, <a href="api_course_CourseCollection.ts.html#line326">line 326</a>
+                <a href="api_course_CourseCollection.ts.html">api/course/CourseCollection.ts</a>, <a href="api_course_CourseCollection.ts.html#line338">line 338</a>
             </span>
         </p>
     
@@ -702,7 +702,7 @@ interests, syllabus, and prerequisites.</p></td>
         <p class="tag-source">
             <a href="api_course_CourseCollection.ts.html" class="button">View Source</a>
             <span>
-                <a href="api_course_CourseCollection.ts.html">api/course/CourseCollection.ts</a>, <a href="api_course_CourseCollection.ts.html#line105">line 105</a>
+                <a href="api_course_CourseCollection.ts.html">api/course/CourseCollection.ts</a>, <a href="api_course_CourseCollection.ts.html#line106">line 106</a>
             </span>
         </p>
     
@@ -898,7 +898,7 @@ interests, syllabus, and prerequisites.</p></td>
         <p class="tag-source">
             <a href="api_course_CourseCollection.ts.html" class="button">View Source</a>
             <span>
-                <a href="api_course_CourseCollection.ts.html">api/course/CourseCollection.ts</a>, <a href="api_course_CourseCollection.ts.html#line375">line 375</a>
+                <a href="api_course_CourseCollection.ts.html">api/course/CourseCollection.ts</a>, <a href="api_course_CourseCollection.ts.html#line387">line 387</a>
             </span>
         </p>
     
@@ -1071,7 +1071,7 @@ interests, syllabus, and prerequisites.</p></td>
         <p class="tag-source">
             <a href="api_course_CourseCollection.ts.html" class="button">View Source</a>
             <span>
-                <a href="api_course_CourseCollection.ts.html">api/course/CourseCollection.ts</a>, <a href="api_course_CourseCollection.ts.html#line434">line 434</a>
+                <a href="api_course_CourseCollection.ts.html">api/course/CourseCollection.ts</a>, <a href="api_course_CourseCollection.ts.html#line446">line 446</a>
             </span>
         </p>
     
@@ -1246,7 +1246,7 @@ will return the doc that has that getName.</p>
         <p class="tag-source">
             <a href="api_course_CourseCollection.ts.html" class="button">View Source</a>
             <span>
-                <a href="api_course_CourseCollection.ts.html">api/course/CourseCollection.ts</a>, <a href="api_course_CourseCollection.ts.html#line278">line 278</a>
+                <a href="api_course_CourseCollection.ts.html">api/course/CourseCollection.ts</a>, <a href="api_course_CourseCollection.ts.html#line279">line 279</a>
             </span>
         </p>
     
@@ -1435,7 +1435,7 @@ will return the doc that has that getName.</p>
         <p class="tag-source">
             <a href="api_course_CourseCollection.ts.html" class="button">View Source</a>
             <span>
-                <a href="api_course_CourseCollection.ts.html">api/course/CourseCollection.ts</a>, <a href="api_course_CourseCollection.ts.html#line267">line 267</a>
+                <a href="api_course_CourseCollection.ts.html">api/course/CourseCollection.ts</a>, <a href="api_course_CourseCollection.ts.html#line268">line 268</a>
             </span>
         </p>
     
@@ -1579,7 +1579,7 @@ will return the doc that has that getName.</p>
 
   
 
-  <td class="description last"><p>an interest ID or slug.</p></td>
+  <td class="description last"><p>a course ID or slug.</p></td>
 </tr>
 
 
@@ -1627,7 +1627,7 @@ will return the doc that has that getName.</p>
         <p class="tag-source">
             <a href="api_course_CourseCollection.ts.html" class="button">View Source</a>
             <span>
-                <a href="api_course_CourseCollection.ts.html">api/course/CourseCollection.ts</a>, <a href="api_course_CourseCollection.ts.html#line303">line 303</a>
+                <a href="api_course_CourseCollection.ts.html">api/course/CourseCollection.ts</a>, <a href="api_course_CourseCollection.ts.html#line304">line 304</a>
             </span>
         </p>
     
@@ -1658,13 +1658,186 @@ will return the doc that has that getName.</p>
 
 <div class="columns">
     
-    <div class='param-desc column is-7'><p>Courses that have the given interest.</p></div>
+    <div class='param-desc column is-7'><p>CareerGoals that share the interests.</p></div>
     
     
     <div class='column is-5 has-text-left'>
         <label>Type: </label>
         
 <span class="param-type">Array.&lt;CareerGoals></span>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="findRelatedInternships">
+        <a class="href-link" href="#findRelatedInternships">#</a>
+        
+        <span class="code-name">
+            
+                findRelatedInternships<span class="signature">(docIdOrSlug)</span><span class="type-signature"> &rarr; {Array.&lt;Internship>}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Returns a list of Internships that have common interests.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>docIdOrSlug</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">string</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>a course ID or slug.</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="api_course_CourseCollection.ts.html" class="button">View Source</a>
+            <span>
+                <a href="api_course_CourseCollection.ts.html">api/course/CourseCollection.ts</a>, <a href="api_course_CourseCollection.ts.html#line315">line 315</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>Internships that share the interests.</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<span class="param-type">Array.&lt;Internship></span>
 
 
     </div>
@@ -1752,7 +1925,7 @@ will return the doc that has that getName.</p>
 
   
 
-  <td class="description last"><p>an interest ID or slug.</p></td>
+  <td class="description last"><p>a course ID or slug.</p></td>
 </tr>
 
 
@@ -1800,7 +1973,7 @@ will return the doc that has that getName.</p>
         <p class="tag-source">
             <a href="api_course_CourseCollection.ts.html" class="button">View Source</a>
             <span>
-                <a href="api_course_CourseCollection.ts.html">api/course/CourseCollection.ts</a>, <a href="api_course_CourseCollection.ts.html#line314">line 314</a>
+                <a href="api_course_CourseCollection.ts.html">api/course/CourseCollection.ts</a>, <a href="api_course_CourseCollection.ts.html#line326">line 326</a>
             </span>
         </p>
     
@@ -1831,7 +2004,7 @@ will return the doc that has that getName.</p>
 
 <div class="columns">
     
-    <div class='param-desc column is-7'><p>Opportunities that have the given interest.</p></div>
+    <div class='param-desc column is-7'><p>Opportunities that share the interests.</p></div>
     
     
     <div class='column is-5 has-text-left'>
@@ -1973,7 +2146,7 @@ will return the doc that has that getName.</p>
         <p class="tag-source">
             <a href="api_course_CourseCollection.ts.html" class="button">View Source</a>
             <span>
-                <a href="api_course_CourseCollection.ts.html">api/course/CourseCollection.ts</a>, <a href="api_course_CourseCollection.ts.html#line400">line 400</a>
+                <a href="api_course_CourseCollection.ts.html">api/course/CourseCollection.ts</a>, <a href="api_course_CourseCollection.ts.html#line412">line 412</a>
             </span>
         </p>
     
@@ -2161,7 +2334,7 @@ will return the doc that has that getName.</p>
         <p class="tag-source">
             <a href="api_course_CourseCollection.ts.html" class="button">View Source</a>
             <span>
-                <a href="api_course_CourseCollection.ts.html">api/course/CourseCollection.ts</a>, <a href="api_course_CourseCollection.ts.html#line256">line 256</a>
+                <a href="api_course_CourseCollection.ts.html">api/course/CourseCollection.ts</a>, <a href="api_course_CourseCollection.ts.html#line257">line 257</a>
             </span>
         </p>
     
@@ -2350,7 +2523,7 @@ will return the doc that has that getName.</p>
         <p class="tag-source">
             <a href="api_course_CourseCollection.ts.html" class="button">View Source</a>
             <span>
-                <a href="api_course_CourseCollection.ts.html">api/course/CourseCollection.ts</a>, <a href="api_course_CourseCollection.ts.html#line236">line 236</a>
+                <a href="api_course_CourseCollection.ts.html">api/course/CourseCollection.ts</a>, <a href="api_course_CourseCollection.ts.html#line237">line 237</a>
             </span>
         </p>
     
@@ -2714,7 +2887,7 @@ will return the doc that has that getName.</p>
         <p class="tag-source">
             <a href="api_course_CourseCollection.ts.html" class="button">View Source</a>
             <span>
-                <a href="api_course_CourseCollection.ts.html">api/course/CourseCollection.ts</a>, <a href="api_course_CourseCollection.ts.html#line166">line 166</a>
+                <a href="api_course_CourseCollection.ts.html">api/course/CourseCollection.ts</a>, <a href="api_course_CourseCollection.ts.html#line167">line 167</a>
             </span>
         </p>
     

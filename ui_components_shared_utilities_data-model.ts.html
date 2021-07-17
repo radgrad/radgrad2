@@ -197,36 +197,6 @@ export const opportunityTerms = (opportuntiy) => {
   return upcomingAcademicTerms.map((termID) => AcademicTerms.toString(termID));
 };
 
-export const opportunityTermsNotTaken = (opportunity, studentID) => {
-  const termIDs = opportunity.termIDs;
-  const takenTermIDs = [];
-  const termNames = [];
-  const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
-  const ois = OpportunityInstances.findNonRetired({ studentID, opportunityID: opportunity._id });
-  ois.forEach((o) => {
-    takenTermIDs.push(o.termID);
-  });
-  termIDs.forEach((termID) => {
-    if (AcademicTerms.findDoc(termID).termNumber >= currentTerm.termNumber) {
-      if (!(takenTermIDs.includes(termID))) {
-        termNames.push(AcademicTerms.toString(termID));
-      }
-    }
-  });
-  return termNames.slice(0, 8);
-};
-
-export const unverifiedOpportunityTermNames = (opportunity, studentID) => {
-  const termNames = [];
-  const ois = OpportunityInstances.findNonRetired({ studentID, opportunityID: opportunity._id });
-  ois.forEach((o) => {
-    if (!o.verified) {
-      termNames.push(AcademicTerms.toString(o.termID, false));
-    }
-  });
-  return termNames;
-};
-
 export const getFutureOpportunities = (studentID: string): Opportunity[] => {
   const ois = OpportunityInstances.findNonRetired({ studentID });
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
@@ -234,6 +204,7 @@ export const getFutureOpportunities = (studentID: string): Opportunity[] => {
     const term = AcademicTerms.findDoc(oi.termID);
     return term.termNumber >= currentTerm.termNumber;
   });
+  // TODO should this be uniq?
   return futureOIs.map((oi) => Opportunities.findDoc(oi.opportunityID));
 };
 

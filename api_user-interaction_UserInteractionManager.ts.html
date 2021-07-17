@@ -127,7 +127,7 @@ class UserInteractionManager {
 
   /** Create and return a snapshot data structure. */
   public buildASnapshot() {
-    const snap: UIMSnapshot = {};
+    const snap: UIMSnapshot = {}; // TODO add internships?
     // Loop through each active student, and set their snapshot fields.
     StudentProfiles.findNonRetired({ isAlumni: false }).forEach(profile => {
       const username = profile.username;

@@ -88,6 +88,7 @@
             <pre class="prettyprint source linenums"><code>import SimpleSchema from 'simpl-schema';
 import { Meteor } from 'meteor/meteor';
 import _ from 'lodash';
+import { Internships } from '../internship/InternshipCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { ProfileInterests } from '../user/profile-entries/ProfileInterestCollection';
 import { InterestTypes } from './InterestTypeCollection';
@@ -96,7 +97,7 @@ import { CareerGoals } from '../career/CareerGoalCollection';
 import { Opportunities } from '../opportunity/OpportunityCollection';
 import { Teasers } from '../teaser/TeaserCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
-import { CareerGoal, Course, InterestDefine, InterestUpdate, Opportunity } from '../../typings/radgrad';
+import { CareerGoal, Course, InterestDefine, InterestUpdate, Internship, Opportunity } from '../../typings/radgrad';
 
 /**
  * Represents a specific interest, such as "Software Engineering".
@@ -262,6 +263,17 @@ class InterestCollection extends BaseSlugCollection {
     const interestID = this.getID(docIdOrSlug);
     const courses = Courses.findNonRetired();
     return courses.filter((course) => course.interestIDs.includes(interestID));
+  }
+
+  /**
+   * Returns a list of Internships that have the given interest.
+   * @param {string} docIdOrSlug an interest ID or slug.
+   * @return {Internship[]} Internships that have the given interest.
+   */
+  public findRelatedInternships(docIdOrSlug: string): Internship[] {
+    const interestID = this.getID(docIdOrSlug);
+    const internships = Internships.findNonRetired();
+    return internships.filter((internship) => internship.interestIDs.includes(interestID));
   }
 
   /**
