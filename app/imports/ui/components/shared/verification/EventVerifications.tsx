@@ -6,7 +6,7 @@ import { Opportunity } from '../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import RadGradHeader from '../RadGradHeader';
 
-interface EventVerificationsWidgetProps {
+interface EventVerificationsProps {
   eventOpportunities: Opportunity[];
 }
 
@@ -17,7 +17,7 @@ interface EventVerificationsWidgetProps {
  * @param eventOpportunities {IEventOpportunity[]} An array of IOpportunities where eventDate exists
  * @returns {Segment}
  */
-const EventVerificationsWidget: React.FC<EventVerificationsWidgetProps> = ({ eventOpportunities }) => {
+const EventVerifications: React.FC<EventVerificationsProps> = ({ eventOpportunities }) => {
   const [studentState, setStudent] = useState('');
   const [opportunityState, setOpportunity] = useState('');
   const [logState, setLog] = useState('');
@@ -48,11 +48,12 @@ const EventVerificationsWidget: React.FC<EventVerificationsWidgetProps> = ({ eve
   // };
 
   const onSubmit = () => {
+    console.log('onSubmit', opportunityState, studentState);
     const opportunity = eventOpportunities.find((ele) => ele._id === opportunityState);
 
-    onLog(`Verifying ${opportunity.name} for ${studentState}...`);
+    // onLog(`Verifying ${opportunity.name} for ${studentState}...`);
 
-    const academicTerm = AcademicTerms.getAcademicTerm(opportunity.eventDate);
+    const academicTerm = AcademicTerms.getAcademicTerm(opportunity.eventDate1);
 
     processVerificationEventMethod.call(
       {
@@ -75,18 +76,20 @@ const EventVerificationsWidget: React.FC<EventVerificationsWidgetProps> = ({ eve
   //     this.scrollToBottom();
   //   }
   // }
-
+  const eventOptions = [];
+  eventOpportunities.forEach((event) => {
+    eventOptions.push({ key: `${event._id}1`, text: `${event.name} (${moment(event.eventDate1).format('MM/DD/YY')})`, value: event._id });
+    eventOptions.push({ key: `${event._id}2`, text: `${event.name} (${moment(event.eventDate2).format('MM/DD/YY')})`, value: event._id });
+    eventOptions.push({ key: `${event._id}3`, text: `${event.name} (${moment(event.eventDate3).format('MM/DD/YY')})`, value: event._id });
+    eventOptions.push({ key: `${event._id}4`, text: `${event.name} (${moment(event.eventDate4).format('MM/DD/YY')})`, value: event._id });
+  });
   return (
     <Segment>
       <RadGradHeader title='event verification' dividing />
       <Form onSubmit={onSubmit}>
         <Form.Group inline>
           <Form.Dropdown
-            options={eventOpportunities.map((ele, i) => ({
-              key: i,
-              text: `${ele.name} (${moment(ele.eventDate).format('MM/DD/YY')})`,
-              value: ele._id,
-            }))}
+            options={eventOptions}
             label="Select recent event: "
             placeholder="Select One..."
             name="opportunity"
@@ -102,4 +105,4 @@ const EventVerificationsWidget: React.FC<EventVerificationsWidgetProps> = ({ eve
   );
 };
 
-export default EventVerificationsWidget;
+export default EventVerifications;
