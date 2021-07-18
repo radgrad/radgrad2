@@ -76,7 +76,7 @@ export const processVerificationEventMethod = new ValidatedMethod({
       // Make sure there's an opportunity instance for this student.
       let opportunityInstanceID = getOpportunityInstanceID(student, opportunity, academicTerm);
       if (!opportunityInstanceID) {
-        resultMessage += `  No opportunity instance found for ${student} ${Opportunities.findDoc(opportunity).name} ${AcademicTerms.toString(academicTerm)}. Defining a new one.\n`;
+        resultMessage += `  No opportunity instance found for ${student}. Defining a new one.\n`;
         opportunityInstanceID = OpportunityInstances.define({ academicTerm, opportunity, student, verified });
       }
 

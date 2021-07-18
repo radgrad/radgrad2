@@ -48,7 +48,7 @@ const EventVerifications: React.FC<EventVerificationsProps> = ({ eventOpportunit
   // };
 
   const onSubmit = () => {
-    console.log('onSubmit', opportunityState, studentState);
+    // console.log('onSubmit', opportunityState, studentState);
     const opportunity = eventOpportunities.find((ele) => ele._id === opportunityState);
 
     // onLog(`Verifying ${opportunity.name} for ${studentState}...`);
