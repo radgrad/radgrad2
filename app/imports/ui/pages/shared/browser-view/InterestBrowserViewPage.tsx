@@ -1,15 +1,12 @@
 import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Interests } from '../../../../api/interest/InterestCollection';
-import { Interest } from '../../../../typings/radgrad';
+import { useRouteMatch } from 'react-router';
 import { PAGEIDS } from '../../../utilities/PageIDs';
 import PageLayout from '../../PageLayout';
 import { EXPLORER_TYPE } from '../../../utilities/ExplorerUtils';
 import BrowserView from '../../../components/shared/explorer/browser-view/BrowserView';
-
-interface InterestBrowserViewPageProps {
-  interests: Interest[];
-}
+import { getEntities } from './utilities/getEntities';
+import { BrowserViewPageProps } from './utilities/BrowserViewPageProps';
 
 const headerPaneTitle = 'Find your interests';
 const headerPaneBody = `
@@ -21,17 +18,13 @@ If we've missed a disciplinary area of interest to you, please click the button 
 `;
 const headerPaneImage = 'images/header-panel/header-interests.png';
 
-const InterestBrowserViewPage: React.FC<InterestBrowserViewPageProps> = ({ interests }) => (
-  <PageLayout id={PAGEIDS.INTEREST_BROWSER} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}
-    headerPaneImage={headerPaneImage}>
-    <BrowserView items={interests} explorerType={EXPLORER_TYPE.INTERESTS} />
+const InterestBrowserViewPage: React.FC<BrowserViewPageProps> = ({ interests, profileCareerGoals, profileCourses, profileInterests, profileOpportunities, careerGoals, courses, opportunities }) => (
+  <PageLayout id={PAGEIDS.INTEREST_BROWSER} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
+    <BrowserView items={interests} explorerType={EXPLORER_TYPE.INTERESTS} profileCareerGoals={profileCareerGoals} profileCourses={profileCourses} profileInterests={profileInterests} profileOpportunities={profileOpportunities} careerGoals={careerGoals} courses={courses} interests={interests} opportunities={opportunities} />
   </PageLayout>
 );
 
 export default withTracker(() => {
-  const interests = Interests.findNonRetired({});
-  return {
-    interests,
-  };
-},
-)(InterestBrowserViewPage);
+  const match = useRouteMatch();
+  return getEntities(match);
+})(InterestBrowserViewPage);

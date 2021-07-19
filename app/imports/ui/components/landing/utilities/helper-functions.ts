@@ -1,4 +1,3 @@
-import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { Slugs } from '../../../../api/slug/SlugCollection';
 import { OpportunityTypes } from '../../../../api/opportunity/OpportunityTypeCollection';
 import { Teasers } from '../../../../api/teaser/TeaserCollection';
@@ -41,19 +40,12 @@ export const getOpportunityTypeName = (opportunityTypeID) => {
   }
 };
 
-export const teaser = (opportunity: Opportunity) => {
+export const teaser = (opportunity: Opportunity): string => {
   const oppTeaser = Teasers.findNonRetired({ targetSlugID: opportunity.slugID });
   if (oppTeaser.length > 1) {
     return undefined;
   }
   return oppTeaser && oppTeaser[0] && oppTeaser[0].url;
-};
-
-export const semesters = (opportunity) => {
-  const termIDs = opportunity.termIDs;
-  const array = termIDs.map((semID) => AcademicTerms.toString(semID));
-  const semString = array.join(', ');
-  return semString.replace(/Summer/g, 'Sum').replace(/Spring/g, 'Spr');
 };
 
 export const getRouteName = (path: string): string => {

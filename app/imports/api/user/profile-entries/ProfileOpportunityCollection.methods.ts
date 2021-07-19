@@ -19,7 +19,7 @@ export const getUserIDsWithProfileOpportunityMethod = new ValidatedMethod({
     if (Meteor.isServer) {
       // console.log(opportunityID, ProfileOpportunities.findNonRetired({ opportunityID }));
       let userIDs;
-      const favUserIDs = ProfileOpportunities.findNonRetired({ opportunityID }).map((profile) => profile.studentID);
+      const favUserIDs = ProfileOpportunities.findNonRetired({ opportunityID }).map((profile) => profile.userID);
       switch (role.toUpperCase()) {
         case ROLE.ADVISOR:
           userIDs = AdvisorProfiles.findNonRetired().map((profile) => profile.userID);

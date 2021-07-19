@@ -4,7 +4,7 @@ import { VerificationRequest } from '../../../../typings/radgrad';
 import RadGradHeader from '../RadGradHeader';
 import PendingVerificationItem from './PendingVerificationItem';
 
-interface PendingVerificationsWidgetProps {
+interface PendingVerificationsProps {
   pendingVerifications: VerificationRequest[];
 }
 
@@ -15,7 +15,7 @@ interface PendingVerificationsWidgetProps {
  * @param pendingVerifications {VerificationRequest[]}
  * @returns {Segment}
  */
-const PendingVerificationsWidget: React.FC<PendingVerificationsWidgetProps> = ({ pendingVerifications }) => (
+const PendingVerifications: React.FC<PendingVerificationsProps> = ({ pendingVerifications }) => (
   <Segment>
     <RadGradHeader title='pending verification requests' dividing />
     <Container fluid={false} style={{ paddingBottom: '14px' }}>
@@ -27,4 +27,4 @@ const PendingVerificationsWidget: React.FC<PendingVerificationsWidgetProps> = ({
   </Segment>
 );
 
-export default PendingVerificationsWidget;
+export default PendingVerifications;
