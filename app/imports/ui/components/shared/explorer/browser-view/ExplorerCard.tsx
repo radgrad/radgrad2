@@ -17,6 +17,8 @@ import { EXPLORER_TYPE } from '../../../../utilities/ExplorerUtils';
 import { Courses } from '../../../../../api/course/CourseCollection';
 import { createDefinitionData, getCollectionName } from '../item-view/utilities/profile-button';
 
+type ItemType = CareerGoal | Course | Interest | Opportunity;
+
 interface ExplorerCardProps {
   item: {
     _id: string;
@@ -31,7 +33,7 @@ interface ExplorerCardProps {
   type: string;
   inProfile: boolean;
 }
-type ItemType = CareerGoal | Course | Interest | Opportunity;
+
 
 const handleAdd = (userID: string, item: ItemType, type: IProfileEntryTypes) => () => {
   const collectionName = getCollectionName(type);
@@ -77,6 +79,7 @@ const ExplorerCard: React.FC<ExplorerCardProps> = ({ item, type, inProfile }) =>
   const itemName = (type === EXPLORER_TYPE.COURSES) ? Courses.getName(item._id) : docToName(item);
   const itemShortDescription = docToShortDescription(item);
   const slugName = itemToSlugName(item);
+  const itemType = typeof item;
   const userID = match.userID;
   return (
     <Card>
@@ -95,7 +98,7 @@ const ExplorerCard: React.FC<ExplorerCardProps> = ({ item, type, inProfile }) =>
           See Details
         </Link>
         <Button.Or />
-        {inProfile ? (<Button onClick={handleRemove(userID, item, type)}>Remove Profile</Button>) : <Button onClick={handleAdd(userID, item, type)}>Add To Profile</Button>}
+        {inProfile ? (<Button onClick={handleRemove(userID, , type)}>Remove Profile</Button>) : <Button onClick={handleAdd(userID, item, type)}>Add To Profile</Button>}
       </Button.Group>
     </Card>
   );
