@@ -35,9 +35,9 @@ interface ExplorerCardProps {
 }
 
 
-const handleAdd = (userID: string, item: ItemType, type: IProfileEntryTypes) => () => {
+const handleAdd = (userID: string, itemType: ItemType, type: IProfileEntryTypes) => () => {
   const collectionName = getCollectionName(type);
-  const definitionData = createDefinitionData(userID, item, type);
+  const definitionData = createDefinitionData(userID, itemType, type);
   defineMethod.callPromise({ collectionName, definitionData })
     .catch((error: MeteorError) => { RadGradAlert.failure('Failed to add to profile', error.message);})
     .then(() => { RadGradAlert.success('Added to profile');});
@@ -76,10 +76,10 @@ const handleRemove = (userID: string, item: ItemType, type: IProfileEntryTypes) 
 
 const ExplorerCard: React.FC<ExplorerCardProps> = ({ item, type, inProfile }) => {
   const match = useRouteMatch();
+  const itemType = item;
   const itemName = (type === EXPLORER_TYPE.COURSES) ? Courses.getName(item._id) : docToName(item);
   const itemShortDescription = docToShortDescription(item);
   const slugName = itemToSlugName(item);
-  const itemType = typeof item;
   const userID = match.userID;
   return (
     <Card>
@@ -98,7 +98,7 @@ const ExplorerCard: React.FC<ExplorerCardProps> = ({ item, type, inProfile }) =>
           See Details
         </Link>
         <Button.Or />
-        {inProfile ? (<Button onClick={handleRemove(userID, , type)}>Remove Profile</Button>) : <Button onClick={handleAdd(userID, item, type)}>Add To Profile</Button>}
+        {inProfile ? (<Button onClick={handleRemove(userID, itemType, type)}>Remove Profile</Button>) : <Button onClick={handleAdd(userID, itemType, type)}>Add To Profile</Button>}
       </Button.Group>
     </Card>
   );
