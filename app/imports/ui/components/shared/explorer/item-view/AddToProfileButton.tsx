@@ -18,7 +18,7 @@ export interface AddToProfileButtonProps {
   userID: string;
   type: IProfileEntryTypes;
   added: boolean;
-  inverted: boolean;
+  inverted?: boolean;
   floated?: SemanticFLOATS;
 }
 
@@ -34,12 +34,6 @@ const handleRemove = (userID: string, item: ItemType, type: IProfileEntryTypes) 
   const collectionName = getCollectionName(type);
   let instance;
   switch (type) {
-    case PROFILE_ENTRY_TYPE.CAREERGOAL: // TODO we don't need this anymore. We're using the AddCareerToProfileButton.
-      instance = ProfileCareerGoals.findNonRetired({
-        userID,
-        careerGoalID: item._id,
-      })[0]._id;
-      break;
     case PROFILE_ENTRY_TYPE.COURSE:
       instance = ProfileCourses.findNonRetired({
         userID,
