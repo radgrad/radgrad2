@@ -664,8 +664,10 @@ export interface ProfileDefine extends DumpOne {
   retired?: boolean;
   sharePicture?: boolean;
   shareWebsite?: boolean;
-  shareInterests?: boolean;
   shareCareerGoals?: boolean;
+  shareCourses?: boolean;
+  shareInterests?: boolean;
+  shareOpportunities?: boolean;
   lastVisited?: Record<string, string>;
   acceptedTermsAndConditions?: string;
   refusedTermsAndConditions?: string;
@@ -707,8 +709,10 @@ export interface ProfileUpdate extends Update {
   opportunityExplorerSortOrder?: string;
   sharePicture?: boolean;
   shareWebsite?: boolean;
-  shareInterests?: boolean;
   shareCareerGoals?: boolean;
+  shareCourses?: boolean;
+  shareInterests?: boolean;
+  shareOpportunities?: boolean;
   lastVisited?: Record<string, string>;
   acceptedTermsAndConditions?: string;
   refusedTermsAndConditions?: string;
