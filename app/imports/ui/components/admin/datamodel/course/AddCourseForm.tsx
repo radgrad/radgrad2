@@ -8,7 +8,7 @@ import { Courses } from '../../../../../api/course/CourseCollection';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
 import { Course, CourseDefine, Interest } from '../../../../../typings/radgrad';
 import PictureField from '../../../form-fields/PictureField';
-import { courseNameToSlug, courseToName, docToName } from '../../../shared/utilities/data-model';
+import { docToName } from '../../../shared/utilities/data-model';
 import { interestSlugFromName } from '../../../shared/utilities/form';
 import RadGradAlert from '../../../../utilities/RadGradAlert';
 import { COMPONENTIDS } from '../../../../utilities/ComponentIDs';
@@ -42,8 +42,7 @@ const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses }) => 
 
   const interestNames = interests.map(docToName);
 
-  const courseNames = courses.map(courseToName);
-  // console.log(interestNames, courseNames);
+  // console.log(interestNames);
   const schema = new SimpleSchema({
     slug: String,
     name: String,

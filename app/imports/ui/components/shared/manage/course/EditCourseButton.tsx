@@ -10,7 +10,6 @@ import { Interests } from '../../../../../api/interest/InterestCollection';
 import { Course, CourseUpdate, Interest } from '../../../../../typings/radgrad';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
 import PictureField from '../../../form-fields/PictureField';
-import { courseNameToSlug, courseSlugToName, courseToName } from '../../utilities/data-model';
 
 interface EditCourseButtonProps {
   course: Course;
@@ -22,7 +21,6 @@ const EditCourseButton: React.FC<EditCourseButtonProps> = ({ course, courses, in
   const [open, setOpen] = useState(false);
   const interestNames = interests.map((interest) => interest.name);
   const courseName = Courses.getName(course._id);
-  const courseNames = courses.map(courseToName);
   const model: CourseUpdate = course;
   model.interests = course.interestIDs.map((id) => Interests.findDoc(id).name);
 
