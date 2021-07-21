@@ -2,7 +2,6 @@ import React from 'react';
 import { Button, Icon, SemanticFLOATS } from 'semantic-ui-react';
 import RadGradAlert from '../../../../utilities/RadGradAlert';
 import { CareerGoal, Course, Interest, MeteorError, Opportunity } from '../../../../../typings/radgrad';
-import { ProfileCareerGoals } from '../../../../../api/user/profile-entries/ProfileCareerGoalCollection';
 import { ProfileCourses } from '../../../../../api/user/profile-entries/ProfileCourseCollection';
 import { ProfileInterests } from '../../../../../api/user/profile-entries/ProfileInterestCollection';
 import { ProfileOpportunities } from '../../../../../api/user/profile-entries/ProfileOpportunityCollection';

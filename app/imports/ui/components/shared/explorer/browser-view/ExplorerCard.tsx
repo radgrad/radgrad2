@@ -9,7 +9,6 @@ import { buildExplorerSlugRoute } from '../../utilities/router';
 import InterestList from '../../InterestList';
 import { EXPLORER_TYPE } from '../../../../utilities/ExplorerUtils';
 import { Courses } from '../../../../../api/course/CourseCollection';
-import AddToProfileButton from '../item-view/AddToProfileButton';
 
 interface ExplorerCardProps {
   item: {
@@ -31,8 +30,6 @@ const ExplorerCard: React.FC<ExplorerCardProps> = ({ item, type, inProfile }) =>
   const itemName = (type === EXPLORER_TYPE.COURSES) ? Courses.getName(item._id) : docToName(item);
   const itemShortDescription = docToShortDescription(item);
   const slugName = itemToSlugName(item);
-  const addRemoveButton = <AddToProfileButton type={match.type} userID={match.userID} item={match}
-    added={inProfile} floated="left"  inverted/>;
   return (
     <Card>
       <Card.Content>
@@ -51,15 +48,6 @@ const ExplorerCard: React.FC<ExplorerCardProps> = ({ item, type, inProfile }) =>
         </Link>
         <Button.Or />
         <Button>{inProfile ? 'Remove Profile' : 'Add to Profile' || 'View More'}</Button>
-      </Button.Group>
-      <Button.Group>
-        <Link to={buildExplorerSlugRoute(match, type, slugName)} className="ui button" id={`see-details-${slugName}-button`}>
-          <Icon name="zoom in" />
-          See Details
-        </Link>
-        <Button.Or />
-        <Button><AddToProfileButton type={match.type} userID={match.userID} item={match}
-          added={inProfile} floated="left" /></Button>
       </Button.Group>
       <Link to={buildExplorerSlugRoute(match, type, slugName)} className="ui button" id={`see-details-${slugName}-button`}>
         <Icon name="zoom in" />
