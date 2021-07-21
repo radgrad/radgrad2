@@ -25,10 +25,6 @@ const EditCourseButton: React.FC<EditCourseButtonProps> = ({ course, courses, in
   const courseNames = courses.map(courseToName);
   const model: CourseUpdate = course;
   model.interests = course.interestIDs.map((id) => Interests.findDoc(id).name);
-  const coreqSlugs = Courses.getCorequisiteSlugs(course._id);
-  model.corequisites = coreqSlugs.map(courseSlugToName);
-  const prereqSlugs = Courses.getPrerequisiteSlugs(course._id);
-  model.prerequisites = prereqSlugs.map(courseSlugToName);
 
   const handleSubmit = (doc) => {
     // console.log('handleSubmit', doc);
@@ -37,12 +33,6 @@ const EditCourseButton: React.FC<EditCourseButtonProps> = ({ course, courses, in
     updateData.id = doc._id;
     // convert the interest names to IDs for the update
     updateData.interests = doc.interests.map((name) => Interests.findDoc(name)._id);
-    if (doc.corequisites) {
-      updateData.corequisites = doc.corequisites.map(courseNameToSlug);
-    }
-    if (doc.prerequisites) {
-      updateData.prerequisites = doc.prerequisites.map(courseNameToSlug);
-    }
     // console.log(collectionName, updateData);
     updateMethod.callPromise({ collectionName, updateData })
       .then((result) =>  { RadGradAlert.success('Course Updated', result);})
@@ -68,16 +58,6 @@ const EditCourseButton: React.FC<EditCourseButtonProps> = ({ course, courses, in
       allowedValues: interestNames,
     },
     syllabus: { type: String, optional: true },
-    corequisites: { type: Array, optional: true },
-    'corequisites.$': {
-      type: String,
-      allowedValues: courseNames,
-    },
-    prerequisites: { type: Array, optional: true },
-    'prerequisites.$': {
-      type: String,
-      allowedValues: courseNames,
-    },
     repeatable: { type: Boolean, optional: true },
     retired: { type: Boolean, optional: true },
   });
@@ -107,10 +87,6 @@ const EditCourseButton: React.FC<EditCourseButtonProps> = ({ course, courses, in
           <MultiSelectField name="interests"/>
           <PictureField name="picture" placeholder='https://mywebsite.com/picture.png' />
           <TextField name="syllabus"/>
-          <Form.Group widths="equal">
-            <MultiSelectField name="corequisites"/>
-            <MultiSelectField name="prerequisites"/>
-          </Form.Group>
           <Form.Group>
             <BoolField name="repeatable"/>
             <BoolField name="retired"/>

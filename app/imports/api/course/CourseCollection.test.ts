@@ -67,7 +67,7 @@ if (Meteor.isServer) {
 
     it('Can update', function test3(done) {
       const docID = makeSampleCourse();
-      // { name, shortName, num, description, creditHrs, interests, prerequisites, syllabus, retired }
+      // { name, shortName, num, description, creditHrs, interests, syllabus, retired }
       fc.assert(
         fc.property(fc.lorem(1), fc.lorem(1), fc.lorem(1), fc.lorem(20, true), fc.integer(1, 6), fc.lorem(20, true), fc.boolean(),
           (fcName, fcShortName, fcNum, fcDescription, fcCreditHrs, fcSyllabus, fcRetired) => {

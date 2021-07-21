@@ -61,8 +61,6 @@ class CourseCollection extends BaseSlugCollection {
       interests: { type: Array, optional: true },
       'interests.$': String,
       syllabus: { type: String, optional: true },
-      prerequisites: { type: Array, optional: true },
-      'prerequisites.$': String,
       repeatable: { type: Boolean, optional: true },
       retired: { type: Boolean, optional: true },
       picture: { type: String, optional: true },
@@ -81,9 +79,9 @@ class CourseCollection extends BaseSlugCollection {
    *                  creditHrs: 4,
    *                  interests: ['perl', 'javascript', 'ruby'],
    *                  syllabus: 'http://courses.ics.hawaii.edu/syllabuses/ICS215.html',
-   *                  prerequisites: ['ics_211'] });
+   *                  });
    * @param { Object } description Object with keys name, shortName, slug, num, description, creditHrs,
-   *                   interests, syllabus, and prerequisites.
+   *                   interests, syllabus.
    * @param name is the official course name.
    * @param shortName is an optional abbreviation. Defaults to name.
    * @param slug must not be previously defined.
@@ -142,7 +140,6 @@ class CourseCollection extends BaseSlugCollection {
    * @param creditHrs optional
    * @param interests An array of interestIDs or slugs (optional)
    * @param syllabus optional
-   * @param prerequisites An array of course slugs. (optional)
    * @param repeatable optional boolean.
    * @param retired optional boolean.
    */
