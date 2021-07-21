@@ -23,7 +23,6 @@ if (Meteor.isClient) {
       creditHrs: 4,
       interests: ['java'],
       syllabus: 'http://courses.ics.hawaii.edu/syllabuses/ICS215.html',
-      prerequisites: ['ics_111'],
     };
 
     before(function (done) {
@@ -41,10 +40,9 @@ if (Meteor.isClient) {
       const name = 'updated CareerGoal name';
       const description = 'updated CareerGoal description';
       const interests = ['algorithms', 'java'];
-      const prerequisites = ['ics_111', 'ics_141'];
       await updateMethod.callPromise({
         collectionName,
-        updateData: { id, name, description, interests, prerequisites },
+        updateData: { id, name, description, interests },
       });
     });
 
