@@ -31,7 +31,7 @@ export class InterestsWithoutRelatedChecklists extends Checklist {
     interests.forEach((interest) => {
       const relatedCourses = Interests.findRelatedCourses(interest._id);
       const relatedOpportunities = Interests.findRelatedOpportunities(interest._id);
-      if (relatedCourses.length === 0 && relatedOpportunities.length === 0) {
+      if (relatedCourses.length === 0 && relatedOpportunities.length === 0) { // TODO relatedInternships?
         this.interestsWoRelated.push(interest);
       }
     });

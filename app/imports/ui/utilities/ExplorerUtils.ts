@@ -14,6 +14,7 @@ export const enum EXPLORER_TYPE {
   COURSES = 'courses',
   INTERESTS = 'interests',
   OPPORTUNITIES = 'opportunities',
+  // TODO INTERNSHIPS
 }
 
 /** Define icon names for each explorer type */
@@ -22,7 +23,7 @@ export const enum EXPLORER_TYPE_ICON {
   COURSE = 'book',
   INTEREST = 'heart',
   OPPORTUNITY = 'lightbulb',
-  INTERNSHIP = 'mug hot icon',
+  // TODO INTERNSHIPS 'mug hot'
 }
 
 /** Define Sort keys used to sort the cards in the explorer pages. It is used in Interests, Career Goals, Opportunities and Courses component */

@@ -3,12 +3,11 @@ import { Segment, SegmentGroup } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
 import BaseCollection from '../../../../../api/base/BaseCollection';
 import { ROLE } from '../../../../../api/role/Role';
-import { CareerGoal, Course, Interest, InterestType, Opportunity, Profile, Internship } from '../../../../../typings/radgrad';
+import { CareerGoal, Course, Interest, InterestType, Opportunity, Profile, Teaser } from '../../../../../typings/radgrad';
 import EditCareerGoalButton from '../../manage/career-goal/EditCareerGoalButton';
 import DeleteItemButton from '../../manage/DeleteItemButton';
 import EditInterestButton from '../../manage/interest/EditInterestButton';
 import ExplorerProfiles from './ExplorerProfiles';
-import { Teasers } from '../../../../../api/teaser/TeaserCollection';
 import TeaserVideo from '../../TeaserVideo';
 import { EXPLORER_TYPE } from '../../../../utilities/ExplorerUtils';
 import { PROFILE_ENTRY_TYPE } from '../../../../../api/user/profile-entries/ProfileEntryTypes';
@@ -21,11 +20,10 @@ interface ExplorerItemViewProps {
   explorerType: EXPLORER_TYPE;
   interestTypes?: InterestType[];
   interests: Interest[];
-  internships: Internship[],
+  teaser: Teaser[];
 }
 
-const ExplorerItemView: React.FC<ExplorerItemViewProps> = ({ profile, item, courses, opportunities, explorerType, interestTypes, interests, internships }) => {
-  const teaser = Teasers.findNonRetired({ targetSlugID: item.slugID });
+const ExplorerItemView: React.FC<ExplorerItemViewProps> = ({ profile, item, courses, opportunities, explorerType, interestTypes, interests, teaser }) => {
   const hasTeaser = teaser.length > 0;
   const isNotStudent = profile.role !== ROLE.STUDENT;
   const isAdmin = profile.role === ROLE.ADMIN;

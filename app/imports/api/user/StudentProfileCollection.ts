@@ -34,7 +34,7 @@ class StudentProfileCollection extends BaseProfileCollection {
       'StudentProfile',
       new SimpleSchema({
         level: { type: SimpleSchema.Integer, min: 1, max: 6 },
-        declaredAcademicTermID: { type: SimpleSchema.RegEx.Id, optional: true },
+        declaredAcademicTermID: { type: SimpleSchema.RegEx.Id, optional: true }, // TODO do we need this anymore?
         isAlumni: Boolean,
         shareOpportunities: { type: Boolean, optional: true },
         shareCourses: { type: Boolean, optional: true },

@@ -1,14 +1,14 @@
 import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { useParams, useRouteMatch } from 'react-router-dom';
-import PendingVerificationsWidget from '../../components/shared/verification/PendingVerificationsWidget';
+import PendingVerifications from '../../components/shared/verification/PendingVerifications';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
-import EventVerificationsWidget from '../../components/shared/verification/EventVerificationsWidget';
+import EventVerifications from '../../components/shared/verification/EventVerifications';
 import { Opportunity, VerificationRequest } from '../../../typings/radgrad';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
-import CompletedVerificationsWidget from '../../components/shared/verification/CompletedVerificationsWidget';
+import CompletedVerifications from '../../components/shared/verification/CompletedVerifications';
 import withAdditionalSubscriptions from '../../layouts/utilities/AdvisorFacultyAdditionalSubscriptionsHOC';
 import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
@@ -38,9 +38,9 @@ const FacultyVerificationPage: React.FC<FacultyVerificationPageProps> = ({ verif
 
   return (
     <PageLayout id={PAGEIDS.FACULTY_VERIFICATION_PAGE} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
-      <PendingVerificationsWidget pendingVerifications={verificationRequests.filter((ele) => ele.status === VerificationRequests.OPEN)}/>
-      <EventVerificationsWidget eventOpportunities={eventOpportunities}/>
-      <CompletedVerificationsWidget username={match.params.username} completedVerifications={verificationRequests.filter((ele) => VerificationRequests.ACCEPTED === ele.status || ele.status === VerificationRequests.REJECTED)}/>
+      <PendingVerifications pendingVerifications={verificationRequests.filter((ele) => ele.status === VerificationRequests.OPEN)}/>
+      <EventVerifications eventOpportunities={eventOpportunities}/>
+      <CompletedVerifications username={match.params.username} completedVerifications={verificationRequests.filter((ele) => VerificationRequests.ACCEPTED === ele.status || ele.status === VerificationRequests.REJECTED)}/>
     </PageLayout>
   );
 };
@@ -51,7 +51,7 @@ const FacultyVerificationPageWithTracker = withTracker(() => {
   const linkedOppInstances = OpportunityInstances.findNonRetired({ sponsorID: userID });
   const isLinkedReq = (verReq: VerificationRequest) => !!linkedOppInstances.find((oppI) => verReq.opportunityInstanceID === oppI._id);
   const verificationRequests = VerificationRequests.findNonRetired().filter((ele) => isLinkedReq(ele));
-  const eventOpportunities = Opportunities.findNonRetired({ eventDate: { $exists: true } }); // TODO: change to eventDate1,2,3,4.
+  const eventOpportunities = Opportunities.findNonRetired({ $or: [{ eventDate1: { $exists: true } }, { eventDate2: { $exists: true } }, { eventDate3: { $exists: true } }, { eventDate4: { $exists: true } }] });
   return {
     verificationRequests,
     eventOpportunities,

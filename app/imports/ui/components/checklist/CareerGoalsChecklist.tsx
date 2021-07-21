@@ -1,5 +1,6 @@
 import moment from 'moment';
 import React from 'react';
+import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { updateLastVisited } from '../../../api/user/BaseProfileCollection.methods';
 import { ProfileCareerGoals } from '../../../api/user/profile-entries/ProfileCareerGoalCollection';
 import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
@@ -66,7 +67,7 @@ export class CareerGoalsChecklist extends Checklist {
     return ((careerGoals.length === 0) ?
       <DetailsBox description='You have 0 Career Goals in your profile. Please add some!'/> :
       <DetailsBox description='Your current Career Goals:'>
-        <ProfileCareerGoalList profile={this.profile} size="medium"/>
+        <ProfileCareerGoalList profile={this.profile} size="medium" careerGoals={careerGoals.map((p) => CareerGoals.findDoc(p.careerGoalID))}/>
       </DetailsBox>
     );
   }

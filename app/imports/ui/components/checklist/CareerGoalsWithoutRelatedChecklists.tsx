@@ -31,7 +31,7 @@ export class CareerGoalsWithoutRelatedChecklists extends Checklist {
     careerGoals.forEach((goal) => {
       const relatedCourses = CareerGoals.findRelatedCourses(goal._id);
       const relatedOpportunities = CareerGoals.findRelatedOpportunities(goal._id);
-      if (relatedCourses.length === 0 && relatedOpportunities.length === 0) {
+      if (relatedCourses.length === 0 && relatedOpportunities.length === 0) { // TODO relatedInternships?
         this.careerGoalsWoRelated.push(goal);
       }
     });

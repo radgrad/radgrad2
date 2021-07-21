@@ -35,7 +35,7 @@ const StudentPageMenu: React.FC = () => {
 
   const explorerDropdownItems = [
     { to: `/${URL_ROLES.STUDENT}/${username}/${EXPLORER.INTERESTS}`, label: 'Interests' },
-    { to: `/${URL_ROLES.STUDENT}/${username}/${EXPLORER.CAREERGOALS}`, label: 'Career Goals' },
+    { to: `/${URL_ROLES.STUDENT}/${username}/${EXPLORER.CAREERGOALS}`, label: 'Careers' },
     { to: `/${URL_ROLES.STUDENT}/${username}/${EXPLORER.COURSES}`, label: 'Courses' },
     { to: `/${URL_ROLES.STUDENT}/${username}/${EXPLORER.OPPORTUNITIES}`, label: 'Opportunities' },
     { to: `/${URL_ROLES.STUDENT}/${username}/${EXPLORER.INTERNSHIPS}`, label: 'Internships' },

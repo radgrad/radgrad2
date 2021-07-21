@@ -84,7 +84,7 @@ export enum COMPONENTIDS {
   STUDENT_MENU_EXPLORERS = 'student-menu-explorers',
   STUDENT_MENU_INTERESTS = 'student-menu-interests',
   STUDENT_MENU_COURSES = 'student-menu-courses',
-  STUDENT_MENU_CAREERS = 'student-menu-career-goals',
+  STUDENT_MENU_CAREERS = 'student-menu-careers',
   STUDENT_MENU_OPPORTUNITIES = 'student-menu-opportunities',
   STUDENT_MENU_PLANNER = 'student-menu-planner',
   STUDENT_MENU_VERIFICATION = 'student-menu-verification',
