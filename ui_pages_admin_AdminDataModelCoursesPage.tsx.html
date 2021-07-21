@@ -98,7 +98,7 @@ import { PAGEIDS } from '../../utilities/PageIDs';
 import { handleCancelWrapper, handleConfirmDeleteWrapper, handleDeleteWrapper, handleOpenUpdateWrapper } from './utilities/data-model-page-callbacks';
 import { makeMarkdownLink } from './utilities/datamodel';
 import { Interests } from '../../../api/interest/InterestCollection';
-import { courseNameToSlug, interestNameToId } from '../../components/shared/utilities/data-model';
+import { interestNameToId } from '../../components/shared/utilities/data-model';
 import AddCourseForm from '../../components/admin/datamodel/course/AddCourseForm';
 import UpdateCourseForm from '../../components/admin/datamodel/course/UpdateCourseForm';
 import PageLayout from '../PageLayout';
@@ -116,7 +116,6 @@ const descriptionPairs = (item: Course): DescriptionPair[] => [
   { label: 'Credit Hours', value: `${item.creditHrs}` },
   { label: 'Interests', value: Interests.findNames(item.interestIDs).sort() },
   { label: 'Syllabus', value: makeMarkdownLink(item.syllabus) },
-  { label: 'Prerequisites', value: item.prerequisites },
   { label: 'References', value: `Course Instances: ${numReferences(item)}` },
   { label: 'Repeatable', value: item.repeatable ? 'True' : 'False' },
   { label: 'Retired', value: item.retired ? 'True' : 'False' },
@@ -163,12 +162,6 @@ const AdminDataModelCoursesPage: React.FC&lt;AdminDataModelCoursesPageProps> = (
     updateData.id = doc._id;
     updateData.interests = doc.interests.map(interestNameToId);
     updateData.picture = doc.picture;
-    if (doc.corequisites) {
-      updateData.corequisites = doc.corequisites.map(courseNameToSlug);
-    }
-    if (doc.prerequisites) {
-      updateData.prerequisites = doc.prerequisites.map(courseNameToSlug);
-    }
     // console.log(collectionName, updateData);
     updateMethod
       .callPromise({ collectionName, updateData })

@@ -129,14 +129,6 @@ export const getRandomCourseSlug = (deptLength = 3, min = 100, max = 800): strin
   return getRandomCourseSlugForDept(deptName, min, max);
 };
 
-const makePrerequisiteArray = (numPrereqs = 0) => {
-  const retVal = [];
-  for (let i = 0; i &lt; numPrereqs; i++) {
-    retVal.push(getRandomCourseSlug());
-  }
-  return retVal;
-};
-
 /**
  * Creates a Course with a unique slug and returns its docID.
  * @param args An optional object containing arguments to the courses.define function.
@@ -157,8 +149,7 @@ export const makeSampleCourse = (args?: { num?: string; interestID?: string; }):
     max: 6,
   }));
   const syllabus = faker.lorem.paragraph();
-  const prerequisites = makePrerequisiteArray(faker.random.number({ max: 4 }));
-  return Courses.define({ name, slug, num, description, creditHrs, syllabus, prerequisites, interests });
+  return Courses.define({ name, slug, num, description, creditHrs, syllabus, interests });
 };
 
 /**
