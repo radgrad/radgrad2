@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRouteMatch, Link } from 'react-router-dom';
-import { Card, Icon, Label } from 'semantic-ui-react';
+import { Card, Icon, Label, Button } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
 import * as Router from '../../utilities/router';
 import { docToName, docToShortDescription, itemToSlugName } from '../../utilities/data-model';
@@ -40,6 +40,14 @@ const ExplorerCard: React.FC<ExplorerCardProps> = ({ item, type, inProfile }) =>
           renderers={{ link: (localProps) => Router.renderLink(localProps, match) }} />
         { item.interestIDs ? (<InterestList item={item} size="small" />) : ''}
       </Card.Content>
+      <Button.Group>
+        <Link to={buildExplorerSlugRoute(match, type, slugName)} className="ui button" id={`see-details-${slugName}-button`}>
+          <Icon name="zoom in" />
+          See Details
+        </Link>
+        <Button.Or />
+        <Button>{inProfile ? 'Remove Profile' : 'Add to Profile' || 'View More'}</Button>
+      </Button.Group>
       <Link to={buildExplorerSlugRoute(match, type, slugName)} className="ui button" id={`see-details-${slugName}-button`}>
         <Icon name="zoom in" />
           &nbsp; {inProfile ? 'See Details / Remove from Profile' : 'See Details / Add to Profile' || 'View More'}
