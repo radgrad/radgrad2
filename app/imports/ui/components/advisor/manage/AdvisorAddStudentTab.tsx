@@ -185,7 +185,7 @@ const AdvisorAddStudentTab: React.FC<AdvisorAddStudentWidgetProps> = ({ interest
               label="Declared Academic Term"
               value={declaredAcademicTerm}
               onChange={handleFormChange}
-              options={AcademicTerms.findNonRetired().map((ele, i) => ({
+              options={AcademicTerms.findNonRetired({}, { sort: { year: 1 } }).map((ele, i) => ({
                 key: i,
                 text: `${ele.term} ${ele.year}`,
                 value: ele._id,

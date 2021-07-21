@@ -9,7 +9,7 @@ import { Meteor } from 'meteor/meteor';
  * @type { Object }
  * @memberOf api/role
  */
-export const ROLE = {
+export const ROLE = { // TODO why isn't this an enum?
   FACULTY: 'FACULTY',
   STUDENT: 'STUDENT',
   ADMIN: 'ADMIN',

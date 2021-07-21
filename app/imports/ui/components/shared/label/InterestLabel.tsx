@@ -19,7 +19,8 @@ const InterestLabel: React.FC<EntityLabelPublicProps> = ({ slug, userID, size, s
   const name = Interests.findDocBySlug(slug).name; // will throw an error if slug is undefined.
   if (userID) {
     route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${slug}`);
-    // Calculate inProfile and route.
+    // TODO does this need to be reactive? If so then it needs to be a property of the label and calculated elsewhere.
+    // Calculate inProfile.
     const profileEntityIDs = ProfileInterests.findNonRetired({ userID: userID });
     const id = Interests.findIdBySlug(slug);
     inProfile = ((profileEntityIDs.map(doc => doc.interestID)).includes(id));

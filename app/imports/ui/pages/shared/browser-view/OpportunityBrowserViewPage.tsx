@@ -1,15 +1,12 @@
 import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
+import { useRouteMatch } from 'react-router';
 import { PAGEIDS } from '../../../utilities/PageIDs';
 import PageLayout from '../../PageLayout';
 import BrowserView from '../../../components/shared/explorer/browser-view/BrowserView';
-import { Opportunity } from '../../../../typings/radgrad';
 import { EXPLORER_TYPE } from '../../../utilities/ExplorerUtils';
-import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
-
-interface OpportunityBrowserViewPageProps {
-  opportunities: Opportunity[];
-}
+import { getEntities } from './utilities/getEntities';
+import { BrowserViewPageProps } from './utilities/BrowserViewPageProps';
 
 const headerPaneTitle = 'Find interesting opportunities';
 const headerPaneBody = `
@@ -22,18 +19,13 @@ Once they are in your plan, RadGrad can update your Innovation and Experience po
 `;
 const headerPaneImage = 'images/header-panel/header-opportunities.png';
 
-
-const OpportunityBrowserViewPage: React.FC<OpportunityBrowserViewPageProps> = ({ opportunities }) => (
-  <PageLayout id={PAGEIDS.OPPORTUNITY_BROWSER} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}
-    headerPaneImage={headerPaneImage}>
-    <BrowserView items={opportunities} explorerType={EXPLORER_TYPE.OPPORTUNITIES} />
+const OpportunityBrowserViewPage: React.FC<BrowserViewPageProps> = ({ opportunities, profileCareerGoals, profileCourses, profileInterests, profileOpportunities, careerGoals, courses, interests }) => (
+  <PageLayout id={PAGEIDS.OPPORTUNITY_BROWSER} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
+    <BrowserView items={opportunities} explorerType={EXPLORER_TYPE.OPPORTUNITIES} profileCareerGoals={profileCareerGoals} profileCourses={profileCourses} profileInterests={profileInterests} profileOpportunities={profileOpportunities} careerGoals={careerGoals} courses={courses} interests={interests} opportunities={opportunities} />
   </PageLayout>
 );
 
 export default withTracker(() => {
-  const opportunities = Opportunities.findNonRetired({});
-  return {
-    opportunities,
-  };
-},
-)(OpportunityBrowserViewPage);
+  const match = useRouteMatch();
+  return getEntities(match);
+})(OpportunityBrowserViewPage);

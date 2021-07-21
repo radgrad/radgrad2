@@ -7,7 +7,7 @@ import { Users } from '../../../../api/user/UserCollection';
 import { verificationRequestsUpdateStatusMethod } from '../../../../api/verification/VerificationRequestCollection.methods';
 import RadGradHeader from '../RadGradHeader';
 
-interface CompletedVerificationsWidgetProps {
+interface CompletedVerificationsProps {
   completedVerifications: VerificationRequest[];
   username: string;
 }
@@ -55,7 +55,7 @@ const handleOnClick = (username: string) => (e, { doc }) => {
  * records.
  * @returns {Segment}
  */
-const CompletedVerificationsWidget: React.FC<CompletedVerificationsWidgetProps> = ({ completedVerifications, username }) => (
+const CompletedVerifications: React.FC<CompletedVerificationsProps> = ({ completedVerifications, username }) => (
   <Segment>
     <RadGradHeader title='completed verification requests' dividing />
     <Container fluid={false} style={{ paddingBottom: '14px' }}>
@@ -112,4 +112,4 @@ const CompletedVerificationsWidget: React.FC<CompletedVerificationsWidgetProps> 
   </Segment>
 );
 
-export default CompletedVerificationsWidget;
+export default CompletedVerifications;

@@ -11,59 +11,15 @@ interface StudentVisibilitySettingListProps {
 const VisibilitySettingList: React.FC<StudentVisibilitySettingListProps> = ({ profile, size }) => {
   const share = [];
   const hide = [];
-  if (profile.shareCareerGoals) {
-    share.push('Career Goals');
-  } else {
-    hide.push('Career Goals');
-  }
-  if (profile.shareInterests) {
-    share.push('Interests');
-  } else {
-    hide.push('Interests');
-  }
-  if (profile.sharePicture) {
-    share.push('Picture');
-  } else {
-    hide.push('Picture');
-  }
-  if (profile.shareWebsite) {
-    share.push('Website');
-  } else {
-    hide.push('Website');
-  }
+  profile.shareCareerGoals ? share.push('Career Goals') : hide.push('Career Goals');
+  profile.shareInterests ? share.push('Interests') : hide.push('Interests');
+  profile.shareCourses ? share.push('Courses') : hide.push('Courses');
+  profile.shareOpportunities ? share.push('Opportunities') : hide.push('Opportunities');
+  profile.sharePicture ? share.push('Picture') : hide.push('Picture');
+  profile.shareWebsite ? share.push('Website') : hide.push('Website');
   if (profile.role === ROLE.STUDENT) {
-    if (profile.shareCourses) {
-      share.push('Courses');
-    } else {
-      hide.push('Courses');
-    }
-    if (profile.shareICE) {
-      share.push('ICE');
-    } else {
-      hide.push('ICE');
-    }
-    if (profile.shareLevel) {
-      share.push('Level');
-    } else {
-      hide.push('Level');
-    }
-    if (profile.shareOpportunities) {
-      share.push('Opportunities');
-    } else {
-      hide.push('Opportunities');
-    }
-  }
-  if (profile.role === ROLE.FACULTY || ROLE.ADVISOR) {
-    if (profile.shareCourses) {
-      share.push('Courses');
-    } else {
-      hide.push('Courses');
-    }
-    if (profile.shareOpportunities) {
-      share.push('Opportunities');
-    } else {
-      hide.push('Opportunities');
-    }
+    profile.shareICE ? share.push('ICE') : hide.push('ICE');
+    profile.shareLevel ? share.push('Level') : hide.push('Level');
   }
 
   return (

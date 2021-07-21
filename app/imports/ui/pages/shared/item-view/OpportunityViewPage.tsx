@@ -5,18 +5,11 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Grid } from 'semantic-ui-react';
 import { Interests } from '../../../../api/interest/InterestCollection';
 import { Reviews } from '../../../../api/review/ReviewCollection';
+import { Teasers } from '../../../../api/teaser/TeaserCollection';
 import { AdvisorProfiles } from '../../../../api/user/AdvisorProfileCollection';
 import { FacultyProfiles } from '../../../../api/user/FacultyProfileCollection';
 import { PROFILE_ENTRY_TYPE } from '../../../../api/user/profile-entries/ProfileEntryTypes';
-import {
-  AcademicTerm,
-  BaseProfile,
-  Interest,
-  Opportunity,
-  OpportunityType,
-  Profile, RelatedCoursesOrOpportunities,
-  Review,
-} from '../../../../typings/radgrad';
+import { AcademicTerm, BaseProfile, Interest, Opportunity, OpportunityType, Profile, RelatedCoursesOrOpportunities, Review, Teaser } from '../../../../typings/radgrad';
 import AddToProfileButton from '../../../components/shared/explorer/item-view/AddToProfileButton';
 import RelatedCareerGoals from '../../../components/shared/RelatedCareerGoals';
 import RelatedCourses from '../../../components/shared/RelatedCourses';
@@ -26,8 +19,7 @@ import PageLayout from '../../PageLayout';
 import { Users } from '../../../../api/user/UserCollection';
 import { ProfileOpportunities } from '../../../../api/user/profile-entries/ProfileOpportunityCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
-import ExplorerOpportunity
-  from '../../../components/shared/explorer/item-view/opportunity/ExplorerOpportunity';
+import ExplorerOpportunity from '../../../components/shared/explorer/item-view/opportunity/ExplorerOpportunity';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { OpportunityTypes } from '../../../../api/opportunity/OpportunityTypeCollection';
 import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
@@ -44,6 +36,8 @@ interface OpportunityViewPageProps {
   interests: Interest[];
   opportunityTypes: OpportunityType[];
   opportunities: Opportunity[];
+  review: Review[];
+  teaser: Teaser[];
 }
 
 const isCompleted = (opportunityID: string, userID: string): boolean => {
@@ -57,32 +51,21 @@ const isCompleted = (opportunityID: string, userID: string): boolean => {
   return completed;
 };
 
-const OpportunityViewPage: React.FC<OpportunityViewPageProps> = ({
-  profileOpportunities,
-  itemReviews,
-  opportunity,
-  profile,
-  sponsors,
-  terms,
-  interests,
-  opportunityTypes,
-  opportunities,
-}) => {
+const OpportunityViewPage: React.FC<OpportunityViewPageProps> = ({ profileOpportunities, itemReviews, opportunity, profile, sponsors, terms, interests, opportunityTypes, opportunities, review, teaser }) => {
   const userID = profile.userID;
   const completed = isCompleted(opportunity._id, userID);
   const headerPaneTitle = opportunity.name;
   const headerPaneImage = opportunity.picture;
-  const added = ProfileOpportunities.findNonRetired({
-    userID: profile.userID,
-    opportunityID: opportunity._id,
-  }).length > 0;
+  const added =
+    ProfileOpportunities.findNonRetired({
+      userID: profile.userID,
+      opportunityID: opportunity._id,
+    }).length > 0;
   const relatedCourses: RelatedCoursesOrOpportunities = getAssociationRelatedCourses(Opportunities.findRelatedCourses(opportunity._id), profile.userID);
   const relatedCareerGoals = Opportunities.findRelatedCareerGoals(opportunity._id);
-  const headerPaneButton = <AddToProfileButton type={PROFILE_ENTRY_TYPE.OPPORTUNITY} userID={profile.userID}
-    item={opportunity} added={added} inverted floated="left" />;
+  const headerPaneButton = <AddToProfileButton type={PROFILE_ENTRY_TYPE.OPPORTUNITY} userID={profile.userID} item={opportunity} added={added} inverted floated="left" />;
   return (
-    <PageLayout id={PAGEIDS.OPPORTUNITY} headerPaneTitle={headerPaneTitle} headerPaneImage={headerPaneImage}
-      headerPaneButton={headerPaneButton}>
+    <PageLayout id={PAGEIDS.OPPORTUNITY} headerPaneTitle={headerPaneTitle} headerPaneImage={headerPaneImage} headerPaneButton={headerPaneButton}>
       <Grid>
         <Grid.Row>
           <Grid.Column width={5}>
@@ -91,9 +74,19 @@ const OpportunityViewPage: React.FC<OpportunityViewPageProps> = ({
             <RelatedCourses relatedCourses={relatedCourses} profile={profile} />
           </Grid.Column>
           <Grid.Column width={11}>
-            <ExplorerOpportunity opportunity={opportunity} opportunityTypes={opportunityTypes}
-              opportunities={opportunities} interests={interests} sponsors={sponsors}
-              terms={terms} completed={completed} itemReviews={itemReviews} profile={profile} />
+            <ExplorerOpportunity
+              opportunity={opportunity}
+              opportunityTypes={opportunityTypes}
+              opportunities={opportunities}
+              interests={interests}
+              sponsors={sponsors}
+              terms={terms}
+              completed={completed}
+              itemReviews={itemReviews}
+              profile={profile}
+              review={review}
+              teaser={teaser}
+            />
           </Grid.Column>
         </Grid.Row>
       </Grid>
@@ -108,6 +101,7 @@ export default withTracker(() => {
   const profileOpportunities = favOpps.map((f) => Opportunities.findDoc(f.opportunityID));
   const opportunityDoc = Opportunities.findDocBySlug(opportunity);
   const itemReviews = Reviews.findNonRetired({ revieweeID: opportunityDoc._id, visible: true });
+  const review = Reviews.findNonRetired({ revieweeID: opportunityDoc._id, visible: true, studentID: profile.userID });
   const sponsorID = Users.getProfile(username).userID;
   const opportunities = Opportunities.find({ sponsorID }, { sort: { name: 1 } }).fetch();
   const faculty = FacultyProfiles.find({}).fetch();
@@ -121,6 +115,7 @@ export default withTracker(() => {
   const terms = allTerms.filter((t) => t.termNumber >= after && t.termNumber <= before);
   const interests = Interests.find({}, { sort: { name: 1 } }).fetch();
   const opportunityTypes = OpportunityTypes.find({}, { sort: { name: 1 } }).fetch();
+  const teaser = Teasers.findNonRetired({ targetSlugID: opportunityDoc.slugID });
   return {
     profileOpportunities,
     itemReviews,
@@ -131,5 +126,7 @@ export default withTracker(() => {
     interests,
     opportunityTypes,
     opportunities,
+    review,
+    teaser,
   };
 })(OpportunityViewPage);

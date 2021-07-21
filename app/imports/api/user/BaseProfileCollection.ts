@@ -19,6 +19,7 @@ import { ProfileOpportunities } from './profile-entries/ProfileOpportunityCollec
 
 export const defaultProfilePicture = '/images/default-profile-picture.png';
 
+// Technical debt add shareInternships? and other to this collection since advisors and faculty can now have Profile*
 /**
  * Set up the object to be used to map role names to their corresponding collections.
  * @memberOf api/user

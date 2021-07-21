@@ -6,6 +6,7 @@ import BaseCollection from '../base/BaseCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
 import { Courses } from '../course/CourseCollection';
 import { Interests } from '../interest/InterestCollection';
+import { Internships } from '../internship/InternshipCollection';
 import { FacultyProfiles } from '../user/FacultyProfileCollection';
 import { Opportunities } from '../opportunity/OpportunityCollection';
 import { OpportunityTypes } from '../opportunity/OpportunityTypeCollection';
@@ -45,6 +46,12 @@ class PublicStatsCollection extends BaseCollection {
   public interestsListKey: string;
 
   public interestsUpdateTime: string; // format YYYY-MM-DD-HH-mm-ss
+
+  public internshipsTotalKey: string;
+
+  public internshipsListKey: string;
+
+  public internshipsUpdateTime: string; // format YYYY-MM-DD-HH-mm-ss
 
   public opportunitiesTotalKey: string;
 
@@ -98,6 +105,11 @@ class PublicStatsCollection extends BaseCollection {
     this.interestsListKey = 'interestsList';
     this.stats.push(this.interestsListKey);
     this.interestsUpdateTime = 'interestsUpdateTime';
+    this.internshipsTotalKey = 'internshipsTotal';
+    this.stats.push(this.internshipsTotalKey);
+    this.internshipsListKey = 'internshipsList';
+    this.stats.push(this.internshipsListKey);
+    this.internshipsUpdateTime = 'internshipsUpdateTime';
     this.opportunitiesTotalKey = 'opportunitiesTotal';
     this.stats.push(this.opportunitiesTotalKey);
     this.opportunitiesProjectsTotalKey = 'opportunitiesProjectsTotal';
@@ -168,6 +180,22 @@ class PublicStatsCollection extends BaseCollection {
 
   public setInterestsUpdateTime(time: string) {
     this.collection.upsert({ key: this.interestsUpdateTime }, { $set: { value: time } });
+  }
+
+  public internshipsTotal() {
+    const numInternships = Internships.countNonRetired();
+    this.collection.upsert({ key: this.internshipsTotalKey }, { $set: { value: `${numInternships}` } });
+  }
+
+  public internshipsList() {
+    const internships = Internships.findNonRetired();
+    const names = internships.map((interest) => interest.position);
+    const nameStr = names.length > 0 ? names.join(', ') : 'none';
+    this.collection.upsert({ key: this.internshipsListKey }, { $set: { value: nameStr } });
+  }
+
+  public setInternshipsUpdateTime(time: string) {
+    this.collection.upsert({ key: this.internshipsUpdateTime }, { $set: { value: time } });
   }
 
   public opportunitiesTotal() {

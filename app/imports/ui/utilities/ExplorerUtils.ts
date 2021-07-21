@@ -1,7 +1,7 @@
 /** Define Sort keys used to sort the cards in the explorer pages. It is used in Interests, Career Goals, Opportunities and Courses component */
 export const enum EXPLORER_SORT_KEYS {
   ALPHABETIC = 'Alphabetic',
-  EXPERIENCE =  'Experience',
+  EXPERIENCE = 'Experience',
   INNOVATION = 'Innovation',
   MOST_RECENT = 'Most Recent',
   NUMBER = 'Course Number',
@@ -15,6 +15,7 @@ export const enum EXPLORER_TYPE {
   INTERESTS = 'interests',
   OPPORTUNITIES = 'opportunities',
   INTERNSHIPS = 'internships',
+  // TODO INTERNSHIPS
 }
 
 /** Define icon names for each explorer type */
@@ -23,6 +24,7 @@ export const enum EXPLORER_TYPE_ICON {
   COURSE = 'book',
   INTEREST = 'heart',
   OPPORTUNITY = 'lightbulb',
+  // TODO INTERNSHIPS 'mug hot'
 }
 
 /** Define Sort keys used to sort the cards in the explorer pages. It is used in Interests, Career Goals, Opportunities and Courses component */

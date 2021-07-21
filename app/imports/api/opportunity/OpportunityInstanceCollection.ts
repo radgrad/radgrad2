@@ -250,6 +250,11 @@ class OpportunityInstanceCollection extends BaseCollection {
     return Users.getProfile(instance.studentID);
   }
 
+  /**
+   * Returns the unverified opportunity instances for the given student.
+   * @param {string} student username or ID.
+   * @return {OpportunityInstance[]} the unverified opportunity instances.
+   */
   public getUnverifiedInstances(student: string): OpportunityInstance[] {
     const studentID = Users.getID(student);
     const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
