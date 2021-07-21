@@ -1126,7 +1126,6 @@
             "game-design",
             "software-engineering"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1140,7 +1139,6 @@
           "interests": [
             "application-development"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1156,7 +1154,6 @@
             "data-visualization",
             "databases"
           ],
-          "corequisites": [],
           "retired": false
         },
         {
@@ -1169,7 +1166,6 @@
           "interests": [
             "algorithms"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1183,7 +1179,6 @@
           "interests": [
             "python"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1198,7 +1193,6 @@
             "java"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS111.html",
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1213,7 +1207,6 @@
             "algorithms"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS141.html",
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1230,7 +1223,6 @@
             "psychology",
             "social-computing"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1247,7 +1239,6 @@
             "java"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS211.html",
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1263,7 +1254,6 @@
             "c"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS212.html",
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1281,7 +1271,6 @@
             "application-development"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS215.html",
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1296,7 +1285,6 @@
             "theory-of-computation"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS222.html",
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1310,7 +1298,6 @@
           "interests": [
             "machine-learning"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1325,7 +1312,6 @@
             "algorithms"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS241.html",
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1342,7 +1328,6 @@
             "software-engineering",
             "teaching"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1358,7 +1343,6 @@
             "data-science"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS311.html",
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1375,7 +1359,6 @@
             "application-development"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS312.html",
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1391,7 +1374,6 @@
             "prolog"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS313.html",
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1414,7 +1396,6 @@
             "web-development"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS314.html",
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1431,7 +1412,6 @@
             "sql"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS321.html",
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1448,7 +1428,6 @@
             "application-development"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS331.html",
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1465,7 +1444,6 @@
             "application-development"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS332.html",
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1483,7 +1461,6 @@
             "application-development"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS351.html",
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1498,7 +1475,6 @@
             "security"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS355.html",
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1516,7 +1492,6 @@
             "prolog"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS361.html",
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1530,7 +1505,6 @@
           "interests": [
             "software-engineering"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1546,7 +1520,6 @@
             "computer-ethics"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS390.html",
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1563,7 +1536,6 @@
             "it-management"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS414.html",
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1579,7 +1551,6 @@
             "software-engineering"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS415.html",
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1595,7 +1566,6 @@
             "hci"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS419.html",
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1610,7 +1580,6 @@
             "databases"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS421.html",
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1625,7 +1594,6 @@
             "databases"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS422.html",
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1641,7 +1609,6 @@
             "security"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS423.html",
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1656,7 +1623,6 @@
             "application-development"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS424.html",
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1673,7 +1639,6 @@
             "it-management"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS425.html",
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1689,7 +1654,6 @@
             "it-management"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS426.html",
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1703,7 +1667,6 @@
           "interests": [
             "software-engineering"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1720,7 +1683,6 @@
             "networks",
             "security"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1736,7 +1698,6 @@
             "hardware"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS431.html",
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1755,7 +1716,6 @@
             "application-development"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS432.html",
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1769,7 +1729,6 @@
           "interests": [
             "data-science"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1785,7 +1744,6 @@
             "data-science"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS435.html",
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1801,7 +1759,6 @@
             "data-visualization",
             "databases"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1817,7 +1774,6 @@
             "algorithms"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS441.html",
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1832,7 +1788,6 @@
             "algorithms"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS442.html",
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1851,7 +1806,6 @@
             "application-development"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS443.html",
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1867,7 +1821,6 @@
             "c"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS451.html",
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1885,7 +1838,6 @@
             "robotics"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS452.html",
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1901,7 +1853,6 @@
             "cryptography"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS455.html",
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1919,7 +1870,6 @@
             "robotics"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS461.html",
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1938,7 +1888,6 @@
             "application-development"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS462.html",
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1954,7 +1903,6 @@
             "hci"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS464.html",
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1970,7 +1918,6 @@
             "application-development"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS465.html",
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -1988,7 +1935,6 @@
             "ios"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS466.html",
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2006,7 +1952,6 @@
             "hci"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS469.html",
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2023,7 +1968,6 @@
             "algorithms"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS471.html",
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2041,7 +1985,6 @@
             "data-science"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS475.html",
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2059,7 +2002,6 @@
             "data-science"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS476.html",
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2074,7 +2016,6 @@
             "computer-graphics"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS481.html",
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2090,7 +2031,6 @@
             "algorithms"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS483.html",
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2107,7 +2047,6 @@
             "data-science"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS484.html",
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2125,7 +2064,6 @@
             "application-development"
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS485.html",
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2139,7 +2077,6 @@
           "interests": [
             "virtual-reality"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2153,7 +2090,6 @@
           "interests": [
             "research"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2167,7 +2103,6 @@
           "interests": [
             "security"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2183,7 +2118,6 @@
             "software-engineering",
             "social-computing"
           ],
-          "corequisites": [],
           "repeatable": true,
           "retired": false
         },
@@ -2197,7 +2131,6 @@
           "interests": [
             "research"
           ],
-          "corequisites": [],
           "repeatable": true,
           "retired": false
         },
@@ -2209,7 +2142,6 @@
           "description": "Enrollment for degree completion.",
           "creditHrs": 1,
           "interests": [],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2223,7 +2155,6 @@
           "interests": [
             "artificial-intelligence"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2239,7 +2170,6 @@
             "computer-architecture",
             "operating-systems"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2253,7 +2183,6 @@
           "interests": [
             "operating-systems"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2267,7 +2196,6 @@
           "interests": [
             "software-engineering"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2283,7 +2211,6 @@
             "hci",
             "software-engineering"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2297,7 +2224,6 @@
           "interests": [
             "algorithms"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2311,7 +2237,6 @@
           "interests": [
             "algorithms"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2325,7 +2250,6 @@
           "interests": [
             "security"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2339,7 +2263,6 @@
           "interests": [
             "databases"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2353,7 +2276,6 @@
           "interests": [
             "hpc"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2368,7 +2290,6 @@
             "artificial-intelligence",
             "machine-learning"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2382,7 +2303,6 @@
           "interests": [
             "machine-learning"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2397,7 +2317,6 @@
             "artificial-intelligence",
             "machine-learning"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2412,7 +2331,6 @@
             "algorithms",
             "theory-of-computation"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2427,7 +2345,6 @@
             "algorithms",
             "hpc"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2441,7 +2358,6 @@
           "interests": [
             "networks"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2455,7 +2371,6 @@
           "interests": [
             "security"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2469,7 +2384,6 @@
           "interests": [
             "computer-architecture"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2483,7 +2397,6 @@
           "interests": [
             "artificial-intelligence"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2497,7 +2410,6 @@
           "interests": [
             "artificial-intelligence"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2511,7 +2423,6 @@
           "interests": [
             "hci"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2525,7 +2436,6 @@
           "interests": [
             "hci"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2537,7 +2447,6 @@
           "description": "An advanced introduction to the design of human-computer systems and other technological artifacts for supporting human collaboration in learning, work and social contexts, and to theoretical perspectives and empirical studies of collaboration that inform such design. A-F only.",
           "creditHrs": 3,
           "interests": [],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2552,7 +2461,6 @@
             "hci",
             "social-computing"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2566,7 +2474,6 @@
           "interests": [
             "bioinformatics"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2580,7 +2487,6 @@
           "interests": [
             "bioinformatics"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2594,7 +2500,6 @@
           "interests": [
             "computer-graphics"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2608,7 +2513,6 @@
           "interests": [
             "algorithms"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2622,7 +2526,6 @@
           "interests": [
             "computer-vision"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2636,7 +2539,6 @@
           "interests": [
             "virtual-reality"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2650,7 +2552,6 @@
           "interests": [
             "computer-graphics"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2664,7 +2565,6 @@
           "interests": [
             "research"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2678,7 +2578,6 @@
           "interests": [
             "research"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2692,7 +2591,6 @@
           "interests": [
             "security"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2706,7 +2604,6 @@
           "interests": [
             "research"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2720,7 +2617,6 @@
           "interests": [
             "research"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2734,7 +2630,6 @@
           "interests": [
             "research"
           ],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         },
@@ -2746,7 +2641,6 @@
           "description": "The course used to represent all non-CS courses.",
           "creditHrs": 3,
           "interests": [],
-          "corequisites": [],
           "repeatable": false,
           "retired": false
         }
