@@ -1,8 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
 import { Card, Grid } from 'semantic-ui-react';
-import { useRouteMatch } from 'react-router';
-import { Internships } from '../../../../../api/internship/InternshipCollection';
 import { CareerGoal, Course, Interest, Opportunity, Internship, ProfileCareerGoal, ProfileCourse, ProfileInterest, ProfileOpportunity } from '../../../../../typings/radgrad';
 import { useStickyState } from '../../../../utilities/StickyState';
 import ExplorerCard from './ExplorerCard';
@@ -16,6 +14,7 @@ import { Interests } from '../../../../../api/interest/InterestCollection';
 import { CareerGoals } from '../../../../../api/career/CareerGoalCollection';
 import { Opportunities } from '../../../../../api/opportunity/OpportunityCollection';
 import { Courses } from '../../../../../api/course/CourseCollection';
+import { Internships } from '../../../../../api/internship/InternshipCollection';
 
 interface BrowserViewProps {
   items: CareerGoal[] | Course[] | Opportunity[] | Interest[] | Internship[];

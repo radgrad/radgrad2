@@ -1,19 +1,17 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import React from 'react';
 import { useParams } from 'react-router-dom';
+import { useRouteMatch } from 'react-router';
 import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
 import { getInternshipsMethod } from '../../../../api/internship/InternshipCollection.methods';
 import { Users } from '../../../../api/user/UserCollection';
 import { ClientSideInternships } from '../../../../startup/client/collections';
-import { Internship } from '../../../../typings/radgrad';
 import BrowserView from '../../../components/shared/explorer/browser-view/BrowserView';
 import { EXPLORER_TYPE } from '../../../utilities/ExplorerUtils';
 import { PAGEIDS } from '../../../utilities/PageIDs';
 import PageLayout from '../../PageLayout';
-
-interface InternshipBrowserViewPage {
-  internships: Internship[];
-}
+import { BrowserViewPageProps } from './utilities/BrowserViewPageProps';
+import { getEntities } from './utilities/getEntities';
 
 const headerPaneTitle = 'Find an internship';
 const headerPaneBody = `
@@ -21,9 +19,9 @@ This page will eventually show Internships that match your Interests and Career 
 `;
 const headerPaneImage = 'images/header-panel/header-career.png';
 
-const InternshipBrowserViewPage: React.FC<InternshipBrowserViewPage> = ({ internships }) => (
+const InternshipBrowserViewPage: React.FC<BrowserViewPageProps> = ({ internships, opportunities, profileCareerGoals, profileCourses, profileInterests, profileOpportunities, careerGoals, courses, interests }) => (
   <PageLayout id={PAGEIDS.INTERNSHIP_BROWSER} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
-    <BrowserView items={internships} explorerType={EXPLORER_TYPE.INTERNSHIPS}/>
+    <BrowserView items={internships} explorerType={EXPLORER_TYPE.INTERNSHIPS} profileCareerGoals={profileCareerGoals} profileCourses={profileCourses} profileInterests={profileInterests} profileOpportunities={profileOpportunities} careerGoals={careerGoals} courses={courses} interests={interests} opportunities={opportunities} />
   </PageLayout>
 );
 
@@ -43,7 +41,11 @@ export default withTracker(() => {
   const careerGoals = CareerGoals.findNonRetired();
   const internships = ClientSideInternships.find().fetch();
   console.log(internships);
+
+  const match = useRouteMatch();
+  const entities = getEntities(match);
   return {
+    ...entities,
     careerGoals,
     internships,
   };
