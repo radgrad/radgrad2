@@ -106,10 +106,8 @@ if (Meteor.isServer) {
     });
 
     it('Can checkIntegrity no errors', function test6() {
-      const course = Courses.findOne({});
       const errors = Courses.checkIntegrity();
-      // When we call makeSampleCourse we don't create the courses for the prereqs
-      expect(errors.length).to.equal(course.prerequisites.length);
+      expect(errors.length).to.equal(0);
     });
 
     it('Can get slug for course', function test7() {
