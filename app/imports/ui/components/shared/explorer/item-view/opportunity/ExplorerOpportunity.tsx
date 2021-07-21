@@ -39,7 +39,7 @@ const ExplorerOpportunity: React.FC<ExplorerOpportunitiesProps> = ({ opportunity
   const isSponsor = profile.userID === opportunity.sponsorID;
   const showManageButtons = isSponsor || profile.role === ROLE.ADMIN;
 
-  const eventListItem = (date, label) => (date ? <List.Item key={date + label}>{moment.utc(date).format('LL')}:  {label}</List.Item> : '');
+  const eventListItem = (date, label) => (date ? <List.Item key={label}>{moment.utc(date).format('LL')}:  {label}</List.Item> : '');
   const reviewDoc = review.length > 0 ? review[0] : null;
 
   return (
