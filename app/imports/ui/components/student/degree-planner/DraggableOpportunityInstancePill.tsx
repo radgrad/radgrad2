@@ -9,12 +9,13 @@ import { Users } from '../../../../api/user/UserCollection';
 import { OpportunityInstance, VerificationRequest } from '../../../../typings/radgrad';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
 import { EXPLORER_TYPE, STUDENT_VERIFICATION, URL_ROLES } from '../../../layouts/utilities/route-constants';
+import { COLORS } from '../../../utilities/Colors';
 import RadGradAlert from '../../../utilities/RadGradAlert';
 import { ButtonAction } from '../../shared/button/ButtonAction';
 import { ButtonLink } from '../../shared/button/ButtonLink';
 import { ViewInExplorerButtonLink } from '../../shared/button/ViewInExplorerButtonLink';
 import FutureParticipationButton from '../../shared/FutureParticipationButton';
-import { cardStyle, getDraggablePillStyle } from './utilities/styles';
+import { cardStyle, getDraggableOpportunityPillStyle } from './utilities/styles';
 import NamePill from './NamePill';
 import IceHeader from '../../shared/IceHeader';
 import RemoveIt from './RemoveIt';
@@ -52,6 +53,7 @@ const DraggableOpportunityInstancePill: React.FC<OpportunityInstancePillProps> =
       .catch((error) => console.error(`Remove opportunity instance ${instance} failed.`, error));
   };
   const match = useRouteMatch();
+  const color = COLORS.BLUE;
   return (
     <Modal
       onClose={() => setOpen(false)}
@@ -61,18 +63,18 @@ const DraggableOpportunityInstancePill: React.FC<OpportunityInstancePillProps> =
         <div>
           <Draggable key={instance._id} draggableId={instance._id} index={index}>
             {(prov, snap) => (
-              <div ref={prov.innerRef} {...prov.draggableProps} {...prov.dragHandleProps} style={getDraggablePillStyle(snap.isDragging, prov.draggableProps.style)}>
+              <div ref={prov.innerRef} {...prov.draggableProps} {...prov.dragHandleProps} style={getDraggableOpportunityPillStyle(snap.isDragging, prov.draggableProps.style)}>
                 <Grid>
                   {instance.verified ?
                     <Grid.Row style={{ paddingTop: 7, paddingBottom: 7 }}>
                       <Grid.Column width={16}>
-                        <NamePill name={shortenName(opp.name)} />
+                        <NamePill name={shortenName(opp.name)} color={color} />
                       </Grid.Column>
                     </Grid.Row>
                     :
                     <Grid.Row style={{ paddingTop: 7, paddingBottom: 7 }}>
                       <Grid.Column width={13}>
-                        <NamePill name={shortenName(opp.name)} />
+                        <NamePill name={shortenName(opp.name)} color={color}  />
                       </Grid.Column>
                       <Grid.Column width={3} verticalAlign='middle'>
                         <RemoveIt collectionName='OpportunityInstanceCollection' id={instance._id} name={opp.name} courseNumber='' />

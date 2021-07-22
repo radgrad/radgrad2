@@ -2,17 +2,33 @@ import { COLORS } from '../../../../utilities/Colors';
 
 const grid = 2;
 
-const getDraggablePillStyle = (isDragging: boolean, draggableStyle: React.CSSProperties): React.CSSProperties => ({
+const getDraggableCoursePillStyle = (isDragging: boolean, draggableStyle: React.CSSProperties): React.CSSProperties => ({
   // some basic styles to make the items look a bit nicer
   userSelect: 'none',
   padding: grid,
   margin: `0 0 ${grid}px 0`,
   color: COLORS.GREEN3,
   // change background colour if dragging
-  background: COLORS.TEAL,
+  background: COLORS.GREEN,
   borderStyle: 'solid',
   borderRadius: 12,
-  borderColor: isDragging ? COLORS.BLACK : COLORS.TEAL,
+  borderColor: isDragging ? COLORS.BLACK : COLORS.GREEN,
+
+  // styles we need to apply on draggables
+  ...draggableStyle,
+});
+
+const getDraggableOpportunityPillStyle = (isDragging: boolean, draggableStyle: React.CSSProperties): React.CSSProperties => ({
+  // some basic styles to make the items look a bit nicer
+  userSelect: 'none',
+  padding: grid,
+  margin: `0 0 ${grid}px 0`,
+  color: COLORS.BLUE,
+  // change background colour if dragging
+  background: COLORS.BLUE,
+  borderStyle: 'solid',
+  borderRadius: 12,
+  borderColor: isDragging ? COLORS.BLACK : COLORS.BLUE,
 
   // styles we need to apply on draggables
   ...draggableStyle,
@@ -63,7 +79,8 @@ const buttonStyle = {
 };
 
 export {
-  getDraggablePillStyle,
+  getDraggableCoursePillStyle,
+  getDraggableOpportunityPillStyle,
   getInspectorDraggablePillStyle,
   getDroppableListStyle,
   getNotSatisfiedStyle,

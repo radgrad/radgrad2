@@ -7,10 +7,11 @@ import { Courses } from '../../../../api/course/CourseCollection';
 import { Slugs } from '../../../../api/slug/SlugCollection';
 import { Course, CourseInstance } from '../../../../typings/radgrad';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
+import { COLORS } from '../../../utilities/Colors';
 import { ViewInExplorerButtonLink } from '../../shared/button/ViewInExplorerButtonLink';
 import FutureParticipationButton from '../../shared/FutureParticipationButton';
 import NamePill from './NamePill';
-import { getDraggablePillStyle, buttonStyle } from './utilities/styles';
+import { buttonStyle, getDraggableCoursePillStyle } from './utilities/styles';
 
 interface ProfileCourseAccordionProps {
   course: Course;
@@ -34,7 +35,7 @@ const ProfileCourseAccordion: React.FC<ProfileCourseAccordionProps> = ({ course,
   const slug = Slugs.findDoc(course.slugID).name;
   const droppableID = `${course._id}`;
   const courseName = Courses.getName(course._id);
-
+  const color = COLORS.GREEN;
   return (
     <Accordion fluid styled>
       <Accordion.Title active={active} onClick={handleClick}>
@@ -54,8 +55,8 @@ const ProfileCourseAccordion: React.FC<ProfileCourseAccordionProps> = ({ course,
             <div ref={provided.innerRef}>
               <Draggable key={slug} draggableId={slug} index={0}>
                 {(prov, snap) => (
-                  <div ref={prov.innerRef} {...prov.draggableProps} {...prov.dragHandleProps} style={getDraggablePillStyle(snap.isDragging, prov.draggableProps.style)}>
-                    <NamePill name={course.num} />
+                  <div ref={prov.innerRef} {...prov.draggableProps} {...prov.dragHandleProps} style={getDraggableCoursePillStyle(snap.isDragging, prov.draggableProps.style)}>
+                    <NamePill name={course.num} color={color} />
                   </div>
                 )}
               </Draggable>

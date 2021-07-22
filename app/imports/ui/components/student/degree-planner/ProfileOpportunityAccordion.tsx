@@ -6,11 +6,12 @@ import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollect
 import { Slugs } from '../../../../api/slug/SlugCollection';
 import { AcademicTerm, Opportunity, OpportunityInstance } from '../../../../typings/radgrad';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
+import { COLORS } from '../../../utilities/Colors';
 import { ViewInExplorerButtonLink } from '../../shared/button/ViewInExplorerButtonLink';
 import FutureParticipationButton from '../../shared/FutureParticipationButton';
 import IceHeader from '../../shared/IceHeader';
 import NamePill from './NamePill';
-import { getDraggablePillStyle, buttonStyle } from './utilities/styles';
+import { buttonStyle, getDraggableOpportunityPillStyle } from './utilities/styles';
 
 interface ProfileOpportunityAccordionProps {
   studentID: string;
@@ -53,8 +54,8 @@ const ProfileOpportunityAccordion: React.FC<ProfileOpportunityAccordionProps> = 
             <div ref={provided.innerRef}>
               <Draggable key={slug} draggableId={slug} index={0}>
                 {(prov, snap) => (
-                  <div ref={prov.innerRef} {...prov.draggableProps} {...prov.dragHandleProps} style={getDraggablePillStyle(snap.isDragging, prov.draggableProps.style)}>
-                    <NamePill name={opportunity.name} />
+                  <div ref={prov.innerRef} {...prov.draggableProps} {...prov.dragHandleProps} style={getDraggableOpportunityPillStyle(snap.isDragging, prov.draggableProps.style)}>
+                    <NamePill name={opportunity.name} color={COLORS.BLUE} />
                   </div>
                 )}
               </Draggable>
