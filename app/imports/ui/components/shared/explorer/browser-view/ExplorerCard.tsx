@@ -3,6 +3,7 @@ import { useRouteMatch, Link } from 'react-router-dom';
 import { Card, Icon, Label, Button } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
 import { defineMethod, removeItMethod } from '../../../../../api/base/BaseCollection.methods';
+import { ProfileCareerGoals } from '../../../../../api/user/profile-entries/ProfileCareerGoalCollection';
 import { ProfileCourses } from '../../../../../api/user/profile-entries/ProfileCourseCollection';
 import { IProfileEntryTypes, PROFILE_ENTRY_TYPE } from '../../../../../api/user/profile-entries/ProfileEntryTypes';
 import { ProfileInterests } from '../../../../../api/user/profile-entries/ProfileInterestCollection';
@@ -32,55 +33,24 @@ interface ExplorerCardProps {
   };
   type: string;
   inProfile: boolean;
+  explorerType?: EXPLORER_TYPE;
 }
 
 
-const handleAdd = (userID: string, itemType: ItemType, type: IProfileEntryTypes) => () => {
-  const collectionName = getCollectionName(type);
-  const definitionData = createDefinitionData(userID, itemType, type);
-  defineMethod.callPromise({ collectionName, definitionData })
-    .catch((error: MeteorError) => { RadGradAlert.failure('Failed to add to profile', error.message);})
-    .then(() => { RadGradAlert.success('Added to profile');});
-};
 
-const handleRemove = (userID: string, item: ItemType, type: IProfileEntryTypes) => () => {
-  const collectionName = getCollectionName(type);
-  let instance;
-  switch (type) {
-    case PROFILE_ENTRY_TYPE.COURSE:
-      instance = ProfileCourses.findNonRetired({
-        userID,
-        courseID: item._id,
-      })[0]._id;
-      break;
-    case PROFILE_ENTRY_TYPE.INTEREST:
-      instance = ProfileInterests.findNonRetired({
-        userID,
-        interestID: item._id,
-      })[0]._id;
-      break;
-    case PROFILE_ENTRY_TYPE.OPPORTUNITY:
-      instance = ProfileOpportunities.findNonRetired({
-        userID,
-        opportunityID: item._id,
-      })[0]._id;
-      break;
-    // TODO add internships.
-    default:
-      console.error(`Bad profile entry type: ${type}`);
-      break;
-  }
-  removeItMethod.callPromise({ collectionName, instance })
-    .catch((error) => { RadGradAlert.failure('Failed to remove from profile', error.message, error);});
-};
-
-const ExplorerCard: React.FC<ExplorerCardProps> = ({ item, type, inProfile }) => {
+const ExplorerCard: React.FC<ExplorerCardProps> = ({ item, type, inProfile, explorerType }) => {
   const match = useRouteMatch();
-  const itemType = item;
   const itemName = (type === EXPLORER_TYPE.COURSES) ? Courses.getName(item._id) : docToName(item);
   const itemShortDescription = docToShortDescription(item);
   const slugName = itemToSlugName(item);
   const userID = match.userID;
+  let itemType;
+  switch (explorerType) {
+    case EXPLORER_TYPE.INTERESTS:
+      itemType = PROFILE_ENTRY_TYPE.INTEREST;
+      break;
+
+  }
   return (
     <Card>
       <Card.Content>
@@ -98,7 +68,7 @@ const ExplorerCard: React.FC<ExplorerCardProps> = ({ item, type, inProfile }) =>
           See Details
         </Link>
         <Button.Or />
-        {inProfile ? (<Button onClick={handleRemove(userID, itemType, type)}>Remove Profile</Button>) : <Button onClick={handleAdd(userID, itemType, type)}>Add To Profile</Button>}
+        {inProfile ? (<Button>Remove Profile</Button>) : <Button>Add To Profile</Button>}
       </Button.Group>
     </Card>
   );
