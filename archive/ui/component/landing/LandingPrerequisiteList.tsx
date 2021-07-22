@@ -1,8 +1,8 @@
 import React from 'react';
 import { Label, SemanticSIZES } from 'semantic-ui-react';
-import { Courses } from '../../../api/course/CourseCollection';
-import { getSlugFromEntityID } from './utilities/helper-functions';
-import CourseLabel from '../shared/label/CourseLabel';
+import { Courses } from '../../../../app/imports/api/course/CourseCollection';
+import { getSlugFromEntityID } from '../../../../app/imports/ui/components/landing/utilities/helper-functions';
+import CourseLabel from '../../../../app/imports/ui/components/shared/label/CourseLabel';
 
 interface LandingPrerequisitesListProps {
   prerequisites: string[];
