@@ -7,11 +7,11 @@ interface SearchProps {
 }
 
 const Search: React.FC<SearchProps> = ({ explorerType }) => {
-  const [searchPhrase, setSearchPhrase] = useStickyState(`Search.${explorerType}`, '');
-  console.log(searchPhrase);
+  // Not using deconstruction since the value is not used in this file
+  const searchState = useStickyState(`Search.${explorerType}`, '');
 
   const handleChange = (type, value) => {
-    setSearchPhrase(value);
+    searchState[1](value);
   };
 
   return (
