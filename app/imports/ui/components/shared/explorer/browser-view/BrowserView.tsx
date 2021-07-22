@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import { Card, Grid } from 'semantic-ui-react';
-import { CareerGoal, Course, Interest, Internship, Opportunity, ProfileCareerGoal, ProfileCourse, ProfileInterest, ProfileOpportunity } from '../../../../../typings/radgrad';
+import { CareerGoal, Course, Interest, Opportunity, ProfileCareerGoal, ProfileCourse, ProfileInterest, ProfileOpportunity } from '../../../../../typings/radgrad';
 import { useStickyState } from '../../../../utilities/StickyState';
 import ExplorerCard from './ExplorerCard';
 import Sort from './Sort';
@@ -14,15 +14,13 @@ import { Interests } from '../../../../../api/interest/InterestCollection';
 import { CareerGoals } from '../../../../../api/career/CareerGoalCollection';
 import { Opportunities } from '../../../../../api/opportunity/OpportunityCollection';
 import { Courses } from '../../../../../api/course/CourseCollection';
-import { Internships } from '../../../../../api/internship/InternshipCollection';
 
 interface BrowserViewProps {
-  items: CareerGoal[] | Course[] | Opportunity[] | Interest[] | Internship[];
+  items: CareerGoal[] | Course[] | Opportunity[] | Interest[];
   careerGoals: CareerGoal[];
   courses: Course[];
   interests: Interest[];
   opportunities: Opportunity[];
-  internships: Internship[];
   explorerType: EXPLORER_TYPE;
   profileCareerGoals: ProfileCareerGoal[];
   profileCourses: ProfileCourse[];
@@ -31,7 +29,7 @@ interface BrowserViewProps {
   profileOpportunities: ProfileOpportunity[];
 }
 
-const BrowserView: React.FC<BrowserViewProps> = ({ items, explorerType, profileCareerGoals, profileCourses, profileInterests, profileOpportunities, careerGoals, courses, interests, opportunities, internships }) => {
+const BrowserView: React.FC<BrowserViewProps> = ({ items, explorerType, profileCareerGoals, profileCourses, profileInterests, profileOpportunities, careerGoals, courses, interests, opportunities }) => {
   const [filterChoice] = useStickyState(`Filter.${explorerType}`, EXPLORER_FILTER_KEYS.NONE);
   const defaultSortChoice = (explorerType === EXPLORER_TYPE.COURSES) ? EXPLORER_SORT_KEYS.NUMBER
     : EXPLORER_SORT_KEYS.ALPHABETIC;

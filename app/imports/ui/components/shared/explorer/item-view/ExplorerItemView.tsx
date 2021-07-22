@@ -3,7 +3,7 @@ import { Segment, SegmentGroup } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
 import BaseCollection from '../../../../../api/base/BaseCollection';
 import { ROLE } from '../../../../../api/role/Role';
-import { CareerGoal, Course, Interest, InterestType, Opportunity, Profile, Teaser } from '../../../../../typings/radgrad';
+import { CareerGoal, Course, Interest, InterestType, Internship, Opportunity, Profile, Teaser } from '../../../../../typings/radgrad';
 import EditCareerGoalButton from '../../manage/career-goal/EditCareerGoalButton';
 import DeleteItemButton from '../../manage/DeleteItemButton';
 import EditInterestButton from '../../manage/interest/EditInterestButton';
@@ -17,6 +17,7 @@ interface ExplorerItemViewProps {
   item: Interest | CareerGoal;
   opportunities: Opportunity[];
   courses: Course[];
+  internship: Internship[];
   explorerType: EXPLORER_TYPE;
   interestTypes?: InterestType[];
   interests: Interest[];
