@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import moment from 'moment';
 import { Grid } from 'semantic-ui-react';
@@ -51,7 +52,7 @@ const UpcomingEvents: React.FC<UpcomingEventsProp> = ({ opportunities, dayBefore
       count++;
     }
   });
-  const upComingEvents = eventList.sort((firstDate, secondDate) => ((firstDate.date > secondDate.date) ? 1 : ((firstDate.date < secondDate.date) ? -1 : 0)));
+  const upComingEvents = _.sortBy(eventList, (event) => event.date);
   return (
     <RadGradSegment header={header}>
       <Grid style={gridStyle} divided='vertically'>
