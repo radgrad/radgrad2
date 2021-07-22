@@ -12,7 +12,6 @@ import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
 import LandingInterestList from '../../components/landing/LandingInterestList';
-import LandingPrerequisiteList from '../../components/landing/LandingPrerequisiteList';
 import LandingCareerGoalList from '../../components/landing/LandingCareerGoalList';
 import LandingOpportunityList from '../../components/landing/LandingOpportunityList';
 import * as Router from '../../components/shared/utilities/router';
@@ -77,9 +76,6 @@ const LandingCourseExplorerPage: React.FC<CourseExplorerProps> = ({ course }) =>
                 <b>Description:</b>
                 <Markdown escapeHtml source={course.description}
                   renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}/>
-                <RadGradHeader title='Prerequisites' dividing />
-                {course.prerequisites.length > 0 ?
-                  <LandingPrerequisiteList prerequisites={course.prerequisites} size='small' /> : 'N/A'}
               </RadGradSegment>
               <RadGradSegment header={<RadGradHeader title='Related Interests' icon={EXPLORER_TYPE_ICON.INTEREST} dividing/>}>{course.interestIDs.length > 0 ? <LandingInterestList interestIDs={course.interestIDs} size='small' /> : 'N/A'}</RadGradSegment>
               <RadGradSegment header={<RadGradHeader title="Related Career Goals" icon={EXPLORER_TYPE_ICON.CAREERGOAL} dividing />}>

@@ -45,6 +45,8 @@ class AdminProfileCollection extends BaseProfileCollection {
     shareWebsite = true,
     shareInterests = true,
     shareCareerGoals = true,
+    shareCourses = true,
+    shareOpportunities = true,
     lastVisited = {},
   }: ProfileDefine) {
     if (Meteor.isServer) {
@@ -66,6 +68,8 @@ class AdminProfileCollection extends BaseProfileCollection {
           shareWebsite,
           shareInterests,
           shareCareerGoals,
+          shareCourses,
+          shareOpportunities,
           lastVisited,
         });
         const userID = Users.define({ username, role });
@@ -100,8 +104,10 @@ class AdminProfileCollection extends BaseProfileCollection {
     opportunityExplorerSortOrder,
     shareWebsite,
     sharePicture,
-    shareInterests,
     shareCareerGoals,
+    shareCourses,
+    shareInterests,
+    shareOpportunities,
     acceptedTermsAndConditions,
     refusedTermsAndConditions,
   }: ProfileUpdate) {
@@ -117,8 +123,10 @@ class AdminProfileCollection extends BaseProfileCollection {
       opportunityExplorerSortOrder,
       shareWebsite,
       sharePicture,
-      shareInterests,
       shareCareerGoals,
+      shareCourses,
+      shareInterests,
+      shareOpportunities,
       acceptedTermsAndConditions,
       refusedTermsAndConditions,
     });
@@ -182,10 +190,12 @@ class AdminProfileCollection extends BaseProfileCollection {
     const retired = doc.retired;
     const sharePicture = doc.sharePicture;
     const shareWebsite = doc.shareWebsite;
-    const shareInterests = doc.shareInterests;
     const shareCareerGoals = doc.shareCareerGoals;
+    const shareCourses = doc.shareCourses;
+    const shareInterests = doc.shareInterests;
+    const shareOpportunities = doc.shareOpportunities;
 
-    return { username, firstName, lastName, picture, website, interests, careerGoals, retired, shareWebsite, shareInterests, shareCareerGoals, sharePicture };
+    return { username, firstName, lastName, picture, website, interests, careerGoals, retired, shareWebsite, shareInterests, shareCareerGoals, sharePicture, shareOpportunities, shareCourses };
   }
 }
 

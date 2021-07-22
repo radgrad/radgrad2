@@ -8,7 +8,7 @@ import { Courses } from '../../../../../api/course/CourseCollection';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
 import { Course, CourseDefine, Interest } from '../../../../../typings/radgrad';
 import PictureField from '../../../form-fields/PictureField';
-import { courseNameToSlug, courseToName, docToName } from '../../../shared/utilities/data-model';
+import { docToName } from '../../../shared/utilities/data-model';
 import { interestSlugFromName } from '../../../shared/utilities/form';
 import RadGradAlert from '../../../../utilities/RadGradAlert';
 import { COMPONENTIDS } from '../../../../utilities/ComponentIDs';
@@ -29,12 +29,6 @@ const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses }) => 
     } else {
       definitionData.shortName = doc.name;
     }
-    if (doc.corequisites) {
-      definitionData.corequisites = doc.corequisites.map(courseNameToSlug);
-    }
-    if (doc.prerequisites) {
-      definitionData.prerequisites = doc.prerequisites.map(courseNameToSlug);
-    }
     // console.log(collectionName, definitionData);
     defineMethod.callPromise({ collectionName, definitionData })
       .catch((error) => {
@@ -48,8 +42,7 @@ const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses }) => 
 
   const interestNames = interests.map(docToName);
 
-  const courseNames = courses.map(courseToName);
-  // console.log(interestNames, courseNames);
+  // console.log(interestNames);
   const schema = new SimpleSchema({
     slug: String,
     name: String,
@@ -73,10 +66,6 @@ const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses }) => 
       allowedValues: interestNames,
       // optional: true,
     },
-    corequisites: { type: Array, optional: true },
-    'corequisites.$': { type: String, allowedValues: courseNames },
-    prerequisites: { type: Array, optional: true },
-    'prerequisites.$': { type: String, allowedValues: courseNames },
     repeatable: { type: Boolean, optional: true },
   });
   const formSchema = new SimpleSchema2Bridge(schema);
@@ -99,8 +88,6 @@ const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses }) => 
         <TextField id={COMPONENTIDS.DATA_MODEL_SYLLABUS} name="syllabus" placeholder="https://dept.foo.edu/dept_111/syllabus.html" />
         <Form.Group widths="equal">
           <MultiSelectField id={COMPONENTIDS.DATA_MODEL_INTERESTS} name="interests" placeholder="Select Interest(s)" />
-          <MultiSelectField id={COMPONENTIDS.DATA_MODEL_COREQUISITES} name="corequisites" placeholder="Select Corequisite(s)" />
-          <MultiSelectField id={COMPONENTIDS.DATA_MODEL_PREREQUISITES} name="prerequisites" placeholder="Select Prerequisite(s)" />
         </Form.Group>
         <BoolField id={COMPONENTIDS.DATA_MODEL_REPEATABLE} name="repeatable" />
         <SubmitField id={COMPONENTIDS.DATA_MODEL_SUBMIT} className="mini basic green" value="Add" />

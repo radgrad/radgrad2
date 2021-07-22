@@ -265,7 +265,6 @@ export interface Course extends Document {
   interestIDs: string[];
   // Optional data
   syllabus?: string;
-  prerequisites?: string[];
   repeatable?: boolean;
   retired?: boolean;
   picture?: string;
@@ -280,8 +279,6 @@ export interface CourseDefine extends DumpOne {
   creditHrs?: number;
   interests?: string[];
   syllabus?: string;
-  corequisites?: string[];
-  prerequisites?: string[];
   repeatable?: boolean;
   retired?: boolean;
   picture?: string,
@@ -294,8 +291,6 @@ export interface CourseUpdate extends Update {
   description?: string;
   creditHrs?: number;
   interests?: string[];
-  corequisites?: string[];
-  prerequisites?: string[];
   syllabus?: string;
   repeatable?: boolean;
   retired?: boolean;
@@ -664,8 +659,10 @@ export interface ProfileDefine extends DumpOne {
   retired?: boolean;
   sharePicture?: boolean;
   shareWebsite?: boolean;
-  shareInterests?: boolean;
   shareCareerGoals?: boolean;
+  shareCourses?: boolean;
+  shareInterests?: boolean;
+  shareOpportunities?: boolean;
   lastVisited?: Record<string, string>;
   acceptedTermsAndConditions?: string;
   refusedTermsAndConditions?: string;
@@ -707,8 +704,10 @@ export interface ProfileUpdate extends Update {
   opportunityExplorerSortOrder?: string;
   sharePicture?: boolean;
   shareWebsite?: boolean;
-  shareInterests?: boolean;
   shareCareerGoals?: boolean;
+  shareCourses?: boolean;
+  shareInterests?: boolean;
+  shareOpportunities?: boolean;
   lastVisited?: Record<string, string>;
   acceptedTermsAndConditions?: string;
   refusedTermsAndConditions?: string;
