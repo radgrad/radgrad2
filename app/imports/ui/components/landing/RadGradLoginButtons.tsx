@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Link, Redirect } from 'react-router-dom';
-import { Button, Dropdown, Message, SemanticSIZES } from 'semantic-ui-react';
+import { Dropdown, Message, SemanticSIZES } from 'semantic-ui-react';
 import { Roles } from 'meteor/alanning:roles';
 import { ROLE } from '../../../api/role/Role';
 import { COMPONENTIDS } from '../../utilities/ComponentIDs';
@@ -53,32 +53,28 @@ const RadGradLoginButtons: React.FC<RadGradLoginButtonsProps> = ({ instanceName 
   }
 
   return development ? (
-    <div>
-      <Button inverted={inverted} size={size}>
-        <Dropdown id={COMPONENTIDS.LOGIN} text='LOGIN' pointing="top right">
-          <Dropdown.Menu>
-            <Dropdown.Item id={COMPONENTIDS.STUDENT} text={studentLabel} as={Link} to="/signin" />
-            <Dropdown.Item id={COMPONENTIDS.FACULTY} text={facultyLabel} as={Link} to="/signin" />
-            <Dropdown.Item id={COMPONENTIDS.ADVISOR} text={advisorLabel} as={Link} to="/signin" />
-            <Dropdown.Item id={COMPONENTIDS.ADMIN} text={adminLabel} as={Link} to="/signin" />
-          </Dropdown.Menu>
-        </Dropdown>
-      </Button>
+    <div className='ui form large'>
+      <Dropdown id={COMPONENTIDS.LOGIN} text='LOGIN' pointing="top right" button>
+        <Dropdown.Menu>
+          <Dropdown.Item id={COMPONENTIDS.STUDENT} text={studentLabel} as={Link} to="/signin" />
+          <Dropdown.Item id={COMPONENTIDS.FACULTY} text={facultyLabel} as={Link} to="/signin" />
+          <Dropdown.Item id={COMPONENTIDS.ADVISOR} text={advisorLabel} as={Link} to="/signin" />
+          <Dropdown.Item id={COMPONENTIDS.ADMIN} text={adminLabel} as={Link} to="/signin" />
+        </Dropdown.Menu>
+      </Dropdown>
       <Message hidden negative>
         {`You are not yet registered. Send an email to ${Meteor.settings.public.adminProfile.username} to register.`}
       </Message>
     </div>
   ) : (
-    <Button inverted={inverted} size={size}>
-      <Dropdown id={COMPONENTIDS.LOGIN} text={`${instanceName} LOGIN FOR`} pointing="top right">
-        <Dropdown.Menu>
-          <Dropdown.Item id={COMPONENTIDS.STUDENT} text={studentLabel} onClick={handleClick} />
-          <Dropdown.Item id={COMPONENTIDS.FACULTY} text={facultyLabel} onClick={handleClick} />
-          <Dropdown.Item id={COMPONENTIDS.ADVISOR} text={advisorLabel} onClick={handleClick} />
-          <Dropdown.Item id={COMPONENTIDS.ADMIN} text={adminLabel} as={Link} to="/signin" />
-        </Dropdown.Menu>
-      </Dropdown>
-    </Button>
+    <Dropdown id={COMPONENTIDS.LOGIN} text={`${instanceName} LOGIN FOR`} pointing="top right">
+      <Dropdown.Menu>
+        <Dropdown.Item id={COMPONENTIDS.STUDENT} text={studentLabel} onClick={handleClick} />
+        <Dropdown.Item id={COMPONENTIDS.FACULTY} text={facultyLabel} onClick={handleClick} />
+        <Dropdown.Item id={COMPONENTIDS.ADVISOR} text={advisorLabel} onClick={handleClick} />
+        <Dropdown.Item id={COMPONENTIDS.ADMIN} text={adminLabel} as={Link} to="/signin" />
+      </Dropdown.Menu>
+    </Dropdown>
   );
 };
 
