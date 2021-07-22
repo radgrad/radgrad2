@@ -42,7 +42,7 @@ const UpcomingEvents: React.FC<UpcomingEventsProp> = ({ opportunities, dayBefore
             OpportunityID: opportunity._id,
             name: opportunity.name,
             picture: opportunity.picture,
-            date: moment(temp).format(dateFormat),
+            date: moment.utc(temp).format(dateFormat),
             label: eventLabel,
             interestIDs: opportunity.interestIDs,
           });
@@ -51,7 +51,7 @@ const UpcomingEvents: React.FC<UpcomingEventsProp> = ({ opportunities, dayBefore
       count++;
     }
   });
-  const upComingEvents = eventList.sort((firstDate, secondDate) => firstDate.date - secondDate.date);
+  const upComingEvents = eventList.sort((firstDate, secondDate) => ((firstDate.date > secondDate.date) ? 1 : ((firstDate.date < secondDate.date) ? -1 : 0)));
   return (
     <RadGradSegment header={header}>
       <Grid style={gridStyle} divided='vertically'>
