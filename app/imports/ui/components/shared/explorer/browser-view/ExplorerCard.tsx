@@ -2,21 +2,15 @@ import React from 'react';
 import { useRouteMatch, Link } from 'react-router-dom';
 import { Card, Icon, Label, Button } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
-import { defineMethod, removeItMethod } from '../../../../../api/base/BaseCollection.methods';
-import { ProfileCareerGoals } from '../../../../../api/user/profile-entries/ProfileCareerGoalCollection';
-import { ProfileCourses } from '../../../../../api/user/profile-entries/ProfileCourseCollection';
-import { IProfileEntryTypes, PROFILE_ENTRY_TYPE } from '../../../../../api/user/profile-entries/ProfileEntryTypes';
-import { ProfileInterests } from '../../../../../api/user/profile-entries/ProfileInterestCollection';
-import { ProfileOpportunities } from '../../../../../api/user/profile-entries/ProfileOpportunityCollection';
-import { CareerGoal, Course, Interest, MeteorError, Opportunity } from '../../../../../typings/radgrad';
-import RadGradAlert from '../../../../utilities/RadGradAlert';
+import { PROFILE_ENTRY_TYPE } from '../../../../../api/user/profile-entries/ProfileEntryTypes';
+import { CareerGoal, Course, Interest, Opportunity } from '../../../../../typings/radgrad';
 import * as Router from '../../utilities/router';
 import { docToName, docToShortDescription, itemToSlugName } from '../../utilities/data-model';
 import { buildExplorerSlugRoute } from '../../utilities/router';
 import InterestList from '../../InterestList';
 import { EXPLORER_TYPE } from '../../../../utilities/ExplorerUtils';
 import { Courses } from '../../../../../api/course/CourseCollection';
-import { createDefinitionData, getCollectionName } from '../item-view/utilities/profile-button';
+
 
 type ItemType = CareerGoal | Course | Interest | Opportunity;
 
