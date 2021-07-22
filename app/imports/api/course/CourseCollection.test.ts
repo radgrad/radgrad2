@@ -67,7 +67,7 @@ if (Meteor.isServer) {
 
     it('Can update', function test3(done) {
       const docID = makeSampleCourse();
-      // { name, shortName, num, description, creditHrs, interests, prerequisites, syllabus, retired }
+      // { name, shortName, num, description, creditHrs, interests, syllabus, retired }
       fc.assert(
         fc.property(fc.lorem(1), fc.lorem(1), fc.lorem(1), fc.lorem(20, true), fc.integer(1, 6), fc.lorem(20, true), fc.boolean(),
           (fcName, fcShortName, fcNum, fcDescription, fcCreditHrs, fcSyllabus, fcRetired) => {
@@ -106,10 +106,8 @@ if (Meteor.isServer) {
     });
 
     it('Can checkIntegrity no errors', function test6() {
-      const course = Courses.findOne({});
       const errors = Courses.checkIntegrity();
-      // When we call makeSampleCourse we don't create the courses for the prereqs
-      expect(errors.length).to.equal(course.prerequisites.length);
+      expect(errors.length).to.equal(0);
     });
 
     it('Can get slug for course', function test7() {

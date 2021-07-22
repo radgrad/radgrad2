@@ -76,9 +76,9 @@ class FacultyProfileCollection extends BaseProfileCollection {
         lastVisited,
         sharePicture,
         shareWebsite,
-        shareInterests,
         shareCareerGoals,
         shareCourses,
+        shareInterests,
         shareOpportunities,
       });
       const userID = Users.define({ username, role });
@@ -140,8 +140,10 @@ class FacultyProfileCollection extends BaseProfileCollection {
       opportunityExplorerSortOrder,
       shareWebsite,
       sharePicture,
-      shareInterests,
       shareCareerGoals,
+      shareCourses,
+      shareInterests,
+      shareOpportunities,
       acceptedTermsAndConditions,
       refusedTermsAndConditions,
     });
