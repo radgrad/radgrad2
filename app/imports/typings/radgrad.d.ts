@@ -414,6 +414,17 @@ export interface InterestUpdate extends Update {
   picture?: string;
 }
 
+export interface InterestKeywordDefine extends DumpOne {
+  interest: string;
+  keyword: string;
+  retired?: boolean;
+}
+
+export interface InterestKeywordUpdate extends Update {
+  keyword?: string;
+  retired?: boolean;
+}
+
 // InterestTypes
 export interface InterestType extends Document {
   name: string;
