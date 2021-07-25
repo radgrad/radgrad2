@@ -1,5 +1,3 @@
-import { exec } from 'child_process';
-import exp from 'constants';
 import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
 import fc from 'fast-check';

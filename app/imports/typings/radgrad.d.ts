@@ -209,6 +209,17 @@ export interface CareerGoalUpdate extends Update {
   picture?: string,
 }
 
+export interface CareerGoalKeywordDefine extends DumpOne {
+  careerGoal: string;
+  keyword: string;
+  retired?: boolean;
+}
+
+export interface CareerGoalKeywordUpdate extends Update {
+  keyword?: string;
+  retired?: boolean;
+}
+
 // CourseInstances
 export interface CourseInstance extends Document {
   termID: string;
