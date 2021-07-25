@@ -93,6 +93,15 @@ class InterestKeywordCollection extends BaseCollection {
   }
 
   /**
+   * Returns the unique keywords in this collection.
+   * @return {string[]}
+   */
+  getUniqueKeywords() {
+    const keywords = this.collection.find({}).fetch().map(ik => ik.keyword);
+    return _.uniq(keywords);
+  }
+
+  /**
    * Returns the interest slugs associated with the given keyword.
    * @param {string} keyword the keyword.
    * @return {string[]} the interest slugs.

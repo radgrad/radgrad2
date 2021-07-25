@@ -66,10 +66,10 @@ const AdminDataModelInterestKeywordsPage: React.FC<AdminDataModelInterestKeyword
   };
 
   return (
-    <PageLayout id={PAGEIDS.DATA_MODEL_CAREER_GOAL_KEYWORDS} headerPaneTitle="Career Goal Keywords">
+    <PageLayout id={PAGEIDS.DATA_MODEL_INTEREST_KEYWORDS} headerPaneTitle="Interest Keywords">
       {showUpdateFormState ? <UpdateInterestKeywordForm id={idState}  handleUpdate={handleUpdate} handleCancel={handleCancel} itemTitleString={itemTitleString} /> : <AddInterestKeywordForm interests={interests} />}
       <ListCollectionWidget collection={InterestKeywords} descriptionPairs={descriptionPairs} itemTitle={itemTitle} handleOpenUpdate={handleOpenUpdate} handleDelete={handleDelete} items={items} />
-      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Career Goal Keyword?" />
+      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Interest Keyword?" />
     </PageLayout>
   );
 };

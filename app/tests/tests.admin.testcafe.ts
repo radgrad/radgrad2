@@ -91,9 +91,11 @@ test('Test admin data model pages', async (testController) => {
   await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'academic-terms');
   await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'academic-year-instances');
   await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'career-goals');
+  await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'career-goal-keywords');
   await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'course-instances');
   await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'courses');
   await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'interests');
+  await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'interest-keywords');
   await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'interest-types');
   await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'opportunities');
   await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'opportunity-instances');

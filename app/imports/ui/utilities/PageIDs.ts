@@ -24,6 +24,7 @@ export enum PAGEIDS {
   DATA_MODEL_COURSE_INSTANCES = 'data-model-course-instances-page',
   DATA_MODEL_COURSES = 'data-model-courses-page',
   DATA_MODEL_INTERESTS = 'data-model-interests-page',
+  DATA_MODEL_INTEREST_KEYWORDS = 'data-model-interest-keywords-page',
   DATA_MODEL_INTEREST_TYPES = 'data-model-interest-types-page',
   DATA_MODEL_OPPORTUNITIES = 'data-model-opportunities-page',
   DATA_MODEL_OPPORTUNITY_INSTANCES = 'data-model-opportunity-instances-page',

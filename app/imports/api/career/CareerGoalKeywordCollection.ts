@@ -93,6 +93,15 @@ class CareerGoalKeywordCollection extends BaseCollection {
   }
 
   /**
+   * Returns the unique keywords in this collection.
+   * @return {string[]}
+   */
+  getUniqueKeywords() {
+    const keywords = this.collection.find({}).fetch().map(ik => ik.keyword);
+    return _.uniq(keywords);
+  }
+
+  /**
    * Returns the careerGoal slugs associated with the given keyword.
    * @param {string} keyword the keyword.
    * @return {string[]} the careerGoal slugs.
