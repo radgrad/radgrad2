@@ -33,6 +33,7 @@ export const DATAMODEL = {
   ACADEMIC_TERMS: 'datamodel/academic-terms',
   ACADEMIC_YEAR_INSTANCES: 'datamodel/academic-year-instances',
   CAREERGOALS: 'datamodel/career-goals',
+  CAREER_GOAL_KEYWORDS: 'datamodel/career-goal-keywords',
   COURSE_INSTANCES: 'datamodel/course-instances',
   COURSES: 'datamodel/courses',
   INTERESTS: 'datamodel/interests',

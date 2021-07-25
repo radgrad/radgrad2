@@ -20,6 +20,7 @@ export enum PAGEIDS {
   DATA_MODEL_ACADEMIC_TERMS = 'data-model-academic-terms-page',
   DATA_MODEL_ACADEMIC_YEARS = 'data-model-academic-year-instances-page',
   DATA_MODEL_CAREER_GOALS = 'data-model-career-goals-page',
+  DATA_MODEL_CAREER_GOAL_KEYWORDS = 'data-model-career-goal-keywords-page',
   DATA_MODEL_COURSE_INSTANCES = 'data-model-course-instances-page',
   DATA_MODEL_COURSES = 'data-model-courses-page',
   DATA_MODEL_INTERESTS = 'data-model-interests-page',

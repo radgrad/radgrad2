@@ -2,6 +2,7 @@ import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { SubsManager } from 'meteor/meteorhacks:subs-manager';
 import { Loader } from 'semantic-ui-react';
+import { CareerGoalKeywords } from '../../../api/career/CareerGoalKeywordCollection';
 import { AdminProfiles } from '../../../api/user/AdminProfileCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
@@ -42,6 +43,7 @@ const withGlobalSubscription = (WrappedComponent) => {
       globalSubs.subscribe(AdminProfiles.getPublicationName()),
       globalSubs.subscribe(AdvisorProfiles.getPublicationName()),
       globalSubs.subscribe(CareerGoals.getPublicationName()),
+      globalSubs.subscribe(CareerGoalKeywords.getPublicationName()),
       globalSubs.subscribe(Courses.getPublicationName()),
       globalSubs.subscribe(FacultyProfiles.getPublicationName()),
       globalSubs.subscribe(Interests.getPublicationName()),

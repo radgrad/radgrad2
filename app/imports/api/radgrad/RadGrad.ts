@@ -1,5 +1,7 @@
 import { Meteor } from 'meteor/meteor';
+import { CareerGoalKeywords } from '../career/CareerGoalKeywordCollection';
 import { AcademicYearInstances } from '../degree-plan/AcademicYearInstanceCollection';
+import { InterestKeywords } from '../interest/InterestKeywordCollection';
 import { Internships } from '../internship/InternshipCollection';
 import { AdminProfiles } from '../user/AdminProfileCollection';
 import { AdvisorProfiles } from '../user/AdvisorProfileCollection';
@@ -47,6 +49,7 @@ class RadGradClass {
       AdminProfiles,
       AdvisorProfiles,
       CareerGoals,
+      CareerGoalKeywords,
       Courses,
       CourseInstances,
       FacultyProfiles,
@@ -55,6 +58,7 @@ class RadGradClass {
       ProfileInterests,
       ProfileOpportunities,
       Interests,
+      InterestKeywords,
       InterestTypes,
       Internships,
       Opportunities,
@@ -81,7 +85,9 @@ class RadGradClass {
       AcademicTerms,
       InterestTypes,
       Interests,
+      InterestKeywords,
       CareerGoals,
+      CareerGoalKeywords,
       AdminProfiles,
       AdvisorProfiles,
       FacultyProfiles,

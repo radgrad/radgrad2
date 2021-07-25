@@ -49,6 +49,7 @@ const AdminPageMenu: React.FC = () => {
     { label: 'Academic Terms', route: DATAMODEL.ACADEMIC_TERMS },
     { label: 'Academic Year Instances', route: DATAMODEL.ACADEMIC_YEAR_INSTANCES },
     { label: 'Career Goals', route: DATAMODEL.CAREERGOALS },
+    { label: 'Career Goal Keywords', route: DATAMODEL.CAREER_GOAL_KEYWORDS },
     { label: 'Course Instances', route: DATAMODEL.COURSE_INSTANCES },
     { label: 'Courses', route: DATAMODEL.COURSES },
     { label: 'Interests', route: DATAMODEL.INTERESTS },
