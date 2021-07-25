@@ -3,6 +3,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { SubsManager } from 'meteor/meteorhacks:subs-manager';
 import { Loader } from 'semantic-ui-react';
 import { CareerGoalKeywords } from '../../../api/career/CareerGoalKeywordCollection';
+import { InterestKeywords } from '../../../api/interest/InterestKeywordCollection';
 import { AdminProfiles } from '../../../api/user/AdminProfileCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
@@ -47,6 +48,7 @@ const withGlobalSubscription = (WrappedComponent) => {
       globalSubs.subscribe(Courses.getPublicationName()),
       globalSubs.subscribe(FacultyProfiles.getPublicationName()),
       globalSubs.subscribe(Interests.getPublicationName()),
+      globalSubs.subscribe(InterestKeywords.getPublicationName()),
       globalSubs.subscribe(InterestTypes.getPublicationName()),
       globalSubs.subscribe(Opportunities.getPublicationName()),
       globalSubs.subscribe(OpportunityTypes.getPublicationName()),

@@ -1111,6 +1111,31 @@
       ]
     },
     {
+      "name": "CareerGoalKeywordCollection",
+      "contents": [
+        {
+          "careerGoal": "data-scientist",
+          "keyword": "data modeling",
+          "retired": false
+        },
+        {
+          "careerGoal": "full-stack-developer",
+          "keyword": "full stack",
+          "retired": false
+        },
+        {
+          "careerGoal": "machine-learning-engineer",
+          "keyword": "machine learning",
+          "retired": false
+        },
+        {
+          "careerGoal": "machine-learning-engineer",
+          "keyword": "artificial intelligence",
+          "retired": false
+        }
+      ]
+    },
+    {
       "name": "CourseCollection",
       "contents": [
         {
@@ -4952,6 +4977,31 @@
           "interestType": "cs-disciplines",
           "retired": false,
           "picture": "images/header-panel/header-interests.png"
+        }
+      ]
+    },
+    {
+      "name": "InterestKeywordCollection",
+      "contents": [
+        {
+          "interest": "dotNet",
+          "keyword": "C#",
+          "retired": false
+        },
+        {
+          "interest": "dotNet",
+          "keyword": "F#",
+          "retired": false
+        },
+        {
+          "interest": "dotNet",
+          "keyword": "visual basic",
+          "retired": false
+        },
+        {
+          "interest": "dotNet",
+          "keyword": "cross-platform",
+          "retired": false
         }
       ]
     },

@@ -53,6 +53,7 @@ const AdminPageMenu: React.FC = () => {
     { label: 'Course Instances', route: DATAMODEL.COURSE_INSTANCES },
     { label: 'Courses', route: DATAMODEL.COURSES },
     { label: 'Interests', route: DATAMODEL.INTERESTS },
+    { label: 'Interest Keywords', route: DATAMODEL.INTEREST_KEYWORDS },
     { label: 'Interest Types', route: DATAMODEL.INTEREST_TYPES },
     { label: 'Opportunities', route: DATAMODEL.OPPORTUNITIES },
     { label: 'Opportunity Instances', route: DATAMODEL.OPPORTUNITY_INSTANCES },

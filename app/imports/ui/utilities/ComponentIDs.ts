@@ -153,6 +153,7 @@ export enum COMPONENTIDS {
   DATA_MODEL_ICE_I = 'data-model-ice-i',
   DATA_MODEL_ICE_C = 'data-model-ice-c',
   DATA_MODEL_ICE_E = 'data-model-ice-e',
+  DATA_MODEL_INTEREST = 'data-model-interest',
   DATA_MODEL_INTERESTS = 'data-model-interests',
   DATA_MODEL_INTEREST_TYPE = 'data-model-interest-type',
   DATA_MODEL_KEYWORD = 'data-model-keyword',

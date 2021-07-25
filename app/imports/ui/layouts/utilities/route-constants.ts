@@ -37,6 +37,7 @@ export const DATAMODEL = {
   COURSE_INSTANCES: 'datamodel/course-instances',
   COURSES: 'datamodel/courses',
   INTERESTS: 'datamodel/interests',
+  INTEREST_KEYWORDS: 'datamodel/interests-keywords',
   INTEREST_TYPES: 'datamodel/interest-types',
   OPPORTUNITIES: 'datamodel/opportunities',
   OPPORTUNITY_INSTANCES: 'datamodel/opportunity-instances',

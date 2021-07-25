@@ -1,12 +1,13 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
-import { Icon } from 'semantic-ui-react';
+import { Confirm, Icon } from 'semantic-ui-react';
 import _ from 'lodash';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { CareerGoalKeywords } from '../../../api/career/CareerGoalKeywordCollection';
 import { CareerGoal, CareerGoalKeyword, CareerGoalKeywordUpdate, DescriptionPair } from '../../../typings/radgrad';
 import AddCareerGoalKeywordForm from '../../components/admin/datamodel/career-goal/AddCareerGoalKeywordForm';
+import UpdateCareerGoalKeywordForm from '../../components/admin/datamodel/career-goal/UpdateCareerGoalKeywordForm';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { PAGEIDS } from '../../utilities/PageIDs';
 import RadGradAlert from '../../utilities/RadGradAlert';
@@ -66,9 +67,9 @@ const AdminDataModelCareerGoalKeywordsPage: React.FC<AdminDataModelCareerGoalKey
 
   return (
     <PageLayout id={PAGEIDS.DATA_MODEL_CAREER_GOAL_KEYWORDS} headerPaneTitle="Career Goal Keywords">
-      {showUpdateFormState ? '' : <AddCareerGoalKeywordForm careerGoals={careerGoals} />}
+      {showUpdateFormState ? <UpdateCareerGoalKeywordForm id={idState}  handleUpdate={handleUpdate} handleCancel={handleCancel} itemTitleString={itemTitleString} /> : <AddCareerGoalKeywordForm careerGoals={careerGoals} />}
       <ListCollectionWidget collection={CareerGoalKeywords} descriptionPairs={descriptionPairs} itemTitle={itemTitle} handleOpenUpdate={handleOpenUpdate} handleDelete={handleDelete} items={items} />
-
+      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Career Goal Keyword?" />
     </PageLayout>
   );
 };
