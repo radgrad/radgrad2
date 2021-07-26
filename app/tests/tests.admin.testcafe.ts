@@ -115,6 +115,8 @@ test('Test admin visibility page', async (testController) => {
   await visibilityPage.testVisibility(testController, `#${COMPONENTIDS.SHARE_WEBSITE}`, `#${COMPONENTIDS.PROFILE_WEBSITE}`);
   await visibilityPage.testVisibility(testController, `#${COMPONENTIDS.SHARE_INTERESTS}`, `#${COMPONENTIDS.PROFILE_INTERESTS}`);
   await visibilityPage.testVisibility(testController, `#${COMPONENTIDS.SHARE_CAREER_GOALS}`, `#${COMPONENTIDS.PROFILE_CAREER_GOALS}`);
+  await visibilityPage.testVisibility(testController, `#${COMPONENTIDS.SHARE_OPPORTUNITIES}`, `#${COMPONENTIDS.PROFILE_OPPORTUNITIES}`);
+  await visibilityPage.testVisibility(testController, `#${COMPONENTIDS.SHARE_COURSES}`, `#${COMPONENTIDS.PROFILE_COURSES}`);
 });
 
 test('Test admin ensure logout', async (testController) => {

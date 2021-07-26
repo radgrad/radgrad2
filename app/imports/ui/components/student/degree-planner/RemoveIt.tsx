@@ -44,7 +44,7 @@ const RemoveIt: React.FC<RemoveItWidgetProps> = ({ collectionName, id, name, cou
       <Modal.Content>
         <Modal.Description>
           <p>
-            Do you want to remove {courseNumber} {name} from your plan?
+            Do you want to remove {name} from your plan?
           </p>
         </Modal.Description>
       </Modal.Content>
