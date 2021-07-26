@@ -39,13 +39,13 @@ const AcademicTermView: React.FC<AcademicTermViewProps> = ({
   const courseInstancesToShow = courseInstances.filter((ci) => ci.termID === term._id);
   const opportunityInstancesToShow = opportunityInstances.filter((oi) => oi.termID === term._id);
   return (
-    <Segment style={paddedStyle}>
-      <Header disabled={inPast} color={isCurrent ? 'green' : 'black'} style={headerStyle}>
-        {AcademicTerms.toString(term._id)}
-      </Header>
-      <Droppable droppableId={`${termSlug}`}>
-        {(provided, snapshot) => (
-          <div ref={provided.innerRef} style={getDroppableListStyle(snapshot.isDraggingOver)}>
+    <Droppable droppableId={`${termSlug}`}>
+      {(provided, snapshot) => (
+        <div ref={provided.innerRef} style={getDroppableListStyle(snapshot.isDraggingOver)}>
+          <Segment style={paddedStyle}>
+            <Header disabled={inPast} color={isCurrent ? 'green' : 'black'} style={headerStyle}>
+              {AcademicTerms.toString(term._id)}
+            </Header>
             {courseInstancesToShow.map((ci, index) => (
               <DraggableCourseInstancePill key={ci._id} instance={ci} index={index} inPast={inPast} />
             ))}
@@ -54,10 +54,10 @@ const AcademicTermView: React.FC<AcademicTermViewProps> = ({
             ))}
             {provided.placeholder}
             <Icon name="plus circle" color="grey" /> Drag Here
-          </div>
-        )}
-      </Droppable>
-    </Segment>
+          </Segment>
+        </div>
+      )}
+    </Droppable>
   );
 };
 

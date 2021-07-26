@@ -12,7 +12,7 @@ import { ButtonAction } from '../../shared/button/ButtonAction';
 import { ViewInExplorerButtonLink } from '../../shared/button/ViewInExplorerButtonLink';
 import FutureParticipationButton from '../../shared/FutureParticipationButton';
 import IceHeader from '../../shared/IceHeader';
-import { cardStyle, getDraggablePillStyle } from './utilities/styles';
+import { cardStyle, DraggableColors, getDraggableCoursePillStyle } from './utilities/styles';
 import NamePill from './NamePill';
 import { Courses } from '../../../../api/course/CourseCollection';
 import RemoveIt from './RemoveIt';
@@ -23,10 +23,7 @@ interface CourseInstancePillProps {
   inPast: boolean;
 }
 
-const getName = (courseInstance) => {
-  const course = Courses.findDoc(courseInstance.courseID);
-  return course.name;
-};
+const getName = (courseInstance) => Courses.getName(courseInstance.courseID);
 
 const DraggableCourseInstancePill: React.FC<CourseInstancePillProps> = ({ instance, index, inPast }) => {
   const [open, setOpen] = useState(false);
@@ -43,6 +40,7 @@ const DraggableCourseInstancePill: React.FC<CourseInstancePillProps> = ({ instan
       .catch((error) => console.error(`Remove course instance ${instance} failed.`, error));
   };
   const match = useRouteMatch();
+  const color = DraggableColors.COURSE;
   return (
     <Modal
       onClose={() => setOpen(false)}
@@ -52,18 +50,18 @@ const DraggableCourseInstancePill: React.FC<CourseInstancePillProps> = ({ instan
         <div>
           <Draggable key={instance._id} draggableId={instance._id} index={index}>
             {(prov, snap) => (
-              <div ref={prov.innerRef} {...prov.draggableProps} {...prov.dragHandleProps} style={getDraggablePillStyle(snap.isDragging, prov.draggableProps.style)}>
+              <div ref={prov.innerRef} {...prov.draggableProps} {...prov.dragHandleProps} style={getDraggableCoursePillStyle(snap.isDragging, prov.draggableProps.style)}>
                 <Grid>
                   {inPast ? (
                     <Grid.Row style={{ paddingTop: 7, paddingBottom: 7 }}>
                       <Grid.Column width={16}>
-                        <NamePill name={instance.note} />
+                        <NamePill name={instance.note} color={color} icon='book' />
                       </Grid.Column>
                     </Grid.Row>
                   ) : (
                     <Grid.Row style={{ paddingTop: 7, paddingBottom: 7 }}>
                       <Grid.Column width={13}>
-                        <NamePill name={instance.note} />
+                        <NamePill name={instance.note} color={color} icon='book' />
                       </Grid.Column>
                       <Grid.Column width={3} verticalAlign="middle" textAlign="left">
                         <RemoveIt collectionName="CourseInstanceCollection" id={instance._id} name={getName(instance)} courseNumber={instance.note} />

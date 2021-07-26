@@ -1,18 +1,56 @@
 import { COLORS } from '../../../../utilities/Colors';
 
+enum DraggableColors {
+  COURSE = COLORS.NAVY,
+  OPPORTUNITY = COLORS.GREEN,
+  INTERNSHIP = COLORS.PURPLE,
+}
+
 const grid = 2;
 
-const getDraggablePillStyle = (isDragging: boolean, draggableStyle: React.CSSProperties): React.CSSProperties => ({
+const getDraggableOpportunityPillStyle = (isDragging: boolean, draggableStyle: React.CSSProperties): React.CSSProperties => ({
   // some basic styles to make the items look a bit nicer
   userSelect: 'none',
   padding: grid,
   margin: `0 0 ${grid}px 0`,
   color: COLORS.GREEN3,
   // change background colour if dragging
-  background: COLORS.TEAL,
+  background: COLORS.GREEN,
   borderStyle: 'solid',
   borderRadius: 12,
-  borderColor: isDragging ? COLORS.BLACK : COLORS.TEAL,
+  borderColor: isDragging ? COLORS.BLACK : COLORS.GREEN,
+
+  // styles we need to apply on draggables
+  ...draggableStyle,
+});
+
+const getDraggableCoursePillStyle = (isDragging: boolean, draggableStyle: React.CSSProperties): React.CSSProperties => ({
+  // some basic styles to make the items look a bit nicer
+  userSelect: 'none',
+  padding: grid,
+  margin: `0 0 ${grid}px 0`,
+  color: COLORS.NAVY,
+  // change background colour if dragging
+  background: COLORS.NAVY,
+  borderStyle: 'solid',
+  borderRadius: 12,
+  borderColor: isDragging ? COLORS.BLACK : COLORS.NAVY,
+
+  // styles we need to apply on draggables
+  ...draggableStyle,
+});
+
+const getDraggableInternshipPillStyle = (isDragging: boolean, draggableStyle: React.CSSProperties): React.CSSProperties => ({
+  // some basic styles to make the items look a bit nicer
+  userSelect: 'none',
+  padding: grid,
+  margin: `0 0 ${grid}px 0`,
+  color: COLORS.PURPLE,
+  // change background colour if dragging
+  background: COLORS.PURPLE,
+  borderStyle: 'solid',
+  borderRadius: 12,
+  borderColor: isDragging ? COLORS.BLACK : COLORS.PURPLE,
 
   // styles we need to apply on draggables
   ...draggableStyle,
@@ -63,7 +101,10 @@ const buttonStyle = {
 };
 
 export {
-  getDraggablePillStyle,
+  DraggableColors,
+  getDraggableCoursePillStyle,
+  getDraggableInternshipPillStyle,
+  getDraggableOpportunityPillStyle,
   getInspectorDraggablePillStyle,
   getDroppableListStyle,
   getNotSatisfiedStyle,

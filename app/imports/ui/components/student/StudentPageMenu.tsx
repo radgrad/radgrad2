@@ -45,7 +45,7 @@ const StudentPageMenu: React.FC = () => {
     { to: `/${URL_ROLES.STUDENT}/${username}/${DEGREEPLANNER}`, label: 'Planner' },
     { to: `/${URL_ROLES.STUDENT}/${username}/${STUDENT_VERIFICATION}`, label: 'Verification' },
     { to: `/${URL_ROLES.STUDENT}/${username}/${VISIBILITY}`, label: 'Visibility' },
-    { to: `/${URL_ROLES.STUDENT}/${username}/${ICE}`, label: 'ICE' },
+    { to: `/${URL_ROLES.STUDENT}/${username}/${ICE}`, label: 'myICE' },
     { to: `/${URL_ROLES.STUDENT}/${username}/${LEVELS}`, label: 'Levels' },
     { to: `/${URL_ROLES.STUDENT}/${username}/${STUDENT_REVIEWS}`, label: 'Reviews' },
     { to: `/${URL_ROLES.STUDENT}/${username}/${COMMUNITY}`, label: 'Community' },
