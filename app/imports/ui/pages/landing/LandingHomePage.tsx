@@ -94,6 +94,7 @@ const LandingHomeContainer = withTracker(() => {
   const levelFactoid = Factoids.getLevelFactoid();
   const opportunityFactoid = Factoids.getOpportunityFactoid();
   const reviewFactoid = Factoids.getReviewFactoid();
+  console.log(currentUser, role);
   return {
     currentUser,
     iconName,
