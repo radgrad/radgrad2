@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 import { Card, Menu, Tab } from 'semantic-ui-react';
 import { HomePageProps } from '../../utilities/HomePageProps';
 import RadGradHeader from './RadGradHeader';
@@ -9,13 +10,16 @@ const HomePageChecklistSegment: React.FC<HomePageProps> = ({ okItems, reviewItem
   const improveTabHeader = <RadGradTabHeader title={`High Priority (${improveItems.length})`} icon='exclamation circle' />;
   const reviewTabHeader = <RadGradTabHeader title={`Medium Priority (${reviewItems.length})`} icon='question circle' />;
   const okTabHeader = <RadGradTabHeader title={`Completed (${okItems.length})`} icon='check circle' />;
+  const sortedOkItems = _.sortBy(okItems, (item) => item.key);
+  const sortedReviewItems = _.sortBy(reviewItems, (item) => item.key);
+  const sortedImproveItems = _.sortBy(improveItems, (item) => item.key);
 
   const improvePane = {
     menuItem: <Menu.Item key='improveTab'>{improveTabHeader}</Menu.Item>,
     render: () => (
       <Tab.Pane key='ImprovePane'>
         <Card.Group style={{ marginTop: '0px' }}>
-          {improveItems}
+          {sortedImproveItems}
         </Card.Group>
       </Tab.Pane>
     ),
@@ -26,7 +30,7 @@ const HomePageChecklistSegment: React.FC<HomePageProps> = ({ okItems, reviewItem
     render: () => (
       <Tab.Pane key='ReviewPane'>
         <Card.Group style={{ marginTop: '0px' }}>
-          {reviewItems}
+          {sortedReviewItems}
         </Card.Group>
       </Tab.Pane>
     ),
@@ -37,7 +41,7 @@ const HomePageChecklistSegment: React.FC<HomePageProps> = ({ okItems, reviewItem
     render: () => (
       <Tab.Pane key='OKPane'>
         <Card.Group style={{ marginTop: '0px' }}>
-          {okItems}
+          {sortedOkItems}
         </Card.Group>
       </Tab.Pane>
     ),
