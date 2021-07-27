@@ -49,6 +49,7 @@ const RadGradLoginButtons: React.FC<RadGradLoginButtonsProps> = ({ instanceName 
 
   // Redirection after logging in
   if (redirectToRefererState) {
+    console.log(pathname);
     return <Redirect to={pathname} />;
   }
 

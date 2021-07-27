@@ -57,6 +57,7 @@ class UserCollection {
    * @throws { Meteor.Error } If the user exists.
    */
   public define({ username, role }: { username: string; role: string; }) {
+    console.log('Users.define', username, role);
     if (Meteor.isServer) {
       Roles.createRole(role, { unlessExists: true });
       // In test Meteor.settings is not set from settings.development.json so we use _.get to see if it is set.
@@ -74,7 +75,10 @@ class UserCollection {
         const options = { profile: { name: userWithoutHost } };
         const casReturn: { userId: string; } = Accounts.updateOrCreateUserFromExternalService('cas', result, options);
         const userID2 = casReturn.userId;
-        Meteor.users.update(userID2, { $set: { username } });
+        // CAM with UHM CAS version 6.3 the username isn't the email address. It is just the name w/o @host
+        // Meteor.users.update(userID2, { $set: { username } });
+        Meteor.users.update(userID2, { $set: { username: userWithoutHost } });
+        console.log('defined user', Meteor.users.findOne({ _id: userID2 }));
         Roles.addUsersToRoles(userID2, [role]);
         return userID2;
       }
@@ -149,7 +153,8 @@ class UserCollection {
    * @throws { Meteor.Error } If user is not a defined username or userID.
    */
   public getID(user) {
-    const userDoc = (Meteor.users.findOne({ _id: user })) || (Meteor.users.findOne({ username: user }));
+    const userWithoutHost = user.split('@')[0];
+    const userDoc = (Meteor.users.findOne({ _id: user })) || (Meteor.users.findOne({ username: user }) || (Meteor.users.findOne({ username: userWithoutHost })));
     if (!userDoc) {
       console.error('Error: user is not defined: ', user);
     }
