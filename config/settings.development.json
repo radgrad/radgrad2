@@ -1,12 +1,12 @@
 {
-  "cas": { "baseUrl": "https://cas-test.its.hawaii.edu/cas/", "autoClose": true },
+  "cas": { "baseUrl": "https://cas-future-test.its.hawaii.edu/cas/", "autoClose": true },
   "databaseRestoreFileName": "database/development/2021-07-06-11-19-42.json",
   "termsAndConditionsFileName": "terms-and-conditions/terms-and-conditions.ics.md",
   "env": { "MAIL_URL": "smtps://changeme:changeme@smtp.mailgun.org:465" },
 
   "public": {
-    "cas": {"loginUrl": "https://cas-test.its.hawaii.edu/cas/login", "serviceParam": "service", "popupWidth": 810, "popupHeight": 610 },
-    "development": true,
+    "cas": {"loginUrl": "https://cas-future-test.its.hawaii.edu/cas/login", "serviceParam": "service", "popupWidth": 810, "popupHeight": 610 },
+    "development": false,
     "cloudinary": { "cloud_name": "radgrad", "upload_preset": "CHANGEME" },
     "level": {
       "six": { "plannedICE": { "i": 100, "c": 100, "e": 100 }, "earnedICE": {"i": 100, "c": 100, "e": 100}, "reviews": 6 },
