@@ -4,6 +4,7 @@ import _ from 'lodash';
 import { Internships } from '../internship/InternshipCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { ProfileInterests } from '../user/profile-entries/ProfileInterestCollection';
+import { InterestKeywords } from './InterestKeywordCollection';
 import { InterestTypes } from './InterestTypeCollection';
 import { Courses } from '../course/CourseCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
@@ -49,6 +50,8 @@ class InterestCollection extends BaseSlugCollection {
       interestType: { type: String, optional: true },
       retired: { type: Boolean, optional: true },
       picture: { type: String, optional: true },
+      keywords: { type: Array, optional: true },
+      'keywords.$': { type: String },
     });
   }
 
@@ -65,7 +68,7 @@ class InterestCollection extends BaseSlugCollection {
    * @throws {Meteor.Error} If the interest definition includes a defined slug or undefined interestType.
    * @returns The newly created docID.
    */
-  public define({ name, slug, description, interestType, retired = false, picture }: InterestDefine): string {
+  public define({ name, slug, description, interestType, retired = false, picture, keywords = [] }: InterestDefine): string {
     // console.log(`${this.collectionName}.define(${name}, ${slug}, ${description}, ${interestType}`);
     // Get InterestTypeID, throw error if not found.
     const interestTypeID = InterestTypes.getID(interestType);
@@ -75,6 +78,11 @@ class InterestCollection extends BaseSlugCollection {
     const interestID = this.collection.insert({ name, description, slugID, interestTypeID, retired, picture });
     // Connect the Slug to this Interest
     Slugs.updateEntityID(slugID, interestID);
+    // Update the InterestKeywords
+    if (keywords.length > 0) {
+      InterestKeywords.removeInterest(interestID);
+      keywords.forEach((word) => InterestKeywords.define({ interest: slug, keyword: word, retired }));
+    }
     return interestID;
   }
 
@@ -86,7 +94,7 @@ class InterestCollection extends BaseSlugCollection {
    * @param interestType The new interestType slug or ID (optional).
    * @throws { Meteor.Error } If docID is not defined, or if interestType is not valid.
    */
-  public update(docID: string, { name, description, interestType, retired, picture }: InterestUpdate) {
+  public update(docID: string, { name, description, interestType, retired, picture, keywords }: InterestUpdate) {
     this.assertDefined(docID);
     const updateData: { name?: string, description?: string, interestTypeID?: string, retired?: boolean, picture?:string } = {};
     if (name) {
@@ -111,6 +119,12 @@ class InterestCollection extends BaseSlugCollection {
       teasers.forEach((teaser) => Teasers.update(teaser._id, { retired }));
     }
     this.collection.update(docID, { $set: updateData });
+    if (keywords) {
+      InterestKeywords.removeInterest(docID);
+      const interestDoc = this.findDoc(docID);
+      const interest = Slugs.getNameFromID(interestDoc.slugID);
+      keywords.forEach(word => InterestKeywords.define({ interest, keyword: word }));
+    }
     return true;
   }
 
@@ -234,7 +248,8 @@ class InterestCollection extends BaseSlugCollection {
     const picture = doc.picture;
     const interestType = InterestTypes.findSlugByID(doc.interestTypeID);
     const retired = doc.retired;
-    return { name, slug, description, interestType, retired, picture };
+    const keywords = InterestKeywords.getKeywords(slug);
+    return { name, slug, description, interestType, retired, picture, keywords };
   }
 }
 

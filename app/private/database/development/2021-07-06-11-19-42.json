@@ -1111,31 +1111,6 @@
       ]
     },
     {
-      "name": "CareerGoalKeywordCollection",
-      "contents": [
-        {
-          "careerGoal": "data-scientist",
-          "keyword": "data modeling",
-          "retired": false
-        },
-        {
-          "careerGoal": "full-stack-developer",
-          "keyword": "full stack",
-          "retired": false
-        },
-        {
-          "careerGoal": "machine-learning-engineer",
-          "keyword": "machine learning",
-          "retired": false
-        },
-        {
-          "careerGoal": "machine-learning-engineer",
-          "keyword": "artificial intelligence",
-          "retired": false
-        }
-      ]
-    },
-    {
       "name": "CourseCollection",
       "contents": [
         {
@@ -4576,7 +4551,10 @@
           "description": ".NET is an application development framework developed by Microsoft that runs primarily on Microsoft Windows. \n\nIt includes a large class library called Framework Class Library that provides user interface, data access, database connectivity, cryptography, web application development, numeric algorithms, and network communications. \n\nLearn more [here.](https://www.microsoft.com/net/)",
           "interestType": "technologies",
           "retired": false,
-          "picture": "images/header-panel/header-interests.png"
+          "picture": "images/header-panel/header-interests.png",
+          "keywords": [
+            "C#", "F#", "visual basic", "cross-platform"
+          ]
         },
         {
           "name": "Entrepreneurship",
@@ -4982,28 +4960,7 @@
     },
     {
       "name": "InterestKeywordCollection",
-      "contents": [
-        {
-          "interest": "dotNet",
-          "keyword": "C#",
-          "retired": false
-        },
-        {
-          "interest": "dotNet",
-          "keyword": "F#",
-          "retired": false
-        },
-        {
-          "interest": "dotNet",
-          "keyword": "visual basic",
-          "retired": false
-        },
-        {
-          "interest": "dotNet",
-          "keyword": "cross-platform",
-          "retired": false
-        }
-      ]
+      "contents": []
     },
     {
       "name": "InterestTypeCollection",
