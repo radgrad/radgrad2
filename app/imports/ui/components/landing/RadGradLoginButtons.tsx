@@ -47,6 +47,7 @@ const RadGradLoginButtons: React.FC<RadGradLoginButtonsProps> = ({ instanceName 
   const studentLabel = '... as student';
   const development = Meteor.settings.public.development;
 
+  console.log('RadGradLoginButtons', redirectToRefererState, pathname);
   // Redirection after logging in
   if (redirectToRefererState) {
     console.log(pathname);

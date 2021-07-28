@@ -80,6 +80,8 @@ const LandingHomeContainer = withTracker(() => {
     }
   }
   const currentUser = Meteor.user() ? Meteor.user().username : '';
+  // @ts-ignore
+  const status = Meteor.user()?.status;
   const iconName = role === 'admin' ? 'user plus' : 'user';
   const careerGoals = PublicStats.getPublicStat(PublicStats.careerGoalsTotalKey);
   const interests = PublicStats.getPublicStat(PublicStats.interestsTotalKey);
@@ -94,7 +96,7 @@ const LandingHomeContainer = withTracker(() => {
   const levelFactoid = Factoids.getLevelFactoid();
   const opportunityFactoid = Factoids.getOpportunityFactoid();
   const reviewFactoid = Factoids.getReviewFactoid();
-  console.log(currentUser, role, Meteor.userId());
+  console.log(currentUser, role, Meteor.userId(), Meteor.user(), status);
   return {
     currentUser,
     iconName,
