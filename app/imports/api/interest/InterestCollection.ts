@@ -153,6 +153,8 @@ class InterestCollection extends BaseSlugCollection {
    */
   public removeIt(instance: string) {
     const docID = this.getID(instance);
+    // Remove any InterestKeywords
+    InterestKeywords.removeInterest(docID);
     // Check that this interest is not referenced by any User.
     // TODO Should the profile collections be included below?
     // No, but we need to check ProfileInterests
