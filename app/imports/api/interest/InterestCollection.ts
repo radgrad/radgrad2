@@ -39,6 +39,8 @@ class InterestCollection extends BaseSlugCollection {
       interestType: String,
       retired: { type: Boolean, optional: true },
       picture: { type: String, optional: true },
+      keywords: { type: Array },
+      'keywords.$': { type: String },
     });
     this.updateSchema = new SimpleSchema({
       name: { type: String, optional: true },

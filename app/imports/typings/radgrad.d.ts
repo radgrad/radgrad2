@@ -421,6 +421,7 @@ export interface InterestDefine extends DumpOne {
   interestType: string;
   retired?: boolean;
   picture?: string;
+  keywords?: string[];
 }
 
 export interface InterestUpdate extends Update {
@@ -429,6 +430,7 @@ export interface InterestUpdate extends Update {
   interestType?: string;
   retired?: boolean;
   picture?: string;
+  keywords?: string[];
 }
 
 export interface InterestKeyword {
@@ -1032,7 +1034,6 @@ export interface Internship {
   lastUploaded?: Date;
   missedUploads?: number;
   interestIDs: string[];
-  careerGoalIDs: string[];
   company?: string;
   location?: Location;
   contact?: string;
@@ -1047,7 +1048,6 @@ export interface InternshipDefine extends DumpOne {
   lastUploaded?: Date;
   missedUploads?: number;
   interests: string[];
-  careerGoals: string[];
   company?: string;
   location?: Location;
   contact?: string;
@@ -1060,7 +1060,6 @@ export interface InternshipUpdate extends Update {
   position?: string;
   description?: string;
   interests?: string[];
-  careerGoals?: string[];
   company?: string;
   location?: Location;
   contact?: string;
@@ -1073,7 +1072,6 @@ export interface InternshipUpdateData extends Update {
   position?: string;
   description?: string;
   interestIDs?: string[];
-  careerGoalIDs?: string[];
   company?: string;
   location?: Location;
   contact?: string;

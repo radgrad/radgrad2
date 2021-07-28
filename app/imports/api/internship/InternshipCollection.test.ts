@@ -2,7 +2,6 @@ import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
 import fc from 'fast-check';
 import 'mocha';
-import { makeSampleCareerGoalArray } from '../career/SampleCareerGoals';
 import { makeSampleInterestArray } from '../interest/SampleInterests';
 import { removeAllEntities } from '../base/BaseUtilities';
 import { Internships } from './InternshipCollection';
@@ -25,10 +24,9 @@ if (Meteor.isServer) {
       fc.assert(
         fc.property(fc.webUrl(), fc.lorem(7), fc.lorem(15), fc.date(), fc.nat(), fc.lorem(5), fc.emailAddress(), (url, position, description, lastUploaded, missedUploads, company, contact) => {
           const interests = makeSampleInterestArray(2);
-          const careerGoals = makeSampleCareerGoalArray(2);
           const location = makeSampleLocation();
           const urls = [url];
-          const docID = Internships.define({ urls, interests, careerGoals, company, contact, location, position, description, lastUploaded, missedUploads,
+          const docID = Internships.define({ urls, interests, company, contact, location, position, description, lastUploaded, missedUploads,
           });
           expect(Internships.isDefined(docID)).to.be.true;
           Internships.removeIt(docID);
@@ -44,16 +42,14 @@ if (Meteor.isServer) {
       fc.assert(
         fc.property(fc.webUrl(), fc.lorem(7), fc.lorem(15), fc.date(), fc.nat(), fc.lorem(5), fc.emailAddress(), (url, position, description, lastUploaded, missedUploads, company, contact) => {
           const interests2 = makeSampleInterestArray();
-          const careerGoals2 = makeSampleCareerGoalArray();
           const location2 = makeSampleLocation();
           const urls = [url];
-          Internships.update(docID, { urls, position, description, interests: interests2, careerGoals: careerGoals2, company, contact, location: location2 });
+          Internships.update(docID, { urls, position, description, interests: interests2, company, contact, location: location2 });
           const internship = Internships.findDoc(docID);
           expect(internship.urls[0]).to.equal(url);
           expect(internship.position).to.equal(position);
           expect(internship.description).to.equal(description);
           expect(internship.interestIDs.length).to.equal(interests2.length);
-          expect(internship.careerGoalIDs.length).to.equal(careerGoals2.length);
         }),
       );
 
