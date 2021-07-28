@@ -411,7 +411,8 @@ export interface Interest extends Document {
   description: string;
   interestTypeID: string;
   retired?: boolean;
-  picture?: string,
+  picture?: string;
+  keywords?: string[];
 }
 
 export interface InterestDefine extends DumpOne {
