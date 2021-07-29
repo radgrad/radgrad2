@@ -1,6 +1,6 @@
 {
   "cas": { "baseUrl": "https://cas-future-test.its.hawaii.edu/cas/", "autoClose": true,
-    "validateUrl": "https://cas-future-test.its.hawaii.edu/cas/serviceValidate", "casVersion": 2.0, "attributes": { "debug": true }
+    "validateUrl": "https://cas-future-test.its.hawaii.edu/cas/serviceValidate", "casVersion": 2.0, "attributes": { "debug": false }
   },
   "databaseRestoreFileName": "database/development/2021-07-06-11-19-42.json",
   "termsAndConditionsFileName": "terms-and-conditions/terms-and-conditions.ics.md",
