@@ -2,7 +2,6 @@ import SimpleSchema from 'simpl-schema';
 import BaseCollection from '../base/BaseCollection';
 import { InternshipDefine, InternshipUpdate, InternshipUpdateData } from '../../typings/radgrad';
 import { Interests } from '../interest/InterestCollection';
-import { CareerGoals } from '../career/CareerGoalCollection';
 import slugify from '../slug/SlugCollection';
 
 /**
@@ -19,8 +18,6 @@ class InternshipCollection extends BaseCollection {
       missedUploads: Number,
       interestIDs: { type: Array },
       'interestIDs.$': String,
-      careerGoalIDs: { type: Array },
-      'careerGoalIDs.$': String,
       company: { type: String, optional: true },
       location: { type: Object, optional: true },
       contact: { type: String, optional: true },
@@ -35,8 +32,6 @@ class InternshipCollection extends BaseCollection {
       description: String,
       interests: { type: Array },
       'interests.$': String,
-      careerGoals: { type: Array },
-      'careerGoals.$': String,
       company: { type: String, optional: true },
       location: { type: Object, optional: true },
       contact: { type: String, optional: true },
@@ -50,8 +45,6 @@ class InternshipCollection extends BaseCollection {
       description: String,
       interests: { type: Array },
       'interests.$': String,
-      careerGoals: { type: Array },
-      'careerGoals.$': String,
       company: { type: String, optional: true },
       location: { type: Object, optional: true },
       contact: { type: String, optional: true },
@@ -87,16 +80,14 @@ class InternshipCollection extends BaseCollection {
    * @param lastUploaded is the timestamp of when internship was found through scraping. If added manually, field is either absent or set to a falsy value.
    * @param missedUploads is an indicator of listing status. A value of 0-3 is "active", 4-7 is "expired", and 8+ is "retired."
    * @param interests is a list of Interest slugs matching this internship.
-   * @param careerGoals is a list of Career Goal slugs matching this internship.
    * @param company is the internship company.
    * @param location is the object containing location information.
    * @param contact is the name, email, url, etc. of contact person.
    * @param posted is when internship was posted. Should be in YYYY-MM-DD format.
    * @param due is optional.
    */
-  public define({ urls, position, description, lastUploaded, missedUploads, interests, careerGoals, company, location, contact, posted, due }: InternshipDefine) {
+  public define({ urls, position, description, lastUploaded, missedUploads, interests, company, location, contact, posted, due }: InternshipDefine) {
     const interestIDs = Interests.getIDs(interests);
-    const careerGoalIDs = CareerGoals.getIDs(careerGoals);
     // Removes spaces and lowercases position
     const internshipTitle = slugify(position);
     // Generates guid using the exact time of internship definition
@@ -109,7 +100,6 @@ class InternshipCollection extends BaseCollection {
       lastUploaded,
       missedUploads,
       interestIDs,
-      careerGoalIDs,
       company,
       location,
       contact,
@@ -126,14 +116,13 @@ class InternshipCollection extends BaseCollection {
    * @param position optional
    * @param description optional
    * @param interests optional
-   * @param careerGoals optional
    * @param company optional
    * @param location object with city, state, zip code (optional)
    * @param contact optional
    * @param posted optional
    * @param due optional
    */
-  public update(docID: string, { urls, position, description, interests, careerGoals, company, location, contact, posted, due }: InternshipUpdate) {
+  public update(docID: string, { urls, position, description, interests, company, location, contact, posted, due }: InternshipUpdate) {
     this.assertDefined(docID);
     const updateData: InternshipUpdateData = {};
     if (urls) {
@@ -153,12 +142,6 @@ class InternshipCollection extends BaseCollection {
         throw new Meteor.Error(`Interests ${interests} is not an Array`);
       }
       updateData.interestIDs = Interests.getIDs(interests);
-    }
-    if (careerGoals) {
-      if (!Array.isArray(careerGoals)) {
-        throw new Meteor.Error(`Interests ${careerGoals} is not an Array`);
-      }
-      updateData.careerGoalIDs = CareerGoals.getIDs(careerGoals);
     }
     if (company) {
       updateData.company = company;
@@ -202,13 +185,12 @@ class InternshipCollection extends BaseCollection {
     const lastUploaded = doc.lastUploaded;
     const missedUploads = doc.missedUploads;
     const interests = doc.interestIDs.map((id) => Interests.findSlugByID(id));
-    const careerGoals = doc.careerGoalIDs.map((id) => CareerGoals.findSlugByID(id));
     const company = doc.company;
     const location = doc.location;
     const contact = doc.contact;
     const posted = doc.posted;
     const due = doc.due;
-    return { urls, position, description, lastUploaded, missedUploads, interests, careerGoals, company, location, contact, posted, due };
+    return { urls, position, description, lastUploaded, missedUploads, interests, company, location, contact, posted, due };
   }
 
   /**
