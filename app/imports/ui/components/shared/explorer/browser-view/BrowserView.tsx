@@ -5,6 +5,7 @@ import { CareerGoal, Course, Interest, Opportunity, Internship, ProfileCareerGoa
 import { useStickyState } from '../../../../utilities/StickyState';
 import ExplorerCard from './ExplorerCard';
 import Sort from './Sort';
+import Search from './Search';
 import PreferredChoice from '../../../../../api/degree-plan/PreferredChoice';
 import RadGradHeader from '../../RadGradHeader';
 import RadGradSegment from '../../RadGradSegment';
@@ -35,6 +36,7 @@ const BrowserView: React.FC<BrowserViewProps> = ({ items, explorerType, profileC
   const defaultSortChoice = (explorerType === EXPLORER_TYPE.COURSES) ? EXPLORER_SORT_KEYS.NUMBER
     : EXPLORER_SORT_KEYS.ALPHABETIC;
   const [sortChoice] = useStickyState(`Sort.${explorerType}`, defaultSortChoice);
+  const [searchPhrase] = useStickyState(`Search.${explorerType}`, null);
   // const [scrollPosition, setScrollPosition] = useStickyState(`Scroll.${explorerType}`, 0);
   const profileEntries = profileInterests;
   const interestIDs = profileEntries.map((f) => f.interestID);
@@ -141,6 +143,10 @@ const BrowserView: React.FC<BrowserViewProps> = ({ items, explorerType, profileC
     }
   }
 
+  if (searchPhrase) {
+    explorerItems = explorerItems.filter((item) => item.name.toLowerCase().includes(searchPhrase.value.toLowerCase()));
+  }
+
   let icon;
   switch (explorerType) {
     case EXPLORER_TYPE.INTERESTS:
@@ -172,6 +178,11 @@ const BrowserView: React.FC<BrowserViewProps> = ({ items, explorerType, profileC
           <Grid.Row style={{ paddingTop: 0 }}>
             <Grid.Column style={{ paddingTop: 0 }}>
               <Sort explorerType={explorerType} />
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row style={{ paddingTop: 0 }}>
+            <Grid.Column style={{ paddingTop: 0 }}>
+              <Search explorerType={explorerType} />
             </Grid.Column>
           </Grid.Row>
         </Grid>

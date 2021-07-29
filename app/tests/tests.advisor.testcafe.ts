@@ -78,7 +78,7 @@ test('Test advisor top-level pages', async (testController) => {
   await manageOpportunitiesPage.isDisplayed(testController);
 });
 
-test('Test adding and removing interests and careers to advisor profile', async (testController) => {
+test('Test adding and removing interests, careers, courses and opportunities to advisor profile', async (testController) => {
   await landingNavBar.gotoAdvisorLogin(testController);
   await signinPage.signin(testController, credentials.advisor);
 
@@ -87,6 +87,12 @@ test('Test adding and removing interests and careers to advisor profile', async 
 
   await advisorNavBar.gotoCareerGoalsExplorerPage(testController);
   await explorerPages.testCareerAddAndRemove(testController, 'game-developer');
+
+  await advisorNavBar.gotoCoursesExplorerPage(testController);
+  await explorerPages.testAddAndRemove(testController, 'ics_102');
+
+  await advisorNavBar.gotoOpportunitiesExplorerPage(testController);
+  await explorerPages.testAddAndRemove(testController, 'allnet');
 });
 
 test('Test advisor manage student page', async (testController) => {
@@ -121,4 +127,6 @@ test('Test advisor visibility page', async (testController) => {
   await visibilityPage.testVisibility(testController, `#${COMPONENTIDS.SHARE_WEBSITE}`, `#${COMPONENTIDS.PROFILE_WEBSITE}`);
   await visibilityPage.testVisibility(testController, `#${COMPONENTIDS.SHARE_INTERESTS}`, `#${COMPONENTIDS.PROFILE_INTERESTS}`);
   await visibilityPage.testVisibility(testController, `#${COMPONENTIDS.SHARE_CAREER_GOALS}`, `#${COMPONENTIDS.PROFILE_CAREER_GOALS}`);
+  await visibilityPage.testVisibility(testController, `#${COMPONENTIDS.SHARE_OPPORTUNITIES}`, `#${COMPONENTIDS.PROFILE_OPPORTUNITIES}`);
+  await visibilityPage.testVisibility(testController, `#${COMPONENTIDS.SHARE_COURSES}`, `#${COMPONENTIDS.PROFILE_COURSES}`);
 });

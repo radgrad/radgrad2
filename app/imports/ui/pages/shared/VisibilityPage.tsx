@@ -38,6 +38,8 @@ interface CheckboxState {
   shareWebsite: boolean;
   shareInterests: boolean;
   shareCareerGoals: boolean;
+  shareCourses: boolean;
+  shareOpportunities: boolean;
 }
 
 const VisibilityPage: React.FC<VisibilityPageProps> = ({ profile }) => {
@@ -70,6 +72,8 @@ const VisibilityPage: React.FC<VisibilityPageProps> = ({ profile }) => {
     shareCareerGoals: profile.shareCareerGoals,
     shareInterests: profile.shareInterests,
     shareWebsite: profile.shareWebsite,
+    shareCourses: profile.shareCourses,
+    shareOpportunities: profile.shareOpportunities,
   });
   const name = `${profile.firstName} ${profile.lastName}`;
   /*
@@ -120,6 +124,8 @@ const VisibilityPage: React.FC<VisibilityPageProps> = ({ profile }) => {
             </Form.Group>
             <Form.Checkbox id={COMPONENTIDS.SHARE_INTERESTS} inline name="shareInterests" label="Interests" checked={checkboxState.shareInterests} onChange={handleCheckboxChange} />
             <Form.Checkbox id={COMPONENTIDS.SHARE_CAREER_GOALS} inline name="shareCareerGoals" label="Careers" checked={checkboxState.shareCareerGoals} onChange={handleCheckboxChange} />
+            <Form.Checkbox id={COMPONENTIDS.SHARE_COURSES} inline name="shareCourses" label="Courses" checked={checkboxState.shareCourses} onChange={handleCheckboxChange} />
+            <Form.Checkbox id={COMPONENTIDS.SHARE_OPPORTUNITIES} inline name="shareOpportunities" label="Opportunities" checked={checkboxState.shareOpportunities} onChange={handleCheckboxChange} />
           </Form>
         </Segment>
       </Grid.Column>
