@@ -144,7 +144,10 @@ const BrowserView: React.FC<BrowserViewProps> = ({ items, explorerType, profileC
   }
 
   if (searchPhrase) {
-    explorerItems = explorerItems.filter((item) => item.name.toLowerCase().includes(searchPhrase.value.toLowerCase()));
+    explorerItems = explorerItems.filter((item) => {
+      const searchItem = item.name ? item.name : item.position;
+      return searchItem.toLowerCase().includes(searchPhrase.value.toLowerCase());
+    });
   }
 
   let icon;
