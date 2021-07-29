@@ -57,7 +57,7 @@ class InterestKeywordCollection extends BaseCollection {
 
   /**
    * Removes the pair.
-   * @param {string | {[p: string]: unknown}} docID the id of the pair.
+   * @param {string} docID the id of the pair.
    * @return {boolean}
    */
   removeIt(docID): boolean {
