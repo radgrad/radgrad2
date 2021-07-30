@@ -2734,7 +2734,7 @@
           "course": "ics_313",
           "note": "ICS 313",
           "verified": false,
-          "fromRegistrar": false,
+          "fromRegistrar": true,
           "student": "abi@hawaii.edu",
           "grade": "B",
           "creditHrs": 3
@@ -2744,7 +2744,7 @@
           "course": "ics_331",
           "note": "ICS 331",
           "verified": false,
-          "fromRegistrar": false,
+          "fromRegistrar": true,
           "student": "abi@hawaii.edu",
           "grade": "B",
           "creditHrs": 3
@@ -3014,9 +3014,9 @@
           "course": "ics_331",
           "note": "ICS 331",
           "verified": false,
-          "fromRegistrar": false,
+          "fromRegistrar": true,
           "student": "betty@hawaii.edu",
-          "grade": "B-",
+          "grade": "B",
           "creditHrs": 3
         },
         {
@@ -3024,9 +3024,9 @@
           "course": "ics_313",
           "note": "ICS 313",
           "verified": false,
-          "fromRegistrar": false,
+          "fromRegistrar": true,
           "student": "betty@hawaii.edu",
-          "grade": "B-",
+          "grade": "B",
           "creditHrs": 3
         },
         {

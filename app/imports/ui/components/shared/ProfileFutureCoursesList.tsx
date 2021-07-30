@@ -13,7 +13,7 @@ interface ProfileFutureCoursesListProps {
 }
 
 const ProfileFutureCoursesList: React.FC<ProfileFutureCoursesListProps> = ({ profile, size }) => {
-  // TODO do we want courses in the current academic term?
+  // TODO do we want courses in the current academic term? This code includes them.
   const futureCourseInstances = CourseInstances.findNonRetired({ studentID: profile.userID, verified: false });
   const courseIDs = _.uniq(futureCourseInstances.map((ci) => ci.courseID));
   const futureCourses = courseIDs.map((ci) => Courses.findDoc(ci));
