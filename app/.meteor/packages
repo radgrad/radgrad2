@@ -57,3 +57,4 @@ zodern:hide-production-sourcemaps
 standard-minifier-css@1.7.3
 accounts-password@2.0.0
 cammoo:accounts-cas
+fetch

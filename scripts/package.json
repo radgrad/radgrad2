@@ -12,7 +12,8 @@
     "download-star-data": "npm run tsc && node js/download-bulk-star-json.js",
     "create-demo-fixture": "npm run tsc && node js/fixture-generator/demo-fixture-generator.js radgrad-db/2021-07-05-09-58-32.json data/demo-fixture-generator-config.json data/internships.json",
     "create-demo-fixture-cam": "npm run tsc && node js/fixture-generator/demo-fixture-generator-cam.js data/demo-fixture-generator-config.json data/internships.json",
-    "match-internship-keywords": "npm run tsc && node js/internship-match/internship-keywords.js data/keywords.json data/internships-many.json"
+    "match-internship-keywords": "npm run tsc && node js/internship-match/match-internship-keywords.js data/keywords.json data/internships-many.json",
+    "import-intern-aloha": "npm run tsc &&  node js/internship-import/import-intern-aloha.js"
   },
   "author": "",
   "license": "ISC",
@@ -43,6 +44,7 @@
     "mocha": "^7.2.0",
     "moment": "^2.29.1",
     "node": "^14.15.2",
+    "node-fetch": "^2.6.1",
     "request": "^2.88.2",
     "typescript": "^3.9.7",
     "typescript-eslint-parser": "^22.0.0",
