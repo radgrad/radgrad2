@@ -261,7 +261,7 @@ export const getLevelCriteriaStringMarkdown = (level: string): string => {
   const criteria = Meteor.settings.public.level[level];
   let plannedICEStr = '';
   if (criteria.plannedICE.i !== 0 || criteria.plannedICE.c !== 0 || criteria.plannedICE.e !== 0) {
-    plannedICEStr = '+ Planned ICE of';
+    plannedICEStr = '+ Planned myICE of';
     if (criteria.plannedICE.i !== 0) {
       plannedICEStr = `${plannedICEStr} **I >= ${criteria.plannedICE.i},`;
     }
@@ -274,7 +274,7 @@ export const getLevelCriteriaStringMarkdown = (level: string): string => {
   }
   let earnedICEStr = '';
   if (criteria.earnedICE.i !== 0 || criteria.earnedICE.c !== 0 || criteria.earnedICE.e !== 0) {
-    earnedICEStr = '+ Earned ICE of';
+    earnedICEStr = '+ Earned myICE of';
     if (criteria.earnedICE.i !== 0) {
       earnedICEStr = `${earnedICEStr} **I >= ${criteria.earnedICE.i},`;
     }
@@ -321,27 +321,22 @@ export const getLevelHintStringMarkdown = (level: string): string => {
   let result = '';
   switch (level) {
     case 'six':
-    // eslint-disable-next-line max-len
       result = `
 ${getLevelCriteriaStringMarkdown(level)}.`;
       break;
     case 'five':
-    // eslint-disable-next-line max-len
       result = `
  ${getLevelCriteriaStringMarkdown(level)}.`;
       break;
     case 'four':
-    // eslint-disable-next-line max-len
       result = `
 ${getLevelCriteriaStringMarkdown(level)}.`;
       break;
     case 'three':
-    // eslint-disable-next-line max-len
       result = `
 ${getLevelCriteriaStringMarkdown(level)}.`;
       break;
     case 'two':
-    // eslint-disable-next-line max-len
       result = `
 ${getLevelCriteriaStringMarkdown(level)}.`;
       break;
