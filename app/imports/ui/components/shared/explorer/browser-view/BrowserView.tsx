@@ -179,7 +179,7 @@ const BrowserView: React.FC<BrowserViewProps> = ({ items, explorerType, profileC
             </Grid.Column>
           </Grid.Row>
         </Grid>
-        <Card.Group itemsPerRow={4} stackable id="browserCardGroup" style={{ margin: '0px' }}>
+        <Card.Group itemsPerRow={3} stackable id="browserCardGroup" style={{ margin: '0px' }}>
           {explorerItems.map((explorerItem) => (
             <ExplorerCard key={explorerItem._id} item={explorerItem} type={explorerType} inProfile={inProfile(explorerItem, explorerType)} />
           ))}

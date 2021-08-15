@@ -28,7 +28,7 @@ Student participation in RadGrad Opportunities involves the following:
   2. The student participates (or fails to participate) in the Opportunity.
   3. The student requests verification that they participated in that opportunity during that term.
 
-You can accept or decline these verification requests on this page. Accepting means the student earns the ICE points associated with that opportunity. If you decline a request, please provide a short comment explaining why. The student can resubmit with additional documentation. 
+You can accept or decline these verification requests on this page. Accepting means the student earns the myICE points associated with that opportunity. If you decline a request, please provide a short comment explaining why. The student can resubmit with additional documentation. 
 
 For more information, please see the [Faculty User Guide](https://www.radgrad.org/docs/users/faculty/overview).
 `;

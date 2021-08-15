@@ -125,7 +125,7 @@ const StudentVisibilityPage: React.FC<StudentVisibilityPageProps> = ({ profile }
               <Form.Checkbox id={COMPONENTIDS.SHARE_COURSES} inline name="shareCourses" label="Courses" checked={checkboxState.shareCourses} onChange={handleCheckboxChange} />
               <Form.Checkbox id={COMPONENTIDS.SHARE_OPPORTUNITIES} inline name="shareOpportunities" label="Opportunities" checked={checkboxState.shareOpportunities} onChange={handleCheckboxChange} />
               <Form.Checkbox id={COMPONENTIDS.SHARE_LEVEL} inline name="shareLevel" label="Level" checked={checkboxState.shareLevel} onChange={handleCheckboxChange} />
-              <Form.Checkbox id={COMPONENTIDS.SHARE_ICE} inline name="shareICE" label="ICE" checked={checkboxState.shareICE} onChange={handleCheckboxChange} />
+              <Form.Checkbox id={COMPONENTIDS.SHARE_ICE} inline name="shareICE" label="myICE" checked={checkboxState.shareICE} onChange={handleCheckboxChange} />
             </Form>
           </Segment>
         </Grid.Column>

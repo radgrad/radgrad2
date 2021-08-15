@@ -103,7 +103,7 @@ const levelMap = {
     ' coursework, though that alone may not be enough! Venture out and complete some opportunities, get them' +
     ' verified by your advisor, and then you may find yourself at the next level.',
   3: 'Now that you are well into your academic career, it\'s time to plan further' +
-    ' ahead. Complete your degree plan by adding enough courses and opportunities to reach 100 ICE points. Finish' +
+    ' ahead. Complete your degree plan by adding enough courses and opportunities to reach 100 myICE points. Finish' +
     ' a bit more coursework and get a few more verified opportunities, and you\'ll get to level 4! Don\'t forget' +
     ' to update your RadGrad profile too... That new sticker depends on it.',
   4: 'At level 4, you have not only shown great competency through your coursework, but you have also shown' +
@@ -188,7 +188,7 @@ const iceRecommendation = (student: StudentProfile): Html | string => {
   }
   const html: Html = {};
   html.header = 'Finish Your Degree Plan';
-  html.info = '<p>To achieve a complete degree plan, obtain 100 points in each ICE component!</p>';
+  html.info = '<p>To achieve a complete degree plan, obtain 100 points in each myICE component!</p>';
   // CAM ice is an object.
   _.each(ice, (value, component) => {
     let iceLevel;

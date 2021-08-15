@@ -209,6 +209,23 @@ export interface CareerGoalUpdate extends Update {
   picture?: string,
 }
 
+export interface CareerGoalKeyword {
+  careerGoalID: string;
+  keyword: string;
+  retired: boolean;
+}
+
+export interface CareerGoalKeywordDefine extends DumpOne {
+  careerGoal: string;
+  keyword: string;
+  retired?: boolean;
+}
+
+export interface CareerGoalKeywordUpdate extends Update {
+  keyword?: string;
+  retired?: boolean;
+}
+
 // CourseInstances
 export interface CourseInstance extends Document {
   termID: string;
@@ -394,7 +411,8 @@ export interface Interest extends Document {
   description: string;
   interestTypeID: string;
   retired?: boolean;
-  picture?: string,
+  picture?: string;
+  keywords?: string[];
 }
 
 export interface InterestDefine extends DumpOne {
@@ -404,6 +422,7 @@ export interface InterestDefine extends DumpOne {
   interestType: string;
   retired?: boolean;
   picture?: string;
+  keywords?: string[];
 }
 
 export interface InterestUpdate extends Update {
@@ -412,6 +431,24 @@ export interface InterestUpdate extends Update {
   interestType?: string;
   retired?: boolean;
   picture?: string;
+  keywords?: string[];
+}
+
+export interface InterestKeyword {
+  interestID: string;
+  keyword: string;
+  retired: boolean;
+}
+
+export interface InterestKeywordDefine extends DumpOne {
+  interest: string;
+  keyword: string;
+  retired?: boolean;
+}
+
+export interface InterestKeywordUpdate extends Update {
+  keyword?: string;
+  retired?: boolean;
 }
 
 // InterestTypes
@@ -998,7 +1035,6 @@ export interface Internship {
   lastUploaded?: Date;
   missedUploads?: number;
   interestIDs: string[];
-  careerGoalIDs: string[];
   company?: string;
   location?: Location;
   contact?: string;
@@ -1013,7 +1049,6 @@ export interface InternshipDefine extends DumpOne {
   lastUploaded?: Date;
   missedUploads?: number;
   interests: string[];
-  careerGoals: string[];
   company?: string;
   location?: Location;
   contact?: string;
@@ -1026,7 +1061,6 @@ export interface InternshipUpdate extends Update {
   position?: string;
   description?: string;
   interests?: string[];
-  careerGoals?: string[];
   company?: string;
   location?: Location;
   contact?: string;
@@ -1039,7 +1073,6 @@ export interface InternshipUpdateData extends Update {
   position?: string;
   description?: string;
   interestIDs?: string[];
-  careerGoalIDs?: string[];
   company?: string;
   location?: Location;
   contact?: string;

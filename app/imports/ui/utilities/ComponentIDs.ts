@@ -132,6 +132,7 @@ export enum COMPONENTIDS {
   // Data model form ids.
   DATA_MODEL_ACADEMIC_TERM = 'data-model-academic-term',
   DATA_MODEL_AUTHOR = 'data-model-author',
+  DATA_MODEL_CAREER_GOAL = 'data-model-career-goal',
   DATA_MODEL_CAREER_GOALS = 'data-model-career-goals',
   DATA_MODEL_COMMENTS = 'data-model-comments',
   DATA_MODEL_COURSE = 'data-model-course',
@@ -152,8 +153,10 @@ export enum COMPONENTIDS {
   DATA_MODEL_ICE_I = 'data-model-ice-i',
   DATA_MODEL_ICE_C = 'data-model-ice-c',
   DATA_MODEL_ICE_E = 'data-model-ice-e',
+  DATA_MODEL_INTEREST = 'data-model-interest',
   DATA_MODEL_INTERESTS = 'data-model-interests',
   DATA_MODEL_INTEREST_TYPE = 'data-model-interest-type',
+  DATA_MODEL_KEYWORD = 'data-model-keyword',
   DATA_MODEL_LAST_NAME = 'data-model-last-name',
   DATA_MODEL_MODERATED = 'data-model-moderated',
   DATA_MODEL_MODERATOR_COMMENTS = 'data-model-moderator-comments',
