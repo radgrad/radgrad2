@@ -151,6 +151,7 @@ class UserCollection {
    * @throws { Meteor.Error } If user is not a defined username or userID.
    */
   public getID(user) {
+    // console.log('Users.getID', user);
     const userWithoutHost = user.split('@')[0];
     const userDoc = (Meteor.users.findOne({ _id: user })) || (Meteor.users.findOne({ username: user }) || (Meteor.users.findOne({ username: userWithoutHost })));
     if (!userDoc) {

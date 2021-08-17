@@ -12,7 +12,7 @@ if (Meteor.isClient) {
     const collectionName = ProfileCourses.getCollectionName();
     const definitionData = {
       course: 'ics_141',
-      student: 'abi@hawaii.edu',
+      username: 'abi@hawaii.edu',
     };
     const updateData: any = { retired: true };
 
