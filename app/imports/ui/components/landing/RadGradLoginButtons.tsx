@@ -19,7 +19,8 @@ const RadGradLoginButtons: React.FC<RadGradLoginButtonsProps> = ({ instanceName 
   const handleClick = (e, instance) => {
     e.preventDefault();
     // console.log(instance);
-    const callback = (error) => {
+    const callback = (error, result) => {
+      // console.log(result);
       if (error) {
         console.error('Error during CAS Login: ', error);
       } else {
