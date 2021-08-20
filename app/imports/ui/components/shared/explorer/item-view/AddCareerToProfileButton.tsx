@@ -60,7 +60,6 @@ const handleRemove = (userID: string, item: CareerGoal) => {
 };
 
 const AddCareerToProfileButton: React.FC<AddCareerToProfileProps> = ({ userID, profile, careerGoal, added, inverted, floated }) => {
-  const centerStyle = { textAlign: 'center' };
   const paddingStyle = { paddingLeft: 20, paddingTop: 5, paddingBottom: 5 };
   const [open, setOpen] = useState(false);
   let interestList: Array<string> = [];
@@ -104,20 +103,23 @@ const AddCareerToProfileButton: React.FC<AddCareerToProfileProps> = ({ userID, p
             <Icon name="plus" />
             ADD TO PROFILE
           </Button>}>
-          <Modal.Header>Adding The Career To Profile</Modal.Header>
+          <Modal.Header>Add Career To Profile</Modal.Header>
           <Modal.Description style={paddingStyle}>
-            <p> Adding this Career Goal will automatically add the following new Interests to your profile.<br />
-              If you are OK with that, just press ADD TO PROFILE. </p>
+            <p> Select the Interests to be automatically added to your profile when adding this Career Goal: </p>
             <Form>
-              <Form.Group style={centerStyle}>
-                {interestInclude.map((o, index) =>
-                  <Form.Checkbox
-                    id={`id_${o.slug}`}
-                    key={`${o.slug}-checkbox`}
-                    label={`${interestSlugs[index]}`}
-                    defaultChecked={o.include}
-                    disabled={o.disable}
-                    onClick={(evt, data) => onChangeCheckbox(evt, data)} />)}
+              <Form.Group>
+                <Grid>
+                  {interestInclude.map((o, index) =>
+                    <Grid.Column width={4}>
+                      <Form.Checkbox
+                        id={`id_${o.slug}`}
+                        key={`${o.slug}-checkbox`}
+                        label={`${interestSlugs[index]}`}
+                        defaultChecked={o.include}
+                        disabled={o.disable}
+                        onClick={(evt, data) => onChangeCheckbox(evt, data)} />
+                    </Grid.Column>)}
+                </Grid>
               </Form.Group>
             </Form>
           </Modal.Description>
