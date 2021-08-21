@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
 import {} from 'mocha';
 import { defineTestFixtures } from '../test/test-utilities';
-import { processStarCsvData, processBulkStarJsonData } from './StarProcessor';
+import { processBulkStarJsonData } from './StarProcessor';
 import { Users } from '../user/UserCollection';
 import { removeAllEntities } from '../base/BaseUtilities';
 
@@ -19,15 +19,6 @@ if (Meteor.isServer) {
     });
 
     after(function teardown() {
-      removeAllEntities();
-    });
-
-    it.skip('#processStarCsvData', function test() {
-      defineTestFixtures(['minimal', 'extended.courses.interests', 'abi.student']);
-      const csvData = Assets.getText(starDataPath);
-      const profile = Users.getProfile('abi@hawaii.edu');
-      const courseInstanceDefinitions = processStarCsvData(profile.username, csvData);
-      expect(courseInstanceDefinitions.length).to.equal(11);
       removeAllEntities();
     });
 
