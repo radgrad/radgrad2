@@ -1779,6 +1779,10 @@
       ]
     },
     {
+      "name": "InternshipCollection",
+      "contents": []
+    },
+    {
       "name": "InterestCollection",
       "contents": [
         {
@@ -2298,6 +2302,10 @@
           "interestType": "ceng-disciplines"
         }
       ]
+    },
+    {
+      "name": "InterestKeywordCollection",
+      "contents": []
     },
     {
       "name": "InterestTypeCollection",
