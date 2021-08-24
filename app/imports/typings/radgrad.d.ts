@@ -368,6 +368,13 @@ export interface ProfileInterest extends Document {
   retired: boolean;
 }
 
+export interface ProfileInternship extends Document {
+  internshipID: string;
+  userID: string;
+  share: boolean;
+  retired: boolean;
+}
+
 export interface ProfileOpportunityDefine extends DumpOne {
   opportunity: string;
   username: string;

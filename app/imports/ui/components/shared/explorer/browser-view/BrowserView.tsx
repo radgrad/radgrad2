@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import { Card, Grid } from 'semantic-ui-react';
-import { CareerGoal, Course, Interest, Opportunity, ProfileCareerGoal, ProfileCourse, ProfileInterest, ProfileOpportunity } from '../../../../../typings/radgrad';
+import { CareerGoal, Course, Interest, Internship, Opportunity, ProfileCareerGoal, ProfileCourse, ProfileInterest, ProfileOpportunity, ProfileInternship } from '../../../../../typings/radgrad';
 import { useStickyState } from '../../../../utilities/StickyState';
 import ExplorerCard from './ExplorerCard';
 import Sort from './Sort';
@@ -16,17 +16,19 @@ import { Opportunities } from '../../../../../api/opportunity/OpportunityCollect
 import { Courses } from '../../../../../api/course/CourseCollection';
 
 interface BrowserViewProps {
-  items: CareerGoal[] | Course[] | Opportunity[] | Interest[];
+  items: CareerGoal[] | Course[] | Opportunity[] | Interest[] | Internship[];
   careerGoals: CareerGoal[];
   courses: Course[];
   interests: Interest[];
   opportunities: Opportunity[];
+  internships: Internship[];
   explorerType: EXPLORER_TYPE;
   profileCareerGoals: ProfileCareerGoal[];
   profileCourses: ProfileCourse[];
   profileInterests: ProfileInterest[];
   // TODO profileInternships
   profileOpportunities: ProfileOpportunity[];
+  profileInternships: ProfileInternship[];
 }
 
 const BrowserView: React.FC<BrowserViewProps> = ({ items, explorerType, profileCareerGoals, profileCourses, profileInterests, profileOpportunities, careerGoals, courses, interests, opportunities }) => {
