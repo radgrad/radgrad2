@@ -31,7 +31,7 @@ interface BrowserViewProps {
   profileInternships: ProfileInternship[];
 }
 
-const BrowserView: React.FC<BrowserViewProps> = ({ items, explorerType, profileCareerGoals, profileCourses, profileInterests, profileOpportunities, careerGoals, courses, interests, opportunities }) => {
+const BrowserView: React.FC<BrowserViewProps> = ({ items, explorerType, profileCareerGoals, profileCourses, profileInterests, profileOpportunities, careerGoals, courses, interests, opportunities, profileInternships, internships }) => {
   const [filterChoice] = useStickyState(`Filter.${explorerType}`, EXPLORER_FILTER_KEYS.NONE);
   const defaultSortChoice = (explorerType === EXPLORER_TYPE.COURSES) ? EXPLORER_SORT_KEYS.NUMBER
     : EXPLORER_SORT_KEYS.ALPHABETIC;
