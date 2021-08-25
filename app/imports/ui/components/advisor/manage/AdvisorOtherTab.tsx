@@ -51,28 +51,32 @@ const AdvisorOtherTab: React.FC = () => {
   const handleUpdateLevelButton = (event) => {
     event.preventDefault();
     setIsUpdateWorking(true);
-    updateAllStudentLevelsMethod.call((error, result) => {
-      if (error) {
-        RadGradAlert.failure('Error updating students\' levels', 'There was an error updating the students\' levels', error);
-      } else {
-        RadGradAlert.success('Updates Students\' levels');
-      }
-    });
-    setIsUpdateWorking(false);
+    updateAllStudentLevelsMethod
+      .callPromise({})
+      .then(() => {
+        RadGradAlert.success("Updates Students' levels");
+        setIsUpdateWorking(false);
+      })
+      .catch((error) => {
+        RadGradAlert.failure("Error updating students' levels", "There was an error updating the students' levels", error);
+        setIsUpdateWorking(false);
+      });
   };
 
   const handleAlumniSubmit = () => {
     setIsAlumniWorking(true);
     const alumniEmails = alumniEmailsState;
-    alumniEmailsMethod.call(alumniEmails, (error, result) => {
-      if (error) {
-        RadGradAlert.failure('Error loading alumni emails', error.message, error);
-      } else {
+    alumniEmailsMethod
+      .callPromise(alumniEmails)
+      .then(() => {
         RadGradAlert.success('Alumni emails loaded successfully');
         setAlumniEmails('');
-      }
-      setIsAlumniWorking(false);
-    });
+        setIsAlumniWorking(false);
+      })
+      .catch((error) => {
+        RadGradAlert.failure('Error loading alumni emails', error.message, error);
+        setIsAlumniWorking(false);
+      });
   };
 
   const handleStarSubmit = () => {
@@ -83,7 +87,8 @@ const AdvisorOtherTab: React.FC = () => {
       jsonData,
     };
     // console.log(data);
-    starBulkLoadJsonDataMethod.callPromise(data)
+    starBulkLoadJsonDataMethod
+      .callPromise(data)
       .then((result) => {
         RadGradAlert.success('Bulk Course Data loaded successfully', result);
         setIsUploadWorking(false);
@@ -97,10 +102,12 @@ const AdvisorOtherTab: React.FC = () => {
 
   const getStudentEmails = () => {
     setIsEmailWorking(true);
-    generateStudentEmailsMethod.call({}, (error, result) => {
-      if (error) {
+    generateStudentEmailsMethod.callPromise({})
+      .catch((error) => {
         RadGradAlert.failure('Error during Generating Student Emails', error.message, error);
-      } else {
+        setIsEmailWorking(false);
+      })
+      .then((result) => {
         RadGradAlert.success('Beginning Download...');
         const data: any = {};
         data.name = 'Students';
@@ -112,68 +119,110 @@ const AdvisorOtherTab: React.FC = () => {
         const fileName = `${dir}/Students.txt`;
         zip.file(fileName, emails);
         zip.saveAs(`${dir}.zip`);
-      }
-    });
-    setIsEmailWorking(false);
+        setIsEmailWorking(false);
+      });
   };
 
   const handleFindOddStudents = () => {
     setIsUpdateOldWorking(true);
-    findOddStudentsMethod.callPromise(null)
-      .then(result => {
+    findOddStudentsMethod
+      .callPromise(null)
+      .then((result) => {
         setOddStudents(result);
         setIsUpdateOldWorking(false);
       })
-      .catch(error => RadGradAlert.failure('Failed to get odd students.', error.message));
+      .catch((error) => RadGradAlert.failure('Failed to get odd students.', error.message));
   };
 
-  const bulkUploadRightSide = <><Input type='file' onChange={readFile} size='mini' label={{
-    basic: true,
-    color: 'green',
-    content: 'Bulk Course Data JSON',
-  }} />
-  <Button size='tiny' basic color='green'
-    onClick={handleStarSubmit}
-    loading={isUploadWorkingState}
-    disabled={isUploadWorkingState}
-  >UPLOAD</Button>
-  </>;
+  const bulkUploadRightSide = (
+    <>
+      <Input
+        type="file"
+        onChange={readFile}
+        size="mini"
+        label={{
+          basic: true,
+          color: 'green',
+          content: 'Bulk Course Data JSON',
+        }}
+      />
+      <Button size="tiny" basic color="green" onClick={handleStarSubmit} loading={isUploadWorkingState} disabled={isUploadWorkingState}>
+        UPLOAD
+      </Button>
+    </>
+  );
 
-  const alumniEmailsUploadRightSide = <>
-    <Input type='file' onChange={readAlumniFile} size='mini' label={{
-      basic: true,
-      color: 'green',
-      content: 'Alumni Emails file',
-    }} />
-    <Button size='tiny' basic color='green'
-      onClick={handleAlumniSubmit}
-      loading={isAlumniWorkingState}
-      disabled={isAlumniWorkingState}
-    >UPLOAD</Button>
-  </>;
+  const alumniEmailsUploadRightSide = (
+    <>
+      <Input
+        type="file"
+        onChange={readAlumniFile}
+        size="mini"
+        label={{
+          basic: true,
+          color: 'green',
+          content: 'Alumni Emails file',
+        }}
+      />
+      <Button size="tiny" basic color="green" onClick={handleAlumniSubmit} loading={isAlumniWorkingState} disabled={isAlumniWorkingState}>
+        UPLOAD
+      </Button>
+    </>
+  );
 
   return (
     <Tab.Pane key={COMPONENTIDS.OTHER_TAB_PANE} id={COMPONENTIDS.OTHER_TAB_PANE}>
-      <Segment vertical><RadGradTabHeader title='Update all students&apos; levels' icon='sort amount up'
-        rightside={<Button size='mini' basic color='green'
-          onClick={handleUpdateLevelButton}
-          loading={isUpdateWorkingState}
-          disabled={isUpdateWorkingState}>UPDATE LEVELS</Button>} /></Segment>
-      <Segment vertical><RadGradTabHeader title='Get student emails' icon='envelope'
-        rightside={<Button size='mini' basic color='green' onClick={getStudentEmails}
-          loading={isEmailWorkingState}
-          disabled={isEmailWorkingState}>DOWNLOAD</Button>} /></Segment>
-      <Segment vertical><RadGradTabHeader title='Bulk course data upload' icon='upload'
-        rightside={bulkUploadRightSide} /></Segment>
-      <Segment vertical><RadGradTabHeader title='Bulk alumni data upload' icon='upload'
-        rightside={alumniEmailsUploadRightSide} /></Segment>
-      <Segment vertical><RadGradTabHeader title='Find odd students' icon='highlighter'
-        rightside={<Button basic color='green' onClick={() => {setIsUpdateOldWorking(true); handleFindOddStudents();}} size='mini'
-          loading={isUpdateOldWorkingState}
-          disabled={isUpdateOldWorkingState}>FIND ODD STUDENTS</Button>} />
-      {oddStudents.length > 0 ? oddStudents.map((s) => <ProfileLabel key={s.userID} name={Users.getFullName(s.userID)} level={s.level} size='mini' />) : 'No odd students'}</Segment>
+      <Segment vertical>
+        <RadGradTabHeader
+          title="Update all students' levels"
+          icon="sort amount up"
+          rightside={
+            <Button size="mini" basic color="green" onClick={handleUpdateLevelButton} loading={isUpdateWorkingState} disabled={isUpdateWorkingState}>
+              UPDATE LEVELS
+            </Button>
+          }
+        />
+      </Segment>
+      <Segment vertical>
+        <RadGradTabHeader
+          title="Get student emails"
+          icon="envelope"
+          rightside={
+            <Button size="mini" basic color="green" onClick={getStudentEmails} loading={isEmailWorkingState} disabled={isEmailWorkingState}>
+              DOWNLOAD
+            </Button>
+          }
+        />
+      </Segment>
+      <Segment vertical>
+        <RadGradTabHeader title="Bulk course data upload" icon="upload" rightside={bulkUploadRightSide} />
+      </Segment>
+      <Segment vertical>
+        <RadGradTabHeader title="Bulk alumni data upload" icon="upload" rightside={alumniEmailsUploadRightSide} />
+      </Segment>
+      <Segment vertical>
+        <RadGradTabHeader
+          title="Find odd students"
+          icon="highlighter"
+          rightside={
+            <Button
+              basic
+              color="green"
+              onClick={() => {
+                setIsUpdateOldWorking(true);
+                handleFindOddStudents();
+              }}
+              size="mini"
+              loading={isUpdateOldWorkingState}
+              disabled={isUpdateOldWorkingState}
+            >
+              FIND ODD STUDENTS
+            </Button>
+          }
+        />
+        {oddStudents.length > 0 ? oddStudents.map((s) => <ProfileLabel key={s.userID} name={Users.getFullName(s.userID)} level={s.level} size="mini" />) : 'No odd students'}
+      </Segment>
     </Tab.Pane>
   );
 };
-
 export default AdvisorOtherTab;

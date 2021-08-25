@@ -457,11 +457,8 @@ const AdminAnalyticsNewsletterPage: React.FC = () => {
               },
               filename: 'newsletter2.html',
             };
-            sendEmailMethod.call(emailData, (error) => {
-              if (error) {
-                console.error('Error sending email.', error);
-              }
-            });
+            sendEmailMethod.callPromise(emailData)
+              .catch((error) => console.error('Error sending email.', error));
           }
         }, emailDelayMs);
       });
@@ -503,11 +500,8 @@ const AdminAnalyticsNewsletterPage: React.FC = () => {
               },
               filename: 'newsletter2.html',
             };
-            sendEmailMethod.call(emailData, (error) => {
-              if (error) {
-                console.error('Error sending email.', error);
-              }
-            });
+            sendEmailMethod.callPromise(emailData)
+              .catch((error) => console.error('Error sending email.', error));
           }
         }, emailDelayMs);
       });
@@ -546,11 +540,7 @@ const AdminAnalyticsNewsletterPage: React.FC = () => {
               },
               filename: 'newsletter2.html',
             };
-            sendEmailMethod.call(emailData, (error) => {
-              if (error) {
-                console.error('Error sending email.', error);
-              }
-            });
+            sendEmailMethod.callPromise(emailData).catch((error) => console.error('Error sending email.', error));
           }
         }, emailDelayMs);
       });
