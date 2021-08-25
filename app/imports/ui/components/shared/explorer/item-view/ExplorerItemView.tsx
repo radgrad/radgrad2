@@ -17,6 +17,7 @@ interface ExplorerItemViewProps {
   item: Interest | CareerGoal | Internship;
   opportunities: Opportunity[];
   courses: Course[];
+  careerGoals: CareerGoal[];
   internship: Internship[];
   explorerType: EXPLORER_TYPE;
   interestTypes?: InterestType[];
@@ -24,7 +25,7 @@ interface ExplorerItemViewProps {
   teaser: Teaser[];
 }
 
-const ExplorerItemView: React.FC<ExplorerItemViewProps> = ({ profile, item, courses, opportunities, explorerType, interestTypes, interests, teaser }) => {
+const ExplorerItemView: React.FC<ExplorerItemViewProps> = ({ profile, item, courses, opportunities, explorerType, careerGoals,interestTypes, interests, teaser }) => {
   const hasTeaser = teaser.length > 0;
   const isNotStudent = profile.role !== ROLE.STUDENT;
   const isAdmin = profile.role === ROLE.ADMIN;
