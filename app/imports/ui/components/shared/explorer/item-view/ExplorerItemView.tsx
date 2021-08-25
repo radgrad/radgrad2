@@ -14,7 +14,7 @@ import { PROFILE_ENTRY_TYPE } from '../../../../../api/user/profile-entries/Prof
 
 interface ExplorerItemViewProps {
   profile: Profile;
-  item: Interest | CareerGoal;
+  item: Interest | CareerGoal | Internship;
   opportunities: Opportunity[];
   courses: Course[];
   internship: Internship[];

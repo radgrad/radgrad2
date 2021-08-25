@@ -4,8 +4,6 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Grid } from 'semantic-ui-react';
 import { Interests } from '../../../../api/interest/InterestCollection';
 import { InterestTypes } from '../../../../api/interest/InterestTypeCollection';
-import { Internships } from '../../../../api/internship/InternshipCollection';
-import { ProfileCareerGoals } from '../../../../api/user/profile-entries/ProfileCareerGoalCollection';
 import {
   CareerGoal,
   Profile,
@@ -50,10 +48,10 @@ const InternshipViewPage: React.FC<InternshipViewPageProps> = ({
   const relatedCourses = getAssociationRelatedCourses(CareerGoals.findRelatedCourses(internshipID), profile.userID);
   const relatedOpportunities = getAssociationRelatedOpportunities(CareerGoals.findRelatedOpportunities(internshipID), profile.userID);
   const headerPaneTitle = internship.position;
-  const added = ProfileInternships.findNonRetired({ userID: profile.userID, careerGoalID }).length > 0;
+  const added = ProfileInternships.findNonRetired({ userID: profile.userID, internshipID: internship._id }).length > 0;
   return (
     <PageLayout id={PAGEIDS.CAREER_GOAL} headerPaneTitle={headerPaneTitle}
-      headerPaneButton={<AddToProfileButton type={PROFILE_ENTRY_TYPE.} userID={profile.userID}
+      headerPaneButton={<AddToProfileButton type={PROFILE_ENTRY_TYPE.INTERNSHIP} userID={profile.userID}
         item={internship} added={added} inverted floated="left" />}>
       <Grid stackable>
         <Grid.Row>

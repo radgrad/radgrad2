@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Icon, SemanticFLOATS } from 'semantic-ui-react';
 import RadGradAlert from '../../../../utilities/RadGradAlert';
-import { CareerGoal, Course, Interest, MeteorError, Opportunity } from '../../../../../typings/radgrad';
+import { CareerGoal, Course, Interest, MeteorError, Opportunity, Internship } from '../../../../../typings/radgrad';
 import { ProfileCareerGoals } from '../../../../../api/user/profile-entries/ProfileCareerGoalCollection';
 import { ProfileCourses } from '../../../../../api/user/profile-entries/ProfileCourseCollection';
 import { ProfileInterests } from '../../../../../api/user/profile-entries/ProfileInterestCollection';
@@ -11,7 +11,7 @@ import { PROFILE_ENTRY_TYPE, IProfileEntryTypes } from '../../../../../api/user/
 import { COMPONENTIDS } from '../../../../utilities/ComponentIDs';
 import { createDefinitionData, getCollectionName } from './utilities/profile-button';
 
-type ItemType = CareerGoal | Course | Interest | Opportunity;
+type ItemType = CareerGoal | Course | Interest | Opportunity | Internship;
 
 export interface AddToProfileButtonProps {
   item: ItemType;
@@ -59,6 +59,8 @@ const handleRemove = (userID: string, item: ItemType, type: IProfileEntryTypes) 
       })[0]._id;
       break;
       // TODO add internships.
+    case PROFILE_ENTRY_TYPE.INTERNSHIP:
+      break;
     default:
       console.error(`Bad profile entry type: ${type}`);
       break;
