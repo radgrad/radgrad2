@@ -44,7 +44,7 @@ random@1.2.0
 react-meteor-data
 alanning:roles
 mizzao:user-status
-email@2.1.0
+email@2.1.1
 meteorhacks:ssr
 typescript@4.3.2
 meteortesting:browser-tests

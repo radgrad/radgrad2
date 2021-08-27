@@ -49,7 +49,7 @@ const ExplorerOpportunity: React.FC<ExplorerOpportunitiesProps> = ({ opportunity
         <Markdown escapeHtml linkTarget="_blank" source={opportunity.description} />
         <Grid stackable style={gridStyle}>
           <Grid.Row style={compactRowStyle}>
-            <strong style={{ paddingTop: '4px' }}>ICE:</strong>&nbsp;<IceHeader ice={opportunity.ice} size='large' />
+            <strong style={{ paddingTop: '4px' }}>myICE:</strong>&nbsp;<IceHeader ice={opportunity.ice} size='large' />
           </Grid.Row>
           <Grid.Row style={compactRowStyle}>
             <strong style={{ paddingTop: '5px' }}>Sponsor:</strong> &nbsp; <UserLabel username={opportunity.sponsorID}/>

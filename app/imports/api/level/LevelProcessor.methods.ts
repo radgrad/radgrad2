@@ -55,6 +55,7 @@ export const updateLevelMethod = new ValidatedMethod({
  */
 export const updateAllStudentLevelsMethod = new ValidatedMethod({
   name: 'LevelProcessor.updateAllStudentLevels',
+  mixins: [CallPromiseMixin],
   validate: null,
   run() {
     if (Meteor.isServer) {

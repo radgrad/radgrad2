@@ -496,10 +496,13 @@ class StudentProfileCollection extends BaseProfileCollection {
   public getLastAcademicTerm(user: string): AcademicTerm {
     // console.log('getLastAcademicTerm', user);
     const studentID = Users.getID(user);
-    let lastAcademicTerm = AcademicTerms.find({ termNumber: 0 }).fetch()[0];
+    let lastAcademicTerm;
     const cis = CourseInstances.find({ studentID }).fetch();
     cis.forEach((ci) => {
       const term = AcademicTerms.findDoc(ci.termID);
+      if (!lastAcademicTerm) {
+        lastAcademicTerm = term;
+      }
       if (term.termNumber > lastAcademicTerm.termNumber) {
         lastAcademicTerm = term;
       }
@@ -507,6 +510,9 @@ class StudentProfileCollection extends BaseProfileCollection {
     const ois = OpportunityInstances.find({ studentID }).fetch();
     ois.forEach((oi) => {
       const term = AcademicTerms.findDoc(oi.termID);
+      if (!lastAcademicTerm) {
+        lastAcademicTerm = term;
+      }
       if (term.termNumber > lastAcademicTerm.termNumber) {
         lastAcademicTerm = term;
       }

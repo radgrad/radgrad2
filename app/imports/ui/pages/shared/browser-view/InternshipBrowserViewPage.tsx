@@ -10,7 +10,7 @@ import { PAGEIDS } from '../../../utilities/PageIDs';
 import PageLayout from '../../PageLayout';
 import { ClientSideInternships } from '../../../../startup/client/collections';
 
-interface InternshipBrowserViewPage {
+interface InternshipBrowserViewPageProps {
   internships: Internship[];
 }
 
@@ -20,7 +20,7 @@ This page will eventually show Internships that match your Interests and Career 
 `;
 const headerPaneImage = 'images/header-panel/header-career.png';
 
-const InternshipBrowserViewPage: React.FC<InternshipBrowserViewPage> = ({ internships }) => (
+const InternshipBrowserViewPage: React.FC<InternshipBrowserViewPageProps> = ({ internships }) => (
   <PageLayout id={PAGEIDS.INTERNSHIP_BROWSER} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
     <List bulleted>
       {internships.map((i) => (
@@ -45,7 +45,7 @@ export default withTracker(() => {
     });
   const careerGoals = CareerGoals.findNonRetired();
   const internships = ClientSideInternships.find().fetch();
-  console.log(internships);
+  // console.log(internships);
   return {
     careerGoals,
     internships,

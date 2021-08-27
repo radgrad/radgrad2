@@ -18,7 +18,7 @@ const VisibilitySettingList: React.FC<StudentVisibilitySettingListProps> = ({ pr
   profile.sharePicture ? share.push('Picture') : hide.push('Picture');
   profile.shareWebsite ? share.push('Website') : hide.push('Website');
   if (profile.role === ROLE.STUDENT) {
-    profile.shareICE ? share.push('ICE') : hide.push('ICE');
+    profile.shareICE ? share.push('myICE') : hide.push('myICE');
     profile.shareLevel ? share.push('Level') : hide.push('Level');
   }
 

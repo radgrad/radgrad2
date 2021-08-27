@@ -36,12 +36,12 @@ const getLevelExplanation = (level) => {
       result = `
 If you achieve Level 6, you are truly one of the elite RadGrad students, and you will have achieved excellent preparation for entering the workforce, or going on to Graduate School, whichever you prefer. Congratulations!
 
-To achieve Level 6, in addition to fulfilling the ICE requirements, you&apos;ll also need to &quot;pay it forward&quot; to the RadGrad community by completing Reviews of your completed courses and opportunities. One reward is the coveted and rarely seen Ninja-level Black RadGrad sticker.`;
+To achieve Level 6, in addition to fulfilling the myICE requirements, you&apos;ll also need to &quot;pay it forward&quot; to the RadGrad community by completing Reviews of your completed courses and opportunities. One reward is the coveted and rarely seen Ninja-level Black RadGrad sticker.`;
       break;
 
     case 5:
       result = `
-Level 5 students are far along in their degree program, and have made significant progress toward 100 verified points in each of the three ICE categories. 
+Level 5 students are far along in their degree program, and have made significant progress toward 100 verified points in each of the three myICE categories. 
 
 You will probably be at least a Junior before Level 5 becomes a realistic option for you. 
 
@@ -50,7 +50,7 @@ Many students graduate before reaching Level 5, so try to be one of the few that
 
     case 4:
       result = `
- To achieve Level 4, you will generally have completed three semesters of coursework and you should have worked out your Degree Plan so that you have planned to earn at least 100 Innovation, 100 Competency, and 100 ICE points by the time you graduate.
+ To achieve Level 4, you will generally have completed three semesters of coursework and you should have worked out your Degree Plan so that you have planned to earn at least 100 Innovation, 100 Competency, and 100 Experience points by the time you graduate.
  
  In addition, you must have completed at least one Opportunity. This involves submitting it for verification.
  

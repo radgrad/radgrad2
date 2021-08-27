@@ -3,11 +3,11 @@ import { expect } from 'chai';
 import fc from 'fast-check';
 import faker from 'faker';
 import 'mocha';
-import { RadGradProperties } from '../radgrad/RadGradProperties';
+// import { RadGradProperties } from '../radgrad/RadGradProperties';
 import { AcademicTerms } from './AcademicTermCollection';
 import { removeAllEntities } from '../base/BaseUtilities';
 import { Slugs } from '../slug/SlugCollection';
-import { defineAcademicTerms } from './AcademicTermUtilities';
+// import { defineAcademicTerms } from './AcademicTermUtilities';
 
 /* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
@@ -132,15 +132,15 @@ if (Meteor.isServer) {
       expect(AcademicTerms.getShortName(termID)).to.equal('Sum 10');
     });
 
-    it('Can getNextYears', function test9() {
-      defineAcademicTerms();
-      const fourYears = RadGradProperties.getQuarterSystem() ? 16 : 12;
-      const currentTermNumber = AcademicTerms.getCurrentAcademicTermDoc().termNumber;
-      const startOfAcademicYear = AcademicTerms.getStartOfCurrentAcademicYearTerm().termNumber;
-      const diff = currentTermNumber - startOfAcademicYear;
-      const terms = AcademicTerms.getNextYears(4);
-      expect(terms.length).to.equal(fourYears - diff);
-      expect(terms[0].termNumber).to.equal(currentTermNumber);
-    });
+    // it('Can getNextYears', function test9() {
+    //   defineAcademicTerms();
+    //   const fourYears = RadGradProperties.getQuarterSystem() ? 16 : 12;
+    //   const currentTermNumber = AcademicTerms.getCurrentAcademicTermDoc().termNumber;
+    //   const startOfAcademicYear = AcademicTerms.getStartOfCurrentAcademicYearTerm().termNumber;
+    //   const diff = currentTermNumber - startOfAcademicYear;
+    //   const terms = AcademicTerms.getNextYears(4);
+    //   expect(terms.length).to.equal(fourYears - diff);
+    //   expect(terms[0].termNumber).to.equal(currentTermNumber);
+    // });
   });
 }

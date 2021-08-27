@@ -3,7 +3,7 @@ name: jsdoc-radgrad
 on:
   push:
     branches:
-      - master
+      - replace-with-master-to-reenable-this-workflow
 
 defaults:
   run:

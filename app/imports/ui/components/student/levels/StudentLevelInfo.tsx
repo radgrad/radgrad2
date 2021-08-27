@@ -73,7 +73,7 @@ const StudentLevelInfo: React.FC<StudentLevelInfoProps> = ({ profile, students }
               <Markdown escapeHtml source={studentLevelCongrats} />
               <p>More specifically:</p>
               <Markdown escapeHtml source={studentLevelHint} />
-              <Link to={`/${URL_ROLES.STUDENT}/${username}/${ICE}`} style={linkStyle}>Visit the ICE page for more details</Link>
+              <Link to={`/${URL_ROLES.STUDENT}/${username}/${ICE}`} style={linkStyle}>Visit the myICE page for more details</Link>
             </Message.Content>
           </Message>
           <VisibleStudentsAtLevel students={students} level={profile.level} />

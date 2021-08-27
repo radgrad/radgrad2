@@ -3928,6 +3928,26 @@
           "student": "ella@hawaii.edu",
           "grade": "B+",
           "creditHrs": 3
+        },
+        {
+          "academicTerm": "Fall-2021",
+          "course": "ics_111",
+          "note": "ICS 111",
+          "verified": false,
+          "fromRegistrar": true,
+          "student": "george@hawaii.edu",
+          "grade": "B",
+          "creditHrs": 3
+        },
+        {
+          "academicTerm": "Fall-2021",
+          "course": "ics_141",
+          "note": "ICS 141",
+          "verified": false,
+          "fromRegistrar": true,
+          "student": "george@hawaii.edu",
+          "grade": "B",
+          "creditHrs": 3
         }
       ]
     },
@@ -7256,7 +7276,7 @@
           "picture": "/images/mockup/charley.jpg",
           "interests": [],
           "careerGoals": [],
-          "level": 2,
+          "level": 1,
           "profileCourses": [],
           "profileOpportunities": [],
           "isAlumni": false,
@@ -7547,6 +7567,27 @@
           "shareLevel": false,
           "shareICE": false,
           "acceptedTermsAndConditions": true
+        },
+        {
+          "username": "george@hawaii.edu",
+          "firstName": "George",
+          "lastName": "Keahi",
+          "picture": "/images/mockup/alfred.png",
+          "interests": [],
+          "careerGoals": [],
+          "level": 1,
+          "profileCourses": [],
+          "profileOpportunities": [],
+          "isAlumni": false,
+          "retired": false,
+          "sharePicture": false,
+          "shareWebsite": false,
+          "shareInterests": false,
+          "shareCareerGoals": false,
+          "shareOpportunities": false,
+          "shareCourses": false,
+          "shareLevel": false,
+          "shareICE": false
         }
       ]
     },
