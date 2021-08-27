@@ -54,11 +54,11 @@ const AdvisorOtherTab: React.FC = () => {
     updateAllStudentLevelsMethod
       .callPromise({})
       .then((resultText) => {
-        RadGradAlert.success("All levels updated successfully", resultText);
+        RadGradAlert.success('All levels updated successfully', resultText);
         setIsUpdateWorking(false);
       })
       .catch((error) => {
-        RadGradAlert.failure("Error updating levels", "A problem occurred during update", error);
+        RadGradAlert.failure('Error updating levels', 'A problem occurred during update', error);
         setIsUpdateWorking(false);
       });
   };

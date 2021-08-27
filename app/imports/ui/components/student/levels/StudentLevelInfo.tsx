@@ -3,7 +3,7 @@ import Markdown from 'react-markdown';
 import { Grid, Message, Icon, Image, Header, Button } from 'semantic-ui-react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { getLevelCongratsMarkdown, getLevelHintStringMarkdown } from '../../../../api/level/LevelProcessor';
-import { updateAllStudentLevelsMethod, updateMyLevelMethod } from '../../../../api/level/LevelProcessor.methods';
+import { updateMyLevelMethod } from '../../../../api/level/LevelProcessor.methods';
 import { StudentProfile } from '../../../../typings/radgrad';
 import { ICE, URL_ROLES } from '../../../layouts/utilities/route-constants';
 import RadGradAlert from '../../../utilities/RadGradAlert';
@@ -67,11 +67,11 @@ const StudentLevelInfo: React.FC<StudentLevelInfoProps> = ({ profile, students }
     updateMyLevelMethod
       .callPromise({})
       .then((resultText) => {
-        RadGradAlert.success("Your Level has been checked.", resultText);
+        RadGradAlert.success('Your Level has been checked.', resultText);
         setCheckLevelWorking(false);
       })
       .catch((error) => {
-        RadGradAlert.failure("Error updating levels", "A problem occurred while checking your level", error);
+        RadGradAlert.failure('Error updating levels', 'A problem occurred while checking your level', error);
         setCheckLevelWorking(false);
       });
   };
