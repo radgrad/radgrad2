@@ -10,8 +10,10 @@ const headerPaneTitle = 'Database Management';
 const headerPaneBody = 'Tools to upload, download, and otherwise manage the RadGrad database.';
 
 const handleClick = async () => {
+  const internships = [];
   const results = await getInternAlohaInternshipsMethod.callPromise({ url: InternAlohaUrlsEnum.ziprecruiter });
-  results.forEach((result) => processCanonical(result));
+  results.forEach((result) => internships.push(processCanonical(result)));
+  console.log(internships);
 };
 
 const AdminManageInternshipsPage: React.FC = () => (
