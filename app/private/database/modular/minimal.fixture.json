@@ -226,13 +226,21 @@
           "name": "Algorithms",
           "slug": "algorithms",
           "description": "Simply put, an algorithm is a self-contained step-by-step set of operations",
-          "interestType": "cs-disciplines"
+          "interestType": "cs-disciplines",
+          "picture": "images/header-panel/header-interests.png",
+          "keywords": [
+            "Algorithm", "computation"
+          ]
         },
         {
           "name": "Java",
           "slug": "java",
           "description": "Java is a general-purpose computer programming language ",
-          "interestType": "technologies"
+          "interestType": "technologies",
+          "picture": "images/header-panel/header-interests.png",
+          "keywords": [
+            "Java", "JDK", "JVM"
+          ]
         }
       ]
     },

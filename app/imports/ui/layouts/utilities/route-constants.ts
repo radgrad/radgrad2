@@ -20,6 +20,7 @@ export const MANAGE = {
   VERIFICATION: 'manage-verification',
   STUDENTS: 'manage-students',
   DATABASE: 'manage-database',
+  INTERNSHIPS: 'manage-internships',
 };
 
 export const ANALYTICS = {

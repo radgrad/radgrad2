@@ -71,6 +71,7 @@ export enum PAGEIDS {
   FORECASTS = 'forecasts-page',
   INTEREST = 'interest-page',
   INTEREST_BROWSER = 'interest-browser-view-page',
+  MANAGE_INTERNSHIPS = 'manage-internship-page',
   MANAGE_OPPORTUNITIES = 'manage-opportunities-page',
   MANAGE_REVIEWS = 'manage-reviews-page',
   MANAGE_STUDENTS = 'manage-students-page',

@@ -18,6 +18,7 @@ import AdminDataModelSlugsPage from '../../pages/admin/AdminDataModelSlugsPage';
 import AdminDataModelTeasersPage from '../../pages/admin/AdminDataModelTeasersPage';
 import AdminDataModelUsersPage from '../../pages/admin/AdminDataModelUsersPage';
 import AdminDataModelVerificationRequestsPage from '../../pages/admin/AdminDataModelVerificationRequestsPage';
+import AdminManageInternshipsPage from '../../pages/admin/AdminManageInternshipsPage';
 import AdvisorManageStudentsPage from '../../pages/advisor/AdvisorManageStudentsPage';
 import AlumniHomePage from '../../pages/alumni/AlumniHomePage';
 import CareerGoalBrowserViewPage from '../../pages/shared/browser-view/CareerGoalBrowserViewPage';
@@ -125,6 +126,7 @@ export const routes = {
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${MANAGE.REVIEWS}`, component: ManageReviewsPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${MANAGE.STUDENTS}`, component: AdvisorManageStudentsPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${MANAGE.REVIEWS}`, component: ManageReviewsPage },
+    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${MANAGE.INTERNSHIPS}`, component: AdminManageInternshipsPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${MANAGE.VERIFICATION}`, component: ManageVerificationsPage  },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${TERMS_AND_CONDITIONS}`, component: TermsAndConditionsPage },
 
