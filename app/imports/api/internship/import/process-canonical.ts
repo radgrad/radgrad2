@@ -18,3 +18,17 @@ export const processCanonical = (rawInternship) => {
   define.interests = interests;
   return define;
 };
+
+export const getInternshipKey = (internship) => `${internship.position}-${internship.company}`;
+
+export const buildURLs = (internships) => {
+  const groupUrls = {};
+  internships.forEach(internship => {
+    const key = getInternshipKey(internship);
+    if (!groupUrls[key]) {
+      groupUrls[key] = [];
+    }
+    groupUrls[key].push(internship.url);
+  });
+  return groupUrls;
+};

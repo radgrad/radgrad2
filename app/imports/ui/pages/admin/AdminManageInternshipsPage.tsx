@@ -1,19 +1,24 @@
 import React from 'react';
 import { Button, Header } from 'semantic-ui-react';
-import { InternAlohaUrlsEnum } from '../../../api/internship/import/InternAlohaUrls';
+import { internAlohaUrls, InternAlohaUrlsEnum } from '../../../api/internship/import/InternAlohaUrls';
 import { getInternAlohaInternshipsMethod } from '../../../api/internship/InternshipCollection.methods';
 import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
-import { processCanonical } from '../../../api/internship/import/process-canonical';
+import { buildURLs, processCanonical } from '../../../api/internship/import/process-canonical';
 
 const headerPaneTitle = 'Database Management';
 const headerPaneBody = 'Tools to upload, download, and otherwise manage the RadGrad database.';
 
 const handleClick = async () => {
   const internships = [];
-  const results = await getInternAlohaInternshipsMethod.callPromise({ url: InternAlohaUrlsEnum.ziprecruiter });
-  results.forEach((result) => internships.push(processCanonical(result)));
-  console.log(internships);
+  // this doesn't work.
+  internAlohaUrls.forEach(async url => {
+    const results = await getInternAlohaInternshipsMethod.callPromise({ url: InternAlohaUrlsEnum.ziprecruiter });
+    results.forEach((result) => internships.push(processCanonical(result)));
+  });
+  console.log(internships.length);
+  const urls = buildURLs(internships);
+  console.log(urls);
 };
 
 const AdminManageInternshipsPage: React.FC = () => (
