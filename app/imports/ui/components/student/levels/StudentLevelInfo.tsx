@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Markdown from 'react-markdown';
-import { Grid, Message, Icon, Image, Header } from 'semantic-ui-react';
+import { Grid, Message, Icon, Image, Header, Button } from 'semantic-ui-react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { getLevelCongratsMarkdown, getLevelHintStringMarkdown } from '../../../../api/level/LevelProcessor';
+import { updateMyLevelMethod } from '../../../../api/level/LevelProcessor.methods';
 import { StudentProfile } from '../../../../typings/radgrad';
 import { ICE, URL_ROLES } from '../../../layouts/utilities/route-constants';
+import RadGradAlert from '../../../utilities/RadGradAlert';
 import { getUsername } from '../../shared/utilities/router';
 import { getLevelColor } from './LevelInfoTab';
 import VisibleStudentsAtLevel from './VisibleStudentsAtLevel';
@@ -57,13 +59,33 @@ const StudentLevelInfo: React.FC<StudentLevelInfoProps> = ({ profile, students }
     rightside = <span><Icon name='exclamation triangle' color='orange' /> {checklist.getTitleText()}</span>;
   const header = <RadGradHeader title={`Congrats! You're at Level ${profile.level}`} rightside={rightside} />;
   const color = getLevelColor(profile.level);
+  const [checkLevelWorkingState, setCheckLevelWorking] = useState(false);
+
+  const handleCheckLevelButton = (event) => {
+    event.preventDefault();
+    setCheckLevelWorking(true);
+    updateMyLevelMethod
+      .callPromise({})
+      .then((resultText) => {
+        RadGradAlert.success('Your Level has been checked.', resultText);
+        setCheckLevelWorking(false);
+      })
+      .catch((error) => {
+        RadGradAlert.failure('Error updating levels', 'A problem occurred while checking your level', error);
+        setCheckLevelWorking(false);
+      });
+  };
+
   return (
     <RadGradSegment header={header}>
       <Grid>
-        <Grid.Column width={3}>
-          <Image size="mini" centered style={imageStyle} src={`/images/level-icons/radgrad-level-${studentLevelNumber}-icon.png`} />
-          <Header textAlign="center" as='h2' color={color}>Level {profile.level}</Header>
-          {profile.lastLeveledUp ? <Header as='h3' textAlign="center">Earned on {profile.lastLeveledUp}</Header> : ''}
+        <Grid.Column width={3} textAlign='center'>
+          <Image size="mini" style={imageStyle} src={`/images/level-icons/radgrad-level-${studentLevelNumber}-icon.png`} />
+          <Header as='h2' color={color}>Level {profile.level}</Header>
+          {profile.lastLeveledUp ? <Header as='h5'>Earned on {profile.lastLeveledUp}</Header> : ''}
+          <Button size="mini" basic color="green" onClick={handleCheckLevelButton} loading={checkLevelWorkingState} disabled={checkLevelWorkingState}>
+            Check Level
+          </Button>
         </Grid.Column>
         <Grid.Column width={13}>
           <Message icon positive>
