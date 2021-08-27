@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
+import moment from 'moment';
 import SimpleSchema from 'simpl-schema';
 import { Roles } from 'meteor/alanning:roles';
 import { ReactiveAggregate } from 'meteor/jcbernack:reactive-aggregate';
@@ -528,6 +529,16 @@ class StudentProfileCollection extends BaseProfileCollection {
   public setLevel(user: string, level: number) {
     const id = this.getID(user);
     this.collection.update({ _id: id }, { $set: { level } });
+  }
+
+  /**
+   * Updates the lastLeveledUp field to the current date.
+   * @param user The user (username or userID).
+   */
+  public setLastLeveledUp(user: string) {
+    const id = this.getID(user);
+    const lastLeveledUp = moment().format('YYYY-MM-DD');
+    this.collection.update({ _id: id }, { $set: { lastLeveledUp } });
   }
 
   public publish() {

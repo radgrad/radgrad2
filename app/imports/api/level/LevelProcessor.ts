@@ -174,6 +174,29 @@ export const updateAllStudentLevels = (): number => {
   return numChecked;
 };
 
+/**
+ * Updates all the students level via a cron job.
+ * The important difference is that this code runs without a logged in user.
+ * Therefore, we cannot call the standard updateMethod, which requires a logged in user.
+ * @memberOf api/level
+ * @return The number of student profiles checked for updating.
+ */
+export const updateAllStudentLevelsCron = (): number => {
+  console.log('Starting: Update all student levels (cron).');
+  StudentProfiles.find().forEach((student) => {
+    const studentID = student.userID;
+    const level = (RadGrad.calcLevel) ? RadGrad.calcLevel(studentID) : defaultCalcLevel(studentID);
+    const profile = StudentProfiles.getProfile(studentID);
+    if (profile.level !== level) {
+      StudentProfiles.setLevel(studentID, level);
+      StudentProfiles.setLastLeveledUp(studentID);
+    }
+  });
+  const numChecked = StudentProfiles.find().count();
+  console.log(`Checked ${numChecked} student levels.`);
+  return numChecked;
+};
+
 export const getLevelCriteriaStringMarkdown = (level: string): string => {
   if (!(['six', 'five', 'four', 'three', 'two'].includes(level))) {
     throw new Meteor.Error(`${level} is not a valid level`);
