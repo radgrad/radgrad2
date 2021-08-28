@@ -4,7 +4,7 @@ import { updateFactoids } from '../../api/factoid/Factoids';
 import { PublicStats } from '../../api/public-stats/PublicStatsCollection';
 import { whatsNew } from '../../api/whats-new/WhatsNew';
 import { RadGradForecasts } from '../both/RadGradForecasts';
-import { updateAllStudentLevels } from '../../api/level/LevelProcessor';
+import { updateAllStudentLevelsCron } from '../../api/level/LevelProcessor';
 
 /**
  * Define all the cron jobs that run on the server.
@@ -31,4 +31,4 @@ SyncedCron.add({ name: 'Update Factoids', schedule: afterMidnight, job: updateFa
 SyncedCron.add({ name: 'Update Public Stats', schedule: afterMidnight2, job: PublicStats.generateStats });
 SyncedCron.add({ name: 'Update Forecasts', schedule: afterMidnight3, job: () => RadGradForecasts.updateForecasts() });
 SyncedCron.add({ name: 'Update Whats New', schedule: afterMidnight4, job: () => whatsNew.updateData() });
-SyncedCron.add({ name: 'Update All Student Levels', schedule: afterMidnight5, job: () => updateAllStudentLevels() });
+SyncedCron.add({ name: 'Update All Student Levels', schedule: afterMidnight5, job: () => updateAllStudentLevelsCron() });
