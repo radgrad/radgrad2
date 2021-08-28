@@ -16,6 +16,7 @@
     "meteor/didericis:callpromise-mixin",
     "meteor/email",
     "meteor/erasaur:meteor-lodash",
+    "meteor/fetch",
     "meteor/harrison:papa-parse",
     "meteor/jcbernack:reactive-aggregate",
     "meteor/jquery",
