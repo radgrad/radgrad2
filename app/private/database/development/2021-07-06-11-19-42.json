@@ -745,7 +745,7 @@
           "lastName": "Admin",
           "picture": "/images/radgrad_logo.png",
           "website": "https://radgrad.org",
-          "interests": [],
+          "interests": ["flutter", "biology"],
           "careerGoals": [],
           "retired": false,
           "shareWebsite": true,
@@ -5249,12 +5249,11 @@
             "graphql",
             "aws"
           ],
-          "careerGoals": [],
           "company": "Ought",
-          "location": {
+          "location": [{
             "city": "San Francisco Bay Area",
             "state": "N/A"
-          },
+          }],
           "posted": "Posted 3 months ago",
           "missedUploads": 0
         },
@@ -5268,14 +5267,11 @@
             "software-engineering",
             "azure"
           ],
-          "careerGoals": [
-            "graduate-school"
-          ],
           "company": "Ought",
-          "location": {
+          "location": [{
             "city": "San Francisco Bay Area",
             "state": "N/A"
-          },
+          }],
           "posted": "Posted 4 months ago",
           "missedUploads": 0
         },
@@ -5286,17 +5282,11 @@
           "position": "Research Intern, Competition with China, AI infrastructure investment, and Algorithmic Fairness",
           "description": "\"Many of the most pressing global policy challenges today have technical problems at their core (e.g. tech competition with China, AI infrastructure investment, global internet standards, and algorithmic fairness). Yet the top policy research groups and think tanks driving new policy ideas lack technical expertise on staff or within their networks. Solving these challenges requires technical insight, which can uniquely be produced by exceptional technical talent. We are seeking “Computer Science + policy” research interns to help build a next-generation technical strategy group from the ground up to solve this by producing cutting edge knowledge products on tech strategy questions to drive decision making for policymakers and philanthropic investment.",
           "interests": [],
-          "careerGoals": [
-            "teacher",
-            "iot-architect",
-            "research-scientist",
-            "research-scientist"
-          ],
           "company": "Schmidt Futures",
-          "location": {
+          "location": [{
             "city": "New York, NY",
             "state": "N/A"
-          },
+          }],
           "posted": "Posted 7 months ago",
           "missedUploads": 0
         },
@@ -5312,17 +5302,11 @@
             "jupyter",
             "hardware"
           ],
-          "careerGoals": [
-            "software-developer",
-            "ux-designer",
-            "mobile-app-developer",
-            "data-engineer"
-          ],
           "company": "Tencent",
-          "location": {
+          "location": [{
             "city": "Shenzhen, China",
             "state": "N/A"
-          },
+          }],
           "posted": "Posted 8 months ago",
           "missedUploads": 0
         },
@@ -5335,15 +5319,11 @@
           "interests": [
             "virtual-reality"
           ],
-          "careerGoals": [
-            "robotics-engineer",
-            "teacher"
-          ],
           "company": "Tencent",
-          "location": {
+          "location": [{
             "city": "Seattle metro area",
             "state": "N/A"
-          },
+          }],
           "posted": "Posted 8 months ago",
           "missedUploads": 0
         },
@@ -5358,18 +5338,12 @@
             "hardware",
             "virtual-reality"
           ],
-          "careerGoals": [
-            "machine-learning-engineer",
-            "data-scientist",
-            "devops-engineer",
-            "mobile-app-developer"
-          ],
           "company": "American Express",
-          "location": {
+          "location": [{
             "city": "N/A",
             "state": "Error",
             "country": "United States"
-          },
+          }],
           "missedUploads": 0
         },
         {
@@ -5384,16 +5358,11 @@
             "data-mining",
             "databases"
           ],
-          "careerGoals": [
-            "research-scientist",
-            "startup-cofounder",
-            "software-developer"
-          ],
           "company": "Cisco",
-          "location": {
+          "location": [{
             "city": "San Francisco",
             "state": "US"
-          },
+          }],
           "missedUploads": 0
         },
         {
@@ -5408,16 +5377,11 @@
             "computer-graphics",
             "dotNet"
           ],
-          "careerGoals": [
-            "teacher",
-            "data-engineer",
-            "information-system-manager"
-          ],
           "company": "Cisco",
-          "location": {
+          "location": [{
             "city": "San Francisco",
             "state": "US"
-          },
+          }],
           "missedUploads": 0
         },
         {
@@ -5437,10 +5401,10 @@
             "robotics-engineer"
           ],
           "company": "Apple",
-          "location": {
+          "location": [{
             "city": "Cupertino",
             "state": "CA"
-          },
+          }],
           "posted": "2021-06-25T18:43:31.576Z",
           "missedUploads": 0
         },
@@ -5454,16 +5418,11 @@
             "biology",
             "psychology"
           ],
-          "careerGoals": [
-            "software-developer",
-            "devops-engineer",
-            "database-administrator"
-          ],
           "company": "Hearst Magazines",
-          "location": {
+          "location": [{
             "city": "Chicago",
             "state": "IL"
-          },
+          }],
           "posted": "2021-06-06T18:43:36.950Z",
           "missedUploads": 0
         }

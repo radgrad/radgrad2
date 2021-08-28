@@ -1036,7 +1036,7 @@ export interface Internship {
   missedUploads?: number;
   interestIDs: string[];
   company?: string;
-  location?: Location;
+  location?: Location[];
   contact?: string;
   posted?: string;
   due?: string;
@@ -1050,7 +1050,7 @@ export interface InternshipDefine extends DumpOne {
   missedUploads?: number;
   interests: string[];
   company?: string;
-  location?: Location;
+  location?: Location[];
   contact?: string;
   posted?: string;
   due?: string;
@@ -1062,7 +1062,7 @@ export interface InternshipUpdate extends Update {
   description?: string;
   interests?: string[];
   company?: string;
-  location?: Location;
+  location?: Location[];
   contact?: string;
   posted?: string;
   due?: string;
@@ -1074,7 +1074,7 @@ export interface InternshipUpdateData extends Update {
   description?: string;
   interestIDs?: string[];
   company?: string;
-  location?: Location;
+  location?: Location[];
   contact?: string;
   posted?: string;
   due?: string;

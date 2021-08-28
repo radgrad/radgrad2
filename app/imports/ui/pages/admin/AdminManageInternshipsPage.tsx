@@ -1,31 +1,49 @@
-import React from 'react';
-import { Button, Header } from 'semantic-ui-react';
-import { internAlohaUrls, InternAlohaUrlsEnum } from '../../../api/internship/import/InternAlohaUrls';
-import { getInternAlohaInternshipsMethod } from '../../../api/internship/InternshipCollection.methods';
+import React, { useState } from 'react';
+import { Button, Message } from 'semantic-ui-react';
+import { defineMethod } from '../../../api/base/BaseCollection.methods';
+import { Internships } from '../../../api/internship/InternshipCollection';
 import { PAGEIDS } from '../../utilities/PageIDs';
+import RadGradAlert from '../../utilities/RadGradAlert';
 import PageLayout from '../PageLayout';
-import { buildURLs, processCanonical } from '../../../api/internship/import/process-canonical';
+import { processInternAlohaInternships } from '../../../api/internship/import/process-canonical';
 
 const headerPaneTitle = 'Database Management';
 const headerPaneBody = 'Tools to upload, download, and otherwise manage the RadGrad database.';
 
-const handleClick = async () => {
-  const internships = [];
-  // this doesn't work.
-  internAlohaUrls.forEach(async url => {
-    const results = await getInternAlohaInternshipsMethod.callPromise({ url: InternAlohaUrlsEnum.ziprecruiter });
-    results.forEach((result) => internships.push(processCanonical(result)));
-  });
-  console.log(internships.length);
-  const urls = buildURLs(internships);
-  console.log(urls);
-};
+const AdminManageInternshipsPage: React.FC = () => {
+  const [working, setWorking] = useState(false);
+  const [defineWorking, setDefineWorking] = useState(false);
+  const [internships, setInternships] = useState([]);
+  const [message, setMessage] = useState('Click the Get internships button');
 
-const AdminManageInternshipsPage: React.FC = () => (
-  <PageLayout id={PAGEIDS.MANAGE_INTERNSHIPS} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
-    <Header>Manage Internships</Header>
-    <Button onClick={handleClick}>Get internships</Button>
-  </PageLayout>
-);
+  const handleClick = async () => {
+    setWorking(true);
+    const gottenInternships = await processInternAlohaInternships();
+    setInternships(gottenInternships);
+    setMessage(`Downloaded ${internships.length} internships`);
+    setWorking(false);
+  };
+
+  const defineInternships = async () => {
+    setDefineWorking(true);
+    const collectionName = Internships.getCollectionName();
+    for (const definitionData of internships) {
+      // eslint-disable-next-line no-await-in-loop
+      await defineMethod.callPromise({ collectionName, definitionData }).catch(error => RadGradAlert.failure('Define internship failed', `${definitionData.postion}`, error.message));
+
+    }
+    setMessage(`Defined ${internships.length} internships`);
+    setDefineWorking(false);
+  };
+
+  return (
+    <PageLayout id={PAGEIDS.MANAGE_INTERNSHIPS} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
+      <Button onClick={handleClick} loading={working}>Get internships</Button> <Button onClick={defineInternships} loading={defineWorking}>Define Internships</Button>
+      <Message>
+        <Message.Header>{message}</Message.Header>
+      </Message>
+    </PageLayout>
+  );
+};
 
 export default AdminManageInternshipsPage;

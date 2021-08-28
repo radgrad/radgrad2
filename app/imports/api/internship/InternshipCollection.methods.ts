@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { fetch } from 'meteor/fetch';
 import { CallPromiseMixin } from 'meteor/didericis:callpromise-mixin';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
+import { ProfileInterests } from '../user/profile-entries/ProfileInterestCollection';
 import { Internships } from './InternshipCollection';
 
 export const getInternshipsMethod = new ValidatedMethod({
@@ -14,8 +15,9 @@ export const getInternshipsMethod = new ValidatedMethod({
     } else {
       // Don't do the work except on server side (disable client-side simulation).
       if (Meteor.isServer) {
-        // TODO: Add logic to return the best matching internships.
-        return Internships.findNonRetired();
+        const profileInterests = ProfileInterests.findNonRetired({ userID: studentID });
+        const interestIDs = profileInterests.map(pi => pi.interestID);
+        return Internships.findBestMatch(interestIDs);
       }
       return [];
     }

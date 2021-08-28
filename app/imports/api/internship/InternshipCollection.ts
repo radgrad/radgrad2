@@ -1,6 +1,7 @@
 import SimpleSchema from 'simpl-schema';
 import BaseCollection from '../base/BaseCollection';
-import { InternshipDefine, InternshipUpdate, InternshipUpdateData } from '../../typings/radgrad';
+import { Internship, InternshipDefine, InternshipUpdate, InternshipUpdateData } from '../../typings/radgrad';
+import PreferredChoice from '../degree-plan/PreferredChoice';
 import { Interests } from '../interest/InterestCollection';
 import slugify from '../slug/SlugCollection';
 
@@ -19,7 +20,8 @@ class InternshipCollection extends BaseCollection {
       interestIDs: { type: Array },
       'interestIDs.$': String,
       company: { type: String, optional: true },
-      location: { type: Object, optional: true },
+      location: { type: Array, optional: true },
+      'location.$': { type: Object },
       contact: { type: String, optional: true },
       posted: { type: String, optional: true },
       due: { type: String, optional: true },
@@ -33,7 +35,8 @@ class InternshipCollection extends BaseCollection {
       interests: { type: Array },
       'interests.$': String,
       company: { type: String, optional: true },
-      location: { type: Object, optional: true },
+      location: { type: Array, optional: true },
+      'location.$': { type: Object },
       contact: { type: String, optional: true },
       posted: { type: String, optional: true },
       due: { type: String, optional: true },
@@ -46,7 +49,8 @@ class InternshipCollection extends BaseCollection {
       interests: { type: Array },
       'interests.$': String,
       company: { type: String, optional: true },
-      location: { type: Object, optional: true },
+      location: { type: Array, optional: true },
+      'location.$': { type: Object },
       contact: { type: String, optional: true },
       posted: { type: String, optional: true },
       due: { type: String, optional: true },
@@ -65,11 +69,11 @@ class InternshipCollection extends BaseCollection {
    *                     interests: ['machine-learning', 'python', 'software-engineering'],
    *                     careerGoals: ['data-scientist', 'software-developer'],
    *                     company: 'Hutington Ingalls Industries, Inc.',
-   *                     location: {
+   *                     location: [{
    *                       'city': 'Honolulu',
    *                       'state': 'Hawaii',
    *                       'zip': '96823'
-   *                     },
+   *                     }],
    *                     contact: 'johndoe@foo.com',
    *                     posted: '2021-06-07T19:24:32.529Z',
    *                     due: '2021-06-28' });
@@ -89,10 +93,11 @@ class InternshipCollection extends BaseCollection {
   public define({ urls, position, description, lastUploaded, missedUploads, interests, company, location, contact, posted, due }: InternshipDefine) {
     const interestIDs = Interests.getIDs(interests);
     // Removes spaces and lowercases position
-    const internshipTitle = slugify(position);
-    // Generates guid using the exact time of internship definition
-    const defineTime = new Date();
-    const guid = `${internshipTitle}-${defineTime}`;
+    const guid = slugify(`${company}-${position}-${description.length}`);
+    const doc = this.findOne({ guid });
+    if (doc) {
+      return doc._id;
+    }
     return this.collection.insert({
       urls,
       position,
@@ -170,6 +175,17 @@ class InternshipCollection extends BaseCollection {
   public removeIt(guid: string) {
     this.assertDefined(guid);
     return super.removeIt(guid);
+  }
+
+  public findBestMatch(interestIDs: string[]): Internship[] {
+    const allInternships = this.findNonRetired();
+    const preferred = new PreferredChoice(allInternships, interestIDs);
+    if (preferred.hasPreferences()) {
+      const best = preferred.getBestChoices();
+      // console.log(best.length);
+      return best;
+    }
+    return [];
   }
 
   /**
