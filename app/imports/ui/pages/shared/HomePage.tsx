@@ -11,8 +11,6 @@ import { ManageOpportunitiesChecklist } from '../../components/checklist/ManageO
 import { ManageReviewsChecklist } from '../../components/checklist/ManageReviewsChecklist';
 import { ManageVerificationRequestsChecklist } from '../../components/checklist/ManageVerificationRequestsChecklist';
 import { OutOfDateOpportunitiesChecklist } from '../../components/checklist/OutOfDateOpportunitiesChecklist';
-import { ReviewCareerGoalsChecklist } from '../../components/checklist/ReviewCareerGoalsChecklist';
-import { ReviewInterestsChecklist } from '../../components/checklist/ReviewInterestsChecklist';
 import { VisibilityChecklist } from '../../components/checklist/VisibilityChecklist';
 import { TermsAndConditionsChecklist } from '../../components/checklist/TermsAndConditionsChecklist';
 import { CoursesChecklist } from '../../components/checklist/CoursesChecklist';
@@ -70,8 +68,6 @@ export default withTracker(() => {
       checklists.push(new ManageVerificationRequestsChecklist(username));
       checklists.push(new ManageOpportunitiesChecklist(username));
       checklists.push(new ManageReviewsChecklist(username));
-      checklists.push(new ReviewInterestsChecklist(username));
-      checklists.push(new ReviewCareerGoalsChecklist(username));
       checklists.push(new InterestsWithoutRelatedChecklists(username));
       checklists.push(new CareerGoalsWithoutRelatedChecklists(username));
       break;
@@ -81,8 +77,6 @@ export default withTracker(() => {
       checklists.push(new ManageVerificationRequestsChecklist(username));
       checklists.push(new ManageOpportunitiesChecklist(username));
       checklists.push(new ManageReviewsChecklist(username));
-      checklists.push(new ReviewInterestsChecklist(username));
-      checklists.push(new ReviewCareerGoalsChecklist(username));
       checklists.push(new InterestsWithoutRelatedChecklists(username));
       checklists.push(new CareerGoalsWithoutRelatedChecklists(username));
       checklists.push(new TermsAndConditionsChecklist(username));
@@ -93,8 +87,6 @@ export default withTracker(() => {
       checklists.push(new ManageVerificationRequestsChecklist(username));
       checklists.push(new ManageOpportunitiesChecklist(username));
       checklists.push(new ManageReviewsChecklist(username));
-      checklists.push(new ReviewInterestsChecklist(username));
-      checklists.push(new ReviewCareerGoalsChecklist(username));
       checklists.push(new TermsAndConditionsChecklist(username));
       break;
     case URL_ROLES.STUDENT:
