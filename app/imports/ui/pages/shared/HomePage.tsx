@@ -48,9 +48,6 @@ const HomePage: React.FC<HomePageProps> = ({ okItems, reviewItems, improveItems,
 
 export default withTracker(() => {
   const { username } = useParams();
-  // const username = Meteor.user() ? Meteor.user().username : '';
-  // username = username;
-
   const okItems = [];
   const reviewItems = [];
   const improveItems = [];
@@ -58,9 +55,6 @@ export default withTracker(() => {
   const match = useRouteMatch();
   const role = getRoleByUrl(match);
   let pageID = '';
-  checklists.push(new InterestsChecklist(username));
-  checklists.push(new CareerGoalsChecklist(username));
-  checklists.push(new VisibilityChecklist(username));
   switch (role) {
     case URL_ROLES.ADMIN:
       pageID = PAGEIDS.ADMIN_HOME;
@@ -73,6 +67,9 @@ export default withTracker(() => {
       break;
     case URL_ROLES.ADVISOR:
       pageID = PAGEIDS.ADVISOR_HOME;
+      checklists.push(new InterestsChecklist(username));
+      checklists.push(new CareerGoalsChecklist(username));
+      checklists.push(new VisibilityChecklist(username));
       checklists.push(new OutOfDateOpportunitiesChecklist(username));
       checklists.push(new ManageVerificationRequestsChecklist(username));
       checklists.push(new ManageOpportunitiesChecklist(username));
@@ -83,6 +80,9 @@ export default withTracker(() => {
       break;
     case URL_ROLES.FACULTY:
       pageID = PAGEIDS.FACULTY_HOME_PAGE;
+      checklists.push(new InterestsChecklist(username));
+      checklists.push(new CareerGoalsChecklist(username));
+      checklists.push(new VisibilityChecklist(username));
       checklists.push(new OutOfDateOpportunitiesChecklist(username));
       checklists.push(new ManageVerificationRequestsChecklist(username));
       checklists.push(new ManageOpportunitiesChecklist(username));
@@ -91,6 +91,9 @@ export default withTracker(() => {
       break;
     case URL_ROLES.STUDENT:
       pageID = PAGEIDS.STUDENT_HOME;
+      checklists.push(new InterestsChecklist(username));
+      checklists.push(new CareerGoalsChecklist(username));
+      checklists.push(new VisibilityChecklist(username));
       checklists.push(new CoursesChecklist(username));
       checklists.push(new OpportunitiesChecklist(username));
       checklists.push(new ReviewChecklist(username));
