@@ -1,17 +1,26 @@
 import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
+import { useRouteMatch } from 'react-router';
 import { useParams } from 'react-router-dom';
-import { List } from 'semantic-ui-react';
-import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
 import { getInternshipsMethod } from '../../../../api/internship/InternshipCollection.methods';
 import { Users } from '../../../../api/user/UserCollection';
-import { Internship } from '../../../../typings/radgrad';
+import { CareerGoal, Course, Interest, Internship, Opportunity, ProfileCareerGoal, ProfileCourse, ProfileInterest, ProfileOpportunity } from '../../../../typings/radgrad';
+import InternshipBrowserView from '../../../components/shared/explorer/browser-view/InternshipBrowserView';
 import { PAGEIDS } from '../../../utilities/PageIDs';
 import PageLayout from '../../PageLayout';
 import { ClientSideInternships } from '../../../../startup/client/collections';
+import { getEntities } from './utilities/getEntities';
 
 interface InternshipBrowserViewPageProps {
   internships: Internship[];
+  careerGoals: CareerGoal[];
+  courses: Course[];
+  interests: Interest[];
+  opportunities: Opportunity[];
+  profileCareerGoals: ProfileCareerGoal[];
+  profileCourses: ProfileCourse[];
+  profileInterests: ProfileInterest[];
+  profileOpportunities: ProfileOpportunity[];
 }
 
 const headerPaneTitle = 'Find an internship';
@@ -20,13 +29,9 @@ This page will eventually show Internships that match your Interests and Career 
 `;
 const headerPaneImage = 'images/header-panel/header-career.png';
 
-const InternshipBrowserViewPage: React.FC<InternshipBrowserViewPageProps> = ({ internships }) => (
+const InternshipBrowserViewPage: React.FC<InternshipBrowserViewPageProps> = ({ internships, careerGoals, courses, interests, opportunities, profileCareerGoals, profileCourses, profileInterests, profileOpportunities }) => (
   <PageLayout id={PAGEIDS.INTERNSHIP_BROWSER} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
-    <List bulleted>
-      {internships.map((i) => (
-        <List.Item key={i._id}>{i.position}</List.Item>
-      ))}
-    </List>
+    <InternshipBrowserView internships={internships} careerGoals={careerGoals} courses={courses} interests={interests} opportunities={opportunities} profileCareerGoals={profileCareerGoals} profileCourses={profileCourses} profileInterests={profileInterests} profileOpportunities={profileOpportunities} />
   </PageLayout>
 );
 
@@ -43,11 +48,10 @@ export default withTracker(() => {
         }
       });
     });
-  const careerGoals = CareerGoals.findNonRetired();
+  const match = useRouteMatch();
+  const entities: any = getEntities(match);
   const internships = ClientSideInternships.find().fetch();
+  entities.internships = internships;
   // console.log(internships);
-  return {
-    careerGoals,
-    internships,
-  };
+  return entities;
 })(InternshipBrowserViewPage);

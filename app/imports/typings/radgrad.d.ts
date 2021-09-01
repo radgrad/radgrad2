@@ -1027,8 +1027,7 @@ export interface Location {
   zip?: string;
 }
 
-export interface Internship {
-  _id: string;
+export interface Internship extends Document {
   urls: string[];
   position: string;
   description: string;

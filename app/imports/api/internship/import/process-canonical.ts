@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { InterestKeywords } from '../../interest/InterestKeywordCollection';
 import slugify from '../../slug/SlugCollection';
 import { getInternAlohaInternshipsMethod } from '../InternshipCollection.methods';
@@ -19,6 +20,13 @@ const getAllInternAlohaInternships = async () => {
   return internships;
 };
 
+const removeHTMLFromDescription = (internship) => {
+  const update = internship;
+  const doc = new DOMParser().parseFromString(internship.description, 'text/html');
+  update.description = doc.body.textContent || '';
+  return update;
+};
+
 const addInterests = (internship) => {
   const define = internship;
   // get the unique keywords from InterestKeywordCollection
@@ -28,7 +36,7 @@ const addInterests = (internship) => {
   matching.forEach((k) => {
     interests = interests.concat(InterestKeywords.getInterestSlugs(k));
   });
-  define.interests = interests;
+  define.interests = _.uniq(interests);
   define.missedUploads = 0;
   return define;
 };
@@ -63,7 +71,7 @@ const containsLocation = (locationArr, location) => {
   return found;
 };
 
-const getInternshipKey = (internship) => slugify(`${internship.company}-${internship.position}-${internship.description.length}`);
+export const getInternshipKey = (internship) => slugify(`${internship.company}-${internship.position}-${internship.description.length}`);
 
 const buildURLs = (internships) => {
   const groupUrls = {};
@@ -111,6 +119,7 @@ export const processInternAlohaInternships = async () => {
   console.log('raw internships', rawInternships.length);
   // add interests
   const withInterests = rawInternships.map((i) => {
+    removeHTMLFromDescription(i);
     addInterests(i);
     return updateLocation(i);
   });

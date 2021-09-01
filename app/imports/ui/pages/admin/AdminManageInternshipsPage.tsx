@@ -20,7 +20,7 @@ const AdminManageInternshipsPage: React.FC = () => {
     setWorking(true);
     const gottenInternships = await processInternAlohaInternships();
     setInternships(gottenInternships);
-    setMessage(`Downloaded ${internships.length} internships`);
+    setMessage(`Downloaded ${gottenInternships.length} internships`);
     setWorking(false);
   };
 
