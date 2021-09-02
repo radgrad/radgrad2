@@ -20,7 +20,6 @@ interface InternshipBrowserViewProps {
 }
 
 const InternshipBrowswerView: React.FC<InternshipBrowserViewProps> = ({ careerGoals, courses, interests, internships, opportunities, profileCareerGoals, profileCourses, profileOpportunities, profileInterests }) => {
-  console.log( careerGoals, courses, interests, internships, opportunities, profileCareerGoals, profileCourses, profileOpportunities, profileInterests);
   const icon = EXPLORER_TYPE_ICON.INTERNSHIP;
   const header = <RadGradHeader title='internships' count={internships.length} icon={icon} />;
   return (

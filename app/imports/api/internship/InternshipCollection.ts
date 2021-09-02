@@ -3,7 +3,7 @@ import BaseCollection from '../base/BaseCollection';
 import { Internship, InternshipDefine, InternshipUpdate, InternshipUpdateData } from '../../typings/radgrad';
 import PreferredChoice from '../degree-plan/PreferredChoice';
 import { Interests } from '../interest/InterestCollection';
-import slugify from '../slug/SlugCollection';
+import { createGUID } from './import/process-canonical';
 
 /**
  * Creates the Internship collection
@@ -93,7 +93,7 @@ class InternshipCollection extends BaseCollection {
   public define({ urls, position, description, lastUploaded, missedUploads, interests, company, location, contact, posted, due }: InternshipDefine) {
     const interestIDs = Interests.getIDs(interests);
     // Removes spaces and lowercases position
-    const guid = slugify(`${company}-${position}-${description.length}`);
+    const guid = createGUID(company, position, description.length);
     const doc = this.findOne({ guid });
     if (doc) {
       return doc._id;

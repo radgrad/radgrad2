@@ -24,6 +24,24 @@ export const getInternshipsMethod = new ValidatedMethod({
   },
 });
 
+export const getInternshipFromKeyMethod = new ValidatedMethod({
+  name: 'internship.getFromKey',
+  mixins: [CallPromiseMixin],
+  validate: null,
+  run({ internshipKey }) {
+    if (!this.userId) {
+      throw new Meteor.Error('unauthorized', 'You must be logged in to get an internship.');
+    }
+    if (Meteor.isServer) {
+      console.log(internshipKey);
+      const internship = Internships.findDoc({ guid: internshipKey });
+      console.log(internship);
+      return internship;
+    }
+    return undefined;
+  },
+});
+
 async function getUrlJson(url) {
   const response = await fetch(url);
   return response.json();

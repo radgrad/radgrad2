@@ -71,7 +71,14 @@ const containsLocation = (locationArr, location) => {
   return found;
 };
 
-export const getInternshipKey = (internship) => slugify(`${internship.company}-${internship.position}-${internship.description.length}`);
+export const createGUID = (company, position, length) => slugify(`${company}_${position}_${length}`);
+
+export const getInternshipKey = (internship) => createGUID(internship.company, internship.position, internship.description.length);
+
+export const getCompanyFromKey = (internshipKey) => internshipKey.split('_')[0];
+
+export const getPositionFromKey = (internshipKey) => internshipKey.split('_')[1];
+
 
 const buildURLs = (internships) => {
   const groupUrls = {};
