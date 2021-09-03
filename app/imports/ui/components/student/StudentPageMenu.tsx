@@ -56,7 +56,7 @@ const StudentPageMenu: React.FC = () => {
       <FirstMenu profile={profile} displayLevelAndIce earnedICE={earnedIce} projectedICE={projectedIce} instanceName={instanceName} />
       <Menu borderless inverted stackable id="secondMenu" attached="top" style={{ paddingLeft: '10px', marginTop: '0px' }}>
         <Menu.Item key={homeItem[0].label} id={convertLabelToId('student-menu', homeItem[0].label)} as={NavLink} exact to={homeItem[0].to}>{homeItem[0].label}</Menu.Item>
-        <Dropdown item text="Explore..." id={COMPONENTIDS.STUDENT_MENU_EXPLORERS}>
+        <Dropdown item text="Explore" id={COMPONENTIDS.STUDENT_MENU_EXPLORERS}>
           <Dropdown.Menu>
             {explorerDropdownItems.map(item => <Menu.Item key={item.label} id={convertLabelToId('student-menu', item.label)} as={NavLink} exact to={item.to}>{item.label}</Menu.Item>)}
           </Dropdown.Menu>
