@@ -8,6 +8,7 @@ import { Interests } from '../../../../api/interest/InterestCollection';
 import { getInternshipFromKeyMethod } from '../../../../api/internship/InternshipCollection.methods';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
 import { Users } from '../../../../api/user/UserCollection';
+import { ClientSideInternships } from '../../../../startup/client/collections';
 import { CareerGoal, Course, Interest, Internship, Opportunity, Profile } from '../../../../typings/radgrad';
 
 import RelatedCourses from '../../../components/shared/RelatedCourses';
@@ -48,18 +49,15 @@ const InternshipViewPage: React.FC<InternshipViewPageProps> = ({ internship, car
 export default withTracker(() => {
   const { internshipKey, username } = useParams();
   const profile = Users.getProfile(username);
-  let internshipDoc;
-  getInternshipFromKeyMethod.callPromise({ internshipKey })
-    // eslint-disable-next-line no-return-assign
-    .then(result => internshipDoc = result);
+  const internship = ClientSideInternships.find({ guid: internshipKey }).fetch()[0];
   const careerGoals = CareerGoals.findNonRetired();
   const courses = Courses.findNonRetired();
   const interests = Interests.findNonRetired();
   const opportunities = Opportunities.findNonRetired();
-  console.log(internshipDoc);
+  console.log(internship);
   return {
     profile,
-    internship: internshipDoc,
+    internship,
     careerGoals,
     courses,
     interests,
