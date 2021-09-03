@@ -14,17 +14,12 @@ interface IceHeaderProps {
  * @return {JSX.Element} the Label.
  * @constructor
  */
-const IceHeader: React.FC<IceHeaderProps> = ({ ice, size = 'tiny' }) => {
-  const marginStyle = {
-    margin: 0,
-  };
-  return (
-    <Label.Group circular size={size} className="radgrad-ice-header">
-      <Label style={marginStyle}>{ice.i}</Label>
-      <Label style={marginStyle}>{ice.c}</Label>
-      <Label style={marginStyle}>{ice.e}</Label>
-    </Label.Group>
-  );
-};
+const IceHeader: React.FC<IceHeaderProps> = ({ ice, size = 'tiny' }) => (
+  <Label.Group circular size={size} className="radgrad-ice-header">
+    <Label>{ice.i}</Label>
+    <Label>{ice.c}</Label>
+    <Label>{ice.e}</Label>
+  </Label.Group>
+);
 
 export default IceHeader;
