@@ -481,7 +481,7 @@
           "num": "EE 160",
           "description": "Introductory course on computer programming and modern computing environments in C with an emphasis on algorithm and program design, implementation, and debugging. Includes a hands-on laboratory to develop and practice programming skills.",
           "creditHrs": 4,
-          "interests": [],
+          "interests": ["application-development", "c"],
           "prerequisites": [],
           "retired": false
         },
@@ -492,7 +492,7 @@
           "num": "EE 205",
           "description": "Second-level programming for computer engineers. Object-oriented programming paradigm, definition and use of classes, fundamentals of object-oriented design in modern object-oriented languages such as C++. Common data structures, simple searching and sorting techniques.",
           "creditHrs": 3,
-          "interests": [],
+          "interests": ["application-development", "c"],
           "prerequisites": [
             "ee_160"
           ],
@@ -505,7 +505,7 @@
           "num": "EE 211",
           "description": "Linear passive circuits, time domain analysis, transient and steady-state responses, phasors, impedance and admittance; power and energy, frequency responses, resonance.",
           "creditHrs": 4,
-          "interests": [],
+          "interests": ["circuit-analysis", "hardware"],
           "prerequisites": [],
           "retired": false
         },
@@ -516,7 +516,7 @@
           "num": "EE 213",
           "description": "Laplace transforms and their application to circuits, Fourier transforms and their applications to circuits, frequency selective circuits, introduction to and design of active filters, convolution, and state space analysis of circuits.",
           "creditHrs": 4,
-          "interests": [],
+          "interests": ["circuit-analysis", "hardware"],
           "prerequisites": [
             "ee_211"
           ],
@@ -529,7 +529,11 @@
           "num": "EE 260",
           "description": "Introduction to the design of digital systems with an emphasis on design methods and the implementation and use of fundamental digital components.",
           "creditHrs": 4,
-          "interests": [],
+          "interests": [
+            "computer-architecture",
+            "hardware",
+            "application-development"
+          ],
           "prerequisites": [
             "ee_160"
           ],
@@ -553,7 +557,7 @@
           "num": "EE 315",
           "description": "Discrete-time and continuous time signals and systems, linear systems, convolution, Fourier series, Fourier transform, sampling.",
           "creditHrs": 3,
-          "interests": [],
+          "interests": ["systems-signals", "data-science"],
           "prerequisites": [
             "ee_213"
           ],
@@ -566,7 +570,7 @@
           "num": "EE 323",
           "description": "Semiconductor structures, operating principles and characteristics of diodes and amplifying devices. Their application as circuit elements in building basic digital, analog, and integrated circuit subsystems.",
           "creditHrs": 3,
-          "interests": [],
+          "interests": ["hardware"],
           "prerequisites": [
             "ee_213"
           ],
@@ -579,7 +583,7 @@
           "num": "EE 324",
           "description": "Review of quantum mechanics fundamentals, H-atom, and chemical bonding. Introduction to band structure models and materials. Semiconductor doping, charge carrier statistics and charge transport, including ambipolar transport. Metal-semiconductor and PN junctions.",
           "creditHrs": 3,
-          "interests": [],
+          "interests": ["hardware"],
           "prerequisites": [],
           "retired": false
         },
@@ -590,7 +594,7 @@
           "num": "EE 342",
           "description": "Probability, statistics, random variables, distributions, densities, expectations, limit theorems, and applications to electrical engineering.",
           "creditHrs": 3,
-          "interests": [],
+          "interests": ["systems-signals", "data-science"],
           "prerequisites": [
             "ee_315"
           ],
@@ -614,7 +618,11 @@
           "num": "EE 361",
           "description": "Design methodology, processor design, control design, memory organization, system organization.",
           "creditHrs": 3,
-          "interests": [],
+          "interests": [
+            "computer-architecture",
+            "hardware",
+            "application-development"
+          ],
           "prerequisites": [
             "ee_160",
             "ee_260"
@@ -628,7 +636,10 @@
           "num": "EE 362",
           "description": "Logic, sets, number theory, properties of functions, properties of relations, methods of proofs, recursion, counting, probability, trees, graphs, analysis of algorithms, finite state autonoma.",
           "creditHrs": 3,
-          "interests": [],
+          "interests": [
+            "algorithms",
+            "application-development"
+          ],
           "prerequisites": [
             "ee_160",
             "ee_260"
@@ -642,7 +653,10 @@
           "num": "EE 367",
           "description": "Introduction to computer programming algorithms with emphasis on advanced data structures, input-output routines, files, and interpreters.",
           "creditHrs": 3,
-          "interests": [],
+          "interests": [
+            "algorithms",
+            "application-development"
+          ],
           "prerequisites": [
             "ee_205"
           ],
@@ -655,7 +669,7 @@
           "num": "EE 371",
           "description": "Transient and steady-state waves on transmission lines. Plane wave solutions of Maxwell's equations. Application of Maxwell's equations under static and time-varying conditions.",
           "creditHrs": 3,
-          "interests": [],
+          "interests": ["hardware"],
           "prerequisites": [
             "ee_213"
           ],
@@ -681,7 +695,9 @@
           "num": "EE 406",
           "description": "Review basic network mechanisms, introduce basic cryptography concepts, and study algorithms and protocols used in computer and network security. Discuss practical security mechanisms.",
           "creditHrs": 3,
-          "interests": [],
+          "interests": [
+            "security"
+          ],
           "prerequisites": [
             "ee_367"
           ],
@@ -694,7 +710,11 @@
           "num": "EE 467",
           "description": "Introduction to advanced techniques for designing, implementing, and testing computer software with a particular focus on using object-oriented design, analysis, and programming to produce high-quality computer programs that solve non-trivial problems.",
           "creditHrs": 3,
-          "interests": [],
+          "interests": [
+            "software-engineering",
+            "application-development",
+            "it-management"
+          ],
           "prerequisites": [
             "ee_367"
           ],
@@ -707,7 +727,11 @@
           "num": "EE 468",
           "description": "Computer system organization; multiprocessor systems, memory hierarchies, assemblers, compilers, operating systems, virtual machine, memory management, processor management; information management.",
           "creditHrs": 3,
-          "interests": [],
+          "interests": [
+            "operating-systems",
+            "computer-architecture",
+            "application-development"
+          ],
           "prerequisites": [
             "ee_361",
             "ee_367"
