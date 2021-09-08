@@ -1,21 +1,29 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useRouteMatch, Link } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Grid, Loader } from 'semantic-ui-react';
+import { Grid, Message, Segment } from 'semantic-ui-react';
+import Markdown from 'react-markdown';
 import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
 import { Courses } from '../../../../api/course/CourseCollection';
 import { Interests } from '../../../../api/interest/InterestCollection';
-import { getInternshipFromKeyMethod } from '../../../../api/internship/InternshipCollection.methods';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
 import { Users } from '../../../../api/user/UserCollection';
 import { ClientSideInternships } from '../../../../startup/client/collections';
 import { CareerGoal, Course, Interest, Internship, Opportunity, Profile } from '../../../../typings/radgrad';
-
+import RelatedCareerGoals from '../../../components/shared/RelatedCareerGoals';
 import RelatedCourses from '../../../components/shared/RelatedCourses';
 import RelatedOpportunities from '../../../components/shared/RelatedOpportunities';
 import RelatedInterests from '../../../components/shared/RelatedInterests';
+import * as Router from '../../../components/shared/utilities/router';
+import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import PageLayout from '../../PageLayout';
 import { PAGEIDS } from '../../../utilities/PageIDs';
+import { getAssociationRelatedCourses, getAssociationRelatedOpportunities } from '../utilities/getExplorerRelatedMethods';
+
+const buildExplorerInternshipRoute = (match: Router.MatchProps): string => {
+  const route = `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERNSHIPS}/`;
+  return Router.buildRouteName(match, route);
+};
 
 interface InternshipViewPageProps {
   internship: Internship;
@@ -24,22 +32,46 @@ interface InternshipViewPageProps {
   interests: Interest[];
   opportunities: Opportunity[];
   profile: Profile;
+  match: any;
 }
 
-const InternshipViewPage: React.FC<InternshipViewPageProps> = ({ internship, careerGoals, courses, interests, opportunities, profile }) => {
+const InternshipViewPage: React.FC<InternshipViewPageProps> = ({ internship, careerGoals, courses, interests, opportunities, profile, match }) => {
   // console.log(internship, careerGoals, courses, interests, opportunities, profile);
-  const internshipName = `${internship?.position}: ${internship?.company}`;
   if (!internship) {
-    return (<Loader>Loading data</Loader>);
+    // console.log('internship undefined');
+    return (<PageLayout id={PAGEIDS.INTERNSHIP} headerPaneTitle="Failed to load internship" >
+      <Message negative>
+        <Message.Header>Failed to load internship. <Link to={buildExplorerInternshipRoute(match)}>Go back to the Internship explorer.</Link></Message.Header>
+        <Message.Content />
+      </Message>
+    </PageLayout>);
   }
+  const internshipName = `${internship.position}: ${internship.company}`;
+  const findRelatedCourses = () => {
+    const interestIDs = internship.interestIDs;
+    return courses.filter(course => course.interestIDs.filter((x) => interestIDs.includes(x)).length > 0);
+  };
+  const relatedCourses = getAssociationRelatedCourses(findRelatedCourses(), profile.userID);
+  const findRelatedCareerGoals = () => {
+    const interestIDs = internship.interestIDs;
+    return careerGoals.filter(goal => goal.interestIDs.filter((x) => interestIDs.includes(x)).length > 0);
+  };
+  const findRelatedOpportunities = ()  => {
+    const interestIDs = internship.interestIDs;
+    return opportunities.filter(opp => opp.interestIDs.filter((x) => interestIDs.includes(x)).length > 0);
+  };
+  const relatedOpportunities = getAssociationRelatedOpportunities(findRelatedOpportunities(), profile.userID);
   return (
     <PageLayout id={PAGEIDS.INTERNSHIP} headerPaneTitle={internshipName} >
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={5}>
             <RelatedInterests item={internship} />
+            <RelatedCareerGoals careerGoals={findRelatedCareerGoals()} userID={profile.userID} />
+            <RelatedCourses relatedCourses={relatedCourses} profile={profile} />
+            <RelatedOpportunities relatedOpportunities={relatedOpportunities} profile={profile} />
           </Grid.Column>
-          <Grid.Column width={11}>Details</Grid.Column>
+          <Grid.Column width={11}><Segment><Markdown escapeHtml source={internship.description}/></Segment></Grid.Column>
         </Grid.Row>
       </Grid>
     </PageLayout>
@@ -54,7 +86,9 @@ export default withTracker(() => {
   const courses = Courses.findNonRetired();
   const interests = Interests.findNonRetired();
   const opportunities = Opportunities.findNonRetired();
-  console.log(internship);
+  const match = useRouteMatch();
+  // console.log(match);
+  // console.log(internship);
   return {
     profile,
     internship,
@@ -62,5 +96,6 @@ export default withTracker(() => {
     courses,
     interests,
     opportunities,
+    match,
   };
 })(InternshipViewPage);

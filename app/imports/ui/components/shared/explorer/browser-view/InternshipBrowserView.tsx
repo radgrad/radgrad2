@@ -1,5 +1,4 @@
 import React from 'react';
-import _ from 'lodash';
 import { Card, Grid } from 'semantic-ui-react';
 import { CareerGoal, Course, Interest, Internship, Opportunity, ProfileCareerGoal, ProfileCourse, ProfileInterest, ProfileOpportunity } from '../../../../../typings/radgrad';
 import { EXPLORER_TYPE_ICON } from '../../../../utilities/ExplorerUtils';
