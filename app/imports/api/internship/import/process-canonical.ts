@@ -1,8 +1,10 @@
 import _ from 'lodash';
+import { Internship } from '../../../typings/radgrad';
 import { InterestKeywords } from '../../interest/InterestKeywordCollection';
 import slugify from '../../slug/SlugCollection';
 import { getInternAlohaInternshipsMethod } from '../InternshipCollection.methods';
 import { internAlohaUrls } from './InternAlohaUrls';
+
 import { matchKeywords } from './match-keywords';
 
 const getInternAlohaInternships = async (url) => {
@@ -71,13 +73,13 @@ const containsLocation = (locationArr, location) => {
   return found;
 };
 
-export const createGUID = (company, position, length) => slugify(`${company}_${position}_${length}`);
+export const createGUID = (company: string, position: string, length: number): string => slugify(`${slugify(company)}_${slugify(position)}_${length}`);
 
-export const getInternshipKey = (internship) => createGUID(internship.company, internship.position, internship.description.length);
+export const getInternshipKey = (internship: Internship): string => createGUID(internship.company, internship.position, internship.description.length);
 
-export const getCompanyFromKey = (internshipKey) => internshipKey.split('_')[0];
+export const getCompanyFromKey = (internshipKey: string): string => internshipKey.split('_')[0];
 
-export const getPositionFromKey = (internshipKey) => internshipKey.split('_')[1];
+export const getPositionFromKey = (internshipKey: string): string => internshipKey.split('_')[1];
 
 
 const buildURLs = (internships) => {

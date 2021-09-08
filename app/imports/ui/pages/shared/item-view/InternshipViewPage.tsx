@@ -10,6 +10,7 @@ import { Opportunities } from '../../../../api/opportunity/OpportunityCollection
 import { Users } from '../../../../api/user/UserCollection';
 import { ClientSideInternships } from '../../../../startup/client/collections';
 import { CareerGoal, Course, Interest, Internship, Opportunity, Profile } from '../../../../typings/radgrad';
+import ExplorerInternship from '../../../components/shared/explorer/item-view/internship/ExplorerInternship';
 import RelatedCareerGoals from '../../../components/shared/RelatedCareerGoals';
 import RelatedCourses from '../../../components/shared/RelatedCourses';
 import RelatedOpportunities from '../../../components/shared/RelatedOpportunities';
@@ -39,30 +40,34 @@ const InternshipViewPage: React.FC<InternshipViewPageProps> = ({ internship, car
   // console.log(internship, careerGoals, courses, interests, opportunities, profile);
   if (!internship) {
     // console.log('internship undefined');
-    return (<PageLayout id={PAGEIDS.INTERNSHIP} headerPaneTitle="Failed to load internship" >
-      <Message negative>
-        <Message.Header>Failed to load internship. <Link to={buildExplorerInternshipRoute(match)}>Go back to the Internship explorer.</Link></Message.Header>
-        <Message.Content />
-      </Message>
-    </PageLayout>);
+    return (
+      <PageLayout id={PAGEIDS.INTERNSHIP} headerPaneTitle="Failed to load internship">
+        <Message negative>
+          <Message.Header>
+            Failed to load internship. <Link to={buildExplorerInternshipRoute(match)}>Go back to the Internship explorer.</Link>
+          </Message.Header>
+          <Message.Content />
+        </Message>
+      </PageLayout>
+    );
   }
   const internshipName = `${internship.position}: ${internship.company}`;
   const findRelatedCourses = () => {
     const interestIDs = internship.interestIDs;
-    return courses.filter(course => course.interestIDs.filter((x) => interestIDs.includes(x)).length > 0);
+    return courses.filter((course) => course.interestIDs.filter((x) => interestIDs.includes(x)).length > 0);
   };
   const relatedCourses = getAssociationRelatedCourses(findRelatedCourses(), profile.userID);
   const findRelatedCareerGoals = () => {
     const interestIDs = internship.interestIDs;
-    return careerGoals.filter(goal => goal.interestIDs.filter((x) => interestIDs.includes(x)).length > 0);
+    return careerGoals.filter((goal) => goal.interestIDs.filter((x) => interestIDs.includes(x)).length > 0);
   };
-  const findRelatedOpportunities = ()  => {
+  const findRelatedOpportunities = () => {
     const interestIDs = internship.interestIDs;
-    return opportunities.filter(opp => opp.interestIDs.filter((x) => interestIDs.includes(x)).length > 0);
+    return opportunities.filter((opp) => opp.interestIDs.filter((x) => interestIDs.includes(x)).length > 0);
   };
   const relatedOpportunities = getAssociationRelatedOpportunities(findRelatedOpportunities(), profile.userID);
   return (
-    <PageLayout id={PAGEIDS.INTERNSHIP} headerPaneTitle={internshipName} >
+    <PageLayout id={PAGEIDS.INTERNSHIP} headerPaneTitle={internshipName}>
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={5}>
@@ -71,7 +76,9 @@ const InternshipViewPage: React.FC<InternshipViewPageProps> = ({ internship, car
             <RelatedCourses relatedCourses={relatedCourses} profile={profile} />
             <RelatedOpportunities relatedOpportunities={relatedOpportunities} profile={profile} />
           </Grid.Column>
-          <Grid.Column width={11}><Segment><Markdown escapeHtml source={internship.description}/></Segment></Grid.Column>
+          <Grid.Column width={11}>
+            <ExplorerInternship internship={internship} profile={profile} />
+          </Grid.Column>
         </Grid.Row>
       </Grid>
     </PageLayout>
