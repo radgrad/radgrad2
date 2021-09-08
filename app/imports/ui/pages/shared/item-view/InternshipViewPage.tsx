@@ -1,8 +1,7 @@
 import React from 'react';
 import { useParams, useRouteMatch, Link } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Grid, Message, Segment } from 'semantic-ui-react';
-import Markdown from 'react-markdown';
+import { Grid, Message } from 'semantic-ui-react';
 import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
 import { Courses } from '../../../../api/course/CourseCollection';
 import { Interests } from '../../../../api/interest/InterestCollection';
