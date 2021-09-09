@@ -156,9 +156,10 @@ class InterestCollection extends BaseSlugCollection {
     // Remove any InterestKeywords
     InterestKeywords.removeInterest(docID);
     // Check that this interest is not referenced by any User.
-    // TODO Should the profile collections be included below?
-    // No, but we need to check ProfileInterests
     this.assertUnusedInterest([Courses, CareerGoals, Opportunities, Teasers], docID);
+    // Remove any ProfileInterests for this interest.
+    const profileInterests = ProfileInterests.find({ interestID: docID }).fetch();
+    profileInterests.forEach(pi => ProfileInterests.removeIt(pi._id));
     // OK, clear to delete.
     return super.removeIt(docID);
   }
