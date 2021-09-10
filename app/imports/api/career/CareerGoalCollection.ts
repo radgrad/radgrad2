@@ -1,5 +1,4 @@
 import SimpleSchema from 'simpl-schema';
-import { Meteor } from 'meteor/meteor';
 import _ from 'lodash';
 import { Courses } from '../course/CourseCollection';
 import { Internships } from '../internship/InternshipCollection';
@@ -126,11 +125,9 @@ class CareerGoalCollection extends BaseSlugCollection {
    */
   public removeIt(instance: string) {
     const careerGoalID = this.getID(instance);
-    // Check that this is not referenced by any User.
-    const profileEntities = ProfileCareerGoals.find({ careerGoalID }).fetch();
-    if (profileEntities.length > 0) {
-      throw new Meteor.Error(`Career Goal ${instance} is referenced.`);
-    }
+    // Remove all the ProfileCareerGoals associated with this career goal.
+    const profileCareerGoals = ProfileCareerGoals.find({ careerGoalID }).fetch();
+    profileCareerGoals.forEach(pc => ProfileCareerGoals.removeIt(pc._id));
     // OK, clear to delete.
     return super.removeIt(careerGoalID);
   }
