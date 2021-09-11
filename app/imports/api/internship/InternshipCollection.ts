@@ -5,6 +5,13 @@ import PreferredChoice from '../degree-plan/PreferredChoice';
 import { Interests } from '../interest/InterestCollection';
 import { createGUID } from './import/process-canonical';
 
+const locationSchema = new SimpleSchema({
+  city: { type: String, optional: true },
+  country: { type: String, optional: true },
+  state: { type: String, optional: true },
+  zip: { type: String, optional: true },
+});
+
 /**
  * Creates the Internship collection
  */
@@ -21,7 +28,7 @@ class InternshipCollection extends BaseCollection {
       'interestIDs.$': String,
       company: { type: String, optional: true },
       location: { type: Array, optional: true },
-      'location.$': { type: Object },
+      'location.$': { type: locationSchema },
       contact: { type: String, optional: true },
       posted: { type: String, optional: true },
       due: { type: String, optional: true },
@@ -36,7 +43,7 @@ class InternshipCollection extends BaseCollection {
       'interests.$': String,
       company: { type: String, optional: true },
       location: { type: Array, optional: true },
-      'location.$': { type: Object },
+      'location.$': { type: locationSchema },
       contact: { type: String, optional: true },
       posted: { type: String, optional: true },
       due: { type: String, optional: true },
@@ -50,7 +57,7 @@ class InternshipCollection extends BaseCollection {
       'interests.$': String,
       company: { type: String, optional: true },
       location: { type: Array, optional: true },
-      'location.$': { type: Object },
+      'location.$': { type: locationSchema },
       contact: { type: String, optional: true },
       posted: { type: String, optional: true },
       due: { type: String, optional: true },
@@ -94,12 +101,11 @@ class InternshipCollection extends BaseCollection {
     const interestIDs = Interests.getIDs(interests);
     // Removes spaces and lowercases position
     const guid = createGUID(company, position, description.length);
-    console.log('internship define', location);
     const doc = this.findOne({ guid });
     if (doc) {
       return doc._id;
     }
-    const docID = this.collection.insert({
+    return this.collection.insert({
       urls,
       position,
       description,
@@ -113,9 +119,6 @@ class InternshipCollection extends BaseCollection {
       due,
       guid,
     });
-    const temp = this.findDoc(docID);
-    console.log(temp.location);
-    return docID;
   }
 
   /**

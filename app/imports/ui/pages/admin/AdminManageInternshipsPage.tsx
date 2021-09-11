@@ -7,8 +7,8 @@ import RadGradAlert from '../../utilities/RadGradAlert';
 import PageLayout from '../PageLayout';
 import { processInternAlohaInternships } from '../../../api/internship/import/process-canonical';
 
-const headerPaneTitle = 'Database Management';
-const headerPaneBody = 'Tools to upload, download, and otherwise manage the RadGrad database.';
+const headerPaneTitle = 'Internship Management';
+const headerPaneBody = 'Tools to get internships from InternAloha and define them in the RadGrad database.';
 
 const AdminManageInternshipsPage: React.FC = () => {
   const [working, setWorking] = useState(false);
@@ -27,7 +27,6 @@ const AdminManageInternshipsPage: React.FC = () => {
   const defineInternships = async () => {
     setDefineWorking(true);
     const collectionName = Internships.getCollectionName();
-    console.log(internships[0], internships[internships.length - 1]);
     for (const definitionData of internships) {
       // eslint-disable-next-line no-await-in-loop
       await defineMethod.callPromise({ collectionName, definitionData }).catch(error => RadGradAlert.failure('Define internship failed', `${definitionData.postion}`, error.message));
