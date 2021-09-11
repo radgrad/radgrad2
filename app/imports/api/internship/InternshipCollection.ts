@@ -196,6 +196,17 @@ class InternshipCollection extends BaseCollection {
   }
 
   /**
+   * Returns all the internships that have the given interestID.
+   * @param {string} interestID the interest id.
+   * @return {Internship[]} the matching internships.
+   */
+  public getInternshipsWithInterest(interestID: string): Internship[] {
+    const allInternships = this.findNonRetired();
+    // console.log(allInternships.length, interestID);
+    return allInternships.filter(internship => internship.interestIDs.includes(interestID));
+  }
+
+  /**
    * Returns an object representing the Internship docID in a format acceptable to define().
    * @param docID the docID of an Internship.
    * @returns { object } An object representing the definition of docID.

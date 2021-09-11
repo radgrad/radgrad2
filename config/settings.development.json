@@ -26,6 +26,12 @@
       "cloud_name": "radgrad",
       "upload_preset": "CHANGEME"
     },
+    "internship": {
+      "uploadFilter": {
+        "number": 4,
+        "unit": "months"
+      }
+    },
     "level": {
       "six": {
         "plannedICE": {

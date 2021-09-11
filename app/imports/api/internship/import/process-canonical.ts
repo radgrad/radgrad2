@@ -1,4 +1,6 @@
 import _ from 'lodash';
+import { Meteor } from 'meteor/meteor';
+import moment from 'moment';
 import { Internship } from '../../../typings/radgrad';
 import { InterestKeywords } from '../../interest/InterestKeywordCollection';
 import slugify from '../../slug/SlugCollection';
@@ -126,12 +128,23 @@ const addGUID = (internship) => {
   return update;
 };
 
+const removeOldInternships = (internships) => {
+  const now = moment();
+  const cutoff = now.subtract(Meteor.settings.public.internship.uploadFilter.number, Meteor.settings.public.internship.uploadFilter.unit);
+  console.log(cutoff.format('YYYY-MM-DD'));
+  const inWindow = internships.filter(i => moment(i.lastScraped).isAfter(cutoff));
+  return inWindow;
+};
+
 export const processInternAlohaInternships = async () => {
   // get the internships
   const rawInternships = await getAllInternAlohaInternships();
-  console.log('raw internships', rawInternships.length);
+  console.log('raw internships', rawInternships.length, rawInternships[0]);
+  // remove old internships
+  const newInternships = removeOldInternships(rawInternships);
+  console.log('in time window internships', newInternships.length);
   // add interests
-  const withInterests = rawInternships.map((i) => {
+  const withInterests = newInternships.map((i) => {
     removeHTMLFromDescription(i);
     addInterests(i);
     return updateLocation(i);

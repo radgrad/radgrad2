@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { fetch } from 'meteor/fetch';
 import { CallPromiseMixin } from 'meteor/didericis:callpromise-mixin';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
+import { Interests } from '../interest/InterestCollection';
 import { ProfileInterests } from '../user/profile-entries/ProfileInterestCollection';
 import { Internships } from './InternshipCollection';
 
@@ -16,7 +17,7 @@ export const getInternshipsMethod = new ValidatedMethod({
       // Don't do the work except on server side (disable client-side simulation).
       if (Meteor.isServer) {
         const profileInterests = ProfileInterests.findNonRetired({ userID: studentID });
-        const interestIDs = profileInterests.map(pi => pi.interestID);
+        const interestIDs = profileInterests.map((pi) => pi.interestID);
         return Internships.findBestMatch(interestIDs);
       }
       return [];
@@ -60,6 +61,33 @@ export const getInternAlohaInternshipsMethod = new ValidatedMethod({
         return getUrlJson(url);
       }
       return undefined;
+    }
+  },
+});
+
+export const getInternshipCountPerInterestMethod = new ValidatedMethod({
+  name: 'internship.getInternshipCountPerInterest',
+  mixins: [CallPromiseMixin],
+  validate: null,
+  run() {
+    if (!this.userId) {
+      throw new Meteor.Error('unauthorized', 'You must be logged in to get internships.');
+    } else {
+      if (Meteor.isServer) {
+        const interests = Interests.findNonRetired();
+        const retVal = {};
+        // const internships = Internships.getInternshipsWithInterest(interests[2]);
+        interests.forEach(interest => {
+          const slug = Interests.findSlugByID(interest._id);
+          const internships = Internships.getInternshipsWithInterest(interest._id);
+          // console.log(interest.name, internships.length);
+          retVal[slug] = internships.length;
+        });
+        // retVal[interests[2].name] = internships.length;
+        // console.log(retVal);
+        return retVal;
+      }
+      return {};
     }
   },
 });
