@@ -27,6 +27,7 @@ const AdminManageInternshipsPage: React.FC = () => {
   const defineInternships = async () => {
     setDefineWorking(true);
     const collectionName = Internships.getCollectionName();
+    console.log(internships[0], internships[internships.length - 1]);
     for (const definitionData of internships) {
       // eslint-disable-next-line no-await-in-loop
       await defineMethod.callPromise({ collectionName, definitionData }).catch(error => RadGradAlert.failure('Define internship failed', `${definitionData.postion}`, error.message));

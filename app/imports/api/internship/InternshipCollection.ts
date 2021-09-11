@@ -94,11 +94,12 @@ class InternshipCollection extends BaseCollection {
     const interestIDs = Interests.getIDs(interests);
     // Removes spaces and lowercases position
     const guid = createGUID(company, position, description.length);
+    console.log('internship define', location);
     const doc = this.findOne({ guid });
     if (doc) {
       return doc._id;
     }
-    return this.collection.insert({
+    const docID = this.collection.insert({
       urls,
       position,
       description,
@@ -112,6 +113,9 @@ class InternshipCollection extends BaseCollection {
       due,
       guid,
     });
+    const temp = this.findDoc(docID);
+    console.log(temp.location);
+    return docID;
   }
 
   /**

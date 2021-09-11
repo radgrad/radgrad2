@@ -13,7 +13,7 @@ const ExplorerInternship: React.FC<ExplorerInternshipProps> = ({ internship, pro
   const compactRowStyle = { paddingTop: 3, paddingBottom: 3 };
   const gridStyle = { paddingLeft: 17, paddingTop: 10, paddingBottom: 17 };
 
-
+  console.log(internship.location);
   return (
     <div id="internshipExplorer">
       <Segment className="container" style={segmentStyle}>
@@ -29,6 +29,9 @@ const ExplorerInternship: React.FC<ExplorerInternshipProps> = ({ internship, pro
             <List>
               {internship.urls.map(url => (<List.Item key={url}><a href={url} target='_blank' rel="noreferrer">{url}</a></List.Item>))}
             </List>
+          </Grid.Row>
+          <Grid.Row>
+            <strong>Location:</strong>&nbsp;{internship.location}
           </Grid.Row>
           <Grid.Row>
             <strong>Description:</strong>
