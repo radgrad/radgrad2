@@ -55,12 +55,34 @@ export const getInternAlohaInternshipsMethod = new ValidatedMethod({
   run({ url }) {
     if (!this.userId) {
       throw new Meteor.Error('unauthorized', 'You must be logged in to get internships.');
-    } else {
+    } else { // TODO add check for admin.
       // Don't do the work except on server side (disable client-side simulation).
       if (Meteor.isServer) {
         return getUrlJson(url);
       }
       return undefined;
+    }
+  },
+});
+
+export const incrementMissedUploadsMethod = new ValidatedMethod({
+  name: 'internship.incrementMissedUploads',
+  mixins: [CallPromiseMixin],
+  validate: null,
+  run() {
+    if (!this.userId) {
+      throw new Meteor.Error('unauthorized', 'You must be logged in to get internships.');
+    } else {
+      // Don't do the work except on server side (disable client-side simulation).
+      if (Meteor.isServer) {
+        const internships = Internships.findNonRetired();
+        internships.forEach(internship => {
+          const docID = internship._id;
+          const missedUploads = internship.missedUploads + 1;
+          Internships.update(docID, { missedUploads });
+        });
+      }
+      return true;
     }
   },
 });

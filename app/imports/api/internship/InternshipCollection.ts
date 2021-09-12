@@ -134,7 +134,7 @@ class InternshipCollection extends BaseCollection {
    * @param posted optional
    * @param due optional
    */
-  public update(docID: string, { urls, position, description, interests, company, location, contact, posted, due }: InternshipUpdate) {
+  public update(docID: string, { urls, position, description, interests, company, location, contact, posted, due, missedUploads }: InternshipUpdate) {
     this.assertDefined(docID);
     const updateData: InternshipUpdateData = {};
     if (urls) {
@@ -171,6 +171,9 @@ class InternshipCollection extends BaseCollection {
     }
     if (due) {
       updateData.due = due;
+    }
+    if (missedUploads) {
+      updateData.missedUploads = missedUploads;
     }
     this.collection.update(docID, { $set: updateData });
   }

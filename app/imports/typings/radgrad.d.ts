@@ -1065,6 +1065,7 @@ export interface InternshipUpdate extends Update {
   contact?: string;
   posted?: string;
   due?: string;
+  missedUploads?: number;
 }
 
 export interface InternshipUpdateData extends Update {
@@ -1077,4 +1078,5 @@ export interface InternshipUpdateData extends Update {
   contact?: string;
   posted?: string;
   due?: string;
+  missedUploads?: number;
 }

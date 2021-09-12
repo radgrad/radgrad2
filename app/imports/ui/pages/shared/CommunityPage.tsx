@@ -87,6 +87,7 @@ const CommunityPage: React.FC = () => {
         </Grid.Column>
         <Grid.Row>
           <Grid.Column>
+            {/* @ts-ignore */}
             <InterestInternshipCount internshipCounts={sortedInterestCount} size='small' />
           </Grid.Column>
         </Grid.Row>
