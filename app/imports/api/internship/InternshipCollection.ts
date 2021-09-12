@@ -71,7 +71,7 @@ class InternshipCollection extends BaseCollection {
     this.interestSlugsToInternships = {};
     this.initializedInterestToInternships = false;
     this.rebuildInterestSlugsToInternships();
-    console.log(this.interestSlugsToInternships);
+    // console.log(this.interestSlugsToInternships);
   }
 
   /**
@@ -257,7 +257,7 @@ class InternshipCollection extends BaseCollection {
   }
 
   private rebuildInterestSlugsToInternships() {
-    console.log('rebuildInterestSlugsToInternships');
+    // console.log('rebuildInterestSlugsToInternships');
     this.initializeInterestSlugsToInternships();
     const internships = this.findNonRetired();
     internships.forEach(internship => {
