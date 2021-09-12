@@ -2,7 +2,6 @@ import { Meteor } from 'meteor/meteor';
 import { fetch } from 'meteor/fetch';
 import { CallPromiseMixin } from 'meteor/didericis:callpromise-mixin';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
-import { Interests } from '../interest/InterestCollection';
 import { ProfileInterests } from '../user/profile-entries/ProfileInterestCollection';
 import { Internships } from './InternshipCollection';
 
@@ -96,15 +95,14 @@ export const getInternshipCountPerInterestMethod = new ValidatedMethod({
       throw new Meteor.Error('unauthorized', 'You must be logged in to get internships.');
     } else {
       if (Meteor.isServer) {
-        const interests = Interests.findNonRetired();
         const retVal = {};
         // const internships = Internships.getInternshipsWithInterest(interests[2]);
-        interests.forEach(interest => {
-          const slug = Interests.findSlugByID(interest._id);
-          const internships = Internships.getInternshipsWithInterest(interest._id);
-          // console.log(interest.name, internships.length);
-          retVal[slug] = internships.length;
-        });
+        const interestToInternship = Internships.getInterestToInternships();
+        // console.log(interestToInternship);
+        for (const [key, value] of Object.entries(interestToInternship)) {
+          // @ts-ignore
+          retVal[key] = value.length;
+        }
         // retVal[interests[2].name] = internships.length;
         // console.log(retVal);
         return retVal;

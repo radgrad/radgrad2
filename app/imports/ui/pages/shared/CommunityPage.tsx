@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Grid } from 'semantic-ui-react';
-import { getInternshipCountPerInterestMethod } from '../../../api/internship/InternshipCollection.methods';
+import { Meteor } from 'meteor/meteor';
 import { getMostPopular, MostPopularData } from '../../../api/utilities/MostPopular.methods';
 import CommunityActivity from '../../components/shared/community/CommunityActivity';
 import InterestInternshipCount from '../../components/shared/community/InterestInternshipCount';
@@ -19,7 +19,6 @@ const headerPaneImage = 'images/header-panel/header-community.png';
 const CommunityPage: React.FC = () => {
   // data will hold the MostPopularEntity information
   const [data, setData] = useState<MostPopularData>({});
-  const [internshipCount, setInternshipCount] = useState({});
 
   // fetched is used to ensure that we only get the data once.
   const [fetched, setFetched] = useState(false);
@@ -33,12 +32,6 @@ const CommunityPage: React.FC = () => {
           console.error(error);
           setData({});
         });
-      getInternshipCountPerInterestMethod.callPromise({})
-        .then(result => setInternshipCount(result))
-        .catch(error => {
-          console.error(error);
-          setInternshipCount({});
-        });
     }
 
     // Only fetch data if it hasn't been fetched before.
@@ -48,18 +41,6 @@ const CommunityPage: React.FC = () => {
     }
   }, [fetched]);
 
-  const sortInterestInternships = (obj) => {
-    const sortable = [];
-    for (const key in obj) {
-      // eslint-disable-next-line no-prototype-builtins
-      if (obj.hasOwnProperty(key)) {
-        sortable.push([key, obj[key]]);
-      }
-    }
-    sortable.sort((a, b) => b[1] - a[1]);
-    return sortable;
-  };
-  const sortedInterestCount = sortInterestInternships(internshipCount);
   return (
     <PageLayout id={PAGEIDS.COMMUNITY} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
       <Grid stackable>
@@ -85,12 +66,13 @@ const CommunityPage: React.FC = () => {
         <Grid.Column width={6}>
           <CommunityActivity />
         </Grid.Column>
-        <Grid.Row>
-          <Grid.Column>
-            {/* @ts-ignore */}
-            <InterestInternshipCount internshipCounts={sortedInterestCount} size='small' />
-          </Grid.Column>
-        </Grid.Row>
+        {Meteor.settings.public.internship.show ? (
+          <Grid.Row>
+            <Grid.Column>
+              <InterestInternshipCount size='small' />
+            </Grid.Column>
+          </Grid.Row>
+        ) : ''}
       </Grid>
     </PageLayout>
   );

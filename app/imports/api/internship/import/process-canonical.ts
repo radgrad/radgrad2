@@ -139,7 +139,7 @@ const removeOldInternships = (internships) => {
 export const processInternAlohaInternships = async () => {
   // get the internships
   const rawInternships = await getAllInternAlohaInternships();
-  console.log('raw internships', rawInternships.length, rawInternships[0]);
+  console.log('raw internships', rawInternships.length);
   // remove old internships
   const newInternships = removeOldInternships(rawInternships);
   console.log('in time window internships', newInternships.length);

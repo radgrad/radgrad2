@@ -1,8 +1,10 @@
 import SimpleSchema from 'simpl-schema';
+import _ from 'lodash';
 import BaseCollection from '../base/BaseCollection';
 import { Internship, InternshipDefine, InternshipUpdate, InternshipUpdateData } from '../../typings/radgrad';
 import PreferredChoice from '../degree-plan/PreferredChoice';
 import { Interests } from '../interest/InterestCollection';
+import { Slugs } from '../slug/SlugCollection';
 import { createGUID } from './import/process-canonical';
 
 const locationSchema = new SimpleSchema({
@@ -16,6 +18,9 @@ const locationSchema = new SimpleSchema({
  * Creates the Internship collection
  */
 class InternshipCollection extends BaseCollection {
+  private interestSlugsToInternships;
+  private initializedInterestToInternships: boolean;
+
   constructor() {
     super('Internship', new SimpleSchema({
       urls: { type: Array },
@@ -63,6 +68,10 @@ class InternshipCollection extends BaseCollection {
       due: { type: String, optional: true },
       guid: String,
     });
+    this.interestSlugsToInternships = {};
+    this.initializedInterestToInternships = false;
+    this.rebuildInterestSlugsToInternships();
+    console.log(this.interestSlugsToInternships);
   }
 
   /**
@@ -98,13 +107,28 @@ class InternshipCollection extends BaseCollection {
    * @param due is optional.
    */
   public define({ urls, position, description, lastUploaded, missedUploads, interests, company, location, contact, posted, due }: InternshipDefine) {
+    this.initializeInterestSlugsToInternships();
     const interestIDs = Interests.getIDs(interests);
-    // Removes spaces and lowercases position
+    const interestSlugs = interestIDs.map(id => {
+      const interest = Interests.findDoc(id);
+      return Slugs.getNameFromID(interest.slugID);
+    });
     const guid = createGUID(company, position, description.length);
+    interestSlugs.forEach((slug) => {
+      if (this.interestSlugsToInternships[slug]) {
+        this.interestSlugsToInternships[slug].push(guid);
+        this.interestSlugsToInternships[slug] = _.uniq(this.interestSlugsToInternships[slug]);
+      } else {
+        this.interestSlugsToInternships[slug] = [];
+        this.interestSlugsToInternships[slug].push(guid);
+      }
+      // console.log('define', slug, this.interestSlugsToInternships[slug]);
+    });
     const doc = this.findOne({ guid });
     if (doc) {
       return doc._id;
     }
+    //
     return this.collection.insert({
       urls,
       position,
@@ -198,17 +222,54 @@ class InternshipCollection extends BaseCollection {
     return [];
   }
 
+  public getInterestToInternships() {
+    this.initializeInterestSlugsToInternships();
+    return this.interestSlugsToInternships;
+  }
+
   /**
    * Returns all the internships that have the given interestID.
    * @param {string} interestID the interest id.
    * @return {Internship[]} the matching internships.
    */
   public getInternshipsWithInterest(interestID: string): Internship[] {
-    const allInternships = this.findNonRetired();
-    // console.log(allInternships.length, interestID);
-    return allInternships.filter(internship => internship.interestIDs.includes(interestID));
+    const interest = Interests.findDoc(interestID);
+    const slug = Slugs.getNameFromID(interest.slugID);
+    const guids = this.interestSlugsToInternships[slug];
+    if (guids) {
+      // console.log(slug, guids, this.interestSlugsToInternships);
+      return guids.map(guid => this.findDoc({ guid }));
+    }
+    this.interestSlugsToInternships[slug] = [];
+    return this.interestSlugsToInternships[slug];
   }
 
+  private initializeInterestSlugsToInternships() {
+    // console.log('initializeInterestSlugsToInternships', this.initializedInterestToInternships);
+    if (!this.initializedInterestToInternships) {
+      const interests = Interests.findNonRetired();
+      const interestSlugs = interests.map(i => Slugs.getNameFromID(i.slugID));
+      // eslint-disable-next-line no-return-assign
+      interestSlugs.forEach(slug => this.interestSlugsToInternships[slug] = []);
+      // console.log(this.interestSlugsToInternships);
+      this.initializedInterestToInternships = true;
+    }
+  }
+
+  private rebuildInterestSlugsToInternships() {
+    console.log('rebuildInterestSlugsToInternships');
+    this.initializeInterestSlugsToInternships();
+    const internships = this.findNonRetired();
+    internships.forEach(internship => {
+      const slugs = internship.interestIDs.map(interestID => Interests.findSlugByID(interestID));
+      slugs.forEach(slug => this.interestSlugsToInternships[slug].push(internship.guid));
+    });
+    const interests = Interests.findNonRetired();
+    interests.forEach(interest => {
+      const slug = Slugs.getNameFromID(interest.slugID);
+      this.interestSlugsToInternships[slug] = _.uniq(this.interestSlugsToInternships[slug]);
+    });
+  }
   /**
    * Returns an object representing the Internship docID in a format acceptable to define().
    * @param docID the docID of an Internship.

@@ -5,7 +5,7 @@ import InterestLabel from '../label/InterestLabel';
 import * as Router from '../utilities/router';
 
 interface InterestInternshipCountListProps {
-  internshipCounts: [[string, number]];
+  internshipCounts: [string, number][];
   size: SemanticSIZES;
 }
 

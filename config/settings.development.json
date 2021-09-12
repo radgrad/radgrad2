@@ -27,9 +27,10 @@
       "upload_preset": "CHANGEME"
     },
     "internship": {
+      "show": true,
       "uploadFilter": {
         "number": 4,
-        "unit": "months"
+        "unit": "weeks"
       }
     },
     "level": {
