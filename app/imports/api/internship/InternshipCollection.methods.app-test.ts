@@ -17,7 +17,7 @@ if (Meteor.isClient) {
     it('Get raw internship ziprecruiter', async function () {
       await withLoggedInUser();
       const results = await getInternAlohaInternshipsMethod.callPromise({ url: InternAlohaUrlsEnum.ziprecruiter });
-      // expect(results.length).to.equal(20);
+      expect(results.length).to.be.above(-1);
       // console.log(results);
       // results.forEach((result) => processCanonical(result));
       // processCanonical(results[0]);
@@ -26,8 +26,8 @@ if (Meteor.isClient) {
     it('Get raw internship linkedin', async function () {
       await withLoggedInUser();
       const results = await getInternAlohaInternshipsMethod.callPromise({ url: InternAlohaUrlsEnum.linkedin });
-      // expect(results.length).to.equal(86);
-      // console.log(results);
+      expect(results.length).to.be.above(-1);
+     // console.log(results);
     });
   });
 }
