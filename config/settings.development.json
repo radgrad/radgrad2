@@ -30,7 +30,7 @@
       "show": true,
       "uploadFilter": {
         "number": 4,
-        "unit": "months"
+        "unit": "weeks"
       }
     },
     "level": {

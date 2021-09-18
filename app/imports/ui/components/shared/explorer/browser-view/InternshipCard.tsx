@@ -44,6 +44,7 @@ const InternshipCard: React.FC<InternshipCardProps> = ({ internship }) => {
       <Card.Content>
         <Markdown escapeHtml source={internshipShortDescription} renderers={{ link: (localProps) => Router.renderLink(localProps, match) }} />
         {internship.interestIDs ? <InterestList item={internship} size="small" /> : ''}
+        <strong>Missed Uploads</strong>&nbsp;{internship.missedUploads}
       </Card.Content>
       <Link to={buildExplorerInternshipRoute(match, getInternshipKey(internship))} className="ui button" id={`see-details-${internshipName}-button`}>
         <Icon name="zoom in" />
