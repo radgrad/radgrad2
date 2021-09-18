@@ -215,9 +215,9 @@ class InternshipCollection extends BaseCollection {
     const allInternships = this.findNonRetired();
     const preferred = new PreferredChoice(allInternships, interestIDs);
     if (preferred.hasPreferences()) {
-      const best = preferred.getBestChoices();
+      const ordered = preferred.getOrderedChoices();
       // console.log(best.length);
-      return best;
+      return ordered.slice(0, 51);
     }
     return [];
   }

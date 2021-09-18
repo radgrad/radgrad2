@@ -25,7 +25,7 @@ interface InternshipBrowserViewPageProps {
 
 const headerPaneTitle = 'Find an internship';
 const headerPaneBody = `
-This page will eventually show Internships that match your Interests and Career Goals.
+This page shows Internships that match your Interests.
 `;
 const headerPaneImage = 'images/header-panel/header-career.png';
 
