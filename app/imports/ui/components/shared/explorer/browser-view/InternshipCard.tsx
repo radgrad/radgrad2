@@ -2,7 +2,8 @@ import React from 'react';
 import { useRouteMatch, Link } from 'react-router-dom';
 import { Card, Icon } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
-import { Location } from '../../../../../typings/radgrad';
+import moment from 'moment';
+import { Internship } from '../../../../../typings/radgrad';
 import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 import InterestList from '../../InterestList';
 import * as Router from '../../utilities/router';
@@ -14,28 +15,36 @@ const buildExplorerInternshipRoute = (match: Router.MatchProps, internshipKey: s
 };
 
 interface InternshipCardProps {
-  internship: {
-    _id: string;
-    urls: string[];
-    position: string;
-    description: string;
-    lastUploaded?: Date;
-    missedUploads?: number;
-    interestIDs: string[];
-    company?: string;
-    location?: Location[];
-    contact?: string;
-    posted?: string;
-    due?: string;
-    createdAt: Date;
-    updatedAt?: Date;
-  };
+  internship: Internship;
+  // internship: {
+  //   _id: string;
+  //   urls: string[];
+  //   position: string;
+  //   description: string;
+  //   lastScraped?: Date;
+  //   missedUploads?: number;
+  //   interestIDs: string[];
+  //   company?: string;
+  //   location?: Location[];
+  //   contact?: string;
+  //   posted?: string;
+  //   due?: string;
+  //   createdAt: Date;
+  //   updatedAt?: Date;
+  // };
 }
 
 const InternshipCard: React.FC<InternshipCardProps> = ({ internship }) => {
   const match = useRouteMatch();
   const internshipName = `${internship.position}: ${internship.company}`;
   const internshipShortDescription = internship.description.substring(0, 200);
+  let expiredLabel;
+  if (internship.missedUploads > 4) {
+    expiredLabel = 'Expired';
+  }
+  if (internship.missedUploads > 8) {
+    expiredLabel = 'Retired';
+  }
   return (
     <Card>
       <Card.Content>
@@ -44,7 +53,8 @@ const InternshipCard: React.FC<InternshipCardProps> = ({ internship }) => {
       <Card.Content>
         <Markdown escapeHtml source={internshipShortDescription} renderers={{ link: (localProps) => Router.renderLink(localProps, match) }} />
         {internship.interestIDs ? <InterestList item={internship} size="small" /> : ''}
-        <strong>Missed Uploads</strong>&nbsp;{internship.missedUploads}
+        <strong>{expiredLabel}</strong>
+        <strong>Last seen:</strong>{moment(internship.lastScraped).format('MM/DD/YYYY')}
       </Card.Content>
       <Link to={buildExplorerInternshipRoute(match, getInternshipKey(internship))} className="ui button" id={`see-details-${internshipName}-button`}>
         <Icon name="zoom in" />

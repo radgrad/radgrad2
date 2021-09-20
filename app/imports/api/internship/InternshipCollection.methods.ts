@@ -33,9 +33,9 @@ export const getInternshipFromKeyMethod = new ValidatedMethod({
       throw new Meteor.Error('unauthorized', 'You must be logged in to get an internship.');
     }
     if (Meteor.isServer) {
-      console.log(internshipKey);
+      // console.log(internshipKey);
       const internship = Internships.findDoc({ guid: internshipKey });
-      console.log(internship);
+      // console.log(internship);
       return internship;
     }
     return undefined;

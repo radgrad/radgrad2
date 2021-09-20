@@ -12,7 +12,7 @@ import {
   EXPLORER,
   FORECASTS,
   HOME,
-  MANAGE,
+  MANAGE, URL_ROLES,
   VISIBILITY,
 } from '../../layouts/utilities/route-constants';
 
@@ -36,6 +36,9 @@ const AdminPageMenu: React.FC = () => {
     { label: 'Interests', route: EXPLORER.INTERESTS },
     { label: 'Opportunities', route: EXPLORER.OPPORTUNITIES },
   ];
+  if (Meteor.settings.public.internship.show) {
+    explorerDropdownItems.push({ label: 'Internships', route: EXPLORER.INTERNSHIPS });
+  }
 
   /* Admins don't manage opportunities, since that's part of the data model */
   const manageDropdownItems = [
@@ -55,6 +58,7 @@ const AdminPageMenu: React.FC = () => {
     { label: 'Interests', route: DATAMODEL.INTERESTS },
     { label: 'Interest Keywords', route: DATAMODEL.INTEREST_KEYWORDS },
     { label: 'Interest Types', route: DATAMODEL.INTEREST_TYPES },
+    { label: 'Internships', route: DATAMODEL.INTERNSHIPS },
     { label: 'Opportunities', route: DATAMODEL.OPPORTUNITIES },
     { label: 'Opportunity Instances', route: DATAMODEL.OPPORTUNITY_INSTANCES },
     { label: 'Opportunity Types', route: DATAMODEL.OPPORTUNITY_TYPES },

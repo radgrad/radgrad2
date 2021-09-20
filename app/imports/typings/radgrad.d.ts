@@ -1031,7 +1031,7 @@ export interface Internship extends Document {
   urls: string[];
   position: string;
   description: string;
-  lastUploaded?: Date;
+  lastScraped?: Date;
   missedUploads?: number;
   interestIDs: string[];
   company?: string;
@@ -1045,7 +1045,7 @@ export interface InternshipDefine extends DumpOne {
   urls: string[];
   position: string;
   description: string;
-  lastUploaded?: Date;
+  lastScraped?: Date;
   missedUploads?: number;
   interests: string[];
   company?: string;
@@ -1073,6 +1073,7 @@ export interface InternshipUpdateData extends Update {
   position?: string;
   description?: string;
   interestIDs?: string[];
+  interests?: string[];
   company?: string;
   location?: Location[];
   contact?: string;

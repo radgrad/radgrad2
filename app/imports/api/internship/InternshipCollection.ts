@@ -27,7 +27,7 @@ class InternshipCollection extends BaseCollection {
       'urls.$': String,
       position: String,
       description: String,
-      lastUploaded: { type: Date, optional: true },
+      lastScraped: { type: Date, optional: true },
       missedUploads: Number,
       interestIDs: { type: Array },
       'interestIDs.$': String,
@@ -80,7 +80,7 @@ class InternshipCollection extends BaseCollection {
    * Internship.define({ urls: ['https://jobs.acm.org/jobs/data-analyst-internship-it-intern'],
    *                     position: 'Data Analyst Internship',
    *                     description: 'Internship for upcoming Data Analysts',
-   *                     lastUploaded: 2021-06-09T20:18:23.067Z
+   *                     lastScraped: 2021-06-09T20:18:23.067Z
    *                     missedUploads: 3,
    *                     interests: ['machine-learning', 'python', 'software-engineering'],
    *                     careerGoals: ['data-scientist', 'software-developer'],
@@ -97,7 +97,7 @@ class InternshipCollection extends BaseCollection {
    * @param urls is the list of URLs to the pages in the sites with a full description of this internship.
    * @param position is the internship title.
    * @param description is the description of internship.
-   * @param lastUploaded is the timestamp of when internship was found through scraping. If added manually, field is either absent or set to a falsy value.
+   * @param lastScraped is the timestamp of when internship was found through scraping. If added manually, field is either absent or set to a falsy value.
    * @param missedUploads is an indicator of listing status. A value of 0-3 is "active", 4-7 is "expired", and 8+ is "retired."
    * @param interests is a list of Interest slugs matching this internship.
    * @param company is the internship company.
@@ -106,7 +106,7 @@ class InternshipCollection extends BaseCollection {
    * @param posted is when internship was posted. Should be in YYYY-MM-DD format.
    * @param due is optional.
    */
-  public define({ urls, position, description, lastUploaded, missedUploads, interests, company, location, contact, posted, due }: InternshipDefine) {
+  public define({ urls, position, description, lastScraped, missedUploads, interests, company, location, contact, posted, due }: InternshipDefine) {
     this.initializeInterestSlugsToInternships();
     const interestIDs = Interests.getIDs(interests);
     const interestSlugs = interestIDs.map(id => {
@@ -135,7 +135,7 @@ class InternshipCollection extends BaseCollection {
       urls,
       position,
       description,
-      lastUploaded,
+      lastScraped,
       missedUploads,
       interestIDs,
       company,
@@ -213,6 +213,11 @@ class InternshipCollection extends BaseCollection {
     return super.removeIt(guid);
   }
 
+  public findNonRetired(selector?: { [key: string]: unknown }, options?: { [key: string]: unknown }) {
+    const theSelector = (typeof selector === 'undefined') ? {} : selector;
+    return this.collection.find(theSelector, options).fetch().filter((doc) => doc.missedUploads < 8);
+  }
+
   public findBestMatch(interestIDs: string[]): Internship[] {
     const allInternships = this.findNonRetired();
     const preferred = new PreferredChoice(allInternships, interestIDs);
@@ -282,7 +287,7 @@ class InternshipCollection extends BaseCollection {
     const urls = doc.urls;
     const position = doc.position;
     const description = doc.description;
-    const lastUploaded = doc.lastUploaded;
+    const lastScraped = doc.lastScraped;
     const missedUploads = doc.missedUploads;
     const interests = doc.interestIDs.map((id) => Interests.findSlugByID(id));
     const company = doc.company;
@@ -290,7 +295,7 @@ class InternshipCollection extends BaseCollection {
     const contact = doc.contact;
     const posted = doc.posted;
     const due = doc.due;
-    return { urls, position, description, lastUploaded, missedUploads, interests, company, location, contact, posted, due };
+    return { urls, position, description, lastScraped, missedUploads, interests, company, location, contact, posted, due };
   }
 
   /**
