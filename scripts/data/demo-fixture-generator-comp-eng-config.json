@@ -1,0 +1,1044 @@
+{
+  "studentProfiles": {
+    "name": "StudentProfileCollection",
+    "contents": [
+      {
+        "username": "abi@hawaii.edu",
+        "firstName": "Abigail",
+        "lastName": "Kealoha",
+        "picture": "/images/mockup/abi.jpg",
+        "website": "http://abi.github.io",
+        "interests": [
+          "application-development",
+          "research",
+          "android",
+          "software-engineering",
+          "computer-architecture",
+          "hardware",
+          "networks",
+          "security",
+          "circuit-analysis",
+          "robotics"
+        ],
+        "careerGoals": [
+          "software-developer",
+          "hardware-engineer",
+          "embedded-systems-design-engineer",
+          "computer-system-security-engineer"
+        ],
+        "level": 2,
+        "profileCourses": [
+          "ee_160",
+          "ee_211",
+          "ee_260",
+          "ee_296",
+          "ee_213",
+          "ee_205",
+          "ee_324",
+          "ee_371",
+          "ee_361",
+          "ee_362"
+        ],
+        "profileOpportunities": [],
+        "isAlumni": false,
+        "retired": false,
+        "sharePicture": true,
+        "shareWebsite": true,
+        "shareInterests": true,
+        "shareCareerGoals": true,
+        "shareOpportunities": true,
+        "shareCourses": true,
+        "shareLevel": true,
+        "shareICE": true,
+        "acceptedTermsAndConditions": true
+      },
+      {
+        "username": "alfred@hawaii.edu",
+        "firstName": "Alfred",
+        "lastName": "Persona",
+        "picture": "/images/mockup/alfred.png",
+        "interests": [
+          "hardware",
+          "application-development",
+          "fpga"
+        ],
+        "careerGoals": [
+          "embedded-systems-verification-engineer"
+        ],
+        "level": 3,
+        "profileCourses": [
+        ],
+        "profileOpportunities": [
+          "acm-manoa",
+          "code-for-hawaii",
+          "google-summer-of-code",
+          "att-iot-hackathon",
+          "shidler-bpc",
+          "hacc"
+        ],
+        "isAlumni": false,
+        "retired": false,
+        "sharePicture": false,
+        "shareWebsite": false,
+        "shareInterests": false,
+        "shareCareerGoals": false,
+        "shareOpportunities": false,
+        "shareCourses": false,
+        "shareLevel": false,
+        "shareICE": false
+      },
+      {
+        "username": "betty@hawaii.edu",
+        "firstName": "Betty",
+        "lastName": "Keanu",
+        "picture": "/images/mockup/betty.jpg",
+        "website": "http://keanu.github.io/",
+        "interests": [
+          "data-science",
+          "data-visualization",
+          "research",
+          "algorithms",
+          "databases",
+          "machine-learning"
+        ],
+        "careerGoals": [
+          "vr-ar-engineer",
+          "graduate-school"
+        ],
+        "level": 2,
+        "profileCourses": [
+        ],
+        "profileOpportunities": [
+          "gen-cyber-internship"
+        ],
+        "isAlumni": false,
+        "retired": false,
+        "sharePicture": true,
+        "shareWebsite": false,
+        "shareInterests": true,
+        "shareCareerGoals": true,
+        "shareOpportunities": false,
+        "shareCourses": false,
+        "shareLevel": true,
+        "shareICE": true,
+        "acceptedTermsAndConditions": true
+      },
+      {
+        "username": "charley@hawaii.edu",
+        "firstName": "Charley",
+        "lastName": "Sherry",
+        "picture": "/images/mockup/charley.jpg",
+        "interests": [],
+        "careerGoals": [],
+        "level": 2,
+        "profileCourses": [],
+        "profileOpportunities": [],
+        "isAlumni": false,
+        "retired": false,
+        "sharePicture": false,
+        "shareWebsite": false,
+        "shareInterests": false,
+        "shareCareerGoals": false,
+        "shareOpportunities": false,
+        "shareCourses": false,
+        "shareLevel": false,
+        "shareICE": false
+      },
+      {
+        "username": "dora@hawaii.edu",
+        "firstName": "Dora",
+        "lastName": "Velasquez",
+        "picture": "/images/people/dora.jpg",
+        "interests": [
+          "computer-architecture",
+          "circuit-analysis",
+          "digital-design",
+          "hardware",
+          "hpc",
+          "networks",
+          "security"
+        ],
+        "careerGoals": [
+          "software-security-engineer",
+          "hardware-engineer"
+        ],
+        "level": 5,
+        "profileCourses": [
+        ],
+        "profileOpportunities": [
+          "radgrad-project",
+          "acm-manoa"
+        ],
+        "isAlumni": false,
+        "retired": false,
+        "sharePicture": true,
+        "shareWebsite": false,
+        "shareInterests": true,
+        "shareCareerGoals": true,
+        "shareOpportunities": false,
+        "shareCourses": false,
+        "shareLevel": true,
+        "shareICE": true,
+        "acceptedTermsAndConditions": true
+      },
+      {
+        "username": "dora2@hawaii.edu",
+        "firstName": "Dora2",
+        "lastName": "Velasquez",
+        "picture": "/images/people/dora2.jpg",
+        "interests": [
+          "computer-architecture",
+          "circuit-analysis",
+          "digital-design",
+          "hardware",
+          "hpc",
+          "networks",
+          "security"
+        ],
+        "careerGoals": [
+          "software-security-engineer",
+          "hardware-engineer"
+        ],
+        "level": 5,
+        "profileCourses": [
+        ],
+        "profileOpportunities": [],
+        "isAlumni": false,
+        "retired": false,
+        "sharePicture": true,
+        "shareWebsite": false,
+        "shareInterests": true,
+        "shareCareerGoals": true,
+        "shareOpportunities": false,
+        "shareCourses": false,
+        "shareLevel": true,
+        "shareICE": true,
+        "acceptedTermsAndConditions": true
+      },
+      {
+        "username": "dora3@hawaii.edu",
+        "firstName": "Dora3",
+        "lastName": "Velasquez",
+        "picture": "/images/people/dora3.jpg",
+        "interests": [
+          "computer-architecture",
+          "circuit-analysis",
+          "digital-design",
+          "hardware",
+          "hpc",
+          "networks",
+          "security"
+        ],
+        "careerGoals": [
+          "software-security-engineer",
+          "hardware-engineer"
+        ],
+        "level": 5,
+        "profileCourses": [
+        ],
+        "profileOpportunities": [],
+        "isAlumni": false,
+        "retired": false,
+        "sharePicture": true,
+        "shareWebsite": false,
+        "shareInterests": true,
+        "shareCareerGoals": true,
+        "shareOpportunities": false,
+        "shareCourses": false,
+        "shareLevel": true,
+        "shareICE": true,
+        "acceptedTermsAndConditions": true
+      },
+      {
+        "username": "dora4@hawaii.edu",
+        "firstName": "Dora4",
+        "lastName": "Velasquez",
+        "picture": "/images/people/dora4.jpg",
+        "interests": [
+          "computer-architecture",
+          "circuit-analysis",
+          "digital-design",
+          "hardware",
+          "hpc",
+          "networks",
+          "security"
+        ],
+        "careerGoals": [
+          "software-security-engineer",
+          "hardware-engineer"
+        ],
+        "level": 5,
+        "profileCourses": [
+        ],
+        "profileOpportunities": [],
+        "isAlumni": false,
+        "retired": false,
+        "sharePicture": true,
+        "shareWebsite": false,
+        "shareInterests": true,
+        "shareCareerGoals": true,
+        "shareOpportunities": false,
+        "shareCourses": false,
+        "shareLevel": true,
+        "shareICE": true,
+        "acceptedTermsAndConditions": true
+      },
+      {
+        "username": "ella@hawaii.edu",
+        "firstName": "Ella",
+        "lastName": "Zwick",
+        "picture": "/images/mockup/ella.jpg",
+        "interests": [],
+        "careerGoals": [],
+        "level": 2,
+        "profileCourses": [
+        ],
+        "profileOpportunities": [],
+        "isAlumni": false,
+        "retired": false,
+        "sharePicture": false,
+        "shareWebsite": false,
+        "shareInterests": false,
+        "shareCareerGoals": false,
+        "shareOpportunities": false,
+        "shareCourses": false,
+        "shareLevel": false,
+        "shareICE": false,
+        "acceptedTermsAndConditions": true
+      },
+      {
+        "username": "fredi@hawaii.edu",
+        "firstName": "Frederica",
+        "lastName": "deGrut",
+        "picture": "/images/mockup/ella.jpg",
+        "interests": [],
+        "careerGoals": [],
+        "level": 2,
+        "profileCourses": [
+        ],
+        "profileOpportunities": [],
+        "isAlumni": true,
+        "retired": false,
+        "sharePicture": false,
+        "shareWebsite": false,
+        "shareInterests": false,
+        "shareCareerGoals": false,
+        "shareOpportunities": false,
+        "shareCourses": false,
+        "shareLevel": false,
+        "shareICE": false,
+        "acceptedTermsAndConditions": true
+      },
+      {
+        "username": "george@hawaii.edu",
+        "firstName": "George",
+        "lastName": "Keahi",
+        "picture": "/images/mockup/alfred.png",
+        "interests": [],
+        "careerGoals": [],
+        "level": 1,
+        "profileCourses": [],
+        "profileOpportunities": [],
+        "isAlumni": false,
+        "retired": false,
+        "sharePicture": false,
+        "shareWebsite": false,
+        "shareInterests": false,
+        "shareCareerGoals": false,
+        "shareOpportunities": false,
+        "shareCourses": false,
+        "shareLevel": false,
+        "shareICE": false
+      }
+    ]
+  },
+  "studentPlans": [
+    {
+      "username": "abi@hawaii.edu",
+      "courses": [
+        {
+          "slug": "ee_160",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_211",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_260",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_296",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_213",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_205",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_324",
+          "academicYearOffset": 0,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_371",
+          "academicYearOffset": 0,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_361",
+          "academicYearOffset": 0,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_362",
+          "academicYearOffset": 0,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_345",
+          "academicYearOffset": 0,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_315",
+          "academicYearOffset": 1,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_323",
+          "academicYearOffset": 1,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_367",
+          "academicYearOffset": 1,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_396",
+          "academicYearOffset": 1,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ics_421",
+          "academicYearOffset": 1,
+          "termNum": 1,
+          "grade": "A"
+        }
+      ],
+      "opportunities": [],
+      "reviews": []
+    },
+    {
+      "username": "dora@hawaii.edu",
+      "courses": [
+        {
+          "slug": "ee_160",
+          "academicYearOffset": -4,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_211",
+          "academicYearOffset": -3,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_260",
+          "academicYearOffset": -3,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_296",
+          "academicYearOffset": -3,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_213",
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_205",
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_324",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_371",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_361",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_362",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_345",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_315",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_323",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_367",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_396",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_406",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_342",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_467",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_468",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_496",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_495",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_602",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_607",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "grade": "A"
+        }
+
+      ],
+      "opportunities": [],
+      "reviews": []
+    },
+    {
+      "username": "dora2@hawaii.edu",
+      "courses": [
+        {
+          "slug": "ee_160",
+          "academicYearOffset": -4,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_211",
+          "academicYearOffset": -3,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_260",
+          "academicYearOffset": -3,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_296",
+          "academicYearOffset": -3,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_213",
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_205",
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_324",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_371",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_361",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_362",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_345",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_315",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_323",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_367",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_396",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_406",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_342",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_467",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_468",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_496",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_495",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_602",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_607",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "grade": "A"
+        }
+
+      ],
+      "opportunities": [],
+      "reviews": []
+    },
+    {
+      "username": "dora3@hawaii.edu",
+      "courses": [
+        {
+          "slug": "ee_160",
+          "academicYearOffset": -4,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_211",
+          "academicYearOffset": -3,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_260",
+          "academicYearOffset": -3,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_296",
+          "academicYearOffset": -3,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_213",
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_205",
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_324",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_371",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_361",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_362",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_345",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_315",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_323",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_367",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_396",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_406",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_342",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_467",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_468",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_496",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_495",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_602",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_607",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "grade": "A"
+        }
+
+      ],
+      "opportunities": [],
+      "reviews": []
+    },
+    {
+      "username": "dora4@hawaii.edu",
+      "courses": [
+        {
+          "slug": "ee_160",
+          "academicYearOffset": -4,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_211",
+          "academicYearOffset": -3,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_260",
+          "academicYearOffset": -3,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_296",
+          "academicYearOffset": -3,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_213",
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_205",
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_324",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_371",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_361",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_362",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_345",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_315",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_323",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_367",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_396",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_406",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_342",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_467",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_468",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_496",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_495",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_602",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_607",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "grade": "A"
+        }
+
+      ],
+      "opportunities": [],
+      "reviews": []
+    }
+  ]
+}
