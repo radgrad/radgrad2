@@ -457,6 +457,163 @@
       "reviews": []
     },
     {
+      "username": "alfred@hawaii.edu",
+      "courses": [
+        {
+          "slug": "ee_160",
+          "academicYearOffset": -3,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_211",
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_260",
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_296",
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_213",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_205",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_324",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_371",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_361",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_362",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_345",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_315",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_323",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_367",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_396",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_406",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_342",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_467",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_468",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_496",
+          "academicYearOffset": 0,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_495",
+          "academicYearOffset": 0,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_602",
+          "academicYearOffset": 0,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_607",
+          "academicYearOffset": 0,
+          "termNum": 0,
+          "grade": "A"
+        }
+      ],
+      "opportunities": [],
+      "reviews": []
+    },
+    {
+      "username": "betty@hawaii.edu",
+      "courses": [],
+      "opportunities": [],
+      "reviews": []
+    },
+    {
+      "username": "charley@hawaii.edu",
+      "courses": [],
+      "opportunities": [],
+      "reviews": []
+    },
+    {
       "username": "dora@hawaii.edu",
       "courses": [
         {
@@ -1036,6 +1193,19 @@
           "grade": "A"
         }
 
+      ],
+      "opportunities": [],
+      "reviews": []
+    },
+    {
+      "username": "george@hawaii.edu",
+      "courses": [
+        {
+          "slug": "ee_160",
+          "academicYearOffset": 0,
+          "termNum": 0,
+          "grade": "A"
+        }
       ],
       "opportunities": [],
       "reviews": []
