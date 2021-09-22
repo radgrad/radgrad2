@@ -167,7 +167,9 @@
         ],
         "profileOpportunities": [
           "radgrad-project",
-          "acm-manoa"
+          "ieee-uhm",
+          "shidler-bpc",
+          "hacc"
         ],
         "isAlumni": false,
         "retired": false,
@@ -453,8 +455,47 @@
           "grade": "A"
         }
       ],
-      "opportunities": [],
-      "reviews": []
+      "opportunities": [
+        {
+          "slug": "acm-manoa",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "verified": true
+        },
+        {
+          "slug": "acm-manoa",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "acm-manoa",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "verified": false
+        },
+        {
+          "slug": "acm-manoa",
+          "academicYearOffset": 0,
+          "termNum": 0,
+          "verified": false
+        },
+        {
+          "slug": "acm-manoa",
+          "academicYearOffset": 1,
+          "termNum": 1,
+          "verified": false
+        }
+      ],
+      "reviews": [
+        {
+          "academicYearOffset": -1,
+          "termNum": 2,
+          "reviewee": "acm-manoa",
+          "rating": 4,
+          "comments": "ACM Manoa is a great all in one club that gives students a place to meet other computer science majors and enthusiasts. Joining ACM’s Discord is the best way to stay informed. Underneath ACM are Special Interest Groups such as Grey Hats, Game Dev, and Algorithms. If any of these interest you, this is definitely the place to go."
+        }
+      ]
     },
     {
       "username": "alfred@hawaii.edu",
@@ -586,30 +627,256 @@
           "grade": "A"
         },
         {
-          "slug": "ee_602",
+          "slug": "ics_313",
           "academicYearOffset": 0,
           "termNum": 0,
           "grade": "A"
         },
         {
-          "slug": "ee_607",
+          "slug": "ee_660",
           "academicYearOffset": 0,
           "termNum": 0,
           "grade": "A"
         }
       ],
-      "opportunities": [],
+      "opportunities": [
+        {
+          "slug": "ieee-uhm",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "ieee-uhm",
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "verified": true
+        },
+        {
+          "slug": "ieee-uhm",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "hacc",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "ieee-uhm",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "verified": true
+        },
+        {
+          "slug": "google-summer-of-code",
+          "academicYearOffset": -1,
+          "termNum": 2,
+          "verified": true
+        },
+        {
+          "slug": "ieee-uhm",
+          "academicYearOffset": 0,
+          "termNum": 0,
+          "verified": false
+        },
+        {
+          "slug": "ieee-uhm",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "verified": false
+        },
+        {
+          "slug": "hacc",
+          "academicYearOffset": 0,
+          "termNum": 0,
+          "verified": false
+        },
+        {
+          "slug": "google-summer-of-code",
+          "academicYearOffset": 0,
+          "termNum": 2,
+          "verified": false
+        }
+      ],
       "reviews": []
     },
     {
       "username": "betty@hawaii.edu",
-      "courses": [],
-      "opportunities": [],
+      "courses": [
+        {
+          "slug": "ee_160",
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_211",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_260",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_296",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_213",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_205",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_324",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_371",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_361",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_362",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_345",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_315",
+          "academicYearOffset": 0,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_323",
+          "academicYearOffset": 0,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_367",
+          "academicYearOffset": 0,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_396",
+          "academicYearOffset": 0,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ics_313",
+          "academicYearOffset": 0,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_342",
+          "academicYearOffset": 1,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ics_314",
+          "academicYearOffset": 1,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_468",
+          "academicYearOffset": 1,
+          "termNum": 1,
+          "grade": "A"
+        }
+      ],
+      "opportunities": [
+        {
+          "slug": "sadowski-lab-research-assistant",
+          "academicYearOffset": 0,
+          "termNum": 0,
+          "verified": false
+        },
+        {
+          "slug": "sadowski-lab-research-assistant",
+          "academicYearOffset": 1,
+          "termNum": 1,
+          "verified": false
+        }
+      ],
       "reviews": []
     },
     {
       "username": "charley@hawaii.edu",
-      "courses": [],
+      "courses": [
+        {
+          "slug": "ee_160",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_211",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_260",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_296",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_213",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "grade": "A"
+        },
+        {
+          "slug": "ee_205",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "grade": "A"
+        }
+      ],
       "opportunities": [],
       "reviews": []
     },
@@ -756,8 +1023,120 @@
         }
 
       ],
-      "opportunities": [],
-      "reviews": []
+      "opportunities": [
+        {
+          "slug": "ieee-uhm",
+          "academicYearOffset": -4,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "ieee-uhm",
+          "academicYearOffset": -3,
+          "termNum": 1,
+          "verified": true
+        },
+        {
+          "slug": "google-summer-of-code",
+          "academicYearOffset": -3,
+          "termNum": 2,
+          "verified": true
+        },
+        {
+          "slug": "ieee-uhm",
+          "academicYearOffset": -3,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "hacc",
+          "academicYearOffset": -3,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "ieee-uhm",
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "verified": true
+        },
+        {
+          "slug": "google-summer-of-code",
+          "academicYearOffset": -2,
+          "termNum": 2,
+          "verified": true
+        },
+        {
+          "slug": "ieee-uhm",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "hacc",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "ktuh-tech-director",
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "verified": true
+        },
+        {
+          "slug": "ieee-uhm",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "verified": true
+        },
+        {
+          "slug": "ieee-uhm",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "shidler-bpc",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "oceanit-student-intern",
+          "academicYearOffset": -1,
+          "termNum": 2,
+          "verified": true
+        },
+        {
+          "slug": "hacc",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "ieee-uhm",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "verified": true
+        }
+      ],
+      "reviews": [
+        {
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "reviewee": "hacc",
+          "rating": 4,
+          "comments": "I participated in several HACC events. As others have mentioned, this hackathon differs in the way that it offers participants an entire month to flesh out their ideas and develop their apps, so judges really do expect a lot more and have higher standards when evaluating our final submissions. I would recommend everyone to participate in this challenge to get the feel of competing in a hackathon without the pressure to finish in only a few days. It’s also a great opportunity to go outside of your comfort zone to find the best solution for your challenge, even if it’s not a language or framework that you’re intimately familiar with. My favorite part of this event is seeing all the amazing apps that teams have developed at the end of the month. It’s extremely inspiring and motivating to see everyone’s finished product and encourages me to start my own side projects."
+        },
+        {
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "reviewee": "acm-manoa",
+          "rating": 5,
+          "comments": "ACM Manoa is an excellent club to join. You can meet other ICS students, ask questions, get help on courses. The several interest groups are great. It is a real help for your undergraduate experience."
+        }
+      ]
     },
     {
       "username": "dora2@hawaii.edu",
@@ -902,8 +1281,120 @@
         }
 
       ],
-      "opportunities": [],
-      "reviews": []
+      "opportunities": [
+        {
+          "slug": "ieee-uhm",
+          "academicYearOffset": -4,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "ieee-uhm",
+          "academicYearOffset": -3,
+          "termNum": 1,
+          "verified": true
+        },
+        {
+          "slug": "google-summer-of-code",
+          "academicYearOffset": -3,
+          "termNum": 2,
+          "verified": true
+        },
+        {
+          "slug": "ieee-uhm",
+          "academicYearOffset": -3,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "hacc",
+          "academicYearOffset": -3,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "ieee-uhm",
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "verified": true
+        },
+        {
+          "slug": "google-summer-of-code",
+          "academicYearOffset": -2,
+          "termNum": 2,
+          "verified": true
+        },
+        {
+          "slug": "ieee-uhm",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "hacc",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "ktuh-tech-director",
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "verified": true
+        },
+        {
+          "slug": "ieee-uhm",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "verified": true
+        },
+        {
+          "slug": "ieee-uhm",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "shidler-bpc",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "oceanit-student-intern",
+          "academicYearOffset": -1,
+          "termNum": 2,
+          "verified": true
+        },
+        {
+          "slug": "hacc",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "ieee-uhm",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "verified": true
+        }
+      ],
+      "reviews": [
+        {
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "reviewee": "hacc",
+          "rating": 4,
+          "comments": "I participated in several HACC events. As others have mentioned, this hackathon differs in the way that it offers participants an entire month to flesh out their ideas and develop their apps, so judges really do expect a lot more and have higher standards when evaluating our final submissions. I would recommend everyone to participate in this challenge to get the feel of competing in a hackathon without the pressure to finish in only a few days. It’s also a great opportunity to go outside of your comfort zone to find the best solution for your challenge, even if it’s not a language or framework that you’re intimately familiar with. My favorite part of this event is seeing all the amazing apps that teams have developed at the end of the month. It’s extremely inspiring and motivating to see everyone’s finished product and encourages me to start my own side projects."
+        },
+        {
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "reviewee": "acm-manoa",
+          "rating": 5,
+          "comments": "ACM Manoa is an excellent club to join. You can meet other ICS students, ask questions, get help on courses. The several interest groups are great. It is a real help for your undergraduate experience."
+        }
+      ]
     },
     {
       "username": "dora3@hawaii.edu",
@@ -1048,8 +1539,120 @@
         }
 
       ],
-      "opportunities": [],
-      "reviews": []
+      "opportunities": [
+        {
+          "slug": "ieee-uhm",
+          "academicYearOffset": -4,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "ieee-uhm",
+          "academicYearOffset": -3,
+          "termNum": 1,
+          "verified": true
+        },
+        {
+          "slug": "google-summer-of-code",
+          "academicYearOffset": -3,
+          "termNum": 2,
+          "verified": true
+        },
+        {
+          "slug": "ieee-uhm",
+          "academicYearOffset": -3,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "hacc",
+          "academicYearOffset": -3,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "ieee-uhm",
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "verified": true
+        },
+        {
+          "slug": "google-summer-of-code",
+          "academicYearOffset": -2,
+          "termNum": 2,
+          "verified": true
+        },
+        {
+          "slug": "ieee-uhm",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "hacc",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "ktuh-tech-director",
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "verified": true
+        },
+        {
+          "slug": "ieee-uhm",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "verified": true
+        },
+        {
+          "slug": "ieee-uhm",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "shidler-bpc",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "oceanit-student-intern",
+          "academicYearOffset": -1,
+          "termNum": 2,
+          "verified": true
+        },
+        {
+          "slug": "hacc",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "ieee-uhm",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "verified": true
+        }
+      ],
+      "reviews": [
+        {
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "reviewee": "hacc",
+          "rating": 4,
+          "comments": "I participated in several HACC events. As others have mentioned, this hackathon differs in the way that it offers participants an entire month to flesh out their ideas and develop their apps, so judges really do expect a lot more and have higher standards when evaluating our final submissions. I would recommend everyone to participate in this challenge to get the feel of competing in a hackathon without the pressure to finish in only a few days. It’s also a great opportunity to go outside of your comfort zone to find the best solution for your challenge, even if it’s not a language or framework that you’re intimately familiar with. My favorite part of this event is seeing all the amazing apps that teams have developed at the end of the month. It’s extremely inspiring and motivating to see everyone’s finished product and encourages me to start my own side projects."
+        },
+        {
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "reviewee": "acm-manoa",
+          "rating": 5,
+          "comments": "ACM Manoa is an excellent club to join. You can meet other ICS students, ask questions, get help on courses. The several interest groups are great. It is a real help for your undergraduate experience."
+        }
+      ]
     },
     {
       "username": "dora4@hawaii.edu",
@@ -1194,8 +1797,120 @@
         }
 
       ],
-      "opportunities": [],
-      "reviews": []
+      "opportunities": [
+        {
+          "slug": "ieee-uhm",
+          "academicYearOffset": -4,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "ieee-uhm",
+          "academicYearOffset": -3,
+          "termNum": 1,
+          "verified": true
+        },
+        {
+          "slug": "google-summer-of-code",
+          "academicYearOffset": -3,
+          "termNum": 2,
+          "verified": true
+        },
+        {
+          "slug": "ieee-uhm",
+          "academicYearOffset": -3,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "hacc",
+          "academicYearOffset": -3,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "ieee-uhm",
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "verified": true
+        },
+        {
+          "slug": "google-summer-of-code",
+          "academicYearOffset": -2,
+          "termNum": 2,
+          "verified": true
+        },
+        {
+          "slug": "ieee-uhm",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "hacc",
+          "academicYearOffset": -2,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "ktuh-tech-director",
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "verified": true
+        },
+        {
+          "slug": "ieee-uhm",
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "verified": true
+        },
+        {
+          "slug": "ieee-uhm",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "shidler-bpc",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "oceanit-student-intern",
+          "academicYearOffset": -1,
+          "termNum": 2,
+          "verified": true
+        },
+        {
+          "slug": "hacc",
+          "academicYearOffset": -1,
+          "termNum": 0,
+          "verified": true
+        },
+        {
+          "slug": "ieee-uhm",
+          "academicYearOffset": 0,
+          "termNum": 1,
+          "verified": true
+        }
+      ],
+      "reviews": [
+        {
+          "academicYearOffset": -1,
+          "termNum": 1,
+          "reviewee": "hacc",
+          "rating": 4,
+          "comments": "I participated in several HACC events. As others have mentioned, this hackathon differs in the way that it offers participants an entire month to flesh out their ideas and develop their apps, so judges really do expect a lot more and have higher standards when evaluating our final submissions. I would recommend everyone to participate in this challenge to get the feel of competing in a hackathon without the pressure to finish in only a few days. It’s also a great opportunity to go outside of your comfort zone to find the best solution for your challenge, even if it’s not a language or framework that you’re intimately familiar with. My favorite part of this event is seeing all the amazing apps that teams have developed at the end of the month. It’s extremely inspiring and motivating to see everyone’s finished product and encourages me to start my own side projects."
+        },
+        {
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "reviewee": "acm-manoa",
+          "rating": 5,
+          "comments": "ACM Manoa is an excellent club to join. You can meet other ICS students, ask questions, get help on courses. The several interest groups are great. It is a real help for your undergraduate experience."
+        }
+      ]
     },
     {
       "username": "george@hawaii.edu",
