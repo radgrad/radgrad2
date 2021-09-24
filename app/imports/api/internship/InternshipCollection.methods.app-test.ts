@@ -27,7 +27,7 @@ if (Meteor.isClient) {
       await withLoggedInUser();
       const results = await getInternAlohaInternshipsMethod.callPromise({ url: InternAlohaUrlsEnum.linkedin });
       expect(results.length).to.be.above(-1);
-     // console.log(results);
+      // console.log(results);
     });
   });
 }
