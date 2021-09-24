@@ -41,9 +41,9 @@ Number.isInteger = Number.isInteger ||
  * @memberOf api/ice
  */
 export const gradeCompetency: { A: number; B: number; C: number; } = {
-  A: Meteor.settings.public.gradeCompetency.A,
-  B: Meteor.settings.public.gradeCompetency.B,
-  C: Meteor.settings.public.gradeCompetency.C,
+  A: Meteor.settings.public.gradeCompetency?.A || 10,
+  B: Meteor.settings.public.gradeCompetency?.B || 6,
+  C: Meteor.settings.public.gradeCompetency?.C || 0,
 };
 
 /**
