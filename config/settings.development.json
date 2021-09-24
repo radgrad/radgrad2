@@ -8,7 +8,7 @@
       "debug": false
     }
   },
-  "databaseRestoreFileName": "database/snapshot/CompEngDemo.json",
+  "databaseRestoreFileName": "database/development/2021-07-06-11-19-42.json",
   "termsAndConditionsFileName": "terms-and-conditions/terms-and-conditions.ics.md",
   "env": {
     "MAIL_URL": "smtps://changeme:changeme@smtp.mailgun.org:465"
