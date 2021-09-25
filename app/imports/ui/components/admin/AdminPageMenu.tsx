@@ -12,7 +12,7 @@ import {
   EXPLORER,
   FORECASTS,
   HOME,
-  MANAGE, URL_ROLES,
+  MANAGE,
   VISIBILITY,
 } from '../../layouts/utilities/route-constants';
 
@@ -58,7 +58,6 @@ const AdminPageMenu: React.FC = () => {
     { label: 'Interests', route: DATAMODEL.INTERESTS },
     { label: 'Interest Keywords', route: DATAMODEL.INTEREST_KEYWORDS },
     { label: 'Interest Types', route: DATAMODEL.INTEREST_TYPES },
-    { label: 'Internships', route: DATAMODEL.INTERNSHIPS },
     { label: 'Opportunities', route: DATAMODEL.OPPORTUNITIES },
     { label: 'Opportunity Instances', route: DATAMODEL.OPPORTUNITY_INSTANCES },
     { label: 'Opportunity Types', route: DATAMODEL.OPPORTUNITY_TYPES },

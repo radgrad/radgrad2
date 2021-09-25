@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React from 'react';
 import Markdown from 'react-markdown';
 import { Grid, Item, List, Segment } from 'semantic-ui-react';
@@ -34,6 +35,9 @@ const ExplorerInternship: React.FC<ExplorerInternshipProps> = ({ internship, pro
             <Item.Group>
               {internship.location.map(loc => <LocationItem key={`${internship._id}-${loc.city}-${loc.state}-${loc.country}-${loc.zip}`} city={loc.city} country={loc.country} state={loc.state} zip={loc.zip} />)}
             </Item.Group>
+          </Grid.Row>
+          <Grid.Row>
+            <strong>Last seen:&nbsp;</strong>{moment(internship.lastScraped).format('MM/DD/YYYY')}
           </Grid.Row>
           <Grid.Row>
             <strong>Description:</strong>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRouteMatch, Link } from 'react-router-dom';
-import { Card, Icon } from 'semantic-ui-react';
+import { Card, Icon, Item } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
 import moment from 'moment';
 import { Internship } from '../../../../../typings/radgrad';
@@ -8,6 +8,7 @@ import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 import InterestList from '../../InterestList';
 import * as Router from '../../utilities/router';
 import { getInternshipKey } from '../../../../../api/internship/import/process-canonical';
+import LocationItem from '../item-view/internship/LocationItem';
 
 const buildExplorerInternshipRoute = (match: Router.MatchProps, internshipKey: string): string => {
   const route = `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERNSHIPS}/${internshipKey}`;
@@ -54,7 +55,10 @@ const InternshipCard: React.FC<InternshipCardProps> = ({ internship }) => {
         <Markdown escapeHtml source={internshipShortDescription} renderers={{ link: (localProps) => Router.renderLink(localProps, match) }} />
         {internship.interestIDs ? <InterestList item={internship} size="small" /> : ''}
         <strong>{expiredLabel}</strong>
-        <strong>Last seen:</strong>{moment(internship.lastScraped).format('MM/DD/YYYY')}
+        <strong>Last seen:&nbsp;</strong>{moment(internship.lastScraped).format('MM/DD/YYYY')}
+        <Item.Group>
+          {internship.location.map(loc => <LocationItem key={`${internship._id}-${loc.city}-${loc.state}-${loc.country}-${loc.zip}`} city={loc.city} country={loc.country} state={loc.state} zip={loc.zip} />)}
+        </Item.Group>
       </Card.Content>
       <Link to={buildExplorerInternshipRoute(match, getInternshipKey(internship))} className="ui button" id={`see-details-${internshipName}-button`}>
         <Icon name="zoom in" />

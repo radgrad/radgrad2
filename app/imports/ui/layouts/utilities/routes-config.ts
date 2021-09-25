@@ -10,7 +10,6 @@ import AdminDataModelCoursesPage from '../../pages/admin/AdminDataModelCoursesPa
 import AdminDataModelInterestKeywordsPage from '../../pages/admin/AdminDataModelInterestKeywordsPage';
 import AdminDataModelInterestsPage from '../../pages/admin/AdminDataModelInterestsPage';
 import AdminDataModelInterestTypesPage from '../../pages/admin/AdminDataModelInterestTypesPage';
-import AdminDataModelInternshipPage from '../../pages/admin/AdminDataModelInternshipPage';
 import AdminDataModelOpportunitiesPage from '../../pages/admin/AdminDataModelOpportunitiesPage';
 import AdminDataModelOpportunityInstancesPage from '../../pages/admin/AdminDataModelOpportunityInstancesPage';
 import AdminDataModelOpportunityTypesPage from '../../pages/admin/AdminDataModelOpportunityTypesPage';
@@ -103,7 +102,6 @@ export const routes = {
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.INTERESTS}`, component: AdminDataModelInterestsPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.INTEREST_KEYWORDS}`, component: AdminDataModelInterestKeywordsPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.INTEREST_TYPES}`, component: AdminDataModelInterestTypesPage },
-    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.INTERNSHIPS}`, component: AdminDataModelInternshipPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.OPPORTUNITIES}`, component: AdminDataModelOpportunitiesPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.OPPORTUNITY_INSTANCES}`, component: AdminDataModelOpportunityInstancesPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.OPPORTUNITY_TYPES}`, component: AdminDataModelOpportunityTypesPage },
