@@ -70,6 +70,7 @@ const CompletedVerifications: React.FC<CompletedVerificationsProps> = ({ complet
               <br />
               Sponsor: {getSponsorFullName(ele)}
               <br />
+              Justification: {ele.documentation}
               <Grid.Row style={{ paddingTop: '14px', paddingBottom: '14px' }}>
                 <Button
                   basic

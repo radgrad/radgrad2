@@ -992,6 +992,7 @@ export interface VerificationRequest extends Document {
   submittedOn: Date;
   status: string;
   processed: Processed[];
+  documentation: string;
   ice?: Ice;
   retired?: boolean;
 }
