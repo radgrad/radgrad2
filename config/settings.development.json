@@ -21,10 +21,15 @@
       "popupHeight": 610,
       "popup": true
     },
-    "development": true,
     "cloudinary": {
       "cloud_name": "radgrad",
       "upload_preset": "CHANGEME"
+    },
+    "development": true,
+    "gradeCompetency": {
+      "A": 10,
+      "B": 8,
+      "C": 0
     },
     "internship": {
       "show": true,
