@@ -23,7 +23,7 @@ jobs:
           cache-name: cache-node-modules
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-build-v3-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-build-v4-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
 
       - uses: actions/setup-node@v1
         with:
@@ -31,7 +31,7 @@ jobs:
 
       - run: npm ci
 
-      - uses: meteorengineer/setup-meteor@v1
+      - run: npm install -g meteor
       - run: meteor npm install
       - run: meteor npm run lint
       - run: meteor npm run unimported
