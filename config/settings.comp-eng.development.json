@@ -1,6 +1,6 @@
 {
   "cas": { "baseUrl": "https://cas-test.its.hawaii.edu/cas/", "autoClose": true, "validateUrl": "https://cas-test.its.hawaii.edu/cas/serviceValidate", "casVersion": 2.0, "attributes": {"debug": false}},
-  "databaseRestoreFileName": "database/snapshot/ComputerEngineering.json",
+  "databaseRestoreFileName": "database/snapshot/CompEngDemo.json",
   "termsAndConditionsFileName": "terms-and-conditions/terms-and-conditions.ics.md",
   "env": { "MAIL_URL": "smtps://changeme:changeme@smtp.mailgun.org:465" },
   "public": {
