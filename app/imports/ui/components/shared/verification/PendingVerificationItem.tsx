@@ -44,6 +44,7 @@ const PendingVerificationItem: React.FC<PendingVerificationItemProps> = ({ verif
           <br />
           Sponsor: {sponsorProfile.firstName} {sponsorProfile.lastName}
           <br />
+          Justification: {verificationRequest.documentation}
           <Form style={{ paddingTop: '14px' }}>
             <Form.Input placeholder="Optional feedback" onChange={handleChange} value={feedbackState} />
             <Form.Group inline>

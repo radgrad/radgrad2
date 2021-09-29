@@ -54,9 +54,13 @@ interface AdminDataModelUsersPageProps {
   advisors: AdvisorOrFacultyProfile[];
   faculty: AdvisorOrFacultyProfile[];
   students: StudentProfile[];
+  // eslint-disable-next-line react/no-unused-prop-types
   profileCareerGoals: ProfileCareerGoal[];
+  // eslint-disable-next-line react/no-unused-prop-types
   profileCourses: ProfileCourse[];
+  // eslint-disable-next-line react/no-unused-prop-types
   profileInterests: ProfileInterest[];
+  // eslint-disable-next-line react/no-unused-prop-types
   profileOpportunities: ProfileOpportunity[];
   interests: Interest[];
   careerGoals: CareerGoal[];

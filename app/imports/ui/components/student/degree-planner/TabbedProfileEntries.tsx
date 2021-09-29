@@ -13,7 +13,6 @@ export enum TabbedProfileEntryNames {
 }
 
 interface TabbedProfileEntriesProps {
-  takenSlugs: string[];
   profileOpportunities: Opportunity[];
   studentID: string;
   profileCourses: Course[];

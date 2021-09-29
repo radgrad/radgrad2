@@ -992,6 +992,7 @@ export interface VerificationRequest extends Document {
   submittedOn: Date;
   status: string;
   processed: Processed[];
+  documentation: string;
   ice?: Ice;
   retired?: boolean;
 }
@@ -1027,12 +1028,11 @@ export interface Location {
   zip?: string;
 }
 
-export interface Internship {
-  _id: string;
+export interface Internship extends Document {
   urls: string[];
   position: string;
   description: string;
-  lastUploaded?: Date;
+  lastScraped?: Date;
   missedUploads?: number;
   interestIDs: string[];
   company?: string;
@@ -1046,7 +1046,7 @@ export interface InternshipDefine extends DumpOne {
   urls: string[];
   position: string;
   description: string;
-  lastUploaded?: Date;
+  lastScraped?: Date;
   missedUploads?: number;
   interests: string[];
   company?: string;
@@ -1066,6 +1066,7 @@ export interface InternshipUpdate extends Update {
   contact?: string;
   posted?: string;
   due?: string;
+  missedUploads?: number;
 }
 
 export interface InternshipUpdateData extends Update {
@@ -1073,9 +1074,11 @@ export interface InternshipUpdateData extends Update {
   position?: string;
   description?: string;
   interestIDs?: string[];
+  interests?: string[];
   company?: string;
   location?: Location[];
   contact?: string;
   posted?: string;
   due?: string;
+  missedUploads?: number;
 }

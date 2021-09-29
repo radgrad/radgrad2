@@ -33,6 +33,9 @@ const FacultyPageMenu: React.FC = () => {
     { label: 'Interests', route: EXPLORER.INTERESTS },
     { label: 'Opportunities', route: EXPLORER.OPPORTUNITIES },
   ];
+  if (Meteor.settings.public.internship.show) {
+    explorerDropdownItems.push({ label: 'Internships', route: EXPLORER.INTERNSHIPS });
+  }
 
   /* In future, Faculty should be able to manage courses as well. */
   const manageDropdownItems = [

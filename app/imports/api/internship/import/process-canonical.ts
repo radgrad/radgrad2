@@ -1,7 +1,12 @@
+import _ from 'lodash';
+import { Meteor } from 'meteor/meteor';
+import moment from 'moment';
+import { Internship } from '../../../typings/radgrad';
 import { InterestKeywords } from '../../interest/InterestKeywordCollection';
 import slugify from '../../slug/SlugCollection';
 import { getInternAlohaInternshipsMethod } from '../InternshipCollection.methods';
 import { internAlohaUrls } from './InternAlohaUrls';
+
 import { matchKeywords } from './match-keywords';
 
 const getInternAlohaInternships = async (url) => {
@@ -19,6 +24,13 @@ const getAllInternAlohaInternships = async () => {
   return internships;
 };
 
+const removeHTMLFromDescription = (internship) => {
+  const update = internship;
+  const doc = new DOMParser().parseFromString(internship.description, 'text/html');
+  update.description = doc.body.textContent || '';
+  return update;
+};
+
 const addInterests = (internship) => {
   const define = internship;
   // get the unique keywords from InterestKeywordCollection
@@ -28,7 +40,7 @@ const addInterests = (internship) => {
   matching.forEach((k) => {
     interests = interests.concat(InterestKeywords.getInterestSlugs(k));
   });
-  define.interests = interests;
+  define.interests = _.uniq(interests);
   define.missedUploads = 0;
   return define;
 };
@@ -55,7 +67,7 @@ const shallowEquals = (object1, object2) => {
 
 const containsLocation = (locationArr, location) => {
   let found = false;
-  locationArr.forEach(l => {
+  locationArr.forEach((l) => {
     if (shallowEquals(l, location)) {
       found = true;
     }
@@ -63,7 +75,13 @@ const containsLocation = (locationArr, location) => {
   return found;
 };
 
-const getInternshipKey = (internship) => slugify(`${internship.company}-${internship.position}-${internship.description.length}`);
+export const createGUID = (company: string, position: string, length: number): string => slugify(`${slugify(company)}_${slugify(position)}_${length}`);
+
+export const getInternshipKey = (internship: Internship): string => createGUID(internship.company, internship.position, internship.description.length);
+
+export const getCompanyFromKey = (internshipKey: string): string => internshipKey.split('_')[0];
+
+export const getPositionFromKey = (internshipKey: string): string => internshipKey.split('_')[1];
 
 const buildURLs = (internships) => {
   const groupUrls = {};
@@ -88,7 +106,12 @@ const collapse = (groupUrls, internships) => {
     } else {
       // check the locations
       const temp = reduced[key];
+      if (!Array.isArray(temp.location)) {
+        updateLocation(temp);
+      }
+      // console.log(temp.location, i.location[0]);
       if (!containsLocation(temp.location, i.location[0])) {
+        // console.log(temp.location, i.location[0]);
         temp.location.push(i.location[0]);
         // console.log(key, temp.location);
       }
@@ -105,12 +128,24 @@ const addGUID = (internship) => {
   return update;
 };
 
+const removeOldInternships = (internships) => {
+  const now = moment();
+  const cutoff = now.subtract(Meteor.settings.public.internship.uploadFilter.number, Meteor.settings.public.internship.uploadFilter.unit);
+  console.log(cutoff.format('YYYY-MM-DD'));
+  const inWindow = internships.filter(i => moment(i.lastScraped).isAfter(cutoff));
+  return inWindow;
+};
+
 export const processInternAlohaInternships = async () => {
   // get the internships
   const rawInternships = await getAllInternAlohaInternships();
   console.log('raw internships', rawInternships.length);
+  // remove old internships
+  const newInternships = removeOldInternships(rawInternships);
+  console.log('in time window internships', newInternships.length);
   // add interests
-  const withInterests = rawInternships.map((i) => {
+  const withInterests = newInternships.map((i) => {
+    removeHTMLFromDescription(i);
     addInterests(i);
     return updateLocation(i);
   });
@@ -123,6 +158,8 @@ export const processInternAlohaInternships = async () => {
   let reduced = collapse(groupedURLs, interestingInternships);
   console.log('combined internships', reduced.length);
   // add guid to reduced
-  reduced = reduced.map(r => addGUID(r));
+  reduced = reduced.map((r) => addGUID(r));
+  // console.log(reduced[0]);
+  // console.log(reduced[reduced.length - 3]);
   return reduced;
 };

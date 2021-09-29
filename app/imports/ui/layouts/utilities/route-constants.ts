@@ -39,6 +39,7 @@ export const DATAMODEL = {
   INTERESTS: 'datamodel/interests',
   INTEREST_KEYWORDS: 'datamodel/interests-keywords',
   INTEREST_TYPES: 'datamodel/interest-types',
+  INTERNSHIPS: 'datamodel/internships',
   OPPORTUNITIES: 'datamodel/opportunities',
   OPPORTUNITY_INSTANCES: 'datamodel/opportunity-instances',
   OPPORTUNITY_TYPES: 'datamodel/opportunity-types',
@@ -68,6 +69,7 @@ export const EXPLORER = {
   CAREERGOALS_PARAM: 'explorer/career-goals/:careergoal',
   COURSES_PARAM: 'explorer/courses/:course',
   INTERESTS_PARAM: 'explorer/interests/:interest',
+  INTERNSHIPS_PARAM: 'explorer/internships/:internshipKey',
   OPPORTUNITIES_PARAM: 'explorer/opportunities/:opportunity',
 };
 
