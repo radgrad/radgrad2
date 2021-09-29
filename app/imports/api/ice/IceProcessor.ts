@@ -42,7 +42,7 @@ Number.isInteger = Number.isInteger ||
  */
 export const gradeCompetency: { A: number; B: number; C: number; } = {
   A: Meteor.settings.public?.gradeCompetency?.A || 10,
-  B: Meteor.settings.public?.gradeCompetency?.B || 8,
+  B: Meteor.settings.public?.gradeCompetency?.B || 6,
   C: Meteor.settings.public?.gradeCompetency?.C || 0,
 };
 
