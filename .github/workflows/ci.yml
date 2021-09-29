@@ -23,7 +23,7 @@ jobs:
           cache-name: cache-node-modules
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-build-v6-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-build-v7-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
 
       - uses: actions/setup-node@v1
         with:
@@ -33,12 +33,26 @@ jobs:
 
       - run: npm install -g meteor
 
-      - name: Run Meteor commands
+      - name: install
         shell: bash -l {0}
-        run: |
-          meteor npm install
-          meteor npm run lint
-          meteor npm run unimported
-          meteor npm run test-unit
-          meteor npm run test-integration
-          meteor npm run test-acceptance
+        run: meteor npm install
+
+      - name: lint
+        shell: bash -l {0}
+        run: meteor npm run lint
+
+      - name: unimported
+        shell: bash -l {0}
+        run: meteor npm run unimported
+
+      - name: test-unit
+        shell: bash -l {0}
+        run: meteor npm run test-unit
+
+      - name: test-integration
+        shell: bash -l {0}
+        run: meteor npm run test-integration
+
+      - name: test-acceptance
+        shell: bash -l {0}
+        run: meteor npm run test-acceptance
