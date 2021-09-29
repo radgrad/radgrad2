@@ -19,12 +19,13 @@ import { StudentProfiles } from '../user/StudentProfileCollection';
 class Notifications {
   private adminEmail: string;
   private advisorEmails: string[];
-  private instanceDomainName: string;
+  private rootURL: string;
   constructor() {
     this.adminEmail = Meteor.settings.public.adminProfile.username;
     console.log(`admin email is ${this.adminEmail}`);
     this.advisorEmails = AdvisorProfiles.find().fetch().map(profile => profile.username);
     console.log(`advisor emails is: ${JSON.stringify(this.advisorEmails)}`);
+    this.rootURL = process.env.ROOT_URL;
   }
 }
 
