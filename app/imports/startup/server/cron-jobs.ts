@@ -1,4 +1,5 @@
 import { SyncedCron } from 'meteor/littledata:synced-cron';
+import { notifications } from '../../api/notifications/Notifications';
 import { userInteractionManager } from '../../api/user-interaction/UserInteractionManager';
 import { updateFactoids } from '../../api/factoid/Factoids';
 import { PublicStats } from '../../api/public-stats/PublicStatsCollection';
@@ -23,7 +24,7 @@ const afterMidnight4 = (parser) => parser.text('at 12:08 am');
 const afterMidnight5 = (parser) => parser.text('at 12:09 am');
 
 // Useful for debugging
-// const every15seconds = (parser) => parser.text('every 15 seconds');
+const every15seconds = (parser) => parser.text('every 15 seconds');
 // const every24Hours = (parser) => parser.text('every 24 hours');
 
 SyncedCron.add({ name: 'Update User Interactions', schedule: beforeMidnight, job: () => userInteractionManager.dailyUpdate() });
@@ -32,3 +33,4 @@ SyncedCron.add({ name: 'Update Public Stats', schedule: afterMidnight2, job: Pub
 SyncedCron.add({ name: 'Update Forecasts', schedule: afterMidnight3, job: () => RadGradForecasts.updateForecasts() });
 SyncedCron.add({ name: 'Update Whats New', schedule: afterMidnight4, job: () => whatsNew.updateData() });
 SyncedCron.add({ name: 'Update All Student Levels', schedule: afterMidnight5, job: () => updateAllStudentLevelsCron() });
+SyncedCron.add({ name: 'Notification Emails', schedule: every15seconds, job: () => notifications.run() });
