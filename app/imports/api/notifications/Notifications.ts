@@ -35,7 +35,7 @@ class Notifications {
     this.rootURL = process.env.ROOT_URL;
     this.reviews = Reviews.find({ moderated: false }).fetch().length;
     this.requests = VerificationRequests.find({ status: 'Open' }).fetch().length;
-    console.log(`Notifications: Emails: ${JSON.stringify(this.advisors)}, ROOT_URL: ${this.rootURL}, reviews: ${this.reviews}, requests: ${this.requests} `);
+    console.log(`Notifications: Emails: ${JSON.stringify(this.advisors)}, ROOT_URL: ${this.rootURL}, reviews: ${this.reviews}, requests: ${this.requests}, MAIL_URL: ${process.env.MAIL_URL} `);
   };
 
   /** Invoke this to (potentially) send a notification email to advisors and the admin. */
@@ -50,14 +50,11 @@ class Notifications {
       const filename = 'notification.html';
       // email the admin
       let to = this.admin;
-      let reviewURL = `${rootURL}/admin/${this.admin}/manage-reviews`;
-      let requestURL = `${rootURL}/admin/${this.admin}/manage-reviews`;
+      let reviewURL = `${rootURL}#/admin/${this.admin}/manage-reviews`;
+      let requestURL = `${rootURL}#/admin/${this.admin}/manage-reviews`;
       let templateData = { role: 'admin', reviews, requests, rootURL, reviewURL, requestURL };
+      console.log('about to send email');
       sendEmail({to, from, subject, templateData, filename })
-
-
-
-
     }
   }
 }
