@@ -27,11 +27,8 @@ export interface sendEmailParams {
  */
 export const sendEmail = ({ to, bcc = '', from, replyTo = '', subject, templateData, filename }: sendEmailParams): void => {
   if (Meteor.isServer) {
-    console.log(`1. in sendEmail, filename: ${filename}, contents: ${Assets.getText(`email/${filename}`)}`);
     SSR.compileTemplate('htmlEmail', Assets.getText(`email/${filename}`));
-    console.log(`2. in sendEmail, to:`);
     const html = SSR.render('htmlEmail', templateData);
-    console.log(`3. in sendEmail, to:`);
     Email.send({ to, bcc, replyTo, from, subject, html });
   }
 };
