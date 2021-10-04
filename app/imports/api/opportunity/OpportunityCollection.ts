@@ -265,6 +265,8 @@ class OpportunityCollection extends BaseSlugCollection {
     if (teasers.length > 0) {
       throw new Meteor.Error(`Opportunity ${instance} referenced by a teaser.`);
     }
+    const profileOpportunities = ProfileOpportunities.find({ opportunityID: docID }).fetch();
+    profileOpportunities.forEach((po => ProfileOpportunities.removeIt(po._id)));
     return super.removeIt(docID);
   }
 

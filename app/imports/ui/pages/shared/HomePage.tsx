@@ -83,10 +83,7 @@ export default withTracker(() => {
       checklists.push(new InterestsChecklist(username));
       checklists.push(new CareerGoalsChecklist(username));
       checklists.push(new VisibilityChecklist(username));
-      checklists.push(new OutOfDateOpportunitiesChecklist(username));
-      checklists.push(new ManageVerificationRequestsChecklist(username));
       checklists.push(new ManageOpportunitiesChecklist(username));
-      checklists.push(new ManageReviewsChecklist(username));
       checklists.push(new TermsAndConditionsChecklist(username));
       break;
     case URL_ROLES.STUDENT:

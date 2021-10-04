@@ -36,6 +36,9 @@ const AdminPageMenu: React.FC = () => {
     { label: 'Interests', route: EXPLORER.INTERESTS },
     { label: 'Opportunities', route: EXPLORER.OPPORTUNITIES },
   ];
+  if (Meteor.settings.public.internship.show) {
+    explorerDropdownItems.push({ label: 'Internships', route: EXPLORER.INTERNSHIPS });
+  }
 
   /* Admins don't manage opportunities, since that's part of the data model */
   const manageDropdownItems = [

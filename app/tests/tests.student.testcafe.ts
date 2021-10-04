@@ -19,6 +19,7 @@ import {
   courseExplorerPage,
   opportunityExplorerPage,
   communityPage,
+  // internshipExplorerPage,
 } from './simple.page';
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
@@ -57,6 +58,9 @@ test('Test all student top-level pages', async (testController) => {
 
   await studentNavBar.gotoOpportunitiesPage(testController);
   await opportunityExplorerPage.isDisplayed(testController);
+
+  // await studentNavBar.gotoInternshipsExplorerPage(testController);
+  // await internshipExplorerPage.isDisplayed(testController);
 
   await studentNavBar.gotoDegreePlannerPage(testController);
   await studentDegreePlannerPage.isDisplayed(testController);

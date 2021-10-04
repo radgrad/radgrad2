@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Grid } from 'semantic-ui-react';
+import { Meteor } from 'meteor/meteor';
 import { getMostPopular, MostPopularData } from '../../../api/utilities/MostPopular.methods';
 import CommunityActivity from '../../components/shared/community/CommunityActivity';
+import InterestInternshipCount from '../../components/shared/community/InterestInternshipCount';
 import LevelDistribution from '../../components/shared/community/LevelDistribution';
 import MostPopular, { MOSTPOPULAR } from '../../components/shared/community/MostPopular';
 import UpcomingEvents from '../../components/shared/community/UpcomingEvents';
@@ -17,6 +19,7 @@ const headerPaneImage = 'images/header-panel/header-community.png';
 const CommunityPage: React.FC = () => {
   // data will hold the MostPopularEntity information
   const [data, setData] = useState<MostPopularData>({});
+
   // fetched is used to ensure that we only get the data once.
   const [fetched, setFetched] = useState(false);
   // this useEffect is used to get theMostPopular data once when the page is first rendered.
@@ -37,6 +40,7 @@ const CommunityPage: React.FC = () => {
       setFetched(true);
     }
   }, [fetched]);
+
   return (
     <PageLayout id={PAGEIDS.COMMUNITY} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
       <Grid stackable>
@@ -62,6 +66,13 @@ const CommunityPage: React.FC = () => {
         <Grid.Column width={6}>
           <CommunityActivity />
         </Grid.Column>
+        {Meteor.settings.public.internship.show ? (
+          <Grid.Row>
+            <Grid.Column>
+              <InterestInternshipCount size='small' />
+            </Grid.Column>
+          </Grid.Row>
+        ) : ''}
       </Grid>
     </PageLayout>
   );

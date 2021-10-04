@@ -11,13 +11,16 @@ import { SlugDefine } from '../../typings/radgrad';
  * @memberOf api/slug
  */
 const slugify = (text: string): string =>
-  text.toString().toLowerCase()
-    .replace(/\s+/g, '-') // Replace spaces with -
-    .replace(/[^\w-]+/g, '') // Remove all non-word chars
-    .replace(/--+/g, '-') // Replace multiple - with single -
-    .replace(/^-+/, '') // Trim - from start of text
-    .replace(/-+$/, '') // Trim - from end of text
-;
+  (text
+    ? text
+      .toString()
+      .toLowerCase()
+      .replace(/\s+/g, '-') // Replace spaces with -
+      .replace(/[^\w-]+/g, '') // Remove all non-word chars
+      .replace(/--+/g, '-') // Replace multiple - with single -
+      .replace(/^-+/, '') // Trim - from start of text
+      .replace(/-+$/, '') // Trim - from end of text
+    : 'undefined');
 // TODO why are we export default the function?
 export default slugify;
 
@@ -27,20 +30,21 @@ export default slugify;
  * @memberOf api/slug
  */
 class SlugCollection extends BaseCollection {
-
   /**
    * Creates the Slug collection.
    */
   constructor() {
-    super('Slug', new SimpleSchema({
-      entityID: { type: SimpleSchema.RegEx.Id, optional: true },
-      entityName: { type: String },
-      name: { type: String },
-    }));
+    super(
+      'Slug',
+      new SimpleSchema({
+        entityID: { type: SimpleSchema.RegEx.Id, optional: true },
+        entityName: { type: String },
+        name: { type: String },
+      }),
+    );
     if (Meteor.isServer) {
       this.collection.rawCollection().createIndex({ name: 1, entityName: 1 });
     }
-
   }
 
   /**
@@ -72,7 +76,7 @@ class SlugCollection extends BaseCollection {
    */
   public isValidSlugName(slugName: string) {
     const slugRegEx = new RegExp('^[a-zA-Z0-9@.]+(?:[_-][a-zA-Z0-9@.]+)*$');
-    return (typeof slugName === 'string') && slugName.length > 0 && slugRegEx.test(slugName);
+    return typeof slugName === 'string' && slugName.length > 0 && slugRegEx.test(slugName);
   }
 
   /**

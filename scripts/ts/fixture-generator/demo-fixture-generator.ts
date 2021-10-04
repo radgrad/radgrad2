@@ -221,6 +221,10 @@ const createFixture = (radgradDump: IDataDump, studentConfig: StudentConfig, aca
   result.collections.push(buildReviewsCollection(studentConfig, academicTerms, opportunities, courses));
   // Empty collections so we can load. Will fill in later
   result.collections.push({
+    name: RadGradCollectionName.INTEREST_KEYWORDS,
+    contents: [],
+  });
+  result.collections.push({
     name: RadGradCollectionName.PROFILE_CAREER_GOALS,
     contents: [],
   });

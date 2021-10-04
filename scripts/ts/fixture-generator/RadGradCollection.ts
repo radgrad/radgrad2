@@ -10,6 +10,7 @@ export enum RadGradCollectionName {
   COURSE_INSTANCES = 'CourseInstanceCollection',
   FACULTY_PROFILES = 'FacultyProfileCollection',
   INTERESTS = 'InterestCollection',
+  INTEREST_KEYWORDS = 'InterestKeywordCollection',
   INTEREST_TYPES = 'InterestTypeCollection',
   INTERNSHIPS = 'InternshipCollection',
   OPPORTUNITIES = 'OpportunityCollection',

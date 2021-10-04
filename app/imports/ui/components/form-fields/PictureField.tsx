@@ -116,6 +116,7 @@ const PictureField: React.FC<TextFieldProps> = ({
   );
 };
 
+// eslint-disable-next-line react/default-props-match-prop-types
 PictureField.defaultProps = { type: 'text' };
 
 export default connectField(PictureField, { kind: 'leaf' });
