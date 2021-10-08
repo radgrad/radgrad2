@@ -288,8 +288,16 @@ export const processStarJsonData = (student, jsonData) => {
     if (isNaN(num)) {
       num = course.transferNumber;
     }
+    let semester = course.semester;
+    if (!Meteor.settings.public.quarterSystem) {
+      const split = semester.split(' ');
+      if (split[0] === AcademicTerms.WINTER) {
+        const yearSplit = split[1].split('/');
+        semester = `${AcademicTerms.FALL} ${yearSplit[0]}`;
+      }
+    }
     const obj: StarDataObject = {
-      semester: course.semester,
+      semester,
       name,
       num,
       credits: course.credits,
