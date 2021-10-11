@@ -8,7 +8,7 @@
     "cloudinary": { "cloud_name": "radgrad", "upload_preset": "CHANGEME" },
     "development": true,
     "gradeCompetency": { "A": 10, "B": 8, "C": 0 },
-    "internship": { "show": true, "uploadFilter": { "number": 4, "unit": "weeks" } },
+    "internship": { "show": false, "uploadFilter": { "number": 4, "unit": "weeks" } },
     "level": {
       "six": { "plannedICE": { "i": 100,  "c": 100, "e": 100 }, "earnedICE": {"i": 100, "c": 100, "e": 100 }, "reviews": 6 },
       "five": { "plannedICE": { "i": 100, "c": 100, "e": 100 }, "earnedICE": { "i": 80, "c": 80, "e": 80 }, "reviews": 1 },
