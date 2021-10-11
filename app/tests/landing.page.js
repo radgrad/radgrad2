@@ -10,7 +10,7 @@ class LandingPage {
 
   /** Asserts that this page is currently displayed. */
   async isDisplayed(testController) {
-    const waitTime = 20;
+    const waitTime = 25;
     console.log(`Waiting ${waitTime} seconds before running LandingPage.isDisplayed().`);
     await testController.wait(waitTime * 1000).expect(this.pageSelector.exists).ok();
   }
