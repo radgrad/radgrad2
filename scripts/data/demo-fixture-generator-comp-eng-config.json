@@ -1123,6 +1123,34 @@
       ],
       "reviews": [
         {
+          "academicYearOffset": -3,
+          "termNum": 1,
+          "reviewee": "ee_260",
+          "rating": 5,
+          "comments": "Interesting lecture and fun lab, I learned a lot about digital circuits and learning how to program FPGA boards."
+        },
+        {
+          "academicYearOffset": -3,
+          "termNum": 1,
+          "reviewee": "ee_211",
+          "rating": 5,
+          "comments": "Learned a lot about DC circuit analysis and was a really fun class, I recommend spending 10 hours a week on the class studying by doing majority of the problems in the book"
+        },
+        {
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "reviewee": "ee_324",
+          "rating": 5,
+          "comments": "An interesting class that is related to how particles affect electronics which also has applications to computer hardware"
+        },
+        {
+          "academicYearOffset": -2,
+          "termNum": 2,
+          "reviewee": "ee_213",
+          "rating": 4,
+          "comments": "Tough class but rewarding, focus on convolution that will be used in EE 315"
+        },
+        {
           "academicYearOffset": -1,
           "termNum": 1,
           "reviewee": "hacc",
@@ -1130,11 +1158,11 @@
           "comments": "I participated in several HACC events. As others have mentioned, this hackathon differs in the way that it offers participants an entire month to flesh out their ideas and develop their apps, so judges really do expect a lot more and have higher standards when evaluating our final submissions. I would recommend everyone to participate in this challenge to get the feel of competing in a hackathon without the pressure to finish in only a few days. It’s also a great opportunity to go outside of your comfort zone to find the best solution for your challenge, even if it’s not a language or framework that you’re intimately familiar with. My favorite part of this event is seeing all the amazing apps that teams have developed at the end of the month. It’s extremely inspiring and motivating to see everyone’s finished product and encourages me to start my own side projects."
         },
         {
-          "academicYearOffset": -2,
-          "termNum": 1,
-          "reviewee": "acm-manoa",
+          "academicYearOffset": -1,
+          "termNum": 2,
+          "reviewee": "ee_367",
           "rating": 5,
-          "comments": "ACM Manoa is an excellent club to join. You can meet other ICS students, ask questions, get help on courses. The several interest groups are great. It is a real help for your undergraduate experience."
+          "comments": "Interesting course about Algorithms and Data Structures. The lab might seem a little unnecessary but is very interesting and applies concepts from the class to socket programming. The concepts learned in the class learned are very important to programming interviews and the books used in the class will be helpful in the future."
         }
       ]
     },
@@ -1381,6 +1409,34 @@
       ],
       "reviews": [
         {
+          "academicYearOffset": -3,
+          "termNum": 1,
+          "reviewee": "ee_260",
+          "rating": 5,
+          "comments": "Interesting lecture and fun lab, I learned a lot about digital circuits and learning how to program FPGA boards."
+        },
+        {
+          "academicYearOffset": -3,
+          "termNum": 1,
+          "reviewee": "ee_211",
+          "rating": 5,
+          "comments": "Learned a lot about DC circuit analysis and was a really fun class, I recommend spending 10 hours a week on the class studying by doing majority of the problems in the book"
+        },
+        {
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "reviewee": "ee_324",
+          "rating": 5,
+          "comments": "An interesting class that is related to how particles affect electronics which also has applications to computer hardware"
+        },
+        {
+          "academicYearOffset": -2,
+          "termNum": 2,
+          "reviewee": "ee_213",
+          "rating": 4,
+          "comments": "Tough class but rewarding, focus on convolution that will be used in EE 315"
+        },
+        {
           "academicYearOffset": -1,
           "termNum": 1,
           "reviewee": "hacc",
@@ -1388,11 +1444,11 @@
           "comments": "I participated in several HACC events. As others have mentioned, this hackathon differs in the way that it offers participants an entire month to flesh out their ideas and develop their apps, so judges really do expect a lot more and have higher standards when evaluating our final submissions. I would recommend everyone to participate in this challenge to get the feel of competing in a hackathon without the pressure to finish in only a few days. It’s also a great opportunity to go outside of your comfort zone to find the best solution for your challenge, even if it’s not a language or framework that you’re intimately familiar with. My favorite part of this event is seeing all the amazing apps that teams have developed at the end of the month. It’s extremely inspiring and motivating to see everyone’s finished product and encourages me to start my own side projects."
         },
         {
-          "academicYearOffset": -2,
-          "termNum": 1,
-          "reviewee": "acm-manoa",
+          "academicYearOffset": -1,
+          "termNum": 2,
+          "reviewee": "ee_367",
           "rating": 5,
-          "comments": "ACM Manoa is an excellent club to join. You can meet other ICS students, ask questions, get help on courses. The several interest groups are great. It is a real help for your undergraduate experience."
+          "comments": "Interesting course about Algorithms and Data Structures. The lab might seem a little unnecessary but is very interesting and applies concepts from the class to socket programming. The concepts learned in the class learned are very important to programming interviews and the books used in the class will be helpful in the future."
         }
       ]
     },
@@ -1639,6 +1695,34 @@
       ],
       "reviews": [
         {
+          "academicYearOffset": -3,
+          "termNum": 1,
+          "reviewee": "ee_260",
+          "rating": 5,
+          "comments": "Interesting lecture and fun lab, I learned a lot about digital circuits and learning how to program FPGA boards."
+        },
+        {
+          "academicYearOffset": -3,
+          "termNum": 1,
+          "reviewee": "ee_211",
+          "rating": 5,
+          "comments": "Learned a lot about DC circuit analysis and was a really fun class, I recommend spending 10 hours a week on the class studying by doing majority of the problems in the book"
+        },
+        {
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "reviewee": "ee_324",
+          "rating": 5,
+          "comments": "An interesting class that is related to how particles affect electronics which also has applications to computer hardware"
+        },
+        {
+          "academicYearOffset": -2,
+          "termNum": 2,
+          "reviewee": "ee_213",
+          "rating": 4,
+          "comments": "Tough class but rewarding, focus on convolution that will be used in EE 315"
+        },
+        {
           "academicYearOffset": -1,
           "termNum": 1,
           "reviewee": "hacc",
@@ -1646,11 +1730,11 @@
           "comments": "I participated in several HACC events. As others have mentioned, this hackathon differs in the way that it offers participants an entire month to flesh out their ideas and develop their apps, so judges really do expect a lot more and have higher standards when evaluating our final submissions. I would recommend everyone to participate in this challenge to get the feel of competing in a hackathon without the pressure to finish in only a few days. It’s also a great opportunity to go outside of your comfort zone to find the best solution for your challenge, even if it’s not a language or framework that you’re intimately familiar with. My favorite part of this event is seeing all the amazing apps that teams have developed at the end of the month. It’s extremely inspiring and motivating to see everyone’s finished product and encourages me to start my own side projects."
         },
         {
-          "academicYearOffset": -2,
-          "termNum": 1,
-          "reviewee": "acm-manoa",
+          "academicYearOffset": -1,
+          "termNum": 2,
+          "reviewee": "ee_367",
           "rating": 5,
-          "comments": "ACM Manoa is an excellent club to join. You can meet other ICS students, ask questions, get help on courses. The several interest groups are great. It is a real help for your undergraduate experience."
+          "comments": "Interesting course about Algorithms and Data Structures. The lab might seem a little unnecessary but is very interesting and applies concepts from the class to socket programming. The concepts learned in the class learned are very important to programming interviews and the books used in the class will be helpful in the future."
         }
       ]
     },
@@ -1897,6 +1981,34 @@
       ],
       "reviews": [
         {
+          "academicYearOffset": -3,
+          "termNum": 1,
+          "reviewee": "ee_260",
+          "rating": 5,
+          "comments": "Interesting lecture and fun lab, I learned a lot about digital circuits and learning how to program FPGA boards."
+        },
+        {
+          "academicYearOffset": -3,
+          "termNum": 1,
+          "reviewee": "ee_211",
+          "rating": 5,
+          "comments": "Learned a lot about DC circuit analysis and was a really fun class, I recommend spending 10 hours a week on the class studying by doing majority of the problems in the book"
+        },
+        {
+          "academicYearOffset": -2,
+          "termNum": 1,
+          "reviewee": "ee_324",
+          "rating": 5,
+          "comments": "An interesting class that is related to how particles affect electronics which also has applications to computer hardware"
+        },
+        {
+          "academicYearOffset": -2,
+          "termNum": 2,
+          "reviewee": "ee_213",
+          "rating": 4,
+          "comments": "Tough class but rewarding, focus on convolution that will be used in EE 315"
+        },
+        {
           "academicYearOffset": -1,
           "termNum": 1,
           "reviewee": "hacc",
@@ -1904,11 +2016,11 @@
           "comments": "I participated in several HACC events. As others have mentioned, this hackathon differs in the way that it offers participants an entire month to flesh out their ideas and develop their apps, so judges really do expect a lot more and have higher standards when evaluating our final submissions. I would recommend everyone to participate in this challenge to get the feel of competing in a hackathon without the pressure to finish in only a few days. It’s also a great opportunity to go outside of your comfort zone to find the best solution for your challenge, even if it’s not a language or framework that you’re intimately familiar with. My favorite part of this event is seeing all the amazing apps that teams have developed at the end of the month. It’s extremely inspiring and motivating to see everyone’s finished product and encourages me to start my own side projects."
         },
         {
-          "academicYearOffset": -2,
-          "termNum": 1,
-          "reviewee": "acm-manoa",
+          "academicYearOffset": -1,
+          "termNum": 2,
+          "reviewee": "ee_367",
           "rating": 5,
-          "comments": "ACM Manoa is an excellent club to join. You can meet other ICS students, ask questions, get help on courses. The several interest groups are great. It is a real help for your undergraduate experience."
+          "comments": "Interesting course about Algorithms and Data Structures. The lab might seem a little unnecessary but is very interesting and applies concepts from the class to socket programming. The concepts learned in the class learned are very important to programming interviews and the books used in the class will be helpful in the future."
         }
       ]
     },
