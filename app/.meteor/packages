@@ -15,7 +15,7 @@ static-html@1.3.2                      # Define static page content in .html fil
 reactive-var@1.0.11              # Reactive variable for tracker
 tracker@1.2.0                    # Meteor's client-side reactive programming library
 es5-shim@4.8.0                   # ECMAScript 5 compatibility for older browsers
-ecmascript@0.15.3                # Enable ECMAScript2015+ syntax in app code
+ecmascript@0.16.0                # Enable ECMAScript2015+ syntax in app code
 shell-server@0.5.0               # Server-side component of the `meteor shell` command
 
 # Accounts
@@ -46,7 +46,7 @@ alanning:roles
 mizzao:user-status
 email@2.2.0
 meteorhacks:ssr
-typescript@4.3.5
+typescript@4.4.0
 meteortesting:browser-tests
 lmieulet:meteor-coverage
 littledata:synced-cron
@@ -55,6 +55,6 @@ montiapm:agent@2.39.1-beta.1
 zodern:standard-minifier-js
 zodern:hide-production-sourcemaps
 standard-minifier-css@1.7.4
-accounts-password@2.1.0
+accounts-password@2.2.0
 cammoo:accounts-cas
 fetch@0.1.1
