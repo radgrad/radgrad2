@@ -1,4 +1,4 @@
 export const buildVersion = {
-  bugFix: '10/01/21',
-  version: '2.1.8',
+  bugFix: '11/02/21',
+  version: '2.1.9',
 };
