@@ -71,6 +71,7 @@ const UpdateTeaserForm: React.FC<UpdateTeaserFormProps> = ({
     retired: { type: Boolean, optional: true },
   });
   const formSchema = new SimpleSchema2Bridge(schema);
+  // console.log('model', model);
   return (
     <Segment padded>
       <Header dividing>
