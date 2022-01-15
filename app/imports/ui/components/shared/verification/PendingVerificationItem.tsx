@@ -28,14 +28,8 @@ const PendingVerificationItem: React.FC<PendingVerificationItemProps> = ({ verif
 
   const handleForm = (e, { id, command, student }) => {
     const feedback = feedbackState;
-    processPendingVerificationMethod.call({ verificationRequestID: id, command, feedback }, (error, result) => {
-      if (result) {
-        updateLevelMethod.call({ studentID: student.userID }, (err) => {
-          if (err) {
-            console.error(`Error updating ${student._id} level ${err.message}`);
-          }
-        });
-      }
+    processPendingVerificationMethod.callPromise({ verificationRequestID: id, command, feedback }).then(() => {
+      updateLevelMethod.callPromise({ studentID: student.userID }).catch((err) => console.error(`Error updating ${student._id} level ${err.message}`));
     });
   };
 
@@ -50,6 +44,7 @@ const PendingVerificationItem: React.FC<PendingVerificationItemProps> = ({ verif
           <br />
           Sponsor: {sponsorProfile.firstName} {sponsorProfile.lastName}
           <br />
+          Justification: {verificationRequest.documentation}
           <Form style={{ paddingTop: '14px' }}>
             <Form.Input placeholder="Optional feedback" onChange={handleChange} value={feedbackState} />
             <Form.Group inline>

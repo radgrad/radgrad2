@@ -134,8 +134,9 @@ export const testCalcLevel = (studentID: string): number => {
  * @param studentID the studentID.
  * @memberOf api/level
  */
-export const updateStudentLevel = (studentID: string): void => {
+export const updateStudentLevel = (studentID: string) => {
   let level;
+  let leveledUp = false;
   if (RadGrad.calcLevel) {
     level = RadGrad.calcLevel(studentID);
   } else {
@@ -143,6 +144,7 @@ export const updateStudentLevel = (studentID: string): void => {
   }
   const profile = StudentProfiles.getProfile(studentID);
   if (profile.level !== level) {
+    leveledUp = true;
     const collectionName = StudentProfiles.getCollectionName();
     const updateData: StudentProfileUpdate = {};
     updateData.id = profile._id;
@@ -154,17 +156,45 @@ export const updateStudentLevel = (studentID: string): void => {
     });
   }
   StudentProfiles.setLevel(studentID, level);
+  return leveledUp ? `You have advanced to Level ${level}` : `You remain at Level ${level}`;
 };
 
 /**
  * Updates all the students level.
  * @memberOf api/level
+ * @return The number of student profiles checked for updating.
  */
-export const updateAllStudentLevels = (userId): number => {
+export const updateAllStudentLevels = (): number => {
+  console.log('Starting: Update all student levels.');
   StudentProfiles.find().forEach((student) => {
     updateStudentLevel(student.userID);
   });
-  return StudentProfiles.find().count();
+  const numChecked = StudentProfiles.find().count();
+  console.log(`Checked ${numChecked} student levels.`);
+  return numChecked;
+};
+
+/**
+ * Updates all the students level via a cron job.
+ * The important difference is that this code runs without a logged in user.
+ * Therefore, we cannot call the standard updateMethod, which requires a logged in user.
+ * @memberOf api/level
+ * @return The number of student profiles checked for updating.
+ */
+export const updateAllStudentLevelsCron = (): number => {
+  console.log('Starting: Update all student levels (cron).');
+  StudentProfiles.find().forEach((student) => {
+    const studentID = student.userID;
+    const level = (RadGrad.calcLevel) ? RadGrad.calcLevel(studentID) : defaultCalcLevel(studentID);
+    const profile = StudentProfiles.getProfile(studentID);
+    if (profile.level !== level) {
+      StudentProfiles.setLevel(studentID, level);
+      StudentProfiles.setLastLeveledUp(studentID);
+    }
+  });
+  const numChecked = StudentProfiles.find().count();
+  console.log(`Checked ${numChecked} student levels.`);
+  return numChecked;
 };
 
 export const getLevelCriteriaStringMarkdown = (level: string): string => {
@@ -174,7 +204,7 @@ export const getLevelCriteriaStringMarkdown = (level: string): string => {
   const criteria = Meteor.settings.public.level[level];
   let plannedICEStr = '';
   if (criteria.plannedICE.i !== 0 || criteria.plannedICE.c !== 0 || criteria.plannedICE.e !== 0) {
-    plannedICEStr = '+ Planned ICE of';
+    plannedICEStr = '+ Planned myICE of';
     if (criteria.plannedICE.i !== 0) {
       plannedICEStr = `${plannedICEStr} **I >= ${criteria.plannedICE.i},`;
     }
@@ -187,7 +217,7 @@ export const getLevelCriteriaStringMarkdown = (level: string): string => {
   }
   let earnedICEStr = '';
   if (criteria.earnedICE.i !== 0 || criteria.earnedICE.c !== 0 || criteria.earnedICE.e !== 0) {
-    earnedICEStr = '+ Earned ICE of';
+    earnedICEStr = '+ Earned myICE of';
     if (criteria.earnedICE.i !== 0) {
       earnedICEStr = `${earnedICEStr} **I >= ${criteria.earnedICE.i},`;
     }
@@ -234,27 +264,22 @@ export const getLevelHintStringMarkdown = (level: string): string => {
   let result = '';
   switch (level) {
     case 'six':
-    // eslint-disable-next-line max-len
       result = `
 ${getLevelCriteriaStringMarkdown(level)}.`;
       break;
     case 'five':
-    // eslint-disable-next-line max-len
       result = `
  ${getLevelCriteriaStringMarkdown(level)}.`;
       break;
     case 'four':
-    // eslint-disable-next-line max-len
       result = `
 ${getLevelCriteriaStringMarkdown(level)}.`;
       break;
     case 'three':
-    // eslint-disable-next-line max-len
       result = `
 ${getLevelCriteriaStringMarkdown(level)}.`;
       break;
     case 'two':
-    // eslint-disable-next-line max-len
       result = `
 ${getLevelCriteriaStringMarkdown(level)}.`;
       break;

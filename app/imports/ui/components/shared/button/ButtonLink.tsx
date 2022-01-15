@@ -13,6 +13,6 @@ interface ButtonLinkProps {
   target?: string;
 }
 
-export const ButtonLink: React.FC<ButtonLinkProps> = ({ url, label, size = 'large', color, style = {}, rel, target }) => (
-  <Button style={style} size={size} color={color} as={Link} to={url} rel={rel} target={target} icon='arrow alternate circle right' labelPosition='right' content={label}/>
+export const ButtonLink: React.FC<ButtonLinkProps> = ({ url, label, size = 'large', color, style = {}, rel, target, icon = 'arrow alternate circle right' }) => (
+  <Button style={style} size={size} color={color} as={Link} to={url} rel={rel} target={target} icon={icon} labelPosition='right' content={label}/>
 );

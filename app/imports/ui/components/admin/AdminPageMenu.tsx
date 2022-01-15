@@ -36,6 +36,9 @@ const AdminPageMenu: React.FC = () => {
     { label: 'Interests', route: EXPLORER.INTERESTS },
     { label: 'Opportunities', route: EXPLORER.OPPORTUNITIES },
   ];
+  if (Meteor.settings.public.internship.show) {
+    explorerDropdownItems.push({ label: 'Internships', route: EXPLORER.INTERNSHIPS });
+  }
 
   /* Admins don't manage opportunities, since that's part of the data model */
   const manageDropdownItems = [
@@ -43,6 +46,7 @@ const AdminPageMenu: React.FC = () => {
     { label: 'Verification', route: MANAGE.VERIFICATION },
     { label: 'Reviews', route: MANAGE.REVIEWS },
     { label: 'Database', route: MANAGE.DATABASE },
+    { label: 'Internships', route: MANAGE.INTERNSHIPS },
   ];
 
   const datamodelDropdownItems = [
@@ -52,6 +56,7 @@ const AdminPageMenu: React.FC = () => {
     { label: 'Course Instances', route: DATAMODEL.COURSE_INSTANCES },
     { label: 'Courses', route: DATAMODEL.COURSES },
     { label: 'Interests', route: DATAMODEL.INTERESTS },
+    { label: 'Interest Keywords', route: DATAMODEL.INTEREST_KEYWORDS },
     { label: 'Interest Types', route: DATAMODEL.INTEREST_TYPES },
     { label: 'Opportunities', route: DATAMODEL.OPPORTUNITIES },
     { label: 'Opportunity Instances', route: DATAMODEL.OPPORTUNITY_INSTANCES },

@@ -2,6 +2,8 @@ import React from 'react';
 import { useRouteMatch, Link } from 'react-router-dom';
 import { Card, Icon, Label } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
+import { Ice } from '../../../../../typings/radgrad';
+import IceHeader from '../../IceHeader';
 import * as Router from '../../utilities/router';
 import { docToName, docToShortDescription, itemToSlugName } from '../../utilities/data-model';
 import { buildExplorerSlugRoute } from '../../utilities/router';
@@ -19,6 +21,7 @@ interface ExplorerCardProps {
     num?:string,
     createdAt: Date,
     updatedAt?: Date;
+    ice?: Ice;
   };
   type: string;
   inProfile: boolean;
@@ -32,7 +35,7 @@ const ExplorerCard: React.FC<ExplorerCardProps> = ({ item, type, inProfile }) =>
   return (
     <Card>
       <Card.Content>
-        <Card.Header>{itemName}</Card.Header>
+        <Card.Header>{itemName} {(type === EXPLORER_TYPE.OPPORTUNITIES) ? <IceHeader ice={item.ice} size='large' /> : ''}</Card.Header>
         { inProfile ? <Label ribbon='right' color='green'>IN MY PROFILE</Label> : '' }
       </Card.Content>
       <Card.Content>

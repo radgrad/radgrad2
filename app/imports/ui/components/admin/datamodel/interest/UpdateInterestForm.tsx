@@ -1,8 +1,9 @@
 import React from 'react';
 import { Button, Form, Header, Segment } from 'semantic-ui-react';
-import { AutoForm, TextField, SelectField, LongTextField, BoolField, SubmitField, ErrorsField } from 'uniforms-semantic';
+import { AutoForm, TextField, SelectField, LongTextField, BoolField, SubmitField, ErrorsField, AutoField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
+import { InterestKeywords } from '../../../../../api/interest/InterestKeywordCollection';
 import { InterestTypes } from '../../../../../api/interest/InterestTypeCollection';
 import { COMPONENTIDS } from '../../../../utilities/ComponentIDs';
 import PictureField from '../../../form-fields/PictureField';
@@ -30,6 +31,7 @@ const UpdateInterestForm: React.FC<UpdateInterestFormProps> = ({
   const interestTypeNames = interestTypes.map(docToName);
   const model = collection.findDoc(id);
   model.interestType = InterestTypes.findDoc(model.interestTypeID).name;
+  model.keywords = InterestKeywords.getKeywords(id);
   const schema = new SimpleSchema({
     name: { type: String, optional: true },
     picture: { type: String, optional: true },
@@ -41,6 +43,8 @@ const UpdateInterestForm: React.FC<UpdateInterestFormProps> = ({
     },
     description: { type: String, optional: true },
     retired: { type: Boolean, optional: true },
+    keywords: { type: Array, optional: true },
+    'keywords.$': { type: String },
   });
   const formSchema = new SimpleSchema2Bridge(schema);
   return (
@@ -57,6 +61,7 @@ const UpdateInterestForm: React.FC<UpdateInterestFormProps> = ({
         <PictureField name="picture" placeholder='https://mywebsite.com/picture.png' />
         <LongTextField name="description" />
         <BoolField name="retired" />
+        <AutoField name="keywords" />
         <SubmitField inputRef={undefined} value="Update" disabled={false} className="mini basic green" />
         <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
         <ErrorsField id={COMPONENTIDS.DATA_MODEL_ERROR_FIELD} />

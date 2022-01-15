@@ -92,6 +92,9 @@ const DegreeExperiencePlanner: React.FC<DePProps> = ({ academicYearInstances, co
   };
 
   const isYearEmpty = (year): boolean => {
+    if (_.isNil(year)) {
+      return false;
+    }
     const mapped = year.termIDs.map((termID) => isTermEmpty(termID));
     return mapped.every((bool) => bool === true);
   };

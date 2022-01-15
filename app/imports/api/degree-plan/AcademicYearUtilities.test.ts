@@ -24,7 +24,7 @@ if (Meteor.isServer) {
 
       // 1/11/18: Test failed: expected 11 to equal 10. I've changed to 11 so test passes. Has curr academicTerm changed?
       // TODO: Yes the current academicTerm has rolled and we will have to update this 3 times a year or update abi.student
-      expect(utilities.getStudentsCurrentAcademicTermNumber(profile.userID)).to.equal(21);
+      expect(utilities.getStudentsCurrentAcademicTermNumber(profile.userID)).to.equal(22);
     });
     it('#getStudentTerms.', function test() {
       const profile = Users.getProfile('abi@hawaii.edu');

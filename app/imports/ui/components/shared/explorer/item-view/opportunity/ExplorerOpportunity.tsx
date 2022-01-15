@@ -39,7 +39,7 @@ const ExplorerOpportunity: React.FC<ExplorerOpportunitiesProps> = ({ opportunity
   const isSponsor = profile.userID === opportunity.sponsorID;
   const showManageButtons = isSponsor || profile.role === ROLE.ADMIN;
 
-  const eventListItem = (date, label) => (date ? <List.Item key='${label}'>{moment(date).format('LL')}:  {label}</List.Item> : '');
+  const eventListItem = (date, label) => (date ? <List.Item key={label}>{moment.utc(date).format('LL')}:  {label}</List.Item> : '');
   const reviewDoc = review.length > 0 ? review[0] : null;
 
   return (
@@ -49,7 +49,7 @@ const ExplorerOpportunity: React.FC<ExplorerOpportunitiesProps> = ({ opportunity
         <Markdown escapeHtml linkTarget="_blank" source={opportunity.description} />
         <Grid stackable style={gridStyle}>
           <Grid.Row style={compactRowStyle}>
-            <strong style={{ paddingTop: '4px' }}>ICE:</strong>&nbsp;<IceHeader ice={opportunity.ice} size='large' />
+            <strong style={{ paddingTop: '4px' }}>myICE:</strong>&nbsp;<IceHeader ice={opportunity.ice} size='large' />
           </Grid.Row>
           <Grid.Row style={compactRowStyle}>
             <strong style={{ paddingTop: '5px' }}>Sponsor:</strong> &nbsp; <UserLabel username={opportunity.sponsorID}/>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Grid, Icon } from 'semantic-ui-react';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
+import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import { getLastAcademicTermMethod } from '../../../../api/user/StudentProfileCollection.methods';
 import { COMPONENTIDS } from '../../../utilities/ComponentIDs';
 import { ButtonLink } from '../../shared/button/ButtonLink';
@@ -19,7 +20,7 @@ const ManageStudentItem: React.FC<ManageStudentProps> = ({
   profileInterests,
 }) => {
   const name = `${student.lastName}, ${student.firstName}`;
-  const startTerm = AcademicTerms.findDoc({ termNumber: 0 });
+  const startTerm = StudentProfiles.getLastAcademicTerm(student.username);
   const [lastTerm, setLastTerm] = useState(startTerm);
   const [fetched, setFetched] = useState(false);
 

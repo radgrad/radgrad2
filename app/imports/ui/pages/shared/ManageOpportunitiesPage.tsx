@@ -22,7 +22,7 @@ For faculty, the most important reason to create opportunities is because it pro
 
   1. By specifying one or more "interests" (i.e. disciplinary areas) associated with your research project, RadGrad can recommend your project to students who have also specified those interest areas.
 
-  2. Because students earn ICE points for completing opportunities, and because we recommend you award the maximum number of Innovation points for participating in a research project for each academic term, students who wish to achieve the higher levels in RadGrad will almost certainly need to participate in a faculty research project.
+  2. Because students earn myICE points for completing opportunities, and because we recommend you award the maximum number of Innovation points for participating in a research project for each academic term, students who wish to achieve the higher levels in RadGrad will almost certainly need to participate in a faculty research project.
 
   3. Students can pick your research project for multiple academic terms and earn Innovation points for each academic term.
 

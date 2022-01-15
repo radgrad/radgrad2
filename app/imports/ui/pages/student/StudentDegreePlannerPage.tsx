@@ -36,7 +36,6 @@ import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 
 interface StudentDegreePlannerProps {
-  takenSlugs: string[];
   match: MatchProps;
   academicYearInstances: AcademicYearInstance[];
   courseInstances: CourseInstance[];
@@ -160,7 +159,7 @@ Telling RadGrad what you've planned and completed helps the system provide bette
 `;
 const headerPaneImage = 'images/header-panel/header-planner.png';
 
-const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({ academicYearInstances, studentID, match, profileCourses, profileOpportunities, courseInstances, opportunityInstances, takenSlugs, verificationRequests }) => {
+const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({ academicYearInstances, studentID, match, profileCourses, profileOpportunities, courseInstances, opportunityInstances, verificationRequests }) => {
 
   const onDragEndProps = { match };
   const paddedStyle = { paddingTop: 0, paddingLeft: 10, paddingRight: 20 };
@@ -175,7 +174,6 @@ const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({ academi
 
             <Grid.Column width={5} style={paddedStyle}>
               <TabbedProfileEntries
-                takenSlugs={takenSlugs}
                 profileOpportunities={profileOpportunities}
                 studentID={studentID}
                 profileCourses={profileCourses}
@@ -189,14 +187,6 @@ const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({ academi
       </PageLayout>
     </DragDropContext>
   );
-};
-
-const takenSlugs = (courseInstances: CourseInstance[]): string[] => {
-  const passedCourseInstances = courseInstances.filter((ci) => passedCourse(ci));
-  return passedCourseInstances.map((ci) => {
-    const doc = CourseInstances.getCourseDoc(ci._id);
-    return Slugs.getNameFromID(doc.slugID);
-  });
 };
 
 export default withTracker(() => {
@@ -230,7 +220,6 @@ export default withTracker(() => {
   const opportunityInstances = OpportunityInstances.findNonRetired({ studentID });
   const verificationRequests = VerificationRequests.findNonRetired({ studentID });
   return {
-    takenSlugs: takenSlugs(courseInstances),
     academicYearInstances,
     opportunityInstances,
     courseInstances,

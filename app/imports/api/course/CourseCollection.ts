@@ -213,6 +213,9 @@ class CourseCollection extends BaseSlugCollection {
       }
       return true;
     });
+    // Remove all the ProfileCourses associated with this course.
+    const profileCourses = ProfileCourses.find({ courseID: docID }).fetch();
+    profileCourses.forEach(pc => ProfileCourses.removeIt(pc._id));
     // Now remove the Course.
     return super.removeIt(docID);
   }

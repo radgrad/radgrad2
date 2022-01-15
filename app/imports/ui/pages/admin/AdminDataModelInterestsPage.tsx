@@ -1,6 +1,7 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
 import { Confirm, Icon } from 'semantic-ui-react';
+import { InterestKeywords } from '../../../api/interest/InterestKeywordCollection';
 import RadGradAlert from '../../utilities/RadGradAlert';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { DescriptionPair, Interest, InterestType, InterestUpdate } from '../../../typings/radgrad';
@@ -20,11 +21,15 @@ const collection = Interests; // the collection to use.
  * Returns an array of Description pairs used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const descriptionPairs = (item: Interest): DescriptionPair[] => [
-  { label: 'Description', value: item.description },
-  { label: 'Interest Type', value: InterestTypes.findDoc(item.interestTypeID).name },
-  { label: 'Retired', value: item.retired ? 'True' : 'False' },
-];
+const descriptionPairs = (item: Interest): DescriptionPair[] => {
+  const keywords = Interests.isDefined(item._id) && InterestKeywords.getKeywords(item._id);
+  return [
+    { label: 'Description', value: item.description },
+    { label: 'Interest Type', value: InterestTypes.findDoc(item.interestTypeID).name },
+    { label: 'Retired', value: item.retired ? 'True' : 'False' },
+    { label: 'Keywords', value: keywords && keywords.length > 0 ? keywords.join(', ') : 'None' },
+  ];
+};
 
 /**
  * Returns the title string for the item. Used in the ListCollectionWidget.

@@ -61,8 +61,10 @@ const PictureField: React.FC<TextFieldProps> = ({
     e.preventDefault();
     try {
       const cloudinaryResult = await openCloudinaryWidget();
+      // console.log(cloudinaryResult);
       if (cloudinaryResult.event === 'success') {
         setPictureURL(cloudinaryResult.info.secure_url);
+        onChange(cloudinaryResult.info.secure_url);
       }
     } catch (err) {
       RadGradAlert.failure('Failed to Upload Photo', err.statusText, err);
@@ -70,6 +72,7 @@ const PictureField: React.FC<TextFieldProps> = ({
   };
 
   const handleChange = (event) => {
+    // console.log('handleChange', event);
     setPictureURL(event.target.value);
     onChange(event.target.value);
   };
@@ -116,6 +119,7 @@ const PictureField: React.FC<TextFieldProps> = ({
   );
 };
 
+// eslint-disable-next-line react/default-props-match-prop-types
 PictureField.defaultProps = { type: 'text' };
 
 export default connectField(PictureField, { kind: 'leaf' });

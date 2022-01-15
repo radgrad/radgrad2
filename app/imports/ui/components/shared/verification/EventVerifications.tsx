@@ -55,20 +55,14 @@ const EventVerifications: React.FC<EventVerificationsProps> = ({ eventOpportunit
 
     const academicTerm = AcademicTerms.getAcademicTerm(opportunity.eventDate1);
 
-    processVerificationEventMethod.call(
+    processVerificationEventMethod.callPromise(
       {
         student: studentState,
         opportunity: opportunityState,
         academicTerm,
-      },
-      (e, result) => {
-        if (e) {
-          onLog(`Error: problem during processing: ${e}\n`);
-        } else {
-          onLog(result);
-        }
-      },
-    );
+      })
+      .catch(e => onLog(`Error: problem during processing: ${e}\n`))
+      .then(result => onLog(result));
   };
 
   // componentDidUpdate(prevProps: Readonly<IEventVerificationsWidgetProps>, prevState: Readonly<{}>): void {
