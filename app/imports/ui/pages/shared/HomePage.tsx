@@ -118,8 +118,12 @@ export default withTracker(() => {
       default:
     // do nothing
     }
-
   });
+  // sort each group alphabetically
+  const itemCompare = (a, b) => a.key.localeCompare(b.key);
+  improveItems.sort(itemCompare);
+  reviewItems.sort(itemCompare);
+  okItems.sort(itemCompare);
   return {
     okItems,
     reviewItems,
