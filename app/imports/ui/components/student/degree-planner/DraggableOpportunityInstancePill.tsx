@@ -97,7 +97,7 @@ const DraggableOpportunityInstancePill: React.FC<OpportunityInstancePillProps> =
               <b>Scheduled:</b> {termName}
             </p>
             <FutureParticipationButton item={opp} />
-            <ButtonAction onClick={handleRemove} icon='trash alternate outline' label='Remove' style={cardStyle} size='mini' />
+            <ButtonAction onClick={handleRemove} icon='trash alternate outline' label='Remove' style={cardStyle} size='mini' id='remove-opportunity' />
           </React.Fragment>
         ) : (
           <React.Fragment>
@@ -109,7 +109,7 @@ const DraggableOpportunityInstancePill: React.FC<OpportunityInstancePillProps> =
             ) : (
               <React.Fragment>
                 <ButtonLink url={`/${URL_ROLES.STUDENT}/${profile.username}/${STUDENT_VERIFICATION}`} label='Verification Page' size='mini' />
-                <ButtonAction onClick={handleRemove} icon='trash alternate outline' label='Remove' style={cardStyle} size='mini' />
+                <ButtonAction onClick={handleRemove} icon='trash alternate outline' label='Remove' style={cardStyle} size='mini' id='remove-verification' />
               </React.Fragment>
             )}
           </React.Fragment>

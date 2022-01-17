@@ -17,13 +17,13 @@ const FutureParticipationButton: React.FC<FutureParticipationButtonProps> = ({ i
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
       open={open}
-      trigger={<ButtonAction color='green' key={`${item._id}-view-button`} label='View Future Participation' onClick={() => setOpen(true)} size='mini' style={style} />}>
+      trigger={<ButtonAction color='green' key={`${item._id}-view-button`} label='View Future Participation' onClick={() => setOpen(true)} size='mini' style={style} id={`${item._id}-view-button`} />}>
       <Modal.Header>Future Participation for {item.name}</Modal.Header>
       <Modal.Content>
         <FutureParticipation item={item} />
       </Modal.Content>
       <Modal.Actions>
-        <ButtonAction color='green' onClick={() => setOpen(false)} label='CLOSE' icon='close'/>
+        <ButtonAction color='green' onClick={() => setOpen(false)} label='CLOSE' icon='close' id='close' />
       </Modal.Actions>
     </Modal>
   );

@@ -17,9 +17,10 @@ interface ChecklistButtonActionProps {
   label: string
   icon?: string
   color?: SemanticCOLORS
+  id: string
 }
 
-export const ChecklistButtonAction: React.FC<ChecklistButtonActionProps> = ({ onClick, label, icon = 'thumbs up outline', color = 'green' }) => (
-  <ButtonAction style={{ marginBottom: '10px' }} size='mini' color={color} onClick={onClick} label={label} icon={icon}/>
+export const ChecklistButtonAction: React.FC<ChecklistButtonActionProps> = ({ onClick, label, icon = 'thumbs up outline', color = 'green', id }) => (
+  <ButtonAction style={{ marginBottom: '10px' }} size='mini' color={color} onClick={onClick} label={label} icon={icon} id={id} />
 );
 

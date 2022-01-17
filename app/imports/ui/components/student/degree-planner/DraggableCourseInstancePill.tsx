@@ -89,7 +89,7 @@ const DraggableCourseInstancePill: React.FC<CourseInstancePillProps> = ({ instan
               <b>Scheduled:</b> {termName}
             </p>
             <FutureParticipationButton item={course} />
-            <ButtonAction onClick={handleRemove} icon="trash alternate outline" label="Remove" style={cardStyle} size="mini" />
+            <ButtonAction onClick={handleRemove} icon="trash alternate outline" label="Remove" style={cardStyle} size="mini" id='remove-course' />
           </React.Fragment>
         )}
         <ViewInExplorerButtonLink match={match} type={EXPLORER_TYPE.COURSES} item={course} size="mini" />

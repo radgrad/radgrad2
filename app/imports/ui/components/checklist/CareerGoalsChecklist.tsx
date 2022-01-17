@@ -92,7 +92,7 @@ export class CareerGoalsChecklist extends Checklist {
         return (
           <ActionsBox description='Use the Career Goals Explorer to add them to your profile. Or, click "My Career Goals are OK" if they are OK:' >
             <ChecklistButtonLink url={`/${this.role.toLowerCase()}/${this.profile.username}/${EXPLORER.CAREERGOALS}`} label='Career Goals Explorer'/>
-            <ChecklistButtonAction onClick={handleVerification} label='Career Goals are OK'/>
+            <ChecklistButtonAction onClick={handleVerification} label='Career Goals are OK' id='career-goals-ok'/>
           </ActionsBox>
         );
       case CHECKSTATE.IMPROVE:

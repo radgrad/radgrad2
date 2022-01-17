@@ -115,13 +115,13 @@ const DegreeExperiencePlanner: React.FC<DePProps> = ({ academicYearInstances, co
         ))}
         <Grid.Row textAlign="center">
           <Grid.Column textAlign="left">
-            <ButtonAction onClick={handleAddYear} label='Add Year' icon='plus circle' />
+            <ButtonAction onClick={handleAddYear} label='Add Year' icon='plus circle' id='add-year'/>
           </Grid.Column>
           <Grid.Column textAlign="center" />
           <Grid.Column textAlign="right">
             {isYearEmpty(visibleYears[visibleYears.length - 1]) &&
             (
-              <ButtonAction onClick={handleDeleteYear} label='Delete Year' icon='minus circle' color='green' />
+              <ButtonAction onClick={handleDeleteYear} label='Delete Year' icon='minus circle' color='green' id='delete-year' />
             )}
           </Grid.Column>
         </Grid.Row>

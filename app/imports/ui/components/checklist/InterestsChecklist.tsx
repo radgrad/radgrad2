@@ -87,7 +87,7 @@ export class InterestsChecklist extends Checklist {
         return (
           <ActionsBox description='Use the Interests Explorer to search for Interests to add to your profile. Click "My Interests are OK if you think they are fine as is:' >
             <ChecklistButtonLink url={`/${this.role.toLowerCase()}/${this.profile.username}/${EXPLORER.INTERESTS}`} label='Interests Explorer'/>
-            <ChecklistButtonAction onClick={handleVerification} label='My Interests are OK'/>
+            <ChecklistButtonAction onClick={handleVerification} label='My Interests are OK' id='interests-are-ok'/>
           </ActionsBox>
         );
       default:

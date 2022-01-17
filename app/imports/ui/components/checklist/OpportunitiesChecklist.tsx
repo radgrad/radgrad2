@@ -90,7 +90,7 @@ Use the myICE Page to learn more about how Opportunities earn you Innovation and
             <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.OPPORTUNITIES}`} label='Opportunities Explorer'/>
             <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`} label='Degree Planner'/>
             <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${ICE}`} label='ICE Page'/>
-            <ChecklistButtonAction onClick={handleVerification} label='Opportunities are OK'/>
+            <ChecklistButtonAction onClick={handleVerification} label='Opportunities are OK' id='opportunities-are-ok'/>
           </ActionsBox>
         );
       default:

@@ -92,7 +92,7 @@ Use the myICE Page to learn how Courses earn you Competency points. Click "Cours
             <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.COURSES}`} label='Courses Explorer'/>
             <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`} label='Degree Planner'/>
             <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${ICE}`} label='ICE Page'/>
-            <ChecklistButtonAction onClick={handleVerification} label='Courses are OK'/>
+            <ChecklistButtonAction onClick={handleVerification} label='Courses are OK' id='courses-are-ok'/>
           </ActionsBox>
         );
       default:
