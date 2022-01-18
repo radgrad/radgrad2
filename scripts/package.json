@@ -44,7 +44,6 @@
     "lodash": "^4.17.20",
     "mocha": "^7.2.0",
     "moment": "^2.29.1",
-    "node": "^14.15.2",
     "node-fetch": "^2.6.1",
     "request": "^2.88.2",
     "typescript": "^3.9.7",
