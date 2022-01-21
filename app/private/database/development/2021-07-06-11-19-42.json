@@ -6212,189 +6212,204 @@
       "contents": [
         {
           "urls": [
-            "https://80000hours.org/job-board/?role=frontend-engineering-intern___recb6zAw5fIFhbGIa"
+            "https://angel.co/company/bankwithlvl/jobs/1635077-software-engineer"
           ],
-          "position": "Frontend Engineering Intern",
-          "description": "\"About the role: As a frontend engineering intern at Ought, you will be: Helping create intuitive user interfaces that let research analysts use language models as tools for thought. The role is paid.\"",
+          "position": "Software Engineer",
+          "description": "LVL is a premium financial services company that offers cryptocurrency trading and a checking account in one easy-to-use mobile app. LVL is the only platform in North America to offer free Bitcoin trading - no trading fees and no hidden spreads. LVL also offers neobank features such as direct deposit, wires, mobile check deposits, and a Mastercard debit card.\n\nLVL has received $4.5M in funding from top investors including TenOneTen, Morgan Creek Digital, Capital Factory, and others.\n\nThe Engineering team includes Data, IT, Security, and Software, and is responsible for building innovative products and infrastructure for LVL and our customers. We believe that engineers should accelerate the business through technology, and collaborate across multiple teams to accomplish that. They will work cross-functionally across the company, interfacing directly with vendors, triaging with support, and managing compliance risk. The engineering team is autonomous, eager to learn, teach and constantly improve how things work.  \n\nThe Software Engineer will report to the CEO and will:\n\n\nPublish OTA updates to LVL’s React Native app weekly, sometimes daily\nTriage technical issues with support, develop solutions, plan sprints, and follow through to completion\nLearn new technologies and seamlessly integrate them into LVL’s tech stack\nImprove scalability and reliability by implementing best practices around containerization, continuous integration, load balancing\nBuild and maintain asynchronous task queues and microservices\nManage database migrations in production environments\nDesign APIs and integrate with external APIs\nBuild internal tools for day-to-day operations, marketing data and analytics, and site reliability. Optimized for automation.\nWork with the CEO to architect new systems\n\n\nDesired skills:\n\n\nPython, Django\nJavascript, React, React Native, Redux\nAWS (EC2, RDS, Cloudwatch, Route53, S3, ELB, Lambda)\nNginx\nRedis\nPostgresSQL\nCelery\nExpo\nDocker/Kubernetes/Terraform\nJenkins\n\n\nDesired experience and education:\n\n\n1+ years as a software engineer\nExperience with startups is a plus\n\n\nThe ideal candidate will be:\n\n\nFlexible and responsive to the changes of a fast-paced and fast-growing company\nHighly organized\nAble to demonstrate a high degree of attention to detail\nPassionate about finance, cryptocurrency, and technology\nProactive and always willing to learn new things\nLooking for an opportunity to grow with the company\n\n\nEqual Opportunity Employer LVL celebrates diversity and is committed to providing equal employment opportunities to all applicants and employees. Each applicant and employee is considered on individual merit, without discrimination as to race, gender, gender identity, age, national origin, religion, disability, sexual orientation, marital status, or veteran status.\n\nJob type: Full-time Salary\n\nBenefits:\n\n\nEquity\nHealth/ Dental/ Vision Insurance\nUnlimited PTO\nBank Holidays off\nCompany-wide Remote Work policy with an included home office stipend.\n\n\nLocation: Austin, TX \nSchedule: 10am to 6pm CT. Some weekend and after hours work is required. \nCompany Website: https://lvl.co",
+          "lastScraped": "2021-10-04T14:04:53.500Z",
+          "missedUploads": 0,
           "interests": [
-            "graphql",
-            "aws"
-          ],
-          "company": "Ought",
-          "location": [{
-            "city": "San Francisco Bay Area",
-            "state": "N/A"
-          }],
-          "posted": "Posted 3 months ago",
-          "missedUploads": 0
-        },
-        {
-          "urls": [
-            "https://80000hours.org/job-board/?role=software-engineering-intern___recPGOrZ1g1wps1pU"
-          ],
-          "position": "Software Engineering Intern",
-          "description": "\"Ought is an applied research lab building Elicit, a GPT-3-based research assistant for questions about the future. Today, researchers and policy analysts use Elicit to find relevant publications for a literature review, find datasets, or brainstorm research questions that are interesting to their audience. Researchers can define new tasks by showing Elicit just a few examples of the task being done. Elicit then scales those tasks to thousands of publications and datasets [...]",
-          "interests": [
-            "software-engineering",
-            "azure"
-          ],
-          "company": "Ought",
-          "location": [{
-            "city": "San Francisco Bay Area",
-            "state": "N/A"
-          }],
-          "posted": "Posted 4 months ago",
-          "missedUploads": 0
-        },
-        {
-          "urls": [
-            "https://80000hours.org/job-board/?role=research-intern-competition-with-china___recSUSFuT8R8i9A2J"
-          ],
-          "position": "Research Intern, Competition with China, AI infrastructure investment, and Algorithmic Fairness",
-          "description": "\"Many of the most pressing global policy challenges today have technical problems at their core (e.g. tech competition with China, AI infrastructure investment, global internet standards, and algorithmic fairness). Yet the top policy research groups and think tanks driving new policy ideas lack technical expertise on staff or within their networks. Solving these challenges requires technical insight, which can uniquely be produced by exceptional technical talent. We are seeking “Computer Science + policy” research interns to help build a next-generation technical strategy group from the ground up to solve this by producing cutting edge knowledge products on tech strategy questions to drive decision making for policymakers and philanthropic investment.",
-          "interests": [],
-          "company": "Schmidt Futures",
-          "location": [{
-            "city": "New York, NY",
-            "state": "N/A"
-          }],
-          "posted": "Posted 7 months ago",
-          "missedUploads": 0
-        },
-        {
-          "urls": [
-            "https://80000hours.org/job-board/?role=intern-ml-technical-research___recOdYGIE8FUaet3w"
-          ],
-          "position": "Intern, ML Technical Research",
-          "description": "\"What is the most important thing for a researcher? Is it hundreds of millions of data, rich application scenarios, ultra-large-scale computing resources, deep technology accumulation in the full spectrum of fields, or the pursuit of the ultimate innovation atmosphere? As a research engineer in the field of natural language processing, you'll be: 1. Responsible for the research and development of natural language processing algorithms, including but not limited to semantic analysis, intention recognition, human-machine dialogue, semantic mining, machine translation, knowledge graphs, named entity recognition, etc,; 2. Responsible for the technical research of dialogue systems, especially task-oriented dialogue systems, including natural language understanding [...]\"",
-          "interests": [
-            "bioinformatics",
-            "jupyter",
-            "hardware"
-          ],
-          "company": "Tencent",
-          "location": [{
-            "city": "Shenzhen, China",
-            "state": "N/A"
-          }],
-          "posted": "Posted 8 months ago",
-          "missedUploads": 0
-        },
-        {
-          "urls": [
-            "https://80000hours.org/job-board/?role=research-intern-natural-language-and-sp___reczUzzYBbIyYFon1"
-          ],
-          "position": "Research Intern, Natural Language and Speech Processing",
-          "description": "\"We are seeking natural language & speech processing research interns in our Seattle office located at Bellevue WA for year 2019. You will be working with researchers on a research project related to one of the core problems in natural language processing (e.g., natural language understanding and generation, question and answering, reading comprehension, and knowledge graph inference), dialog system (e.g., multi-turn, multi-modal, and multi-user dialog tracking and management), and speech recognition and synthesis (e.g., new paradigm). You will work on real and/or big data using our high-performing computing facility and are encouraged to publish the results of your internship. Key responsibilities:",
-          "interests": [
-            "virtual-reality"
-          ],
-          "company": "Tencent",
-          "location": [{
-            "city": "Seattle metro area",
-            "state": "N/A"
-          }],
-          "posted": "Posted 8 months ago",
-          "missedUploads": 0
-        },
-        {
-          "urls": [
-            "https://aexp.eightfold.ai/careers?pid=7251082&location=USA&query=Internships&domain=aexp.com"
-          ],
-          "position": "Senior Manager - Copywriter (Kabbage)",
-          "description": "<div><p style=\"margin-top: 16px; margin-bottom: 16px;\"><span style=\"\"><span style=\"\">Kabbage is expanding its rock-star Marketing team with a new <b>Senior Manager, Copywriter</b> to join us as we aim to help American small businesses grow and manage their cash flow.&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;</span></span></p>\n\n<p style=\"margin-top: 16px; margin-bottom: 16px;\"><span style=\"\"><span style=\"\">Acquired by American Express in 2020, Kabbage is pairing its leading FinTech platform with the powerful backing of AMEX to launch an innovative cash-flow platform to give the smallest businesses access to cutting-edge financial tools and services. Deeply data-driven and connected with its customers, Kabbage has a full suite of cash-flow products from flexible lines of credit, online business checking accounts, payment processing, predictive business analytics and more. While we've received numerous awards and recognition—such as Entrepreneur's Top Company Cultures, Inc Magazine's Top Private Companies, GlassDoor’s Best Places to Work, and Forbes FinTech 50—it is our people, our culture, and our leaders that make Kabbage such a great place to work.</span></span></p>\n\n<p style=\"\"><span style=\"\"><span style=\"\"><b><span style=\"color:black\">Your mission:</span></b></span></span></p>\n\n<p style=\"\"><span style=\"\"><span style=\"\"><span style=\"color:black\">Create compelling copy that drives results, from acquiring new customers and increasing utilization to creating an elegant user experience and building a trusted brand. </span></span></span></p>\n\n<p style=\"\"><span style=\"\"><span style=\"\"><b><span style=\"color:black\">What you’ll be doing:</span></b></span></span></p>\n\n<ul>\n\t<li><span style=\"\"><span style=\"\"><span style=\"\"><span style=\"color:black\">The Kabbage Marketing team is always perfecting its approach to customer acquisition and engagement, and copy plays a key role. You’ll develop copy that implements the Kabbage voice, promotes brand awareness and drives response across web, email, direct mail, display, social ads, video and other content channels. </span></span></span></span></li>\n\t<li><span style=\"\"><span style=\"\"><span style=\"\"><span style=\"color:black\">You’ll support our User Experience team with technical copy that informs and engages. You’ll also work alongside the wider American Express team as the lead copy-champion for Kabbage. </span></span></span></span></li>\n\t<li><span style=\"\"><span style=\"\"><span style=\"\"><span style=\"color:black\">This is a fantastic opportunity to write copy for a variety of channels, serve as a go-to resource for Kabbage, and become embedded in a leading global brand: American Express.</span></span></span></span></li>\n</ul>\n<p style=\"\"><span style=\"\"><span style=\"\"><b>What we’re looking for in you:</b></span></span></p>\n\n<ul>\n\t<li style=\"margin-top:16px\"><span style=\"\"><span style=\"\"><b><i>Initiative:</i></b> Scrappy and able to work in a fast-paced environment. Take direction based on creative parameters and business goals and run with the assignment.</span></span></li>\n\t<li><span style=\"\"><span style=\"\"><b><i>Flexibility/Adaptability:</i></b> Adjusts quickly to changing priorities and conditions; copes effectively with complexity and change.</span></span></li>\n\t<li><span style=\"\"><span style=\"\"><b><i>Collaboration &amp; Influence: </i></b>ability to successfully influence and bring together internal and external stakeholders to achieve shared goals.</span></span></li>\n\t<li><span style=\"\"><span style=\"\"><b><i>Communication:</i></b> Able to see and communicate the big picture in an inspiring way; determines opportunities and threats through comprehensive analysis of current and future trends.</span></span></li>\n\t<li style=\"margin-bottom:16px\"><span style=\"\"><span style=\"\"><b><i>Creativity/Innovation:</i></b> Balance brand consistency with the ability to push our creative direction to keep it fresh.</span></span></li>\n</ul>\n\n<p style=\"\"><span style=\"\"><span style=\"\"><b><span style=\"color:black\">What</span> you should have:</b></span></span></p>\n\n<ul>\n\t<li style=\"border:none\"><span style=\"\"><span style=\"\">6<span style=\"color:black\">+ years of copywriting experience</span>.</span></span></li>\n\t<li><span style=\"\"><span style=\"\">Ability to write across media and types of content, including web, email, direct mail, display and social channels.</span></span></li>\n\t<li><span style=\"\"><span style=\"\">Experience writing for a multi-product organization a plus.</span></span></li>\n\t<li style=\"border:none\"><span style=\"\"><span style=\"\"><span style=\"background:white\"><span style=\"color:black\">Excellent writing, editing, and proofreading skills.</span></span></span></span></li>\n\t<li style=\"border:none\"><span style=\"\"><span style=\"\"><span style=\"color:black\">Emphasis on conversational, short-form copy that drives results.</span></span></span></li>\n\t<li style=\"border:none\"><span style=\"\"><span style=\"\">Experience creating approachable, easy-to-follow user experiences.</span></span></li>\n\t<li><span style=\"\"><span style=\"\">Ability to translate complex topics into straightforward copy.</span></span></li>\n\t<li><span style=\"\"><span style=\"\">Link to your portfolio or 5-10 of your best writing samples.</span></span></li>\n</ul>\n\n<p style=\"\"><span style=\"\"><span style=\"\"><span style=\"line-height:18pt\"><span style=\"font-weight:bold\">Additional Details:</span></span></span></span></p>\n\n<ul>\n\t<li style=\"vertical-align: middle;\"><span style=\"\"><span style=\"\">Ongoing Workplace Flexibility:&nbsp;Position will currently be work-from-home due to COVID-19.&nbsp; American Express is committed to the well-being of its colleagues and to creating a safe work environment; colleagues will continue to work remotely until a return to the office can be safely accomplished.</span></span></li>\n\t<li style=\"vertical-align: middle;\"><span style=\"\"><span style=\"\">Visa Sponsorship: Employment eligibility to work with American Express in the U.S. is required as the company will not pursue visa sponsorship for this position.</span></span></li>\n</ul>\n\n<div style=\"color: rgb(0, 0, 0); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial; background-color: rgb(255, 255, 255);\">\n<p style=\"\"><span style=\"\"><span style=\"\">American Express is an equal opportunity employer and makes employment decisions without regard to race, color, religion, sex, sexual orientation, gender identity, national origin, protected veteran status, disability status, age, or any other status protected by law.</span></span></p>\n\n<p style=\"\">&nbsp;</p>\n</div></div>",
-          "interests": [
-            "dotNet",
-            "hardware",
-            "virtual-reality"
-          ],
-          "company": "American Express",
-          "location": [{
-            "city": "N/A",
-            "state": "Error",
-            "country": "United States"
-          }],
-          "missedUploads": 0
-        },
-        {
-          "urls": [
-            "https://jobs.cisco.com/jobs/ProjectDetail/Test-Automation-Engineer-Fall-2021-Internship-Bachelors-Meraki/1331387"
-          ],
-          "position": "Test Automation Engineer Fall 2021 Internship, Bachelors (Meraki)",
-          "description": "<p><strong>Fall Internship (August 2021 - December, full-time work schedule, Monday- Friday 40 hours per week)</strong></p><p><strong>Cisco Meraki Business Unit</strong></p> <p>Simplicity. Meraki makes setting up, managing, and maintaining networks easier than it has ever been before. Simplified and smarter networking means that businesses run more efficiently, and more people have reliable access to the information they need. Meraki enables connectivity everywhere from neighborhood cafes to education institutions to global hospitality groups operating thousands of sites.</p><p>You will join a test automation team that is fully embedded within our software engineering team. We handle all types of testing projects for our cloud managed products; from nightly feature tests across the latest firmware images to performance testing of all kinds. We run large scale testing to measure how small changes could impact our performance. Our automation framework is being used across software engineering, and we continue to make it more intuitive. Our products are used in over a million networks and our customers rely on our products to serve ten of millions of people. With the large footprint that we have, quality is our highest priority. We are looking for the newest additions to our teams who are as passionate about quality as we are. Meraki engineers put the customer experience first, own projects from beginning to end, and are empowered to make impactful decisions. Your contributions will make direct impact to the success of our business.</p><p>Meraki believes that the quality of our product is dependent on the quality of our engineers. We place a high value on nurturing the growth and development of everyone on our team. We foster an open and encouraging workplace where everybody is given the opportunity to succeed.</p><h2>A day in the life of Test Automation Engineering Intern:</h2><p>You may design a testbed from the ground up that has the ability to change topologies on the fly. You will have an in-house automation framework at your disposal as well as APIs to hook into for further automation. You will have the autonomy to craft and implement a solution as well as the knowledge and experience of team members to help you along the way.</p><p>In addition to software testing, you may have a chance to work on our latest hardware appliances from an early phase of development. You will get to learn some of the cool technologies inside the box. Through testing, you will gain firsthand knowledge about the performance and be able to guide the team in improving the quality before we release the product.</p><h2>What does it take?</h2><ul><li>You are pursuing a bachelors technical degree or equivalent experience with a great foundation in the fundamentals of computer science and computer networking</li><li>You are proficient in scripting languages such as Ruby or Python</li><li>You are proficient in Lunix and REST API</li><li>You have solid understanding of core network protocols like TCP/IP, DHCP, DNS, VLANS, etc.</li><li>You have experience in performance testing</li><li>You have CCNA or equivalent certification</li><li>You have familiarity with UI framework such as React/Ember/Angular</li><li>You have familiarity with IPv6 and routing protocols like OSPF and BGP</li><li>You have worked with virtualization or container technology, such as ESXi, Xen, Docker, etc.</li><li>You have used development infrastructure tools such as Jenkins, Git, Gerrit, and JIRA and/or have experience with Database solutions (e.g, InfluxDB, PostgreSQL, etc)</li></ul><h2>Intern Program Overview:</h2><p>Meraki interns and co-ops join the team for 12 and 16 week programs, respectively, and are placed directly onto sub-teams. During the program, interns/co-ops have the opportunity to work on a small starter project, such as integration and implementation of new tools, before spending the bulk of the program on a larger project, such as building the infrastructure for a new service. Projects are multi-functional, which allow insight into new languages and technologies, help encourage professional growth within engineering, and allow a sense of ownership within the team.</p><p>Meraki’s engineering teams place a high emphasis on mentorship. Each intern and co-op is matched 1:1 with a mentor who provides continual feedback and guidance throughout the duration of the program. Mentors help with introductions to other team members, overviews of tools and processes, and provide a seamless integration into Meraki life.</p><h2>Intern Benefits:</h2><ul><li>Housing assistance in San Francisco for duration of program</li><li>Competitive salary</li><li>Weekly social events inside and outside of the office (Giants games, Exploratorium tickets, friendly soccer games)</li><li>Lunch and dinner daily</li><li>Customized laptop and desk setups</li><li>Medical coverage plans</li></ul><p>Cisco is an Affirmative Action and Equal Opportunity Employer and all qualified applicants will receive consideration for employment without regard to race, color, religion, gender, sexual orientation, national origin, genetic information, age, disability, veteran status, or any other legally protected basis. Cisco will consider for employment, on a case by case basis, qualified applicants with arrest and conviction records.</p><p>At Cisco Meraki, we’re challenging the status quo with the power of diversity, inclusion, and collaboration. When we connect different perspectives, we can imagine new possibilities, inspire innovation, and release the full potential of our people. We’re building an employee experience that includes appreciation, belonging, growth, and purpose for everyone.</p>",
-          "interests": [
-            "assembler",
-            "flutter",
+            "blockchain",
             "data-mining",
-            "databases"
-          ],
-          "company": "Cisco",
-          "location": [{
-            "city": "San Francisco",
-            "state": "US"
-          }],
-          "missedUploads": 0
-        },
-        {
-          "urls": [
-            "https://jobs.cisco.com/jobs/ProjectDetail/Full-Stack-Engineer-Fall-2021-Internship-Bachelors-Meraki/1325745"
-          ],
-          "position": "Full Stack Engineer Fall 2021 Internship, Bachelors (Meraki)",
-          "description": "<div><p><strong>Fall Internship (August - December 2021, full-time work schedule, Monday - Friday 40 hours per week)</strong></p><p><strong>Cisco Meraki Business Unit</strong></p> <p>The modern world runs on the Internet, and the Internet cannot exist without its underlying infrastructure. Meraki makes setting up, managing, and maintaining that infrastructure easier than it has ever been before. Meraki enables connectivity everywhere from neighborhood cafes to education institutions to global hospitality groups operating thousands of sites.</p><br> <p>As a Full Stack Engineer at Meraki, you will help craft and build features for Meraki's Dashboard - the window to the entire Meraki experience. From Dashboard, our customers can control their entire Meraki stack: access points, switches, firewalls, client devices, cameras, and more. You will work across the stack with other developers, UX designers, and product management to build and improve the Dashboard web application. Meraki engineers put the customer experience first, own projects from beginning to end, and are empowered to make impactful decisions.</p><br> <p>Meraki believes that the quality of our product is dependent on the quality of our engineers. We place a high value on nurturing the growth and development of everyone on our team. We foster an open and supportive workplace where everybody is given the opportunity to succeed.</p><br> <h2 id=\"JD:Intern-Full_Stack-FY19Q1-ExampleprojectsofaFullStackWebDeveloperIntern:\"><strong>Example projects of a Full Stack Web Developer Intern:</strong></h2> <ul> <li>Create services to fetch data from millions of Meraki devices, then present that data in a user-friendly way</li> <li>Improve performance and efficiency of our backend, allowing us to handle increasingly large datasets with minimal delay</li> <li>Build internal frameworks and refine front end infrastructure to augment developer productivity</li> <li>Construct API endpoints to allow Meraki users and third party companies to build custom tools and features</li> <li>Build a dashboard for anomaly / outlier detection on network traffic using machine learning algorithms</li> <li>Build a graph for network traffic analysis using clustering and other algorithms</li> </ul> <h2 id=\"JD:Intern-Full_Stack-FY20Q1-Youareanoutstandingapplicantif:\"><strong>You</strong>&nbsp;<strong>are</strong>&nbsp;<strong>an</strong>&nbsp;<strong>outstanding</strong>&nbsp;<strong>applicant</strong>&nbsp;<strong>if:</strong></h2> <ul> <li>You are pursuing a technical bachelors degree or have equivalent experience with a strong foundation in the fundamentals of computer science</li> <li>You strive to build rich and dynamic web applications with front-end frameworks such as React, Redux, Ember, or Angular</li> <li>You are familiar with programming languages and web frameworks like Ruby (Rails, EventMachine), Python (Django, Flask), or Node.js (Express)</li> <li>You have worked with SQL and relational Databases</li> <li>You would flourish within a small engineering team and are excited to tackle open-ended problems</li> </ul> <h2 id=\"JD:Intern-Full_Stack-FY19Q1-Intern/Co-OpProgramOverview:\"><strong>Intern Program Overview:</strong></h2> <p>Meraki interns and co-ops join the team for 12 and 16 week programs, respectively, and are placed directly onto subteams. During the program, interns/co-ops have the opportunity to work on a small starter project, such as integration and implementation of new tools, before spending the majority of the program on a larger project, such as building the infrastructure for a new service. Projects are cross functional, which allow insight into new languages and technologies, help encourage professional growth within engineering, and allow a sense of ownership within the team.</p><br> <p>Meraki’s engineering teams place a high emphasis on mentorship. Each intern and co-op is matched 1:1 with a mentor who provides continual feedback and guidance throughout the duration of the program. &nbsp;Mentors help with introductions to other team members, overviews of tools and processes, and provide a seamless integration into Meraki life.</p><br> <h2 id=\"JD:Intern-Full_Stack-FY19Q1-Intern/Co-OpBenefits:\"><strong>Intern Benefits:</strong></h2> <ul> <li> <p>Housing Assistance</p> </li> <li> <p>Competitive salary</p> </li> <li> <p>Weekly social events inside and outside of the office (Giants games, Exploratorium tickets, friendly soccer games)</p> </li> <li> <p>Lunch and dinner daily</p> </li> <li> <p>Customized laptop and desk setups</p> </li> <li> <p>Medical coverage plan</p> </li> </ul> <p><em>Cisco is an Affirmative Action and Equal Opportunity Employer and all qualified applicants will receive consideration for employment without regard to race, color, religion, gender, sexual orientation, national origin, genetic information, age, disability, veteran status, or any other legally protected basis. Cisco will consider for employment, on a case by case basis, qualified applicants with arrest and conviction records.</em></p><br> <p><em>At Cisco Meraki, we’re challenging the status quo with the power of diversity, inclusion, and collaboration. When we connect different perspectives, we can imagine new possibilities, inspire innovation, and release the full potential of our people. We’re building an employee experience that includes appreciation, belonging, growth, and purpose for everyone.</em></p></div>",
-          "interests": [
-            "research",
-            "it-management",
-            "computer-graphics",
-            "dotNet"
-          ],
-          "company": "Cisco",
-          "location": [{
-            "city": "San Francisco",
-            "state": "US"
-          }],
-          "missedUploads": 0
-        },
-        {
-          "urls": [
-            "https://stackoverflow.com/jobs/517321/apple-cloud-platform-internal-ci-cd-service-apple?a=2NuARwdSMw9i&so=i&pg=1&offset=0&total=15&so_medium=Internal&so_source=JobSearch&q=internship"
-          ],
-          "position": "Apple Cloud Platform - Internal CI/CD Service & Tools",
-          "description": "<h2 class=\"fs-subheading mb16 fc-dark\">Job description</h2>\n            <div>\nAre you a service developer looking to grow your skill set, invent new technology, and make a difference in developer productivity for thousands of developers inside all parts of Apple? \nThe Software Development Productivity team builds services and tools to help developers get ideas from commit to production quickly and with confidence. We’re constantly improving our existing CI/CD service to give developers the building blocks they need to produce scalable, high performance build and deploy pipelines with minimal friction. Our services power an enormous number of builds per day across all of Apple, including some of the most well known customer facing properties, and we want to do even more. \nOur engineering team is committed to innovating and pushing the bounds of continuous delivery. We ship to customers frequently and constantly strive to improve our delivery. Improving means constantly learning and making mistakes, something our team embraces. \nWe believe that the role of a developer is not to produce code, but tackle problems. This means asking a lot of questions, understanding and empathizing with customers, and helping make the hard choices about what to build.<br><br><span>YOU’LL DO WELL IN THIS ROLE IF YOU:\n-  Are driven to create outstanding customer experiences, and are passionate about helping developers write better code faster.\n\n-  Are good at understanding an entire customer problem and applying technology to it\n\n-  Love teaching people and learning new things\n\n-  Are not afraid to ask the hard questions or express your opinions, even when they are controversial.\n\n-  Enjoy evolving a large, critical system to provide next generation features</span>            </div>",
-          "interests": [
+            "data-science",
             "databases",
-            "computer-architecture",
-            "databases"
+            "sql",
+            "mobile",
+            "react",
+            "software-engineering"
           ],
-          "careerGoals": [
-            "ux-designer",
-            "data-engineer",
-            "robotics-engineer"
-          ],
-          "company": "Apple",
-          "location": [{
-            "city": "Cupertino",
-            "state": "CA"
-          }],
-          "posted": "2021-06-25T18:43:31.576Z",
-          "missedUploads": 0
+          "company": "LVL",
+          "location": [
+            {
+              "city": "United States • Remote"
+            }
+          ]
         },
         {
           "urls": [
-            "https://stackoverflow.com/jobs/526759/qa-intern-for-enterprise-consumer-facing-sites-hearst-magazines?a=2QEPMhWUhPOw&so=i&pg=1&offset=1&total=15&so_medium=Internal&so_source=JobSearch&q=internship"
+            "https://angel.co/company/pynhq-com/jobs/1142569-founding-engineer"
           ],
-          "position": "QA Intern for enterprise consumer facing sites",
-          "description": "<h2 class=\"fs-subheading mb16 fc-dark\">Job description</h2>\n            <div>\n<p>iCrossing a digital agency owned by Hearts Magazines Division.   Our technology team creates world-class data-driven solutions for Omni-channel digital marketing initiatives. We’re engineers, and solutions integrators experienced at all levels of the application development lifecycle with a clear focus on creating engaging, rich and dynamic customer experiences. Keeping up with the proliferation of devices, operating systems and APIs takes some serious technical talent – and our team has lots of it. No matter what their individual role, every team member has two basic responsibilities: Build technologies that power digital transformations and make the impossible, possible.</p>\n<p>As an intern working with our QA Leadership, you will have a chance to work on large consumer facing sites to ensure that our technical deliverables are of the highest quality.  You will be exposed to a variety of teams that work together to produce world class consumer facing sites. </p>\n<p><strong>What you’ll do and learn:</strong></p>\n<ul>\n<li>You will work with QA and Tech Leads to insure technical work is following the defined processes. You will see how QA functions within agile process for large scale web projects.</li>\n<li>You will participate in Test Case development according to project specifications. You will learn how to create test cases that will be used by others.</li>\n<li>You will execute the test cases and automated scripts required for the project. You will have a chance to practice scripting skills</li>\n<li>Analyze test automation execution results and provide execution summary.</li>\n<li>You will record results and communicate defects via bug tracking tools and validate defects once they are fixed.</li>\n<li>You will Provide test execution progress reports and test result reports.</li>\n<li>You will work with debugging tools as required by the project. </li>\n</ul>\n<p> <strong>Who you are</strong></p>\n<ul>\n<li> You have a knowledge and interest in web technologies, web design, internet protocols, operating systems, and relational databases</li>\n<li>You have an understanding of HTML, CSS, XML, JSON, HTTP/S), social media platforms, and mobile devices.</li>\n<li>You may have taken a course in Java and/or have basic Java development skills in Java</li>\n<li>You are detail oriented</li>\n<li>You are methodical when solving a problem</li>\n</ul>            </div>",
+          "position": "Founding Engineer",
+          "description": "Have you ever wanted to know what it is like to build a startup from the ground up? If you’ve ever wanted to found your own company, or just get experience of scale at this unique stage - this is the role for you.\n\nIn this role you will do many things that might be familiar as a Principal, Full-Stack, or another type of Engineer. What’s different about a Founding Engineer is you’re first building a company and a culture. And the customer and product follows that.\n\nWhat we really want in a Founding Engineer is someone who wants build something great from the ground up. More importantly, someone that wants to share the experience with a great team.\nWho are we?\nOur mission is to create calmer organizations. With Pyn, employees get more of the messages they need, and fewer of the ones they don’t. We do this by providing companies with tools for targeted, tailored communications.\n\nOur founders are Jon Williams and Joris Luijke. Jon previously co-founded the technology company Culture Amp. Joris helped scale the culture of Atlassian and Squarespace as their Head of People. Pyn is backed by Accel; an early investor in Facebook, Slack, Dropbox, and many more great companies.\n\nPyn originates from Sydney, Australia. However, we have employees and customers across the globe. While we work remotely, we still love to get together if and when we can. Ideally our employees have good overlap with the Australian Eastern or Pacific time zones.\nYour impact\nAs Founding Engineer, you will champion new features all the way from ideation to implementation. As this champion, you will be talking to our customers every day.\n\nAt Pyn, you will work across the whole organization. Everything from building our Web Application, to helping customers, mentoring engineers, and building our culture.\n\nIn terms of nuts and bolts: The Pyn Application uses React and GraphQL. The codebase is largely TypeScript and deployed on a serverless AWS infrastructure.\n\nWe expect this architecture to evolve considerably as we grow. As a Founding Engineer, you’ll be responsible for technical direction in this evolution. You will be a key part of Pyn shipping fast, scaling up, and staying secure for our customers.\nWhat we offer\nAt Pyn you will:\n\n\nwork directly with the Founders on product direction, strategy, and execution.\nbe part of forming our values, and a leader for the culture we are building.\nwork with Jon and the team on the software architecture and strategy.\nhave regular, direct contact with our customers to understand their needs.\nuse your experience to mentor and grow other team members.\n* be in a dynamic remote-work environment, with flexible hours and parental leave.\nexercise your curiosity and grow technical, product, and people skills.\ncontinue to ship code daily (if not hourly!) to get value to customers hands as soon as possible.\n\n\n… change the way companies communicate with their employees.\nWhat you bring\nWe recognize that people and careers are a unique journey. Recognizing this, we do not have strict skill and education requirements. Whilst there will always be specific skills we see as useful, we value the whole of what you can bring to Pyn.\n\nAs one of our most senior hires, we want to draw upon your experience. As such it’s likely you’re a number of years into your career (or careers!). Whilst a traditional engineering background will suit this, so will many others.\n\nWe’re striving to create a diverse environment and encourage candidates from all backgrounds to apply. If you’re curious and passionate about improving employee communications, then we’d love to hear from you.",
+          "lastScraped": "2021-10-04T14:04:57.343Z",
+          "missedUploads": 0,
           "interests": [
-            "biology",
-            "psychology"
+            "aws",
+            "computer-architecture",
+            "react",
+            "security",
+            "software-engineering"
           ],
-          "company": "Hearst Magazines",
-          "location": [{
-            "city": "Chicago",
-            "state": "IL"
-          }],
-          "posted": "2021-06-06T18:43:36.950Z",
-          "missedUploads": 0
+          "company": "pynhq.com",
+          "location": [
+            {
+              "city": "Sydney • Remote"
+            }
+          ]
+        },
+        {
+          "urls": [
+            "https://angel.co/company/astranis/jobs/1670804-intern-associate-engineer-guidance-navigation-and-control-winter-spring-2022"
+          ],
+          "position": "Intern/Associate Engineer — Guidance, Navigation, and Control (Winter/Spring 2022)",
+          "description": "Astranis is connecting the four billion people in the world who do not currently have access to the internet. We are building the next generation of smaller, lower-cost spacecraft to bring the world online.\n\nWe are well-funded by some of the best investors in the business and have raised over $350 million to date. We are have a world-class team that is passionate about building amazing technology. And we have a fun and collaborative work environment where you will learn a lot and make a huge impact no matter where you are in your career. Just check out our Glassdoor reviews to see what our team has to say about working at Astranis.\n\nOur team is growing fast. Apply to be a part of our mission to connect the world!\n\nRole:\n\n\nWork with the Guidance, Navigation, and Control team to design, build, and test satellite hardware and software\n\n\nRequirements:\n\n\nCurrently pursuing a B.S. or M.S. in a technical discipline (e.g. engineering, CS, physics) with a focus on control systems, orbital mechanics, or spacecraft propulsion\nFamiliarity with classical control theory\nExperience with python or C/C++\nDemonstrated ability to personally design, build, and test hardware and/or software from scratch\nUS Citizenship or Green Card\n\n\nBonus:\n\n\nFamiliarity with spacecraft design\nExperience with low thrust trajectories\n\n\nAvailabilities for Winter/Spring 2022\n\nU.S. Citizenship, Lawful Permanent Residency, or Refugee/Asylee Status Required\n(To comply with U.S. Government space technology export regulations, applicant must be a U.S. citizen, lawful permanent resident of the United States, or other protected individual as defined by 8 U.S.C. 1324b(a)(3))\n\nOur mission and our products are meant to connect the world and everyone in it, regardless of gender, race, creed, or any other distinction. We believe in a diverse and inclusive workplace, and we encourage all people to join our team and bring their unique perspective to help make us stronger.",
+          "lastScraped": "2021-10-04T14:05:00.719Z",
+          "missedUploads": 0,
+          "interests": [
+            "software-engineering"
+          ],
+          "company": "Astranis",
+          "location": [
+            {
+              "city": "San Francisco"
+            }
+          ]
+        },
+        {
+          "urls": [
+            "https://angel.co/company/astranis/jobs/1670805-intern-associate-engineer-flight-software-engineering-fall-winter-2021"
+          ],
+          "position": "Intern/Associate Engineer — Flight Software Engineering (Fall/Winter 2021)",
+          "description": "Astranis is connecting the four billion people in the world who do not currently have access to the internet. We are building the next generation of smaller, lower-cost spacecraft to bring the world online.\n\nWe are well-funded by some of the best investors in the business and have raised over $350 million to date. We are have a world-class team that is passionate about building amazing technology. And we have a fun and collaborative work environment where you will learn a lot and make a huge impact no matter where you are in your career. Just check out our Glassdoor reviews to see what our team has to say about working at Astranis.\n\nOur team is growing fast. Apply to be a part of our mission to connect the world!\n\nIntern - Flight Software Engineer \n\nAs an Intern-Flight Software Engineer, you will assist in the development, execution, and implementation of the flight software that commands and monitors the spacecraft.\n\nAdditionally, you will collaborate with other teams to ensure that the software you've implemented works on their hardware.\n\nRole:\n\n\nWork with the engineering team to design, write and test software (embedded software running on satellites, as well as variety of ground control and testing software)\n\n\nRequirements:\n\n\nCurrently pursuing a B.S. or M.S. in Computer Science, Electrical or Computer Engineering, or equivalent technical degree\nExperience with C/C++ and scripting language(s)\nDemonstrated ability to personally design, write, and test software from scratch\nUS Citizenship or Green Card\nDon't meet them all? Not a problem. Please apply even if you do not meet all these criteria.\n\n\nBonus:\n\n\nExperience with embedded systems running on bare metal\nExperience with real time operating systems\nExperience with FPGA or DSP programming\n\n\nU.S. Citizenship, Lawful Permanent Residency, or Refugee/Asylee Status Required\n(To comply with U.S. Government space technology export regulations, applicant must be a U.S. citizen, lawful permanent resident of the United States, or other protected individual as defined by 8 U.S.C. 1324b(a)(3))\n\nOur mission and our products are meant to connect the world and everyone in it, regardless of gender, race, creed, or any other distinction. We believe in a diverse and inclusive workplace, and we encourage all people to join our team and bring their unique perspective to help make us stronger.",
+          "lastScraped": "2021-10-04T14:05:04.628Z",
+          "missedUploads": 0,
+          "interests": [
+            "software-engineering"
+          ],
+          "company": "Astranis",
+          "location": [
+            {
+              "city": "San Francisco"
+            }
+          ]
+        },
+        {
+          "urls": [
+            "https://angel.co/company/alchemy/jobs/1645805-engineering-internship-summer-2022"
+          ],
+          "position": "Engineering Internship, Summer 2022",
+          "description": "Our mission is to bring blockchain to a billion people. The Alchemy Platform is a world class developer platform designed to make building on the blockchain easy. We've built leading infrastructure in the space, powering over $30 billion in transactions for tens of millions of users in 99% of countries worldwide. \n\nThe Alchemy team draws from decades of deep expertise in massively scalable infrastructure, AI, and blockchain from leadership roles at leading companies and universities like Google, Microsoft, Facebook, Stanford, and MIT. \n\nAlchemy recently raised a Series B led by Coatue and Addition, having previously raised from Stanford University, Coinbase, the Chairman of Google, Charles Schwab, and the founders and executives of leading organizations.\n\nAlchemy powers the top blockchain companies globally and has been featured in TechCrunch, Forbes, Bloomberg, and elsewhere.\n\nThe Role\n\nAs a summer intern, you’ll work directly with our world class engineering team to push forward your own project from end to end. There is a lot to do and a lot to learn, so be prepared to dive in headfirst for 12-14 weeks as you immerse yourself in the world of blockchain. We’re growing fast and moving even faster so we can’t say exactly what you’ll be working on next summer, but potential projects range from developing new APIs and features to creating internal tooling. So join us on our mission to bring blockchain to a billion people. \n\nResponsibilities\n\n\nApply knowledge from course work and learnings from previous experiences to real world problems\nCollaborate with the engineering team and work closely with your mentor to deliver on a well-scoped project\nMove quickly and learn about the blockchain space\n\n\nWhat We're Looking For\n\n\nPursuing a Bachelors (Juniors/Seniors only), Masters, or PhD with a focus on subjects related to software development, computer science and/or mathematics\nExperience coding in at least two general purpose programming language, preferably Java, Typescript or Python\nInterest in the blockchain space, demonstrated with course work, extracurriculars, open source contributions and/or work experience\nAt least one previous Software Engineering internship with proven ability to execute and exposure to real-world systems\nStrong verbal and written English communication skills\nExposure to web application development, Unix/Linux environments, distributed and parallel systems, and networking is a plus\nAbility to work in San Francisco or New York",
+          "lastScraped": "2021-10-04T14:05:12.045Z",
+          "missedUploads": 0,
+          "interests": [
+            "parallel-programming",
+            "software-engineering",
+            "typescript"
+          ],
+          "company": "Alchemy",
+          "location": [
+            {
+              "city": "San Francisco"
+            }
+          ]
+        },
+        {
+          "urls": [
+            "https://angel.co/company/shinkei-systems/jobs/1307375-mechanical-engineering-intern"
+          ],
+          "position": "Mechanical Engineering Intern",
+          "description": "💘 Our Mission\nShinkei Systems builds robotics that multiply the shelf-life of wild caught fish. \n\nWith only 1 in every 3 fish caught making it to a plate, the fishing industry has numerous waste problems to solve from both tails of the operational chain that could save billions.\n\nSpun out from researchers at Carnegie Mellon School of Computer Science, Shinkei uses computer vision and robotics to redefine how we treat the animals we catch and eat. We are experienced moonshot prototypers and have exhibited design work internationally at top venues. Our board has professors from the top robotics schools in the world and experienced founders in the area.\n\nWe are looking for energetic folks to join our team who are excited to create technology that transforms the world at scale. \n👀 The Opportunity\nEver wonder why we pay a premium for sushi?\n\nWhy confined, farmed fish are the standard in supermarkets?\n\nHow large legacy industries operationally tick?\n\nShinkei is looking for mechanical engineers for a paid opportunity over the summer to work on transforming society’s relationship with an animal that feeds billions of mouths annually. We’re on the lookout for people who love to get their hands dirty building working prototypes for moonshot ideas and who can take responsibility meeting deadlines over extended project timelines.\n\nYou won't be limited to clinking metal — we believe engineers should be involved in company strategy, product direction, and anything else you might be interested in.\nWhat You Get To Do:\n\nDesign real robotics solutions to solve major humanitarian concerns\nUtilize mechanical engineering tools by building a product end-to-end\nWork autonomously in a fast-paced entrepreneurial environment from either New York or Philadelphia\nUnrestricted access to a makerspace\nTalk to real customers for user research on design\nSet the foundation for our engineering culture\nTravel to Maryland to try out traditional techniques aboard industrial boats\nHave a hand in transforming our relationship with our food\n\nWhat You Need:\n\nAn innovative mind with a practical bend and an interest in changing the way we consume our food\nPursuing bachelors or masters in Mechanical Engineering, Robotics, similar field or sufficient previous experience\nBackground (portfolio, side projects, coursework) in physical prototyping, gantry design and misc. mechanical engineering projects\nBasic abilities with mechanical design tools (SolidWorks, FEA, drawings and documentation)\nCapable of researching, designing and testing using rapid prototyping techniques\nExperience with lab testing and fabrication equipment\nFamiliarity with common manufacturing processes a plus\nExposure and interest to robotics or embedded systems a strong plus",
+          "lastScraped": "2021-10-04T14:05:15.588Z",
+          "missedUploads": 0,
+          "interests": [
+            "computer-vision"
+          ],
+          "company": "Shinkei Systems",
+          "location": [
+            {
+              "city": "New York City"
+            }
+          ]
+        },
+        {
+          "urls": [
+            "https://angel.co/company/dusty-robotics/jobs/1676738-engineering-intern"
+          ],
+          "position": "Engineering Intern",
+          "description": "The position\n\nDusty is hiring engineering interns for 2022! Spend your co-op semester or summer break with us. Learn about the inner workings of a fast-growing hardware startup with a breakout product in the heart of Silicon Valley. Enjoy the satisfaction of writing code that ends up in customers’ hands. Spend time at construction sites where our robot is printing layouts to evaluate your contributions in action.\n\nOur engineering team designs and builds our mobile printing robot, the software that runs the robot, the user interfaces that help workers operate the robot, and customer-facing portals that are driving fundamental change in the process of constructing buildings. As an intern, you could work on any area of our product, depending on your background:\n\n\nSoftware Engineering (C++, Python, iOS, React / full-stack web development)\nRobotics\nControl Systems\nData Science\nMechanical Engineering\nElectrical Engineering\nMechatronics\nUX design\n\n\nIf you span more than one of these areas, even better! We love generalists who are always ready to spring from one set of skills to another.\n\nWe like to give interns projects that combine getting a specific piece of work done with an open question to explore for further refinement. For example, you might integrate a new sensor on the robot, then collect data to evaluate its performance. Or, you might implement a specific feature in the operator interface, then head out to a construction site to see how useful it is to operators. You’ll experience this fundamental cycle of product development for yourself.\n\nWorking at Dusty\n\nWe are a culture of do-ers who respect each others’ strengths, and work together to accomplish the impossible. We value open-mindedness, technical depth, passion for what we’re building, an itch to build something with your own two hands. We celebrate people who create their own narratives rather than living someone else’s.\n\nWe also provide mentorship in all areas of engineering to help you do your best work. In addition to day-to-day guidance from experienced engineers, we host weekly discussions on engineering topics. We reimburse attendance fees for technology conferences on robotics and other fields. And we offer support in accessing whatever resources you find helpful.\n\nSpending your internship in Silicon Valley also offers tremendous opportunities to learn from the concentration of innovative people who work and live here! You’ll find conferences, meetups, presentations and informal get-togethers related to pretty much any area of technology or the tech industry that interests you. Dusty is located in the heart of it all.",
+          "lastScraped": "2021-10-04T14:05:19.671Z",
+          "missedUploads": 0,
+          "interests": [
+            "mobile",
+            "react",
+            "robotics",
+            "software-engineering"
+          ],
+          "company": "Dusty Robotics",
+          "location": [
+            {
+              "city": "Mountain View"
+            }
+          ]
+        },
+        {
+          "urls": [
+            "https://angel.co/company/dusty-robotics/jobs/1535379-intern-robot-pit-crew"
+          ],
+          "position": "Intern - Robot Pit Crew",
+          "description": "What You'll Do:\n\nAs an intern with Dusty Robotics, and part of the Robot Pit Crew, you will be focused on Robot Readiness, prepping the robots for their jobs in the field after they return from a hard day's work. You will perform a number of tasks to ensure that robots are ready to go out into the field, which will vary from basic QA responsibilities to troubleshooting and solving logistics issues in getting our robots readied to go to customers. You will be an integral part of keeping our team organized, both digitally and physically, including organizing field supplies for easy access as well as keeping track of which robot is where.\n\nSome of the focus backgrounds that would be key to our mission are in mechanical, electromechanical, mechatronics or robotics. Primary focus will be maintenance, test, troubleshooting, packing, and overall readiness of our field robots. You may even get to spend some time in the field with the robots! \n\nWho You Are:\n\n\nProficient computer skills (AutoCAD experience helpful)\nSuperior verbal and written communication skills\nMechanical aptitude\nHigh attention to detail and good organizational skills\nProven problem solver\nSolid math skills (arithmetic and geometry)\nAble to lift and carry 50-lb equipment on uneven ground\nDriver's license with clean driving record\n\n\nWhere You'll Work:\n\nOur office is located in an office building in Mountain View, CA. We’re about two miles from the Caltrain station and a variety of restaurants along Castro Street. \n\nThis role is a part-time, temporary 20hr/week role (afternoons/evenings on weekdays). You will be working primarily in our Mountain View office, on a schedule that you and your manager mutually agree upon. You must have authorization to work in the US. No relocation assistance is provided. Preference is given to candidates who are local to the Bay Area.",
+          "lastScraped": "2021-10-04T14:05:23.069Z",
+          "missedUploads": 0,
+          "interests": [
+            "robotics"
+          ],
+          "company": "Dusty Robotics",
+          "location": [
+            {
+              "city": "Mountain View"
+            }
+          ]
+        },
+        {
+          "urls": [
+            "https://angel.co/company/objectsecurity-1/jobs/1632837-reverse-engineering-intern"
+          ],
+          "position": "Reverse Engineering Intern",
+          "description": "Please Note:\nBecause we are not doing in-office interviews and all of our positions are currently remote, we have a new interview process on Google Forms where you can choose a position that you are interested in applying for and record a quick 2-3 minute video on your experience and why you would be a good fit for the position. Don't spend too much time on it, it should be quick and easy just to give us an idea of your background in Computer Science and why you would be a good fit. You can find more information about our internships at https://objectsecurity.com/internships/ and the different internship positions available.\n\n*The link to Part 1 of the Google Form application can be found at https://docs.google.com/forms/d/e/1FAIpQLSf7WpHoW3P1j0TGSlN0q11Xy0pCAOEuR9lXiiBNCvyy1B3SwQ/viewform . Please fill out the form to be considered for the position.\n*\n\nOur Company:\nObjectSecurity is a small company in downtown San Diego (we work out of a coworking space but are currently virtual). We have traditionally focused on cybersecurity but have branched out into data analytics and AI in recent years. Our award-winning, patented security product is OpenPMF, which uses cool models and algorithms to make it easier to author and maintain fine-grained, dynamic access control policies.\nWe are doing exciting other product developments, including a supply chain risks analysis product which takes an SAP data dump and turns it into a graph DB, and then runs analytics over it to identify risks. Another cool project is an \"AI hacker\" development, which uses AI to simulate a hacker.\n\nReverse Engineering Position:\nWe are looking for an intern with experience working on dynamically analyzing binaries using various tools. We currently have a contract with the Navy to analyze binaries on embedded systems. In part 2 of the application, please list tools that you have used in the past and your prior work.\nWe are looking for interns for both during the semester and during the summer. We are flexible with start and end dates of the internship and how many hours interns work per week.\n\nQualifications:\n1) Available 8-16 hours per week virtually\n2) Prior experience with reverse engineering, using various tools to analyze binaries, and/or extracting firmware off of a device either with an internship/job, from classes, a prior internship or from a research project.\n\nLearning Objectives:\nBy working directly on software engineering projects hands-on doing front-end and back-end or working on embedded systems, hardware and/or microelectronics, interns will gain valuable experience in the software engineering field and improve upon their computer science skills as evidenced through their weekly projects.\n\nExpectations:\n1) Weekdays and hours worked are flexible based on the student's schedule but should be communicated to supervisor at the beginning of each week.\n2) We will communicate with the intern virtually via email, Slack and Zoom. A supervisor will meet with the intern at the start of the day to go over the day's tasks and\n3) Materials will be provided to interns at the beginning of the day. All interns are expected to push their code at the end of each work day to GitHub\n4) If interns are stuck or run into an issue with their code, they are encouraged to reach out to their supervisor, since someone will almost always be available to help.\n\nAll of our positions are currently virtual.",
+          "lastScraped": "2021-10-04T14:05:26.468Z",
+          "missedUploads": 0,
+          "interests": [
+            "artificial-intelligence",
+            "lisp",
+            "software-engineering"
+          ],
+          "company": "ObjectSecurity",
+          "location": [
+            {
+              "city": "San Diego • Remote"
+            }
+          ]
+        },
+        {
+          "urls": [
+            "https://angel.co/company/objectsecurity-1/jobs/1632777-java-analytics-software-engineering-intern"
+          ],
+          "position": "Java Analytics Software Engineering Intern",
+          "description": "Please Note:\nBecause we are not doing in-office interviews and all of our positions are currently remote, we have a new interview process on Google Forms where you can choose a position that you are interested in applying for and record a quick 2-3 minute video on your experience and why you would be a good fit for the position. Don't spend too much time on it, it should be quick and easy just to give us an idea of your background in Computer Science and why you would be a good fit. You can find more information about our internships at https://objectsecurity.com/internships/ and the different internship positions available.\n\n*The link to Part 1 of the Google Form application can be found at https://docs.google.com/forms/d/e/1FAIpQLSf7WpHoW3P1j0TGSlN0q11Xy0pCAOEuR9lXiiBNCvyy1B3SwQ/viewform . You must fill out the form to be considered for the position.\n*\n\nOur Company:\nObjectSecurity is a small company in downtown San Diego (we work out of a coworking space but are currently virtual). We have traditionally focused on cybersecurity but have branched out into data analytics and AI in recent years. Our award-winning, patented security product is OpenPMF, which uses cool models and algorithms to make it easier to author and maintain fine-grained, dynamic access control policies.\n\nWe are doing exciting other product developments, including a supply chain risks analysis product which takes an SAP data dump and turns it into a graph DB, and then runs analytics over it to identify risks. Another cool project is an \"AI hacker\" development, which uses AI to simulate a hacker.\n\nJava Analytics Position:\nWe are looking for an intern to create new analytics for our SCRAMS product for gathering data from and analyzing various data sources. Additionally, we are also looking for interns who have experience with Natural Language Processing to work on more advanced assessments.\nWe are looking for interns for both during the semester and during the summer. We are flexible with start and end dates of the internship and how many hours interns work per week.\nThis is the initial internship project, but depending on how long it takes to complete, there is always room to grow with our company and move on to other projects. There’s also scope for moving into other projects in the fields of machine learning, AI, information modeling, analytics, cybersecurity and more. The sky is the limit with our company.\n\nQualifications:\n1) Available 8-16 hours per week virtually\n2) Experience with Java, examples of previous projects worked on, RESTful APIs\n3) Optional: Prior NLP experience\n4) \nLearning Objectives:\nBy working directly on software engineering projects hands-on doing front-end and back-end or working on embedded systems, hardware and/or microelectronics, interns will gain valuable experience in the software engineering field and improve upon their computer science skills as evidenced through their weekly projects.\n\nExpectations:\n1) Weekdays and hours worked are flexible based on the student's schedule but should be communicated to supervisor at the beginning of each week.\n2) We will communicate with the intern virtually via email, Slack and Zoom. A supervisor will meet with the intern at the start of the day to go over the day's tasks and\n3) Materials will be provided to interns at the beginning of the day. All interns are expected to push their code at the end of each work day to GitHub\n4) If interns are stuck or run into an issue with their code, they are encouraged to reach out to their supervisor, since someone will almost always be available to help.\n\nAll of our positions are currently virtual.",
+          "lastScraped": "2021-10-04T14:05:29.970Z",
+          "missedUploads": 0,
+          "interests": [
+            "artificial-intelligence",
+            "lisp",
+            "natural-language-processing",
+            "software-engineering"
+          ],
+          "company": "ObjectSecurity",
+          "location": [
+            {
+              "city": "San Diego • Remote"
+            }
+          ]
         }
       ]
     },
