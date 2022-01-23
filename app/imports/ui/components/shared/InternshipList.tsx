@@ -9,10 +9,9 @@ import InternshipLabel from './label/InternshipLabel';
 interface InternshipListProps {
   internships: Internship[];
   size: SemanticSIZES;
-  userID: string;
 }
 
-export const InternshipList: React.FC<InternshipListProps> = ({ internships, size }) => {
+const InternshipList: React.FC<InternshipListProps> = ({ internships, size }) => {
   const match = useRouteMatch();
   const userID = Router.getUserIdFromRoute(match);
   const guid = internships.map((id) => Internships.findDoc(id).guid);

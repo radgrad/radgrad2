@@ -24,6 +24,7 @@ import ExplorerItemView from '../../../components/shared/explorer/item-view/Expl
 import RelatedCourses from '../../../components/shared/RelatedCourses';
 import RelatedOpportunities from '../../../components/shared/RelatedOpportunities';
 import RelatedInterests from '../../../components/shared/RelatedInterests';
+import RelatedInternships from '../../../components/shared/RelatedInternships';
 
 interface CareerGoalViewPageProps {
   profileCareerGoals: ProfileCareerGoal[];
@@ -47,6 +48,8 @@ const CareerGoalViewPage: React.FC<CareerGoalViewPageProps> = ({
   const careerGoalID = careerGoal._id;
   const relatedCourses = getAssociationRelatedCourses(CareerGoals.findRelatedCourses(careerGoalID), profile.userID);
   const relatedOpportunities = getAssociationRelatedOpportunities(CareerGoals.findRelatedOpportunities(careerGoalID), profile.userID);
+  const relatedInternships = CareerGoals.findRelatedInternships(careerGoalID);
+  console.log(relatedInternships);
   const headerPaneTitle = careerGoal.name;
   const careerPicture = careerGoal.picture;
   const added = ProfileCareerGoals.findNonRetired({ userID: profile.userID, careerGoalID }).length > 0;
@@ -60,6 +63,7 @@ const CareerGoalViewPage: React.FC<CareerGoalViewPageProps> = ({
             <RelatedInterests item={careerGoal} />
             <RelatedCourses relatedCourses={relatedCourses} profile={profile} />
             <RelatedOpportunities relatedOpportunities={relatedOpportunities} profile={profile} />
+            <RelatedInternships internships={relatedInternships} userID={profile.userID} />
           </Grid.Column>
           <Grid.Column width={11}>
             <ExplorerItemView profile={profile} item={careerGoal} opportunities={opportunities} courses={courses}

@@ -175,6 +175,7 @@ class CareerGoalCollection extends BaseSlugCollection {
     const docID = this.getID(docIdOrSlug);
     const interestIDs = this.findDoc(docID).interestIDs;
     const internships = Internships.findNonRetired(); // should this be a different query?
+    console.log('internships', internships);
     return internships.filter((internship) => {
       if (internship.careerGoalIDs.includes(docID)) {
         return true;
