@@ -12,7 +12,7 @@ if (Meteor.isClient) {
     const collectionName = ProfileOpportunities.getCollectionName();
     const definitionData = {
       opportunity: 'acm-icpc',
-      student: 'abi@hawaii.edu',
+      username: 'abi@hawaii.edu',
     };
     const updateData: any = { retired: true };
 

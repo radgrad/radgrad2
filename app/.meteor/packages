@@ -8,18 +8,17 @@
 # zodern:profile-require
 
 # Core 1.6.1 packages for Meteor/React/Semantic UI
-meteor-base@1.4.0                # Packages every Meteor app needs to have
+meteor-base@1.5.1                # Packages every Meteor app needs to have
 mobile-experience@1.1.0          # Packages for a great mobile UX
-mongo@1.11.0                      # The database Meteor supports right now
-static-html                      # Define static page content in .html files
+mongo@1.13.0                      # The database Meteor supports right now
+static-html@1.3.2                      # Define static page content in .html files
 reactive-var@1.0.11              # Reactive variable for tracker
 tracker@1.2.0                    # Meteor's client-side reactive programming library
 es5-shim@4.8.0                   # ECMAScript 5 compatibility for older browsers
-ecmascript@0.15.1                # Enable ECMAScript2015+ syntax in app code
+ecmascript@0.16.0                # Enable ECMAScript2015+ syntax in app code
 shell-server@0.5.0               # Server-side component of the `meteor shell` command
 
 # Accounts
-accounts-password@1.7.0                # https://guide.meteor.com/accounts.html
 
 # Collection support
 aldeed:collection2-core          # Integrate node-simpl-schema with Meteor collections.
@@ -35,8 +34,7 @@ erasaur:meteor-lodash
 didericis:callpromise-mixin
 mdg:validated-method
 momentjs:moment
-atoy40:accounts-cas
-ddp-rate-limiter@1.0.9
+ddp-rate-limiter@1.1.0
 harrison:papa-parse
 jquery
 meteorhacks:subs-manager
@@ -46,9 +44,9 @@ random@1.2.0
 react-meteor-data
 alanning:roles
 mizzao:user-status
-email@2.0.0
+email@2.2.0
 meteorhacks:ssr
-typescript@4.2.2
+typescript@4.4.0
 meteortesting:browser-tests
 lmieulet:meteor-coverage
 littledata:synced-cron
@@ -56,4 +54,7 @@ meteortesting:mocha
 montiapm:agent@2.39.1-beta.1
 zodern:standard-minifier-js
 zodern:hide-production-sourcemaps
-standard-minifier-css@1.7.2
+standard-minifier-css@1.7.4
+accounts-password@2.2.0
+cammoo:accounts-cas
+fetch@0.1.1

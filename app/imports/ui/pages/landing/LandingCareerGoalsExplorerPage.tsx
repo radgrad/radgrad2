@@ -15,7 +15,6 @@ import RadGradHeader from '../../components/shared/RadGradHeader';
 import RadGradSegment from '../../components/shared/RadGradSegment';
 
 interface CareerGoalsExplorerProps {
-  explorerType: EXPLORER_TYPE;
   careerGoals: CareerGoal[];
   count: number;
 }

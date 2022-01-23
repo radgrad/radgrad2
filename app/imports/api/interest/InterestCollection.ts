@@ -1,15 +1,17 @@
 import SimpleSchema from 'simpl-schema';
 import { Meteor } from 'meteor/meteor';
 import _ from 'lodash';
+import { Internships } from '../internship/InternshipCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { ProfileInterests } from '../user/profile-entries/ProfileInterestCollection';
+import { InterestKeywords } from './InterestKeywordCollection';
 import { InterestTypes } from './InterestTypeCollection';
 import { Courses } from '../course/CourseCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
 import { Opportunities } from '../opportunity/OpportunityCollection';
 import { Teasers } from '../teaser/TeaserCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
-import { CareerGoal, Course, InterestDefine, InterestUpdate, Opportunity } from '../../typings/radgrad';
+import { CareerGoal, Course, InterestDefine, InterestUpdate, Internship, Opportunity } from '../../typings/radgrad';
 
 /**
  * Represents a specific interest, such as "Software Engineering".
@@ -38,6 +40,8 @@ class InterestCollection extends BaseSlugCollection {
       interestType: String,
       retired: { type: Boolean, optional: true },
       picture: { type: String, optional: true },
+      keywords: { type: Array },
+      'keywords.$': { type: String },
     });
     this.updateSchema = new SimpleSchema({
       name: { type: String, optional: true },
@@ -46,6 +50,8 @@ class InterestCollection extends BaseSlugCollection {
       interestType: { type: String, optional: true },
       retired: { type: Boolean, optional: true },
       picture: { type: String, optional: true },
+      keywords: { type: Array, optional: true },
+      'keywords.$': { type: String },
     });
   }
 
@@ -62,7 +68,7 @@ class InterestCollection extends BaseSlugCollection {
    * @throws {Meteor.Error} If the interest definition includes a defined slug or undefined interestType.
    * @returns The newly created docID.
    */
-  public define({ name, slug, description, interestType, retired = false, picture }: InterestDefine): string {
+  public define({ name, slug, description, interestType, retired = false, picture, keywords = [] }: InterestDefine): string {
     // console.log(`${this.collectionName}.define(${name}, ${slug}, ${description}, ${interestType}`);
     // Get InterestTypeID, throw error if not found.
     const interestTypeID = InterestTypes.getID(interestType);
@@ -72,6 +78,11 @@ class InterestCollection extends BaseSlugCollection {
     const interestID = this.collection.insert({ name, description, slugID, interestTypeID, retired, picture });
     // Connect the Slug to this Interest
     Slugs.updateEntityID(slugID, interestID);
+    // Update the InterestKeywords
+    if (keywords.length > 0) {
+      InterestKeywords.removeInterest(interestID);
+      keywords.forEach((word) => InterestKeywords.define({ interest: slug, keyword: word, retired }));
+    }
     return interestID;
   }
 
@@ -83,7 +94,7 @@ class InterestCollection extends BaseSlugCollection {
    * @param interestType The new interestType slug or ID (optional).
    * @throws { Meteor.Error } If docID is not defined, or if interestType is not valid.
    */
-  public update(docID: string, { name, description, interestType, retired, picture }: InterestUpdate) {
+  public update(docID: string, { name, description, interestType, retired, picture, keywords }: InterestUpdate) {
     this.assertDefined(docID);
     const updateData: { name?: string, description?: string, interestTypeID?: string, retired?: boolean, picture?:string } = {};
     if (name) {
@@ -108,6 +119,12 @@ class InterestCollection extends BaseSlugCollection {
       teasers.forEach((teaser) => Teasers.update(teaser._id, { retired }));
     }
     this.collection.update(docID, { $set: updateData });
+    if (keywords) {
+      InterestKeywords.removeInterest(docID);
+      const interestDoc = this.findDoc(docID);
+      const interest = Slugs.getNameFromID(interestDoc.slugID);
+      keywords.forEach(word => InterestKeywords.define({ interest, keyword: word }));
+    }
     return true;
   }
 
@@ -136,10 +153,13 @@ class InterestCollection extends BaseSlugCollection {
    */
   public removeIt(instance: string) {
     const docID = this.getID(instance);
+    // Remove any InterestKeywords
+    InterestKeywords.removeInterest(docID);
     // Check that this interest is not referenced by any User.
-    // TODO Should the profile collections be included below?
-    // No, but we need to check ProfileInterests
     this.assertUnusedInterest([Courses, CareerGoals, Opportunities, Teasers], docID);
+    // Remove any ProfileInterests for this interest.
+    const profileInterests = ProfileInterests.find({ interestID: docID }).fetch();
+    profileInterests.forEach(pi => ProfileInterests.removeIt(pi._id));
     // OK, clear to delete.
     return super.removeIt(docID);
   }
@@ -175,6 +195,17 @@ class InterestCollection extends BaseSlugCollection {
     const interestID = this.getID(docIdOrSlug);
     const courses = Courses.findNonRetired();
     return courses.filter((course) => course.interestIDs.includes(interestID));
+  }
+
+  /**
+   * Returns a list of Internships that have the given interest.
+   * @param {string} docIdOrSlug an interest ID or slug.
+   * @return {Internship[]} Internships that have the given interest.
+   */
+  public findRelatedInternships(docIdOrSlug: string): Internship[] {
+    const interestID = this.getID(docIdOrSlug);
+    const internships = Internships.findNonRetired();
+    return internships.filter((internship) => internship.interestIDs.includes(interestID));
   }
 
   /**
@@ -220,7 +251,8 @@ class InterestCollection extends BaseSlugCollection {
     const picture = doc.picture;
     const interestType = InterestTypes.findSlugByID(doc.interestTypeID);
     const retired = doc.retired;
-    return { name, slug, description, interestType, retired, picture };
+    const keywords = InterestKeywords.getKeywords(slug);
+    return { name, slug, description, interestType, retired, picture, keywords };
   }
 }
 

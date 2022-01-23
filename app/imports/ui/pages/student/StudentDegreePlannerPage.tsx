@@ -36,7 +36,6 @@ import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 
 interface StudentDegreePlannerProps {
-  takenSlugs: string[];
   match: MatchProps;
   academicYearInstances: AcademicYearInstance[];
   courseInstances: CourseInstance[];
@@ -160,7 +159,7 @@ Telling RadGrad what you've planned and completed helps the system provide bette
 `;
 const headerPaneImage = 'images/header-panel/header-planner.png';
 
-const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({ academicYearInstances, studentID, match, profileCourses, profileOpportunities, courseInstances, opportunityInstances, takenSlugs, verificationRequests }) => {
+const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({ academicYearInstances, studentID, match, profileCourses, profileOpportunities, courseInstances, opportunityInstances, verificationRequests }) => {
 
   const onDragEndProps = { match };
   const paddedStyle = { paddingTop: 0, paddingLeft: 10, paddingRight: 20 };
@@ -175,7 +174,6 @@ const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({ academi
 
             <Grid.Column width={5} style={paddedStyle}>
               <TabbedProfileEntries
-                takenSlugs={takenSlugs}
                 profileOpportunities={profileOpportunities}
                 studentID={studentID}
                 profileCourses={profileCourses}
@@ -191,19 +189,11 @@ const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({ academi
   );
 };
 
-const takenSlugs = (courseInstances: CourseInstance[]): string[] => {
-  const passedCourseInstances = courseInstances.filter((ci) => passedCourse(ci));
-  return passedCourseInstances.map((ci) => {
-    const doc = CourseInstances.getCourseDoc(ci._id);
-    return Slugs.getNameFromID(doc.slugID);
-  });
-};
-
 export default withTracker(() => {
   const { username } = useParams();
   const profile = Users.getProfile(username);
   const studentID = profile.userID;
-  const pOpportunities = ProfileOpportunities.findNonRetired({ studentID });
+  const pOpportunities = ProfileOpportunities.findNonRetired({ userID: studentID });
   let profileOpportunities = pOpportunities.map((f) => Opportunities.findDoc(f.opportunityID));
   // first filter the retired opportunities
   profileOpportunities = profileOpportunities.filter((opp) => !opp.retired);
@@ -212,8 +202,8 @@ export default withTracker(() => {
   //   const terms = opp.termIDs.map((term) => AcademicTerms.findDoc(term));
   //   return terms.some((term) => AcademicTerms.isUpcomingTerm(term._id));
   // });
-  const courseInstances = CourseInstances.findNonRetired({ studentID: profile.userID });
-  const pCourses = ProfileCourses.findNonRetired({ studentID });
+  const courseInstances = CourseInstances.findNonRetired({ studentID });
+  const pCourses = ProfileCourses.findNonRetired({ userID: studentID });
   let profileCourses = pCourses.map((f) => Courses.findDoc(f.courseID));
   // first get rid of any retired courses
   profileCourses = profileCourses.filter((course) => !course.retired);
@@ -227,10 +217,9 @@ export default withTracker(() => {
     return true; // no course instance so it is from profileCourses.
   });
   const academicYearInstances: AcademicYearInstance[] = AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
-  const opportunityInstances = OpportunityInstances.findNonRetired({ studentID: profile.userID });
+  const opportunityInstances = OpportunityInstances.findNonRetired({ studentID });
   const verificationRequests = VerificationRequests.findNonRetired({ studentID });
   return {
-    takenSlugs: takenSlugs(courseInstances),
     academicYearInstances,
     opportunityInstances,
     courseInstances,

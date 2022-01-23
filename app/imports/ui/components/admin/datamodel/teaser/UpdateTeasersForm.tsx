@@ -71,6 +71,7 @@ const UpdateTeaserForm: React.FC<UpdateTeaserFormProps> = ({
     retired: { type: Boolean, optional: true },
   });
   const formSchema = new SimpleSchema2Bridge(schema);
+  // console.log('model', model);
   return (
     <Segment padded>
       <Header dividing>
@@ -87,10 +88,10 @@ const UpdateTeaserForm: React.FC<UpdateTeaserFormProps> = ({
           <TextField name="youtubeID"/>
           <TextField name="duration"/>
         </Form.Group>
-        <LongTextField name="description"/>
         <Form.Group widths="equal">
           <MultiSelectField name="interests"/>
         </Form.Group>
+        <LongTextField name="description"/>
         <BoolField name="retired"/>
         <SubmitField inputRef={undefined} value="Update" disabled={false} className="mini basic green"/>
         <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>

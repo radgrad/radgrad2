@@ -10,6 +10,7 @@ export const enum MOSTPOPULAR {
   INTEREST = 'INTEREST',
   CAREERGOAL = 'CAREERGOAL',
   OPPORTUNITY = 'OPPORTUNITY',
+  INTERNSHIP = 'INTERNSHIP',
 }
 
 interface MostPopularProps {
@@ -34,6 +35,10 @@ const MostPopular: React.FC<MostPopularProps> = ({ type, data }) => {
     icon = 'lightbulb outline';
     title = 'Popular Opportunities';
     labels = data && data.map(pair => <div key={pair[0]}><OpportunityLabel userID={userID} slug={pair[0]} rightside={` (${pair[1]})`}/></div>);
+  } else if (type === MOSTPOPULAR.INTERNSHIP) {
+    icon = 'heart outline';
+    title = 'Interest (Internships)';
+    labels = data && data.map(pair => <div key={pair[0]}><InterestLabel userID={userID} slug={pair[0]} rightside={` (${pair[1]})`}/></div>);
   }
   const header = <RadGradHeader title={title} icon={icon} />;
   return (

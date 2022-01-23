@@ -94,6 +94,7 @@ test('Test admin data model pages', async (testController) => {
   await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'course-instances');
   await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'courses');
   await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'interests');
+  await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'interest-keywords');
   await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'interest-types');
   await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'opportunities');
   await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'opportunity-instances');
@@ -115,6 +116,8 @@ test('Test admin visibility page', async (testController) => {
   await visibilityPage.testVisibility(testController, `#${COMPONENTIDS.SHARE_WEBSITE}`, `#${COMPONENTIDS.PROFILE_WEBSITE}`);
   await visibilityPage.testVisibility(testController, `#${COMPONENTIDS.SHARE_INTERESTS}`, `#${COMPONENTIDS.PROFILE_INTERESTS}`);
   await visibilityPage.testVisibility(testController, `#${COMPONENTIDS.SHARE_CAREER_GOALS}`, `#${COMPONENTIDS.PROFILE_CAREER_GOALS}`);
+  await visibilityPage.testVisibility(testController, `#${COMPONENTIDS.SHARE_OPPORTUNITIES}`, `#${COMPONENTIDS.PROFILE_OPPORTUNITIES}`);
+  await visibilityPage.testVisibility(testController, `#${COMPONENTIDS.SHARE_COURSES}`, `#${COMPONENTIDS.PROFILE_COURSES}`);
 });
 
 test('Test admin ensure logout', async (testController) => {

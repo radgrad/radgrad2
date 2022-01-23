@@ -45,7 +45,6 @@ const LandingOpportunityExplorerPage: React.FC<OpportunityExplorerProps> = ({ op
   const teaser = Teasers.findNonRetired({ targetSlugID: opportunity.slugID });
   const hasTeaser = teaser.length > 0;
   const opportunityType = OpportunityTypes.findDoc(opportunity.opportunityTypeID).name;
-  const opportunityTermNames = opportunity.termIDs.map((id) => AcademicTerms.toString(id));
   const dateStrings = [];
   if (opportunity.eventDate1) {
     dateStrings.push(moment(opportunity.eventDate1).format('MM/DD/YYYY'));
@@ -82,11 +81,6 @@ const LandingOpportunityExplorerPage: React.FC<OpportunityExplorerProps> = ({ op
                       </Grid.Column>
                       <Grid.Column>
                         <strong>Date: </strong>&nbsp; {opportunity.eventDate1 ? dateStrings.join(', ') : 'N/A'}
-                      </Grid.Column>
-                    </Grid.Row>
-                    <Grid.Row columns={1}>
-                      <Grid.Column>
-                        <strong>Academic Terms:</strong>&nbsp; {opportunityTermNames.length > 0 ? (opportunityTermNames.join(', ')) : ('N/A')}
                       </Grid.Column>
                     </Grid.Row>
                   </Grid>

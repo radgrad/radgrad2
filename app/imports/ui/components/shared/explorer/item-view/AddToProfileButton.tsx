@@ -34,7 +34,7 @@ const handleRemove = (userID: string, item: ItemType, type: IProfileEntryTypes) 
   const collectionName = getCollectionName(type);
   let instance;
   switch (type) {
-    case PROFILE_ENTRY_TYPE.CAREERGOAL:
+    case PROFILE_ENTRY_TYPE.CAREERGOAL: // TODO we don't need this anymore. We're using the AddCareerToProfileButton.
       instance = ProfileCareerGoals.findNonRetired({
         userID,
         careerGoalID: item._id,
@@ -58,6 +58,7 @@ const handleRemove = (userID: string, item: ItemType, type: IProfileEntryTypes) 
         opportunityID: item._id,
       })[0]._id;
       break;
+      // TODO add internships.
     default:
       console.error(`Bad profile entry type: ${type}`);
       break;
@@ -72,13 +73,13 @@ const AddToProfileButton: React.FC<AddToProfileButtonProps> = ({ userID, item, t
       <Button id={COMPONENTIDS.REMOVE_FROM_PROFILE_BUTTON} onClick={handleRemove(userID, item, type)} size="small" color="teal" floated={floated || 'right'} basic inverted={inverted}>
         <Icon name="user outline" color="grey" inverted={inverted} />
         <Icon name="minus" />
-        REMOVE FROM PROFILE
+          REMOVE FROM PROFILE
       </Button>
     ) : (
       <Button id={COMPONENTIDS.ADD_TO_PROFILE_BUTTON} size="small" onClick={handleAdd(userID, item, type)} color="teal" floated={floated || 'right'} basic inverted={inverted}>
         <Icon name="user" color="grey" inverted={inverted} />
         <Icon name="plus" />
-        ADD TO PROFILE
+          ADD TO PROFILE
       </Button>
     )}
   </React.Fragment>

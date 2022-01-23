@@ -2,7 +2,7 @@
 declare module 'meteor/meteor' {
   namespace Meteor {
     const isAppTest: boolean;
-    function loginWithCas(callback?: (error?: any, result?: any) => void): any;
+    function loginWithCas(options: object, callback?: (error?: any, result?: any) => void): any;
     const roleAssignment: any;
   }
   namespace Accounts {

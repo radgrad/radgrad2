@@ -1,3 +1,5 @@
+// Technical debt add internships.
+
 // types for profile entries
 export enum PROFILE_ENTRY_TYPE {
   CAREERGOAL = 'careerGoal',

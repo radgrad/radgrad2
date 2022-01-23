@@ -1,6 +1,7 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import React from 'react';
 import { useRouteMatch, Redirect } from 'react-router';
+import { useParams } from 'react-router-dom';
 import { CareerGoalsChecklist } from '../../components/checklist/CareerGoalsChecklist';
 import { CareerGoalsWithoutRelatedChecklists } from '../../components/checklist/CareerGoalsWithoutRelatedChecklists';
 import { CHECKSTATE } from '../../components/checklist/Checklist';
@@ -10,8 +11,6 @@ import { ManageOpportunitiesChecklist } from '../../components/checklist/ManageO
 import { ManageReviewsChecklist } from '../../components/checklist/ManageReviewsChecklist';
 import { ManageVerificationRequestsChecklist } from '../../components/checklist/ManageVerificationRequestsChecklist';
 import { OutOfDateOpportunitiesChecklist } from '../../components/checklist/OutOfDateOpportunitiesChecklist';
-import { ReviewCareerGoalsChecklist } from '../../components/checklist/ReviewCareerGoalsChecklist';
-import { ReviewInterestsChecklist } from '../../components/checklist/ReviewInterestsChecklist';
 import { VisibilityChecklist } from '../../components/checklist/VisibilityChecklist';
 import { TermsAndConditionsChecklist } from '../../components/checklist/TermsAndConditionsChecklist';
 import { CoursesChecklist } from '../../components/checklist/CoursesChecklist';
@@ -35,10 +34,9 @@ const headerPaneBody = `
 <p><span class="headerLabel greenBG">COMPLETED</span>  &nbsp; All of these look good for now!</p>
 `;
 const headerPaneImage = 'images/header-panel/header-home.png';
-let username;
 let refusedTerms;
 
-const HomePage: React.FC<HomePageProps> = ({ okItems, reviewItems, improveItems, pageID }) => {
+const HomePage: React.FC<HomePageProps> = ({ okItems, reviewItems, improveItems, pageID, username }) => {
 
   if (refusedTerms) {
     return <Redirect to={{ pathname: '/signout-refused' }} key={`${username}-refused-terms`} />;
@@ -49,8 +47,7 @@ const HomePage: React.FC<HomePageProps> = ({ okItems, reviewItems, improveItems,
 };
 
 export default withTracker(() => {
-  const currentUser = Meteor.user() ? Meteor.user().username : '';
-  username = currentUser;
+  const { username } = useParams();
   const okItems = [];
   const reviewItems = [];
   const improveItems = [];
@@ -58,51 +55,48 @@ export default withTracker(() => {
   const match = useRouteMatch();
   const role = getRoleByUrl(match);
   let pageID = '';
-  checklists.push(new InterestsChecklist(currentUser));
-  checklists.push(new CareerGoalsChecklist(currentUser));
-  checklists.push(new VisibilityChecklist(currentUser));
   switch (role) {
     case URL_ROLES.ADMIN:
       pageID = PAGEIDS.ADMIN_HOME;
-      checklists.push(new OutOfDateOpportunitiesChecklist(currentUser));
-      checklists.push(new ManageVerificationRequestsChecklist(currentUser));
-      checklists.push(new ManageOpportunitiesChecklist(currentUser));
-      checklists.push(new ManageReviewsChecklist(currentUser));
-      checklists.push(new ReviewInterestsChecklist(currentUser));
-      checklists.push(new ReviewCareerGoalsChecklist(currentUser));
-      checklists.push(new InterestsWithoutRelatedChecklists(currentUser));
-      checklists.push(new CareerGoalsWithoutRelatedChecklists(currentUser));
+      checklists.push(new OutOfDateOpportunitiesChecklist(username));
+      checklists.push(new ManageVerificationRequestsChecklist(username));
+      checklists.push(new ManageOpportunitiesChecklist(username));
+      checklists.push(new ManageReviewsChecklist(username));
+      checklists.push(new InterestsWithoutRelatedChecklists(username));
+      checklists.push(new CareerGoalsWithoutRelatedChecklists(username));
       break;
     case URL_ROLES.ADVISOR:
       pageID = PAGEIDS.ADVISOR_HOME;
-      checklists.push(new OutOfDateOpportunitiesChecklist(currentUser));
-      checklists.push(new ManageVerificationRequestsChecklist(currentUser));
-      checklists.push(new ManageOpportunitiesChecklist(currentUser));
-      checklists.push(new ManageReviewsChecklist(currentUser));
-      checklists.push(new ReviewInterestsChecklist(currentUser));
-      checklists.push(new ReviewCareerGoalsChecklist(currentUser));
-      checklists.push(new InterestsWithoutRelatedChecklists(currentUser));
-      checklists.push(new CareerGoalsWithoutRelatedChecklists(currentUser));
-      checklists.push(new TermsAndConditionsChecklist(currentUser));
+      checklists.push(new InterestsChecklist(username));
+      checklists.push(new CareerGoalsChecklist(username));
+      checklists.push(new VisibilityChecklist(username));
+      checklists.push(new OutOfDateOpportunitiesChecklist(username));
+      checklists.push(new ManageVerificationRequestsChecklist(username));
+      checklists.push(new ManageOpportunitiesChecklist(username));
+      checklists.push(new ManageReviewsChecklist(username));
+      checklists.push(new InterestsWithoutRelatedChecklists(username));
+      checklists.push(new CareerGoalsWithoutRelatedChecklists(username));
+      checklists.push(new TermsAndConditionsChecklist(username));
       break;
     case URL_ROLES.FACULTY:
       pageID = PAGEIDS.FACULTY_HOME_PAGE;
-      checklists.push(new OutOfDateOpportunitiesChecklist(currentUser));
-      checklists.push(new ManageVerificationRequestsChecklist(currentUser));
-      checklists.push(new ManageOpportunitiesChecklist(currentUser));
-      checklists.push(new ManageReviewsChecklist(currentUser));
-      checklists.push(new ReviewInterestsChecklist(currentUser));
-      checklists.push(new ReviewCareerGoalsChecklist(currentUser));
-      checklists.push(new TermsAndConditionsChecklist(currentUser));
+      checklists.push(new InterestsChecklist(username));
+      checklists.push(new CareerGoalsChecklist(username));
+      checklists.push(new VisibilityChecklist(username));
+      checklists.push(new ManageOpportunitiesChecklist(username));
+      checklists.push(new TermsAndConditionsChecklist(username));
       break;
     case URL_ROLES.STUDENT:
       pageID = PAGEIDS.STUDENT_HOME;
-      checklists.push(new CoursesChecklist(currentUser));
-      checklists.push(new OpportunitiesChecklist(currentUser));
-      checklists.push(new ReviewChecklist(currentUser));
-      checklists.push(new VerificationChecklist(currentUser));
-      checklists.push(new LevelChecklist(currentUser));
-      checklists.push(new TermsAndConditionsChecklist(currentUser));
+      checklists.push(new InterestsChecklist(username));
+      checklists.push(new CareerGoalsChecklist(username));
+      checklists.push(new VisibilityChecklist(username));
+      checklists.push(new CoursesChecklist(username));
+      checklists.push(new OpportunitiesChecklist(username));
+      checklists.push(new ReviewChecklist(username));
+      checklists.push(new VerificationChecklist(username));
+      checklists.push(new LevelChecklist(username));
+      checklists.push(new TermsAndConditionsChecklist(username));
       break;
     default:
   }
@@ -116,7 +110,7 @@ export default withTracker(() => {
         reviewItems.push(checklist.getChecklistItem());
         break;
       case CHECKSTATE.OK:
-        if (checklist.getChecklistItem().key === `${currentUser}-refused-terms`) {
+        if (checklist.getChecklistItem().key === `${username}-refused-terms`) {
           refusedTerms = true;
         }
         okItems.push(checklist.getChecklistItem());
@@ -124,12 +118,17 @@ export default withTracker(() => {
       default:
     // do nothing
     }
-
   });
+  // sort each group alphabetically
+  const itemCompare = (a, b) => a.key.localeCompare(b.key);
+  improveItems.sort(itemCompare);
+  reviewItems.sort(itemCompare);
+  okItems.sort(itemCompare);
   return {
     okItems,
     reviewItems,
     improveItems,
     pageID,
+    username,
   };
 })(HomePage);

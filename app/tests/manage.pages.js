@@ -56,11 +56,17 @@ class ManagePages {
   }
 
   async studentRequestVerification(testController) {
+    // clears all the unverified opportunities
     await testController.click(`#${COMPONENTIDS.STUDENT_REQUEST_VERIFICATION_BUTTON}`);
     await testController.typeText(`#${COMPONENTIDS.STUDENT_REQUEST_VERIFICATION_INPUT}`, 'Attended meetings');
     await testController.click(`#${COMPONENTIDS.STUDENT_REQUEST_VERIFICATION_SUBMIT}`);
+    // TODO CAM: Since we are in a new semester we have 2 unverified opportunities. Not sure this is the best solution.
+    await testController.click(`#${COMPONENTIDS.STUDENT_REQUEST_VERIFICATION_BUTTON}`);
+    await testController.typeText(`#${COMPONENTIDS.STUDENT_REQUEST_VERIFICATION_INPUT}`, 'Attended meetings');
+    await testController.click(`#${COMPONENTIDS.STUDENT_REQUEST_VERIFICATION_SUBMIT}`);
+
     const componentSelector = Selector(`#${COMPONENTIDS.STUDENT_REQUEST_VERIFICATION_BUTTON}`);
-    await testController.expect(componentSelector.exists).notOk();
+    await testController.expect(componentSelector.exists).notOk(); // There should be no more unverified opportunities
   }
 }
 

@@ -1,12 +1,12 @@
 import SimpleSchema from 'simpl-schema';
-import { Meteor } from 'meteor/meteor';
 import _ from 'lodash';
 import { Courses } from '../course/CourseCollection';
+import { Internships } from '../internship/InternshipCollection';
 import { Opportunities } from '../opportunity/OpportunityCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { Interests } from '../interest/InterestCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
-import { CareerGoalDefine, CareerGoalUpdate, Course, Opportunity } from '../../typings/radgrad';
+import { CareerGoalDefine, CareerGoalUpdate, Course, Internship, Opportunity } from '../../typings/radgrad';
 import { ProfileCareerGoals } from '../user/profile-entries/ProfileCareerGoalCollection';
 import { Teasers } from '../teaser/TeaserCollection';
 
@@ -125,11 +125,9 @@ class CareerGoalCollection extends BaseSlugCollection {
    */
   public removeIt(instance: string) {
     const careerGoalID = this.getID(instance);
-    // Check that this is not referenced by any User.
-    const profileEntities = ProfileCareerGoals.find({ careerGoalID }).fetch();
-    if (profileEntities.length > 0) {
-      throw new Meteor.Error(`Career Goal ${instance} is referenced.`);
-    }
+    // Remove all the ProfileCareerGoals associated with this career goal.
+    const profileCareerGoals = ProfileCareerGoals.find({ careerGoalID }).fetch();
+    profileCareerGoals.forEach(pc => ProfileCareerGoals.removeIt(pc._id));
     // OK, clear to delete.
     return super.removeIt(careerGoalID);
   }
@@ -143,10 +141,11 @@ class CareerGoalCollection extends BaseSlugCollection {
   public findNames(instanceIDs: string[]) {
     return instanceIDs.map((instanceID) => this.findDoc(instanceID).name);
   }
+
   /**
    * Returns a list of Courses that have common interests.
-   * @param {string} docIdOrSlug an interest ID or slug.
-   * @return {Course[]} Courses that have the given interest.
+   * @param {string} docIdOrSlug a career goal ID or slug.
+   * @return {Course[]} Courses that share the interests.
    */
   public findRelatedCourses(docIdOrSlug: string): Course[] {
     const docID = this.getID(docIdOrSlug);
@@ -157,14 +156,31 @@ class CareerGoalCollection extends BaseSlugCollection {
 
   /**
    * Returns a list of the Opportunities that have common interests.
-   * @param {string} docIdOrSlug an interest ID or slug.
-   * @return {Opportunity[]} Opportunities that have the given interest.
+   * @param {string} docIdOrSlug a career goal ID or slug.
+   * @return {Opportunity[]} Opportunities that share the interests.
    */
   public findRelatedOpportunities(docIdOrSlug: string): Opportunity[] {
     const docID = this.getID(docIdOrSlug);
     const interestIDs = this.findDoc(docID).interestIDs;
     const opportunities = Opportunities.findNonRetired();
     return opportunities.filter((opp) => opp.interestIDs.filter((x) => interestIDs.includes(x)).length > 0);
+  }
+
+  /**
+   * Returns a list of the Internships that have common interests or career goal.
+   * @param {string} docIdOrSlug a career goal ID or slug.
+   * @return {Internship[]} Internships that share the career goal or interests.
+   */
+  public findRelatedInternships(docIdOrSlug: string): Internship[] {
+    const docID = this.getID(docIdOrSlug);
+    const interestIDs = this.findDoc(docID).interestIDs;
+    const internships = Internships.findNonRetired(); // should this be a different query?
+    return internships.filter((internship) => {
+      if (internship.careerGoalIDs.includes(docID)) {
+        return true;
+      }
+      return internship.interestIDs.filter((x) => interestIDs.includes(x)).length > 0;
+    });
   }
 
   /**

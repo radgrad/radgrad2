@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import _ from 'lodash';
 import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, SelectField, LongTextField, BoolField, SubmitField, ErrorsField } from 'uniforms-semantic';
@@ -25,7 +25,7 @@ interface AddTeaserFormProps {
 }
 
 const AddTeaserForm: React.FC<AddTeaserFormProps> = ({ careerGoals, courses, interests, opportunities }) => {
-  let formRef;
+  const formRef = useRef<HTMLFormElement>();
   let careerGoalSlugNames = careerGoals.map((goal) => slugIDToSlugNameAndType(goal.slugID));
   careerGoalSlugNames = _.sortBy(careerGoalSlugNames);
   let courseSlugNames = courses.map((c) => slugIDToSlugNameAndType(c.slugID));
@@ -57,20 +57,21 @@ const AddTeaserForm: React.FC<AddTeaserFormProps> = ({ careerGoals, courses, int
   });
   const formSchema = new SimpleSchema2Bridge(schema);
 
-  const handleAdd = (doc) => {
+  const handleAdd = async (doc) => {
     // console.log('Teasers.handleAdd(%o)', doc);
     const collectionName = Teasers.getCollectionName();
     const interestSlugs = doc.interests.map(interestNameToSlug);
     const targetSlug = slugNameAndTypeToName(doc.targetSlug);
     const url = doc.youtubeID;
-    const definitionData: TeaserDefine = { title: doc.title, url, author: doc.author, interests: interestSlugs, targetSlug, description: doc.description, slug: `${doc.targetSlug}-teaser`, duration: doc.duration, retired: doc.retired };
+    const definitionData: TeaserDefine = { title: doc.title, url, author: doc.author, interests: interestSlugs, targetSlug, description: doc.description, slug: `${targetSlug}-teaser`, duration: doc.duration, retired: doc.retired };
     // definitionData.opportunity = opportunityNameToSlug(doc.opportunity);
     // console.log(collectionName, definitionData);
-    defineMethod.callPromise({ collectionName, definitionData })
-      .catch((error) => { RadGradAlert.failure('Add failed', error.message, error);})
+    await defineMethod.callPromise({ collectionName, definitionData })
       .then(() => {
         RadGradAlert.success('Add succeeded');
-        formRef.reset();
+        formRef.current.reset();
+      }).catch((error) => {
+        RadGradAlert.failure('Add failed', error.message, error);
       });
   };
 
@@ -78,7 +79,7 @@ const AddTeaserForm: React.FC<AddTeaserFormProps> = ({ careerGoals, courses, int
     <Segment padded>
       <Header dividing>Add Teaser</Header>
       {/* eslint-disable-next-line no-return-assign */}
-      <AutoForm schema={formSchema} onSubmit={handleAdd} ref={(ref) => formRef = ref} showInlineError>
+      <AutoForm schema={formSchema} onSubmit={handleAdd} ref={formRef} showInlineError>
         <Form.Group widths="equal">
           <TextField id={COMPONENTIDS.DATA_MODEL_TITLE} name="title" />
           <TextField id={COMPONENTIDS.DATA_MODEL_AUTHOR} name="author" />

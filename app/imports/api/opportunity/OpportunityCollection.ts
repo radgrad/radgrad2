@@ -3,6 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import _ from 'lodash';
 import { CareerGoals } from '../career/CareerGoalCollection';
 import { Courses } from '../course/CourseCollection';
+import { Internships } from '../internship/InternshipCollection';
 import { Reviews } from '../review/ReviewCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { Teasers } from '../teaser/TeaserCollection';
@@ -14,7 +15,7 @@ import { OpportunityTypes } from './OpportunityTypeCollection';
 import { OpportunityInstances } from './OpportunityInstanceCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
 import { assertICE, iceSchema } from '../ice/IceProcessor';
-import { CareerGoal, Course, OpportunityDefine, OpportunityUpdate, OpportunityUpdateData } from '../../typings/radgrad';
+import { CareerGoal, Course, Internship, OpportunityDefine, OpportunityUpdate, OpportunityUpdateData } from '../../typings/radgrad';
 
 export const defaultProfilePicture = '/images/radgrad_logo.png';
 
@@ -264,6 +265,8 @@ class OpportunityCollection extends BaseSlugCollection {
     if (teasers.length > 0) {
       throw new Meteor.Error(`Opportunity ${instance} referenced by a teaser.`);
     }
+    const profileOpportunities = ProfileOpportunities.find({ opportunityID: docID }).fetch();
+    profileOpportunities.forEach((po => ProfileOpportunities.removeIt(po._id)));
     return super.removeIt(docID);
   }
 
@@ -331,8 +334,8 @@ class OpportunityCollection extends BaseSlugCollection {
 
   /**
    * Returns a list of CareerGoals that have common interests.
-   * @param {string} docIdOrSlug an interest ID or slug.
-   * @return {CareerGoals[]} Courses that have the given interest.
+   * @param {string} docIdOrSlug an opportunity ID or slug.
+   * @return {CareerGoals[]} Courses that have common interests.
    */
   public findRelatedCareerGoals(docIdOrSlug: string): CareerGoal[] {
     const docID = this.getID(docIdOrSlug);
@@ -343,8 +346,8 @@ class OpportunityCollection extends BaseSlugCollection {
 
   /**
    * Returns a list of Courses that have common interests.
-   * @param {string} docIdOrSlug an interest ID or slug.
-   * @return {Course[]} Courses that have the given interest.
+   * @param {string} docIdOrSlug an opportunity ID or slug.
+   * @return {Course[]} Courses that have common interests.
    */
   public findRelatedCourses(docIdOrSlug: string): Course[] {
     const docID = this.getID(docIdOrSlug);
@@ -353,6 +356,17 @@ class OpportunityCollection extends BaseSlugCollection {
     return courses.filter((course) => course.interestIDs.filter((x) => interestIDs.includes(x)).length > 0);
   }
 
+  /**
+   * Returns a list of Internships that have common interests.
+   * @param {string} docIdOrSlug an opportunity ID or slug.
+   * @return {Internship[]} Internships that have common interests.
+   */
+  public findRelatedInternships(docIdOrSlug: string): Internship[] {
+    const docID = this.getID(docIdOrSlug);
+    const interestIDs = this.findDoc(docID).interestIDs;
+    const internships = Internships.findNonRetired();
+    return internships.filter((internship) => internship.interestIDs.filter(x => interestIDs.includes(x)).length > 0);
+  }
   /**
    * Returns a list of Opportunity names corresponding to the passed list of Opportunity docIDs.
    * @param instanceIDs A list of Opportunity docIDs.

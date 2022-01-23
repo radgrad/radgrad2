@@ -25,6 +25,7 @@ class ProfileOpportunityCollection extends BaseCollection {
    * @returns {void|*|boolean|{}}
    */
   define({ opportunity, username, retired = false }) {
+    // console.log('ProfileOpportunities.define', opportunity, username, retired);
     const opportunityID = Opportunities.getID(opportunity);
     const userID = Users.getID(username);
     const doc = this.collection.findOne({ userID, opportunityID });

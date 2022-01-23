@@ -19,6 +19,7 @@ import {
   courseExplorerPage,
   opportunityExplorerPage,
   communityPage,
+  // internshipExplorerPage,
 } from './simple.page';
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
@@ -58,6 +59,9 @@ test('Test all student top-level pages', async (testController) => {
   await studentNavBar.gotoOpportunitiesPage(testController);
   await opportunityExplorerPage.isDisplayed(testController);
 
+  // await studentNavBar.gotoInternshipsExplorerPage(testController);
+  // await internshipExplorerPage.isDisplayed(testController);
+
   await studentNavBar.gotoDegreePlannerPage(testController);
   await studentDegreePlannerPage.isDisplayed(testController);
 
@@ -88,7 +92,7 @@ test('Test adding and removing interests, careers, courses, and opportunities to
   await explorerPages.testAddAndRemove(testController, 'angular');
 
   await studentNavBar.gotoCareerGoalsExplorerPage(testController);
-  await explorerPages.testAddAndRemove(testController, 'game-developer');
+  await explorerPages.testCareerAddAndRemove(testController, 'game-developer');
 
   await studentNavBar.gotoCourseExplorerPage(testController);
   await explorerPages.testAddAndRemove(testController, 'ics_102');

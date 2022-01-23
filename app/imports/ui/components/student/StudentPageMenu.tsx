@@ -35,17 +35,19 @@ const StudentPageMenu: React.FC = () => {
 
   const explorerDropdownItems = [
     { to: `/${URL_ROLES.STUDENT}/${username}/${EXPLORER.INTERESTS}`, label: 'Interests' },
-    { to: `/${URL_ROLES.STUDENT}/${username}/${EXPLORER.CAREERGOALS}`, label: 'Career Goals' },
+    { to: `/${URL_ROLES.STUDENT}/${username}/${EXPLORER.CAREERGOALS}`, label: 'Careers' },
     { to: `/${URL_ROLES.STUDENT}/${username}/${EXPLORER.COURSES}`, label: 'Courses' },
     { to: `/${URL_ROLES.STUDENT}/${username}/${EXPLORER.OPPORTUNITIES}`, label: 'Opportunities' },
-    { to: `/${URL_ROLES.STUDENT}/${username}/${EXPLORER.INTERNSHIPS}`, label: 'Internships' },
   ];
+  if (Meteor.settings.public.internship.show) {
+    explorerDropdownItems.push({ to: `/${URL_ROLES.STUDENT}/${username}/${EXPLORER.INTERNSHIPS}`, label: 'Internships' });
+  }
 
   const menuItems = [
     { to: `/${URL_ROLES.STUDENT}/${username}/${DEGREEPLANNER}`, label: 'Planner' },
     { to: `/${URL_ROLES.STUDENT}/${username}/${STUDENT_VERIFICATION}`, label: 'Verification' },
     { to: `/${URL_ROLES.STUDENT}/${username}/${VISIBILITY}`, label: 'Visibility' },
-    { to: `/${URL_ROLES.STUDENT}/${username}/${ICE}`, label: 'ICE' },
+    { to: `/${URL_ROLES.STUDENT}/${username}/${ICE}`, label: 'myICE' },
     { to: `/${URL_ROLES.STUDENT}/${username}/${LEVELS}`, label: 'Levels' },
     { to: `/${URL_ROLES.STUDENT}/${username}/${STUDENT_REVIEWS}`, label: 'Reviews' },
     { to: `/${URL_ROLES.STUDENT}/${username}/${COMMUNITY}`, label: 'Community' },
@@ -56,7 +58,7 @@ const StudentPageMenu: React.FC = () => {
       <FirstMenu profile={profile} displayLevelAndIce earnedICE={earnedIce} projectedICE={projectedIce} instanceName={instanceName} />
       <Menu borderless inverted stackable id="secondMenu" attached="top" style={{ paddingLeft: '10px', marginTop: '0px' }}>
         <Menu.Item key={homeItem[0].label} id={convertLabelToId('student-menu', homeItem[0].label)} as={NavLink} exact to={homeItem[0].to}>{homeItem[0].label}</Menu.Item>
-        <Dropdown item text="Explore..." id={COMPONENTIDS.STUDENT_MENU_EXPLORERS}>
+        <Dropdown item text="Explore" id={COMPONENTIDS.STUDENT_MENU_EXPLORERS}>
           <Dropdown.Menu>
             {explorerDropdownItems.map(item => <Menu.Item key={item.label} id={convertLabelToId('student-menu', item.label)} as={NavLink} exact to={item.to}>{item.label}</Menu.Item>)}
           </Dropdown.Menu>

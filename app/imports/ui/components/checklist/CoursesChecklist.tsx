@@ -88,11 +88,11 @@ export class CoursesChecklist extends Checklist {
         return (
           <ActionsBox description={`Use the Course Explorer to review available Courses and add them to your profile. Or, use the Degree Planner to add Course(s) from your profile to your degree plan, or to remove Courses from your degree plan. 
       
-Use the ICE Page to learn how Courses earn you Competency points. Click "Courses are OK" to confirm that your courses in your Degree Plan are OK.`} >
+Use the myICE Page to learn how Courses earn you Competency points. Click "Courses are OK" to confirm that your courses in your Degree Plan are OK.`} >
             <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.COURSES}`} label='Courses Explorer'/>
             <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`} label='Degree Planner'/>
             <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${ICE}`} label='ICE Page'/>
-            <ChecklistButtonAction onClick={handleVerification} label='Courses are OK'/>
+            <ChecklistButtonAction onClick={handleVerification} label='Courses are OK' id='courses-are-ok'/>
           </ActionsBox>
         );
       default:

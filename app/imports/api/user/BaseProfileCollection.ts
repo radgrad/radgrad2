@@ -19,6 +19,7 @@ import { ProfileOpportunities } from './profile-entries/ProfileOpportunityCollec
 
 export const defaultProfilePicture = '/images/default-profile-picture.png';
 
+// Technical debt add shareInternships? and other to this collection since advisors and faculty can now have Profile*
 /**
  * Set up the object to be used to map role names to their corresponding collections.
  * @memberOf api/user
@@ -36,25 +37,32 @@ rolesToCollectionNames[ROLE.ADMIN] = 'AdminProfileCollection';
  */
 class BaseProfileCollection extends BaseSlugCollection {
   constructor(type, schema) {
-    super(type, schema.extend(new SimpleSchema({
-      username: String,
-      firstName: String,
-      lastName: String,
-      role: String,
-      picture: { type: String, optional: true },
-      website: { type: String, optional: true },
-      userID: SimpleSchema.RegEx.Id,
-      retired: { type: Boolean, optional: true },
-      sharePicture: { type: Boolean, optional: true },
-      shareWebsite: { type: Boolean, optional: true },
-      shareInterests: { type: Boolean, optional: true },
-      shareCareerGoals: { type: Boolean, optional: true },
-      courseExplorerFilter: { type: String, optional: true },
-      opportunityExplorerSortOrder: { type: String, optional: true },
-      lastVisited: { type: Object, optional: true, blackbox: true },
-      acceptedTermsAndConditions: { type: String, optional: true },
-      refusedTermsAndConditions: { type: String, optional: true },
-    })));
+    super(
+      type,
+      schema.extend(
+        new SimpleSchema({
+          username: String,
+          firstName: String,
+          lastName: String,
+          role: String,
+          picture: { type: String, optional: true },
+          website: { type: String, optional: true },
+          userID: SimpleSchema.RegEx.Id,
+          retired: { type: Boolean, optional: true },
+          sharePicture: { type: Boolean, optional: true },
+          shareWebsite: { type: Boolean, optional: true },
+          shareCareerGoals: { type: Boolean, optional: true },
+          shareCourses: { type: Boolean, optional: true },
+          shareInterests: { type: Boolean, optional: true },
+          shareOpportunities: { type: Boolean, optional: true },
+          courseExplorerFilter: { type: String, optional: true }, // TODO is this still used?
+          opportunityExplorerSortOrder: { type: String, optional: true }, // TODO is this still used?
+          lastVisited: { type: Object, optional: true, blackbox: true },
+          acceptedTermsAndConditions: { type: String, optional: true },
+          refusedTermsAndConditions: { type: String, optional: true },
+        }),
+      ),
+    );
   }
 
   /**
@@ -103,7 +111,7 @@ class BaseProfileCollection extends BaseSlugCollection {
     }
     // Otherwise see if we can find instance as a docID or as a slug.
     try {
-      id = (this.collection.findOne({ _id: instance })) ? instance : this.findIdBySlug(instance);
+      id = this.collection.findOne({ _id: instance }) ? instance : this.findIdBySlug(instance);
     } catch (err) {
       throw new Meteor.Error(`Error in ${this.collectionName} getID(): Failed to convert ${instance} to an ID.`);
     }
@@ -218,8 +226,7 @@ class BaseProfileCollection extends BaseSlugCollection {
     const userID = profile.userID;
     if (!Users.isReferenced(userID)) {
       // Automatically remove references to user from other collections that are "private" to this user.
-      [CourseInstances, OpportunityInstances, AcademicYearInstances, VerificationRequests, ProfileCareerGoals, ProfileCourses, ProfileInterests,
-        ProfileOpportunities, Reviews].forEach((collection) => collection.removeUser(userID));
+      [CourseInstances, OpportunityInstances, AcademicYearInstances, VerificationRequests, ProfileCareerGoals, ProfileCourses, ProfileInterests, ProfileOpportunities, Reviews].forEach((collection) => collection.removeUser(userID));
       Meteor.users.remove({ _id: userID });
       Slugs.getCollection().remove({ name: profile.username });
       return super.removeIt(profileID);
@@ -228,15 +235,45 @@ class BaseProfileCollection extends BaseSlugCollection {
   }
 
   /**
+   * Override the BaseCollection.publish. We only publish profiles if the user is logged in.
+   */
+  public publish(): void {
+    if (Meteor.isServer) {
+      Meteor.publish(this.collectionName, () => {
+        if (!Meteor.user()) {
+          return [];
+        }
+        return this.collection.find();
+      });
+    }
+  }
+
+  /**
    * Internal method for use by subclasses.
    * Destructively modifies updateData with the values of the passed fields.
    * Call this function for side-effect only.
    */
-  protected updateCommonFields(updateData, {
-    firstName, lastName, picture, website, retired, courseExplorerFilter, opportunityExplorerSortOrder, shareWebsite,
-    sharePicture, shareInterests, shareCareerGoals, acceptedTermsAndConditions, refusedTermsAndConditions,
-  }) {
-    // console.log('updateCommonFields', firstName, lastName, picture, website, retired, courseExplorerFilter, opportunityExplorerSortOrder, shareWebsite, sharePicture, shareInterests, shareCareerGoals, acceptedTermsAndConditions, refusedTermsAndConditions);
+  protected updateCommonFields(
+    updateData,
+    {
+      firstName,
+      lastName,
+      picture,
+      website,
+      retired,
+      courseExplorerFilter,
+      opportunityExplorerSortOrder,
+      shareWebsite,
+      sharePicture,
+      shareInterests,
+      shareCareerGoals,
+      shareCourses,
+      shareOpportunities,
+      acceptedTermsAndConditions,
+      refusedTermsAndConditions,
+    },
+  ) {
+    // console.log('updateCommonFields', firstName, lastName, picture, website, retired, courseExplorerFilter, opportunityExplorerSortOrder, shareWebsite, sharePicture, shareInterests, shareCareerGoals, shareCourses, shareOpportunities, acceptedTermsAndConditions, refusedTermsAndConditions);
     if (firstName) {
       updateData.firstName = firstName; // eslint-disable-line no-param-reassign
     }
@@ -261,8 +298,14 @@ class BaseProfileCollection extends BaseSlugCollection {
     if (_.isBoolean(shareCareerGoals)) {
       updateData.shareCareerGoals = shareCareerGoals; // eslint-disable-line no-param-reassign
     }
+    if (_.isBoolean(shareCourses)) {
+      updateData.shareCourses = shareCourses; // eslint-disable-line no-param-reassign
+    }
     if (_.isBoolean(shareInterests)) {
       updateData.shareInterests = shareInterests; // eslint-disable-line no-param-reassign
+    }
+    if (_.isBoolean(shareOpportunities)) {
+      updateData.shareOpportunities = shareOpportunities; // eslint-disable-line no-param-reassign
     }
     if (_.isBoolean(sharePicture)) {
       updateData.sharePicture = sharePicture; // eslint-disable-line no-param-reassign

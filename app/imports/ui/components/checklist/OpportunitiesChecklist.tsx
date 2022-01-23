@@ -86,11 +86,11 @@ Adding Opportunities to your Degree Plan helps you balance your curricular and e
         return (
           <ActionsBox description={`Use the Opportunities Explorer to review available Opportunities and add them to your profile. Or, use the Degree Planner to add Opportunities from your profile to your Degree Plan, or to remove Opportunities from your Degree Plan. 
       
-Use the ICE Page to learn more about how Opportunities earn you Innovation and/or Experience points. Click "Opportunities are OK" to confirm that they are OK.`} >
+Use the myICE Page to learn more about how Opportunities earn you Innovation and/or Experience points. Click "Opportunities are OK" to confirm that they are OK.`} >
             <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.OPPORTUNITIES}`} label='Opportunities Explorer'/>
             <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`} label='Degree Planner'/>
             <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${ICE}`} label='ICE Page'/>
-            <ChecklistButtonAction onClick={handleVerification} label='Opportunities are OK'/>
+            <ChecklistButtonAction onClick={handleVerification} label='Opportunities are OK' id='opportunities-are-ok'/>
           </ActionsBox>
         );
       default:

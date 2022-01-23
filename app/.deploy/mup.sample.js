@@ -1,6 +1,9 @@
 module.exports = {
   servers: { one: { host: 'CHANGEME.EDU', username: 'root', password: 'CHANGEME' }},
-  hooks: { 'pre.deploy': { localCommand: 'npm run update-build-version' }},
+  hooks: {
+    'pre.deploy': { localCommand: 'npm run update-build-version' },
+    'post.deploy': { localCommand: 'mup logs' }
+  },
   app: {
     name: 'radgrad',
     path: '../',
@@ -11,7 +14,7 @@ module.exports = {
       MONGO_URL: 'mongodb://mongodb/meteor',
       MONGO_OPLOG_URL: 'mongodb://mongodb/local',
     },
-    docker: { image: 'abernix/meteord:node-12-base' },
+    docker: { image: 'zodern/meteor:latest' },
     enableUploadProgressBar: true,
     deployCheckWaitTime: 900
   },

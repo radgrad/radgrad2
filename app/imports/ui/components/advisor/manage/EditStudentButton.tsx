@@ -85,7 +85,7 @@ const EditStudentButton: React.FC<ManageStudentProps> = ({
       onOpen={() => setOpen(true)}
       open={open}
       trigger={<ButtonAction color='green' key={`${student._id}-edit-button`} size='mini'
-        onClick={() => setOpen(true)} icon='edit' label='edit'/>}
+        onClick={() => setOpen(true)} icon='edit' label='edit' id={`${student._id}-edit-button`} />}
     >
       <Modal.Header>{`Edit ${student.firstName} ${student.lastName}`}</Modal.Header>
       <Modal.Content>

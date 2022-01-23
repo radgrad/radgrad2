@@ -1,5 +1,8 @@
 import { Meteor } from 'meteor/meteor';
+import BaseCollection from '../base/BaseCollection';
 import { AcademicYearInstances } from '../degree-plan/AcademicYearInstanceCollection';
+import { InterestKeywords } from '../interest/InterestKeywordCollection';
+import { Internships } from '../internship/InternshipCollection';
 import { AdminProfiles } from '../user/AdminProfileCollection';
 import { AdvisorProfiles } from '../user/AdvisorProfileCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
@@ -28,7 +31,7 @@ import { ProfileOpportunities } from '../user/profile-entries/ProfileOpportunity
  * @memberOf api/radgrad
  */
 class RadGradClass {
-  public collections: any[];
+  public collections: BaseCollection[];
 
   public collectionLoadSequence;
 
@@ -54,7 +57,9 @@ class RadGradClass {
       ProfileInterests,
       ProfileOpportunities,
       Interests,
+      InterestKeywords,
       InterestTypes,
+      Internships,
       Opportunities,
       OpportunityInstances,
       OpportunityTypes,
@@ -79,6 +84,7 @@ class RadGradClass {
       AcademicTerms,
       InterestTypes,
       Interests,
+      InterestKeywords,
       CareerGoals,
       AdminProfiles,
       AdvisorProfiles,
@@ -97,6 +103,7 @@ class RadGradClass {
       ProfileCourses,
       ProfileInterests,
       ProfileOpportunities,
+      Internships,
     ];
 
     /**

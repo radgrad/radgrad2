@@ -13,7 +13,6 @@ export enum TabbedProfileEntryNames {
 }
 
 interface TabbedProfileEntriesProps {
-  takenSlugs: string[];
   profileOpportunities: Opportunity[];
   studentID: string;
   profileCourses: Course[];
@@ -92,7 +91,7 @@ const TabbedProfileEntries: React.FC<TabbedProfileEntriesProps> = ({
       ),
     },
     {
-      menuItem: <Menu.Item key="ProfileDetails"><Icon className="user graduate" /></Menu.Item>,
+      menuItem: <Menu.Item key="ProfileDetails"><Icon className="mug hot" /></Menu.Item>,
       pane: (
         <Tab.Pane key="ProfileDetailsPane" active={active(selectedTab) === 2}>
           <RadGradHeader title="Internships" />

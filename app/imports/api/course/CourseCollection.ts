@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import _ from 'lodash';
 import SimpleSchema from 'simpl-schema';
 import { CareerGoals } from '../career/CareerGoalCollection';
+import { Internships } from '../internship/InternshipCollection';
 import { Opportunities } from '../opportunity/OpportunityCollection';
 import { Reviews } from '../review/ReviewCollection';
 import { Slugs } from '../slug/SlugCollection';
@@ -10,8 +11,7 @@ import { Teasers } from '../teaser/TeaserCollection';
 import { ProfileCourses } from '../user/profile-entries/ProfileCourseCollection';
 import { CourseInstances } from './CourseInstanceCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
-import { CareerGoal, Course, CourseDefine, CourseUpdate, Opportunity } from '../../typings/radgrad';
-import { isSingleChoice, complexChoiceToArray } from '../degree-plan/PlanChoiceUtilities';
+import { CareerGoal, Course, CourseDefine, CourseUpdate, Internship, Opportunity } from '../../typings/radgrad';
 import { validateCourseSlugFormat } from './CourseUtilities';
 
 /**
@@ -37,10 +37,6 @@ class CourseCollection extends BaseSlugCollection {
       interestIDs: [SimpleSchema.RegEx.Id],
       // Optional data
       syllabus: { type: String, optional: true },
-      corequisites: { type: Array },
-      'corequisites.$': String,
-      prerequisites: { type: Array },
-      'prerequisites.$': String,
       repeatable: { type: Boolean, optional: true },
       retired: { type: Boolean, optional: true },
       picture: { type: String, optional: true, defaultValue: 'images/header-panel/header-courses.png' },
@@ -53,10 +49,6 @@ class CourseCollection extends BaseSlugCollection {
       creditHrs: { type: SimpleSchema.Integer, optional: true },
       interests: [String],
       syllabus: String,
-      corequisites: { type: Array, optional: true },
-      'corequisites.$': String,
-      prerequisites: { type: Array, optional: true },
-      'prerequisites.$': String,
       repeatable: { type: Boolean, optional: true },
       retired: { type: Boolean, optional: true },
       picture: { type: String, optional: true },
@@ -69,8 +61,6 @@ class CourseCollection extends BaseSlugCollection {
       interests: { type: Array, optional: true },
       'interests.$': String,
       syllabus: { type: String, optional: true },
-      prerequisites: { type: Array, optional: true },
-      'prerequisites.$': String,
       repeatable: { type: Boolean, optional: true },
       retired: { type: Boolean, optional: true },
       picture: { type: String, optional: true },
@@ -89,9 +79,9 @@ class CourseCollection extends BaseSlugCollection {
    *                  creditHrs: 4,
    *                  interests: ['perl', 'javascript', 'ruby'],
    *                  syllabus: 'http://courses.ics.hawaii.edu/syllabuses/ICS215.html',
-   *                  prerequisites: ['ics_211'] });
+   *                  });
    * @param { Object } description Object with keys name, shortName, slug, num, description, creditHrs,
-   *                   interests, syllabus, and prerequisites.
+   *                   interests, syllabus.
    * @param name is the official course name.
    * @param shortName is an optional abbreviation. Defaults to name.
    * @param slug must not be previously defined.
@@ -99,14 +89,12 @@ class CourseCollection extends BaseSlugCollection {
    * @param creditHrs is optional and defaults to 3. If supplied, must be a num between 1 and 15.
    * @param interests is a (possibly empty) array of defined interest slugs or interestIDs.
    * @param syllabus is optional. If supplied, should be a URL.
-   * @param corequisites is optional. If supplied, must be an array of Course slugs or courseIDs.
-   * @param prerequisites is optional. If supplied, must be an array of previously defined Course slugs or courseIDs.
    * @param repeatable is optional, defaults to false.
    * @param retired is optional, defaults to false.
    * @throws {Meteor.Error} If the definition includes a defined slug or undefined interest or invalid creditHrs.
    * @returns The newly created docID.
    */
-  public define({ name, shortName = name, slug, num, description, creditHrs = 3, interests = [], syllabus, picture, corequisites = [], prerequisites = [], retired = false, repeatable = false }: CourseDefine) {
+  public define({ name, shortName = name, slug, num, description, creditHrs = 3, interests = [], syllabus, picture, retired = false, repeatable = false }: CourseDefine) {
     // Make sure the slug has the right format <dept>_<number>
     validateCourseSlugFormat(slug);
     // check if slug is defined
@@ -123,17 +111,6 @@ class CourseCollection extends BaseSlugCollection {
     if (!(typeof creditHrs === 'number') || (creditHrs < 1) || (creditHrs > 15)) {
       throw new Meteor.Error(`CreditHrs ${creditHrs} is not a number between 1 and 15.`);
     }
-    if (!Array.isArray(prerequisites)) {
-      throw new Meteor.Error(`Prerequisites ${prerequisites} is not an array.`);
-    }
-    // make sure each corequisite has a valid format.
-    corequisites.forEach((c) => validateCourseSlugFormat(c));
-    // make sure each prerequisite has a valid format.
-    prerequisites.forEach((p) => validateCourseSlugFormat(p));
-    // Currently we don't dump the DB is a way that prevents forward referencing of prereqs, so we
-    // can't check the validity of prereqs during a define, such as with:
-    //   _.each(prerequisites, (prerequisite) => this.getID(prerequisite));
-    // Instead, we check that prereqs are valid as part of checkIntegrity.
     const courseID =
       this.collection.insert({
         name,
@@ -144,8 +121,6 @@ class CourseCollection extends BaseSlugCollection {
         creditHrs,
         interestIDs,
         syllabus,
-        corequisites,
-        prerequisites,
         repeatable,
         retired,
         picture,
@@ -165,11 +140,10 @@ class CourseCollection extends BaseSlugCollection {
    * @param creditHrs optional
    * @param interests An array of interestIDs or slugs (optional)
    * @param syllabus optional
-   * @param prerequisites An array of course slugs. (optional)
    * @param repeatable optional boolean.
    * @param retired optional boolean.
    */
-  public update(instance: string, { name, shortName, num, description, creditHrs, interests, picture, corequisites, prerequisites, syllabus, retired, repeatable }: CourseUpdate) {
+  public update(instance: string, { name, shortName, num, description, creditHrs, interests, picture, syllabus, retired, repeatable }: CourseUpdate) {
     const docID = this.getID(instance);
     const updateData: {
       name?: string;
@@ -179,8 +153,6 @@ class CourseCollection extends BaseSlugCollection {
       num?: string;
       creditHrs?: number;
       syllabus?: string;
-      corequisites?: string[];
-      prerequisites?: string[];
       repeatable?: boolean;
       retired?: boolean;
       picture?: string;
@@ -209,28 +181,6 @@ class CourseCollection extends BaseSlugCollection {
     }
     if (syllabus) {
       updateData.syllabus = syllabus;
-    }
-    if (corequisites) {
-      if (!Array.isArray(corequisites)) {
-        throw new Meteor.Error(`Corequisites ${corequisites} is not an Array.`);
-      }
-      corequisites.forEach((coreq) => {
-        if (!this.hasSlug(coreq)) {
-          throw new Meteor.Error(`Corequisite ${coreq} is not a slug for a course.`);
-        }
-      });
-      updateData.corequisites = corequisites;
-    }
-    if (prerequisites) {
-      if (!Array.isArray(prerequisites)) {
-        throw new Meteor.Error(`Prerequisites ${prerequisites} is not an Array.`);
-      }
-      prerequisites.forEach((prereq) => {
-        if (!this.hasSlug(prereq)) {
-          throw new Meteor.Error(`Prerequisite ${prereq} is not a slug for a course.`);
-        }
-      });
-      updateData.prerequisites = prerequisites;
     }
     if (_.isBoolean(repeatable)) {
       updateData.repeatable = repeatable;
@@ -263,6 +213,9 @@ class CourseCollection extends BaseSlugCollection {
       }
       return true;
     });
+    // Remove all the ProfileCourses associated with this course.
+    const profileCourses = ProfileCourses.find({ courseID: docID }).fetch();
+    profileCourses.forEach(pc => ProfileCourses.removeIt(pc._id));
     // Now remove the Course.
     return super.removeIt(docID);
   }
@@ -322,8 +275,8 @@ class CourseCollection extends BaseSlugCollection {
 
   /**
    * Returns a list of CareerGoals that have common interests.
-   * @param {string} docIdOrSlug an interest ID or slug.
-   * @return {CareerGoals[]} Courses that have the given interest.
+   * @param {string} docIdOrSlug a course ID or slug.
+   * @return {CareerGoals[]} CareerGoals that share the interests.
    */
   public findRelatedCareerGoals(docIdOrSlug: string): CareerGoal[] {
     const docID = this.getID(docIdOrSlug);
@@ -333,9 +286,21 @@ class CourseCollection extends BaseSlugCollection {
   }
 
   /**
+   * Returns a list of Internships that have common interests.
+   * @param {string} docIdOrSlug a course ID or slug.
+   * @return {Internship[]} Internships that share the interests.
+   */
+  public findRelatedInternships(docIdOrSlug: string): Internship[] {
+    const docID = this.getID(docIdOrSlug);
+    const interestIDs = this.findDoc(docID).interestIDs;
+    const internships = Internships.findNonRetired();
+    return internships.filter((internship) => internship.interestIDs.filter(x => interestIDs.includes(x)).length > 0);
+  }
+
+  /**
    * Returns a list of the Opportunities that have common interests.
-   * @param {string} docIdOrSlug an interest ID or slug.
-   * @return {Opportunity[]} Opportunities that have the given interest.
+   * @param {string} docIdOrSlug a course ID or slug.
+   * @return {Opportunity[]} Opportunities that share the interests.
    */
   public findRelatedOpportunities(docIdOrSlug: string): Opportunity[] {
     const docID = this.getID(docIdOrSlug);
@@ -361,34 +326,6 @@ class CourseCollection extends BaseSlugCollection {
           problems.push(`Bad interestID: ${interestID}`);
         }
       });
-      doc.corequisites.forEach((coreq) => {
-        if (isSingleChoice(coreq)) {
-          if (!this.hasSlug(coreq)) {
-            problems.push(`Bad course corequisite slug: ${coreq}`);
-          }
-        } else {
-          const slugs = complexChoiceToArray(coreq);
-          slugs.forEach((slug) => {
-            if (!this.hasSlug(slug)) {
-              problems.push(`Bad course corequisite slug in or: ${slug}`);
-            }
-          });
-        }
-      });
-      doc.prerequisites.forEach((prereq) => {
-        if (isSingleChoice(prereq)) {
-          if (!this.hasSlug(prereq)) {
-            problems.push(`Bad course prerequisite slug: ${prereq}`);
-          }
-        } else {
-          const slugs = complexChoiceToArray(prereq);
-          slugs.forEach((slug) => {
-            if (!this.hasSlug(slug)) {
-              problems.push(`Bad course prerequisite slug in or: ${slug}`);
-            }
-          });
-        }
-      });
     });
     return problems;
   }
@@ -408,11 +345,9 @@ class CourseCollection extends BaseSlugCollection {
     const creditHrs = doc.creditHrs;
     const interests = doc.interestIDs.map((interestID) => Interests.findSlugByID(interestID));
     const syllabus = doc.syllabus;
-    const corequisites = doc.corequisites;
-    const prerequisites = doc.prerequisites;
     const repeatable = doc.repeatable;
     const retired = doc.retired;
-    return { name, shortName, slug, num, description, creditHrs, interests, syllabus, corequisites, prerequisites, repeatable, retired };
+    return { name, shortName, slug, num, description, creditHrs, interests, syllabus, repeatable, retired };
   }
 
   public toString(docID: string): string {
@@ -434,28 +369,6 @@ class CourseCollection extends BaseSlugCollection {
   public findDocByName(name: string): Course {
     const num = this.findCourseNumberByName(name);
     return this.findDoc({ num });
-  }
-
-  public getPrerequisiteSlugs(docIdOrSlug: string): string[] {
-    const courseID = this.getID(docIdOrSlug);
-    const course =  this.findDoc(courseID);
-    const prerequisiteSlugs = [];
-    course.prerequisites.forEach((choice) => {
-      const courseArr = complexChoiceToArray(choice);
-      courseArr.forEach((slug) => prerequisiteSlugs.push(slug));
-    });
-    return prerequisiteSlugs;
-  }
-
-  public getCorequisiteSlugs(docIdOrSlug: string): string[] {
-    const courseID = this.getID(docIdOrSlug);
-    const course =  this.findDoc(courseID);
-    const corequisiteSlugs = [];
-    course.corequisites.forEach((choice) => {
-      const courseArr = complexChoiceToArray(choice);
-      courseArr.forEach((slug) => corequisiteSlugs.push(slug));
-    });
-    return corequisiteSlugs;
   }
 
   /**

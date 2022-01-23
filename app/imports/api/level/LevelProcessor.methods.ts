@@ -55,16 +55,34 @@ export const updateLevelMethod = new ValidatedMethod({
  */
 export const updateAllStudentLevelsMethod = new ValidatedMethod({
   name: 'LevelProcessor.updateAllStudentLevels',
+  mixins: [CallPromiseMixin],
   validate: null,
   run() {
     if (Meteor.isServer) {
       if (!this.userId) {
-        throw new Meteor.Error('unauthorized', 'You must be logged in to calculate Levels.');
+        throw new Meteor.Error('unauthorized', 'You must be logged in to update Levels.');
       } else if (!Roles.userIsInRole(this.userId, [ROLE.ADMIN, ROLE.ADVISOR])) {
-        throw new Meteor.Error('unauthorized', 'You must be logged in as ADMIN or ADVISOR to calculate Levels.');
+        throw new Meteor.Error('unauthorized', 'You must be an Admin or Advisor to update Levels.');
       }
-      const count = updateAllStudentLevels(this.userId);
-      return `Updated ${count} students' levels.`;
+      const count = updateAllStudentLevels();
+      return `Updated ${count} student levels.`;
+    }
+    return null;
+  },
+});
+
+export const updateMyLevelMethod = new ValidatedMethod({
+  name: 'LevelProcessor.updateMyLevel',
+  mixins: [CallPromiseMixin],
+  validate: null,
+  run() {
+    if (Meteor.isServer) {
+      if (!this.userId) {
+        throw new Meteor.Error('unauthorized', 'You must be logged in to update your Level.');
+      } else if (!Roles.userIsInRole(this.userId, [ROLE.STUDENT])) {
+        throw new Meteor.Error('unauthorized', 'You must be a student to update your own Level.');
+      }
+      return updateStudentLevel(this.userId);
     }
     return null;
   },

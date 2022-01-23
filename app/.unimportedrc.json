@@ -1,15 +1,37 @@
 {
+  "entry": [
+    "client/main.ts",
+    "server/main.ts"
+  ],
   "ignoreUnresolved": [
     "../../../../../../../typings/radgrad",
     "../../../../../../typings/radgrad",
     "../../../../../typings/radgrad",
     "../../../../typings/radgrad",
     "../../../typings/radgrad",
-    "../../typings/radgrad"
+    "../../typings/radgrad",
+    "meteor/accounts-base",
+    "meteor/alanning:roles",
+    "meteor/check",
+    "meteor/didericis:callpromise-mixin",
+    "meteor/email",
+    "meteor/erasaur:meteor-lodash",
+    "meteor/fetch",
+    "meteor/harrison:papa-parse",
+    "meteor/jcbernack:reactive-aggregate",
+    "meteor/jquery",
+    "meteor/littledata:synced-cron",
+    "meteor/mdg:validated-method",
+    "meteor/meteor",
+    "meteor/meteorhacks:ssr",
+    "meteor/meteorhacks:subs-manager",
+    "meteor/mongo",
+    "meteor/react-meteor-data",
+    "meteor/udondan:zipzap"
   ],
   "ignoreUnimported": [
-    "imports/ui/utilities/Colors.ts",
     "imports/ui/components/shared/explorer/browser-view/TermList.tsx",
+    "imports/ui/utilities/Colors.ts",
     "update-build-version.ts"
   ],
   "ignoreUnused": [

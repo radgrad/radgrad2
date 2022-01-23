@@ -44,7 +44,7 @@ const RequestVerificationPopup: React.FC<RequestVerificationPopupProps> = ({ opp
   return (
     <Popup
       trigger={
-        <ButtonAction onClick={() => true} label='Request Verification' icon='hand point up outline' size={size} />
+        <ButtonAction onClick={() => true} label='Request Verification' icon='hand point up outline' size={size} id={COMPONENTIDS.STUDENT_REQUEST_VERIFICATION_BUTTON} />
       }
       content={<AutoForm schema={formSchema} onSubmit={handleVerificationRequest(opportunityInstance, match)} ><TextField name='documentation' id={COMPONENTIDS.STUDENT_REQUEST_VERIFICATION_INPUT} /><SubmitField id={COMPONENTIDS.STUDENT_REQUEST_VERIFICATION_SUBMIT} /></AutoForm>}
       on='click'

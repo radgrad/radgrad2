@@ -10,7 +10,11 @@
     "unimported": "npx unimported",
     "convert": "npm run tsc && node js/convert-dump.js radgrad-db/2021-04-13-16-17-36.json data/Radgrad2-2021-04-13-16-17-36.json",
     "download-star-data": "npm run tsc && node js/download-bulk-star-json.js",
-    "create-demo-fixture": "npm run tsc && node js/fixture-generator/demo-fixture-generator.js radgrad-db/2021-06-21-13-22-49.json data/userConfig1.json"
+    "create-demo-ics-fixture": "npm run tsc && node js/fixture-generator/demo-fixture-generator.js radgrad-db/2021-07-05-09-58-32.json data/demo-fixture-generator-ics-config.json data/internships.json",
+    "create-demo-ics-fixture-cam": "npm run tsc && node js/fixture-generator/demo-fixture-generator-cam.js data/demo-fixture-generator-ics-config.json data/internships.json",
+    "create-demo-comp-eng-fixture": "npm run tsc && node js/fixture-generator/demo-fixture-generator.js data/ComputerEngineering.json data/demo-fixture-generator-comp-eng-config.json data/internships.json",
+    "match-internship-keywords": "npm run tsc && node js/internship-match/match-internship-keywords.js data/keywords.json data/internships-many.json",
+    "import-intern-aloha": "npm run tsc &&  node js/internship-import/import-intern-aloha.js"
   },
   "author": "",
   "license": "ISC",
@@ -40,7 +44,7 @@
     "lodash": "^4.17.20",
     "mocha": "^7.2.0",
     "moment": "^2.29.1",
-    "node": "^14.15.2",
+    "node-fetch": "^2.6.1",
     "request": "^2.88.2",
     "typescript": "^3.9.7",
     "typescript-eslint-parser": "^22.0.0",

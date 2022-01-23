@@ -41,9 +41,9 @@ Number.isInteger = Number.isInteger ||
  * @memberOf api/ice
  */
 export const gradeCompetency: { A: number; B: number; C: number; } = {
-  A: 10,
-  B: 6,
-  C: 0,
+  A: Meteor.settings.public?.gradeCompetency?.A || 10,
+  B: Meteor.settings.public?.gradeCompetency?.B || 6,
+  C: Meteor.settings.public?.gradeCompetency?.C || 0,
 };
 
 /**
@@ -68,6 +68,22 @@ export const assertICE = (obj) => {
 };
 
 /**
+ * Returns the competency for a given grade.
+ * @param {string} grade the grade.
+ * @return {number} the number of competency points.
+ */
+const getCompetency = (grade: string): number => {
+  // Courses get competency points only if you get an A or a B.
+  if ((['B+', 'B', 'B-'].includes(grade))) {
+    return gradeCompetency.B;
+  }
+  if ((['A+', 'A', 'A-'].includes(grade))) {
+    return gradeCompetency.A;
+  }
+  return gradeCompetency.C;
+};
+
+/**
  * Returns an ICE object based upon the course slug and the passed grade.
  * Students only earn ICE competency points for 'interesting' courses. Interesting
  * courses are courses that have non other slugs.
@@ -88,12 +104,7 @@ export const makeCourseICE = (course: string, grade: string): Ice => {
     return { i, c, e };
   }
   // Courses get competency points only if you get an A or a B.
-  if ((['B+', 'B', 'B-'].includes(grade))) {
-    c = gradeCompetency.B;
-  } else
-  if ((['A+', 'A', 'A-'].includes(grade))) {
-    c = gradeCompetency.A;
-  }
+  c = getCompetency(grade);
   return { i, c, e };
 };
 
@@ -111,11 +122,14 @@ export const getEarnedICE = (docs): Ice => {
       throw new Meteor.Error(`getEarnedICE passed ${instance} without a valid .ice field.`);
     }
     if (instance.verified === true) {
-      total.i += instance.ice.i;
-      total.c += instance.ice.c;
-      total.e += instance.ice.e;
+      if (instance.grade) {
+        total.c += getCompetency(instance.grade);
+      } else {
+        total.i += instance.ice.i;
+        total.c += instance.ice.c;
+        total.e += instance.ice.e;
+      }
     }
-    return null;
   });
   return total;
 };
@@ -133,10 +147,13 @@ export const getProjectedICE = (docs): Ice => {
     if (!(isICE(instance.ice))) {
       throw new Meteor.Error(`getProjectedICE passed ${instance} without a valid .ice field.`);
     }
-    total.i += instance.ice.i;
-    total.c += instance.ice.c;
-    total.e += instance.ice.e;
-    return null;
+    if (instance.grade) {
+      total.c += getCompetency(instance.grade);
+    } else {
+      total.i += instance.ice.i;
+      total.c += instance.ice.c;
+      total.e += instance.ice.e;
+    }
   });
   return total;
 };

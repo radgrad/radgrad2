@@ -78,7 +78,6 @@ const TermsAndConditionsPage: React.FC = () => {
         updateData.refusedTermsAndConditions = moment().format('YYYY-MM-DD');
         updateMethod.callPromise({ collectionName, updateData })
           .catch((error) => console.error('Failed to update refusedTermsAndConditions', error));
-        urlUser.getChecklistItem();
         const disagreePath = '/signout-refused';
         rejectHistory.push(disagreePath);
       }
@@ -89,8 +88,8 @@ const TermsAndConditionsPage: React.FC = () => {
     <PageLayout id={PAGEIDS.TERMS_AND_CONDITIONS} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
       <ReactMarkdownWithHtml linkTarget="_blank" allowDangerousHtml source={terms} />
       <ActionsBox description="Please indicate if you consent to the Terms and Conditions below. If you indicate that you do not consent, we will initiate your removal from the RadGrad system. You will also be automatically logged out.">
-        <ChecklistButtonAction onClick={agreeToTerm} label='I consent to the Terms and Condition' icon='thumbs up outline' color='green' />
-        <ChecklistButtonAction onClick={rejectToTerm} label='I do not consent to the Terms and Condition' icon='thumbs down outline' color='red' />
+        <ChecklistButtonAction onClick={agreeToTerm} label='I consent to the Terms and Condition' icon='thumbs up outline' color='green' id='I-consent-to-terms' />
+        <ChecklistButtonAction onClick={rejectToTerm} label='I do not consent to the Terms and Condition' icon='thumbs down outline' color='red' id='I-dont-consent-to-terms' />
       </ActionsBox>
     </PageLayout>
   );

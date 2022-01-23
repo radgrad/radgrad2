@@ -4,8 +4,9 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Grid } from 'semantic-ui-react';
 import { Interests } from '../../../../api/interest/InterestCollection';
 import { Reviews } from '../../../../api/review/ReviewCollection';
+import { Teasers } from '../../../../api/teaser/TeaserCollection';
 import { PAGEIDS } from '../../../utilities/PageIDs';
-import { AcademicTerm, Course, Interest, Profile, ProfileCourse, Review } from '../../../../typings/radgrad';
+import { AcademicTerm, Course, Interest, Profile, ProfileCourse, Review, Teaser } from '../../../../typings/radgrad';
 import { Courses } from '../../../../api/course/CourseCollection';
 import { ProfileCourses } from '../../../../api/user/profile-entries/ProfileCourseCollection';
 import { Users } from '../../../../api/user/UserCollection';
@@ -19,8 +20,7 @@ import RelatedInterests from '../../../components/shared/RelatedInterests';
 import RelatedCareerGoals from '../../../components/shared/RelatedCareerGoals';
 import RelatedOpportunities from '../../../components/shared/RelatedOpportunities';
 import PageLayout from '../../PageLayout';
-import { getAssociationRelatedCourses, getAssociationRelatedOpportunities } from '../utilities/getExplorerRelatedMethods';
-import RelatedCourses from '../../../components/shared/RelatedCourses';
+import { getAssociationRelatedOpportunities } from '../utilities/getExplorerRelatedMethods';
 
 interface CourseViewPageProps {
   profileCourses: ProfileCourse[];
@@ -30,13 +30,15 @@ interface CourseViewPageProps {
   terms: AcademicTerm[];
   courses: Course[];
   interests: Interest[];
+  review: Review[];
+  teaser: Teaser[];
 }
 
 const isCourseCompleted = (courseSlugName, userID): boolean => {
   let courseCompleted = false;
   const theCourse = Courses.findDocBySlug(courseSlugName);
   const ci = CourseInstances.findNonRetired({
-    userID: userID,
+    studentID: userID,
     courseID: theCourse._id,
   });
   ci.forEach((c) => {
@@ -55,6 +57,8 @@ const CourseViewPage: React.FC<CourseViewPageProps> = ({
   terms,
   courses,
   interests,
+  review,
+  teaser,
 }) => {
   const headerPaneTitle = Courses.getName(course._id);
   const headerPaneImage =  course.picture;
@@ -68,9 +72,6 @@ const CourseViewPage: React.FC<CourseViewPageProps> = ({
     added={added} inverted floated="left" />;
   const courseSlug = Slugs.getNameFromID(course.slugID);
   const completed = isCourseCompleted(courseSlug, profile.userID);
-  const relatedSlugs = Courses.getPrerequisiteSlugs(course._id);
-  const relatedCourses = getAssociationRelatedCourses(relatedSlugs.map((c) => Courses.findDocBySlug(c)), profile.userID);
-  const combinedArrays = relatedCourses.inPlan.concat(relatedCourses.notInPlan, relatedCourses.completed);
 
   return (
     <PageLayout id={PAGEIDS.COURSE} headerPaneTitle={headerPaneTitle} headerPaneImage={headerPaneImage}
@@ -79,13 +80,12 @@ const CourseViewPage: React.FC<CourseViewPageProps> = ({
         <Grid.Row>
           <Grid.Column width={5}>
             <RelatedInterests item={course} />
-            {combinedArrays.length !== 0 ? <RelatedCourses relatedCourses={relatedCourses} profile={profile} title='prerequisites' /> : null}
             <RelatedCareerGoals careerGoals={relatedCareerGoals} userID={profile.userID} />
             <RelatedOpportunities relatedOpportunities={relatedOpportunities} profile={profile} />
           </Grid.Column>
           <Grid.Column width={11}>
             <ExplorerCourse course={course} profile={profile} completed={completed} itemReviews={itemReviews}
-              terms={terms} courses={courses} interests={interests} />
+              terms={terms} courses={courses} interests={interests} review={review} teaser={teaser} />
           </Grid.Column>
         </Grid.Row>
       </Grid>
@@ -99,6 +99,7 @@ export default withTracker(() => {
   const profile = Users.getProfile(username);
   const profileCourses = ProfileCourses.findNonRetired({ userID: profile.userID });
   const itemReviews = Reviews.findNonRetired({ revieweeID: courseDoc._id, visible: true });
+  const review = Reviews.findNonRetired({ revieweeID: courseDoc._id, visible: true, studentID: profile.userID });
   const allTerms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
   const currentTermNumber = AcademicTerms.getCurrentAcademicTermDoc().termNumber;
   const after = currentTermNumber - 8;
@@ -106,6 +107,7 @@ export default withTracker(() => {
   const terms = allTerms.filter((t) => t.termNumber >= after && t.termNumber <= before);
   const courses = Courses.findNonRetired();
   const interests = Interests.findNonRetired();
+  const teaser = Teasers.findNonRetired({ targetSlugID: courseDoc.slugID });
   return {
     course: courseDoc,
     profileCourses,
@@ -114,5 +116,7 @@ export default withTracker(() => {
     terms,
     courses,
     interests,
+    review,
+    teaser,
   };
 })(CourseViewPage);

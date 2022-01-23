@@ -57,6 +57,7 @@ class UserCollection {
    * @throws { Meteor.Error } If the user exists.
    */
   public define({ username, role }: { username: string; role: string; }) {
+    // console.log('Users.define', username, role);
     if (Meteor.isServer) {
       Roles.createRole(role, { unlessExists: true });
       // In test Meteor.settings is not set from settings.development.json so we use _.get to see if it is set.
@@ -75,6 +76,7 @@ class UserCollection {
         const casReturn: { userId: string; } = Accounts.updateOrCreateUserFromExternalService('cas', result, options);
         const userID2 = casReturn.userId;
         Meteor.users.update(userID2, { $set: { username } });
+        // console.log('defined user', Meteor.users.findOne({ _id: userID2 }));
         Roles.addUsersToRoles(userID2, [role]);
         return userID2;
       }
@@ -149,7 +151,9 @@ class UserCollection {
    * @throws { Meteor.Error } If user is not a defined username or userID.
    */
   public getID(user) {
-    const userDoc = (Meteor.users.findOne({ _id: user })) || (Meteor.users.findOne({ username: user }));
+    // console.log('Users.getID', user);
+    const userWithoutHost = user.split('@')[0];
+    const userDoc = (Meteor.users.findOne({ _id: user })) || (Meteor.users.findOne({ username: user }) || (Meteor.users.findOne({ username: userWithoutHost })));
     if (!userDoc) {
       console.error('Error: user is not defined: ', user);
     }
@@ -365,7 +369,7 @@ class UserCollection {
    */
   public findProfilesWithRole(role, selector, options) {
     const theSelector = (typeof selector === 'undefined') ? {} : selector;
-    if (role === ROLE.STUDENT) {
+    if (role === ROLE.STUDENT) { // TODO why isn't this a switch?
       theSelector.isAlumni = false;
       return StudentProfiles.findNonRetired(theSelector, options);
     }
@@ -447,6 +451,7 @@ class UserCollection {
     return false;
   }
 
+  // TODO shouldn't we have getCareerGoalIDs, getCourseIDs, getInternshipIDs, getOpportunityIDs?
   /**
    * Returns the user's interests as IDs. It is a union of interestIDs and careerGoal interestIDs.
    * @param user The username or userID.

@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
+import moment from 'moment';
 import SimpleSchema from 'simpl-schema';
 import { Roles } from 'meteor/alanning:roles';
 import { ReactiveAggregate } from 'meteor/jcbernack:reactive-aggregate';
@@ -34,10 +35,8 @@ class StudentProfileCollection extends BaseProfileCollection {
       'StudentProfile',
       new SimpleSchema({
         level: { type: SimpleSchema.Integer, min: 1, max: 6 },
-        declaredAcademicTermID: { type: SimpleSchema.RegEx.Id, optional: true },
+        declaredAcademicTermID: { type: SimpleSchema.RegEx.Id, optional: true }, // TODO do we need this anymore?
         isAlumni: Boolean,
-        shareOpportunities: { type: Boolean, optional: true },
-        shareCourses: { type: Boolean, optional: true },
         shareLevel: { type: Boolean, optional: true },
         shareICE: { type: Boolean, optional: true },
         lastRegistrarLoad: { type: String, optional: true },
@@ -270,9 +269,9 @@ class StudentProfileCollection extends BaseProfileCollection {
       opportunityExplorerSortOrder,
       sharePicture,
       shareWebsite,
-      shareInterests,
       shareCareerGoals,
       shareCourses,
+      shareInterests,
       shareOpportunities,
       shareLevel,
       shareICE,
@@ -295,8 +294,10 @@ class StudentProfileCollection extends BaseProfileCollection {
       opportunityExplorerSortOrder,
       shareWebsite,
       sharePicture,
-      shareInterests,
       shareCareerGoals,
+      shareCourses,
+      shareInterests,
+      shareOpportunities,
       acceptedTermsAndConditions,
       refusedTermsAndConditions,
     });
@@ -496,10 +497,13 @@ class StudentProfileCollection extends BaseProfileCollection {
   public getLastAcademicTerm(user: string): AcademicTerm {
     // console.log('getLastAcademicTerm', user);
     const studentID = Users.getID(user);
-    let lastAcademicTerm = AcademicTerms.find({ termNumber: 0 }).fetch()[0];
+    let lastAcademicTerm;
     const cis = CourseInstances.find({ studentID }).fetch();
     cis.forEach((ci) => {
       const term = AcademicTerms.findDoc(ci.termID);
+      if (!lastAcademicTerm) {
+        lastAcademicTerm = term;
+      }
       if (term.termNumber > lastAcademicTerm.termNumber) {
         lastAcademicTerm = term;
       }
@@ -507,6 +511,9 @@ class StudentProfileCollection extends BaseProfileCollection {
     const ois = OpportunityInstances.find({ studentID }).fetch();
     ois.forEach((oi) => {
       const term = AcademicTerms.findDoc(oi.termID);
+      if (!lastAcademicTerm) {
+        lastAcademicTerm = term;
+      }
       if (term.termNumber > lastAcademicTerm.termNumber) {
         lastAcademicTerm = term;
       }
@@ -522,6 +529,16 @@ class StudentProfileCollection extends BaseProfileCollection {
   public setLevel(user: string, level: number) {
     const id = this.getID(user);
     this.collection.update({ _id: id }, { $set: { level } });
+  }
+
+  /**
+   * Updates the lastLeveledUp field to the current date.
+   * @param user The user (username or userID).
+   */
+  public setLastLeveledUp(user: string) {
+    const id = this.getID(user);
+    const lastLeveledUp = moment().format('YYYY-MM-DD');
+    this.collection.update({ _id: id }, { $set: { lastLeveledUp } });
   }
 
   public publish() {
