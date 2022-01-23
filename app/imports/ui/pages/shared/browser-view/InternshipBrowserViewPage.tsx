@@ -53,5 +53,6 @@ export default withTracker(() => {
   const internships = ClientSideInternships.find().fetch();
   entities.internships = internships;
   // console.log(internships);
+  // console.log('browser-view', ClientSideInternships.find().fetch().length);
   return entities;
 })(InternshipBrowserViewPage);

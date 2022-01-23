@@ -9,7 +9,7 @@ import { Teasers } from '../../../../api/teaser/TeaserCollection';
 import { AdvisorProfiles } from '../../../../api/user/AdvisorProfileCollection';
 import { FacultyProfiles } from '../../../../api/user/FacultyProfileCollection';
 import { PROFILE_ENTRY_TYPE } from '../../../../api/user/profile-entries/ProfileEntryTypes';
-import { AcademicTerm, BaseProfile, Interest, Opportunity, OpportunityType, Profile, RelatedCoursesOrOpportunities, Review, Teaser } from '../../../../typings/radgrad';
+import { AcademicTerm, BaseProfile, Interest, Internship, Opportunity, OpportunityType, Profile, RelatedCoursesOrOpportunities, Review, Teaser } from '../../../../typings/radgrad';
 import AddToProfileButton from '../../../components/shared/explorer/item-view/AddToProfileButton';
 import RelatedCareerGoals from '../../../components/shared/RelatedCareerGoals';
 import RelatedCourses from '../../../components/shared/RelatedCourses';
@@ -24,6 +24,8 @@ import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollect
 import { OpportunityTypes } from '../../../../api/opportunity/OpportunityTypeCollection';
 import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
 import { getAssociationRelatedCourses } from '../utilities/getExplorerRelatedMethods';
+import { ClientSideInternships } from '../../../../startup/client/collections';
+import RelatedInternships from '../../../components/shared/RelatedInternships';
 
 interface OpportunityViewPageProps {
   profileOpportunities: Opportunity[];
@@ -51,6 +53,11 @@ const isCompleted = (opportunityID: string, userID: string): boolean => {
   return completed;
 };
 
+const getRelatedInternships = (opportunity: Opportunity) => {
+  const internships = ClientSideInternships.find().fetch();
+  return internships.filter((internship: Internship) => internship.interestIDs.filter(x => opportunity.interestIDs.includes(x)).length > 0);
+};
+
 const OpportunityViewPage: React.FC<OpportunityViewPageProps> = ({ profileOpportunities, itemReviews, opportunity, profile, sponsors, terms, interests, opportunityTypes, opportunities, review, teaser }) => {
   const userID = profile.userID;
   const completed = isCompleted(opportunity._id, userID);
@@ -63,6 +70,7 @@ const OpportunityViewPage: React.FC<OpportunityViewPageProps> = ({ profileOpport
     }).length > 0;
   const relatedCourses: RelatedCoursesOrOpportunities = getAssociationRelatedCourses(Opportunities.findRelatedCourses(opportunity._id), profile.userID);
   const relatedCareerGoals = Opportunities.findRelatedCareerGoals(opportunity._id);
+  const relatedInternships = getRelatedInternships(opportunity);
   const headerPaneButton = <AddToProfileButton type={PROFILE_ENTRY_TYPE.OPPORTUNITY} userID={profile.userID} item={opportunity} added={added} inverted floated="left" />;
   return (
     <PageLayout id={PAGEIDS.OPPORTUNITY} headerPaneTitle={headerPaneTitle} headerPaneImage={headerPaneImage} headerPaneButton={headerPaneButton}>
@@ -72,6 +80,7 @@ const OpportunityViewPage: React.FC<OpportunityViewPageProps> = ({ profileOpport
             <RelatedInterests item={opportunity} />
             <RelatedCareerGoals careerGoals={relatedCareerGoals} userID={profile.userID} />
             <RelatedCourses relatedCourses={relatedCourses} profile={profile} />
+            <RelatedInternships internships={relatedInternships} userID={profile.userID} />
           </Grid.Column>
           <Grid.Column width={11}>
             <ExplorerOpportunity

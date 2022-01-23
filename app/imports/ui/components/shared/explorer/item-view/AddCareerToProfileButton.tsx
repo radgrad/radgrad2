@@ -110,7 +110,7 @@ const AddCareerToProfileButton: React.FC<AddCareerToProfileProps> = ({ userID, p
               <Form.Group>
                 <Grid>
                   {interestInclude.map((o, index) =>
-                    <Grid.Column width={4}>
+                    <Grid.Column width={4} key={`key-${o.slug}`}>
                       <Form.Checkbox
                         id={`id_${o.slug}`}
                         key={`${o.slug}-checkbox`}

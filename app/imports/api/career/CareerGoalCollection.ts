@@ -1,12 +1,11 @@
 import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
 import { Courses } from '../course/CourseCollection';
-import { Internships } from '../internship/InternshipCollection';
 import { Opportunities } from '../opportunity/OpportunityCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { Interests } from '../interest/InterestCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
-import { CareerGoalDefine, CareerGoalUpdate, Course, Internship, Opportunity } from '../../typings/radgrad';
+import { CareerGoalDefine, CareerGoalUpdate, Course, Opportunity } from '../../typings/radgrad';
 import { ProfileCareerGoals } from '../user/profile-entries/ProfileCareerGoalCollection';
 import { Teasers } from '../teaser/TeaserCollection';
 
@@ -164,24 +163,6 @@ class CareerGoalCollection extends BaseSlugCollection {
     const interestIDs = this.findDoc(docID).interestIDs;
     const opportunities = Opportunities.findNonRetired();
     return opportunities.filter((opp) => opp.interestIDs.filter((x) => interestIDs.includes(x)).length > 0);
-  }
-
-  /**
-   * Returns a list of the Internships that have common interests or career goal.
-   * @param {string} docIdOrSlug a career goal ID or slug.
-   * @return {Internship[]} Internships that share the career goal or interests.
-   */
-  public findRelatedInternships(docIdOrSlug: string): Internship[] {
-    const docID = this.getID(docIdOrSlug);
-    const interestIDs = this.findDoc(docID).interestIDs;
-    const internships = Internships.findNonRetired(); // should this be a different query?
-    console.log('internships', internships);
-    return internships.filter((internship) => {
-      if (internship.careerGoalIDs.includes(docID)) {
-        return true;
-      }
-      return internship.interestIDs.filter((x) => interestIDs.includes(x)).length > 0;
-    });
   }
 
   /**

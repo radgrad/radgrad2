@@ -8,7 +8,7 @@ import {
   CareerGoal,
   ProfileCareerGoal,
   Profile,
-  Opportunity, Course, Interest, Teaser,
+  Opportunity, Course, Interest, Teaser, Internship,
 } from '../../../../typings/radgrad';
 import { PAGEIDS } from '../../../utilities/PageIDs';
 import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
@@ -25,6 +25,7 @@ import RelatedCourses from '../../../components/shared/RelatedCourses';
 import RelatedOpportunities from '../../../components/shared/RelatedOpportunities';
 import RelatedInterests from '../../../components/shared/RelatedInterests';
 import RelatedInternships from '../../../components/shared/RelatedInternships';
+import { ClientSideInternships } from '../../../../startup/client/collections';
 
 interface CareerGoalViewPageProps {
   profileCareerGoals: ProfileCareerGoal[];
@@ -35,6 +36,11 @@ interface CareerGoalViewPageProps {
   interests: Interest[];
   teaser: Teaser[];
 }
+
+const getRelatedInternships = (careerGoal: CareerGoal) => {
+  const internships = ClientSideInternships.find().fetch();
+  return internships.filter((internship: Internship) => internship.interestIDs.filter(x => careerGoal.interestIDs.includes(x)).length > 0);
+};
 
 const CareerGoalViewPage: React.FC<CareerGoalViewPageProps> = ({
   careerGoal,
@@ -48,8 +54,7 @@ const CareerGoalViewPage: React.FC<CareerGoalViewPageProps> = ({
   const careerGoalID = careerGoal._id;
   const relatedCourses = getAssociationRelatedCourses(CareerGoals.findRelatedCourses(careerGoalID), profile.userID);
   const relatedOpportunities = getAssociationRelatedOpportunities(CareerGoals.findRelatedOpportunities(careerGoalID), profile.userID);
-  const relatedInternships = CareerGoals.findRelatedInternships(careerGoalID);
-  console.log(relatedInternships);
+  const relatedInternships = getRelatedInternships(careerGoal);
   const headerPaneTitle = careerGoal.name;
   const careerPicture = careerGoal.picture;
   const added = ProfileCareerGoals.findNonRetired({ userID: profile.userID, careerGoalID }).length > 0;

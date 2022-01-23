@@ -1,12 +1,11 @@
 import React from 'react';
-import { Internship } from '../../../typings/radgrad';
 import InternshipList from './InternshipList';
 import RadGradHeader from './RadGradHeader';
 import RadGradSegment from './RadGradSegment';
 import { EXPLORER_TYPE_ICON } from '../../utilities/ExplorerUtils';
 
 interface RelatedInternshipsProps {
-  internships: Internship[];
+  internships: any[];
   userID: string;
 }
 

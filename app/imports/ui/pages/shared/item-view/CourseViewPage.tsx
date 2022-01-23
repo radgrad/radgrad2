@@ -6,7 +6,7 @@ import { Interests } from '../../../../api/interest/InterestCollection';
 import { Reviews } from '../../../../api/review/ReviewCollection';
 import { Teasers } from '../../../../api/teaser/TeaserCollection';
 import { PAGEIDS } from '../../../utilities/PageIDs';
-import { AcademicTerm, Course, Interest, Profile, ProfileCourse, Review, Teaser } from '../../../../typings/radgrad';
+import { AcademicTerm, Course, Interest, Internship, Profile, ProfileCourse, Review, Teaser } from '../../../../typings/radgrad';
 import { Courses } from '../../../../api/course/CourseCollection';
 import { ProfileCourses } from '../../../../api/user/profile-entries/ProfileCourseCollection';
 import { Users } from '../../../../api/user/UserCollection';
@@ -21,6 +21,8 @@ import RelatedCareerGoals from '../../../components/shared/RelatedCareerGoals';
 import RelatedOpportunities from '../../../components/shared/RelatedOpportunities';
 import PageLayout from '../../PageLayout';
 import { getAssociationRelatedOpportunities } from '../utilities/getExplorerRelatedMethods';
+import { ClientSideInternships } from '../../../../startup/client/collections';
+import RelatedInternships from '../../../components/shared/RelatedInternships';
 
 interface CourseViewPageProps {
   profileCourses: ProfileCourse[];
@@ -49,6 +51,11 @@ const isCourseCompleted = (courseSlugName, userID): boolean => {
   return courseCompleted;
 };
 
+const getRelatedInternships = (course: Course) => {
+  const internships = ClientSideInternships.find().fetch();
+  return internships.filter((internship: Internship) => internship.interestIDs.filter(x => course.interestIDs.includes(x)).length > 0);
+};
+
 const CourseViewPage: React.FC<CourseViewPageProps> = ({
   profileCourses,
   course,
@@ -68,6 +75,7 @@ const CourseViewPage: React.FC<CourseViewPageProps> = ({
   }).length > 0;
   const relatedOpportunities = getAssociationRelatedOpportunities(Courses.findRelatedOpportunities(course._id), profile.userID);
   const relatedCareerGoals = Courses.findRelatedCareerGoals(course._id);
+  const relatedInternships = getRelatedInternships(course);
   const headerPaneButton = <AddToProfileButton type={PROFILE_ENTRY_TYPE.COURSE} userID={profile.userID} item={course}
     added={added} inverted floated="left" />;
   const courseSlug = Slugs.getNameFromID(course.slugID);
@@ -82,6 +90,7 @@ const CourseViewPage: React.FC<CourseViewPageProps> = ({
             <RelatedInterests item={course} />
             <RelatedCareerGoals careerGoals={relatedCareerGoals} userID={profile.userID} />
             <RelatedOpportunities relatedOpportunities={relatedOpportunities} profile={profile} />
+            <RelatedInternships internships={relatedInternships} userID={profile.userID} />
           </Grid.Column>
           <Grid.Column width={11}>
             <ExplorerCourse course={course} profile={profile} completed={completed} itemReviews={itemReviews}

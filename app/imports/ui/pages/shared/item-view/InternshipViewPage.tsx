@@ -88,6 +88,7 @@ export default withTracker(() => {
   const { internshipKey, username } = useParams();
   const profile = Users.getProfile(username);
   const internship = ClientSideInternships.find({ guid: internshipKey }).fetch()[0];
+  console.log('item-view', ClientSideInternships.find().fetch().length);
   const careerGoals = CareerGoals.findNonRetired();
   const courses = Courses.findNonRetired();
   const interests = Interests.findNonRetired();
