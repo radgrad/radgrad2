@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
-import moment from 'moment';
 import { Internship } from '../../../typings/radgrad';
 import { InterestKeywords } from '../../interest/InterestKeywordCollection';
 import slugify, { Slugs } from '../../slug/SlugCollection';
