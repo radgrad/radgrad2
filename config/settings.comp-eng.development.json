@@ -23,6 +23,7 @@
     "tagline": "Developing awesome computer engineers, **one** graduate at a time.",
     "landingSubject": "Computer Engineering",
     "instanceName": "DEVELOPMENT (CENG)",
-    "userGuideURL": "https://www.radgrad.org/docs/users/"
+    "userGuideURL": "https://www.radgrad.org/docs/users/",
+    "internshipCountLimit": 200
   }
 }
