@@ -19,6 +19,7 @@ import { Courses } from '../../../api/course/CourseCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
+import { Internships } from '../../../api/internship/InternshipCollection';
 
 interface Loading {
   loading: boolean;
@@ -48,6 +49,7 @@ const withGlobalSubscription = (WrappedComponent) => {
       globalSubs.subscribe(Interests.getPublicationName()),
       globalSubs.subscribe(InterestKeywords.getPublicationName()),
       globalSubs.subscribe(InterestTypes.getPublicationName()),
+      globalSubs.subscribe(Internships.getPublicationName()),
       globalSubs.subscribe(Opportunities.getPublicationName()),
       globalSubs.subscribe(OpportunityTypes.getPublicationName()),
       globalSubs.subscribe(PublicStats.getPublicationName()),
