@@ -155,7 +155,7 @@ export const processInternAlohaInternships = async () => {
   console.log('combined internships', reduced.length);
   // add guid to reduced
   reduced = reduced.map((r) => addGUID(r));
-  console.log(reduced[0]);
+  // console.log(reduced[0]);
   // create an object with all the interests
   const interestMap = {};
   const interests = Interests.findNonRetired();
@@ -188,7 +188,7 @@ export const processInternAlohaInternships = async () => {
     }
     return 0;
   });
-  console.log(count, Meteor.settings.public.internshipCountLimit);
+  // console.log(count, Meteor.settings.public.internshipCountLimit);
   let i = 0;
   while (count < Meteor.settings.public.internshipCountLimit) {
     returnInternships.push(reduced[i++]);

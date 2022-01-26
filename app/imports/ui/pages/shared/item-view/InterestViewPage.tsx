@@ -23,8 +23,8 @@ import { EXPLORER_TYPE } from '../../../utilities/ExplorerUtils';
 import RelatedCareerGoals from '../../../components/shared/RelatedCareerGoals';
 import RelatedCourses from '../../../components/shared/RelatedCourses';
 import RelatedOpportunities from '../../../components/shared/RelatedOpportunities';
-import { ClientSideInternships } from '../../../../startup/client/collections';
 import RelatedInternships from '../../../components/shared/RelatedInternships';
+import { Internships } from '../../../../api/internship/InternshipCollection';
 
 interface InterestViewPageProps {
   courses: Course[];
@@ -38,7 +38,7 @@ interface InterestViewPageProps {
 }
 
 const getRelatedInternships = (interest: Interest) => {
-  const internships = ClientSideInternships.find().fetch();
+  const internships = Internships.find().fetch();
   return internships.filter((internship: Internship) => internship.interestIDs.includes(interest._id));
 };
 

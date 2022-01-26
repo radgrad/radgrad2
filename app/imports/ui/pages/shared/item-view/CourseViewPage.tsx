@@ -21,8 +21,8 @@ import RelatedCareerGoals from '../../../components/shared/RelatedCareerGoals';
 import RelatedOpportunities from '../../../components/shared/RelatedOpportunities';
 import PageLayout from '../../PageLayout';
 import { getAssociationRelatedOpportunities } from '../utilities/getExplorerRelatedMethods';
-import { ClientSideInternships } from '../../../../startup/client/collections';
 import RelatedInternships from '../../../components/shared/RelatedInternships';
+import { Internships } from '../../../../api/internship/InternshipCollection';
 
 interface CourseViewPageProps {
   profileCourses: ProfileCourse[];
@@ -52,7 +52,7 @@ const isCourseCompleted = (courseSlugName, userID): boolean => {
 };
 
 const getRelatedInternships = (course: Course) => {
-  const internships = ClientSideInternships.find().fetch();
+  const internships = Internships.find().fetch();
   return internships.filter((internship: Internship) => internship.interestIDs.filter(x => course.interestIDs.includes(x)).length > 0);
 };
 

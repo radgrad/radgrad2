@@ -25,7 +25,7 @@ import RelatedCourses from '../../../components/shared/RelatedCourses';
 import RelatedOpportunities from '../../../components/shared/RelatedOpportunities';
 import RelatedInterests from '../../../components/shared/RelatedInterests';
 import RelatedInternships from '../../../components/shared/RelatedInternships';
-import { ClientSideInternships } from '../../../../startup/client/collections';
+import { Internships } from '../../../../api/internship/InternshipCollection';
 
 interface CareerGoalViewPageProps {
   profileCareerGoals: ProfileCareerGoal[];
@@ -38,7 +38,7 @@ interface CareerGoalViewPageProps {
 }
 
 const getRelatedInternships = (careerGoal: CareerGoal) => {
-  const internships = ClientSideInternships.find().fetch();
+  const internships = Internships.find().fetch();
   return internships.filter((internship: Internship) => internship.interestIDs.filter(x => careerGoal.interestIDs.includes(x)).length > 0);
 };
 

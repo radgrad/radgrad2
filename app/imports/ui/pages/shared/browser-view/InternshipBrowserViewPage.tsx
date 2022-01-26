@@ -38,6 +38,5 @@ export default withTracker(() => {
   const internships = Internships.findNonRetired();
   entities.internships = internships;
   // console.log(internships);
-  // console.log('browser-view', ClientSideInternships.find().fetch().length);
   return entities;
 })(InternshipBrowserViewPage);

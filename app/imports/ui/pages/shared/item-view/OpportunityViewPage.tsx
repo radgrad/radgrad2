@@ -24,8 +24,8 @@ import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollect
 import { OpportunityTypes } from '../../../../api/opportunity/OpportunityTypeCollection';
 import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
 import { getAssociationRelatedCourses } from '../utilities/getExplorerRelatedMethods';
-import { ClientSideInternships } from '../../../../startup/client/collections';
 import RelatedInternships from '../../../components/shared/RelatedInternships';
+import { Internships } from '../../../../api/internship/InternshipCollection';
 
 interface OpportunityViewPageProps {
   profileOpportunities: Opportunity[];
@@ -54,7 +54,7 @@ const isCompleted = (opportunityID: string, userID: string): boolean => {
 };
 
 const getRelatedInternships = (opportunity: Opportunity) => {
-  const internships = ClientSideInternships.find().fetch();
+  const internships = Internships.find().fetch();
   return internships.filter((internship: Internship) => internship.interestIDs.filter(x => opportunity.interestIDs.includes(x)).length > 0);
 };
 
