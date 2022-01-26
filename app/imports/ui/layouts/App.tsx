@@ -6,7 +6,6 @@ import { useLocation } from 'react-router';
 import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import '/public/semantic.min.css';
 import 'semantic-ui-css/components/rating.css';
-import { Internships } from '../../api/internship/InternshipCollection';
 import NotFoundPage from '../pages/NotFoundPage';
 import SigninPage from '../pages/SigninPage';
 import SignoutDidntAgreeToTermsPage from '../pages/SignoutDidntAgreeToTermsPage';
@@ -18,7 +17,6 @@ import withInstanceSubscriptions from './utilities/InstanceSubscriptionsHOC';
 import { getUsername } from '../components/shared/utilities/router';
 import { Users } from '../../api/user/UserCollection';
 import NotAuthorizedPage from '../pages/NotAuthorizedPage';
-import withListSubscriptions from './utilities/SubscriptionListHOC';
 
 // Hack to refresh other RadGrad tabs when logged out on one tab
 window.addEventListener('storage', (event) => {
@@ -99,7 +97,7 @@ const AdminProtectedRoute = ({ component: Component, ...rest }) => {
   if (_.isNil(Meteor.userId())) {
     return <Redirect to={{ pathname: '/', state: { from: rest.location } }} />;
   }
-  const WrappedComponent = withGlobalSubscription(withInstanceSubscriptions(withListSubscriptions(Component, [Internships.getPublicationName()])));
+  const WrappedComponent = withGlobalSubscription(withInstanceSubscriptions(Component));
   return (
     <Route
       {...rest}

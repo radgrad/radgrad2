@@ -1,2 +1,1 @@
-import './collections';
 import './startup';

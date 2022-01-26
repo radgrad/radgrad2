@@ -23,6 +23,7 @@
     "tagline": "Developing awesome computer scientists, **one** graduate at a time.",
     "landingSubject": "Computer science",
     "instanceName": "DEVELOPMENT (ICS)",
-    "userGuideURL": "https://www.radgrad.org/docs/users/"
+    "userGuideURL": "https://www.radgrad.org/docs/users/",
+    "internshipCountLimit": 200
   }
 }

@@ -7,7 +7,6 @@ import { Courses } from '../../../../api/course/CourseCollection';
 import { Interests } from '../../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
 import { Users } from '../../../../api/user/UserCollection';
-import { ClientSideInternships } from '../../../../startup/client/collections';
 import { CareerGoal, Course, Interest, Internship, Opportunity, Profile } from '../../../../typings/radgrad';
 import ExplorerInternship from '../../../components/shared/explorer/item-view/internship/ExplorerInternship';
 import RelatedCareerGoals from '../../../components/shared/RelatedCareerGoals';
@@ -19,6 +18,7 @@ import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import PageLayout from '../../PageLayout';
 import { PAGEIDS } from '../../../utilities/PageIDs';
 import { getAssociationRelatedCourses, getAssociationRelatedOpportunities } from '../utilities/getExplorerRelatedMethods';
+import { Internships } from '../../../../api/internship/InternshipCollection';
 
 const buildExplorerInternshipRoute = (match: Router.MatchProps): string => {
   const route = `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERNSHIPS}/`;
@@ -87,8 +87,7 @@ const InternshipViewPage: React.FC<InternshipViewPageProps> = ({ internship, car
 export default withTracker(() => {
   const { internshipKey, username } = useParams();
   const profile = Users.getProfile(username);
-  const internship = ClientSideInternships.find({ guid: internshipKey }).fetch()[0];
-  console.log('item-view', ClientSideInternships.find().fetch().length);
+  const internship = Internships.find({ guid: internshipKey }).fetch()[0];
   const careerGoals = CareerGoals.findNonRetired();
   const courses = Courses.findNonRetired();
   const interests = Interests.findNonRetired();
