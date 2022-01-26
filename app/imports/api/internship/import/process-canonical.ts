@@ -3,11 +3,12 @@ import { Meteor } from 'meteor/meteor';
 import moment from 'moment';
 import { Internship } from '../../../typings/radgrad';
 import { InterestKeywords } from '../../interest/InterestKeywordCollection';
-import slugify from '../../slug/SlugCollection';
+import slugify, { Slugs } from '../../slug/SlugCollection';
 import { getInternAlohaInternshipsMethod } from '../InternshipCollection.methods';
 import { internAlohaUrls } from './InternAlohaUrls';
 
 import { matchKeywords } from './match-keywords';
+import { Interests } from '../../interest/InterestCollection';
 
 const getInternAlohaInternships = async (url) => {
   const internships = await getInternAlohaInternshipsMethod.callPromise({ url });
@@ -128,28 +129,24 @@ const addGUID = (internship) => {
   return update;
 };
 
-const removeOldInternships = (internships) => {
-  const now = moment();
-  const cutoff = now.subtract(Meteor.settings.public.internship.uploadFilter.number, Meteor.settings.public.internship.uploadFilter.unit);
-  console.log(cutoff.format('YYYY-MM-DD'));
-  const inWindow = internships.filter(i => moment(i.lastScraped).isAfter(cutoff));
-  return inWindow;
-};
+// const removeOldInternships = (internships) => {
+//   const now = moment();
+//   const cutoff = now.subtract(Meteor.settings.public.internship.uploadFilter.number, Meteor.settings.public.internship.uploadFilter.unit);
+//   console.log(cutoff.format('YYYY-MM-DD'));
+//   const inWindow = internships.filter(i => moment(i.lastScraped).isAfter(cutoff));
+//   return inWindow;
+// };
 
 export const processInternAlohaInternships = async () => {
   // get the internships
   const rawInternships = await getAllInternAlohaInternships();
   console.log('raw internships', rawInternships.length);
-  // remove old internships
-  const newInternships = removeOldInternships(rawInternships);
-  console.log('in time window internships', newInternships.length);
   // add interests
-  const withInterests = newInternships.map((i) => {
+  const withInterests = rawInternships.map((i) => {
     removeHTMLFromDescription(i);
     addInterests(i);
     return updateLocation(i);
   });
-  // console.log(withInterests[0]);
   // remove uninteresting internships
   const interestingInternships = withInterests.filter((i) => i.interests.length > 0);
   console.log('interesting internships', interestingInternships.length);
@@ -159,7 +156,44 @@ export const processInternAlohaInternships = async () => {
   console.log('combined internships', reduced.length);
   // add guid to reduced
   reduced = reduced.map((r) => addGUID(r));
-  // console.log(reduced[0]);
-  // console.log(reduced[reduced.length - 3]);
-  return reduced;
+  console.log(reduced[0]);
+  // create an object with all the interests
+  const interestMap = {};
+  const interests = Interests.findNonRetired();
+  interests.forEach(interest => {
+    interestMap[Slugs.getNameFromID(interest.slugID)] = [];
+  });
+  reduced.forEach(internship => {
+    // @ts-ignore
+    internship.interests.forEach(interest => interestMap[interest].push(internship));
+  });
+  console.log(interestMap);
+  const returnInternships = [];
+  let count = 0;
+  for (const [, value] of Object.entries(interestMap)) {
+    // @ts-ignore
+    if (value.length > 0) {
+      returnInternships.push(value[0]);
+      count++;
+    }
+  }
+
+  reduced.sort((a, b) => {
+    // @ts-ignore
+    if (a.interests.length > b.interests.length) {
+      return 1;
+    }
+    // @ts-ignore
+    if (a.interests.length < b.interests.length) {
+      return -1;
+    }
+    return 0;
+  });
+  console.log(count, Meteor.settings.public.internshipCountLimit);
+  let i = 0;
+  while (count < Meteor.settings.public.internshipCountLimit) {
+    returnInternships.push(reduced[i++]);
+    count++;
+  }
+  return returnInternships;
 };
