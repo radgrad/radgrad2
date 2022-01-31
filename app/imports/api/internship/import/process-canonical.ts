@@ -188,9 +188,9 @@ export const processInternAlohaInternships = async () => {
     }
     return 0;
   });
-  console.log(count, Meteor.settings.public.internshipCountLimit);
+  // console.log(count, Meteor.settings.public.internshipCountLimit.import);
   let i = 0;
-  while (count < Meteor.settings.public.internshipCountLimit) {
+  while (count < Meteor.settings.public.internshipCountLimit.import) {
     returnInternships.push(reduced[i++]);
     count++;
   }

@@ -24,6 +24,6 @@
     "landingSubject": "Computer science",
     "instanceName": "DEVELOPMENT (ICS)",
     "userGuideURL": "https://www.radgrad.org/docs/users/",
-    "internshipCountLimit": 200
+    "internshipCountLimit": { "import": 500, "publish": 200 }
   }
 }

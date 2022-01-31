@@ -1030,6 +1030,7 @@ export interface Location {
 
 export interface Internship extends Document {
   urls: string[];
+  guid?: string;
   position: string;
   description: string;
   lastScraped?: Date;
