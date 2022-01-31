@@ -237,7 +237,7 @@ class InternshipCollection extends BaseCollection {
         if (profile.role === ROLE.ADMIN || Meteor.isAppTest) {
           return collection.find();
         }
-        return collection.find();
+        return collection.find({}, { limit: Meteor.settings.public.internshipCountLimit.publish });
       });
     }
   }
