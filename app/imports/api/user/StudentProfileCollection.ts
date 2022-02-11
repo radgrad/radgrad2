@@ -3,7 +3,8 @@ import { Meteor } from 'meteor/meteor';
 import moment from 'moment';
 import SimpleSchema from 'simpl-schema';
 import { Roles } from 'meteor/alanning:roles';
-import { ReactiveAggregate } from 'meteor/jcbernack:reactive-aggregate';
+// @ts-ignore
+import { ReactiveAggregate } from 'meteor/tunguska:reactive-aggregate';
 import { Reviews } from '../review/ReviewCollection';
 import { VerificationRequests } from '../verification/VerificationRequestCollection';
 import BaseProfileCollection, { defaultProfilePicture } from './BaseProfileCollection';

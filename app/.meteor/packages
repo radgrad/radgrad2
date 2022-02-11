@@ -39,7 +39,6 @@ harrison:papa-parse
 jquery
 meteorhacks:subs-manager
 udondan:zipzap
-jcbernack:reactive-aggregate
 random@1.2.0
 react-meteor-data
 alanning:roles
@@ -58,3 +57,4 @@ standard-minifier-css@1.7.4
 accounts-password@2.2.0
 cammoo:accounts-cas
 fetch@0.1.1
+tunguska:reactive-aggregate
