@@ -129,11 +129,11 @@ class InternshipCollection extends BaseCollection {
     });
     const doc = this.findOne({ guid });
     if (doc) {
+      // console.log(`Duplicate guid ${guid}`);
       const docID = doc._id;
       this.collection.update(docID, { $set: { missedUploads: 0 } });
       return docID;
     }
-    //
     return this.collection.insert({
       urls,
       position,

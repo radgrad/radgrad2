@@ -4,6 +4,7 @@ import { CallPromiseMixin } from 'meteor/didericis:callpromise-mixin';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { ProfileInterests } from '../user/profile-entries/ProfileInterestCollection';
 import { Internships } from './InternshipCollection';
+import { ROLE } from '../role/Role';
 
 export const getInternshipsMethod = new ValidatedMethod({
   name: 'internship.get',
@@ -108,6 +109,22 @@ export const getInternshipCountPerInterestMethod = new ValidatedMethod({
         return retVal;
       }
       return {};
+    }
+  },
+});
+
+export const removeAllInternshipsMethod = new ValidatedMethod({
+  name: 'internship.removeAllInternships',
+  mixins: [CallPromiseMixin],
+  validate: null,
+  run() {
+    if (!this.userId) {
+      throw new Meteor.Error('unauthorized', 'You must be logged in to remove all internships.', '');
+    } else if (!Roles.userIsInRole(this.userId, [ROLE.ADMIN])) {
+      throw new Meteor.Error('unauthorized', 'You must be an admin to remove all internships.', '');
+    }
+    if (Meteor.isServer) {
+      Internships.removeAll();
     }
   },
 });

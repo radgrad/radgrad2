@@ -155,7 +155,7 @@ export const processInternAlohaInternships = async () => {
   console.log('combined internships', reduced.length);
   // add guid to reduced
   reduced = reduced.map((r) => addGUID(r));
-  console.log(reduced[0]);
+  // console.log(reduced[0]);
   // create an object with all the interests
   const interestMap = {};
   const interests = Interests.findNonRetired();
@@ -194,5 +194,6 @@ export const processInternAlohaInternships = async () => {
     returnInternships.push(reduced[i++]);
     count++;
   }
+  // console.log(returnInternships.length);
   return returnInternships;
 };
