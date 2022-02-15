@@ -27,6 +27,7 @@
     "meteor/meteorhacks:subs-manager",
     "meteor/mongo",
     "meteor/react-meteor-data",
+    "meteor/tunguska:reactive-aggregate",
     "meteor/udondan:zipzap"
   ],
   "ignoreUnimported": [
