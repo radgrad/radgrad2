@@ -60,7 +60,6 @@ export default withTracker(() => {
       pageID = PAGEIDS.ADMIN_HOME;
       checklists.push(new OutOfDateOpportunitiesChecklist(username));
       checklists.push(new ManageVerificationRequestsChecklist(username));
-      checklists.push(new ManageOpportunitiesChecklist(username));
       checklists.push(new ManageReviewsChecklist(username));
       checklists.push(new InterestsWithoutRelatedChecklists(username));
       checklists.push(new CareerGoalsWithoutRelatedChecklists(username));
