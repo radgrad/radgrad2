@@ -172,7 +172,11 @@ export const processInternAlohaInternships = async () => {
   for (const [, value] of Object.entries(interestMap)) {
     // @ts-ignore
     if (value.length > 0) {
-      returnInternships.push(value[0]);
+      // console.log(`have seen ${value[0].guid}`, _.some(returnInternships, (item) => item.guid === value[0].guid));
+      // don't add duplicates.
+      if (!_.some(returnInternships, (item) => item.guid === value[0].guid)) {
+        returnInternships.push(value[0]);
+      }
       count++;
     }
   }
@@ -188,12 +192,12 @@ export const processInternAlohaInternships = async () => {
     }
     return 0;
   });
-  // console.log(count, Meteor.settings.public.internshipCountLimit.import);
+  console.log(count, Meteor.settings.public.internshipCountLimit.import);
   let i = 0;
   while (count < Meteor.settings.public.internshipCountLimit.import) {
     returnInternships.push(reduced[i++]);
     count++;
   }
-  // console.log(returnInternships.length);
+  console.log(returnInternships.length);
   return returnInternships;
 };
