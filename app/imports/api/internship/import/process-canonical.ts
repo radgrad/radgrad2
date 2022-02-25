@@ -168,35 +168,25 @@ export const processInternAlohaInternships = async () => {
   console.log(interestMap);
   const returnInternships = [];
   let count = 0;
-  for (const [, value] of Object.entries(interestMap)) {
-    // @ts-ignore
-    if (value.length > 0) {
-      // console.log(`have seen ${value[0].guid}`, _.some(returnInternships, (item) => item.guid === value[0].guid));
-      // don't add duplicates.
-      if (!_.some(returnInternships, (item) => item.guid === value[0].guid)) {
-        returnInternships.push(value[0]);
+  const limit = Meteor.settings.public.internshipCountLimit.import;
+  while (count < limit) {
+    for (const [, value] of Object.entries(interestMap)) {
+      // @ts-ignore
+      // console.log(key, value.length, count, limit);
+      // @ts-ignore
+      if (value.length > 0 && count < limit) {
+        // @ts-ignore
+        const internship = value.shift();
+        // console.log(`have seen ${internship.guid}`, _.some(returnInternships, (item) => item.guid === internship.guid));
+        // don't add duplicates.
+        if (!_.some(returnInternships, (item) => item.guid === internship.guid)) {
+          returnInternships.push(internship);
+          count++;
+        }
       }
-      count++;
     }
   }
-
-  reduced.sort((a, b) => {
-    // @ts-ignore
-    if (a.interests.length > b.interests.length) {
-      return 1;
-    }
-    // @ts-ignore
-    if (a.interests.length < b.interests.length) {
-      return -1;
-    }
-    return 0;
-  });
-  console.log(count, Meteor.settings.public.internshipCountLimit.import);
-  let i = 0;
-  while (count < Meteor.settings.public.internshipCountLimit.import) {
-    returnInternships.push(reduced[i++]);
-    count++;
-  }
+  console.log(interestMap);
   console.log(returnInternships.length);
   return returnInternships;
 };
