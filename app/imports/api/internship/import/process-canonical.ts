@@ -4,7 +4,6 @@ import { Internship } from '../../../typings/radgrad';
 import { InterestKeywords } from '../../interest/InterestKeywordCollection';
 import slugify, { Slugs } from '../../slug/SlugCollection';
 import { getInternAlohaInternshipsMethod } from '../InternshipCollection.methods';
-import { internAlohaUrls } from './InternAlohaUrls';
 
 import { matchKeywords } from './match-keywords';
 import { Interests } from '../../interest/InterestCollection';
@@ -16,7 +15,7 @@ const getInternAlohaInternships = async (url) => {
 
 const getAllInternAlohaInternships = async () => {
   const internships = [];
-  for (const url of internAlohaUrls) {
+  for (const url of Meteor.settings.public.internAlohaUrls) {
     // eslint-disable-next-line no-await-in-loop
     const results = await getInternAlohaInternships(url);
     results.forEach((r) => internships.push(r));

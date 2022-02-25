@@ -9,6 +9,23 @@
     "development": true,
     "gradeCompetency": { "A": 10, "B": 8, "C": 0 },
     "internship": { "show": true, "uploadFilter": { "number": 4, "unit": "weeks" } },
+    "internshipCountLimit": { "import": 500, "publish": 200 },
+    "internAlohaUrls": [
+      "https://raw.githubusercontent.com/internaloha/scrapers/main/listings/compsci/manual-entry.json",
+      "https://raw.githubusercontent.com/internaloha/scrapers/main/listings/compsci/apple.json",
+      "https://raw.githubusercontent.com/internaloha/scrapers/main/listings/compsci/chegg.json",
+      "https://raw.githubusercontent.com/internaloha/scrapers/main/listings/compsci/cisco.json",
+      "https://raw.githubusercontent.com/internaloha/scrapers/main/listings/compsci/glassdoor.json",
+      "https://raw.githubusercontent.com/internaloha/internaloha/master/scraper/data/canonical/idealist.canonical.data.json",
+      "https://raw.githubusercontent.com/internaloha/internaloha/master/scraper/data/canonical/indeed.canonical.data.json",
+      "https://raw.githubusercontent.com/internaloha/internaloha/master/scraper/data/canonical/linkedin.canonical.data.json",
+      "https://raw.githubusercontent.com/internaloha/internaloha/master/scraper/data/canonical/monster.canonical.data.json",
+      "https://raw.githubusercontent.com/internaloha/scrapers/main/listings/compsci/nsf.json",
+      "https://raw.githubusercontent.com/internaloha/scrapers/main/listings/compsci/simplyHired.json",
+      "https://raw.githubusercontent.com/internaloha/internaloha/master/scraper/data/canonical/soc.canonical.data.json",
+      "https://raw.githubusercontent.com/internaloha/scrapers/main/listings/compsci/stackoverflow.json",
+      "https://raw.githubusercontent.com/internaloha/scrapers/main/listings/compsci/ziprecruiter.json"
+    ],
     "level": {
       "six": { "plannedICE": { "i": 100,  "c": 100, "e": 100 }, "earnedICE": {"i": 100, "c": 100, "e": 100 }, "reviews": 6 },
       "five": { "plannedICE": { "i": 100, "c": 100, "e": 100 }, "earnedICE": { "i": 80, "c": 80, "e": 80 }, "reviews": 1 },
@@ -23,7 +40,6 @@
     "tagline": "Developing awesome computer scientists, **one** graduate at a time.",
     "landingSubject": "Computer science",
     "instanceName": "DEVELOPMENT (ICS)",
-    "userGuideURL": "https://www.radgrad.org/docs/users/",
-    "internshipCountLimit": { "import": 500, "publish": 200 }
+    "userGuideURL": "https://www.radgrad.org/docs/users/"
   }
 }
