@@ -21,7 +21,7 @@
       "https://raw.githubusercontent.com/internaloha/internaloha/master/scraper/data/canonical/linkedin.canonical.data.json",
       "https://raw.githubusercontent.com/internaloha/internaloha/master/scraper/data/canonical/monster.canonical.data.json",
       "https://raw.githubusercontent.com/internaloha/scrapers/main/listings/compsci/nsf.json",
-      "https://raw.githubusercontent.com/internaloha/scrapers/main/listings/compsci/simplyHired.json",
+      "https://raw.githubusercontent.com/internaloha/scrapers/main/listings/compsci/simplyhired.json",
       "https://raw.githubusercontent.com/internaloha/internaloha/master/scraper/data/canonical/soc.canonical.data.json",
       "https://raw.githubusercontent.com/internaloha/scrapers/main/listings/compsci/stackoverflow.json",
       "https://raw.githubusercontent.com/internaloha/scrapers/main/listings/compsci/ziprecruiter.json"
