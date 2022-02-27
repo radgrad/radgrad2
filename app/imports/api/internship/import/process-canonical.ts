@@ -89,7 +89,9 @@ const buildURLs = (internships) => {
     if (!groupUrls[key]) {
       groupUrls[key] = [];
     }
-    groupUrls[key].push(internship.url);
+    if (!groupUrls[key].includes(internship.url)) {
+      groupUrls[key].push(internship.url);
+    }
   });
   return groupUrls;
 };
