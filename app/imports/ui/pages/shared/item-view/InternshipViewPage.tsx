@@ -50,7 +50,7 @@ const InternshipViewPage: React.FC<InternshipViewPageProps> = ({ internship, car
       </PageLayout>
     );
   }
-  const internshipName = `${internship.position}: ${internship.company}`;
+  const internshipName = internship.company ? `${internship.position}: ${internship.company}` : `${internship.position}`;
   const findRelatedCourses = () => {
     const interestIDs = internship.interestIDs;
     return courses.filter((course) => course.interestIDs.filter((x) => interestIDs.includes(x)).length > 0);

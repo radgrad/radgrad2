@@ -37,7 +37,7 @@ interface InternshipCardProps {
 
 const InternshipCard: React.FC<InternshipCardProps> = ({ internship }) => {
   const match = useRouteMatch();
-  const internshipName = `${internship.position}: ${internship.company}`;
+  const internshipName = internship.company ? `${internship.position}: ${internship.company}` : `${internship.position}`;
   const internshipShortDescription = internship.description.substring(0, 200);
   let expiredLabel;
   if (internship.missedUploads > 4) {
