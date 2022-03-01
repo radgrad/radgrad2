@@ -27,9 +27,11 @@
     "meteor/meteorhacks:subs-manager",
     "meteor/mongo",
     "meteor/react-meteor-data",
+    "meteor/tunguska:reactive-aggregate",
     "meteor/udondan:zipzap"
   ],
   "ignoreUnimported": [
+    "imports/api/internship/import/InternAlohaUrls.ts",
     "imports/ui/components/shared/explorer/browser-view/TermList.tsx",
     "imports/ui/utilities/Colors.ts",
     "update-build-version.ts"

@@ -4,7 +4,6 @@ import { Internship } from '../../../typings/radgrad';
 import { InterestKeywords } from '../../interest/InterestKeywordCollection';
 import slugify, { Slugs } from '../../slug/SlugCollection';
 import { getInternAlohaInternshipsMethod } from '../InternshipCollection.methods';
-import { internAlohaUrls } from './InternAlohaUrls';
 
 import { matchKeywords } from './match-keywords';
 import { Interests } from '../../interest/InterestCollection';
@@ -16,7 +15,7 @@ const getInternAlohaInternships = async (url) => {
 
 const getAllInternAlohaInternships = async () => {
   const internships = [];
-  for (const url of internAlohaUrls) {
+  for (const url of Meteor.settings.public.internAlohaUrls) {
     // eslint-disable-next-line no-await-in-loop
     const results = await getInternAlohaInternships(url);
     results.forEach((r) => internships.push(r));
@@ -90,7 +89,9 @@ const buildURLs = (internships) => {
     if (!groupUrls[key]) {
       groupUrls[key] = [];
     }
-    groupUrls[key].push(internship.url);
+    if (!groupUrls[key].includes(internship.url)) {
+      groupUrls[key].push(internship.url);
+    }
   });
   return groupUrls;
 };
@@ -169,30 +170,25 @@ export const processInternAlohaInternships = async () => {
   console.log(interestMap);
   const returnInternships = [];
   let count = 0;
-  for (const [, value] of Object.entries(interestMap)) {
-    // @ts-ignore
-    if (value.length > 0) {
-      returnInternships.push(value[0]);
-      count++;
+  const limit = Meteor.settings.public.internshipCountLimit.import;
+  while (count < limit) {
+    for (const [, value] of Object.entries(interestMap)) {
+      // @ts-ignore
+      // console.log(key, value.length, count, limit);
+      // @ts-ignore
+      if (value.length > 0 && count < limit) {
+        // @ts-ignore
+        const internship = value.shift();
+        // console.log(`have seen ${internship.guid}`, _.some(returnInternships, (item) => item.guid === internship.guid));
+        // don't add duplicates.
+        if (!_.some(returnInternships, (item) => item.guid === internship.guid)) {
+          returnInternships.push(internship);
+          count++;
+        }
+      }
     }
   }
-
-  reduced.sort((a, b) => {
-    // @ts-ignore
-    if (a.interests.length > b.interests.length) {
-      return 1;
-    }
-    // @ts-ignore
-    if (a.interests.length < b.interests.length) {
-      return -1;
-    }
-    return 0;
-  });
-  // console.log(count, Meteor.settings.public.internshipCountLimit);
-  let i = 0;
-  while (count < Meteor.settings.public.internshipCountLimit) {
-    returnInternships.push(reduced[i++]);
-    count++;
-  }
+  console.log(interestMap);
+  console.log(returnInternships.length);
   return returnInternships;
 };

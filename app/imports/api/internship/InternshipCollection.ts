@@ -1,11 +1,14 @@
 import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
+import { Meteor } from 'meteor/meteor';
 import BaseCollection from '../base/BaseCollection';
 import { Internship, InternshipDefine, InternshipUpdate, InternshipUpdateData } from '../../typings/radgrad';
 import PreferredChoice from '../degree-plan/PreferredChoice';
 import { Interests } from '../interest/InterestCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { createGUID } from './import/process-canonical';
+import { Users } from '../user/UserCollection';
+import { ROLE } from '../role/Role';
 
 const locationSchema = new SimpleSchema({
   city: { type: String, optional: true },
@@ -126,11 +129,11 @@ class InternshipCollection extends BaseCollection {
     });
     const doc = this.findOne({ guid });
     if (doc) {
+      // console.log(`Duplicate guid ${guid}`);
       const docID = doc._id;
       this.collection.update(docID, { $set: { missedUploads: 0 } });
       return docID;
     }
-    //
     return this.collection.insert({
       urls,
       position,
@@ -218,13 +221,36 @@ class InternshipCollection extends BaseCollection {
     return this.collection.find(theSelector, options).fetch().filter((doc) => doc.missedUploads < 8);
   }
 
+  /**
+   * Default publication method for entities.
+   * It publishes the entire collection.
+   */
+  public publish(): void {
+    if (Meteor.isServer) {
+      const collection = this.collection;
+      Meteor.publish(this.collectionName, function filterStudentID(studentID) { // eslint-disable-line meteor/audit-argument-checks
+        // console.log('Internships.publish studentID %o is admin = %o', studentID, Roles.userIsInRole(studentID, [ROLE.ADMIN]));
+        if (_.isNil(studentID)) {
+          return this.ready();
+        }
+        const profile = Users.getProfile(studentID);
+        if (profile.role === ROLE.ADMIN || Meteor.isAppTest) {
+          return collection.find();
+        }
+        return collection.find({}, { limit: Meteor.settings.public.internshipCountLimit.publish });
+      });
+    }
+  }
+
+
   public findBestMatch(interestIDs: string[]): Internship[] {
+    // console.log(`findBestMatch ${interestIDs}`);
     const allInternships = this.findNonRetired();
     const preferred = new PreferredChoice(allInternships, interestIDs);
     if (preferred.hasPreferences()) {
       const ordered = preferred.getOrderedChoices();
-      // console.log(best.length);
-      return ordered.slice(0, 51);
+      // console.log(ordered.length, Meteor.settings.public.internshipCountLimit.publish);
+      return ordered.slice(0, Meteor.settings.public.internshipCountLimit.publish);
     }
     return [];
   }

@@ -384,11 +384,12 @@ class CourseInstanceCollection extends BaseCollection {
     if (Meteor.isServer) {
       const collection = this.collection;
       Meteor.publish(this.collectionName, function filterStudentID(studentID) { // eslint-disable-line meteor/audit-argument-checks
-        // console.log('publish studentID %o is admin = %o', studentID, Roles.userIsInRole(studentID, [ROLE.ADMIN]));
+        // console.log('CourseInstances.publish studentID %o is admin = %o', studentID, Roles.userIsInRole(studentID, [ROLE.ADMIN]));
         if (_.isNil(studentID)) {
           return this.ready();
         }
         const profile = Users.getProfile(studentID);
+        // console.log(profile.role);
         if (profile.role === ROLE.ADMIN || Meteor.isAppTest) {
           return collection.find();
         }

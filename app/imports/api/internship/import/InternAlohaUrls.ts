@@ -1,4 +1,5 @@
 export enum InternAlohaUrlsEnum {
+  'manual' = 'https://raw.githubusercontent.com/internaloha/scrapers/main/listings/compsci/manual-entry.json',
   'apple' = 'https://raw.githubusercontent.com/internaloha/scrapers/main/listings/compsci/apple.json',
   'chegg' = 'https://raw.githubusercontent.com/internaloha/scrapers/main/listings/compsci/chegg.json',
   'cisco' = 'https://raw.githubusercontent.com/internaloha/scrapers/main/listings/compsci/cisco.json',

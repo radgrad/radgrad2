@@ -35,17 +35,19 @@ const AdvisorOtherTab: React.FC = () => {
 
   const readFile = (e) => {
     const files = e.target.files;
-    const reader: FileReader = new FileReader();
-    reader.readAsText(files[0]);
+    if (files.length > 0) {
+      const reader: FileReader = new FileReader();
+      reader.readAsText(files[0]);
 
-    reader.onload = (event: { [key: string]: any }) => {
-      try {
-        const jsonData = JSON.parse(event.target.result);
-        setBulkCourseData(jsonData);
-      } catch (error) {
-        RadGradAlert.failure('Error reading data from file', 'Please ensure the file you selected is formatted properly', error);
-      }
-    };
+      reader.onload = (event: { [key: string]: any }) => {
+        try {
+          const jsonData = JSON.parse(event.target.result);
+          setBulkCourseData(jsonData);
+        } catch (error) {
+          RadGradAlert.failure('Error reading data from file', 'Please ensure the file you selected is formatted properly', error);
+        }
+      };
+    }
   };
 
   const handleUpdateLevelButton = (event) => {

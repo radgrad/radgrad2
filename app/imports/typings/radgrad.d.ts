@@ -1028,10 +1028,9 @@ export interface Location {
   zip?: string;
 }
 
-// Internships
 export interface Internship extends Document {
   urls: string[];
-  guid: string;
+  guid?: string;
   position: string;
   description: string;
   lastScraped?: Date;

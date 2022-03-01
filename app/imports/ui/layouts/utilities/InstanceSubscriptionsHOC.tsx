@@ -11,6 +11,7 @@ import { ProfileCareerGoals } from '../../../api/user/profile-entries/ProfileCar
 import { ProfileCourses } from '../../../api/user/profile-entries/ProfileCourseCollection';
 import { ProfileInterests } from '../../../api/user/profile-entries/ProfileInterestCollection';
 import { ProfileOpportunities } from '../../../api/user/profile-entries/ProfileOpportunityCollection';
+import { Internships } from '../../../api/internship/InternshipCollection';
 
 interface Loading {
   loading: boolean;
@@ -51,6 +52,7 @@ const withInstanceSubscriptions = (WrappedComponent) => {
         handles.push(instanceSubs.subscribe(ProfileCourses.getPublicationName(), userID));
         handles.push(instanceSubs.subscribe(ProfileInterests.getPublicationName(), userID));
         handles.push(instanceSubs.subscribe(ProfileOpportunities.getPublicationName(), userID));
+        handles.push(instanceSubs.subscribe(Internships.getPublicationName(), userID));
       }
     }
     const loading = handles.some((handle) => !handle.ready());
