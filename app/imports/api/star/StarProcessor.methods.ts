@@ -187,9 +187,9 @@ const processBulkStarDefinitions = (advisor, definitions) => {
  * @param csvData the student's STAR data.
  * @memberOf api/star
  */
-const processBulkStarData = (advisor, csvData) => {
-  const definitions = processBulkStarCsvData(csvData);
-  return processBulkStarDefinitions(advisor, definitions);
+const processBulkCsvStarData = (student, csvData) => {
+  const definitions = processBulkStarCsvData(student, csvData);
+  return processBulkStarDefinitions(student, definitions);
 };
 
 /**
@@ -205,12 +205,11 @@ const processBulkStarDataJson = (advisor, jsonData) => {
   return processBulkStarDefinitions(advisor, definitions);
 };
 
-// TODO archive this method
 /**
  * ValidatedMethod for loading bulk STAR data.
  * @memberOf api/star
  */
-export const starBulkLoadDataMethod = new ValidatedMethod({
+export const starCsvBulkLoadDataMethod = new ValidatedMethod({
   name: 'StarProcess.bulkLoadStarCsvData',
   mixins: [CallPromiseMixin],
   validate: null,
@@ -218,7 +217,7 @@ export const starBulkLoadDataMethod = new ValidatedMethod({
     if (!this.userId) {
       throw new Meteor.Error('unauthorized', 'You must be logged in to define Star data.');
     }
-    return processBulkStarData(data.advisor, data.csvData);
+    return processBulkCsvStarData(data.advisor, data.csvData);
   },
 });
 

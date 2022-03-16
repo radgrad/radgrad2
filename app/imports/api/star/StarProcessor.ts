@@ -180,10 +180,9 @@ export const processStarCsvData = (student, csvData) => {
 
 /**
  * Processes STAR CSV data.
- * @deprecated
  * @param csvData
  */
-export const processBulkStarCsvData = (csvData) => {
+export const processBulkStarCsvData = (student, csvData) => {
   if (Papa) {
     const parsedData = Papa.parse(csvData);
     if (parsedData.errors.length !== 0) {
@@ -191,19 +190,17 @@ export const processBulkStarCsvData = (csvData) => {
     }
     const headers = parsedData.data[0];
     // console.log('parsed data', parsedData);
-    const academicTermIndex = _.findIndex(headers, (str) => str === 'Semester');
-    const nameIndex = _.findIndex(headers, (str) => str === 'Course Name');
-    const numberIndex = _.findIndex(headers, (str) => str === 'Course Number');
-    const creditsIndex = _.findIndex(headers, (str) => str === 'Credits');
-    const gradeIndex = _.findIndex(headers, (str) => str === 'Grade');
-    const transferGradeIndex = _.findIndex(headers, (str) => str === 'Transfer Grade');
-    // const transferCourseNameIndex = _.findIndex(headers, (str) => str === 'Transfer Course Name');
-    const transferCourseNumberIndex = _.findIndex(headers, (str) => str === 'Transfer Course Number');
-    // const transferCourseDesc = _.findIndex(headers, (str) => str === 'Transfer Course Description');
-    const emailIndex = _.findIndex(headers, (str) => str === 'Email');
+    // CAM: fix these values
+    // "First Name","Last Name","StudentID","Institution","Semester","Course Subject","Course Number","Course Title","Course Level","Course Credits","Course Grade",
     const firstNameIndex = _.findIndex(headers, (str) => str === 'First Name');
     const lastNameIndex = _.findIndex(headers, (str) => str === 'Last Name');
-    if (_.every([academicTermIndex, nameIndex, numberIndex, creditsIndex, gradeIndex, emailIndex, firstNameIndex, lastNameIndex], (num) => num === -1)) {
+    const academicTermIndex = _.findIndex(headers, (str) => str === 'Semester');
+    const subjectIndex = _.findIndex(headers, (str) => str === 'Course Subject');
+    const numberIndex = _.findIndex(headers, (str) => str === 'Course Number');
+    const nameIndex = _.findIndex(headers, (str) => str === 'Course Title');
+    const creditsIndex = _.findIndex(headers, (str) => str === 'Credits');
+    const gradeIndex = _.findIndex(headers, (str) => str === 'Grade');
+    if (_.every([firstNameIndex, lastNameIndex, academicTermIndex, subjectIndex, nameIndex, numberIndex, creditsIndex, gradeIndex], (num) => num === -1)) {
       throw new Meteor.Error(`Required CSV header field was not found in ${headers}`);
     }
     const filteredData = filterParsedData(parsedData);
@@ -211,26 +208,9 @@ export const processBulkStarCsvData = (csvData) => {
     const bulkData = {};
     filteredData.forEach((data) => {
       const name = data[nameIndex];
-      let grade = data[gradeIndex];
+      const grade = data[gradeIndex];
       // console.log(`grade ${grade}`);
-      if (grade === 'CR' && data[transferGradeIndex] && isNaN(data[transferGradeIndex])) {
-        grade = data[transferGradeIndex];
-      } else if (grade === 'CR' && data[transferGradeIndex] && !isNaN(data[transferGradeIndex])) {
-        // got number assuming it is AP exam score need to determine the type of the exam.
-        // const exam = data[transferCourseDesc];
-        if (data[transferGradeIndex] > 2) {
-          grade = 'B';
-        }
-      } else if (grade === 'unknown' && data[transferGradeIndex] && isNaN(data[transferGradeIndex])) {
-        grade = data[transferGradeIndex];
-      } else if (grade.includes('L')) {
-        grade = 'C';
-      }
-      let num = data[numberIndex];
-      if (isNaN(num)) {
-        num = data[transferCourseNumberIndex];
-      }
-      const student = data[emailIndex];
+      const num = `${data[subjectIndex]} ${data[numberIndex]}`;
       const obj: StarDataObject = {
         semester: data[academicTermIndex],
         name,
