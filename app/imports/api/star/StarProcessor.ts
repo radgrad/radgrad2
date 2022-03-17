@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import { Papa } from 'meteor/harrison:papa-parse';
+import Papa from 'papaparse';
 import _ from 'lodash';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Courses } from '../course/CourseCollection';
@@ -95,10 +95,14 @@ const makeCourseInstanceObject = (starDataObject: StarDataObject) => ({
  * @memberOf api/star
  */
 const filterParsedData = (parsedData) => {
+  // console.log(parsedData);
   // First, get the actual data from the Papa results.
   let filteredData = parsedData.data;
   // Remove first element containing headers from data array.
   filteredData = _.drop(filteredData, 1);
+  // Remove any blank lines
+  filteredData = filteredData.filter(row => row.length > 2);
+  // console.log(filteredData);
   // Remove trailing elements that don't contain data.
   filteredData = _.dropRightWhile(filteredData, (data: any) => data.length < 5);
   // Remove test scores that appear at top.
@@ -112,78 +116,11 @@ const filterParsedData = (parsedData) => {
  * @param { String } csvData A string containing the contents of a CSV file downloaded from STAR.
  * @returns { Array } A list of objects with fields: academicTerm, course, note, verified, grade, and creditHrs.
  * @memberOf api/star
- * @deprecated
  */
 export const processStarCsvData = (student, csvData) => {
+  // console.log('processStarCsvData', student, csvData, Papa);
   if (Papa) {
-    const parsedData = Papa.parse(csvData);
-    if (parsedData.errors.length !== 0) {
-      throw new Meteor.Error(`Error found when parsing STAR data for ${student}: ${parsedData.errors}`);
-    }
-    const headers = parsedData.data[0];
-    // console.log('parsed data', parsedData);
-    const academicTermIndex = _.findIndex(headers, (str) => str === 'Semester');
-    const nameIndex = _.findIndex(headers, (str) => str === 'Course Name');
-    const numberIndex = _.findIndex(headers, (str) => str === 'Course Number');
-    const creditsIndex = _.findIndex(headers, (str) => str === 'Credits');
-    const gradeIndex = _.findIndex(headers, (str) => str === 'Grade');
-    const transferGradeIndex = _.findIndex(headers, (str) => str === 'Transfer Grade');
-    // const transferCourseNameIndex = _.findIndex(headers, (str) => str === 'Transfer Course Name');
-    const transferCourseNumberIndex = _.findIndex(headers, (str) => str === 'Transfer Course Number');
-    // const transferCourseDesc = _.findIndex(headers, (str) => str === 'Transfer Course Description');
-    if (_.every([academicTermIndex, nameIndex, numberIndex, creditsIndex, gradeIndex], (num) => num === -1)) {
-      throw new Meteor.Error(`Required CSV header field was not found in ${headers}`);
-    }
-    const filteredData = filterParsedData(parsedData);
-
-    // filteredData.map((data) => console.log('\n*** START ***\n', data, '\n*** END ***\n'));
-
-    // Create array of objects containing raw data to facilitate error message during processing.
-    const dataObjects = filteredData.map((data) => {
-      const name = data[nameIndex];
-      let grade = data[gradeIndex];
-      // console.log(`grade ${grade}`);
-      if (grade === 'CR' && data[transferGradeIndex] && isNaN(data[transferGradeIndex])) {
-        grade = data[transferGradeIndex];
-      } else if (grade === 'CR' && data[transferGradeIndex] && !isNaN(data[transferGradeIndex])) {
-        // got number assuming it is AP exam score need to determine the type of the exam.
-        // const exam = data[transferCourseDesc];
-        if (data[transferGradeIndex] > 2) {
-          grade = 'B';
-        }
-      } else if (grade === 'unknown' && data[transferGradeIndex] && isNaN(data[transferGradeIndex])) {
-        grade = data[transferGradeIndex];
-      } else if (grade.includes('L')) {
-        grade = 'C';
-      }
-      let num = data[numberIndex];
-      if (isNaN(num)) {
-        num = data[transferCourseNumberIndex];
-      }
-      const obj: StarDataObject = {
-        semester: data[academicTermIndex],
-        name,
-        num,
-        credits: data[creditsIndex],
-        grade,
-        student,
-      };
-      return obj;
-    });
-    // console.log(dataObjects);
-    // Now we take that array of objects and transform them into CourseInstance data objects.
-    return dataObjects.map((dataObject) => makeCourseInstanceObject(dataObject)).filter((ci) => ci.course !== Courses.unInterestingSlug && ci.academicTerm !== null);
-  }
-  // must be on the client.
-  return null;
-};
-
-/**
- * Processes STAR CSV data.
- * @param csvData
- */
-export const processBulkStarCsvData = (student, csvData) => {
-  if (Papa) {
+    // console.log('inside');
     const parsedData = Papa.parse(csvData);
     if (parsedData.errors.length !== 0) {
       throw new Meteor.Error(`Error found when parsing STAR data for ${parsedData.errors}`);
@@ -198,19 +135,20 @@ export const processBulkStarCsvData = (student, csvData) => {
     const subjectIndex = _.findIndex(headers, (str) => str === 'Course Subject');
     const numberIndex = _.findIndex(headers, (str) => str === 'Course Number');
     const nameIndex = _.findIndex(headers, (str) => str === 'Course Title');
-    const creditsIndex = _.findIndex(headers, (str) => str === 'Credits');
-    const gradeIndex = _.findIndex(headers, (str) => str === 'Grade');
+    const creditsIndex = _.findIndex(headers, (str) => str === 'Course Credits');
+    const gradeIndex = _.findIndex(headers, (str) => str === 'Course Grade');
     if (_.every([firstNameIndex, lastNameIndex, academicTermIndex, subjectIndex, nameIndex, numberIndex, creditsIndex, gradeIndex], (num) => num === -1)) {
       throw new Meteor.Error(`Required CSV header field was not found in ${headers}`);
     }
     const filteredData = filterParsedData(parsedData);
+    // console.log('filteredData', filteredData);
     // Create array of objects containing raw data to facilitate error message during processing.
     const bulkData = {};
     filteredData.forEach((data) => {
-      const name = data[nameIndex];
+      const name = data[subjectIndex];
       const grade = data[gradeIndex];
       // console.log(`grade ${grade}`);
-      const num = `${data[subjectIndex]} ${data[numberIndex]}`;
+      const num = data[numberIndex];
       const obj: StarDataObject = {
         semester: data[academicTermIndex],
         name,
@@ -219,6 +157,7 @@ export const processBulkStarCsvData = (student, csvData) => {
         grade,
         student,
       };
+      // console.log(obj);
       if (!bulkData[student]) {
         bulkData[student] = {};
         bulkData[student].courses = [];
@@ -227,10 +166,14 @@ export const processBulkStarCsvData = (student, csvData) => {
       }
       bulkData[student].courses.push(obj);
     });
+    // console.log('bulkData1', bulkData);
     // Now we take that array of objects and transform them into CourseInstance data objects.
     Object.keys(bulkData).forEach((key) => {
-      bulkData[key].courses = bulkData[key].courses.map((dataObject) => makeCourseInstanceObject(dataObject)).filter((ci) => ci.course !== Courses.unInterestingSlug && ci.academicTerm !== null);
+      bulkData[key].courses = bulkData[key].courses.map((dataObject) => makeCourseInstanceObject(dataObject));
+      // console.log(bulkData[key].courses);
+      bulkData[key].courses = bulkData[key].courses.filter((ci) => ci.course !== Courses.unInterestingSlug && ci.academicTerm !== null);
     });
+    // console.log('bulkData2', bulkData);
     return bulkData;
   }
   return null;

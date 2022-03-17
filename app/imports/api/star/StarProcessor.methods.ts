@@ -11,16 +11,14 @@ import { getDepartment } from '../course/CourseUtilities';
 import {
   processStarCsvData,
   processStarJsonData,
-  processBulkStarCsvData,
   processBulkStarJsonData,
 } from './StarProcessor';
 import { updateStudentLevel } from '../level/LevelProcessor';
 import { StudentProfileDefine } from '../../typings/radgrad';
 
-const processStudentStarDefinitions = (advisor, student, definitions) => {
-  // console.log(`processStudentStarDefinitions(${advisor}, ${student}, ${definitions})`);
+const processStudentStarDefinitions = (student, definitions) => {
+  // console.log(`processStudentStarDefinitions(${student}, ${definitions})`);
   // console.log(`Processing ${student}'s STAR data`);
-  // console.log(definitions);
   const studentID = Users.getID(student);
   // console.log(student, studentID);
   const courseInstances = CourseInstances.find({ studentID }).fetch() ;
@@ -82,19 +80,20 @@ const processStudentStarDefinitions = (advisor, student, definitions) => {
   const profile = Users.getProfile(student);
   const docID = profile._id;
   StudentProfiles.update(docID, { lastRegistrarLoad });
+  return text;
 };
 
 /**
  * Processes the student's star data creating CourseInstances.
- * @param advisor the advisor's username.
  * @param student the student's username.
  * @param csvData the student's STAR data.
  * @memberOf api/star
  */
-const processStudentStarCsvData = (advisor, student, csvData) => {
+const processStudentStarCsvData = (student, csvData) => {
   // console.log('processStudentStarCsvData', student, csvData);
   const definitions = processStarCsvData(student, csvData);
-  processStudentStarDefinitions(advisor, student, definitions);
+  // console.log('processStudentStarCsvData', definitions);
+  processStudentStarDefinitions(student, definitions[student].courses);
 };
 
 /**
@@ -106,24 +105,23 @@ const processStudentStarCsvData = (advisor, student, csvData) => {
  */
 const processStudentStarJsonData = (advisor, student, jsonData) => {
   const defintions = processStarJsonData(student, jsonData);
-  processStudentStarDefinitions(advisor, student, defintions);
+  processStudentStarDefinitions(student, defintions);
 };
 
-// TODO archive this method
 /**
  * ValidatedMethod for loading student STAR data.
  * @memberOf api/star
  */
-export const starLoadDataMethod = new ValidatedMethod({
-  name: 'StarProcessor.loadStarCsvData',
+export const studentLoadStarDataMethod = new ValidatedMethod({
+  name: 'StarProcessor.studentLoadStarCsvData',
   mixins: [CallPromiseMixin],
   validate: null,
-  run(data) {
+  run({ student, csvData }) {
     if (Meteor.isServer) {
       if (!this.userId) {
         throw new Meteor.Error('unauthorized', 'You must be logged in to define Star data.');
       }
-      processStudentStarCsvData(data.advisor, data.student, data.csvData);
+      processStudentStarCsvData(student, csvData);
     }
   },
 });
@@ -155,7 +153,7 @@ const processBulkStarDefinitions = (advisor, definitions) => {
     students.forEach((student) => {
       if (Users.isDefined(student)) {
         updateNum += 1;
-        processStudentStarDefinitions(advisor, student, definitions[student].courses);
+        processStudentStarDefinitions(student, definitions[student].courses);
         const studentID = Users.getID(student);
         updateStudentLevel(studentID);
       } else {
@@ -168,7 +166,7 @@ const processBulkStarDefinitions = (advisor, definitions) => {
             level: 1,
           };
           StudentProfiles.define(definitionData);
-          processStudentStarDefinitions(advisor, student, definitions[student].courses);
+          processStudentStarDefinitions(student, definitions[student].courses);
           const studentID = Users.getID(student);
           updateStudentLevel(studentID);
           newStudents += 1;
@@ -184,17 +182,6 @@ const processBulkStarDefinitions = (advisor, definitions) => {
 /**
  * Processes the bulk star data creating CourseInstances.
  * @param advisor the advisor's username.
- * @param csvData the student's STAR data.
- * @memberOf api/star
- */
-const processBulkCsvStarData = (student, csvData) => {
-  const definitions = processBulkStarCsvData(student, csvData);
-  return processBulkStarDefinitions(student, definitions);
-};
-
-/**
- * Processes the bulk star data creating CourseInstances.
- * @param advisor the advisor's username.
  * @param jsonData the student's STAR JSON data.
  * @memberOf api/star
  */
@@ -204,22 +191,6 @@ const processBulkStarDataJson = (advisor, jsonData) => {
   // console.log(definitions);
   return processBulkStarDefinitions(advisor, definitions);
 };
-
-/**
- * ValidatedMethod for loading bulk STAR data.
- * @memberOf api/star
- */
-export const starCsvBulkLoadDataMethod = new ValidatedMethod({
-  name: 'StarProcess.bulkLoadStarCsvData',
-  mixins: [CallPromiseMixin],
-  validate: null,
-  run(data) {
-    if (!this.userId) {
-      throw new Meteor.Error('unauthorized', 'You must be logged in to define Star data.');
-    }
-    return processBulkCsvStarData(data.advisor, data.csvData);
-  },
-});
 
 export const starBulkLoadJsonDataMethod = new ValidatedMethod({
   name: 'StarProcess.bulkLoadStarJsonData',

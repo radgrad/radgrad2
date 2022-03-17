@@ -35,7 +35,6 @@ didericis:callpromise-mixin
 mdg:validated-method
 momentjs:moment
 ddp-rate-limiter@1.1.0
-harrison:papa-parse
 jquery
 meteorhacks:subs-manager
 udondan:zipzap

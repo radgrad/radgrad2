@@ -34,6 +34,8 @@ import { VerificationRequests } from '../../../api/verification/VerificationRequ
 import { passedCourse, courseInstanceIsRepeatable } from '../../../api/course/CourseUtilities';
 import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
+import RadGradSegment from '../../components/shared/RadGradSegment';
+import UploadStarData from '../../components/student/degree-planner/UploadStarData';
 
 interface StudentDegreePlannerProps {
   match: MatchProps;
@@ -181,6 +183,7 @@ const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({ academi
                 opportunityInstances={opportunityInstances}
                 verificationRequests={verificationRequests}
               />
+              <UploadStarData />
             </Grid.Column>
           </Grid.Row>
         </Grid>
