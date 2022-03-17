@@ -34,7 +34,6 @@ import { VerificationRequests } from '../../../api/verification/VerificationRequ
 import { passedCourse, courseInstanceIsRepeatable } from '../../../api/course/CourseUtilities';
 import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
-import RadGradSegment from '../../components/shared/RadGradSegment';
 import UploadStarData from '../../components/student/degree-planner/UploadStarData';
 
 interface StudentDegreePlannerProps {
