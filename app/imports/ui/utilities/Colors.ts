@@ -4,7 +4,7 @@
  * https://github.com/radgrad/fomantic-ui/blob/main/semantic/src/site/globals/site.variables
  */
 export const enum COLORS {
-  BLACK =         '#333333',    // level6
+  BLACK =         '#333333',    // level6 color
   BLUE =          '#53A78E',
   BLUE2 =         '#86CAB5',    // light blue
   BLUE3 =         '#1B7F61',    // dark blue
