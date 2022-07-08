@@ -59,8 +59,7 @@ const AdminAnalyticsBehaviorTablePage: React.FC = () => {
               <Table.HeaderCell>Behavior</Table.HeaderCell>
               <Table.HeaderCell>Description</Table.HeaderCell>
               <Table.HeaderCell>Total Behaviors</Table.HeaderCell>
-              <Table.HeaderCell>Unique Users</Table.HeaderCell>
-              <Table.HeaderCell>#</Table.HeaderCell>
+              <Table.HeaderCell colSpan='2'>Unique Users (#)</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body>
@@ -76,7 +75,7 @@ const AdminAnalyticsBehaviorTablePage: React.FC = () => {
                   <Table.Cell>{description}</Table.Cell>
                   <Table.Cell>{interactions.length}</Table.Cell>
                   <Table.Cell>{uniqueUsers}</Table.Cell>
-                  <Table.Cell>{numUnique}</Table.Cell>
+                  <Table.Cell>{`(${numUnique})`}</Table.Cell>
                 </Table.Row>
               );
             })}
