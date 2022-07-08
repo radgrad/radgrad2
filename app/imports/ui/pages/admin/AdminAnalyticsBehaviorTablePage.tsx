@@ -11,6 +11,7 @@ import RadGradSegment from '../../components/shared/RadGradSegment';
 import { PAGEIDS } from '../../utilities/PageIDs';
 import { useStickyState } from '../../utilities/StickyState';
 import PageLayout from '../PageLayout';
+import { Users } from '../../../api/user/UserCollection';
 
 const headerPaneTitle = 'Student Behavior Table';
 const headerPaneBody = `
@@ -67,7 +68,14 @@ const AdminAnalyticsBehaviorTablePage: React.FC = () => {
               const behavior = key;
               const description = USER_INTERACTION_DESCRIPTIONS[behavior];
               const interactions = groups[key].map(instance => instance.username);
-              const uniqueUsers = _.uniq(interactions).map(username => <UserLabel key={username} username={username} />);
+              // sort the interactions by last name.
+              const uniqueInteracions = _.uniq(interactions);
+              const sortedInteractions = uniqueInteracions.sort((a, b) => {
+                const aProfile = Users.getProfile(a);
+                const bProfile = Users.getProfile(b);
+                return aProfile.lastName.localeCompare(bProfile.lastName);
+              });
+              const uniqueUsers = sortedInteractions.map(username => <UserLabel key={username} username={username} />);
               const numUnique = uniqueUsers.length;
               return (
                 <Table.Row key={behavior}>
