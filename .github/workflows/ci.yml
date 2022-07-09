@@ -29,9 +29,9 @@ jobs:
         with:
           node-version: '16.x'
 
-      - run: npm ci
+      - run: npm ci --legacy-peer-deps
 
-      - run: npm install -g meteor
+      - run: curl https://install.meteor.com/ | sh
 
       - name: install
         shell: bash -l {0}
