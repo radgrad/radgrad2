@@ -31,7 +31,7 @@ jobs:
 
       - run: npm ci --legacy-peer-deps
 
-      - run: npm install -g meteor
+      - run: npm install --location=global meteor
 
       - name: install
         shell: bash -l {0}
