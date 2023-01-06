@@ -111,7 +111,7 @@
     "prettier": "2.2.1",
     "puppeteer": "^13.0.0",
     "replace-in-file": "^6.3.2",
-    "testcafe": "^1.17.1",
+    "testcafe": "^15.1.317922",
     "ts-node": "^9.1.1",
     "typescript": "^3.9.10"
   },
